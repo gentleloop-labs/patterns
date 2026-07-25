@@ -273,7 +273,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         actions: [
           TextButton(
             onPressed: () => launchUrl(
-              Uri.parse('https://maskedsyntax.com/patterns/privacy'),
+              Uri.parse('https://patternsocd.com/privacy'),
               mode: LaunchMode.externalApplication,
             ),
             child: const Text('View full Privacy Policy'),

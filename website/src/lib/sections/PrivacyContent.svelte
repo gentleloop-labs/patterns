@@ -7,12 +7,12 @@
     {
       icon: CloudOff,
       title: 'No Cloud',
-      description: 'Zero data leaves your device. Ever.'
+      description: 'Your journal and OCD records stay on your device.'
     },
     {
       icon: EyeOff,
-      title: 'No Tracking',
-      description: 'No analytics, no telemetry, no cookies.'
+      title: 'No Remote Analytics',
+      description: 'No ads, trackers, third-party analytics, or remote telemetry.'
     },
     {
       icon: Code,
@@ -28,7 +28,11 @@
     },
     {
       title: 'Local storage',
-      body: 'Patterns does not currently create accounts, send entries to a server, provide cloud sync, or include third-party analytics. No third-party sharing: Patterns does not sell, share, or send your entries to third parties. Your app data is stored locally on your device.'
+      body: 'Patterns does not create accounts, upload journal entries or OCD records, provide cloud sync, or include advertising and third-party analytics. The app keeps a small set of product-usage counters and recent events on your device to improve the first-session experience; these are not uploaded as remote telemetry. Patterns does not sell, share, or send your entries to third parties. Manual exports go only where you choose to save them.'
+    },
+    {
+      title: 'Purchases',
+      body: 'Apple App Store and Google Play process in-app purchases under their own terms. Patterns receives the purchase result needed to unlock Pro and stores that entitlement locally. Patterns does not use purchase information for advertising, analytics, or profiling, and your journal and OCD records are never included.'
     },
     {
       title: 'Export and import',
@@ -54,8 +58,8 @@
         </div>
         <h1 id="privacy-title" class="title serif">Your data stays yours.</h1>
         <p class="intro">
-          Patterns is completely offline. No accounts, no cloud sync, no telemetry. Everything lives
-          on your machine and nowhere else.
+          Patterns is local-first. No accounts, no cloud sync, and no remote analytics. Your journal
+          and OCD records live on your device; product-usage counters remain on-device.
         </p>
       </div>
 
