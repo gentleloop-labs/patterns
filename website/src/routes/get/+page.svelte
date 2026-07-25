@@ -40,7 +40,7 @@
   }
 
   const trust = [
-    { icon: ShieldCheck, title: 'Private by default', body: 'Everything stays on your device. No account, no cloud, no tracking.' },
+    { icon: ShieldCheck, title: 'Private by default', body: 'Your journal and OCD records stay on your device. No account, cloud sync, or remote analytics.' },
     { icon: HeartHandshake, title: 'Built around ERP', body: 'Track intrusive thoughts, delay compulsions, and practise recovery.' },
     { icon: Sparkles, title: 'Free to start', body: 'Download free. Unlock the full recovery toolkit once, no subscription.' }
   ];
