@@ -99,7 +99,7 @@
     <p>
       Patterns gives you a calm, private space to log obsessions and compulsions as they
       happen, rate your distress on a 0–10 scale, and review the trend over days and
-      weeks. Everything stays on your device - no accounts, no cloud - so it's a safe
+      weeks. Your journal and OCD records stay on your device - no accounts, no cloud sync - so it's a safe
       place to be honest. <a href="/#download">Download Patterns</a> or read about
       <a href="/erp">how it supports ERP</a>.
     </p>
