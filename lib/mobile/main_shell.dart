@@ -10,15 +10,18 @@ import '../providers/providers.dart';
 import '../services/analytics_service.dart';
 import '../services/demo_seed_service.dart';
 import '../services/notification_service.dart';
+import '../services/telemetry.dart';
 import '../theme/app_theme.dart';
 import '../widgets/animations.dart';
 import '../widgets/liquid_glass.dart';
 import 'biometric_auth.dart';
+import 'first_run.dart';
 import 'preferences.dart';
 import 'screens/analytics_screen.dart';
 import 'screens/compulsion_delay_screen.dart';
 import 'screens/erp_exercises_screen.dart';
 import 'screens/exposure_hierarchy_screen.dart';
+import 'screens/first_run_result_screen.dart';
 import 'screens/exposure_reflection_screen.dart';
 import 'screens/journal_screen.dart';
 import 'screens/ocd_tracker_screen.dart';
@@ -76,18 +79,19 @@ class _MobileShellState extends ConsumerState<MobileShell> {
       !_hasStarted ||
       mobilePreferences?.getString(lastSeenReleaseKey) == currentReleaseId;
 
-  // True only for the session where the user just finished onboarding, so the
-  // spotlight tour runs for genuinely new users and not on every cold start or
-  // for existing users upgrading into this release.
-  bool _justStarted = false;
+  // The path the user picked on the first-run "What would help right now?"
+  // screen. Consumed once by [MobileHome] to route straight into that activity.
+  FirstRunPath? _pendingFirstRun;
 
-  void _startApp() {
+  void _onChoosePath(FirstRunPath path) {
     mobilePreferences?.setBool('hasStarted', true);
+    mobilePreferences?.setString(firstRunPathKey, path.name);
     mobilePreferences?.setString(lastSeenReleaseKey, currentReleaseId);
+    Telemetry.log('onboarding.path_chosen', {'path': path.name});
     setState(() {
       _hasStarted = true;
       _hasSeenCurrentRelease = true;
-      _justStarted = true;
+      _pendingFirstRun = path;
     });
   }
 
@@ -109,11 +113,20 @@ class _MobileShellState extends ConsumerState<MobileShell> {
         onContinue: _markReleaseSeen,
       );
     }
-    if (_hasStarted) return MobileHome(showTour: _justStarted);
+    if (_hasStarted) return MobileHome(firstRunPath: _pendingFirstRun);
     return WelcomeScreen(
-      onStart: _startApp,
+      onChoosePath: _onChoosePath,
       onImport: () {
-        _startApp();
+        // Returning users who bring a backup skip the activity prompt and land
+        // on a normal (explore) home, then jump to import.
+        mobilePreferences?.setBool('hasStarted', true);
+        mobilePreferences?.setString(firstRunPathKey, FirstRunPath.explore.name);
+        mobilePreferences?.setString(lastSeenReleaseKey, currentReleaseId);
+        setState(() {
+          _hasStarted = true;
+          _hasSeenCurrentRelease = true;
+          _pendingFirstRun = FirstRunPath.explore;
+        });
         WidgetsBinding.instance.addPostFrameCallback((_) {
           mobileRootNavigatorKey.currentState?.push(
             MaterialPageRoute<void>(builder: (_) => const SettingsScreen()),
@@ -263,7 +276,7 @@ class _WhatsNewFeatureList extends StatelessWidget {
     _WhatsNewFeature(
       icon: LineIcons.layerGroup,
       title: 'Recovery, grouped by stage',
-      body: 'Assess, Plan, Practice, and Review — tools where you expect them.',
+      body: 'Assess, Plan, Practice, and Review. Tools where you expect them.',
     ),
     _WhatsNewFeature(
       icon: LineIcons.heart,
@@ -626,9 +639,11 @@ class _PrivacyCover extends StatelessWidget {
 enum _Tab { home, journal, track, erp, insights }
 
 class MobileHome extends ConsumerStatefulWidget {
-  final bool showTour;
+  /// When set (genuinely new user who just chose a path), the home routes
+  /// straight into that activity on first mount instead of teaching navigation.
+  final FirstRunPath? firstRunPath;
 
-  const MobileHome({super.key, this.showTour = false});
+  const MobileHome({super.key, this.firstRunPath});
 
   @override
   ConsumerState<MobileHome> createState() => _MobileHomeState();
@@ -649,8 +664,107 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _seedDemoData();
-      if (widget.showTour) _startTour();
+      final path = widget.firstRunPath;
+      if (path != null) _startFirstRun(path);
     });
+  }
+
+  /// Routes a brand-new user straight into the activity they picked on S2, then
+  /// (on completion) shows the honest result screen. "Explore" intentionally
+  /// does nothing — the user lands on the simplified Today and looks around.
+  Future<void> _startFirstRun(FirstRunPath path) async {
+    if (path == FirstRunPath.explore) return;
+    Telemetry.log('activity.started', {'kind': path.name});
+    if (path == FirstRunPath.selfcheck) {
+      Telemetry.log('selfcheck.started');
+    }
+    final result = await _pushFirstRunFlow(path);
+    if (!mounted) return;
+    if (result is FirstRunActivityResult) {
+      await mobilePreferences?.setBool(firstActivityDoneKey, true);
+      Telemetry.log('activity.completed', {
+        'kind': path.name,
+        if (result.intensityBefore != null) 'before': result.intensityBefore,
+        if (result.intensityAfter != null) 'after': result.intensityAfter,
+      });
+      if (path == FirstRunPath.selfcheck) {
+        Telemetry.log('selfcheck.completed');
+      }
+      if (!mounted) return;
+      // Reflect firstActivityDone on the Today screen (streak, score gating).
+      setState(() {});
+      await Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (_) => FirstRunResultScreen(
+            kind: path,
+            result: result,
+            onDone: () => Navigator.of(context).pop(),
+          ),
+        ),
+      );
+    } else {
+      Telemetry.log('activity.abandoned', {'kind': path.name});
+    }
+  }
+
+  Future<Object?> _pushFirstRunFlow(FirstRunPath path) {
+    switch (path) {
+      case FirstRunPath.urge:
+        return Navigator.of(context).push(
+          MaterialPageRoute<Object>(
+            fullscreenDialog: true,
+            builder: (_) => const CompulsionDelayFlow(firstRun: true),
+          ),
+        );
+      case FirstRunPath.journal:
+        return Navigator.of(context).push(
+          MaterialPageRoute<Object>(
+            fullscreenDialog: true,
+            builder: (_) => const OcdEventFlow(
+              initialType: OcdType.obsession,
+              firstRun: true,
+            ),
+          ),
+        );
+      case FirstRunPath.erp:
+        return Navigator.of(context).push(
+          MaterialPageRoute<Object>(
+            fullscreenDialog: true,
+            builder: (_) =>
+                ErpPlanPracticeFlow(plan: _firstRunErpPlan(), firstRun: true),
+          ),
+        );
+      case FirstRunPath.selfcheck:
+        return Navigator.of(context).push(
+          MaterialPageRoute<Object>(
+            fullscreenDialog: true,
+            builder: (_) => const YbocsScreen(firstRun: true),
+          ),
+        );
+      case FirstRunPath.explore:
+        return Future<Object?>.value();
+    }
+  }
+
+  /// A zero-config ERP plan for the first-run "practise" path — prefilled from
+  /// the gentlest template and a short two-minute window, so the user practises
+  /// immediately instead of authoring a plan first.
+  ErpExercisePlan _firstRunErpPlan() {
+    final template = erpExerciseTemplates.firstWhere(
+      (t) => t.id == 'delay_reassurance',
+      orElse: () => erpExerciseTemplates.first,
+    );
+    final now = DateTime.now();
+    return ErpExercisePlan(
+      exerciseId: template.id,
+      exerciseTitle: template.title,
+      triggerOrExposure: template.subtitle,
+      fearPrediction: 'OCD says the discomfort won’t pass unless you respond.',
+      preventionCommitment: template.quickCues.join(' · '),
+      defaultSeconds: 2 * 60,
+      createdAt: now,
+      updatedAt: now,
+    );
   }
 
   void _startTour({bool force = false}) {
@@ -694,7 +808,8 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
       TourStep(
         title: "You're all set",
         points: const [
-          'Start with a quick self-check — it sets your baseline and unlocks your recovery score.',
+          'Whenever you like, a short self-check can set a baseline you can '
+              'look back on later. It’s optional, and it’s not a diagnosis.',
         ],
         ctaLabel: 'Take self-check',
         onShow: () => _selectTab(_Tab.home),

@@ -8,6 +8,7 @@ import '../../providers/providers.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
+import '../first_run.dart';
 import '../widgets/recovery_ui.dart';
 import 'ybocs_content.dart';
 
@@ -18,7 +19,12 @@ import 'ybocs_content.dart';
 /// This is a self-check aid, not a diagnosis — the UI says so at the start and
 /// again at the end.
 class YbocsScreen extends ConsumerStatefulWidget {
-  const YbocsScreen({super.key});
+  /// First-run mode (the "understand my patterns" path). When the user finishes
+  /// and saves, closing pops a [FirstRunActivityResult] so the shell shows the
+  /// result screen.
+  final bool firstRun;
+
+  const YbocsScreen({super.key, this.firstRun = false});
 
   @override
   ConsumerState<YbocsScreen> createState() => _YbocsScreenState();
@@ -143,7 +149,11 @@ class _YbocsScreenState extends ConsumerState<YbocsScreen> {
             saved: _saved,
             onSave: _save,
             onRetake: _restart,
-            onClose: () => Navigator.of(context).pop(),
+            onClose: () => Navigator.of(context).pop(
+              widget.firstRun && _saved
+                  ? const FirstRunActivityResult()
+                  : null,
+            ),
           ),
         },
       ),

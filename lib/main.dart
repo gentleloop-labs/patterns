@@ -12,6 +12,7 @@ import 'mobile/main_shell.dart';
 import 'services/notification_service.dart';
 import 'services/pro_service.dart';
 import 'services/review_prompt.dart';
+import 'services/telemetry.dart';
 import 'services/tip_jar.dart';
 import 'theme/app_theme.dart';
 import 'widgets/app_snack_bar.dart';
@@ -22,6 +23,7 @@ void main() async {
   GoogleFonts.config.allowRuntimeFetching = false;
 
   await initAppPreferences();
+  await Telemetry.recordSessionStart();
 
   if (!kIsDesktop) {
     await ReviewPromptService.recordSessionStart();

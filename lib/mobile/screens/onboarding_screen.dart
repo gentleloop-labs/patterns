@@ -3,17 +3,28 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../../services/telemetry.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
-import '../../widgets/paywall_sheet.dart';
+import '../first_run.dart';
 
+/// First-run experience: two calm screens.
+///
+/// S1 states the promise + privacy. S2 asks "What would help right now?" and
+/// routes the user straight into one short, relevant activity. There is no
+/// multi-page teaching carousel, no tour, and no paywall here — depth is
+/// revealed later, once the user has felt some value.
 class WelcomeScreen extends StatefulWidget {
-  final VoidCallback onStart;
+  /// Called when the user picks a path on S2. The shell persists the choice and
+  /// routes into the matching activity.
+  final void Function(FirstRunPath path) onChoosePath;
+
+  /// "Import existing data" — brings a returning user back to their backup.
   final VoidCallback onImport;
 
   const WelcomeScreen({
     super.key,
-    required this.onStart,
+    required this.onChoosePath,
     required this.onImport,
   });
 
@@ -25,7 +36,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   final PageController _controller = PageController();
   var _index = 0;
 
-  bool get _isFinal => _index == _pages.length - 1;
+  @override
+  void initState() {
+    super.initState();
+    Telemetry.log('onboarding.s1_shown');
+  }
 
   @override
   void dispose() {
@@ -33,12 +48,27 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     super.dispose();
   }
 
+  void _goToChoices() {
+    Telemetry.log('onboarding.get_started');
+    _controller.animateToPage(
+      1,
+      duration: AppMotion.medium,
+      curve: Curves.easeOutCubic,
+    );
+  }
+
+  void _back() {
+    _controller.animateToPage(
+      0,
+      duration: AppMotion.medium,
+      curve: Curves.easeOutCubic,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // This screen is visually hard-coded dark (fixed dark gradient + glass
-    // cards), so force the dark theme regardless of the app's resolved
-    // themeMode. Otherwise, in light mode, themed descendants (buttons,
-    // theme-derived text) render light-on-dark and become unreadable.
+    // Hard-coded dark surface (fixed gradient + glass), so force the dark theme
+    // regardless of the app's resolved mode to keep descendants readable.
     return Theme(
       data: AppTheme.mobileDarkTheme,
       child: Builder(builder: _buildContent),
@@ -59,40 +89,47 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(22, 16, 22, 20),
+            padding: const EdgeInsets.fromLTRB(22, 12, 22, 18),
             child: Column(
               children: [
-                _TopBar(
-                  index: _index,
-                  count: _pages.length,
-                  onSkip: widget.onStart,
-                  onBack: _index == 0 ? null : _previous,
-                ),
-                const SizedBox(height: 10),
-                Expanded(
-                  child: PageView.builder(
-                    controller: _controller,
-                    onPageChanged: (value) => setState(() => _index = value),
-                    itemCount: _pages.length,
-                    itemBuilder: (context, index) {
-                      return _OnboardingPageView(
-                        page: _pages[index],
-                        isFinal: index == _pages.length - 1,
-                      );
-                    },
+                SizedBox(
+                  height: 44,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 160),
+                      child: _index == 0
+                          ? const SizedBox(key: ValueKey('no-back'))
+                          : IconButton(
+                              key: const ValueKey('back'),
+                              tooltip: 'Back',
+                              onPressed: _back,
+                              icon: const Icon(LineIcons.angleLeft, size: 20),
+                            ),
+                    ),
                   ),
                 ),
-                const SizedBox(height: 14),
-                _BottomActions(
-                  finalStep: _isFinal,
-                  onNext: _next,
-                  onStart: widget.onStart,
-                  onUnlock: () => PaywallSheet.show(context),
-                  onImport: widget.onImport,
+                Expanded(
+                  child: PageView(
+                    controller: _controller,
+                    physics: const NeverScrollableScrollPhysics(),
+                    onPageChanged: (value) {
+                      setState(() => _index = value);
+                      if (value == 1) Telemetry.log('onboarding.s2_shown');
+                    },
+                    children: [
+                      _PromiseView(
+                        onGetStarted: _goToChoices,
+                        onImport: widget.onImport,
+                      ),
+                      _ChoicesView(onChoose: widget.onChoosePath),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 10),
                 Text(
-                  'Private by design. Not a diagnosis or replacement for care.',
+                  'Private by design. Not a diagnosis or a replacement for '
+                  'professional care.',
                   textAlign: TextAlign.center,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: AppTheme.textSecondary,
@@ -106,226 +143,312 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       ),
     );
   }
-
-  void _next() {
-    if (_isFinal) {
-      widget.onStart();
-      return;
-    }
-    _controller.nextPage(
-      duration: AppMotion.medium,
-      curve: Curves.easeOutCubic,
-    );
-  }
-
-  void _previous() {
-    _controller.previousPage(
-      duration: AppMotion.medium,
-      curve: Curves.easeOutCubic,
-    );
-  }
 }
 
-class _TopBar extends StatelessWidget {
-  final int index;
-  final int count;
-  final VoidCallback onSkip;
-  final VoidCallback? onBack;
+// --- S1: promise + privacy -------------------------------------------------
 
-  const _TopBar({
-    required this.index,
-    required this.count,
-    required this.onSkip,
-    required this.onBack,
-  });
+class _PromiseView extends StatelessWidget {
+  final VoidCallback onGetStarted;
+  final VoidCallback onImport;
+
+  const _PromiseView({required this.onGetStarted, required this.onImport});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 58,
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 160),
-              child: onBack == null
-                  ? const SizedBox(height: 40, key: ValueKey('no-back'))
-                  : IconButton(
-                      key: const ValueKey('back'),
-                      tooltip: 'Back',
-                      onPressed: onBack,
-                      icon: const Icon(LineIcons.angleLeft, size: 20),
-                    ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: _ProgressDots(index: index, count: count),
-        ),
-        SizedBox(
-          width: 58,
-          child: TextButton(onPressed: onSkip, child: const Text('Skip')),
-        ),
-      ],
-    );
-  }
-}
-
-class _ProgressDots extends StatelessWidget {
-  final int index;
-  final int count;
-
-  const _ProgressDots({required this.index, required this.count});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        for (var i = 0; i < count; i++)
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 180),
-            width: i == index ? 22 : 7,
-            height: 7,
-            margin: const EdgeInsets.symmetric(horizontal: 3),
-            decoration: BoxDecoration(
-              color: i == index ? AppTheme.warmYellow : const Color(0xFF3B3935),
-              borderRadius: BorderRadius.circular(999),
-            ),
-          ),
-      ],
-    );
-  }
-}
-
-class _OnboardingPageView extends StatelessWidget {
-  final _OnboardingPage page;
-  final bool isFinal;
-
-  const _OnboardingPageView({required this.page, this.isFinal = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: constraints.maxHeight),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: isFinal
-                  ? _finalChildren(context)
-                  : _standardChildren(context),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  List<Widget> _standardChildren(BuildContext context) {
     final theme = Theme.of(context);
-    return [
-      FadeSlideIn(
-        duration: AppMotion.slow,
-        child: _OnboardingVisual(page: page),
-      ),
-      const SizedBox(height: 28),
-      FadeSlideIn(
-        delay: const Duration(milliseconds: 90),
-        child: Text(
-          page.title,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontFamily: AppTheme.displayFamily,
-            fontWeight: FontWeight.w600,
-            fontSize: 34,
-            height: 1.08,
-            color: AppTheme.textPrimary,
-          ),
-        ),
-      ),
-      const SizedBox(height: 14),
-      FadeSlideIn(
-        delay: const Duration(milliseconds: 130),
-        child: Text(
-          page.body,
-          textAlign: TextAlign.center,
-          style: theme.textTheme.bodyLarge?.copyWith(
-            color: AppTheme.textSecondary,
-            height: 1.48,
-          ),
-        ),
-      ),
-      const SizedBox(height: 22),
-      FadeSlideIn(
-        delay: const Duration(milliseconds: 170),
-        child: _FeatureCard(page: page),
-      ),
-    ];
-  }
 
-  // The final slide is sized to fit the viewport so it never scrolls behind the
-  // fixed action buttons below it. A tighter hero plus a two-column Free vs Pro
-  // comparison keeps the offer clear without the cramped, scrollable feel.
-  List<Widget> _finalChildren(BuildContext context) {
-    return [
-      FadeSlideIn(
-        duration: AppMotion.slow,
-        child: _OnboardingVisual(page: page, size: 132),
-      ),
-      const SizedBox(height: 22),
-      FadeSlideIn(
-        delay: const Duration(milliseconds: 90),
-        child: Text(
-          page.title,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontFamily: AppTheme.displayFamily,
-            fontWeight: FontWeight.w600,
-            fontSize: 30,
-            height: 1.08,
-            color: AppTheme.textPrimary,
+    return Column(
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                FadeSlideIn(
+                  child: Text(
+                    'PATTERNS',
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      color: AppTheme.warmYellow,
+                      letterSpacing: 3,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 26),
+                const FadeSlideIn(
+                  duration: AppMotion.slow,
+                  child: _Hero(icon: LineIcons.feather),
+                ),
+                const SizedBox(height: 30),
+                FadeSlideIn(
+                  delay: const Duration(milliseconds: 90),
+                  child: Text(
+                    'A calm, private place\nfor the hard moments.',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontFamily: AppTheme.displayFamily,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 32,
+                      height: 1.1,
+                      color: AppTheme.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 14),
+                FadeSlideIn(
+                  delay: const Duration(milliseconds: 130),
+                  child: Text(
+                    'Notice a thought, sit with an urge, and practise '
+                    'responding differently, one small step at a time.',
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      color: AppTheme.textSecondary,
+                      height: 1.48,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 22),
+                FadeSlideIn(
+                  delay: const Duration(milliseconds: 170),
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(15),
+                    decoration: _glassDecoration(),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 34,
+                          height: 34,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppTheme.warmYellow.withValues(alpha: 0.14),
+                          ),
+                          child: const Icon(
+                            LineIcons.lock,
+                            color: AppTheme.warmYellow,
+                            size: 17,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        const Expanded(
+                          child: Text(
+                            'Everything stays on this device. No account. '
+                            'No cloud. No tracking.',
+                            style: TextStyle(
+                              fontSize: 13.5,
+                              height: 1.35,
+                              color: AppTheme.textPrimary,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+              ],
+            ),
           ),
         ),
-      ),
-      const SizedBox(height: 12),
-      FadeSlideIn(
-        delay: const Duration(milliseconds: 130),
-        child: Text(
-          'Everything free stays free. Pro adds the active ERP toolkit.',
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 14.5,
-            height: 1.4,
-            color: AppTheme.textSecondary,
+        const SizedBox(height: 6),
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: onGetStarted,
+            child: const Text('Get started'),
           ),
         ),
-      ),
-      const SizedBox(height: 20),
-      FadeSlideIn(
-        delay: const Duration(milliseconds: 170),
-        child: const _FreeProCompareCard(),
-      ),
-    ];
+        TextButton(
+          onPressed: onImport,
+          child: const Text('Import existing data'),
+        ),
+      ],
+    );
   }
 }
 
-class _OnboardingVisual extends StatelessWidget {
-  final _OnboardingPage page;
-  final double size;
+// --- S2: what would help right now? ----------------------------------------
 
-  const _OnboardingVisual({required this.page, this.size = 188});
+class _Choice {
+  final FirstRunPath path;
+  final IconData icon;
+  final String title;
+  final String subtitle;
+
+  const _Choice(this.path, this.icon, this.title, this.subtitle);
+}
+
+const _choices = <_Choice>[
+  _Choice(
+    FirstRunPath.urge,
+    LineIcons.hourglassHalf,
+    "I'm dealing with an urge",
+    'Create some space before you respond.',
+  ),
+  _Choice(
+    FirstRunPath.journal,
+    LineIcons.pen,
+    'I want to write something down',
+    'Get the thought out of your head.',
+  ),
+  _Choice(
+    FirstRunPath.erp,
+    LineIcons.seedling,
+    'I want to practise responding differently',
+    'A short, guided exercise.',
+  ),
+  _Choice(
+    FirstRunPath.selfcheck,
+    LineIcons.clipboardList,
+    'I want to understand my patterns',
+    'An optional check-in. About 10 minutes.',
+  ),
+  _Choice(
+    FirstRunPath.explore,
+    LineIcons.compass,
+    "I'm just exploring",
+    'Have a look around first.',
+  ),
+];
+
+class _ChoicesView extends StatelessWidget {
+  final void Function(FirstRunPath path) onChoose;
+
+  const _ChoicesView({required this.onChoose});
 
   @override
   Widget build(BuildContext context) {
-    final inner = size * 0.447;
+    final theme = Theme.of(context);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 6),
+        FadeSlideIn(
+          child: Text(
+            'What would help right now?',
+            style: const TextStyle(
+              fontFamily: AppTheme.displayFamily,
+              fontWeight: FontWeight.w600,
+              fontSize: 28,
+              height: 1.1,
+              color: AppTheme.textPrimary,
+            ),
+          ),
+        ),
+        const SizedBox(height: 8),
+        FadeSlideIn(
+          delay: const Duration(milliseconds: 80),
+          child: Text(
+            'Pick one. You can do the rest whenever you like.',
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: AppTheme.textSecondary,
+              height: 1.4,
+            ),
+          ),
+        ),
+        const SizedBox(height: 18),
+        Expanded(
+          child: ListView.separated(
+            padding: const EdgeInsets.only(bottom: 4),
+            itemCount: _choices.length,
+            separatorBuilder: (_, _) => const SizedBox(height: 10),
+            itemBuilder: (context, i) {
+              final choice = _choices[i];
+              return FadeSlideIn(
+                delay: Duration(milliseconds: 120 + i * 50),
+                child: _ChoiceCard(
+                  choice: choice,
+                  onTap: () => onChoose(choice.path),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ChoiceCard extends StatelessWidget {
+  final _Choice choice;
+  final VoidCallback onTap;
+
+  const _ChoiceCard({required this.choice, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return PressScale(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: _glassDecoration(),
+        child: Row(
+          children: [
+            Container(
+              width: 42,
+              height: 42,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppTheme.warmYellow.withValues(alpha: 0.13),
+              ),
+              child: Icon(choice.icon, color: AppTheme.warmYellow, size: 20),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    choice.title,
+                    style: const TextStyle(
+                      fontSize: 15.5,
+                      fontWeight: FontWeight.w700,
+                      height: 1.2,
+                      color: AppTheme.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    choice.subtitle,
+                    style: const TextStyle(
+                      fontSize: 12.5,
+                      height: 1.3,
+                      color: AppTheme.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 8),
+            const Icon(
+              LineIcons.angleRight,
+              color: AppTheme.textSecondary,
+              size: 18,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// --- shared visuals --------------------------------------------------------
+
+class _Hero extends StatelessWidget {
+  final IconData icon;
+
+  const _Hero({required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    const size = 172.0;
+    const inner = size * 0.447;
     return SizedBox(
       width: size,
       height: size,
       child: CustomPaint(
-        painter: _SignalPainter(color: page.color),
+        painter: const _SignalPainter(color: AppTheme.warmYellow),
         child: Center(
           child: Container(
             width: inner,
@@ -335,21 +458,20 @@ class _OnboardingVisual extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [page.color, page.color.withValues(alpha: 0.62)],
+                colors: [
+                  AppTheme.warmYellow,
+                  AppTheme.warmYellow.withValues(alpha: 0.62),
+                ],
               ),
               boxShadow: [
                 BoxShadow(
-                  color: page.color.withValues(alpha: 0.28),
+                  color: AppTheme.warmYellow.withValues(alpha: 0.28),
                   blurRadius: 24,
                   offset: const Offset(0, 10),
                 ),
               ],
             ),
-            child: Icon(
-              page.icon,
-              color: const Color(0xFF17130A),
-              size: size * 0.202,
-            ),
+            child: Icon(icon, color: const Color(0xFF17130A), size: 34),
           ),
         ),
       ),
@@ -397,292 +519,6 @@ class _SignalPainter extends CustomPainter {
     return oldDelegate.color != color;
   }
 }
-
-class _FeatureCard extends StatelessWidget {
-  final _OnboardingPage page;
-
-  const _FeatureCard({required this.page});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(15),
-      decoration: _glassDecoration(),
-      child: Column(
-        children: [
-          for (var i = 0; i < page.points.length; i++) ...[
-            _PointRow(text: page.points[i]),
-            if (i != page.points.length - 1) const SizedBox(height: 10),
-          ],
-        ],
-      ),
-    );
-  }
-}
-
-class _FreeProCompareCard extends StatelessWidget {
-  const _FreeProCompareCard();
-
-  static const _free = ['Journaling', 'OCD tracking', 'Insights & trends'];
-  static const _pro = ['Guided ERP', 'Exposure tools', 'Response prevention'];
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: _glassDecoration(),
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Expanded(
-              child: _CompareColumn(
-                label: 'FREE',
-                accent: AppTheme.textSecondary,
-                items: _free,
-              ),
-            ),
-            Container(
-              width: 1,
-              margin: const EdgeInsets.symmetric(horizontal: 14),
-              color: const Color(0xFF34322D),
-            ),
-            const Expanded(
-              child: _CompareColumn(
-                label: 'PRO',
-                accent: AppTheme.warmYellow,
-                items: _pro,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _CompareColumn extends StatelessWidget {
-  final String label;
-  final Color accent;
-  final List<String> items;
-
-  const _CompareColumn({
-    required this.label,
-    required this.accent,
-    required this.items,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-          decoration: BoxDecoration(
-            color: accent.withValues(alpha: 0.14),
-            borderRadius: BorderRadius.circular(7),
-          ),
-          child: Text(
-            label,
-            style: TextStyle(
-              color: accent,
-              fontSize: 10.5,
-              fontWeight: FontWeight.w900,
-              letterSpacing: 0.5,
-            ),
-          ),
-        ),
-        const SizedBox(height: 12),
-        for (var i = 0; i < items.length; i++) ...[
-          if (i != 0) const SizedBox(height: 9),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 1),
-                child: Icon(LineIcons.check, color: accent, size: 13),
-              ),
-              const SizedBox(width: 7),
-              Expanded(
-                child: Text(
-                  items[i],
-                  style: const TextStyle(
-                    fontSize: 12.5,
-                    height: 1.25,
-                    color: AppTheme.textPrimary,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ],
-    );
-  }
-}
-
-class _PointRow extends StatelessWidget {
-  final String text;
-
-  const _PointRow({required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 22,
-          height: 22,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: AppTheme.warmYellow.withValues(alpha: 0.14),
-          ),
-          child: const Icon(
-            LineIcons.check,
-            color: AppTheme.warmYellow,
-            size: 13,
-          ),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontSize: 13,
-              height: 1.3,
-              color: AppTheme.textPrimary,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _BottomActions extends StatelessWidget {
-  final bool finalStep;
-  final VoidCallback onNext;
-  final VoidCallback onStart;
-  final VoidCallback onUnlock;
-  final VoidCallback onImport;
-
-  const _BottomActions({
-    required this.finalStep,
-    required this.onNext,
-    required this.onStart,
-    required this.onUnlock,
-    required this.onImport,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    if (!finalStep) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          ElevatedButton(onPressed: onNext, child: const Text('Continue')),
-          TextButton(
-            onPressed: onImport,
-            child: const Text('Import existing data'),
-          ),
-        ],
-      );
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        ElevatedButton(onPressed: onStart, child: const Text('Start free')),
-        const SizedBox(height: 10),
-        OutlinedButton(onPressed: onUnlock, child: const Text('Unlock Pro')),
-        const SizedBox(height: 8),
-        Text(
-          'One-time unlock. No subscription.',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: AppTheme.textSecondary,
-            fontSize: 12,
-            height: 1.3,
-          ),
-        ),
-        TextButton(
-          onPressed: onImport,
-          child: const Text('Import existing data'),
-        ),
-      ],
-    );
-  }
-}
-
-class _OnboardingPage {
-  final IconData icon;
-  final String title;
-  final String body;
-  final List<String> points;
-  final Color color;
-
-  const _OnboardingPage({
-    required this.icon,
-    required this.title,
-    required this.body,
-    required this.points,
-    required this.color,
-  });
-}
-
-final _pages = <_OnboardingPage>[
-  const _OnboardingPage(
-    icon: LineIcons.feather,
-    title: 'A calm, private space.',
-    body:
-        'Patterns lives on your device — no account, no cloud, no one watching. A gentle place to notice OCD, not judge it.',
-    points: [
-      'Private and local-first by design',
-      'No sign-up, ever',
-      'Support to practice with, not a diagnosis',
-    ],
-    color: AppTheme.warmYellow,
-  ),
-  const _OnboardingPage(
-    icon: Icons.self_improvement_rounded,
-    title: 'A simple daily loop.',
-    body:
-        'The same gentle rhythm each day: notice what shows up, track it, practice responding differently, and reflect.',
-    points: [
-      'Notice and journal a thought',
-      'Track urges, distress, and responses',
-      'Practice ERP and delay tools',
-    ],
-    color: Color(0xFF7BBF91),
-  ),
-  const _OnboardingPage(
-    icon: LineIcons.compass,
-    title: 'Everything, one tap away.',
-    body:
-        "Five simple tabs, each with one job. We'll give you a quick tour in a moment.",
-    points: [
-      'Today — your daily anchor and next step',
-      'Recovery — every tool, grouped by stage',
-      'Insights — your trends over time',
-    ],
-    color: AppTheme.warmYellow,
-  ),
-  const _OnboardingPage(
-    icon: LineIcons.unlock,
-    title: 'Start simple. Go deeper with Pro.',
-    body:
-        'Free gives you journaling, tracking, and insights. Pro unlocks the active ERP toolkit for structured recovery practice.',
-    points: [
-      'Free: journal, track, and understand patterns',
-      'Pro: guided ERP, exposures, and response prevention',
-      'Recovery metrics, programs, and deeper practice tools',
-    ],
-    color: AppTheme.warmYellow,
-  ),
-];
 
 BoxDecoration _glassDecoration() {
   return BoxDecoration(

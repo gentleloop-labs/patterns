@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../services/pro_service.dart';
+import '../services/telemetry.dart';
 import '../theme/app_theme.dart';
 import '../app_preferences.dart';
 import 'app_snack_bar.dart';
@@ -16,7 +17,8 @@ import 'platform.dart';
 class PaywallSheet extends StatefulWidget {
   const PaywallSheet({super.key});
 
-  static Future<void> show(BuildContext context) {
+  static Future<void> show(BuildContext context, {String source = 'unknown'}) {
+    Telemetry.log('paywall.shown', {'source': source});
     if (kIsDesktop) {
       return showDialog<void>(
         context: context,
@@ -141,6 +143,7 @@ class _PaywallSheetState extends State<PaywallSheet> {
 
   void _onEvent(ProEvent event) {
     if (event is ProSuccess) {
+      Telemetry.log(event.restored ? 'paywall.restore' : 'paywall.purchase');
       setState(() => _purchaseInFlight = false);
       Navigator.pop(context);
       _showUnlockedDialog(context, restored: event.restored);

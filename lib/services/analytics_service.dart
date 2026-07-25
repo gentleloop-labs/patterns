@@ -286,6 +286,41 @@ class AnalyticsService {
     );
   }
 
+  /// Whether the user has generated enough *real* activity to responsibly show
+  /// the practice-progress score and the full Today cockpit: at least
+  /// [minActivities] meaningful activities across at least [minDistinctDays]
+  /// distinct calendar days. Below this, a fresh user sees the simplified Today
+  /// and no score (honesty: "no analytics before there's data").
+  static bool hasEnoughForProgress({
+    required List<JournalEntry> journals,
+    required List<OcdEntry> ocds,
+    required List<DelaySession> delaySessions,
+    required List<ErpExerciseSession> erpSessions,
+    int minActivities = 3,
+    int minDistinctDays = 2,
+  }) {
+    var count = 0;
+    final days = <String>{};
+    String key(DateTime d) => '${d.year}-${d.month}-${d.day}';
+    for (final j in journals) {
+      count++;
+      days.add(key(j.createdAt));
+    }
+    for (final o in ocds) {
+      count++;
+      days.add(key(o.datetime));
+    }
+    for (final d in delaySessions) {
+      count++;
+      days.add(key(d.createdAt));
+    }
+    for (final e in erpSessions) {
+      count++;
+      days.add(key(e.createdAt));
+    }
+    return count >= minActivities && days.length >= minDistinctDays;
+  }
+
   static List<JournalEntry> filterJournals(
     List<JournalEntry> entries,
     DateRangeFilter filter,

@@ -10,10 +10,12 @@ import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../services/analytics_service.dart';
 import '../../services/review_prompt.dart';
+import '../../services/telemetry.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
 import '../../widgets/rich_journal.dart';
+import '../first_run.dart';
 import '../preferences.dart';
 
 class TodayScreen extends ConsumerStatefulWidget {
@@ -93,6 +95,36 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
       practicedToday: practicedToday,
     );
 
+    // As soon as the user has done anything real, the home becomes the full,
+    // responsive cockpit so their work is reflected back to them. The truly
+    // empty state (no practice yet) keeps the calmer first-run Today.
+    final hasActivity =
+        journals.isNotEmpty ||
+        ocds.isNotEmpty ||
+        delays.isNotEmpty ||
+        erp.isNotEmpty;
+
+    // The numeric practice-progress score stays hidden until there's enough
+    // data to be meaningful (a single session would read as a noisy, possibly
+    // discouraging number). Until then the card shows a gentle placeholder.
+    final enoughForScore = AnalyticsService.hasEnoughForProgress(
+      journals: journals,
+      ocds: ocds,
+      delaySessions: delays,
+      erpSessions: erp,
+    );
+
+    final children = hasActivity
+        ? _establishedChildren(
+            metrics: metrics,
+            dashboard: dashboard,
+            nextStep: nextStep,
+            recentDelay: recentDelay,
+            hasCheckedIn: hasCheckedIn,
+            enoughForScore: enoughForScore,
+          )
+        : _firstRunChildren(hasYbocs: ybocs.isNotEmpty);
+
     return Scaffold(
       body: DecoratedBox(
         decoration: const BoxDecoration(
@@ -105,48 +137,149 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
         child: SafeArea(
           child: ListView(
             padding: const EdgeInsets.fromLTRB(20, 18, 20, 112),
-            children: staggered([
-              _HomeHeader(
-                streak: metrics.practiceStreakDays,
-                onSettings: widget.onSettings,
-              ),
-              const SizedBox(height: 18),
-              _HomeScoreCard(summary: dashboard, onTap: widget.onInsights),
-              const SizedBox(height: 16),
-              _NextStepCard(
-                step: nextStep,
-                onTap: () => widget.onNextStep(nextStep.step),
-              ),
-              const SizedBox(height: 20),
-              _HomeSectionHeader(
-                title: 'Continue your practice',
-                actionLabel: 'See all',
-                onAction: widget.onErp,
-              ),
-              const SizedBox(height: 10),
-              _ContinuePracticeCard(
-                recentDelay: recentDelay,
-                onResume: recentDelay == null ? widget.onErp : widget.onDelay,
-              ),
-              const SizedBox(height: 22),
-              const _HomeSectionHeader(title: 'Quick actions'),
-              const SizedBox(height: 10),
-              _QuickActionGrid(
-                onJournal: widget.onJournal,
-                onErp: widget.onErp,
-                onExposureTools: widget.onErp,
-                onInsights: widget.onInsights,
-              ),
-              const SizedBox(height: 14),
-              _DailyCheckInCard(
-                checkedIn: hasCheckedIn,
-                onTap: widget.onJournal,
-              ),
-            ]),
+            children: staggered(children),
           ),
         ),
       ),
     );
+  }
+
+  List<Widget> _establishedChildren({
+    required RecoveryMetrics metrics,
+    required RecoveryDashboardSummary dashboard,
+    required RecoveryNextStep nextStep,
+    required DelaySession? recentDelay,
+    required bool hasCheckedIn,
+    required bool enoughForScore,
+  }) {
+    return [
+      _HomeHeader(
+        streak: metrics.practiceStreakDays,
+        showStreak: metrics.practiceStreakDays > 0,
+        onSettings: widget.onSettings,
+      ),
+      const SizedBox(height: 18),
+      _HomeScoreCard(
+        summary: dashboard,
+        enoughData: enoughForScore,
+        onTap: widget.onInsights,
+      ),
+      const SizedBox(height: 16),
+      _NextStepCard(
+        step: nextStep,
+        onTap: () => widget.onNextStep(nextStep.step),
+      ),
+      const SizedBox(height: 20),
+      _HomeSectionHeader(
+        title: 'Continue your practice',
+        actionLabel: 'See all',
+        onAction: widget.onErp,
+      ),
+      const SizedBox(height: 10),
+      _ContinuePracticeCard(
+        recentDelay: recentDelay,
+        onResume: recentDelay == null ? widget.onErp : widget.onDelay,
+      ),
+      const SizedBox(height: 22),
+      const _HomeSectionHeader(title: 'Quick actions'),
+      const SizedBox(height: 10),
+      _QuickActionGrid(
+        onJournal: widget.onJournal,
+        onErp: widget.onErp,
+        onExposureTools: widget.onErp,
+        onInsights: widget.onInsights,
+      ),
+      const SizedBox(height: 14),
+      _DailyCheckInCard(checkedIn: hasCheckedIn, onTap: widget.onJournal),
+    ];
+  }
+
+  /// The simplified first-run Today: one recommended action echoing what the
+  /// user said they needed, three immediate choices, an optional self-check
+  /// row, and a calm placeholder where analytics will grow — no score, no
+  /// streak, no dense cockpit until there's real data.
+  List<Widget> _firstRunChildren({required bool hasYbocs}) {
+    final primary = _firstRunPrimary(readFirstRunPath());
+    return [
+      _HomeHeader(
+        streak: 0,
+        showStreak: false,
+        onSettings: widget.onSettings,
+      ),
+      const SizedBox(height: 18),
+      _NextStepCard(step: primary.step, onTap: primary.onTap),
+      const SizedBox(height: 22),
+      const _HomeSectionHeader(title: 'What would you like to do?'),
+      const SizedBox(height: 10),
+      _QuickActionTile(
+        icon: LineIcons.edit,
+        title: 'Write something down',
+        subtitle: 'Get a thought out of your head.',
+        onTap: widget.onTrack,
+      ),
+      const SizedBox(height: 10),
+      _QuickActionTile(
+        icon: LineIcons.hourglassHalf,
+        title: 'Delay an urge',
+        subtitle: 'Create space before you respond.',
+        onTap: widget.onDelay,
+      ),
+      const SizedBox(height: 10),
+      _QuickActionTile(
+        icon: LineIcons.seedling,
+        title: 'Practise (ERP)',
+        subtitle: 'A short, guided exercise.',
+        onTap: widget.onErp,
+      ),
+      if (!hasYbocs) ...[
+        const SizedBox(height: 18),
+        _SelfCheckRow(
+          onTap: () => widget.onNextStep(RecoveryStep.selfCheck),
+        ),
+      ],
+      const SizedBox(height: 18),
+      const _InsightsPlaceholder(),
+    ];
+  }
+
+  ({RecoveryNextStep step, VoidCallback onTap}) _firstRunPrimary(
+    FirstRunPath? path,
+  ) {
+    switch (path) {
+      case FirstRunPath.journal:
+        return (
+          step: const RecoveryNextStep(
+            step: RecoveryStep.journal,
+            title: 'Write down another moment',
+            subtitle: 'Naming a thought takes some of its power away.',
+            ctaLabel: 'New entry',
+          ),
+          onTap: widget.onTrack,
+        );
+      case FirstRunPath.erp:
+        return (
+          step: const RecoveryNextStep(
+            step: RecoveryStep.dailyPractice,
+            title: 'Practise again',
+            subtitle: 'A short guided ERP rep keeps the learning going.',
+            ctaLabel: 'Start practice',
+          ),
+          onTap: widget.onErp,
+        );
+      case FirstRunPath.urge:
+      case FirstRunPath.selfcheck:
+      case FirstRunPath.explore:
+      case null:
+        return (
+          step: const RecoveryNextStep(
+            step: RecoveryStep.dailyPractice,
+            title: 'Try a two-minute delay',
+            subtitle: 'When an urge feels strong, put a little space before it.',
+            ctaLabel: 'Start a delay',
+          ),
+          onTap: widget.onDelay,
+        );
+    }
   }
 
   DelaySession? _latestDelay(List<DelaySession> sessions) {
@@ -163,8 +296,13 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
 class _HomeHeader extends StatelessWidget {
   final int streak;
   final VoidCallback onSettings;
+  final bool showStreak;
 
-  const _HomeHeader({required this.streak, required this.onSettings});
+  const _HomeHeader({
+    required this.streak,
+    required this.onSettings,
+    this.showStreak = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -199,30 +337,32 @@ class _HomeHeader extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(width: 12),
-        Container(
-          padding: const EdgeInsets.fromLTRB(11, 10, 13, 10),
-          decoration: _homeCardDecoration(radius: 16),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.local_fire_department_rounded,
-                color: AppTheme.warmYellow,
-                size: 18,
-              ),
-              const SizedBox(width: 6),
-              Text(
-                '$streak',
-                style: const TextStyle(
+        if (showStreak) ...[
+          const SizedBox(width: 12),
+          Container(
+            padding: const EdgeInsets.fromLTRB(11, 10, 13, 10),
+            decoration: _homeCardDecoration(radius: 16),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.local_fire_department_rounded,
                   color: AppTheme.warmYellow,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 14,
+                  size: 18,
                 ),
-              ),
-            ],
+                const SizedBox(width: 6),
+                Text(
+                  '$streak',
+                  style: const TextStyle(
+                    color: AppTheme.warmYellow,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+        ],
         const SizedBox(width: 10),
         PressScale(
           onTap: onSettings,
@@ -258,10 +398,20 @@ class _HomeScoreCard extends StatelessWidget {
   final RecoveryDashboardSummary summary;
   final VoidCallback onTap;
 
-  const _HomeScoreCard({required this.summary, required this.onTap});
+  /// Whether there's enough real data for the number to be meaningful. Until
+  /// then we show a gentle placeholder instead of a noisy single-session score.
+  final bool enoughData;
+
+  const _HomeScoreCard({
+    required this.summary,
+    required this.onTap,
+    this.enoughData = true,
+  });
 
   @override
   Widget build(BuildContext context) {
+    if (!enoughData) return _buildPlaceholder(context);
+    Telemetry.logOnce('score.first_shown');
     final score = summary.recoveryScore;
     final label = _scoreLabel(score, summary.hasAnyData);
     return PressScale(
@@ -269,58 +419,117 @@ class _HomeScoreCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(18),
         decoration: _homeCardDecoration(radius: 22),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _HomeScoreRing(score: score, label: label),
-            const SizedBox(width: 18),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'RECOVERY SCORE',
-                    style: TextStyle(
-                      color: AppTheme.warmYellow,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 0.6,
-                    ),
+            Row(
+              children: [
+                _HomeScoreRing(score: score, label: label),
+                const SizedBox(width: 18),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'PRACTICE PROGRESS',
+                        style: TextStyle(
+                          color: AppTheme.warmYellow,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 0.6,
+                        ),
+                      ),
+                      const SizedBox(height: 18),
+                      Text(
+                        summary.hasAnyData ? 'Steady practice' : 'Start gently',
+                        style: const TextStyle(
+                          color: AppTheme.textPrimary,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800,
+                          height: 1.18,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        summary.hasAnyData
+                            ? "You're showing up and building new patterns."
+                            : 'This grows as you journal, track, and practise.',
+                        style: const TextStyle(
+                          color: AppTheme.textSecondary,
+                          fontSize: 13,
+                          height: 1.34,
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                      Text(
+                        _deltaText(summary.scoreDelta.value, summary.hasAnyData),
+                        style: const TextStyle(
+                          color: AppTheme.warmYellow,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 18),
-                  Text(
-                    summary.hasAnyData ? 'Steady progress' : 'Start gently',
-                    style: const TextStyle(
-                      color: AppTheme.textPrimary,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w800,
-                      height: 1.18,
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    summary.hasAnyData
-                        ? "You're showing up and building new patterns."
-                        : 'Your score will build as you journal, track, and practice.',
-                    style: const TextStyle(
-                      color: AppTheme.textSecondary,
-                      fontSize: 13,
-                      height: 1.34,
-                    ),
-                  ),
-                  const SizedBox(height: 14),
-                  Text(
-                    _deltaText(summary.scoreDelta.value, summary.hasAnyData),
-                    style: const TextStyle(
-                      color: AppTheme.warmYellow,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ],
+                ),
+                const SizedBox(width: 8),
+                const Icon(LineIcons.angleRight, color: AppTheme.textSecondary),
+              ],
+            ),
+            const SizedBox(height: 14),
+            Text(
+              'Reflects how often you practise, not a diagnosis or how you’re '
+              'doing clinically. A lower number on a hard week is normal.',
+              style: TextStyle(
+                color: AppTheme.textSecondary.withValues(alpha: 0.8),
+                fontSize: 11,
+                height: 1.3,
               ),
             ),
-            const SizedBox(width: 8),
-            const Icon(LineIcons.angleRight, color: AppTheme.textSecondary),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPlaceholder(BuildContext context) {
+    return PressScale(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(18),
+        decoration: _homeCardDecoration(radius: 22),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'PRACTICE PROGRESS',
+              style: TextStyle(
+                color: AppTheme.warmYellow,
+                fontSize: 11,
+                fontWeight: FontWeight.w900,
+                letterSpacing: 0.6,
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'You’ve started. Nice.',
+              style: TextStyle(
+                color: AppTheme.textPrimary,
+                fontSize: 18,
+                fontWeight: FontWeight.w800,
+                height: 1.18,
+              ),
+            ),
+            const SizedBox(height: 6),
+            const Text(
+              'A progress number will appear here once you’ve practised a few '
+              'times, enough for it to actually mean something.',
+              style: TextStyle(
+                color: AppTheme.textSecondary,
+                fontSize: 13,
+                height: 1.34,
+              ),
+            ),
           ],
         ),
       ),
@@ -330,9 +539,9 @@ class _HomeScoreCard extends StatelessWidget {
   String _scoreLabel(int score, bool hasData) {
     if (!hasData) return 'New';
     if (score >= 80) return 'Strong';
-    if (score >= 60) return 'Good';
+    if (score >= 60) return 'Steady';
     if (score >= 40) return 'Building';
-    return 'Start';
+    return 'Starting';
   }
 
   String _deltaText(double delta, bool hasData) {
@@ -819,6 +1028,98 @@ class _QuickActionTile extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// Quiet, optional entry to the self-check on the first-run Today — never a
+/// forced first action, and clearly labelled optional.
+class _SelfCheckRow extends StatelessWidget {
+  final VoidCallback onTap;
+
+  const _SelfCheckRow({required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return PressScale(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(14),
+        decoration: _homeCardDecoration(radius: 16),
+        child: Row(
+          children: [
+            const Icon(
+              LineIcons.clipboardList,
+              color: AppTheme.textSecondary,
+              size: 22,
+            ),
+            const SizedBox(width: 12),
+            const Expanded(
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Understand your patterns',
+                      style: TextStyle(
+                        color: AppTheme.textPrimary,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    TextSpan(
+                      text: '   ·   optional, ~10 min',
+                      style: TextStyle(
+                        color: AppTheme.textSecondary,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const Icon(
+              LineIcons.angleRight,
+              color: AppTheme.textSecondary,
+              size: 17,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Calm placeholder shown where analytics live, before there is any data to
+/// summarise. Keeps the honesty promise: no fabricated numbers up front.
+class _InsightsPlaceholder extends StatelessWidget {
+  const _InsightsPlaceholder();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: _homeCardDecoration(radius: 16),
+      child: Row(
+        children: [
+          Icon(
+            LineIcons.lineChart,
+            color: AppTheme.textSecondary.withValues(alpha: 0.8),
+            size: 20,
+          ),
+          const SizedBox(width: 12),
+          const Expanded(
+            child: Text(
+              'Your insights will appear here as you practise.',
+              style: TextStyle(
+                color: AppTheme.textSecondary,
+                fontSize: 13,
+                height: 1.3,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
