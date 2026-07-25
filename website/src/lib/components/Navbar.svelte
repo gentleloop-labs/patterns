@@ -120,6 +120,7 @@
           </div>
         </div>
         <a href="/blog" class="nav-link">Blog</a>
+        <a href="/roadmap" class="nav-link">Roadmap</a>
         <button type="button" onclick={goPrivacy}>Privacy</button>
         <button
           type="button"
@@ -205,6 +206,7 @@
 
         <div class="mobile-nav-section">
           <a href="/blog" onclick={closeMobile}>Blog</a>
+          <a href="/roadmap" onclick={closeMobile}>Roadmap</a>
           <button type="button" onclick={goPrivacy}>Privacy</button>
         </div>
       </nav>

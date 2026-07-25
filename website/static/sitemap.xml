@@ -88,6 +88,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://patternsocd.com/roadmap</loc>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://patternsocd.com/faq</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
