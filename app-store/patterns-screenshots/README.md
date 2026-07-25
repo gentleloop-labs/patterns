@@ -30,11 +30,11 @@ node render.js
 ## Suggested Google Play alt text
 
 1. Today screen recommending a two-minute compulsion delay as one clear next step.
-2. Compulsion-delay countdown with a calm timer and the option to stop early.
-3. Exposure hierarchy with six rungs and status controls for each practice step.
+2. Compulsion-delay setup with an urge field, intensity slider, wait duration, and Begin button.
+3. Exposure hierarchy with large, readable rungs and status controls for each practice step.
 4. Private Insights overview showing practice progress, mood, urge intensity, ERP sessions, and consistency.
-5. Journal list with date shortcuts, today's entry, and chronological local entries.
-6. Settings screen showing data export, Privacy & Safety, app lock, data deletion, and Pro controls.
-7. The production Patterns Pro purchase sheet with its one-time $14.99 unlock and recovery-tool list.
+5. Full-screen private journal editor with a reflective entry and formatting controls.
+6. Settings screen showing Privacy & Safety, app lock, local-only records, data deletion, exports, and Pro controls.
+7. Standalone Patterns Pro value card with the one-time $14.99 unlock and six recovery tools.
 
 Feature graphic: Patterns branding beside a card recommending a two-minute delay, with the line “A quieter way through OCD.”

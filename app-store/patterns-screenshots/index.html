@@ -54,11 +54,7 @@
               <article><span>▱</span><div><b>Exposure Tools</b><small>Hierarchy, materials, uncertainty.</small></div><i>›</i></article>
               <article><span>⌁</span><div><b>Insights</b><small>See your patterns and progress.</small></div><i>›</i></article>
             </div>
-            <article class="checkin-card">
-              <span>♧</span>
-              <div><b>Daily check-in</b><small>Small steps today create lasting change.</small></div>
-              <button>Check in</button>
-            </article>
+            <article class="checkin-card"><span>♧</span><div><b>Daily check-in</b><small>Small steps today create lasting change.</small></div><button>Check in</button></article>
           </div>
           <nav class="dock">
             <span class="active">⌂<small>Today</small></span>
@@ -83,19 +79,27 @@
         <div class="speaker"></div>
         <div class="screen">
           <div class="status"><b>9:41</b><span>▮▮▮ &nbsp; ◉ &nbsp; ▰</span></div>
-          <div class="delay-countdown">
-            <h2>You’re sitting with it</h2>
-            <p>Notice the urge without acting. It will rise, then fall on its own.</p>
-            <div class="timer-space">
-              <div class="timer-ring">
-                <svg viewBox="0 0 240 240" aria-hidden="true">
-                  <circle cx="120" cy="120" r="104" class="ring-track" />
-                  <circle cx="120" cy="120" r="104" class="ring-value" />
-                </svg>
-                <b>01:24</b>
-              </div>
+          <div class="app-view delay-setup">
+            <div class="flow-header"><button class="square-back">‹</button><h2>Pause the urge</h2></div>
+            <article class="flow-intro">
+              <span>COMPULSION DELAY</span>
+              <h3>Create space before you respond.</h3>
+              <p>Name the urge, choose a short wait, and notice what happens without judging yourself.</p>
+            </article>
+            <div class="flow-field">
+              <h4>Which urge are you sitting with?</h4>
+              <div class="text-field">Checking the lock again</div>
+              <div class="suggestion-row"><span>Re-checking</span><span>Seeking reassurance</span><span>Washing</span></div>
             </div>
-            <button class="outline-button">I need to stop</button>
+            <article class="urge-card">
+              <div><b>How strong is the urge right now?</b><strong>7<small>/10</small></strong></div>
+              <div class="slider"><i></i><span></span></div>
+            </article>
+            <div class="duration-field">
+              <h4>How long will you wait?</h4>
+              <div class="duration-picker"><span>1 min</span><span class="selected">5 min</span><span>15 min</span><span>Custom</span></div>
+            </div>
+            <button class="begin-button">Begin</button>
           </div>
         </div>
       </div>
@@ -146,12 +150,6 @@
             <article class="climb-card">
               <div class="climb-title"><span>5</span><b>Leave a small task unfinished</b></div>
               <small>Difficulty 7/10 · Anxiety 7/10</small>
-              <div class="status-picker"><span class="selected muted-select">Not started</span><span>In progress</span><span>Done</span></div>
-            </article>
-            <button class="material-link">＋ &nbsp; Material</button>
-            <article class="climb-card">
-              <div class="climb-title"><span>6</span><b>Continue the day without reassurance</b></div>
-              <small>Difficulty 8/10 · Anxiety 8/10</small>
               <div class="status-picker"><span class="selected muted-select">Not started</span><span>In progress</span><span>Done</span></div>
             </article>
           </div>
@@ -217,31 +215,24 @@
         <div class="speaker"></div>
         <div class="screen">
           <div class="status"><b>9:41</b><span>▮▮▮ &nbsp; ◉ &nbsp; ▰</span></div>
-          <div class="app-view journal-list">
-            <div class="journal-header"><h2>Journal</h2><button>⌕</button><button>▣</button></div>
-            <div class="date-pills">
-              <span class="today"><small>Today</small>Jul 25</span>
-              <span><small>Thu</small>Jul 24</span>
-              <span><small>Wed</small>Jul 23</span>
-              <span><small>Tue</small>Jul 22</span>
+          <div class="journal-editor">
+            <div class="editor-header">
+              <button>‹</button>
+              <div><h2>July 25, 2026</h2><small>Saved</small></div>
+              <button class="trash">⌫</button>
+              <button class="save">Save</button>
             </div>
-            <article class="journal-card today-entry"><span>✒</span><b>Today entry</b><i>›</i></article>
-            <article class="journal-card"><h3>July 24</h3><p>I noticed the urge to check before leaving. I let the uncertainty be there and walked away without going back.</p></article>
-            <article class="journal-card"><h3>July 23</h3><p>The thought felt loud this morning. Writing it down helped me see it as a thought, not a command.</p></article>
-            <article class="journal-card"><h3>July 21</h3><p>Practised waiting five minutes before responding. The discomfort eased without needing certainty.</p></article>
-            <article class="journal-card"><h3>July 20</h3><p>I left one small thing unfinished and noticed how the urge rose, peaked, and softened on its own.</p></article>
-            <article class="journal-card"><h3>July 18</h3><p>A few quiet lines were enough to separate what I felt from what OCD wanted me to do.</p></article>
-            <article class="journal-card"><h3>July 17</h3><p>I sent the message without rereading it. The uncertainty stayed for a while, and I kept moving.</p></article>
-            <article class="journal-card"><h3>July 15</h3><p>The urge asked for reassurance. I named it and chose not to answer it right away.</p></article>
-            <article class="journal-card"><h3>July 13</h3><p>Today’s practice was uncomfortable and still worthwhile. Showing up was the win.</p></article>
+            <div class="editor-copy">
+              <h3>Today, I let the thought be there.</h3>
+              <p>The urge to check showed up again before I left. I noticed it, named it, and walked away without going back.</p>
+              <p>It felt uncomfortable—not dangerous. I did not need to solve the feeling or make it disappear.</p>
+              <p>The uncertainty stayed with me for a while. Then, without another check, it became quieter on its own.</p>
+              <p>I kept moving through the evening instead of returning to the door. The doubt came back twice, and I let it pass twice.</p>
+              <p>I do not need certainty to choose what matters next.</p>
+              <p class="editor-last">Showing up for the practice was enough today.</p>
+            </div>
+            <div class="format-bar"><span><b>B</b><small>Bold</small></span><span><i>I</i><small>Italic</small></span><span><u>U</u><small>Underline</small></span><span>•<small>List</small></span></div>
           </div>
-          <nav class="dock">
-            <span>⌂<small>Today</small></span>
-            <span class="active">✎<small>Journal</small></span>
-            <span>◎<small>Track</small></span>
-            <span>↗<small>Recovery</small></span>
-            <span>⌁<small>Insights</small></span>
-          </nav>
         </div>
       </div>
     </section>
@@ -260,23 +251,26 @@
           <div class="status"><b>9:41</b><span>▮▮▮ &nbsp; ◉ &nbsp; ▰</span></div>
           <div class="app-view settings-view">
             <div class="settings-header"><button>‹</button><h2>Settings</h2></div>
-            <h3>Data</h3>
-            <article class="settings-row"><span>⇩</span><div><b>Export data</b><small>Save your records to a local JSON file</small></div><i>›</i></article>
-            <article class="settings-row"><span>▧</span><div><b>Export report (PDF)</b><small>Save journal, OCD log, and insights for a date range</small></div><i>›</i></article>
-            <article class="settings-row"><span>⇧</span><div><b>Import data</b><small>Restore entries from a JSON file</small></div><i>›</i></article>
             <h3>Privacy</h3>
             <article class="settings-row highlight"><span>⌑</span><div><b>Privacy &amp; safety</b><small>How your local data is handled</small></div><i>›</i></article>
             <article class="settings-row"><span>⌾</span><div><b>App lock</b><small>Require device unlock when Patterns reopens</small></div><i class="toggle"></i></article>
             <article class="settings-row danger"><span>⌫</span><div><b>Wipe all data</b><small>Delete local entries and reset app preferences</small></div><i>›</i></article>
+            <article class="privacy-summary">
+              <span class="card-label">LOCAL-FIRST</span>
+              <h4>Your records stay on this device.</h4>
+              <p>No account, cloud sync, advertising, or remote analytics. Manual exports go only where you choose to save them.</p>
+              <div class="privacy-points">
+                <span><b>⌂</b><i>Journal and OCD records stay local</i></span>
+                <span><b>⊘</b><i>No advertising or cross-app tracking</i></span>
+                <span><b>⇩</b><i>You control every manual export</i></span>
+              </div>
+            </article>
             <h3>Patterns Pro</h3>
             <article class="settings-row"><span>⌁</span><div><b>Unlock Patterns Pro</b><small>One-time unlock for all recovery tools</small></div><i>›</i></article>
             <article class="settings-row"><span>⟳</span><div><b>Restore purchases</b><small>Re-apply a previous Patterns Pro unlock</small></div><i>›</i></article>
-            <h3>Help</h3>
-            <article class="settings-row"><span>◇</span><div><b>Replay the app tour</b><small>Walk through what each tab does again</small></div><i>›</i></article>
-            <article class="settings-row"><span>◉</span><div><b>Show the welcome screens</b><small>See the intro again next time you open Patterns</small></div><i>›</i></article>
-            <h3>Feedback</h3>
-            <article class="settings-row"><span>☆</span><div><b>Rate Patterns</b><small>Tell the store what you think</small></div><i>›</i></article>
-            <article class="settings-row"><span>♡</span><div><b>Support Patterns</b><small>Leave a small tip to keep development going</small></div><i>›</i></article>
+            <h3>Your data</h3>
+            <article class="settings-row"><span>⇩</span><div><b>Export data</b><small>Save your records to a local JSON file</small></div><i>›</i></article>
+            <article class="settings-row"><span>▧</span><div><b>Export report (PDF)</b><small>Create a report for a date range</small></div><i>›</i></article>
           </div>
         </div>
       </div>
@@ -290,30 +284,23 @@
         <h1>Move beyond tracking.<br /><em>Practise recovery.</em></h1>
         <p>One-time unlock. No subscription.</p>
       </header>
-      <div class="phone">
-        <div class="speaker"></div>
-        <div class="screen paywall-screen">
-          <div class="status"><b>9:41</b><span>▮▮▮ &nbsp; ◉ &nbsp; ▰</span></div>
-          <div class="paywall-underlay">
-            <div class="settings-header"><button>‹</button><h2>Settings</h2></div>
-            <div class="underlay-row"></div><div class="underlay-row"></div><div class="underlay-row"></div>
+      <div class="pro-showcase">
+        <article class="pro-price-card">
+          <div class="pro-card-head"><img src="../../assets/logo.png" alt="" /><div><span>ONE-TIME PURCHASE</span><strong>$14.99</strong></div></div>
+          <h2>The full recovery toolkit.<br />Yours for good.</h2>
+          <p>Move beyond tracking with practical tools for ERP, uncertainty, and response prevention.</p>
+          <div class="pro-feature-grid">
+            <div><span>↗</span><b>Exposure hierarchies</b><small>Build fear ladders step by step.</small></div>
+            <div><span>◷</span><b>Urge surfing</b><small>Ride the wave without responding.</small></div>
+            <div><span>◎</span><b>Structured ERP</b><small>Practise with guided programs.</small></div>
+            <div><span>⌁</span><b>Recovery metrics</b><small>Understand consistency and change.</small></div>
+            <div><span>◇</span><b>Action planner</b><small>Turn intentions into small experiments.</small></div>
+            <div><span>▤</span><b>Reflection worksheets</b><small>Learn from practice without self-judgment.</small></div>
           </div>
-          <div class="sheet-shade"></div>
-          <article class="paywall-sheet">
-            <div class="paywall-title"><span>⌁</span><h2>Patterns Pro</h2></div>
-            <p>Move beyond tracking and practice recovery. A one-time unlock, yours for good, no subscription.</p>
-            <ul>
-              <li>Exposure Hierarchy Builder: climb fear ladders step by step</li>
-              <li>Exposure materials: scripts, loop tapes, images &amp; links</li>
-              <li>Urge surfing &amp; response-prevention trackers</li>
-              <li>Structured ERP programs &amp; uncertainty training</li>
-              <li>Action planner &amp; behavioral experiments</li>
-              <li>Recovery metrics &amp; reflection worksheets</li>
-            </ul>
-            <button class="primary-button unlock">Unlock Pro · $14.99</button>
-            <button class="restore">Restore purchases</button>
-          </article>
-        </div>
+          <div class="pro-promise"><span>✓ No subscription</span><span>✓ Restore anytime</span><span>✓ Works offline</span></div>
+          <button>Unlock Patterns Pro</button>
+        </article>
+        <div class="pro-orbit orbit-a"></div><div class="pro-orbit orbit-b"></div>
       </div>
     </section>
   </main>
