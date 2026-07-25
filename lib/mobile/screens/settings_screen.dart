@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
@@ -26,6 +27,7 @@ import '../../widgets/tip_jar_sheet.dart';
 import '../biometric_auth.dart';
 import '../main_shell.dart' show tourRequestProvider;
 import '../preferences.dart';
+import 'debug_funnel_screen.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -168,7 +170,7 @@ class SettingsScreen extends ConsumerWidget {
                   icon: LineIcons.unlock,
                   title: 'Unlock Patterns Pro',
                   subtitle: 'One-time unlock for all recovery tools',
-                  onTap: () => PaywallSheet.show(context),
+                  onTap: () => PaywallSheet.show(context, source: 'settings'),
                 ),
               const SizedBox(height: 10),
               _SettingsItem(
@@ -244,6 +246,26 @@ class SettingsScreen extends ConsumerWidget {
                 title: 'Support Patterns',
                 subtitle: 'Leave a small tip to keep development going',
                 onTap: () => TipJarSheet.show(context),
+              ),
+            ],
+            if (kDebugMode) ...[
+              const SizedBox(height: 28),
+              Text(
+                'Debug',
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              const SizedBox(height: 12),
+              _SettingsItem(
+                icon: LineIcons.barChart,
+                title: 'Funnel',
+                subtitle: 'On-device telemetry counters & recent events',
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const DebugFunnelScreen(),
+                  ),
+                ),
               ),
             ],
           ], maxSteps: 6),

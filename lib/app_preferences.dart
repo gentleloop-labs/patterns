@@ -32,6 +32,20 @@ const hasStartedKey = 'hasStarted';
 /// pattern covers both.
 const tabTourSeenKey = 'sectionSeen_tabTour';
 
+/// Which first-run path the user chose on the "What would help right now?"
+/// screen (urge | journal | erp | selfcheck | explore). Drives the first-run
+/// Today recommendation and the result screen.
+const firstRunPathKey = 'firstRunPath';
+
+/// Set once the user completes their first meaningful activity. Gates the
+/// transition from the simplified first-run Today to the full cockpit.
+const firstActivityDoneKey = 'firstActivityDone';
+
+/// Debug-only opt-in for [DemoSeedService]. Off by default so a fresh install
+/// (including debug builds) shows the honest clean-slate first run. Toggle it
+/// from Settings > Debug to populate sample data on the next launch.
+const debugSeedEnabledKey = 'debugSeedEnabled';
+
 Future<void> initAppPreferences() async {
   appPreferences = await SharedPreferences.getInstance();
 }

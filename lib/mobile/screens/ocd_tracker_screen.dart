@@ -10,6 +10,7 @@ import '../../services/review_prompt.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
+import '../first_run.dart';
 import '../main_shell.dart' show mobileRootNavigatorKey;
 
 class OcdTrackerScreen extends ConsumerStatefulWidget {
@@ -132,7 +133,17 @@ class OcdEventFlow extends ConsumerStatefulWidget {
   final OcdType initialType;
   final OcdEntry? entry;
 
-  const OcdEventFlow({super.key, required this.initialType, this.entry});
+  /// First-run mode (the "write something down" path). On save the flow pops a
+  /// [FirstRunActivityResult] and stays quiet so the shell can show the result
+  /// screen.
+  final bool firstRun;
+
+  const OcdEventFlow({
+    super.key,
+    required this.initialType,
+    this.entry,
+    this.firstRun = false,
+  });
 
   @override
   ConsumerState<OcdEventFlow> createState() => _OcdEventFlowState();
@@ -287,6 +298,10 @@ class _OcdEventFlowState extends ConsumerState<OcdEventFlow> {
       await ref.read(ocdProvider.notifier).addEntry(entry);
     }
     await ReviewPromptService.recordOcdSaved(entry.distressLevel);
+    if (widget.firstRun && mounted) {
+      Navigator.pop(context, const FirstRunActivityResult());
+      return;
+    }
     final eligibleHappyMoment =
         !_isEditing &&
         entry.distressLevel <= ReviewPromptService.maxOcdDistressForTrigger;

@@ -15,6 +15,7 @@ import '../../services/review_prompt.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
+import '../first_run.dart';
 import '../main_shell.dart' show mobileRootNavigatorKey;
 import '../widgets/section_intro.dart';
 
@@ -565,7 +566,16 @@ class _ErpPlanEditorScreenState extends ConsumerState<ErpPlanEditorScreen> {
 class ErpPlanPracticeFlow extends ConsumerStatefulWidget {
   final ErpExercisePlan plan;
 
-  const ErpPlanPracticeFlow({super.key, required this.plan});
+  /// First-run mode (the "practise responding differently" path). On save the
+  /// flow pops a [FirstRunActivityResult] and stays quiet, deferring the
+  /// notification permission ask to the result screen.
+  final bool firstRun;
+
+  const ErpPlanPracticeFlow({
+    super.key,
+    required this.plan,
+    this.firstRun = false,
+  });
 
   @override
   ConsumerState<ErpPlanPracticeFlow> createState() =>
@@ -634,7 +644,7 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
     _timerStartedAt = startedAt;
     _timerEndsAt = startedAt.add(Duration(seconds: widget.plan.defaultSeconds));
     _completionNotificationScheduled = false;
-    unawaited(NotificationService.requestPermission());
+    if (!widget.firstRun) unawaited(NotificationService.requestPermission());
     _timer
       ..duration = Duration(seconds: widget.plan.defaultSeconds)
       ..forward(from: 0);
@@ -797,6 +807,16 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
     await ref.read(erpExerciseSessionProvider.notifier).addSession(session);
     await ReviewPromptService.recordErpPracticeCompleted();
     if (!mounted) return;
+    if (widget.firstRun) {
+      Navigator.pop(
+        context,
+        FirstRunActivityResult(
+          intensityBefore: _anxietyBefore.round(),
+          intensityAfter: _anxietyAfter.round(),
+        ),
+      );
+      return;
+    }
     Navigator.pop(context);
     showAppSnackBar(context, 'ERP practice logged.', type: ToastType.success);
     if (_completed) _requestReviewFromRoot(ReviewTrigger.erpCompleted);

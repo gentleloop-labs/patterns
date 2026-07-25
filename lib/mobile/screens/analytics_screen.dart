@@ -127,6 +127,16 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
                       urgeSurfSessions: surfs,
                       range: _range,
                     );
+                    // Gate the practice-progress score on all-time activity
+                    // (same rule as the Today home) so a single session doesn't
+                    // read as a precise, potentially discouraging number.
+                    final enoughForScore =
+                        AnalyticsService.hasEnoughForProgress(
+                          journals: journals,
+                          ocds: ocds,
+                          delaySessions: delays,
+                          erpSessions: erp,
+                        );
                     final goingForward = _range.index >= _previousRange.index;
                     return PageTransitionSwitcher(
                       duration: AppMotion.medium,
@@ -145,6 +155,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
                         key: ValueKey('${_range.name}-${_tab.name}'),
                         tab: _tab,
                         summary: dashboard,
+                        enoughForScore: enoughForScore,
                       ),
                     );
                   },
@@ -165,18 +176,23 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
 class _DashboardTabBody extends StatelessWidget {
   final _InsightTab tab;
   final RecoveryDashboardSummary summary;
+  final bool enoughForScore;
 
   const _DashboardTabBody({
     super.key,
     required this.tab,
     required this.summary,
+    required this.enoughForScore,
   });
 
   @override
   Widget build(BuildContext context) {
     switch (tab) {
       case _InsightTab.overview:
-        return _OverviewDashboard(summary: summary);
+        return _OverviewDashboard(
+          summary: summary,
+          enoughForScore: enoughForScore,
+        );
       case _InsightTab.thoughts:
         return _ThoughtsDashboard(summary: summary);
       case _InsightTab.urges:
@@ -189,14 +205,18 @@ class _DashboardTabBody extends StatelessWidget {
 
 class _OverviewDashboard extends StatelessWidget {
   final RecoveryDashboardSummary summary;
+  final bool enoughForScore;
 
-  const _OverviewDashboard({required this.summary});
+  const _OverviewDashboard({
+    required this.summary,
+    required this.enoughForScore,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _RecoveryScoreCard(summary: summary),
+        _RecoveryScoreCard(summary: summary, enoughData: enoughForScore),
         const SizedBox(height: 12),
         _MoodCard(summary: summary),
         const SizedBox(height: 12),
@@ -317,50 +337,96 @@ class _ErpDashboard extends StatelessWidget {
 class _RecoveryScoreCard extends StatelessWidget {
   final RecoveryDashboardSummary summary;
 
-  const _RecoveryScoreCard({required this.summary});
+  /// Whether there's enough all-time activity for the score to be meaningful.
+  /// Matches the Today home so the two screens never disagree.
+  final bool enoughData;
+
+  const _RecoveryScoreCard({required this.summary, this.enoughData = true});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    if (!enoughData) {
+      // Deliberately no number yet — say so plainly so it doesn't look broken,
+      // and reassure that the sessions below are already being counted.
+      return _GlassCard(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _CardTitle('Practice progress'),
+            const SizedBox(height: 10),
+            Text(
+              summary.hasAnyData
+                  ? 'A score appears once you’ve practised a few times across a '
+                        'couple of days, so it shows a real trend, not a '
+                        'single moment. Your sessions below are already counted.'
+                  : 'A score will appear here once you’ve practised a few '
+                        'times. Nothing to measure just yet.',
+              style: TextStyle(
+                color: AppTheme.textSecondary,
+                fontSize: 13,
+                height: 1.4,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
     return _GlassCard(
       padding: const EdgeInsets.all(16),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _CardTitle('Recovery score', info: true),
-                const SizedBox(height: 12),
-                Text(
-                  '${summary.recoveryScore}%',
-                  style: theme.textTheme.displaySmall?.copyWith(
-                    fontFamily: AppTheme.sansFamily,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: -0.4,
-                  ),
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _CardTitle('Practice progress'),
+                    const SizedBox(height: 12),
+                    Text(
+                      '${summary.recoveryScore}%',
+                      style: theme.textTheme.displaySmall?.copyWith(
+                        fontFamily: AppTheme.sansFamily,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: -0.4,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    _DeltaLabel(
+                      delta: summary.scoreDelta,
+                      suffix: '% vs previous ${summary.rangeDays} days',
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      height: 44,
+                      child: _MiniLineChart(
+                        points: summary.scoreTrend,
+                        minY: 0,
+                        maxY: 100,
+                        color: AppTheme.warmYellow,
+                        showDots: false,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 8),
-                _DeltaLabel(
-                  delta: summary.scoreDelta,
-                  suffix: '% vs previous ${summary.rangeDays} days',
-                ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  height: 44,
-                  child: _MiniLineChart(
-                    points: summary.scoreTrend,
-                    minY: 0,
-                    maxY: 100,
-                    color: AppTheme.warmYellow,
-                    showDots: false,
-                  ),
-                ),
-              ],
+              ),
+              const SizedBox(width: 16),
+              _ScoreRing(score: summary.recoveryScore),
+            ],
+          ),
+          const SizedBox(height: 14),
+          Text(
+            'Reflects how often you practise, not a diagnosis or how you’re '
+            'doing clinically. A lower number on a hard week is normal.',
+            style: TextStyle(
+              color: AppTheme.textSecondary.withValues(alpha: 0.85),
+              fontSize: 11,
+              height: 1.3,
             ),
           ),
-          const SizedBox(width: 16),
-          _ScoreRing(score: summary.recoveryScore),
         ],
       ),
     );

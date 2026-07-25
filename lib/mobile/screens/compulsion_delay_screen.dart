@@ -14,6 +14,7 @@ import '../../services/review_prompt.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
+import '../first_run.dart';
 import '../main_shell.dart' show mobileRootNavigatorKey;
 import '../widgets/section_intro.dart';
 
@@ -26,7 +27,17 @@ enum _Phase { setup, countdown, reflection }
 class CompulsionDelayFlow extends ConsumerStatefulWidget {
   final String? initialCompulsion;
 
-  const CompulsionDelayFlow({super.key, this.initialCompulsion});
+  /// First-run mode: the very first thing a new user does. On completion the
+  /// flow pops a [FirstRunActivityResult] (so the shell can show the result
+  /// screen) and stays quiet — no "logged" toast, and it defers the notification
+  /// permission ask to the result screen instead of the timer start.
+  final bool firstRun;
+
+  const CompulsionDelayFlow({
+    super.key,
+    this.initialCompulsion,
+    this.firstRun = false,
+  });
 
   @override
   ConsumerState<CompulsionDelayFlow> createState() =>
@@ -62,6 +73,10 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    if (widget.firstRun) {
+      // A short, achievable first win — a couple of minutes of space.
+      _plannedSeconds = 2 * 60;
+    }
     if (widget.initialCompulsion != null) {
       _compulsionController.text = widget.initialCompulsion!;
     }
@@ -118,7 +133,9 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
     _timerStartedAt = startedAt;
     _timerEndsAt = startedAt.add(Duration(seconds: _plannedSeconds));
     _completionNotificationScheduled = false;
-    unawaited(NotificationService.requestPermission());
+    // In first-run mode we hold the notification permission ask until the result
+    // screen (the honest moment, after a completed activity).
+    if (!widget.firstRun) unawaited(NotificationService.requestPermission());
     _timer
       ..duration = Duration(seconds: _plannedSeconds)
       ..forward(from: 0);
@@ -273,6 +290,18 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
     await ref.read(delaySessionProvider.notifier).addSession(session);
     await ReviewPromptService.recordUrgePracticeCompleted();
     if (!mounted) return;
+    if (widget.firstRun) {
+      // Hand back to the shell, which shows the honest result screen. No toast
+      // and no review prompt here — the result screen owns the follow-up.
+      Navigator.pop(
+        context,
+        FirstRunActivityResult(
+          intensityBefore: _urgeBefore.round(),
+          intensityAfter: _urgeAfter.round(),
+        ),
+      );
+      return;
+    }
     Navigator.pop(context);
     showAppSnackBar(
       context,

@@ -1,16 +1,19 @@
 import 'package:flutter/foundation.dart';
 
+import '../app_preferences.dart';
 import '../database/db_helper.dart';
 import '../models/models.dart';
 
 /// Debug-only sample data for making the analytics dashboard feel alive in a
-/// fresh simulator. This never runs in release builds and never writes over an
-/// existing local dataset.
+/// fresh simulator. This never runs in release builds, never writes over an
+/// existing local dataset, and is opt-in even in debug (via
+/// [debugSeedEnabledKey]) so the honest clean-slate first run is the default.
 class DemoSeedService {
   static bool _started = false;
 
   static Future<bool> seedIfNeeded() async {
     if (!kDebugMode || _started) return false;
+    if (!(appPreferences?.getBool(debugSeedEnabledKey) ?? false)) return false;
     _started = true;
 
     final db = DbHelper.instance;

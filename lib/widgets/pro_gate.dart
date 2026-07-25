@@ -47,8 +47,8 @@ class ProLockBadge extends StatelessWidget {
 ///   if (requirePro(context, ref)) openFeature();
 /// }
 /// ```
-bool requirePro(BuildContext context, WidgetRef ref) {
+bool requirePro(BuildContext context, WidgetRef ref, {String source = 'gate'}) {
   if (ref.read(proProvider)) return true;
-  PaywallSheet.show(context);
+  PaywallSheet.show(context, source: source);
   return false;
 }
