@@ -190,7 +190,7 @@ export const posts: BlogPost[] = [
     slug: 'why-patterns-stays-private',
     title: 'Why Patterns stays private (and always will)',
     description:
-      'People with OCD write down their most frightening thoughts. That data should never leave your device. Here is why Patterns has no account, no cloud, and no tracking.',
+      'People with OCD write down their most frightening thoughts. That data should never leave your device. Here is why Patterns has no account, no cloud sync, and no remote analytics.',
     date: '2026-07-11',
     readingMinutes: 5,
     excerpt:
@@ -208,7 +208,7 @@ export const posts: BlogPost[] = [
         Everything you record in Patterns - journal entries, tracked obsessions and
         compulsions, distress ratings, every note in the recovery toolkit - is stored
         locally on your device. There is no account to create. There is no cloud sync.
-        There are no analytics watching what you type. I cannot read your entries, and
+        There are no remote analytics watching what you type. I cannot read your entries, and
         neither can anyone else, because they never leave your phone or computer in the
         first place.
       </p>
@@ -245,7 +245,7 @@ export const posts: BlogPost[] = [
 
       <h2>The short version</h2>
       <p>
-        No account. No cloud. No tracking. Your thoughts stay yours. If you have OCD, you
+        No account. No cloud sync. No remote analytics. Your thoughts stay yours. If you have OCD, you
         deserve at least one place that is genuinely safe to be honest - and I wanted that
         place to exist, so I built it.
       </p>

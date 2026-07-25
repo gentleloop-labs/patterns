@@ -60,7 +60,7 @@
     {
       icon: FolderLock,
       title: 'Private by design',
-      body: 'Local-first storage, JSON export/import backup, biometric app lock, and notifications. Nothing leaves your device.'
+      body: 'Local-first storage, JSON export/import backup, biometric app lock, and notifications. Your records stay on your device unless you export them.'
     },
     {
       icon: Crown,
