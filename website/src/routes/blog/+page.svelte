@@ -2,15 +2,12 @@
   import Seo from '$lib/components/Seo.svelte';
   import ContentContainer from '$lib/components/ContentContainer.svelte';
   import AnimatedOnScroll from '$lib/components/AnimatedOnScroll.svelte';
-  import { postsByDate } from '$lib/data/blog';
+  import BlogList from '$lib/components/BlogList.svelte';
+  import { allTags, postsByDate, postsForPage, tagLabel, totalPages } from '$lib/data/blog';
   import { links } from '$lib/data/links';
   import { PenLine, ArrowRight } from 'lucide-svelte';
 
-  const dateFmt = new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
+  const pagePosts = postsForPage(1);
 
   const jsonLd = [
     {
@@ -18,7 +15,7 @@
       '@type': 'Blog',
       name: 'The Patterns Blog',
       description:
-        'Personal essays from the person building Patterns - someone who lives with OCD - for everyone else working through the same thoughts and feelings.',
+        'Plain-language guides to OCD subtypes and ERP, plus personal essays from the person building Patterns - someone who lives with OCD.',
       url: `${links.site}blog`,
       publisher: { '@type': 'Organization', name: 'MaskedSyntax', url: links.maskedsyntax },
       blogPost: postsByDate.map((post) => ({
@@ -41,10 +38,10 @@
 </script>
 
 <Seo
-  title="The Patterns Blog - Living with OCD, and building the tool for it"
-  description="Personal essays from the person building Patterns, written from the point of view of someone who lives with OCD - on the loop, ERP, privacy, and doing the work."
+  title="The Patterns Blog - OCD, ERP, and living with the loop"
+  description="Plain-language guides to OCD subtypes and ERP, plus honest essays from someone who lives with OCD and is building an app for it."
   path="blog"
-  keywords="OCD blog, living with OCD, ERP experience, intrusive thoughts, OCD recovery, building an OCD app"
+  keywords="OCD blog, OCD subtypes, ERP therapy, intrusive thoughts, OCD recovery, living with OCD"
   {jsonLd}
 />
 
@@ -58,29 +55,28 @@
         <p class="eyebrow">The Patterns blog</p>
         <h1 class="title serif">Notes from inside the loop.</h1>
         <p class="intro">
-          I have OCD, and I am building Patterns for everyone else who does. These are
-          personal essays - not clinical advice - about the loop, the work, and why the
-          app is built the way it is. Written by one person in it, for anyone else in it.
+          Plain-language guides to how OCD works and how ERP treats it, alongside
+          personal essays from the person building Patterns. Nothing here is medical
+          advice - it is what the evidence says, and what it is like to live it.
         </p>
+        {#if allTags.length}
+          <ul class="topics">
+            {#each allTags as { tag }}
+              <li><a href="/blog/tag/{tag}">{tagLabel(tag)}</a></li>
+            {/each}
+          </ul>
+        {/if}
       </div>
     </AnimatedOnScroll>
 
-    <div class="list">
-      {#each postsByDate as post, i}
-        <AnimatedOnScroll delay={i * 80}>
-          <a class="post-card" href="/blog/{post.slug}">
-            <div class="meta">
-              <time datetime={post.date}>{dateFmt.format(new Date(post.date))}</time>
-              <span aria-hidden="true">·</span>
-              <span>{post.readingMinutes} min read</span>
-            </div>
-            <h2>{post.title}</h2>
-            <p>{post.excerpt}</p>
-            <span class="read">Read post <ArrowRight size={16} /></span>
-          </a>
-        </AnimatedOnScroll>
-      {/each}
-    </div>
+    <BlogList posts={pagePosts} />
+
+    {#if totalPages > 1}
+      <nav class="pager" aria-label="Blog pages">
+        <span>Page 1 of {totalPages}</span>
+        <a href="/blog/page/2">Older posts <ArrowRight size={16} /></a>
+      </nav>
+    {/if}
 
     <div class="back-wrap"><a href="/">← Back to Home</a></div>
   </ContentContainer>
@@ -131,55 +127,47 @@
     color: var(--text-secondary);
   }
 
-  .list {
+  .topics {
+    list-style: none;
+    margin: 26px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .topics a {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .topics a:hover {
+    border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+    color: var(--accent);
+  }
+
+  .pager {
     max-width: 760px;
-    margin: 0 auto;
-    display: grid;
-    gap: 20px;
-  }
-
-  .post-card {
-    display: block;
-    padding: 28px;
-    border-radius: 18px;
-    border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
-    background: var(--bg);
-    transition: border-color 0.25s, transform 0.25s;
-  }
-
-  .post-card:hover {
-    border-color: color-mix(in srgb, var(--accent) 40%, transparent);
-    transform: translateY(-2px);
-  }
-
-  .meta {
+    margin: 36px auto 0;
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 13px;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 14px;
     color: var(--text-secondary);
   }
 
-  .post-card h2 {
-    margin: 12px 0 0;
-    font-size: 24px;
-    line-height: 1.25;
-    color: var(--text);
-  }
-
-  .post-card p {
-    margin: 10px 0 0;
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--text-secondary);
-  }
-
-  .read {
+  .pager a {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    margin-top: 18px;
-    font-size: 14px;
     font-weight: 600;
     color: var(--accent);
   }
@@ -201,10 +189,6 @@
 
     .intro {
       font-size: 16px;
-    }
-
-    .post-card h2 {
-      font-size: 20px;
     }
   }
 </style>

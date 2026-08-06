@@ -7,17 +7,30 @@
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "qr": "node scripts/generate-qr.mjs",
+    "test:e2e": "playwright test",
+    "test:all": "vitest run && playwright test"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
     "@sveltejs/adapter-static": "^3.0.8",
     "@sveltejs/kit": "^2.21.0",
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@testing-library/svelte": "^5.4.2",
+    "@testing-library/user-event": "^14.6.3",
     "@types/node": "^22.19.20",
+    "@types/qrcode": "^1.5.6",
+    "jsdom": "^30.0.1",
+    "mdsvex": "^0.12.8",
+    "qrcode": "^1.5.4",
     "svelte": "^5.28.2",
     "svelte-check": "^4.1.7",
     "typescript": "^5.8.3",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "vitest": "^4.1.10"
   },
   "dependencies": {
     "lucide-svelte": "^0.511.0",

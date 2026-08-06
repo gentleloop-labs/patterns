@@ -3,22 +3,22 @@
   import ContentContainer from '$lib/components/ContentContainer.svelte';
   import AnimatedOnScroll from '$lib/components/AnimatedOnScroll.svelte';
   import MedicalDisclaimer from '$lib/components/MedicalDisclaimer.svelte';
-  import { postsByDate } from '$lib/data/blog';
+  import StoreLink from '$lib/components/StoreLink.svelte';
+  import { tagLabel } from '$lib/data/blog';
   import { links } from '$lib/data/links';
-  import { ArrowRight, ArrowLeft } from 'lucide-svelte';
+  import { ArrowRight, ArrowLeft, Apple, Play } from 'lucide-svelte';
   import type { PageData } from './$types';
 
   let { data }: { data: PageData } = $props();
   const post = $derived(data.post);
+  const related = $derived(data.related);
+  const Body = $derived(data.body as unknown as import('svelte').Component);
 
   const dateFmt = new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
   });
-
-  // A couple of other posts to keep readers moving through the blog.
-  const more = $derived(postsByDate.filter((p) => p.slug !== post.slug).slice(0, 2));
 
   const jsonLd = $derived([
     {
@@ -27,8 +27,9 @@
       headline: post.title,
       description: post.description,
       datePublished: post.date,
-      dateModified: post.date,
+      dateModified: post.updated,
       url: `${links.site}blog/${post.slug}`,
+      keywords: post.tags.join(', '),
       author: { '@type': 'Person', name: 'Aftaab Siddiqui', url: links.maskedsyntax },
       publisher: { '@type': 'Organization', name: 'MaskedSyntax', url: links.maskedsyntax },
       mainEntityOfPage: { '@type': 'WebPage', '@id': `${links.site}blog/${post.slug}` },
@@ -42,7 +43,21 @@
         { '@type': 'ListItem', position: 2, name: 'Blog', item: `${links.site}blog` },
         { '@type': 'ListItem', position: 3, name: post.title, item: `${links.site}blog/${post.slug}` }
       ]
-    }
+    },
+    // Only emit FAQPage when the post actually renders the questions below.
+    ...(post.faq?.length
+      ? [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: post.faq.map((item) => ({
+              '@type': 'Question',
+              name: item.q,
+              acceptedAnswer: { '@type': 'Answer', text: item.a }
+            }))
+          }
+        ]
+      : [])
   ]);
 </script>
 
@@ -50,8 +65,9 @@
   title={`${post.title} | The Patterns Blog`}
   description={post.description}
   path={`blog/${post.slug}`}
+  keywords={post.keywords}
   ogType="article"
-  article={{ publishedTime: post.date, modifiedTime: post.date, author: 'Aftaab Siddiqui' }}
+  article={{ publishedTime: post.date, modifiedTime: post.updated, author: 'Aftaab Siddiqui' }}
   {jsonLd}
 />
 
@@ -67,20 +83,55 @@
         </div>
         <h1 class="title serif">{post.title}</h1>
         <p class="byline">Written by the person building Patterns.</p>
+        {#if post.tags.length}
+          <ul class="tags">
+            {#each post.tags as tag}
+              <li><a href="/blog/tag/{tag}">{tagLabel(tag)}</a></li>
+            {/each}
+          </ul>
+        {/if}
       </header>
 
       <div class="prose reading">
-        <!-- eslint-disable-next-line svelte/no-at-html-tags -- trusted, in-repo content -->
-        {@html post.content}
+        <Body />
       </div>
+
+      {#if post.faq?.length}
+        <section class="faq" aria-labelledby="faq-heading">
+          <h2 id="faq-heading">Common questions</h2>
+          {#each post.faq as item}
+            <div class="faq-item">
+              <h3>{item.q}</h3>
+              <p>{item.a}</p>
+            </div>
+          {/each}
+        </section>
+      {/if}
 
       <div class="disclaimer-wrap">
         <MedicalDisclaimer />
       </div>
 
-      {#if more.length}
+      <section class="cta" aria-labelledby="cta-heading">
+        <h2 id="cta-heading">Track the loop in a place that stays private</h2>
+        <p>
+          Patterns is a free OCD journal and ERP companion. No account, no cloud sync,
+          nothing leaves your device.
+        </p>
+        <div class="cta-buttons">
+          <StoreLink store="app_store" placement="body" class="store-btn">
+            <Apple size={18} /> App Store
+          </StoreLink>
+          <StoreLink store="play_store" placement="body" class="store-btn">
+            <Play size={18} /> Google Play
+          </StoreLink>
+        </div>
+        <a class="cta-link" href="/#download">All download options</a>
+      </section>
+
+      {#if related.length}
         <nav class="related" aria-label="More posts">
-          {#each more as p}
+          {#each related as p}
             <a href="/blog/{p.slug}" class="related-card">
               <span>{p.title}</span>
               <ArrowRight size={18} />
@@ -135,6 +186,32 @@
     color: var(--text-secondary);
   }
 
+  .tags {
+    list-style: none;
+    margin: 18px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .tags a {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .tags a:hover {
+    border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+    color: var(--accent);
+  }
+
   .prose {
     max-width: 720px;
     margin: 0 auto;
@@ -146,6 +223,13 @@
     margin: 48px 0 16px;
     font-size: 28px;
     line-height: 1.2;
+    color: var(--text);
+  }
+
+  .prose :global(h3) {
+    margin: 32px 0 12px;
+    font-size: 21px;
+    line-height: 1.3;
     color: var(--text);
   }
 
@@ -168,6 +252,21 @@
     text-underline-offset: 3px;
   }
 
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin: 0 0 18px;
+    padding-left: 24px;
+  }
+
+  .prose :global(li) {
+    margin: 0 0 10px;
+    line-height: 1.65;
+  }
+
+  .prose :global(li)::marker {
+    color: var(--accent);
+  }
+
   .prose :global(.lead) {
     font-size: 20px;
     line-height: 1.6;
@@ -184,9 +283,138 @@
     color: var(--text);
   }
 
+  .prose :global(hr) {
+    margin: 40px 0;
+    border: 0;
+    border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  }
+
+  .prose :global(code) {
+    padding: 2px 6px;
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--border) 35%, transparent);
+    font-size: 0.92em;
+  }
+
+  /* Tables are wide; let them scroll rather than break the page. */
+  .prose :global(.table-wrap) {
+    overflow-x: auto;
+    margin: 0 0 24px;
+  }
+
+  .prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+
+  .prose :global(th),
+  .prose :global(td) {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+    vertical-align: top;
+  }
+
+  .prose :global(th) {
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .faq {
+    max-width: 720px;
+    margin: 56px auto 0;
+    padding-top: 8px;
+    border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+  }
+
+  .faq h2 {
+    margin: 32px 0 20px;
+    font-size: 28px;
+    line-height: 1.2;
+    color: var(--text);
+  }
+
+  .faq-item {
+    margin: 0 0 24px;
+  }
+
+  .faq-item h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    line-height: 1.35;
+    color: var(--text);
+  }
+
+  .faq-item p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+  }
+
   .disclaimer-wrap {
     max-width: 720px;
     margin: 48px auto 0;
+  }
+
+  .cta {
+    max-width: 720px;
+    margin: 24px auto 0;
+    padding: 28px;
+    border-radius: 18px;
+    border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+    background: var(--bg);
+    text-align: center;
+  }
+
+  .cta h2 {
+    margin: 0;
+    font-size: 22px;
+    line-height: 1.3;
+    color: var(--text);
+  }
+
+  .cta p {
+    margin: 10px auto 0;
+    max-width: 460px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .cta-buttons {
+    margin: 20px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .cta-buttons :global(.store-btn) {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 20px;
+    border-radius: 12px;
+    background: var(--accent);
+    color: var(--on-accent, #fff);
+    font-size: 15px;
+    font-weight: 600;
+    transition: opacity 0.2s;
+  }
+
+  .cta-buttons :global(.store-btn:hover) {
+    opacity: 0.88;
+  }
+
+  .cta-link {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
   }
 
   .related {
