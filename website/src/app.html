@@ -37,7 +37,10 @@
         dataLayer.push(arguments);
       }
       (function () {
+        var loaded = false;
         var loadAnalytics = function () {
+          if (loaded) return;
+          loaded = true;
           var s = document.createElement('script');
           s.async = true;
           s.src = 'https://www.googletagmanager.com/gtag/js?id=G-CGS962TNLY';
@@ -45,6 +48,10 @@
           gtag('js', new Date());
           gtag('config', 'G-CGS962TNLY');
         };
+        // Ad landing pages call this to pull the load forward: a store tap can
+        // happen before idle, and a same-tab navigation would discard the
+        // queued event along with the page.
+        window.__loadPatternsAnalytics = loadAnalytics;
         if ('requestIdleCallback' in window) {
           requestIdleCallback(loadAnalytics, { timeout: 4000 });
         } else {
@@ -52,6 +59,12 @@
         }
       })();
     </script>
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="The Patterns Blog"
+      href="/rss.xml"
+    />
     %sveltekit.head%
   </head>
   <body data-sveltekit-preload-data="hover">
