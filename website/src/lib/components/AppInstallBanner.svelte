@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { X } from 'lucide-svelte';
-  import { links } from '$lib/data/links';
+  import StoreLink from '$lib/components/StoreLink.svelte';
   import { logEvent } from '$lib/utils/analytics';
   import {
     dismissInstallBanner,
@@ -11,7 +11,7 @@
 
   let visible = $state(false);
 
-  const storeUrl = $derived(isAndroid() ? links.playStore : links.ios);
+  const store = $derived(isAndroid() ? ('play_store' as const) : ('app_store' as const));
   const storeLabel = $derived(isAndroid() ? 'Google Play' : 'App Store');
 
   onMount(() => {
@@ -26,11 +26,8 @@
     };
   });
 
-  function handleInstall() {
-    logEvent('app_install_banner_click', { platform: isAndroid() ? 'android' : 'ios' });
-    window.location.href = storeUrl;
-  }
-
+  // The banner's own view/dismiss events stay; the store click itself is emitted
+  // by <StoreLink> so it is counted the same way as every other placement.
   function handleDismiss() {
     dismissInstallBanner();
     visible = false;
@@ -46,7 +43,7 @@
       <strong>Patterns</strong>
       <span>OCD tracker & journal · {storeLabel}</span>
     </div>
-    <button type="button" class="install-btn" onclick={handleInstall}>Get</button>
+    <StoreLink {store} placement="sticky_banner" class="install-btn">Get</StoreLink>
     <button type="button" class="dismiss-btn" aria-label="Dismiss app install banner" onclick={handleDismiss}>
       <X size={18} />
     </button>
@@ -98,14 +95,22 @@
     text-overflow: ellipsis;
   }
 
-  .install-btn {
+  /* :global because the anchor is rendered by <StoreLink>. */
+  .install-banner :global(.install-btn) {
     flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
     padding: 8px 16px;
     border-radius: 999px;
     font-size: 14px;
     font-weight: 700;
     color: #000;
     background: var(--accent);
+  }
+
+  .install-banner :global(.install-btn:focus-visible) {
+    outline: 3px solid var(--text);
+    outline-offset: 2px;
   }
 
   .dismiss-btn {

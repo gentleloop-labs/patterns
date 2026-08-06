@@ -34,24 +34,11 @@
   <ContentContainer padding="48px 0">
     <div class="footer-grid">
       <div class="brand">
-        <img src="/assets/logo.png" alt="" width="28" height="28" />
-        <span>Patterns</span>
+        <div class="brand-row">
+          <img src="/assets/logo.png" alt="" width="28" height="28" />
+          <span>Patterns</span>
+        </div>
         <p>Clarity for the mind through<br />structured reflection.</p>
-        <a
-          class="ph-badge"
-          href={links.productHuntReview}
-          target="_blank"
-          rel="noopener noreferrer"
-          onclick={() => trackClick('product_hunt_review')}
-        >
-          <img
-            src="https://api.producthunt.com/widgets/embed-image/v1/product_review.svg?product_id=1265014&theme=neutral"
-            alt="Patterns - Track urges, mood & exposure | Product Hunt"
-            width="250"
-            height="54"
-            loading="lazy"
-          />
-        </a>
       </div>
       <div class="link-groups">
         <nav class="links" aria-label="Resources">
@@ -104,7 +91,15 @@
     gap: 10px;
   }
 
-  .brand > span {
+  /* Logo and wordmark share a row; the tagline sits below on the same left
+     edge, so no margin offset is needed to line them up. */
+  .brand-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .brand-row span {
     font-size: 18px;
     font-weight: 700;
   }
@@ -114,20 +109,10 @@
   }
 
   .brand p {
-    margin: 4px 0 0;
+    margin: 0;
     font-size: 14px;
     line-height: 1.5;
     color: var(--text-secondary);
-  }
-
-  .ph-badge {
-    margin-top: 4px;
-    display: inline-flex;
-    line-height: 0;
-  }
-
-  .ph-badge img {
-    border-radius: 0;
   }
 
   .link-groups {
@@ -185,18 +170,7 @@
 
     .brand {
       align-items: flex-start;
-      flex-direction: row;
-      flex-wrap: wrap;
       flex: 1;
-    }
-
-    .brand > span {
-      align-self: center;
-    }
-
-    .brand p {
-      width: 100%;
-      margin-left: 38px;
     }
 
     .link-groups {

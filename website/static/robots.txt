@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Internal analytics QA harness. Not linked from anywhere and marked noindex;
+# disallowed here so it never enters an index even if a URL leaks.
+Disallow: /dev/
+
 Sitemap: https://patternsocd.com/sitemap.xml
