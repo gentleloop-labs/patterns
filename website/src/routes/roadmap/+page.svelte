@@ -23,142 +23,167 @@
     Brain,
     Eraser,
     HeartHandshake,
-    Compass
+    Compass,
+    BookOpen,
+    ChevronRight
   } from 'lucide-svelte';
 
-  const released = [
+  // Shipped in the current release - kept expanded so the newest work reads first.
+  const releasedRecent = [
     {
-      icon: PenLine,
-      title: 'Rich-text daily journaling',
-      body: 'A private, dated journal with bold and italic formatting, plus guided journal flows for the days when a blank page feels heavy.'
+      icon: MonitorSmartphone,
+      title: 'Patterns on Android',
+      body: 'New: Patterns is on the Play Store now. Same app, same tools, and the same promise that nothing you write leaves your device. If you have been waiting on an Android phone, this is it.'
     },
     {
-      icon: ListChecks,
-      title: 'OCD event tracker',
-      body: 'Log obsessions and compulsions as they happen and rate distress on the 0–10 SUDS scale - the same language used in ERP.'
+      icon: Sparkles,
+      title: 'A gentler first few minutes',
+      body: 'New on phones: instead of swiping through a slideshow, the app asks what would help right now and takes you straight there. You can start delaying a compulsion, or writing, within a minute of opening it.'
     },
     {
-      icon: Flame,
-      title: 'ERP toolkit',
-      body: 'Exposure hierarchy, compulsion delay, urge surfing, response prevention, uncertainty training, and behavioral experiments.'
-    },
-    {
-      icon: Brain,
-      title: 'Y-BOCS self-assessment',
-      body: 'The gold-standard OCD severity scale, built into the app so you can check in on where things stand over time.'
-    },
-    {
-      icon: HeartHandshake,
-      title: 'Recovery toolkit',
-      body: 'Coping library, emergency toolkit, action planner, implementation intentions, and structured ERP programs.'
+      icon: CheckCircle2,
+      title: 'A soft landing afterwards',
+      body: 'New on phones: when you finish that first exercise, there is a quiet screen to notice how it went instead of being dropped back at a menu. The app also waits to ask about notifications until it has a reason to.'
     },
     {
       icon: BarChart3,
-      title: 'Analytics & reports',
-      body: 'Charts and insights that turn entries into trends, plus PDF report export to share with a therapist if you choose.'
+      title: 'A home screen that keeps up',
+      body: 'New on phones: your practice shows up the moment you do it. The old "recovery score" is gone, replaced by practice progress, because recovery is not a number you can be graded on.'
+    },
+    {
+      icon: FolderLock,
+      title: 'Counting that stays on your phone',
+      body: 'New everywhere: the app keeps a small private tally of which features get used, so I can tell what is worth building next. Those numbers never leave your device and never reach me.'
+    },
+    {
+      icon: Eraser,
+      title: 'Clearing a day you wrote by mistake',
+      body: 'If an entry went onto the wrong date, open that day, tap the bin, and confirm. The day goes blank again and nothing else is touched.'
+    }
+  ];
+
+  // The foundation, shipped across earlier versions. Collapsed by default so the
+  // Released column does not tower over the other two.
+  const releasedEarlier = [
+    {
+      icon: PenLine,
+      title: 'A private daily journal',
+      body: 'Somewhere to write, one day at a time, with bold and italic when a word needs the weight. On the days a blank page feels like too much, there are prompts to write against instead.'
+    },
+    {
+      icon: ListChecks,
+      title: 'A place to log what OCD did today',
+      body: 'Write down an obsession or a compulsion as it happens, and rate how distressing it was from 0 to 10. It is the same scale therapists use in ERP, so your notes travel well.'
+    },
+    {
+      icon: Flame,
+      title: 'Tools for practising ERP',
+      body: 'Build a fear ladder and climb it a rung at a time. Delay a compulsion, ride out an urge, sit with not knowing, and test what OCD swears will happen.'
+    },
+    {
+      icon: Brain,
+      title: 'A way to check where things stand',
+      body: 'The Y-BOCS, the questionnaire clinicians use to gauge how heavy OCD is right now. Take it whenever you want a read on whether things are shifting.'
+    },
+    {
+      icon: HeartHandshake,
+      title: 'Help for the hard moments',
+      body: 'Coping strategies, a panic-button toolkit, and space to decide in advance what you will do the next time a trigger lands, so you are not deciding while flooded.'
+    },
+    {
+      icon: BarChart3,
+      title: 'Your own patterns, over time',
+      body: 'Charts that turn scattered entries into something you can actually see. You can save it all as a PDF to bring to a therapist, only if you want to.'
     },
     {
       icon: FolderLock,
       title: 'Private by design',
-      body: 'Local-first storage, JSON export/import backup, biometric app lock, and notifications. Your records stay on your device unless you export them.'
+      body: 'Everything stays on your device. No account, no cloud. Lock the app behind your face or fingerprint, and keep your own backup copy whenever you like.'
     },
     {
       icon: Crown,
       title: 'Patterns Pro',
-      body: 'A one-time unlock - no subscription - with QR pairing to carry Pro across your devices.'
+      body: 'Pay once, keep it. No subscription, no renewal. Scan a code to carry it across to your other devices.'
     },
     {
       icon: MonitorSmartphone,
-      title: 'Everywhere you are',
-      body: 'Shipped for iOS, macOS, Windows, and Linux, with the same privacy promise on every platform.'
+      title: 'On your phone and your computer',
+      body: 'Patterns runs on iPhone, Android, Mac, Windows, and Linux, and the promise about your privacy is the same on all of them.'
     }
   ];
 
   const comingSoon = [
     {
-      icon: Sparkles,
-      title: 'Activation-first onboarding',
-      body: 'Two calm intro screens replace the old carousel, then "What would help right now?" routes you straight into a first activity - compulsion delay, guided journal, ERP, or Y-BOCS.'
+      icon: Brain,
+      title: 'Your Y-BOCS scores over time',
+      body: 'The self-check stops being a one-off number. You get a line you can follow across months, and the scores land in the PDF you take to a therapist.'
     },
     {
-      icon: CheckCircle2,
-      title: 'First-run activity flows',
-      body: 'Every starter activity ends with a gentle reflection screen, and the notification-permission ask waits until it actually makes sense.'
+      icon: Compass,
+      title: 'Tracks for your kind of OCD',
+      body: 'Contamination, checking, harm and taboo thoughts, relationship doubt, and just-right. Each one is a few weeks of exposures written for that theme, instead of a blank ladder to fill in yourself.'
     },
     {
-      icon: BarChart3,
-      title: 'Today & Insights upgrades',
-      body: 'A live streak card reflects your practice immediately, and "Practice progress" replaces the old recovery score with non-clinical framing.'
+      icon: HeartHandshake,
+      title: 'Kinder wording when something is missing',
+      body: 'A pass over every screen that can stop you saving, so the message reads like a nudge rather than a telling-off. Nobody needs that from an app about OCD.'
     },
     {
       icon: Crown,
-      title: 'Patterns Desktop Pro',
-      body: 'A native desktop paywall with Lemon Squeezy license activation - $9.99, one time, yours for good.'
+      title: 'What Pro costs from the next update',
+      body: 'Pro on your phone moves to $19.99, paid once. On the desktop app it is $9.99, also once. If you already own Pro, nothing changes and you pay nothing again.'
     },
     {
-      icon: MonitorSmartphone,
-      title: 'Android launch readiness',
-      body: 'Updated Play Billing and target API, plus a server-side backstop that verifies purchases so Pro status stays reliable.'
-    },
-    {
-      icon: FolderLock,
-      title: 'On-device-only telemetry',
-      body: 'Anonymous funnel counters that never leave your device, so the app can improve without watching you.'
+      icon: BarChart3,
+      title: 'The newest changes, on desktop too',
+      body: 'The gentler opening and the reworked home screen landed on phones first. Next they come to the desktop app, so both feel like the same app again.'
     }
   ];
 
   const exploring = [
     {
       icon: Sun,
-      title: 'Light theme',
-      body: 'A full light theme for the app, designed with the same care as the dark one - calm, readable, and easy on tired eyes.'
+      title: 'A light theme',
+      body: 'A proper light mode, made with the same care as the dark one. Calm, easy to read, and kinder on tired eyes.'
     },
     {
       icon: GitBranch,
-      title: 'A much improved flow',
-      body: 'Reworking how the whole app fits together so the next right action is always obvious, from check-in to practice to review.'
+      title: 'A clearer path through the app',
+      body: 'Reworking how it all fits together so the next useful thing is always obvious, and you never open Patterns and wonder where to start.'
     },
     {
-      icon: Compass,
-      title: 'A deeper OCD section',
-      body: 'Taking the existing OCD exercises and materials further - more depth, more structure, and more room to grow the practice beyond everyday journaling.'
-    },
-    {
-      icon: Eraser,
-      title: 'Clear a date\u2019s journal entry',
-      body: 'An explicit reset action (with confirmation) so an entry written on the wrong date can be cleared and the day started fresh.'
-    },
-    {
-      icon: HeartHandshake,
-      title: 'Gentler validation messages',
-      body: 'Auditing every save flow so missing-field messages stay warm and encouraging - never blunt or scolding.'
+      icon: BookOpen,
+      title: 'More to read about OCD itself',
+      body: 'The themed tracks cover the practice. What is still missing is the reading around it: why ERP works the way it does, and what to expect from it, written plainly.'
     },
     {
       icon: Sparkles,
-      title: 'From journal to daily ERP companion',
-      body: 'The long-term direction: active ERP practice over passive tracking. The primary action in Patterns should be doing ERP, not just writing about it.'
+      title: 'From journal to daily companion',
+      body: 'The long-term hope: that the main thing you do in Patterns is practise, not just record. Writing helps, but doing the work is what shifts things.'
     }
   ];
 
   const columns = [
     {
       id: 'released',
-      title: 'Released',
-      caption: 'Through v1.5, live in the app today',
+      title: 'In the app now',
+      caption: 'You can open Patterns and use all of this today',
       icon: CheckCircle2,
-      items: released
+      items: releasedRecent,
+      more: releasedEarlier,
+      moreLabel: 'Everything added before this'
     },
     {
       id: 'coming',
-      title: 'Coming soon',
-      caption: 'Built, shipping in the next release',
+      title: 'Almost ready',
+      caption: 'Finished and being tested, coming in the next update',
       icon: Rocket,
       items: comingSoon
     },
     {
       id: 'exploring',
-      title: 'Exploring',
-      caption: 'Future plans - no dates, no promises',
+      title: 'Thinking about',
+      caption: 'Ideas I would like to build. No dates, no promises',
       icon: Telescope,
       items: exploring
     }
@@ -170,7 +195,7 @@
       '@type': 'WebPage',
       name: 'Patterns roadmap - shipped, coming soon, and what\u2019s next',
       description:
-        'The Patterns product roadmap: everything shipped through version 1.5, the features coming soon in the next release, and what the app is exploring next - light theme, an improved flow, and a deeper OCD section.',
+        'The Patterns roadmap: what the OCD and ERP app can do today, what is almost ready in the next update including Y-BOCS scores over time and ERP tracks for specific OCD themes, and the ideas being considered after that.',
       url: `${links.site}roadmap`,
       isPartOf: { '@type': 'WebSite', name: 'Patterns', url: links.site }
     },
@@ -187,7 +212,7 @@
 
 <Seo
   title="Patterns Roadmap - Shipped, Coming Soon & What's Next"
-  description="The Patterns roadmap: everything shipped through v1.5 (ERP toolkit, journaling, Y-BOCS, recovery tools), what is coming soon in the next release, and what we are exploring next - light theme, improved flow, and a deeper OCD section."
+  description="The Patterns roadmap: what this OCD and ERP app can do today (journaling, ERP tools, Y-BOCS, private tracking), what is almost ready in the next update (Y-BOCS scores over time, ERP tracks for specific OCD themes), and the ideas being considered after that."
   path="roadmap"
   keywords="Patterns roadmap, OCD app roadmap, ERP app updates, Patterns Pro, OCD tracker features, coming soon"
   {jsonLd}
@@ -203,9 +228,10 @@
         <p class="eyebrow">Roadmap</p>
         <h1 class="title serif">Where Patterns has been, and where it is going.</h1>
         <p class="intro">
-          Patterns is built in the open by a person with OCD, for people with OCD. Here is
-          everything that has shipped so far, what is coming in the next release, and what
-          we are exploring after that.
+          I build Patterns on my own, and I have OCD myself. This page is the honest version
+          of where things are: what you can use today, what is nearly ready, and what I am
+          still turning over. If something here matters to you, or is missing, tell me and it
+          will shape what comes next.
         </p>
       </div>
     </AnimatedOnScroll>
@@ -219,7 +245,7 @@
               <div class="column-title-row">
                 <span class="dot" aria-hidden="true"></span>
                 <h2 id="{column.id}-title">{column.title}</h2>
-                <span class="count">{column.items.length}</span>
+                <span class="count">{column.items.length + (column.more?.length ?? 0)}</span>
               </div>
               <p class="column-caption">
                 <ColumnIcon size={13} />
@@ -239,6 +265,30 @@
                   <p>{item.body}</p>
                 </article>
               {/each}
+
+              {#if column.more}
+                <details class="more">
+                  <summary>
+                    <ChevronRight size={15} strokeWidth={2} />
+                    <span>{column.moreLabel}</span>
+                    <span class="more-count">{column.more.length}</span>
+                  </summary>
+                  <div class="cards more-cards">
+                    {#each column.more as item}
+                      {@const Icon = item.icon}
+                      <article class="card">
+                        <div class="card-top">
+                          <div class="icon-wrap">
+                            <Icon size={18} color="var(--accent)" strokeWidth={1.75} />
+                          </div>
+                          <h3>{item.title}</h3>
+                        </div>
+                        <p>{item.body}</p>
+                      </article>
+                    {/each}
+                  </div>
+                </details>
+              {/if}
             </div>
           </section>
         {/each}
@@ -249,8 +299,8 @@
       <section class="cta-banner" aria-labelledby="cta-title">
         <h2 id="cta-title">Try what is already here</h2>
         <p>
-          Everything in the Released column is free to start with today - no account, no
-          cloud, no ads. Download Patterns and see how far the toolkit has already come.
+          Everything in the first column is free to start with today. No account, no cloud,
+          no ads. You can be writing or delaying an urge a minute after you open it.
         </p>
         <div class="actions">
           <a href="/#download" class="link-pill">Download Patterns <ArrowRight size={16} /></a>
@@ -396,13 +446,24 @@
     background: color-mix(in srgb, #60a5fa 12%, transparent);
   }
 
+  /* The icon sits in the same 19px gutter the dot occupies above it (13px icon
+     + 6px gap matches 10px dot + 9px gap), so the caption text lines up with the
+     column title rather than being indented past it. */
   .column-caption {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 6px;
-    margin: 8px 0 0 19px;
+    margin: 8px 0 0;
     font-size: 12.5px;
+    line-height: 1.5;
     color: var(--text-secondary);
+  }
+
+  /* Hold the icon on the first line when the caption wraps, instead of letting
+     it centre itself against the whole block. */
+  .column-caption :global(svg) {
+    flex-shrink: 0;
+    margin-top: 3px;
   }
 
   .cards {
@@ -419,6 +480,65 @@
     background: var(--bg);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
     transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+
+  /* Collapsed group of older shipped work, so the Released column stays in
+     proportion with the other two. */
+  .more summary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 12px;
+    border-radius: 10px;
+    border: 1px dashed color-mix(in srgb, var(--border) 70%, transparent);
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    transition: border-color 0.25s, color 0.25s;
+  }
+
+  .more summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .more summary:hover {
+    border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+    color: var(--text);
+  }
+
+  .more summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .more summary :global(svg) {
+    flex-shrink: 0;
+    transition: transform 0.25s;
+  }
+
+  .more[open] summary :global(svg) {
+    transform: rotate(90deg);
+  }
+
+  .more-count {
+    margin-left: auto;
+    padding: 1px 7px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--border) 45%, transparent);
+    font-size: 11.5px;
+    font-weight: 700;
+  }
+
+  .more-cards {
+    padding: 10px 0 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .more summary :global(svg) {
+      transition: none;
+    }
   }
 
   .card:hover {

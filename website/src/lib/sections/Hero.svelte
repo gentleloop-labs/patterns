@@ -2,8 +2,9 @@
   import ContentContainer from '$lib/components/ContentContainer.svelte';
   import PrimaryButton from '$lib/components/PrimaryButton.svelte';
   import SecondaryButton from '$lib/components/SecondaryButton.svelte';
+  import StoreLink from '$lib/components/StoreLink.svelte';
   import { links } from '$lib/data/links';
-  import { logDownload, logEvent, logGitHubClick } from '$lib/utils/analytics';
+  import { logEvent, logGitHubClick } from '$lib/utils/analytics';
   import { Download, Github } from 'lucide-svelte';
 
   let { onDownload }: { onDownload: () => void } = $props();
@@ -17,11 +18,6 @@
     mq.addEventListener('change', update);
     return () => mq.removeEventListener('change', update);
   });
-
-  function handleStoreDownload(url: string, platform: string) {
-    logDownload(platform, 'hero');
-    window.open(url, '_blank', 'noopener');
-  }
 
   function handleDownload() {
     logEvent('hero_download_click');
@@ -86,22 +82,18 @@
           fetchpriority="high"
           decoding="async"
         />
-        <a
+        <StoreLink
+          store="app_store"
+          placement="hero"
+          newTab
           class="store-link app-store-link"
-          href={links.ios}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Download Patterns on the App Store"
-          onclick={() => handleStoreDownload(links.ios, 'iOS')}
-        ></a>
-        <a
+        />
+        <StoreLink
+          store="play_store"
+          placement="hero"
+          newTab
           class="store-link play-store-link"
-          href={links.playStore}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Get Patterns on Google Play"
-          onclick={() => handleStoreDownload(links.playStore, 'Android')}
-        ></a>
+        />
         <figcaption class="sr-only">
           Patterns app CTA with App Store and Google Play download badges
         </figcaption>
@@ -192,25 +184,27 @@
     display: block;
   }
 
-  .store-link {
+  /* :global because the anchors are rendered by <StoreLink>, which owns the
+     single click handler for every store destination on the site. */
+  .app-preview :global(.store-link) {
     position: absolute;
     display: block;
     border-radius: 12px;
   }
 
-  .store-link:focus-visible {
+  .app-preview :global(.store-link:focus-visible) {
     outline: 3px solid var(--accent);
     outline-offset: 3px;
   }
 
-  .app-store-link {
+  .app-preview :global(.app-store-link) {
     left: 5.9%;
     top: 82.15%;
     width: 15.4%;
     height: 6.35%;
   }
 
-  .play-store-link {
+  .app-preview :global(.play-store-link) {
     left: 22.7%;
     top: 82.15%;
     width: 14.35%;
@@ -237,6 +231,16 @@
     .app-preview {
       max-width: 980px;
       border-radius: 24px;
+    }
+  }
+
+  /* The overlay hotspots scale with the image, so below this width they fall
+     under the 44px minimum touch target and the sticky install banner covers
+     them. Hide them rather than ship an unusable tap target: mobile visitors
+     reach the stores through the install banner and the Download section. */
+  @media (max-width: 767px) {
+    .app-preview :global(.store-link) {
+      display: none;
     }
   }
 

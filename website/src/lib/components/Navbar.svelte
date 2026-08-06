@@ -2,12 +2,8 @@
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
   import { theme } from '$lib/stores/theme';
-  import { githubStats, links } from '$lib/data/links';
-  import { logEvent } from '$lib/utils/analytics';
   import ContentContainer from './ContentContainer.svelte';
-  import BrandIcon from './BrandIcon.svelte';
-  import { Download, Menu, X, Sun, Moon, Star, ChevronDown } from 'lucide-svelte';
-  import { siProducthunt } from 'simple-icons';
+  import { Download, Menu, X, Sun, Moon, ChevronDown } from 'lucide-svelte';
 
   let {
     onNavigate
@@ -17,9 +13,6 @@
 
   let mobileMenuOpen = $state(false);
   let scrolled = $state(false);
-  let starCount: number = $state(githubStats.stars);
-  const starFormatter = new Intl.NumberFormat('en-US');
-  const starCountLabel = $derived(starFormatter.format(starCount));
 
   const learnLinks = [
     { label: 'Understanding OCD', href: '/ocd' },
@@ -33,10 +26,6 @@
     mobileMenuOpen = false;
   }
 
-  function trackProductHunt() {
-    logEvent('product_hunt_review_click', { source: 'navbar' });
-  }
-
   $effect(() => {
     const onScroll = () => {
       scrolled = window.scrollY > 8;
@@ -44,25 +33,6 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
-  });
-
-  $effect(() => {
-    let cancelled = false;
-
-    fetch(links.githubApi, { headers: { Accept: 'application/vnd.github+json' } })
-      .then((response) => (response.ok ? response.json() : null))
-      .then((repo: { stargazers_count?: number } | null) => {
-        if (!cancelled && typeof repo?.stargazers_count === 'number') {
-          starCount = repo.stargazers_count;
-        }
-      })
-      .catch(() => {
-        starCount = githubStats.stars;
-      });
-
-    return () => {
-      cancelled = true;
-    };
   });
 
   function scrollToSection(section: string) {
@@ -134,23 +104,6 @@
             <Moon size={20} />
           {/if}
         </button>
-        <a
-          class="ph-btn"
-          href={links.productHuntReview}
-          target="_blank"
-          rel="noopener noreferrer"
-          onclick={trackProductHunt}
-        >
-          <BrandIcon icon={siProducthunt} size={16} color="currentColor" />
-          <span>Review</span>
-        </a>
-        <a class="github-btn" href={links.github} target="_blank" rel="noopener noreferrer">
-          <Star size={16} />
-          <span>Star on GitHub</span>
-          <span class="star-count" aria-label={`${starCountLabel} GitHub stars`}>
-            {starCountLabel}
-          </span>
-        </a>
         <button type="button" class="download-btn" onclick={() => scrollToSection('download')}>
           <Download size={16} color="#000" />
           <span>Download</span>
@@ -216,26 +169,6 @@
           <Download size={16} color="#000" />
           <span>Download</span>
         </button>
-        <a class="github-btn mobile-github" href={links.github} target="_blank" rel="noopener noreferrer">
-          <Star size={16} />
-          <span>Star on GitHub</span>
-          <span class="star-count" aria-label={`${starCountLabel} GitHub stars`}>
-            {starCountLabel}
-          </span>
-        </a>
-        <a
-          class="ph-btn mobile-ph"
-          href={links.productHuntReview}
-          target="_blank"
-          rel="noopener noreferrer"
-          onclick={() => {
-            trackProductHunt();
-            closeMobile();
-          }}
-        >
-          <BrandIcon icon={siProducthunt} size={16} color="currentColor" />
-          <span>Review on Product Hunt</span>
-        </a>
       </div>
     </div>
   {/if}
@@ -381,62 +314,6 @@
     padding: 4px;
   }
 
-  .github-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 9px 14px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1;
-    color: color-mix(in srgb, var(--text) 82%, transparent);
-    background: var(--surface-alt);
-    border: 1px solid var(--border);
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
-  }
-
-  .github-btn:hover {
-    color: var(--text);
-    background: color-mix(in srgb, var(--surface-alt) 90%, var(--accent) 10%);
-    border-color: color-mix(in srgb, var(--border) 70%, var(--accent) 30%);
-  }
-
-  .ph-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 9px 14px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1;
-    color: color-mix(in srgb, var(--text) 82%, transparent);
-    background: var(--surface-alt);
-    border: 1px solid var(--border);
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
-  }
-
-  .ph-btn:hover {
-    color: var(--accent);
-    background: color-mix(in srgb, var(--surface-alt) 90%, var(--accent) 10%);
-    border-color: color-mix(in srgb, var(--border) 70%, var(--accent) 30%);
-  }
-
-  .star-count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 22px;
-    height: 20px;
-    padding: 0 6px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--accent);
-    background: color-mix(in srgb, var(--accent) 12%, transparent);
-  }
-
   .mobile-controls {
     display: flex;
     align-items: center;
@@ -545,22 +422,9 @@
     border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
   }
 
-  .mobile-download,
-  .mobile-github,
-  .mobile-ph {
+  .mobile-download {
     width: 100%;
     justify-content: center;
-  }
-
-  .mobile-github {
-    margin-top: 0;
-  }
-
-  .mobile-ph {
-    margin-top: 0;
-  }
-
-  .mobile-download {
     margin-top: 0;
   }
 

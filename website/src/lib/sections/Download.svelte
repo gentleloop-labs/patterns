@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import ContentContainer from '$lib/components/ContentContainer.svelte';
   import AnimatedOnScroll from '$lib/components/AnimatedOnScroll.svelte';
+  import StoreLink from '$lib/components/StoreLink.svelte';
   import { links } from '$lib/data/links';
   import { fetchLatestRelease } from '$lib/utils/github-releases';
   import { logDownload, logGitHubClick } from '$lib/utils/analytics';
@@ -69,20 +70,20 @@
             on your device - no accounts, no uploads.
           </p>
           <div class="store-badges">
-            <a class="store-badge" href={links.ios} target="_blank" rel="noopener noreferrer" onclick={() => open(links.ios, 'iOS')}>
+            <StoreLink store="app_store" placement="body" newTab class="store-badge">
               <BrandIcon icon={siAppstore} size={24} color="#fff" />
               <span>
                 <small>Download on the</small>
                 <strong>App Store</strong>
               </span>
-            </a>
-            <a class="store-badge" href={links.playStore} target="_blank" rel="noopener noreferrer" onclick={() => open(links.playStore, 'Android')}>
+            </StoreLink>
+            <StoreLink store="play_store" placement="body" newTab class="store-badge">
               <BrandIcon icon={siGoogleplay} size={24} color="#fff" />
               <span>
                 <small>Get it on</small>
                 <strong>Google Play</strong>
               </span>
-            </a>
+            </StoreLink>
           </div>
           <p class="requirements">Requires iOS 14 or later · Android 8 or later</p>
         </div>
@@ -278,7 +279,8 @@
     justify-content: center;
   }
 
-  .store-badge {
+  /* :global because the badge anchors are rendered by <StoreLink>. */
+  .store-badges :global(.store-badge) {
     display: inline-flex;
     align-items: center;
     gap: 12px;
@@ -290,23 +292,28 @@
     transition: border-color 0.2s;
   }
 
-  .store-badge:hover {
+  .store-badges :global(.store-badge:hover) {
     border-color: color-mix(in srgb, #fff 50%, transparent);
   }
 
-  .store-badge span {
+  .store-badges :global(.store-badge:focus-visible) {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .store-badges :global(.store-badge span) {
     display: flex;
     flex-direction: column;
     text-align: left;
   }
 
-  .store-badge small {
+  .store-badges :global(.store-badge small) {
     font-size: 10px;
     opacity: 0.8;
     line-height: 1;
   }
 
-  .store-badge strong {
+  .store-badges :global(.store-badge strong) {
     font-size: 17px;
     font-weight: 700;
     line-height: 1.2;
