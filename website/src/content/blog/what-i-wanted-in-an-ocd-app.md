@@ -7,7 +7,7 @@ readingMinutes: 3
 excerpt: Before I built Patterns, I kept downloading apps and deleting them. This is what I was actually looking for in an OCD app, and why it was so hard to find.
 tags: [ocd-apps, patterns, personal, erp]
 keywords: 'best OCD app, OCD tracker app, ERP app, private OCD journal app'
-related: [is-patterns-a-cbt-app, why-patterns-stays-private]
+related: [between-therapy-sessions, is-patterns-a-cbt-app, why-patterns-stays-private]
 ---
 
 <p class="lead">
@@ -57,4 +57,9 @@ related: [is-patterns-a-cbt-app, why-patterns-stays-private]
   <a href="/">Patterns</a> is: a private OCD app built around
   <a href="/erp">ERP</a>, with no account and no cloud. I am not a therapist and it is
   not a replacement for one - but it is the OCD app I kept looking for and never found.
+</p>
+<p>
+  If you want the longer story behind that list, I wrote about
+  <a href="/blog/between-therapy-sessions">the recovery that happens between therapy
+  sessions</a> and how those moments turned into features.
 </p>

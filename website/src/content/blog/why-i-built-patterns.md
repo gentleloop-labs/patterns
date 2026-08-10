@@ -7,7 +7,7 @@ readingMinutes: 4
 excerpt: I have OCD. I built Patterns because I kept looking for the tool I needed and never finding it. This is the honest version of why.
 tags: [personal, patterns, erp]
 keywords: 'why I built an OCD app, OCD tracker, private OCD journal, ERP app'
-related: [what-i-wanted-in-an-ocd-app, why-patterns-stays-private]
+related: [between-therapy-sessions, what-i-wanted-in-an-ocd-app, why-patterns-stays-private]
 ---
 
 <p class="lead">
@@ -51,6 +51,13 @@ related: [what-i-wanted-in-an-ocd-app, why-patterns-stays-private]
   stays on your device. No account, no cloud, no one on the other end. I made that
   choice for myself first, because I could not be honest in a journal I did not
   trust.
+</p>
+
+<p>
+  I have written a much longer version of this story - the therapy, the ERP, and the
+  ordinary hours between sessions where most of the work actually happened - in
+  <a href="/blog/between-therapy-sessions">the recovery that happens between therapy
+  sessions</a>.
 </p>
 
 <h2>Built around the therapy that worked</h2>
