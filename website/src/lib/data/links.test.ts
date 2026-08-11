@@ -39,3 +39,13 @@ describe('store links', () => {
     expect(new URL(links.macos).searchParams.get('mt')).toBe('12');
   });
 });
+
+describe('canonical site host', () => {
+  it('uses the apex domain with https and a trailing slash', () => {
+    const url = new URL(links.site);
+    expect(url.protocol).toBe('https:');
+    expect(url.hostname).toBe('patternsocd.com');
+    expect(url.hostname.startsWith('www.')).toBe(false);
+    expect(links.site.endsWith('/')).toBe(true);
+  });
+});

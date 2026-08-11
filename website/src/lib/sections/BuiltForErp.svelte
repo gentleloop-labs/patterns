@@ -57,6 +57,9 @@
     <AnimatedOnScroll delay={150}>
       <div class="cta-row">
         <a href="/erp" class="link-pill">Learn how ERP works in Patterns <ArrowRight size={16} /></a>
+        <a href="/blog/what-is-erp-exposure-response-prevention" class="link-pill ghost"
+          >What is ERP? <ArrowRight size={16} /></a
+        >
       </div>
     </AnimatedOnScroll>
   </ContentContainer>
@@ -144,7 +147,9 @@
 
   .cta-row {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
+    gap: 14px;
     margin-top: 40px;
   }
 
@@ -158,11 +163,23 @@
     font-weight: 600;
     color: #000;
     background: var(--accent);
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, background 0.2s, color 0.2s;
   }
 
   .link-pill:hover {
     opacity: 0.9;
+  }
+
+  .link-pill.ghost {
+    color: var(--text);
+    background: transparent;
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  }
+
+  .link-pill.ghost:hover {
+    border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+    color: var(--accent);
+    opacity: 1;
   }
 
   @media (min-width: 600px) {

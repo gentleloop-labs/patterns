@@ -1,6 +1,10 @@
 # Patterns Website
 
-Marketing site for [Patterns](https://patterns.maskedsyntax.com/), built with SvelteKit and deployed to GitHub Pages.
+Marketing site for [Patterns](https://patternsocd.com/), built with SvelteKit.
+
+**Preferred host is the apex domain:** `https://patternsocd.com/` (no `www`).
+Canonicals, Open Graph URLs, the sitemap, and `robots.txt` all use apex. DNS
+should 308 `www.patternsocd.com` → `patternsocd.com`, not the other way around.
 
 ## Development
 
@@ -23,4 +27,10 @@ Static output is written to `build/`.
 
 ## Deploy
 
-Pushes to `master` that change `website/**` trigger the GitHub Actions workflow at `.github/workflows/deploy-website.yml`.
+Production deploys via Vercel. Pushes that change `website/**` should rebuild
+the site. After domain changes, confirm:
+
+```bash
+curl -sI https://patternsocd.com/          # 200
+curl -sI https://www.patternsocd.com/      # 308 → https://patternsocd.com/
+```

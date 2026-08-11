@@ -16,11 +16,6 @@
   const bareRoutes = ['/get'];
   const bare = $derived(bareRoutes.includes($page.url.pathname.replace(/\/$/, '') || '/'));
 
-  // Internal tooling under /dev sets its own noindex tag. Emitting the global
-  // index directive here too would leave the page with two conflicting robots
-  // metas, and crawlers may honour either one.
-  const internal = $derived($page.url.pathname.startsWith('/dev'));
-
   // Campaign params are captured on every entry, not just /get, and the first
   // valid one wins for the session — so a visitor who lands on an ad URL and
   // then browses to /erp still has their store click credited to the ad.
@@ -47,20 +42,14 @@
 </script>
 
 <svelte:head>
-  <!-- Global, always-on tags. Per-page title/description/canonical/OG/JSON-LD
-       are set by the <Seo> component in each route. -->
+  <!-- Global chrome only. Title/description/canonical/OG/robots/JSON-LD come
+       from <Seo> on each public route. /dev pages set their own noindex. -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="author" content="MaskedSyntax" />
-  {#if !internal}
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
-    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1" />
-  {/if}
   <meta name="application-name" content="Patterns" />
   <meta name="theme-color" content="#0A0A0A" />
   <meta name="color-scheme" content="dark light" />
-  <meta property="og:site_name" content="Patterns" />
-  <meta property="og:locale" content="en_US" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
