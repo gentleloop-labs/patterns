@@ -14,6 +14,12 @@ type Entry = {
 };
 
 /**
+ * Bump when any static marketing route below changes in a crawl-meaningful way
+ * (copy, structure, or primary media). Blog lastmod comes from post frontmatter.
+ */
+const STATIC_LASTMOD = '2026-08-11';
+
+/**
  * Hand-maintained entries for the static marketing routes. Blog URLs are
  * derived from the post files below, so publishing a post never needs an edit
  * here - that is the whole reason this file replaced static/sitemap.xml.
@@ -21,7 +27,7 @@ type Entry = {
 const staticEntries: Entry[] = [
   {
     path: '',
-    lastmod: '2026-08-06',
+    lastmod: STATIC_LASTMOD,
     changefreq: 'weekly',
     priority: '1.0',
     images: [
@@ -39,18 +45,18 @@ const staticEntries: Entry[] = [
       }
     ]
   },
-  { path: 'get', lastmod: '2026-07-11', changefreq: 'monthly', priority: '0.9' },
-  { path: 'ocd', lastmod: '2026-07-21', changefreq: 'monthly', priority: '0.8' },
-  { path: 'erp', lastmod: '2026-07-21', changefreq: 'monthly', priority: '0.8' },
-  { path: 'cbt', lastmod: '2026-07-21', changefreq: 'monthly', priority: '0.8' },
-  { path: 'toolkit', lastmod: '2026-07-11', changefreq: 'monthly', priority: '0.8' },
-  { path: 'roadmap', lastmod: '2026-08-06', changefreq: 'monthly', priority: '0.7' },
-  { path: 'faq', lastmod: '2026-08-06', changefreq: 'monthly', priority: '0.7' },
-  { path: 'privacy', lastmod: '2026-07-04', changefreq: 'monthly', priority: '0.5' }
+  { path: 'get', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.9' },
+  { path: 'ocd', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.8' },
+  { path: 'erp', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.8' },
+  { path: 'cbt', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.8' },
+  { path: 'toolkit', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.8' },
+  { path: 'roadmap', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.7' },
+  { path: 'faq', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.7' },
+  { path: 'privacy', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.5' }
 ];
 
 /** The blog index moves whenever a post lands, so it tracks the newest post. */
-const newestPostDate = postsByDate[0]?.updated ?? '2026-07-11';
+const newestPostDate = postsByDate[0]?.updated ?? STATIC_LASTMOD;
 
 function escapeXml(value: string): string {
   return value

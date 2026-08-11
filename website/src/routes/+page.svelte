@@ -80,7 +80,7 @@
       '@type': 'Organization',
       name: 'MaskedSyntax',
       url: links.maskedsyntax,
-      logo: `${links.site}assets/logo.png`,
+      logo: site.logoUrl,
       sameAs: ['https://github.com/maskedsyntax']
     },
     {

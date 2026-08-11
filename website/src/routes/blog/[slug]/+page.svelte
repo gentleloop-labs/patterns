@@ -6,7 +6,10 @@
   import StoreLink from '$lib/components/StoreLink.svelte';
   import { tagLabel } from '$lib/data/blog';
   import { links } from '$lib/data/links';
-  import { ArrowRight, ArrowLeft, Apple, Play } from 'lucide-svelte';
+  import { site } from '$lib/data/site';
+  import { ArrowRight, ArrowLeft } from 'lucide-svelte';
+  import BrandIcon from '$lib/components/BrandIcon.svelte';
+  import { siAppstore, siGoogleplay } from 'simple-icons';
   import type { PageData } from './$types';
 
   let { data }: { data: PageData } = $props();
@@ -29,9 +32,20 @@
       datePublished: post.date,
       dateModified: post.updated,
       url: `${links.site}blog/${post.slug}`,
+      image: [site.ogImage],
       keywords: post.tags.join(', '),
       author: { '@type': 'Person', name: 'Aftaab Siddiqui', url: links.maskedsyntax },
-      publisher: { '@type': 'Organization', name: 'MaskedSyntax', url: links.maskedsyntax },
+      publisher: {
+        '@type': 'Organization',
+        name: 'MaskedSyntax',
+        url: links.maskedsyntax,
+        logo: {
+          '@type': 'ImageObject',
+          url: site.logoUrl,
+          width: site.logoWidth,
+          height: site.logoHeight
+        }
+      },
       mainEntityOfPage: { '@type': 'WebPage', '@id': `${links.site}blog/${post.slug}` },
       isPartOf: { '@type': 'Blog', name: 'The Patterns Blog', url: `${links.site}blog` }
     },
@@ -120,10 +134,10 @@
         </p>
         <div class="cta-buttons">
           <StoreLink store="app_store" placement="body" class="store-btn">
-            <Apple size={18} /> App Store
+            <BrandIcon icon={siAppstore} size={18} color="#000" /> App Store
           </StoreLink>
           <StoreLink store="play_store" placement="body" class="store-btn">
-            <Play size={18} /> Google Play
+            <BrandIcon icon={siGoogleplay} size={18} color="#000" /> Google Play
           </StoreLink>
         </div>
         <a class="cta-link" href="/#download">All download options</a>
@@ -399,7 +413,7 @@
     padding: 11px 20px;
     border-radius: 12px;
     background: var(--accent);
-    color: var(--on-accent, #fff);
+    color: #000;
     font-size: 15px;
     font-weight: 600;
     transition: opacity 0.2s;

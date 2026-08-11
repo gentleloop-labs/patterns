@@ -9,9 +9,10 @@
   title="The urge will pass - even if you don't act on it."
   intro="Exposure and Response Prevention (ERP) is the most evidence-based therapy for OCD. It works by teaching your brain, through experience rather than reassurance, that anxiety fades on its own. Patterns is built to support that work between sessions."
   related={[
-    { label: 'CBT for OCD, and how ERP fits', href: '/cbt' },
-    { label: 'Understanding the OCD cycle', href: '/ocd' },
-    { label: 'Frequently asked questions', href: '/faq' }
+    { label: 'What is ERP? Plain-English guide', href: '/blog/what-is-erp-exposure-response-prevention' },
+    { label: 'How to build an exposure hierarchy', href: '/blog/how-to-build-an-exposure-hierarchy' },
+    { label: 'The compulsion delay technique', href: '/blog/compulsion-delay-technique' },
+    { label: 'Understanding the OCD cycle', href: '/ocd' }
   ]}
 >
   <p class="lead">

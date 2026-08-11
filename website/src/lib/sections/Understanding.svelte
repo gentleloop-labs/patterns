@@ -47,6 +47,7 @@
       <div class="cta-row">
         <a href="/ocd" class="link-pill">Understand the OCD cycle <ArrowRight size={16} /></a>
         <a href="/erp" class="link-pill ghost">How ERP helps <ArrowRight size={16} /></a>
+        <a href="/blog" class="link-pill ghost">From the blog <ArrowRight size={16} /></a>
       </div>
     </AnimatedOnScroll>
   </ContentContainer>

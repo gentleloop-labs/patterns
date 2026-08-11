@@ -10,8 +10,9 @@
   intro="Cognitive behavioral therapy (CBT) is a family of practical, evidence-based therapies. For OCD specifically, the CBT approach with the strongest evidence is ERP - exposure and response prevention. Patterns is a CBT and ERP app built around that work."
   related={[
     { label: 'How ERP works in Patterns', href: '/erp' },
-    { label: 'Understanding the OCD cycle', href: '/ocd' },
-    { label: 'Frequently asked questions', href: '/faq' }
+    { label: 'ERP vs CBT for OCD', href: '/blog/erp-vs-cbt-for-ocd' },
+    { label: 'Is Patterns a CBT app?', href: '/blog/is-patterns-a-cbt-app' },
+    { label: 'Understanding the OCD cycle', href: '/ocd' }
   ]}
 >
   <p class="lead">
