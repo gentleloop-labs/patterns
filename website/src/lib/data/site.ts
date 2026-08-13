@@ -18,6 +18,6 @@ export const site = {
   logoUrl: `${links.site}assets/logo.png`,
   logoWidth: 512,
   logoHeight: 512,
-  author: { name: 'MaskedSyntax', url: 'https://github.com/maskedsyntax' },
+  author: { name: 'Aftaab Siddiqui', url: links.author },
   publisher: { name: 'MaskedSyntax', url: links.maskedsyntax }
 } as const;

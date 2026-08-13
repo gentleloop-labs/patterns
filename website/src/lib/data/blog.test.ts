@@ -1,7 +1,17 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { allTags, getPost, posts, postsByDate, relatedPosts, tagLabel } from './blog';
+import {
+  allTags,
+  authoredPosts,
+  blogCategories,
+  getBlogCategory,
+  getPost,
+  posts,
+  postsByDate,
+  relatedPosts,
+  tagLabel
+} from './blog';
 
 /**
  * Quality gate for the blog. The plan is to publish several posts a day for a
@@ -26,8 +36,16 @@ const bodies = new Map<string, string>(
 
 describe('blog posts', () => {
   it('loads every markdown file in src/content/blog', () => {
-    expect(posts.length).toBe(bodies.size);
-    expect(posts.length).toBeGreaterThan(0);
+    expect(authoredPosts.length).toBe(bodies.size);
+    expect(authoredPosts.length).toBeGreaterThan(0);
+  });
+
+  it('keeps drafts out of every public blog collection', () => {
+    expect(posts.every((post) => !post.draft)).toBe(true);
+    for (const draft of authoredPosts.filter((post) => post.draft)) {
+      expect(getPost(draft.slug), draft.slug).toBeUndefined();
+      expect(postsByDate.map((post) => post.slug)).not.toContain(draft.slug);
+    }
   });
 
   it('has unique slugs', () => {
@@ -88,6 +106,14 @@ describe('blog posts', () => {
         expect(tag, `${post.slug} tag "${tag}"`).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/);
       }
     }
+  });
+
+  it('assigns every public post to a known reader-facing category', () => {
+    for (const post of posts) {
+      expect(getBlogCategory(post.category), post.slug).toBeDefined();
+      expect(['evidence-guide', 'personal-essay'], post.slug).toContain(post.contentType);
+    }
+    expect(blogCategories.map((category) => category.slug)).toHaveLength(5);
   });
 
   it('resolves every manually listed related slug', () => {

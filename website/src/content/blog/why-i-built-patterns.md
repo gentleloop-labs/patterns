@@ -5,6 +5,8 @@ date: '2026-07-11'
 updated: '2026-07-11'
 readingMinutes: 4
 excerpt: I have OCD. I built Patterns because I kept looking for the tool I needed and never finding it. This is the honest version of why.
+category: personal-stories
+contentType: personal-essay
 tags: [personal, patterns, erp]
 keywords: 'why I built an OCD app, OCD tracker, private OCD journal, ERP app'
 related: [between-therapy-sessions, what-i-wanted-in-an-ocd-app, why-patterns-stays-private]

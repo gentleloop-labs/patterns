@@ -5,6 +5,8 @@ date: '2026-07-21'
 updated: '2026-07-21'
 readingMinutes: 3
 excerpt: Before I built Patterns, I kept downloading apps and deleting them. This is what I was actually looking for in an OCD app, and why it was so hard to find.
+category: personal-stories
+contentType: personal-essay
 tags: [ocd-apps, patterns, personal, erp]
 keywords: 'best OCD app, OCD tracker app, ERP app, private OCD journal app'
 related: [between-therapy-sessions, is-patterns-a-cbt-app, why-patterns-stays-private]

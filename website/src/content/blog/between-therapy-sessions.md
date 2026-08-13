@@ -5,6 +5,8 @@ date: '2026-08-10'
 updated: '2026-08-10'
 readingMinutes: 9
 excerpt: My psychologist gave me the concepts and the homework. The difficult part was the Tuesday afternoon two days later, alone with an urge to check. Patterns came out of those hours, not out of a product plan.
+category: living-with-ocd
+contentType: personal-essay
 tags: [personal, patterns, erp]
 keywords: 'OCD recovery, ERP between sessions, exposure and response prevention, OCD app, compulsion delay, intrusive thoughts'
 related: [why-i-built-patterns, what-i-wanted-in-an-ocd-app, compulsion-delay-technique]

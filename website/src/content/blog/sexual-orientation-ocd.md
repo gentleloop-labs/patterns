@@ -5,6 +5,8 @@ date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 7
 excerpt: This theme is about intolerance of uncertainty, not about sexuality. It happens to straight people, gay people, and bisexual people alike, and the mechanism is identical each time.
+category: ocd-themes
+contentType: evidence-guide
 tags: [subtypes, intrusive-thoughts, compulsions, erp]
 keywords: 'sexual orientation OCD, SO-OCD, HOCD, sexuality doubt OCD, groinal response OCD'
 faq:

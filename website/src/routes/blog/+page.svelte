@@ -3,7 +3,8 @@
   import ContentContainer from '$lib/components/ContentContainer.svelte';
   import AnimatedOnScroll from '$lib/components/AnimatedOnScroll.svelte';
   import BlogList from '$lib/components/BlogList.svelte';
-  import { allTags, postsByDate, postsForPage, tagLabel, totalPages } from '$lib/data/blog';
+  import { blogCategories, postsByDate, postsForPage, totalPages } from '$lib/data/blog';
+  import Footer from '$lib/sections/Footer.svelte';
   import { links } from '$lib/data/links';
   import { PenLine, ArrowRight } from 'lucide-svelte';
 
@@ -59,15 +60,22 @@
           personal essays from the person building Patterns. Nothing here is medical
           advice - it is what the evidence says, and what it is like to live it.
         </p>
-        {#if allTags.length}
-          <ul class="topics">
-            {#each allTags as { tag }}
-              <li><a href="/blog/tag/{tag}">{tagLabel(tag)}</a></li>
-            {/each}
-          </ul>
-        {/if}
       </div>
     </AnimatedOnScroll>
+
+    <nav class="categories" aria-label="Browse the OCD information library">
+      {#each blogCategories as category}
+        <a href="/learn/{category.slug}">
+          <strong>{category.label}</strong>
+          <span>{category.description}</span>
+        </a>
+      {/each}
+    </nav>
+
+    <div class="latest-head">
+      <h2 class="serif">Latest articles</h2>
+      <a href="/learn">Explore the full library <ArrowRight size={16} /></a>
+    </div>
 
     <BlogList posts={pagePosts} />
 
@@ -81,6 +89,8 @@
     <div class="back-wrap"><a href="/">← Back to Home</a></div>
   </ContentContainer>
 </article>
+
+<Footer />
 
 <style>
   .blog {
@@ -127,30 +137,65 @@
     color: var(--text-secondary);
   }
 
-  .topics {
-    list-style: none;
-    margin: 26px 0 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
+  .categories {
+    max-width: 980px;
+    margin: 0 auto 56px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
   }
 
-  .topics a {
-    display: inline-block;
-    padding: 6px 14px;
-    border-radius: 999px;
-    border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
-    font-size: 13px;
-    font-weight: 600;
+  .categories a {
+    padding: 22px;
+    border-radius: 16px;
+    border: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+    background: var(--bg);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .categories a:hover {
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    transform: translateY(-2px);
+  }
+
+  .categories strong,
+  .categories span {
+    display: block;
+  }
+
+  .categories strong {
+    color: var(--text);
+    font-size: 17px;
+  }
+
+  .categories span {
+    margin-top: 8px;
     color: var(--text-secondary);
-    transition: border-color 0.2s, color 0.2s;
+    font-size: 14px;
+    line-height: 1.5;
   }
 
-  .topics a:hover {
-    border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+  .latest-head {
+    max-width: 760px;
+    margin: 0 auto 22px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .latest-head h2 {
+    margin: 0;
+    font-size: 30px;
+  }
+
+  .latest-head a {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     color: var(--accent);
+    font-size: 14px;
+    font-weight: 600;
   }
 
   .pager {
@@ -189,6 +234,11 @@
 
     .intro {
       font-size: 16px;
+    }
+
+    .latest-head {
+      align-items: flex-start;
+      flex-direction: column;
     }
   }
 </style>

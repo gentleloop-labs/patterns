@@ -5,6 +5,8 @@ date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 7
 excerpt: When OCD attaches to faith or ethics, the compulsions look like devotion and the doubt looks like conscience. That is what makes this one so hard to see from inside.
+category: ocd-themes
+contentType: evidence-guide
 tags: [subtypes, intrusive-thoughts, erp, compulsions]
 keywords: 'scrupulosity, religious OCD, moral OCD, blasphemous intrusive thoughts, compulsive confession OCD'
 faq:

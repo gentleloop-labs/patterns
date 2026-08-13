@@ -15,6 +15,7 @@
   let scrolled = $state(false);
 
   const learnLinks = [
+    { label: 'OCD information library', href: '/learn' },
     { label: 'Understanding OCD', href: '/ocd' },
     { label: 'ERP & how it helps', href: '/erp' },
     { label: 'CBT for OCD', href: '/cbt' },

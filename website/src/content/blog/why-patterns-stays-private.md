@@ -5,6 +5,8 @@ date: '2026-07-11'
 updated: '2026-07-11'
 readingMinutes: 3
 excerpt: The things people with OCD write down are exactly the things they least want anyone to see. So Patterns keeps all of it on your device. Here is why.
+category: personal-stories
+contentType: personal-essay
 tags: [personal, privacy, patterns]
 keywords: 'private OCD app, offline OCD journal, no account OCD tracker, OCD app privacy'
 related: [why-i-built-patterns, what-i-wanted-in-an-ocd-app]

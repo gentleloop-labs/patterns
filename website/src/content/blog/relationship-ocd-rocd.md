@@ -5,6 +5,8 @@ date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 7
 excerpt: The question feels like the most important one in your life, and answering it is the compulsion. Here is what relationship OCD is and why "just work out if you love them" is the trap.
+category: ocd-themes
+contentType: evidence-guide
 tags: [subtypes, intrusive-thoughts, erp, compulsions]
 keywords: 'relationship OCD, ROCD, relationship anxiety or OCD, do I love my partner OCD, retroactive jealousy OCD'
 faq:

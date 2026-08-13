@@ -9,6 +9,13 @@ date: '2026-08-07'
 updated: '2026-08-07'
 readingMinutes: 8
 excerpt: 'Teaser for the blog index card. Two sentences at most.'
+# Required. Use exactly one reader-facing library category:
+# recognizing-ocd, ocd-themes, treatment-erp, living-with-ocd, personal-stories.
+category: ocd-themes
+# Required. Personal experience must be genuine and clearly distinguished from evidence-led guidance.
+contentType: evidence-guide
+# Keep true until the private factual-review gate is complete.
+draft: true
 # First tag is the primary cluster. Reuse existing tags where you can - every
 # tag becomes a hub page at /blog/tag/<tag>, and thin hubs help nobody.
 tags: [subtypes, intrusive-thoughts, erp]
@@ -24,7 +31,7 @@ related: [pure-o-mental-compulsions, what-is-erp-exposure-response-prevention]
 <!--
 HOUSE RULES
 
-- 1200-1800 words.
+- Cover the query completely. There is no SEO word-count target.
 - Answer the query in the first two or three sentences, before any heading. That
   paragraph is the featured-snippet target, so make it self-contained.
 - Exact-match keyword in the title, the opening paragraph, and one H2.
@@ -34,8 +41,10 @@ HOUSE RULES
   NIMH, or a named peer-reviewed paper. No unsourced statistics, ever.
 - Never diagnose the reader and never promise an outcome. "Many people find" and
   "clinicians generally treat" rather than "you have" and "this will fix".
-- The medical disclaimer and the app CTA are added by the route. Do not write
-  them into the post.
+- First-person sections belong only where the author has genuine, relevant
+  experience. Never manufacture an experience to fit a topic.
+- The medical disclaimer, authorship, editorial-policy link, and app CTA are
+  added by the route. Do not write them into the post.
 -->
 
 <p class="lead">

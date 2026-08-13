@@ -5,6 +5,8 @@ date: '2026-07-21'
 updated: '2026-07-21'
 readingMinutes: 3
 excerpt: 'A question I get a lot: is Patterns a CBT app? The short answer is yes-ish, and the honest answer is more interesting than that.'
+category: personal-stories
+contentType: personal-essay
 tags: [ocd-apps, cbt, erp, patterns]
 keywords: 'CBT app for OCD, is CBT good for OCD, ERP vs CBT, OCD therapy app'
 related: [erp-vs-cbt-for-ocd, what-is-erp-exposure-response-prevention]
