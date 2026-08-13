@@ -34,10 +34,6 @@ describe('store links', () => {
     expect(new URL(links.playStore).searchParams.get('utm_source')).toBeNull();
   });
 
-  it('keeps the macOS link on the same app id', () => {
-    expect(links.macos).toContain(`/id${IOS_APP_ID}`);
-    expect(new URL(links.macos).searchParams.get('mt')).toBe('12');
-  });
 });
 
 describe('canonical site host', () => {

@@ -5,7 +5,7 @@ import {
   LineChart,
   Shield,
   Moon,
-  MonitorSmartphone
+  Smartphone
 } from 'lucide-svelte';
 
 export type Feature = {
@@ -46,9 +46,9 @@ export const features: Feature[] = [
       'Switch between carefully crafted dark and light themes to match your environment and reduce eye strain during late-night reflections.'
   },
   {
-    icon: MonitorSmartphone,
-    title: 'Mobile & Desktop',
+    icon: Smartphone,
+    title: 'iPhone & Android',
     description:
-      'Built with Flutter for iOS, Android, macOS, Linux, and Windows with a clean interface that feels focused on every screen.'
+      'Built for iOS and Android, so your journal and ERP tools are available when a trigger or urge happens.'
   }
 ];

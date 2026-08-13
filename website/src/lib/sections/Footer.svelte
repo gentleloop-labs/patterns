@@ -20,7 +20,6 @@
     { label: 'GitHub', url: links.github },
     { label: 'Ko-fi', url: links.kofi },
     { label: 'Sponsor', url: links.sponsors },
-    { label: 'Releases', url: links.releases },
     { label: 'Issues', url: links.issues },
     { label: 'License', url: links.license }
   ];

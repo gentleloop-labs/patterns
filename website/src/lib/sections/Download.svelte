@@ -1,75 +1,46 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import ContentContainer from '$lib/components/ContentContainer.svelte';
   import AnimatedOnScroll from '$lib/components/AnimatedOnScroll.svelte';
   import StoreLink from '$lib/components/StoreLink.svelte';
-  import { links } from '$lib/data/links';
-  import { fetchLatestRelease } from '$lib/utils/github-releases';
-  import { logDownload, logGitHubClick } from '$lib/utils/analytics';
   import BrandIcon from '$lib/components/BrandIcon.svelte';
-  import WindowsIcon from '$lib/components/WindowsIcon.svelte';
-  import { siAppstore, siGoogleplay, siLinux } from 'simple-icons';
-  import { Download as DownloadIcon, Hammer } from 'lucide-svelte';
-
-  let loading = $state(true);
-  let linuxUrl = $state<string | null>(null);
-  let windowsUrl = $state<string | null>(null);
-  let version = $state<string | null>(null);
-  let isMobile = $state(false);
-
-  onMount(() => {
-    const mq = window.matchMedia('(max-width: 599px)');
-    const update = () => (isMobile = mq.matches);
-    update();
-    mq.addEventListener('change', update);
-
-    fetchLatestRelease().then((release) => {
-      linuxUrl = release.linuxUrl;
-      windowsUrl = release.windowsUrl;
-      version = release.version;
-      loading = false;
-    });
-
-    return () => mq.removeEventListener('change', update);
-  });
-
-  function open(url: string, platform: string) {
-    logDownload(platform, version ?? 'unknown');
-    window.open(url, '_blank', 'noopener');
-  }
+  import { siAppstore, siGoogleplay } from 'simple-icons';
 </script>
 
-<section id="download" class="download section-pad section-scroll-margin content-below-fold" aria-labelledby="download-title">
+<section
+  id="download"
+  class="download section-pad section-scroll-margin content-below-fold"
+  aria-labelledby="download-title"
+>
   <ContentContainer>
     <AnimatedOnScroll>
       <div class="header">
-        <h2 id="download-title" class="title serif">Download Patterns</h2>
+        <span class="tag">iPhone &amp; Android</span>
+        <h2 id="download-title" class="title serif">Take Patterns with you</h2>
         <p class="subtitle">
-          A calm, local-first space for journaling and OCD self-tracking - available where you
-          reflect.
+          Track obsessions, delay compulsions, and journal in a calm private space on your phone.
+          No account, no cloud sync, and nothing you write leaves your device.
         </p>
       </div>
 
-      <div class="mobile-hero">
-        {#if isMobile}
-          <div class="phone-wrap">
-            <img
-              src="/assets/mockups/mobile-hero.jpg"
-              alt="Patterns app home screen showing recovery score, ERP practice, and quick actions"
-              width="148"
-              height="320"
-              loading="lazy"
-            />
-          </div>
-        {/if}
+      <div class="mobile-card">
+        <div class="phone-wrap">
+          <img
+            src="/assets/mockups/mobile-hero.jpg"
+            alt="Patterns mobile app home screen showing ERP practice and quick actions"
+            width="443"
+            height="960"
+            loading="lazy"
+          />
+        </div>
+
         <div class="mobile-copy">
-          <span class="tag">Mobile</span>
-          <h3 class="serif">On your phone</h3>
+          <h3 class="serif">Available on iOS and Android</h3>
           <p>
-            Track obsessions, log distress, and journal in a calm private space. Your entries stay
-            on your device - no accounts, no uploads.
+            Capture a trigger when it happens, keep your ERP notes close, and review your patterns
+            wherever your day takes you.
           </p>
-          <div class="store-badges">
+
+          <div class="store-badges" role="group" aria-label="Download Patterns for mobile">
             <StoreLink store="app_store" placement="body" newTab class="store-badge">
               <BrandIcon icon={siAppstore} size={24} color="#fff" />
               <span>
@@ -85,94 +56,10 @@
               </span>
             </StoreLink>
           </div>
+
           <p class="requirements">Requires iOS 14 or later · Android 8 or later</p>
         </div>
-        {#if !isMobile}
-          <div class="phone-wrap">
-            <img
-              src="/assets/mockups/mobile-hero.jpg"
-              alt="Patterns app home screen showing recovery score, ERP practice, and quick actions"
-              width="148"
-              height="320"
-              loading="lazy"
-            />
-          </div>
-        {/if}
       </div>
-
-      <div class="desktop-notice" role="note">
-        <div class="notice-icon" aria-hidden="true">
-          <Hammer size={18} />
-        </div>
-        <div class="notice-copy">
-          <span class="notice-badge">Rebuilding now</span>
-          <h4>A fresh desktop app is on the way</h4>
-          <p>
-            We're rebuilding Patterns for desktop from scratch - cleaner, calmer, and made for a big
-            screen. Journaling and self-tracking stay free; Pro lives on mobile, where it belongs.
-          </p>
-        </div>
-      </div>
-
-      <div class="other-header">
-        <h3 class="serif">Download for desktop</h3>
-        <p>Available today while the new experience is on its way.</p>
-      </div>
-
-      <div class="platform-grid">
-        <button type="button" class="platform-card" onclick={() => open(links.macos, 'macOS')}>
-          <BrandIcon icon={siAppstore} size={28} color="var(--accent)" />
-          <h4>macOS</h4>
-          <p>macOS 12 Monterey or later</p>
-          <span class="action"><BrandIcon icon={siAppstore} size={14} color="var(--accent)" /> Open in App Store</span>
-        </button>
-        <button
-          type="button"
-          class="platform-card"
-          onclick={() => open(windowsUrl ?? links.releasesLatest, 'Windows')}
-        >
-          <WindowsIcon size={28} color="var(--accent)" />
-          <h4>Windows</h4>
-          <p>Windows 10 or later</p>
-          <span class="action">
-            {#if loading}
-              Loading…
-            {:else}
-              <DownloadIcon size={14} /> Download .exe
-            {/if}
-          </span>
-        </button>
-        <button
-          type="button"
-          class="platform-card"
-          onclick={() => open(linuxUrl ?? links.releasesLatest, 'Linux')}
-        >
-          <BrandIcon icon={siLinux} size={28} color="var(--accent)" />
-          <h4>Linux</h4>
-          <p>Ubuntu, Debian, and derivatives</p>
-          <span class="action">
-            {#if loading}
-              Loading…
-            {:else}
-              <DownloadIcon size={14} /> Download .deb
-            {/if}
-          </span>
-        </button>
-      </div>
-
-      {#if version}
-        <p class="version">Latest desktop release: {version}</p>
-      {/if}
-
-      <p class="source">
-        Or build from source on
-        <a
-          href={links.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          onclick={() => logGitHubClick()}
-        >GitHub</a>
-      </p>
     </AnimatedOnScroll>
   </ContentContainer>
 </section>
@@ -183,117 +70,106 @@
   }
 
   .header {
+    max-width: 680px;
+    margin: 0 auto 48px;
     text-align: center;
-    margin-bottom: 56px;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 5px 11px;
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .title {
-    margin: 0;
+    margin: 18px 0 0;
     font-size: 48px;
     line-height: 1.1;
   }
 
   .subtitle {
     margin: 16px auto 0;
-    max-width: 560px;
-    font-size: 17px;
     color: var(--text-secondary);
-    line-height: 1.6;
+    font-size: 17px;
+    line-height: 1.65;
   }
 
-  .mobile-hero {
+  .mobile-card {
+    max-width: 880px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 28px;
-    padding: 28px;
+    gap: 30px;
+    padding: 32px 24px;
+    border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
     border-radius: 24px;
     background: var(--surface-alt);
-    border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
-    margin-bottom: 80px;
-  }
-
-  @media (min-width: 600px) {
-    .mobile-hero {
-      flex-direction: row;
-      justify-content: center;
-      padding: 48px 40px;
-      gap: 56px;
-    }
-
-    .phone-wrap img {
-      height: 360px;
-    }
   }
 
   .phone-wrap {
-    border-radius: 22px;
+    width: min(190px, 54vw);
     overflow: hidden;
-    box-shadow: 0 18px 40px color-mix(in srgb, #000 45%, transparent);
     border: 1px solid color-mix(in srgb, #fff 8%, transparent);
+    border-radius: 24px;
+    box-shadow: 0 18px 40px color-mix(in srgb, #000 45%, transparent);
     flex-shrink: 0;
   }
 
   .phone-wrap img {
-    width: auto;
-    height: 320px;
     display: block;
+    width: 100%;
+    height: auto;
   }
 
   .mobile-copy {
-    text-align: center;
     max-width: 480px;
-  }
-
-  .tag {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 100px;
-    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
-    background: color-mix(in srgb, var(--accent) 12%, transparent);
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    text-align: center;
   }
 
   .mobile-copy h3 {
-    margin: 14px 0 0;
-    font-size: 36px;
-    line-height: 1.1;
+    margin: 0;
+    font-size: 34px;
+    line-height: 1.15;
   }
 
   .mobile-copy > p {
-    margin: 12px 0 0;
-    font-size: 15px;
-    line-height: 1.55;
+    margin: 14px 0 0;
     color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.6;
   }
 
   .store-badges {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 24px;
     justify-content: center;
+    gap: 12px;
+    margin-top: 26px;
   }
 
-  /* :global because the badge anchors are rendered by <StoreLink>. */
   .store-badges :global(.store-badge) {
     display: inline-flex;
     align-items: center;
     gap: 12px;
     padding: 12px 18px;
+    border: 1px solid color-mix(in srgb, #fff 18%, transparent);
     border-radius: 12px;
     background: #000;
-    border: 1px solid color-mix(in srgb, #fff 18%, transparent);
     color: #fff;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, transform 0.2s;
   }
 
   .store-badges :global(.store-badge:hover) {
     border-color: color-mix(in srgb, #fff 50%, transparent);
+    transform: translateY(-1px);
   }
 
   .store-badges :global(.store-badge:focus-visible) {
@@ -309,8 +185,8 @@
 
   .store-badges :global(.store-badge small) {
     font-size: 10px;
-    opacity: 0.8;
     line-height: 1;
+    opacity: 0.8;
   }
 
   .store-badges :global(.store-badge strong) {
@@ -320,167 +196,30 @@
   }
 
   .requirements {
-    margin: 14px 0 0;
-    font-size: 12px;
-    color: var(--text-secondary);
+    margin-top: 16px !important;
+    font-size: 12px !important;
   }
 
-  .desktop-notice {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 14px;
-    padding: 28px 24px;
-    border-radius: 18px;
-    background: color-mix(in srgb, var(--accent) 6%, var(--surface-alt));
-    border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
-    margin: 0 auto 48px;
-    max-width: 560px;
-  }
-
-  .notice-icon {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--accent) 15%, transparent);
-    color: var(--accent);
-  }
-
-  .notice-badge {
-    display: inline-block;
-    padding: 3px 9px;
-    border-radius: 100px;
-    background: color-mix(in srgb, var(--accent) 14%, transparent);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-
-  .notice-copy {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .notice-copy h4 {
-    margin: 12px 0 0;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1.25;
-    color: var(--text);
-  }
-
-  .notice-copy p {
-    margin: 8px 0 0;
-    font-size: 14px;
-    line-height: 1.55;
-    color: var(--text-secondary);
-    max-width: 42ch;
-  }
-
-  .other-header {
-    text-align: center;
-    margin-bottom: 32px;
-  }
-
-  .other-header h3 {
-    margin: 0;
-    font-size: 28px;
-  }
-
-  .other-header p {
-    margin: 6px 0 0;
-    font-size: 14px;
-    color: var(--text-secondary);
-  }
-
-  .platform-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  @media (min-width: 600px) {
-    .platform-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+  @media (min-width: 700px) {
+    .mobile-card {
+      flex-direction: row;
+      justify-content: center;
+      gap: 64px;
+      padding: 48px;
     }
-  }
 
-  .platform-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 24px;
-    border-radius: 16px;
-    border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
-    background: transparent;
-    transition:
-      background 0.2s,
-      border-color 0.2s;
-    height: 100%;
-  }
+    .mobile-copy {
+      text-align: left;
+    }
 
-  .platform-card:hover {
-    background: var(--surface-alt);
-    border-color: color-mix(in srgb, var(--accent) 35%, transparent);
-  }
-
-  .platform-card h4 {
-    margin: 16px 0 0;
-    font-size: 18px;
-    font-weight: 600;
-  }
-
-  .platform-card p {
-    margin: 4px 0 0;
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.4;
-  }
-
-  .action {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 18px;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--accent);
-  }
-
-  .version {
-    margin: 20px 0 0;
-    font-size: 12px;
-    color: var(--text-secondary);
-    text-align: center;
-  }
-
-  .source {
-    margin: 32px 0 0;
-    font-size: 14px;
-    color: var(--text-secondary);
-    text-align: center;
-  }
-
-  .source a {
-    font-weight: 600;
-    color: var(--accent);
-    text-decoration: underline;
-    text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+    .store-badges {
+      justify-content: flex-start;
+    }
   }
 
   @media (max-width: 599px) {
     .title {
-      font-size: 32px;
+      font-size: 34px;
     }
 
     .subtitle {
@@ -489,10 +228,6 @@
 
     .mobile-copy h3 {
       font-size: 28px;
-    }
-
-    .mobile-hero {
-      margin-bottom: 56px;
     }
   }
 </style>

@@ -146,7 +146,7 @@
             <BrandIcon icon={siGoogleplay} size={18} color="#000" /> Google Play
           </StoreLink>
         </div>
-        <a class="cta-link" href="/#download">All download options</a>
+        <a class="cta-link" href="/#download">Get Patterns for mobile</a>
       </section>
 
       {#if related.length}

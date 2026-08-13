@@ -105,11 +105,6 @@
       title: 'Patterns Pro',
       body: 'Pay once, keep it. No subscription, no renewal. Scan a code to carry it across to your other devices.'
     },
-    {
-      icon: MonitorSmartphone,
-      title: 'On your phone and your computer',
-      body: 'Patterns runs on iPhone, Android, Mac, Windows, and Linux, and the promise about your privacy is the same on all of them.'
-    }
   ];
 
   const comingSoon = [
@@ -131,13 +126,8 @@
     {
       icon: Crown,
       title: 'What Pro costs from the next update',
-      body: 'Pro on your phone moves to $19.99, paid once. On the desktop app it is $9.99, also once. If you already own Pro, nothing changes and you pay nothing again.'
+      body: 'Pro on your phone moves to $19.99, paid once. If you already own Pro, nothing changes and you pay nothing again.'
     },
-    {
-      icon: BarChart3,
-      title: 'The newest changes, on desktop too',
-      body: 'The gentler opening and the reworked home screen landed on phones first. Next they come to the desktop app, so both feel like the same app again.'
-    }
   ];
 
   const exploring = [
