@@ -5,6 +5,8 @@ date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 7
 excerpt: Pure O is a useful description and a misleading name. The rituals have not gone anywhere. They have moved inside your head, where they are much harder to spot.
+category: ocd-themes
+contentType: evidence-guide
 tags: [subtypes, intrusive-thoughts, compulsions, erp]
 keywords: 'pure O, purely obsessional OCD, mental compulsions, rumination OCD, pure O symptoms'
 faq:

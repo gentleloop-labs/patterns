@@ -4,11 +4,14 @@
   import { logEvent } from '$lib/utils/analytics';
 
   const resourceLinks = [
+    { label: 'OCD information library', url: '/learn' },
     { label: 'Understanding OCD', url: '/ocd' },
     { label: 'ERP & how it helps', url: '/erp' },
     { label: 'CBT for OCD', url: '/cbt' },
     { label: 'Recovery toolkit', url: '/toolkit' },
     { label: 'Blog', url: '/blog' },
+    { label: 'About the author', url: '/about/aftaab-siddiqui' },
+    { label: 'Editorial policy', url: '/editorial-policy' },
     { label: 'FAQ', url: '/faq' },
     { label: 'Privacy', url: '/privacy' }
   ];

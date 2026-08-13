@@ -5,6 +5,8 @@ date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 6
 excerpt: People are often told to get CBT for OCD, start generic CBT, and find it does not help. The reason is that the CBT that treats OCD is a specific branch of it called ERP.
+category: treatment-erp
+contentType: evidence-guide
 tags: [cbt, erp, ocd-basics]
 keywords: 'ERP vs CBT, CBT for OCD, is CBT good for OCD, best therapy for OCD, CBT or ERP'
 faq:

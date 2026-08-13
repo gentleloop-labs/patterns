@@ -14,6 +14,9 @@ export const links = {
   license: 'https://github.com/maskedsyntax/patterns/blob/master/LICENSE',
   maskedsyntax: 'https://maskedsyntax.com/',
   site: 'https://patternsocd.com/',
+  library: 'https://patternsocd.com/learn',
+  author: 'https://patternsocd.com/about/aftaab-siddiqui',
+  editorialPolicy: 'https://patternsocd.com/editorial-policy',
   productHuntReview:
     'https://www.producthunt.com/products/patterns-ocd-erp-journal/reviews/new?utm_source=badge-product_review&utm_medium=badge&utm_source=badge-patterns-ocd-erp-journal'
 } as const;

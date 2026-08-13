@@ -23,6 +23,56 @@ export type BlogFaq = {
   a: string;
 };
 
+export const blogCategories = [
+  {
+    slug: 'recognizing-ocd',
+    label: 'Recognizing OCD',
+    description:
+      'Understand intrusive thoughts, compulsions, avoidance, and the patterns that can make OCD difficult to recognize.',
+    intro:
+      'Start here if you are trying to understand whether a recurring thought-and-response pattern might be OCD. These guides explain common signs without trying to diagnose you.'
+  },
+  {
+    slug: 'ocd-themes',
+    label: 'OCD Themes',
+    description:
+      'Plain-language guides to the many subjects OCD can attach to, from contamination and checking to relationships and morality.',
+    intro:
+      'OCD can attach to almost anything a person values. These guides focus on the shared cycle underneath different themes, including the compulsions that are easy to miss.'
+  },
+  {
+    slug: 'treatment-erp',
+    label: 'Treatment & ERP',
+    description:
+      'Learn how exposure and response prevention works, what its tools are for, and how treatment is structured.',
+    intro:
+      'Exposure and response prevention is the first-line psychological treatment for OCD. These guides explain its principles and practical tools, while leaving treatment decisions to you and a qualified professional.'
+  },
+  {
+    slug: 'living-with-ocd',
+    label: 'Living With OCD',
+    description:
+      'Evidence-led guidance for navigating recovery, setbacks, relationships, work, and ordinary life with OCD.',
+    intro:
+      'OCD is experienced between appointments and outside exercises. This collection focuses on the everyday parts of recovery and the situations that can make the loop louder.'
+  },
+  {
+    slug: 'personal-stories',
+    label: 'Personal Stories',
+    description:
+      'First-person essays from the person building Patterns about OCD, ERP, privacy, and life between therapy sessions.',
+    intro:
+      'These essays are lived experience, not clinical guidance. They explain why Patterns exists and what recovery tools have felt like from inside the loop.'
+  }
+] as const;
+
+export type BlogCategory = (typeof blogCategories)[number]['slug'];
+export type BlogContentType = 'evidence-guide' | 'personal-essay';
+
+export function getBlogCategory(slug: string) {
+  return blogCategories.find((category) => category.slug === slug);
+}
+
 export type BlogPost = {
   /** Filename without the extension. Also the URL path segment. */
   slug: string;
@@ -38,6 +88,12 @@ export type BlogPost = {
   excerpt: string;
   /** Topic tags. The first one is treated as the primary cluster. */
   tags: string[];
+  /** Reader-facing information-library category. */
+  category: BlogCategory;
+  /** Separates sourced explainers from first-person essays. */
+  contentType: BlogContentType;
+  /** Drafts stay in the content directory but are excluded from every public route and feed. */
+  draft: boolean;
   /** Comma-separated meta keywords for the post page. */
   keywords?: string;
   /** Drives FAQPage structured data when present. */
@@ -64,10 +120,23 @@ function slugFromPath(path: string): string {
 function toPost(path: string, meta: RawFrontmatter): BlogPost {
   const slug = slugFromPath(path);
 
-  if (!meta?.title || !meta?.description || !meta?.date) {
+  if (
+    !meta?.title ||
+    !meta?.description ||
+    !meta?.date ||
+    !meta?.category ||
+    !meta?.contentType
+  ) {
     throw new Error(
-      `Blog post "${slug}" is missing required frontmatter (title, description, date).`
+      `Blog post "${slug}" is missing required frontmatter (title, description, date, category, contentType).`
     );
+  }
+
+  if (!getBlogCategory(meta.category)) {
+    throw new Error(`Blog post "${slug}" has unknown category "${meta.category}".`);
+  }
+  if (!['evidence-guide', 'personal-essay'].includes(meta.contentType)) {
+    throw new Error(`Blog post "${slug}" has unknown contentType "${meta.contentType}".`);
   }
 
   return {
@@ -79,15 +148,21 @@ function toPost(path: string, meta: RawFrontmatter): BlogPost {
     readingMinutes: meta.readingMinutes ?? 5,
     excerpt: meta.excerpt ?? meta.description,
     tags: meta.tags ?? [],
+    category: meta.category,
+    contentType: meta.contentType,
+    draft: meta.draft ?? false,
     keywords: meta.keywords,
     faq: meta.faq,
     related: meta.related
   };
 }
 
-export const posts: BlogPost[] = Object.entries(metaModules).map(([path, meta]) =>
+export const authoredPosts: BlogPost[] = Object.entries(metaModules).map(([path, meta]) =>
   toPost(path, meta)
 );
+
+/** Only approved content is visible to routes, feeds, related posts, and the sitemap. */
+export const posts: BlogPost[] = authoredPosts.filter((post) => !post.draft);
 
 export function getPost(slug: string): BlogPost | undefined {
   return posts.find((post) => post.slug === slug);
@@ -125,6 +200,10 @@ export const allTags: { tag: string; count: number }[] = (() => {
 
 export function postsByTag(tag: string): BlogPost[] {
   return postsByDate.filter((post) => post.tags.includes(tag));
+}
+
+export function postsByCategory(category: BlogCategory): BlogPost[] {
+  return postsByDate.filter((post) => post.category === category);
 }
 
 /** Turns a tag into the label shown on hub pages: "intrusive-thoughts" -> "Intrusive thoughts". */

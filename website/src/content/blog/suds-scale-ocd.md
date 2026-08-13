@@ -5,6 +5,8 @@ date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 6
 excerpt: A single number, rated in the moment, is what turns an exposure from a bad hour into data you can learn from. Here is how to use the SUDS scale properly.
+category: treatment-erp
+contentType: evidence-guide
 tags: [erp, ocd-basics]
 keywords: 'SUDS scale, subjective units of distress, SUDS rating ERP, distress scale 0 to 10, anxiety rating scale'
 faq:

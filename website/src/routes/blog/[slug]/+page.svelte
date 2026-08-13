@@ -4,11 +4,12 @@
   import AnimatedOnScroll from '$lib/components/AnimatedOnScroll.svelte';
   import MedicalDisclaimer from '$lib/components/MedicalDisclaimer.svelte';
   import StoreLink from '$lib/components/StoreLink.svelte';
-  import { tagLabel } from '$lib/data/blog';
+  import { getBlogCategory, tagLabel } from '$lib/data/blog';
   import { links } from '$lib/data/links';
   import { site } from '$lib/data/site';
   import { ArrowRight, ArrowLeft } from 'lucide-svelte';
   import BrandIcon from '$lib/components/BrandIcon.svelte';
+  import Footer from '$lib/sections/Footer.svelte';
   import { siAppstore, siGoogleplay } from 'simple-icons';
   import type { PageData } from './$types';
 
@@ -34,7 +35,8 @@
       url: `${links.site}blog/${post.slug}`,
       image: [site.ogImage],
       keywords: post.tags.join(', '),
-      author: { '@type': 'Person', name: 'Aftaab Siddiqui', url: links.maskedsyntax },
+      articleSection: getBlogCategory(post.category)?.label,
+      author: { '@type': 'Person', name: site.author.name, url: site.author.url },
       publisher: {
         '@type': 'Organization',
         name: 'MaskedSyntax',
@@ -81,7 +83,7 @@
   path={`blog/${post.slug}`}
   keywords={post.keywords}
   ogType="article"
-  article={{ publishedTime: post.date, modifiedTime: post.updated, author: 'Aftaab Siddiqui' }}
+  article={{ publishedTime: post.date, modifiedTime: post.updated, author: site.author.name }}
   {jsonLd}
 />
 
@@ -90,13 +92,17 @@
     <AnimatedOnScroll>
       <a class="crumb" href="/blog"><ArrowLeft size={16} /> The Patterns blog</a>
       <header class="post-head">
+        <a class="category" href="/learn/{post.category}">{getBlogCategory(post.category)?.label}</a>
         <div class="meta">
           <time datetime={post.date}>{dateFmt.format(new Date(post.date))}</time>
           <span aria-hidden="true">·</span>
           <span>{post.readingMinutes} min read</span>
         </div>
         <h1 class="title serif">{post.title}</h1>
-        <p class="byline">Written by the person building Patterns.</p>
+        <p class="byline">
+          Written by <a href="/about/aftaab-siddiqui">Aftaab Siddiqui</a>, the person building
+          Patterns. <a href="/editorial-policy">How this content is made</a>.
+        </p>
         {#if post.tags.length}
           <ul class="tags">
             {#each post.tags as tag}
@@ -159,6 +165,8 @@
   </ContentContainer>
 </article>
 
+<Footer />
+
 <style>
   .post {
     background: var(--surface);
@@ -177,6 +185,16 @@
     max-width: 720px;
     margin: 24px auto 40px;
     text-align: center;
+  }
+
+  .category {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
 
   .meta {
@@ -198,6 +216,12 @@
     margin: 16px 0 0;
     font-size: 15px;
     color: var(--text-secondary);
+  }
+
+  .byline a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .tags {

@@ -5,6 +5,8 @@ date: '2026-07-11'
 updated: '2026-07-11'
 readingMinutes: 4
 excerpt: Obsession, distress, compulsion, relief. Then it starts again. Here is how I learned to see the loop instead of living inside it.
+category: personal-stories
+contentType: personal-essay
 tags: [personal, ocd-basics, compulsions, erp]
 keywords: 'OCD loop, obsession compulsion cycle, breaking the OCD cycle, delaying compulsions'
 related: [compulsion-delay-technique, what-is-erp-exposure-response-prevention]

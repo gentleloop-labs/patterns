@@ -5,6 +5,8 @@ date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 8
 excerpt: Most OCD themes are hypothetical. This one is not, which is why people conclude it cannot be OCD - and why they spend years trying to solve it instead of treating it.
+category: ocd-themes
+contentType: evidence-guide
 tags: [subtypes, intrusive-thoughts, compulsions, erp]
 keywords: 'real event OCD, real-life OCD, OCD about something I did, guilt or OCD, false memory OCD'
 faq:

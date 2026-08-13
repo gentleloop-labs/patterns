@@ -5,6 +5,8 @@ date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 8
 excerpt: The thoughts are horrifying, they attach to the people you love most, and the horror you feel about them is the clearest sign of what they actually are.
+category: ocd-themes
+contentType: evidence-guide
 tags: [subtypes, intrusive-thoughts, erp, compulsions]
 keywords: 'harm OCD, intrusive thoughts about hurting someone, violent intrusive thoughts, harm OCD symptoms, am I dangerous OCD'
 faq:

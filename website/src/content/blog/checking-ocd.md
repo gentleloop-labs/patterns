@@ -5,6 +5,8 @@ date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 7
 excerpt: 'There is a specific and well-replicated finding here that is worth knowing: checking makes your memory feel less reliable, not more. That is why the tenth check is worse than the first.'
+category: ocd-themes
+contentType: evidence-guide
 tags: [subtypes, compulsions, erp]
 keywords: 'checking OCD, compulsive checking, checking the stove OCD, memory distrust OCD, how to stop checking'
 faq:

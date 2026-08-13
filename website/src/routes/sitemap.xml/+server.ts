@@ -1,4 +1,4 @@
-import { allTags, postsByDate, totalPages } from '$lib/data/blog';
+import { allTags, blogCategories, postsByDate, totalPages } from '$lib/data/blog';
 import { links } from '$lib/data/links';
 import type { RequestHandler } from './$types';
 
@@ -17,7 +17,7 @@ type Entry = {
  * Bump when any static marketing route below changes in a crawl-meaningful way
  * (copy, structure, or primary media). Blog lastmod comes from post frontmatter.
  */
-const STATIC_LASTMOD = '2026-08-11';
+const STATIC_LASTMOD = '2026-08-13';
 
 /**
  * Hand-maintained entries for the static marketing routes. Blog URLs are
@@ -50,6 +50,19 @@ const staticEntries: Entry[] = [
   { path: 'erp', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.8' },
   { path: 'cbt', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.8' },
   { path: 'toolkit', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.8' },
+  { path: 'learn', lastmod: STATIC_LASTMOD, changefreq: 'weekly', priority: '0.9' },
+  {
+    path: 'about/aftaab-siddiqui',
+    lastmod: STATIC_LASTMOD,
+    changefreq: 'monthly',
+    priority: '0.6'
+  },
+  {
+    path: 'editorial-policy',
+    lastmod: STATIC_LASTMOD,
+    changefreq: 'monthly',
+    priority: '0.6'
+  },
   { path: 'roadmap', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.7' },
   { path: 'faq', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.7' },
   { path: 'privacy', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.5' }
@@ -105,6 +118,12 @@ export const GET: RequestHandler = () => {
       lastmod: newestPostDate,
       changefreq: 'weekly' as const,
       priority: '0.5'
+    })),
+    ...blogCategories.map((category) => ({
+      path: `learn/${category.slug}`,
+      lastmod: newestPostDate,
+      changefreq: 'weekly' as const,
+      priority: '0.7'
     })),
     ...postsByDate.map((post) => ({
       path: `blog/${post.slug}`,

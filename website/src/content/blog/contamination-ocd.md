@@ -5,6 +5,8 @@ date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 7
 excerpt: Everyone thinks they know this one. Most of what they know is the stock photo. Contamination OCD is broader, stranger, and more treatable than the stereotype suggests.
+category: ocd-themes
+contentType: evidence-guide
 tags: [subtypes, compulsions, erp]
 keywords: 'contamination OCD, fear of germs OCD, mental contamination, contamination OCD symptoms, washing compulsions'
 faq:

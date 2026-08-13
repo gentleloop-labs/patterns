@@ -5,6 +5,8 @@ date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 7
 excerpt: Both involve fear and both involve worry. The difference is the compulsion - and it is the reason advice that works for anxiety often makes OCD worse.
+category: recognizing-ocd
+contentType: evidence-guide
 tags: [ocd-basics, compulsions, erp]
 keywords: 'OCD vs anxiety, is it OCD or anxiety, difference between OCD and anxiety, OCD or generalized anxiety'
 faq:

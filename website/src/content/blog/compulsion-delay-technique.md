@@ -5,6 +5,8 @@ date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 6
 excerpt: 'Never doing the compulsion again is a plan almost nobody can execute. Waiting five minutes is. Here is why delay works and how to use it without turning it into a ritual.'
+category: treatment-erp
+contentType: evidence-guide
 tags: [compulsions, erp, ocd-basics]
 keywords: 'compulsion delay, delaying compulsions OCD, urge surfing OCD, response prevention technique, how to resist compulsions'
 faq:

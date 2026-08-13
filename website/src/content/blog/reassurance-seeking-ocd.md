@@ -5,6 +5,8 @@ date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 7
 excerpt: Reassurance does not look like a ritual. It looks like coping, or caring, or due diligence. It is the compulsion most people miss for longest.
+category: recognizing-ocd
+contentType: evidence-guide
 tags: [compulsions, erp, ocd-basics]
 keywords: 'reassurance seeking OCD, how to stop seeking reassurance, OCD reassurance compulsion, googling symptoms OCD'
 faq:

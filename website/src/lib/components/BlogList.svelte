@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { tagLabel, type BlogPost } from '$lib/data/blog';
+  import { getBlogCategory, tagLabel, type BlogPost } from '$lib/data/blog';
   import { ArrowRight } from 'lucide-svelte';
 
   /** Shared card list for the blog index, paginated pages, and tag hubs. */
@@ -18,6 +18,8 @@
   {#each posts as post (post.slug)}
     <article class="post-card">
       <div class="meta">
+        <a class="category" href="/learn/{post.category}">{getBlogCategory(post.category)?.label}</a>
+        <span aria-hidden="true">·</span>
         <time datetime={post.date}>{dateFmt.format(new Date(post.date))}</time>
         <span aria-hidden="true">·</span>
         <span>{post.readingMinutes} min read</span>
@@ -66,6 +68,11 @@
     gap: 8px;
     font-size: 13px;
     color: var(--text-secondary);
+  }
+
+  .category {
+    color: var(--accent);
+    font-weight: 600;
   }
 
   .post-card h2 {

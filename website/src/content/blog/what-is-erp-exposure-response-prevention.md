@@ -5,6 +5,8 @@ date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 8
 excerpt: ERP is the front-line therapy for OCD, and it is far less mysterious than it sounds. Here is what it is, what a session looks like, and why the response prevention half is the part that does the work.
+category: treatment-erp
+contentType: evidence-guide
 tags: [erp, ocd-basics, cbt]
 keywords: 'what is ERP, exposure and response prevention, ERP therapy for OCD, ERP explained, how does ERP work'
 faq:

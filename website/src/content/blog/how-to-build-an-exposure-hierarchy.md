@@ -5,6 +5,8 @@ date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 7
 excerpt: 'A hierarchy is the plan that makes ERP possible: your triggers, rated and ordered, so there is always a next rung you can actually reach.'
+category: treatment-erp
+contentType: evidence-guide
 tags: [erp, ocd-basics]
 keywords: 'exposure hierarchy, how to build an exposure hierarchy, ERP hierarchy examples, fear ladder OCD, exposure ladder'
 faq:
