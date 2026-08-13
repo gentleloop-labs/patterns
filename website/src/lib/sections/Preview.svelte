@@ -1,145 +1,68 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import ContentContainer from '$lib/components/ContentContainer.svelte';
   import AnimatedOnScroll from '$lib/components/AnimatedOnScroll.svelte';
-
-  const desktopMockups = [
-    '/assets/mockups/desktop-1.jpg',
-    '/assets/mockups/desktop-2.jpg',
-    '/assets/mockups/desktop-3.jpg',
-    '/assets/mockups/desktop-4.jpg',
-    '/assets/mockups/desktop-5.jpg'
-  ];
-
-  let carouselIndex = $state(0);
-  let reducedMotion = $state(false);
-  let isMobile = $state(false);
-
-  onMount(() => {
-    reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const mq = window.matchMedia('(max-width: 599px)');
-    const update = () => (isMobile = mq.matches);
-    update();
-    mq.addEventListener('change', update);
-
-    for (const src of desktopMockups) {
-      const img = new Image();
-      img.src = src;
-    }
-
-    const timer = setInterval(() => {
-      if (!reducedMotion) {
-        carouselIndex = (carouselIndex + 1) % desktopMockups.length;
-      }
-    }, 4000);
-
-    return () => {
-      mq.removeEventListener('change', update);
-      clearInterval(timer);
-    };
-  });
 </script>
 
-{#snippet showcase(
-  eyebrow: string,
-  title: string,
-  description: string,
-  mockupOnLeft: boolean,
-  desktop: boolean,
-  mockup: import('svelte').Snippet
-)}
-  <div
-    class="showcase"
-    class:reverse={!mockupOnLeft && !isMobile}
-    class:desktop-layout={desktop && !isMobile}
-  >
-    {#if isMobile || mockupOnLeft}
-      <div class="mockup-slot" class:desktop-slot={desktop}>
-        {@render mockup()}
-      </div>
-    {/if}
-    <div class="copy">
-      <span class="tag">{eyebrow}</span>
-      <h3 class="serif">{title}</h3>
-      <p>{description}</p>
-    </div>
-    {#if !isMobile && !mockupOnLeft}
-      <div class="mockup-slot desktop-slot">
-        {@render mockup()}
-      </div>
-    {/if}
-  </div>
-{/snippet}
-
-{#snippet mobileGraphic()}
-  <div class="mockup-wrap mobile-graphic">
-    <img
-      src="/assets/mockups/feature-graphic.jpg"
-      alt="Patterns mobile preview"
-      width="1024"
-      height="500"
-      loading="lazy"
-    />
-  </div>
-{/snippet}
-
-{#snippet desktopCarousel()}
-  <div class="mockup-wrap desktop-carousel" aria-live="polite">
-    {#each desktopMockups as src, i}
-      <img
-        class="carousel-image"
-        class:active={i === carouselIndex}
-        class:leaving={!reducedMotion && i === (carouselIndex - 1 + desktopMockups.length) % desktopMockups.length}
-        {src}
-        alt="Patterns desktop screenshot {i + 1}"
-        width="1440"
-        height="900"
-        loading={i === 0 ? 'eager' : 'lazy'}
-        fetchpriority={i === 0 ? 'high' : 'auto'}
-      />
-    {/each}
-    <div class="carousel-dots" aria-hidden="true">
-      {#each desktopMockups as _, i}
-        <span class="dot" class:active={i === carouselIndex}></span>
-      {/each}
-    </div>
-  </div>
-{/snippet}
-
-<section id="preview" class="preview section-pad section-scroll-margin content-below-fold" aria-labelledby="preview-title">
+<section
+  id="preview"
+  class="preview section-pad section-scroll-margin content-below-fold"
+  aria-labelledby="preview-title"
+>
   <ContentContainer>
     <AnimatedOnScroll>
       <div class="header">
-        <span class="eyebrow">PREVIEW</span>
-        <h2 id="preview-title" class="title serif">See it in action</h2>
+        <span class="eyebrow">MOBILE PREVIEW</span>
+        <h2 id="preview-title" class="title serif">See Patterns in action</h2>
         <p class="subtitle">
-          Real screens from Patterns - at home on mobile and on desktop. The journal, the OCD
-          tracker, the analytics, and the settings.
+          Real screens from Patterns on iPhone and Android, designed for the moments when you need
+          to capture a trigger, delay an urge, or reflect on the day.
         </p>
       </div>
     </AnimatedOnScroll>
 
     <div class="showcases">
       <AnimatedOnScroll delay={100}>
-        {@render showcase(
-          'MOBILE',
-          'Pocket-sized reflection',
-          'Capture obsessions, log distress, and write a quick journal entry - all from your phone. Your entries stay on your device, no accounts and no uploads.',
-          true,
-          false,
-          mobileGraphic
-        )}
+        <div class="showcase">
+          <div class="mockup-wrap feature-graphic">
+            <img
+              src="/assets/mockups/feature-graphic.jpg"
+              alt="Patterns mobile screens for OCD tracking, ERP practice, and private journaling"
+              width="1024"
+              height="500"
+              loading="lazy"
+            />
+          </div>
+          <div class="copy">
+            <span class="tag">IN YOUR POCKET</span>
+            <h3 class="serif">A useful next step, wherever you are</h3>
+            <p>
+              Capture obsessions, log distress, and write a quick journal entry from your phone.
+              Your entries stay on your device, with no account and no cloud upload.
+            </p>
+          </div>
+        </div>
       </AnimatedOnScroll>
 
       <AnimatedOnScroll delay={200}>
-        {@render showcase(
-          'DESKTOP',
-          'Room to think',
-          'See your patterns at a glance - analytics, history, and a calm writing space with the room a bigger screen gives you. Native on macOS, Windows, and Linux.',
-          false,
-          true,
-          desktopCarousel
-        )}
+        <div class="showcase reverse">
+          <div class="phone-wrap">
+            <img
+              src="/assets/mockups/mobile-hero.jpg"
+              alt="Patterns mobile home screen showing ERP practice and quick actions"
+              width="443"
+              height="960"
+              loading="lazy"
+            />
+          </div>
+          <div class="copy">
+            <span class="tag">BUILT FOR MOBILE</span>
+            <h3 class="serif">Recovery tools when the moment happens</h3>
+            <p>
+              Delay a compulsion, practise an exposure, or review your patterns without waiting to
+              get back to another device.
+            </p>
+          </div>
+        </div>
       </AnimatedOnScroll>
     </div>
   </ContentContainer>
@@ -151,19 +74,22 @@
   }
 
   .header {
+    max-width: 680px;
+    margin: 0 auto 72px;
     text-align: center;
-    margin-bottom: 96px;
   }
 
-  .eyebrow {
+  .eyebrow,
+  .tag {
     display: inline-block;
-    padding: 6px 14px;
-    border-radius: 100px;
+    padding: 5px 11px;
     border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
-    font-size: 12px;
-    font-weight: 600;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 9%, transparent);
     color: var(--accent);
-    letter-spacing: 1.5px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
   }
 
   .title {
@@ -174,245 +100,114 @@
 
   .subtitle {
     margin: 16px auto 0;
-    max-width: 540px;
-    font-size: 17px;
     color: var(--text-secondary);
-    line-height: 1.5;
+    font-size: 17px;
+    line-height: 1.65;
   }
 
   .showcases {
-    display: flex;
-    flex-direction: column;
-    gap: 96px;
+    display: grid;
+    gap: 88px;
   }
 
   .showcase {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 32px;
-  }
-
-  .mockup-slot {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    gap: 34px;
   }
 
   .mockup-wrap {
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 20px 40px -8px color-mix(in srgb, #000 50%, transparent);
     width: 100%;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+    border-radius: 24px;
+    box-shadow: 0 20px 40px -8px color-mix(in srgb, #000 50%, transparent);
   }
 
-  .mobile-graphic {
-    max-width: 620px;
-  }
-
-  .mobile-graphic img {
+  .mockup-wrap img {
+    display: block;
     width: 100%;
     height: auto;
+  }
+
+  .feature-graphic {
+    max-width: 660px;
+  }
+
+  .phone-wrap {
+    width: min(220px, 58vw);
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, #fff 9%, transparent);
+    border-radius: 26px;
+    box-shadow: 0 20px 42px color-mix(in srgb, #000 50%, transparent);
+    flex-shrink: 0;
+  }
+
+  .phone-wrap img {
     display: block;
-  }
-
-  .desktop-carousel {
-    position: relative;
     width: 100%;
-    aspect-ratio: 1440 / 900;
-    background: var(--surface-alt);
-  }
-
-  .carousel-image {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top center;
-    opacity: 0;
-    transform: scale(1.04);
-    transition:
-      opacity 1.1s cubic-bezier(0.45, 0.05, 0.2, 1),
-      transform 1.4s cubic-bezier(0.45, 0.05, 0.2, 1);
-    will-change: opacity, transform;
-    z-index: 0;
-  }
-
-  .carousel-image.active {
-    opacity: 1;
-    transform: scale(1);
-    z-index: 2;
-  }
-
-  .carousel-image.leaving {
-    opacity: 0;
-    transform: scale(1);
-    z-index: 1;
-    transition:
-      opacity 1.1s cubic-bezier(0.45, 0.05, 0.2, 1),
-      transform 1.4s cubic-bezier(0.45, 0.05, 0.2, 1);
-  }
-
-  .carousel-dots {
-    position: absolute;
-    bottom: 14px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 7px;
-    padding: 6px 10px;
-    border-radius: 100px;
-    background: color-mix(in srgb, #000 45%, transparent);
-    backdrop-filter: blur(8px);
-    z-index: 3;
-  }
-
-  .carousel-dots .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.35);
-    transition: background 0.4s ease, transform 0.4s ease;
-  }
-
-  .carousel-dots .dot.active {
-    background: var(--accent);
-    transform: scale(1.2);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .carousel-image {
-      transition: none;
-      transform: none;
-      will-change: auto;
-    }
-
-    .carousel-image:not(.active) {
-      display: none;
-    }
+    height: auto;
   }
 
   .copy {
-    text-align: center;
     max-width: 480px;
-  }
-
-  .tag {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 100px;
-    border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
-    background: color-mix(in srgb, var(--accent) 10%, transparent);
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: 1.2px;
+    text-align: center;
   }
 
   .copy h3 {
     margin: 16px 0 0;
-    font-size: 36px;
+    font-size: 34px;
     line-height: 1.15;
   }
 
   .copy p {
     margin: 14px 0 0;
-    font-size: 16px;
-    line-height: 1.6;
     color: var(--text-secondary);
+    font-size: 16px;
+    line-height: 1.65;
   }
 
-  @media (min-width: 600px) {
+  @media (min-width: 760px) {
     .showcase {
       flex-direction: row;
-      align-items: center;
-      gap: 48px;
+      justify-content: center;
+      gap: 64px;
     }
 
     .showcase.reverse {
       flex-direction: row-reverse;
     }
 
-    .mockup-slot {
-      flex-shrink: 0;
-      width: auto;
+    .feature-graphic {
+      flex: 1 1 60%;
     }
 
     .copy {
-      flex: 1;
+      flex: 1 1 36%;
       text-align: left;
-      max-width: none;
-    }
-
-    .showcase.desktop-layout {
-      gap: 56px;
-    }
-
-    .showcase.desktop-layout .copy {
-      flex: 0 1 340px;
-      max-width: 380px;
-    }
-
-    .showcase.desktop-layout .desktop-slot {
-      flex: 1 1 62%;
-      min-width: 0;
-      max-width: 900px;
-    }
-
-    .desktop-carousel {
-      min-height: 320px;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .showcase.desktop-layout {
-      gap: 72px;
-    }
-
-    .showcase.desktop-layout .copy {
-      flex: 0 1 360px;
-    }
-
-    .showcase.desktop-layout .desktop-slot {
-      flex: 1 1 68%;
-      max-width: 960px;
-    }
-
-    .desktop-carousel {
-      min-height: 380px;
-    }
-  }
-
-  @media (min-width: 1400px) {
-    .showcase.desktop-layout .desktop-slot {
-      max-width: 1040px;
     }
   }
 
   @media (max-width: 599px) {
     .header {
-      margin-bottom: 56px;
-    }
-
-    .showcases {
-      gap: 56px;
+      margin-bottom: 52px;
     }
 
     .title {
-      font-size: 32px;
+      font-size: 34px;
     }
 
     .subtitle {
       font-size: 15px;
     }
 
-    .copy h3 {
-      font-size: 28px;
+    .showcases {
+      gap: 60px;
     }
 
-    .desktop-carousel {
-      max-height: 220px;
+    .copy h3 {
+      font-size: 28px;
     }
   }
 </style>

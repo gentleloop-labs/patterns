@@ -369,13 +369,6 @@ export function resetStoreClickDedupe() {
   }
 }
 
-// --- Existing events (unchanged names, kept for report continuity) --------
-
-/** Desktop binary downloads (Linux/Windows/macOS), NOT store clicks. */
-export function logDownload(platform: string, version: string) {
-  logEvent('download', { platform, version });
-}
-
 export function logGitHubClick() {
   logEvent('github_click');
 }

@@ -105,9 +105,14 @@ export type BlogPost = {
 /** Frontmatter as authored - most fields are optional and filled in below. */
 type RawFrontmatter = Partial<Omit<BlogPost, 'slug'>>;
 
-const metaModules = import.meta.glob<RawFrontmatter>('/src/content/blog/*.md', {
-  eager: true,
-  import: 'metadata'
+/**
+ * Import each mdsvex module as a namespace, then read its generated metadata
+ * export below. A named `import: 'metadata'` works in production builds but
+ * Bun-triggered Vite dependency scans can inspect the raw Markdown before
+ * mdsvex transforms it and incorrectly report that the export is missing.
+ */
+const metaModules = import.meta.glob<{ metadata: RawFrontmatter }>('/src/content/blog/*.md', {
+  eager: true
 });
 
 /** Lazily loaded post bodies, so the index does not bundle every post. */
@@ -157,8 +162,8 @@ function toPost(path: string, meta: RawFrontmatter): BlogPost {
   };
 }
 
-export const authoredPosts: BlogPost[] = Object.entries(metaModules).map(([path, meta]) =>
-  toPost(path, meta)
+export const authoredPosts: BlogPost[] = Object.entries(metaModules).map(([path, module]) =>
+  toPost(path, module.metadata)
 );
 
 /** Only approved content is visible to routes, feeds, related posts, and the sitemap. */
