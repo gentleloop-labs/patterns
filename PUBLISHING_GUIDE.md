@@ -57,7 +57,7 @@ Patterns has been rebuilt around a calmer first session and one clear next step.
 - Rebuilt Insights with clearer trends, consistency, and practice context
 - Faster journal navigation, search, and date-based entries
 - Optional app lock and improved privacy explanations
-- Patterns Pro is now available as a one-time unlock—no subscription
+- Patterns Pro is now available as a one-time unlock, with no subscription
 
 Your journal entries, OCD records, and product-usage counters remain on-device.
 
@@ -66,9 +66,41 @@ Your journal entries, OCD records, and product-usage counters remain on-device.
 `ocd,erp,compulsion,intrusive thoughts,journal,anxiety,exposure,habit,cbt,self care`
 
 ### Pricing
-- **Patterns Pro:** US$14.99 one-time purchase through August/September 2026.
-- **Planned price:** US$19.99 one-time purchase after the introductory period.
-- Present US$14.99 as the current price, not as a guaranteed permanent or discounted price, unless a formal store promotion is configured.
+- **Patterns Pro (iOS, Android):** **US$39.99** one-time purchase, with local pricing elsewhere (Apple generates those from the US base price, so they are not all $39.99 equivalents). Raised from US$14.99 on 16 August 2026. The rise was first scheduled for 15 August 2026 and did not go through; it was applied manually the next day.
+- **Patterns Desktop Pro (macOS, Windows, Linux):** US$9.99 one-time licence via Lemon Squeezy. Unchanged.
+- Pro is a **one-time purchase and stays one**. There is no subscription, and no annual plan. Do not describe it as one anywhere.
+- Present the price that is actually being charged right now, which is US$39.99. Do not quote US$14.99 anywhere, and never announce a future price change with a date attached. A date the store has not honoured reads as though the rise already happened, and dangles a deadline discount nobody can take.
+- Existing Pro owners keep their access and are never charged again. Say so wherever the new price is mentioned.
+
+#### How the rise to US$39.99 is made
+The product ID **`com.maskedsyntax.patterns.pro` never changes**. It is a
+non-consumable, so raising its price does not affect anyone who already owns it:
+neither store re-charges for a non-consumable, and restore keeps returning it.
+
+- Apply the price change to the existing product in **App Store Connect** and **Google Play Console**.
+- **Never** delete, deactivate or rename the product. That is the one action that would strand every existing purchaser, because restore would stop returning it.
+- No new in-app product is created. There is nothing to migrate.
+- **Pro stays a one-time purchase.** No subscription tier, annual or otherwise. This was reconsidered and rejected on 16 August 2026: "never a subscription" is stated in the app paywall, four pages of the site and four blog posts, and `website/src/lib/data/copy-guards.test.ts` fails the build on any per-year price string. Adding one would cost more in trust than it returns.
+
+#### Switching the copy over (done 16 August 2026)
+Completed for the rise to US$39.99. Kept as the procedure for any future change.
+Do not run it until the paywall shows the new price on a device with **no local
+StoreKit config**, which is the only check that reads the real storefront. A
+simulator using `ios/Patterns.storekit` shows that file's price regardless of
+the live storefront, so it proves nothing. `flutter run` does not apply the
+scheme's StoreKit config either, because it installs via simctl.
+
+1. `website/src/routes/+page.svelte` - the JSON-LD `priceSpecification.price`. This is the figure search engines repeat, so it goes stale most visibly.
+2. `website/src/lib/data/faq.ts` - the cost answer. Also feeds FAQPage structured data.
+3. `website/src/routes/roadmap/+page.svelte` - move the pricing card between columns so it is not still sitting in "Almost ready" after it has shipped.
+4. `website/src/content/blog/between-therapy-sessions.md` - the pricing paragraph.
+5. This file: the two Pricing bullets above.
+6. `website/src/lib/data/copy-guards.test.ts` - invert the date-sensitive guards so they assert the new price is current and the old figure appears nowhere. They are written to fail while the copy is stale, which is the point; update them last so they gate the rest.
+
+The site is a deploy, not a release. It does not wait for App Review, and it
+must not be held back to ship alongside an app update: that would leave the site
+quoting a price lower than the store actually charges for the length of a review
+cycle. Deploy it as soon as the live price is confirmed.
 
 ## 2. Privacy Policy
 - **URL:** [https://patternsocd.com/privacy](https://patternsocd.com/privacy)

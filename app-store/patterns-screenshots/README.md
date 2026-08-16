@@ -35,6 +35,6 @@ node render.js
 4. Private Insights overview showing practice progress, mood, urge intensity, ERP sessions, and consistency.
 5. Full-screen private journal editor with a reflective entry and formatting controls.
 6. Settings screen showing Privacy & Safety, app lock, local-only records, data deletion, exports, and Pro controls.
-7. Standalone Patterns Pro value card with the one-time $14.99 unlock and six recovery tools.
+7. Standalone Patterns Pro value card with the one-time $39.99 unlock and six recovery tools.
 
 Feature graphic: Patterns branding beside a card recommending a two-minute delay, with the line “A quieter way through OCD.”

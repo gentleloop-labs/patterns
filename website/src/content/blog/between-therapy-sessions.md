@@ -114,7 +114,7 @@ Proper OCD treatment is not equally available to everyone. Therapy is expensive 
 
 Entries stay on the device. No account, no sign-up wall, nothing sent to a server for the app to be useful. I made that decision for myself first, because I knew I would not write honestly otherwise.
 
-On price: the core features are free. Pro is a one-time purchase with lifetime access, $14.99 through the launch period and $39.99 from 15 August 2026, still one time, still lifetime. There is no subscription and there is not going to be one. If you already own Pro, nothing changes and you are never charged again.
+On price: the core features are free. Pro is a one-time purchase with lifetime access, $39.99, one payment, kept for good. There is no subscription and there is not going to be one. If you already own Pro, nothing changes and you are never charged again.
 
 The reasoning is not complicated. I wanted the basic tools to stay accessible without another monthly bill attached to someone's recovery, and I wanted Pro to stay a single payment, because I know how it feels when every useful mental health tool turns into a recurring charge. Pro is what funds continuing to build the thing.
 

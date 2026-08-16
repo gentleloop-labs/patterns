@@ -67,7 +67,7 @@
           category: 'One-time purchase',
           priceSpecification: {
             '@type': 'PriceSpecification',
-            price: '14.99',
+            price: '39.99',
             priceCurrency: 'USD'
           }
         }
