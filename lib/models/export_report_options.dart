@@ -6,22 +6,30 @@ class ExportSections {
   final bool journal;
   final bool ocd;
   final bool analytics;
+  final bool ybocs;
 
   const ExportSections({
     this.journal = true,
     this.ocd = true,
     this.analytics = true,
+    this.ybocs = true,
   });
 
-  ExportSections copyWith({bool? journal, bool? ocd, bool? analytics}) {
+  ExportSections copyWith({
+    bool? journal,
+    bool? ocd,
+    bool? analytics,
+    bool? ybocs,
+  }) {
     return ExportSections(
       journal: journal ?? this.journal,
       ocd: ocd ?? this.ocd,
       analytics: analytics ?? this.analytics,
+      ybocs: ybocs ?? this.ybocs,
     );
   }
 
-  bool get hasAny => journal || ocd || analytics;
+  bool get hasAny => journal || ocd || analytics || ybocs;
 }
 
 class ExportReportOptions {
@@ -98,14 +106,19 @@ class ExportReportOptions {
     return total;
   }
 
+  /// [ybocsCount] defaults to zero so existing callers keep working, but a
+  /// report of self-checks alone is a legitimate thing to hand a clinician, so
+  /// it has to be able to unblock the export on its own.
   bool hasExportableContent({
     required int journalCount,
     required int ocdCount,
+    int ybocsCount = 0,
   }) {
     if (!sections.hasAny) return false;
     if (sections.analytics && (journalCount > 0 || ocdCount > 0)) return true;
     if (sections.journal && journalCount > 0) return true;
     if (sections.ocd && ocdCount > 0) return true;
+    if (sections.ybocs && ybocsCount > 0) return true;
     return false;
   }
 }

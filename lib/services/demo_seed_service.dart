@@ -112,7 +112,7 @@ class DemoSeedService {
       date: _dateKey(date),
       content: improving
           ? 'I noticed the $theme thought show up today and practiced letting uncertainty be there. The urge was real, but I delayed the compulsion and came back to what mattered. Checking felt less sticky after a few minutes.'
-          : 'The $theme fear felt loud today. I kept looking for certainty and noticed how reassurance only helped for a moment. I want to practice response prevention next time instead of trying to solve the doubt.',
+          : 'The $theme fear felt loud today. I kept looking for certainty and noticed how reassurance only helped for a moment. I want to practise response prevention next time instead of trying to solve the doubt.',
       createdAt: date,
       updatedAt: date.add(const Duration(minutes: 12)),
     );

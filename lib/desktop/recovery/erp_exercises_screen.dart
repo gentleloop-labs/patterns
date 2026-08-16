@@ -55,7 +55,7 @@ const erpExerciseTemplates = <ErpExerciseTemplate>[
   ErpExerciseTemplate(
     id: 'delay_checking',
     title: 'Delay Checking',
-    subtitle: 'Practice leaving something unchecked for a short window.',
+    subtitle: 'Practise leaving something unchecked for a short window.',
     intro:
         'Create a repeatable plan for moments when OCD pushes you to check locks, switches, messages, symptoms, or mistakes again.',
     why:
@@ -69,7 +69,7 @@ const erpExerciseTemplates = <ErpExerciseTemplate>[
     quickCues: ['Check once', 'No rechecking', 'Notice the urge'],
     exposurePrompt: 'What will you leave unchecked or checked only once?',
     predictionPrompt: 'What does OCD predict if you do not recheck?',
-    commitmentPrompt: 'What checking ritual will you practice resisting?',
+    commitmentPrompt: 'What checking ritual will you practise resisting?',
     defaultSeconds: 5 * 60,
     icon: Icons.fact_check_rounded,
   ),
@@ -413,7 +413,7 @@ class _ErpPlanEditorScreenState extends ConsumerState<ErpPlanEditorScreen> {
     if (_exposureController.text.trim().isEmpty) {
       showAppSnackBar(
         context,
-        'Name the situation you want to practice with.',
+        'Name the situation you want to practise with, whenever you are ready.',
         type: ToastType.info,
       );
       return;
@@ -421,7 +421,7 @@ class _ErpPlanEditorScreenState extends ConsumerState<ErpPlanEditorScreen> {
     if (_commitmentController.text.trim().isEmpty) {
       showAppSnackBar(
         context,
-        'Choose the response you want to practice resisting.',
+        'Choose the response you want to practise resisting, and this will save.',
         type: ToastType.info,
       );
       return;
@@ -1119,7 +1119,7 @@ class _EmptyPlansCard extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Write the exposure, prediction, and response you want to practice once. Then reuse it whenever you need.',
+            'Write the exposure, prediction, and response you want to practise once. Then reuse it whenever you need.',
             style: _bodyText(theme),
           ),
           const SizedBox(height: 18),

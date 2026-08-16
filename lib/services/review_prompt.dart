@@ -4,19 +4,16 @@ import 'package:flutter/foundation.dart'
     show debugPrint, kDebugMode, kIsWeb, visibleForTesting;
 import 'package:flutter/material.dart';
 import 'package:in_app_review/in_app_review.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../app_preferences.dart';
-import '../theme/app_theme.dart';
+import 'app_events.dart';
 
 enum ReviewTrigger {
   journalSaved,
-  ocdLowDistress,
   urgeCompleted,
   erpCompleted,
   analyticsLinger,
-  manual,
 }
 
 enum RatingPromptIneligibility {
@@ -28,17 +25,22 @@ enum RatingPromptIneligibility {
   notEnoughMeaningfulActions,
   notEnoughDistinctDays,
   promptCooldown,
+  annualAttemptLimit,
+  failureBackoff,
   declineCooldown,
 }
 
 class RatingPromptDiagnostics {
   final DateTime? firstSeen;
+  final int hoursInstalled;
   final int daysInstalled;
   final int journalCount;
   final int ocdCount;
   final int meaningfulActionCount;
   final int distinctDays;
-  final DateTime? lastPrompt;
+  final DateTime? lastAttempt;
+  final int attemptsInLast365Days;
+  final DateTime? lastFailure;
   final DateTime? lastDecline;
   final bool optedOut;
   final bool completed;
@@ -47,25 +49,56 @@ class RatingPromptDiagnostics {
 
   const RatingPromptDiagnostics({
     required this.firstSeen,
+    required this.hoursInstalled,
     required this.daysInstalled,
     required this.journalCount,
     required this.ocdCount,
     required this.meaningfulActionCount,
     required this.distinctDays,
-    required this.lastPrompt,
+    required this.lastAttempt,
+    required this.attemptsInLast365Days,
+    required this.lastFailure,
     required this.lastDecline,
     required this.optedOut,
     required this.completed,
     required this.eligible,
     required this.reason,
   });
+
+  /// Compatibility alias for the old diagnostics field name.
+  DateTime? get lastPrompt => lastAttempt;
 }
 
-/// Lightweight in-app rating prompts.
+/// Platform seam for the native in-app review and store-listing APIs.
+abstract class ReviewGateway {
+  Future<bool> isAvailable();
+
+  Future<void> requestReview();
+
+  Future<void> openStoreListing({required String appStoreId});
+}
+
+class InAppReviewGateway implements ReviewGateway {
+  const InAppReviewGateway();
+
+  InAppReview get _review => InAppReview.instance;
+
+  @override
+  Future<bool> isAvailable() => _review.isAvailable();
+
+  @override
+  Future<void> requestReview() => _review.requestReview();
+
+  @override
+  Future<void> openStoreListing({required String appStoreId}) =>
+      _review.openStoreListing(appStoreId: appStoreId);
+}
+
+/// Privacy-preserving, eligibility-gated App Store / Play review requests.
 ///
-/// Trigger sites record meaningful actions, then call `maybeRequestReview` at a
-/// designated "happy moment." The soft pre-prompt filters out unhappy users
-/// (routing them to email feedback) before the native store sheet is invoked.
+/// Automatic prompts use only the native store UI. The API does not reveal
+/// whether the sheet appeared or whether the user submitted a rating, so this
+/// service records attempts rather than claiming completion.
 class ReviewPromptService {
   static const _kFirstSeen = 'rating_first_seen_ts';
   static const _kJournalCount = 'rating_journal_count';
@@ -73,26 +106,35 @@ class ReviewPromptService {
   static const _kMeaningfulActionCount = 'rating_meaningful_action_count';
   static const _kDistinctDays = 'rating_distinct_days';
   static const _kLastDayKey = 'rating_last_day_key';
+  static const _kAttemptHistory = 'rating_request_attempt_timestamps';
+  static const _kLastFailureTs = 'rating_last_failure_ts';
+
+  // Legacy keys are read during migration so existing choices and cooldowns
+  // remain respected after upgrading.
   static const _kLastPromptTs = 'rating_last_prompt_ts';
   static const _kLastDeclineTs = 'rating_last_decline_ts';
   static const _kOptedOut = 'rating_opted_out';
   static const _kCompleted = 'rating_completed';
 
-  static const _minDaysInstalled = 2;
+  static const _minHoursInstalled = 24;
   static const _minMeaningfulActions = 2;
   static const _minDistinctDays = 2;
-  static const maxOcdDistressForTrigger = 4;
-  static const _reprompAfterShowDays = 90;
-  static const _reprompAfterDeclineDays = 14;
+  static const _automaticCooldownDays = 30;
+  static const _failureBackoffDays = 7;
+  static const _maxAutomaticAttempts = 3;
+  static const _attemptWindowDays = 365;
+  static const _legacyDeclineCooldownDays = 14;
 
   static const _iosAppStoreId = '6762611172';
   static const _androidPackage = 'com.maskedsyntax.patterns';
   static const _supportEmail = 'aftaab@aftaab.dev';
 
+  static ReviewGateway _gateway = const InAppReviewGateway();
   static bool _inFlight = false;
+  static bool? _mobileOverride;
 
   @visibleForTesting
-  static const minDaysInstalled = _minDaysInstalled;
+  static const minHoursInstalled = _minHoursInstalled;
 
   @visibleForTesting
   static const minMeaningfulActions = _minMeaningfulActions;
@@ -100,15 +142,48 @@ class ReviewPromptService {
   @visibleForTesting
   static const minDistinctDays = _minDistinctDays;
 
+  @visibleForTesting
+  static const automaticCooldownDays = _automaticCooldownDays;
+
+  @visibleForTesting
+  static const failureBackoffDays = _failureBackoffDays;
+
+  @visibleForTesting
+  static const maxAutomaticAttempts = _maxAutomaticAttempts;
+
+  @visibleForTesting
+  static const attemptWindowDays = _attemptWindowDays;
+
   static bool get _isMobile {
+    final override = _mobileOverride;
+    if (override != null) return override;
     if (kIsWeb) return false;
     return Platform.isIOS || Platform.isAndroid;
+  }
+
+  static String get _platformName {
+    if (kIsWeb) return 'web';
+    if (Platform.isIOS) return 'ios';
+    if (Platform.isAndroid) return 'android';
+    if (Platform.isMacOS) return 'macos';
+    return 'other';
+  }
+
+  @visibleForTesting
+  static void setGatewayForTesting(ReviewGateway? gateway) {
+    _gateway = gateway ?? const InAppReviewGateway();
+  }
+
+  @visibleForTesting
+  static void setMobileOverrideForTesting(bool? value) {
+    _mobileOverride = value;
   }
 
   static Future<void> recordSessionStart() async {
     final prefs = mobilePreferences;
     if (prefs == null) return;
     final now = DateTime.now();
+    await _migrateLegacyAttemptHistory(prefs, now);
     if (!prefs.containsKey(_kFirstSeen)) {
       await prefs.setInt(_kFirstSeen, now.millisecondsSinceEpoch);
     }
@@ -134,13 +209,10 @@ class ReviewPromptService {
     await _recordMeaningfulAction();
   }
 
-  static Future<void> recordUrgePracticeCompleted() async {
-    await _recordMeaningfulAction();
-  }
+  static Future<void> recordUrgePracticeCompleted() =>
+      _recordMeaningfulAction();
 
-  static Future<void> recordErpPracticeCompleted() async {
-    await _recordMeaningfulAction();
-  }
+  static Future<void> recordErpPracticeCompleted() => _recordMeaningfulAction();
 
   static Future<void> _recordMeaningfulAction() async {
     final prefs = mobilePreferences;
@@ -155,14 +227,17 @@ class ReviewPromptService {
     final prefs = mobilePreferences;
     final now = DateTime.now();
     if (prefs == null) {
-      return RatingPromptDiagnostics(
+      return const RatingPromptDiagnostics(
         firstSeen: null,
+        hoursInstalled: 0,
         daysInstalled: 0,
         journalCount: 0,
         ocdCount: 0,
         meaningfulActionCount: 0,
         distinctDays: 0,
-        lastPrompt: null,
+        lastAttempt: null,
+        attemptsInLast365Days: 0,
+        lastFailure: null,
         lastDecline: null,
         optedOut: false,
         completed: false,
@@ -183,6 +258,8 @@ class ReviewPromptService {
     int ocdCount = 0,
     int? meaningfulActionCount,
     int distinctDays = 0,
+    List<DateTime> attempts = const [],
+    DateTime? lastFailure,
     DateTime? lastPrompt,
     DateTime? lastDecline,
     bool optedOut = false,
@@ -197,6 +274,8 @@ class ReviewPromptService {
       _kMeaningfulActionCount,
       _kDistinctDays,
       _kLastDayKey,
+      _kAttemptHistory,
+      _kLastFailureTs,
       _kLastPromptTs,
       _kLastDeclineTs,
       _kOptedOut,
@@ -213,6 +292,15 @@ class ReviewPromptService {
       await prefs.setInt(_kMeaningfulActionCount, meaningfulActionCount);
     }
     await prefs.setInt(_kDistinctDays, distinctDays);
+    if (attempts.isNotEmpty) {
+      await prefs.setStringList(
+        _kAttemptHistory,
+        attempts.map((date) => date.millisecondsSinceEpoch.toString()).toList(),
+      );
+    }
+    if (lastFailure != null) {
+      await prefs.setInt(_kLastFailureTs, lastFailure.millisecondsSinceEpoch);
+    }
     if (lastPrompt != null) {
       await prefs.setInt(_kLastPromptTs, lastPrompt.millisecondsSinceEpoch);
     }
@@ -231,20 +319,22 @@ class ReviewPromptService {
     final firstSeen = firstSeenMs == null
         ? null
         : DateTime.fromMillisecondsSinceEpoch(firstSeenMs);
-    final daysInstalled = firstSeen == null
-        ? 0
-        : now.difference(firstSeen).inDays;
+    final installedDuration = firstSeen == null
+        ? Duration.zero
+        : now.difference(firstSeen);
     final journalCount = prefs.getInt(_kJournalCount) as int? ?? 0;
     final ocdCount = prefs.getInt(_kOcdCount) as int? ?? 0;
     final meaningfulActionCount =
         prefs.getInt(_kMeaningfulActionCount) as int? ??
         journalCount + ocdCount;
     final distinctDays = prefs.getInt(_kDistinctDays) as int? ?? 0;
-    final lastPromptMs = prefs.getInt(_kLastPromptTs) as int?;
-    final lastDeclineMs = prefs.getInt(_kLastDeclineTs) as int?;
-    final lastPrompt = lastPromptMs == null
+    final attempts = _readAttemptHistory(prefs, now);
+    final lastAttempt = attempts.isEmpty ? null : attempts.last;
+    final lastFailureMs = prefs.getInt(_kLastFailureTs) as int?;
+    final lastFailure = lastFailureMs == null
         ? null
-        : DateTime.fromMillisecondsSinceEpoch(lastPromptMs);
+        : DateTime.fromMillisecondsSinceEpoch(lastFailureMs);
+    final lastDeclineMs = prefs.getInt(_kLastDeclineTs) as int?;
     final lastDecline = lastDeclineMs == null
         ? null
         : DateTime.fromMillisecondsSinceEpoch(lastDeclineMs);
@@ -258,28 +348,39 @@ class ReviewPromptService {
       reason = RatingPromptIneligibility.completed;
     } else if (firstSeen == null) {
       reason = RatingPromptIneligibility.missingFirstSeen;
-    } else if (daysInstalled < _minDaysInstalled) {
+    } else if (installedDuration.inHours < _minHoursInstalled) {
       reason = RatingPromptIneligibility.tooRecentlyInstalled;
     } else if (meaningfulActionCount < _minMeaningfulActions) {
       reason = RatingPromptIneligibility.notEnoughMeaningfulActions;
     } else if (distinctDays < _minDistinctDays) {
       reason = RatingPromptIneligibility.notEnoughDistinctDays;
-    } else if (lastPrompt != null &&
-        now.difference(lastPrompt).inDays < _reprompAfterShowDays) {
+    } else if (lastFailure != null &&
+        now.difference(lastFailure) <
+            const Duration(days: _failureBackoffDays)) {
+      reason = RatingPromptIneligibility.failureBackoff;
+    } else if (lastAttempt != null &&
+        now.difference(lastAttempt) <
+            const Duration(days: _automaticCooldownDays)) {
       reason = RatingPromptIneligibility.promptCooldown;
+    } else if (attempts.length >= _maxAutomaticAttempts) {
+      reason = RatingPromptIneligibility.annualAttemptLimit;
     } else if (lastDecline != null &&
-        now.difference(lastDecline).inDays < _reprompAfterDeclineDays) {
+        now.difference(lastDecline) <
+            const Duration(days: _legacyDeclineCooldownDays)) {
       reason = RatingPromptIneligibility.declineCooldown;
     }
 
     return RatingPromptDiagnostics(
       firstSeen: firstSeen,
-      daysInstalled: daysInstalled,
+      hoursInstalled: installedDuration.inHours,
+      daysInstalled: installedDuration.inDays,
       journalCount: journalCount,
       ocdCount: ocdCount,
       meaningfulActionCount: meaningfulActionCount,
       distinctDays: distinctDays,
-      lastPrompt: lastPrompt,
+      lastAttempt: lastAttempt,
+      attemptsInLast365Days: attempts.length,
+      lastFailure: lastFailure,
       lastDecline: lastDecline,
       optedOut: optedOut,
       completed: completed,
@@ -289,149 +390,102 @@ class ReviewPromptService {
   }
 
   static bool _isEligible(ReviewTrigger trigger) {
-    final diagnostics = ReviewPromptService.diagnostics();
-    if (!diagnostics.eligible) {
-      _debugLog(trigger, diagnostics);
+    final result = diagnostics();
+    if (!result.eligible) {
+      AppEvents.logReviewRequestSkipped(
+        trigger: trigger.name,
+        reason: result.reason?.name ?? 'unknown',
+        platform: _platformName,
+      );
+      _debugLog(trigger, result);
       return false;
     }
+    AppEvents.logReviewEligible(trigger: trigger.name, platform: _platformName);
     return true;
   }
 
-  static void _debugLog(
-    ReviewTrigger trigger,
-    RatingPromptDiagnostics diagnostics,
-  ) {
+  static void _debugLog(ReviewTrigger trigger, RatingPromptDiagnostics result) {
     if (!kDebugMode) return;
     debugPrint(
       'Review prompt skipped for ${trigger.name}: '
-      '${diagnostics.reason?.name ?? 'eligible'} '
-      '(daysInstalled=${diagnostics.daysInstalled}, '
-      'meaningfulActions=${diagnostics.meaningfulActionCount}, '
-      'distinctDays=${diagnostics.distinctDays}, '
-      'lastPrompt=${diagnostics.lastPrompt}, '
-      'lastDecline=${diagnostics.lastDecline}, '
-      'optedOut=${diagnostics.optedOut}, '
-      'completed=${diagnostics.completed})',
+      '${result.reason?.name ?? 'eligible'} '
+      '(hoursInstalled=${result.hoursInstalled}, '
+      'meaningfulActions=${result.meaningfulActionCount}, '
+      'distinctDays=${result.distinctDays}, '
+      'lastAttempt=${result.lastAttempt}, '
+      'attempts365=${result.attemptsInLast365Days}, '
+      'lastFailure=${result.lastFailure}, '
+      'optedOut=${result.optedOut}, completed=${result.completed})',
     );
   }
 
-  /// Eligibility-gated prompt for "happy moment" triggers.
+  /// Requests the native store review UI at an eligible happy moment.
   static Future<void> maybeRequestReview(
     BuildContext context, {
     required ReviewTrigger trigger,
   }) async {
-    if (!_isMobile) return;
-    if (_inFlight) return;
-    if (!_isEligible(trigger)) return;
+    if (!_isMobile || _inFlight || !_isEligible(trigger)) return;
     _inFlight = true;
     try {
-      // Brief delay so the closing screen / save toast settles first.
-      await Future.delayed(const Duration(milliseconds: 600));
+      await Future<void>.delayed(const Duration(milliseconds: 600));
       if (!context.mounted) return;
-      await _showSoftPrompt(context, manual: false);
+      await _requestNativeReview(trigger);
     } finally {
       _inFlight = false;
     }
   }
 
-  /// Manual entry from Settings - skips eligibility and cooldowns.
-  static Future<void> requestReviewManually(BuildContext context) async {
-    if (_inFlight) return;
-    _inFlight = true;
+  static Future<void> _requestNativeReview(ReviewTrigger trigger) async {
     try {
-      await _showSoftPrompt(context, manual: true);
-    } finally {
-      _inFlight = false;
-    }
-  }
-
-  static Future<void> _showSoftPrompt(
-    BuildContext context, {
-    required bool manual,
-  }) async {
-    final prefs = mobilePreferences;
-    if (!context.mounted) return;
-
-    final choice = await showDialog<_PromptChoice>(
-      context: context,
-      barrierDismissible: true,
-      builder: (ctx) => const _SoftPromptDialog(),
-    );
-
-    switch (choice) {
-      case null:
-      case _PromptChoice.later:
-        if (!manual) {
-          await prefs?.setInt(
-            _kLastDeclineTs,
-            DateTime.now().millisecondsSinceEpoch,
-          );
-        }
-      case _PromptChoice.yes:
-        // Manual taps go straight to the store listing - the native in-app
-        // review sheet is rate-limited and frequently no-ops silently, which
-        // looks broken when the user explicitly asked to rate. The automatic
-        // "happy moment" path still prefers the in-app sheet.
-        await _launchReview(preferStoreListing: manual);
-        if (manual) {
-          await prefs?.setBool(_kCompleted, true);
-        } else {
-          await prefs?.setInt(
-            _kLastPromptTs,
-            DateTime.now().millisecondsSinceEpoch,
-          );
-        }
-      case _PromptChoice.feedback:
-        if (!manual) await prefs?.setBool(_kOptedOut, true);
-        await _sendFeedbackEmail();
-    }
-  }
-
-  /// Routes the user to a place they can rate the app.
-  ///
-  /// When [preferStoreListing] is false we first try the native in-app review
-  /// sheet (the right UX for an automatic "happy moment"). When true - or when
-  /// the in-app sheet is unavailable - we open the store listing directly, with
-  /// a plain URL launch as the final fallback so the user always lands
-  /// somewhere.
-  static Future<void> _launchReview({required bool preferStoreListing}) async {
-    if (!_isMobile) return;
-    final review = InAppReview.instance;
-    if (!preferStoreListing) {
-      try {
-        if (await review.isAvailable()) {
-          await review.requestReview();
-          return;
-        }
-      } catch (_) {
-        /* fall through to store listing */
+      if (!await _gateway.isAvailable()) {
+        await _recordFailure();
+        AppEvents.logReviewRequestUnavailable(
+          trigger: trigger.name,
+          platform: _platformName,
+        );
+        return;
       }
-    }
-    try {
-      await review.openStoreListing(appStoreId: _iosAppStoreId);
-      return;
+      await _gateway.requestReview();
+      await _recordAttempt();
+      AppEvents.logReviewRequestAttempted(
+        trigger: trigger.name,
+        platform: _platformName,
+      );
     } catch (_) {
-      /* fall through to direct URL */
-    }
-    await _openStoreUrl();
-  }
-
-  static Future<void> _openStoreUrl() async {
-    final uri = Platform.isAndroid
-        ? Uri.parse(
-            'https://play.google.com/store/apps/details?id=$_androidPackage',
-          )
-        : Uri.parse(
-            'https://apps.apple.com/app/id$_iosAppStoreId?action=write-review',
-          );
-    try {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } catch (_) {
-      /* nothing we can do */
+      await _recordFailure();
+      AppEvents.logReviewRequestFailed(
+        trigger: trigger.name,
+        platform: _platformName,
+      );
     }
   }
 
-  static Future<void> _sendFeedbackEmail() async {
+  /// Explicit Settings action: open the store listing instead of a quota-bound
+  /// native sheet. This never changes automatic prompt eligibility.
+  static Future<void> requestReviewManually(BuildContext context) async {
+    if (!_isMobile || _inFlight) return;
+    _inFlight = true;
+    var opened = false;
+    try {
+      try {
+        await _gateway.openStoreListing(appStoreId: _iosAppStoreId);
+        opened = true;
+      } catch (_) {
+        opened = await _openStoreUrl();
+      }
+      if (opened) {
+        AppEvents.logReviewManualStoreOpened(platform: _platformName);
+      } else if (context.mounted) {
+        _showLaunchError(context, 'Couldn’t open the store. Please try again.');
+      }
+    } finally {
+      _inFlight = false;
+    }
+  }
+
+  /// Separate support path; it is intentionally unrelated to review
+  /// eligibility and never receives journal or health data.
+  static Future<void> sendFeedback(BuildContext context) async {
     final uri = Uri(
       scheme: 'mailto',
       path: _supportEmail,
@@ -440,106 +494,100 @@ class ReviewPromptService {
         'body': 'Hi,\n\nMy feedback about Patterns:\n\n',
       },
     );
+    var opened = false;
     try {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
+      opened = await launchUrl(uri, mode: LaunchMode.externalApplication);
     } catch (_) {
-      /* user can copy the address from the privacy page */
+      opened = false;
+    }
+    if (opened) {
+      AppEvents.logFeedbackStarted(platform: _platformName);
+    } else if (context.mounted) {
+      _showLaunchError(
+        context,
+        'Couldn’t open email. You can write to $_supportEmail.',
+      );
     }
   }
 
-  static String _dayKey(DateTime d) =>
-      '${d.year.toString().padLeft(4, '0')}-'
-      '${d.month.toString().padLeft(2, '0')}-'
-      '${d.day.toString().padLeft(2, '0')}';
-}
+  static Future<void> _recordAttempt() async {
+    final prefs = mobilePreferences;
+    if (prefs == null) return;
+    final now = DateTime.now();
+    final attempts = _readAttemptHistory(prefs, now)..add(now);
+    await prefs.setStringList(
+      _kAttemptHistory,
+      attempts.map((date) => date.millisecondsSinceEpoch.toString()).toList(),
+    );
+    await prefs.setInt(_kLastPromptTs, now.millisecondsSinceEpoch);
+    await prefs.remove(_kLastFailureTs);
+  }
 
-enum _PromptChoice { yes, feedback, later }
-
-class _SoftPromptDialog extends StatelessWidget {
-  const _SoftPromptDialog();
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final surface = AppTheme.charcoalCard;
-
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      insetPadding: const EdgeInsets.symmetric(horizontal: 28, vertical: 24),
-      child: Container(
-        padding: const EdgeInsets.fromLTRB(22, 22, 22, 18),
-        decoration: BoxDecoration(
-          color: surface,
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: theme.dividerColor),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: theme.colorScheme.primary.withValues(alpha: 0.14),
-              ),
-              alignment: Alignment.center,
-              child: Icon(
-                LineIcons.feather,
-                color: theme.colorScheme.primary,
-                size: 22,
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Is Patterns helping you?',
-              style: theme.textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w800,
-                fontFamily: AppTheme.displayFamily,
-                height: 1.2,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Your honest read shapes what we build next. '
-              'No pressure. Pick whatever fits.',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: AppTheme.textSecondary,
-                height: 1.5,
-              ),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(_PromptChoice.yes),
-                child: const Text('Yes, it helps'),
-              ),
-            ),
-            const SizedBox(height: 8),
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton(
-                onPressed: () =>
-                    Navigator.of(context).pop(_PromptChoice.feedback),
-                child: const Text('Not really, feedback'),
-              ),
-            ),
-            const SizedBox(height: 4),
-            Align(
-              alignment: Alignment.center,
-              child: TextButton(
-                onPressed: () => Navigator.of(context).pop(_PromptChoice.later),
-                child: Text(
-                  'Maybe later',
-                  style: TextStyle(color: AppTheme.textSecondary),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+  static Future<void> _recordFailure() async {
+    await mobilePreferences?.setInt(
+      _kLastFailureTs,
+      DateTime.now().millisecondsSinceEpoch,
     );
   }
+
+  static List<DateTime> _readAttemptHistory(dynamic prefs, DateTime now) {
+    final raw = prefs.getStringList(_kAttemptHistory) as List<String>?;
+    final values = <DateTime>[];
+    if (raw != null) {
+      for (final value in raw) {
+        final millis = int.tryParse(value);
+        if (millis != null) {
+          values.add(DateTime.fromMillisecondsSinceEpoch(millis));
+        }
+      }
+    } else {
+      final legacyMillis = prefs.getInt(_kLastPromptTs) as int?;
+      if (legacyMillis != null) {
+        values.add(DateTime.fromMillisecondsSinceEpoch(legacyMillis));
+      }
+    }
+    values.removeWhere((date) {
+      final age = now.difference(date);
+      return age.isNegative || age >= const Duration(days: _attemptWindowDays);
+    });
+    values.sort();
+    return values;
+  }
+
+  static Future<void> _migrateLegacyAttemptHistory(
+    dynamic prefs,
+    DateTime now,
+  ) async {
+    final attempts = _readAttemptHistory(prefs, now);
+    await prefs.setStringList(
+      _kAttemptHistory,
+      attempts.map((date) => date.millisecondsSinceEpoch.toString()).toList(),
+    );
+  }
+
+  static Future<bool> _openStoreUrl() async {
+    final uri = Platform.isAndroid
+        ? Uri.parse(
+            'https://play.google.com/store/apps/details?id=$_androidPackage',
+          )
+        : Uri.parse(
+            'https://apps.apple.com/app/id$_iosAppStoreId?action=write-review',
+          );
+    try {
+      return await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } catch (_) {
+      return false;
+    }
+  }
+
+  static void _showLaunchError(BuildContext context, String message) {
+    ScaffoldMessenger.maybeOf(
+      context,
+    )?.showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  static String _dayKey(DateTime date) =>
+      '${date.year.toString().padLeft(4, '0')}-'
+      '${date.month.toString().padLeft(2, '0')}-'
+      '${date.day.toString().padLeft(2, '0')}';
 }

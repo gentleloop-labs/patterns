@@ -9,6 +9,7 @@ import 'package:line_icons/line_icons.dart';
 
 import '../../models/models.dart';
 import '../../providers/providers.dart';
+import '../../services/app_events.dart';
 import '../../services/notification_service.dart';
 import '../../services/review_prompt.dart';
 import '../../theme/app_theme.dart';
@@ -128,6 +129,8 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
       return;
     }
     _plannedSeconds = _custom ? (_customMinutes.round() * 60) : _plannedSeconds;
+    // The urge the user named is intentionally not a parameter.
+    AppEvents.logFirstCompulsionDelayStarted();
     _urgeAfter = _urgeBefore;
     final startedAt = DateTime.now();
     _timerStartedAt = startedAt;
@@ -288,6 +291,7 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
       createdAt: DateTime.now(),
     );
     await ref.read(delaySessionProvider.notifier).addSession(session);
+    AppEvents.logFirstCompulsionDelayCompleted(ranToCompletion: _completed);
     await ReviewPromptService.recordUrgePracticeCompleted();
     if (!mounted) return;
     if (widget.firstRun) {

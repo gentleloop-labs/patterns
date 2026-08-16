@@ -674,7 +674,7 @@ class _ExposureMaterialEditScreenState
     if (title.isEmpty) {
       showAppSnackBar(
         context,
-        'Give this material a name to save.',
+        'Give this a name and it will save.',
         type: ToastType.info,
       );
       return;
@@ -690,7 +690,7 @@ class _ExposureMaterialEditScreenState
         if (text.isEmpty) {
           showAppSnackBar(
             context,
-            'Add the script text to save.',
+            'Add the script text and this will save.',
             type: ToastType.info,
           );
           return;
@@ -700,7 +700,7 @@ class _ExposureMaterialEditScreenState
         if (url.isEmpty) {
           showAppSnackBar(
             context,
-            'Paste a link to save.',
+            'Paste a link and this will save.',
             type: ToastType.info,
           );
           return;
@@ -709,7 +709,7 @@ class _ExposureMaterialEditScreenState
         if (_pickedImagePath == null) {
           showAppSnackBar(
             context,
-            'Pick an image to save.',
+            'Pick an image and this will save.',
             type: ToastType.info,
           );
           return;
@@ -718,7 +718,7 @@ class _ExposureMaterialEditScreenState
         if (_recordedPath == null) {
           showAppSnackBar(
             context,
-            'Record a loop tape to save.',
+            'Record a loop tape and this will save.',
             type: ToastType.info,
           );
           return;

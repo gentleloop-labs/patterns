@@ -327,7 +327,7 @@ class _ResponsePreventionLogScreenState
     if (situation.isEmpty) {
       showAppSnackBar(
         context,
-        'Add a quick note on the situation to save.',
+        'A quick note on what set it off, and this will save.',
         type: ToastType.info,
       );
       return;
@@ -378,8 +378,8 @@ class _ResponsePreventionLogScreenState
             ),
             const SizedBox(height: 18),
             LabeledField(
-              label: 'What happened?',
-              hint: 'The trigger and the urge you faced',
+              label: 'What set it off?',
+              hint: 'The trigger, and what OCD wanted you to do',
               controller: _situationController,
               minLines: 2,
             ),
@@ -400,7 +400,7 @@ class _ResponsePreventionLogScreenState
               padding: const EdgeInsets.all(16),
               decoration: recoverySoftDecoration(theme, radius: 18),
               child: RatingSlider(
-                label: 'Anxiety at the time',
+                label: 'Distress at the time',
                 value: _anxiety,
                 onChanged: (v) => setState(() => _anxiety = v),
               ),

@@ -32,7 +32,7 @@ int _parseAdIndex(String raw) {
   final parsed = int.tryParse(raw.trim());
   if (parsed == null || parsed < 1 || parsed > 24) {
     debugPrint(
-      'main_marketing: invalid AD_INDEX="$raw" — falling back to 1 '
+      'main_marketing: invalid AD_INDEX="$raw", falling back to 1 '
       '(valid range: 1–24)',
     );
     return 1;

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -164,8 +165,7 @@ class SettingsScreen extends ConsumerWidget {
                     type: ToastType.success,
                   ),
                 ),
-              ]
-              else
+              ] else
                 _SettingsItem(
                   icon: LineIcons.unlock,
                   title: 'Unlock Patterns Pro',
@@ -177,14 +177,7 @@ class SettingsScreen extends ConsumerWidget {
                 icon: LineIcons.syncIcon,
                 title: 'Restore purchases',
                 subtitle: 'Re-apply a previous Patterns Pro unlock',
-                onTap: () {
-                  ProService.restore();
-                  showAppSnackBar(
-                    context,
-                    'Restoring your purchases…',
-                    type: ToastType.info,
-                  );
-                },
+                onTap: () => _restorePurchases(context, ref),
               ),
             ],
             const SizedBox(height: 28),
@@ -239,6 +232,13 @@ class SettingsScreen extends ConsumerWidget {
               subtitle: 'Tell the store what you think',
               onTap: () => ReviewPromptService.requestReviewManually(context),
             ),
+            const SizedBox(height: 10),
+            _SettingsItem(
+              icon: LineIcons.envelope,
+              title: 'Send feedback',
+              subtitle: 'Share an idea or tell us what went wrong',
+              onTap: () => ReviewPromptService.sendFeedback(context),
+            ),
             if (TipJarService.isPlatformSupported) ...[
               const SizedBox(height: 10),
               _SettingsItem(
@@ -273,8 +273,6 @@ class SettingsScreen extends ConsumerWidget {
       ),
     );
   }
-
-
 
   void _confirmExport(BuildContext context) {
     showModalBottomSheet<void>(
@@ -510,6 +508,61 @@ class SettingsScreen extends ConsumerWidget {
     }
   }
 
+  /// Restores a previous Pro purchase and reports what actually happened.
+  ///
+  /// The old version fired [ProService.restore] without awaiting and always
+  /// said "Restoring your purchases", so a purchaser whose restore found
+  /// nothing, or failed, was told the same thing as one whose restore worked.
+  /// The outcome arrives on [ProService.events]; a restore that matches no
+  /// purchase emits nothing at all, hence the deadline.
+  Future<void> _restorePurchases(BuildContext context, WidgetRef ref) async {
+    final messenger = ScaffoldMessenger.of(context);
+    showAppSnackBar(context, 'Checking your purchases…', type: ToastType.info);
+
+    final completer = Completer<ProEvent?>();
+    final sub = ProService.events.listen((event) {
+      if (!completer.isCompleted) completer.complete(event);
+    });
+
+    try {
+      await ProService.restore();
+      final event = await completer.future.timeout(
+        const Duration(seconds: 12),
+        onTimeout: () => null,
+      );
+      if (!context.mounted) return;
+      messenger.hideCurrentSnackBar();
+
+      if (event is ProSuccess) {
+        ref.read(proProvider.notifier).refresh();
+        showAppSnackBar(
+          context,
+          'Patterns Pro restored. Every recovery tool is unlocked again.',
+          type: ToastType.success,
+        );
+      } else if (event is ProError) {
+        showAppSnackBar(context, event.message, type: ToastType.error);
+      } else {
+        showAppSnackBar(
+          context,
+          'No previous purchase found on this account. If you bought Pro with '
+          'a different account, sign in with that one and try again.',
+          type: ToastType.info,
+        );
+      }
+    } catch (_) {
+      if (!context.mounted) return;
+      messenger.hideCurrentSnackBar();
+      showAppSnackBar(
+        context,
+        'Could not reach the store. Please try again.',
+        type: ToastType.error,
+      );
+    } finally {
+      await sub.cancel();
+    }
+  }
+
   void _confirmWipeData(BuildContext context, WidgetRef ref) {
     showModalBottomSheet<void>(
       context: context,
@@ -527,7 +580,8 @@ class SettingsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              'This deletes local journal entries, OCD events, ERP practice history, and app preferences from this device. This cannot be undone.',
+              'This deletes local journal entries, OCD events, ERP practice history, and app preferences from this device. This cannot be undone.\n\n'
+              'If you have Patterns Pro, your purchase is safe, but this device will forget it. Tap Restore purchases afterwards to bring it back.',
               style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
             ),
             const SizedBox(height: 20),

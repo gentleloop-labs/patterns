@@ -65,3 +65,23 @@ socials/
 # backend/play-rtdn (Node/TS Cloud Function)
 backend/play-rtdn/node_modules/
 backend/play-rtdn/build/
+
+# Any node_modules, including a stray root one left by running npx at the repo root
+node_modules/
+
+# Playwright
+website/test-results/
+website/playwright-report/
+
+# Local assistant / release notes (not for the repo)
+/AGENT_HANDOFF.md
+/MANUAL_TEST_PLAN.txt
+/MEASUREMENT_GUIDE.md
+/upcoming-update-tweets.md
+.claude/
+
+# Local remotion + extra social drafts (not for the repo)
+/remotion/
+/social/reddit/
+/social/x-threads/
+/social/youtube/

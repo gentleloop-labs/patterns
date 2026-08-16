@@ -11,7 +11,6 @@ import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
 import '../first_run.dart';
-import '../main_shell.dart' show mobileRootNavigatorKey;
 
 class OcdTrackerScreen extends ConsumerStatefulWidget {
   final VoidCallback onAdd;
@@ -216,7 +215,9 @@ class _OcdEventFlowState extends ConsumerState<OcdEventFlow> {
                   const SizedBox(height: 22),
                   _FlowField(
                     controller: _contentController,
-                    label: 'What happened?',
+                    label: _type == OcdType.obsession
+                        ? 'What did the thought say?'
+                        : 'What was the urge?',
                     hint: _type == OcdType.obsession
                         ? 'Name the thought or image.'
                         : 'Name the urge or compulsion.',
@@ -225,15 +226,15 @@ class _OcdEventFlowState extends ConsumerState<OcdEventFlow> {
                   const SizedBox(height: 16),
                   _FlowField(
                     controller: _actionController,
-                    label: 'What did you do?',
+                    label: 'What did OCD get you to do?',
                     hint: 'A short note is enough.',
                     minLines: 3,
                   ),
                   const SizedBox(height: 16),
                   _FlowField(
                     controller: _responseController,
-                    label: 'Strategy / Response',
-                    hint: 'What helped you respond differently?',
+                    label: 'What you did instead',
+                    hint: 'Even a partial delay counts.',
                     minLines: 3,
                   ),
                   const SizedBox(height: 22),
@@ -302,9 +303,6 @@ class _OcdEventFlowState extends ConsumerState<OcdEventFlow> {
       Navigator.pop(context, const FirstRunActivityResult());
       return;
     }
-    final eligibleHappyMoment =
-        !_isEditing &&
-        entry.distressLevel <= ReviewPromptService.maxOcdDistressForTrigger;
     if (mounted) {
       showAppSnackBar(
         context,
@@ -313,18 +311,6 @@ class _OcdEventFlowState extends ConsumerState<OcdEventFlow> {
       );
       Navigator.pop(context);
     }
-    if (!eligibleHappyMoment) return;
-    // Defer until after the pop settles, then prompt against the root
-    // navigator's context so the dialog lands on the tracker screen rather
-    // than racing the disposing flow.
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final rootContext = mobileRootNavigatorKey.currentContext;
-      if (rootContext == null) return;
-      ReviewPromptService.maybeRequestReview(
-        rootContext,
-        trigger: ReviewTrigger.ocdLowDistress,
-      );
-    });
   }
 }
 
@@ -645,7 +631,7 @@ class _DistressCard extends StatelessWidget {
           Row(
             children: [
               Text(
-                'Distress',
+                'Distress, 0 to 10',
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w800,
                 ),

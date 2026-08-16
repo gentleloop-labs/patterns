@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../app_preferences.dart';
-import '../theme/app_theme.dart';
+import '../theme/app_colors.dart';
 import 'animations.dart';
 import 'recovery_ui.dart';
 
@@ -12,147 +12,147 @@ import 'recovery_ui.dart';
 const Map<String, ({String title, List<String> points})> sectionIntros = {
   // --- Main tabs ---
   'today': (
-    title: 'Your daily anchor',
+    title: 'Where the day starts',
     points: [
-      'See your recovery score and the one next step worth taking today.',
-      'Check in here once a day to keep the habit gentle and consistent.',
+      'Your practice so far, and the one next thing worth doing today.',
+      'A minute here is plenty. With OCD, showing up often beats going hard.',
     ],
   ),
   'journal': (
-    title: 'Write it down',
+    title: 'Get it out of your head',
     points: [
-      'Capture intrusive thoughts, feelings, and daily reflections in private.',
-      'Naming a pattern is the first step to loosening its grip.',
+      'Write down the intrusive thought, what OCD demanded, and what you did instead.',
+      'Writing it down is not the same as arguing with it, and that is the point.',
     ],
   ),
   'track': (
-    title: 'Log the moment',
+    title: 'Log what OCD did',
     points: [
-      'Record intrusive thoughts, compulsions, and how much distress they carried.',
-      'Over time these entries reveal your triggers and what actually helps.',
+      'Note the obsession or the compulsion while it is fresh, and rate the distress from 0 to 10.',
+      'A few weeks of these show your triggers, and show which responses loosen the grip.',
     ],
   ),
   'recoveryHub': (
-    title: 'Your recovery toolkit',
+    title: 'Everything for practising ERP',
     points: [
-      'Every tool, grouped by your journey: Assess, Plan, Practice, Review.',
-      'Need help right now? Grounding tools stay one tap away up top.',
+      'Tools grouped the way the work goes: see where you are, plan, practise, review.',
+      'If it is a hard moment right now, grounding stays one tap away up top.',
     ],
   ),
   'insights': (
-    title: 'See the bigger picture',
+    title: 'What the pattern looks like',
     points: [
-      'Charts turn your entries into trends across days and weeks.',
-      'Progress in OCD recovery is rarely linear. This helps you spot it anyway.',
+      'Your distress, your practice, and your Y-BOCS scores across weeks instead of one bad hour.',
+      'OCD does not improve in a straight line. Seeing the line helps anyway.',
     ],
   ),
 
   // --- Free recovery tools ---
   'guidedErp': (
-    title: 'Face it, step by step',
+    title: 'Face it on purpose, in small steps',
     points: [
-      'Guided exposure and response prevention exercises to practice at your pace.',
-      'The goal is to sit with discomfort without doing the compulsion.',
+      'Short exposures to practise with, sized so you can actually do one today.',
+      'The aim is to stay with the discomfort and leave the compulsion undone.',
     ],
   ),
   'compulsionDelay': (
-    title: 'Put a pause between urge and action',
+    title: 'Put time between the urge and the ritual',
     points: [
-      'Delay a compulsion for a set time and notice the urge rise and fall.',
-      'Each delay proves you can tolerate the feeling without acting on it.',
+      'Set a delay, then let the urge peak and drop without feeding it.',
+      'Every delay is evidence you can hold the feeling without obeying it.',
     ],
   ),
   'emergencyToolkit': (
     title: 'For the hard moments',
     points: [
-      'Fast grounding techniques for when distress spikes.',
+      'Fast grounding for when the distress spikes and the compulsion feels compulsory.',
       'Keep it a tap away. You do not have to think clearly to use it.',
     ],
   ),
   'copingLibrary': (
     title: 'Skills worth revisiting',
     points: [
-      'A reference of coping strategies and reframes you can return to anytime.',
-      'Save the ones that land for you.',
+      'Ways to steady yourself when an urge lands, so you are not deciding while flooded.',
+      'These sit alongside ERP. They are for riding out the moment, not for making the doubt go away.',
     ],
   ),
 
   // --- Pro recovery tools ---
   'exposureHierarchy': (
-    title: 'Build your ladder',
+    title: 'Build your fear ladder',
     points: [
-      'List feared situations and rank them from easiest to hardest.',
-      'Work up the ladder one rung at a time, not all at once.',
+      'List the situations OCD makes you avoid, and rank them from easiest to hardest.',
+      'Climb one rung at a time. The bottom rung counts as much as the top one.',
     ],
   ),
   'recoveryMetrics': (
-    title: 'Measure what matters',
+    title: 'What your practice adds up to',
     points: [
-      'Track exposures completed, avoidance, and distress over time.',
-      'Small, steady numbers tell the real recovery story.',
+      'Exposures done, compulsions delayed, and how far the urge usually drops.',
+      'Small, steady numbers are what recovery actually looks like from the inside.',
     ],
   ),
   'urgeSurf': (
-    title: 'Ride the wave',
+    title: 'Ride the urge out',
     points: [
-      'Urges rise, crest, and fall on their own if you let them.',
-      'Surf one out here instead of acting on it.',
+      'Urges rise, crest, and fall on their own if you do not feed them.',
+      'Surf one here instead of performing the compulsion.',
     ],
   ),
   'responsePrevention': (
-    title: 'Resist the ritual',
+    title: 'Leave the ritual undone',
     points: [
-      'Plan and log how you held back from a compulsion.',
-      'Response prevention is where exposures do their real work.',
+      'Log what set it off, and what you did instead of the compulsion.',
+      'Not doing it is where the learning happens, not in the exposure alone.',
     ],
   ),
   'structuredPrograms': (
-    title: 'A guided path',
+    title: 'A few weeks, planned for you',
     points: [
-      'Multi-day programs that sequence exposures for you.',
-      'Follow along when you want structure instead of deciding each step.',
+      'Week-by-week ERP for one OCD theme, so you are not designing it each day.',
+      'Follow it loosely. Missing a day resets nothing.',
     ],
   ),
   'behavioralExperiments': (
-    title: 'Test the fear',
+    title: 'Test what OCD promises',
     points: [
-      'Predict what you fear will happen, then check what actually did.',
-      'Reality is usually kinder than the anxious forecast.',
+      'Write the prediction down first, then record what actually happened.',
+      'OCD forecasts with total confidence. Held to the record, it rarely holds up.',
     ],
   ),
   'exposureReflection': (
-    title: 'Reflect afterward',
+    title: 'Look back once it settles',
     points: [
-      'Journal what an exposure was like once the intensity fades.',
-      'Reflection turns a hard moment into learning you can reuse.',
+      'Write up an exposure after the distress fades, not while you are in it.',
+      'What OCD swore would happen, next to what did. That gap is the evidence.',
     ],
   ),
   'actionPlanner': (
-    title: 'Plan the next step',
+    title: 'Decide before OCD asks',
     points: [
-      'Turn intentions into concrete, scheduled actions.',
-      'A clear next step is easier to take than a vague resolve.',
+      'Name the situation, and choose your response while you are calm.',
+      'Deciding in advance beats deciding while flooded.',
     ],
   ),
   'implementationIntentions': (
     title: 'If-then plans',
     points: [
-      'Decide in advance: "if X happens, I will do Y."',
-      'Pre-committing makes the healthy response the automatic one.',
+      'Decide in advance: if OCD does this, I will do that instead.',
+      'Pre-committing means the compulsion is no longer the automatic answer.',
     ],
   ),
   'uncertaintyTraining': (
-    title: 'Get comfortable not knowing',
+    title: 'Practise not knowing',
     points: [
-      'Short practices for tolerating doubt instead of seeking reassurance.',
-      'OCD feeds on certainty. This starves it a little.',
+      'Short reps for sitting with doubt instead of checking or asking.',
+      'OCD wants certainty. This is how you stop paying for it.',
     ],
   ),
   'exposureMaterials': (
     title: 'Your exposure materials',
     points: [
-      'Store scripts, images, and notes you use during exposures.',
-      'Keep everything you need for practice in one place.',
+      'Keep the scripts, loop tapes, images, and links your exposures need.',
+      'Ready in advance, so starting one is not its own hurdle.',
     ],
   ),
 };
@@ -263,7 +263,7 @@ class _SectionIntroState extends State<SectionIntro> {
               height: 4,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppTheme.textSecondary,
+                color: theme.appColors.textSecondary,
               ),
             ),
           ),
@@ -272,7 +272,7 @@ class _SectionIntroState extends State<SectionIntro> {
             child: Text(
               text,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: AppTheme.textSecondary,
+                color: theme.appColors.textSecondary,
                 height: 1.45,
               ),
             ),

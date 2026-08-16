@@ -710,9 +710,11 @@ class _OcdEntryDialogState extends ConsumerState<OcdEntryDialog> {
               controller: _contentController,
               decoration: InputDecoration(
                 labelText: _type == OcdType.obsession
-                    ? 'Obsessive Thought'
-                    : 'Compulsive Urge',
-                hintText: 'Describe the experience...',
+                    ? 'What did the thought say?'
+                    : 'What was the urge?',
+                hintText: _type == OcdType.obsession
+                    ? 'Name the thought or image.'
+                    : 'Name the urge or compulsion.',
               ),
               maxLines: 3,
             ),
@@ -721,8 +723,8 @@ class _OcdEntryDialogState extends ConsumerState<OcdEntryDialog> {
               TextField(
                 controller: _actionController,
                 decoration: const InputDecoration(
-                  labelText: 'Action Taken',
-                  hintText: 'What was your response?',
+                  labelText: 'What did OCD get you to do?',
+                  hintText: 'A short note is enough.',
                 ),
                 maxLines: 2,
               ),
@@ -731,8 +733,8 @@ class _OcdEntryDialogState extends ConsumerState<OcdEntryDialog> {
             TextField(
               controller: _responseController,
               decoration: const InputDecoration(
-                labelText: 'Strategy Used',
-                hintText: 'Coping mechanism or therapy response...',
+                labelText: 'What you did instead',
+                hintText: 'Even a partial delay counts.',
               ),
               maxLines: 3,
             ),
@@ -740,7 +742,7 @@ class _OcdEntryDialogState extends ConsumerState<OcdEntryDialog> {
             Row(
               children: [
                 Text(
-                  'Distress Level',
+                  'Distress, 0 to 10',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: theme.colorScheme.onSurface.withOpacity(0.6),

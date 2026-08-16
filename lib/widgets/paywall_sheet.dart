@@ -5,6 +5,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../services/app_events.dart';
 import '../services/pro_service.dart';
 import '../services/telemetry.dart';
 import '../theme/app_theme.dart';
@@ -19,6 +20,7 @@ class PaywallSheet extends StatefulWidget {
 
   static Future<void> show(BuildContext context, {String source = 'unknown'}) {
     Telemetry.log('paywall.shown', {'source': source});
+    AppEvents.logSupporterScreenViewed(source: source);
     if (kIsDesktop) {
       return showDialog<void>(
         context: context,
@@ -65,6 +67,7 @@ class _PaywallSheetState extends State<PaywallSheet> {
   bool _loading = true;
   bool _purchaseInFlight = false;
   StreamSubscription<ProEvent>? _eventSub;
+  Timer? _restoreTimeout;
 
   @override
   void initState() {
@@ -76,6 +79,7 @@ class _PaywallSheetState extends State<PaywallSheet> {
   @override
   void dispose() {
     _eventSub?.cancel();
+    _restoreTimeout?.cancel();
     super.dispose();
   }
 
@@ -142,20 +146,34 @@ class _PaywallSheetState extends State<PaywallSheet> {
   }
 
   void _onEvent(ProEvent event) {
+    // Events arrive from an app-lifetime stream, so this sheet may already be
+    // gone by the time one lands.
+    if (!mounted) return;
+
     if (event is ProSuccess) {
       Telemetry.log(event.restored ? 'paywall.restore' : 'paywall.purchase');
+      AppEvents.logSupporterPurchaseCompleted(restored: event.restored);
+      _restoreTimeout?.cancel();
       setState(() => _purchaseInFlight = false);
       Navigator.pop(context);
       _showUnlockedDialog(context, restored: event.restored);
     } else if (event is ProError) {
+      _restoreTimeout?.cancel();
       setState(() => _purchaseInFlight = false);
       showAppSnackBar(context, event.message, type: ToastType.error);
+    } else if (event is ProCanceled) {
+      // Without this the in-flight flag stayed true after the user dismissed
+      // the store sheet, leaving Unlock *and* Restore disabled. Someone who
+      // already owns Pro could not then restore it.
+      _restoreTimeout?.cancel();
+      setState(() => _purchaseInFlight = false);
     }
   }
 
   void _onBuy() async {
     final product = _product;
     if (product == null) return;
+    AppEvents.logSupporterPurchaseStarted();
     setState(() => _purchaseInFlight = true);
     try {
       final success = await ProService.buyPro(product);
@@ -175,9 +193,24 @@ class _PaywallSheetState extends State<PaywallSheet> {
 
   void _onRestore() async {
     setState(() => _purchaseInFlight = true);
+    // A restore that finds nothing emits no event at all, which used to leave
+    // the sheet spinning forever. Give it a deadline and say so plainly.
+    _restoreTimeout?.cancel();
+    _restoreTimeout = Timer(const Duration(seconds: 12), () {
+      if (!mounted || !_purchaseInFlight) return;
+      setState(() => _purchaseInFlight = false);
+      showAppSnackBar(
+        context,
+        'No previous purchase found on this account. If you bought Pro with a '
+        'different account, sign in with that one and try again.',
+        type: ToastType.info,
+      );
+    });
     try {
       await ProService.restore();
     } catch (_) {
+      _restoreTimeout?.cancel();
+      if (!mounted) return;
       setState(() => _purchaseInFlight = false);
       showAppSnackBar(
         context,
@@ -233,8 +266,15 @@ class _PaywallSheetState extends State<PaywallSheet> {
             ),
             const SizedBox(height: 12),
             Text(
-              'Move beyond tracking and practice recovery. A one-time unlock, yours for good, no subscription.',
+              'Move beyond tracking and practise recovery. A one-time unlock, yours for good, no subscription.',
               style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+            ),
+            const SizedBox(height: 12),
+            // Someone who already bought Pro and reinstalled arrives here
+            // looking at a price they have already paid. Say so before the
+            // price, not in a quiet button underneath it.
+            _AlreadyPurchasedRow(
+              onRestore: _purchaseInFlight ? null : _onRestore,
             ),
             const SizedBox(height: 18),
             for (final point in _mobileProPoints) ...[
@@ -303,6 +343,51 @@ class _PaywallSheetState extends State<PaywallSheet> {
           child: const Text('Restore purchases'),
         ),
       ],
+    );
+  }
+}
+
+/// Reassurance for a returning purchaser: Pro is a one-time buy, so anyone
+/// seeing this sheet a second time already owns it and should restore rather
+/// than pay again. Deliberately above the price.
+class _AlreadyPurchasedRow extends StatelessWidget {
+  final VoidCallback? onRestore;
+
+  const _AlreadyPurchasedRow({required this.onRestore});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: theme.dividerColor),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              'Already bought Pro? You will not be charged again.',
+              style: TextStyle(
+                color: AppTheme.textSecondary,
+                height: 1.4,
+                fontSize: 13,
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          TextButton(
+            onPressed: onRestore,
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              minimumSize: const Size(0, 36),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
+            child: const Text('Restore'),
+          ),
+        ],
+      ),
     );
   }
 }

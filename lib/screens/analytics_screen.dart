@@ -114,7 +114,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
                               ),
                               const SizedBox(height: 4),
                               Text(
-                                'Understand your patterns. Celebrate your growth.',
+                                'What your obsessions, compulsions, and practice look like over time.',
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: theme.colorScheme.onSurface.withOpacity(0.55),
@@ -172,8 +172,8 @@ class _TabBar extends StatelessWidget {
           ChoiceChip(
             label: Text(switch (t) {
               _InsightTab.overview => 'Overview',
-              _InsightTab.thoughts => 'Thoughts',
-              _InsightTab.urges => 'Urges',
+              _InsightTab.thoughts => 'Obsessions',
+              _InsightTab.urges => 'Compulsions',
               _InsightTab.erp => 'ERP',
             }),
             selected: tab == t,
@@ -641,7 +641,7 @@ class _ThoughtsTab extends StatelessWidget {
           children: [
             Expanded(
               child: _OverviewStatCard(
-                title: 'Thought logs',
+                title: 'Obsessions logged',
                 value: '${summary.thoughts}',
                 trend: summary.thoughts > 0 ? 'Active logs' : 'No logs',
                 trendLabel: 'in this range',

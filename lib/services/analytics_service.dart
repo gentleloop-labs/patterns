@@ -149,6 +149,14 @@ class InsightDelta {
     final improved = lowerIsBetter ? value < 0 : value > 0;
     return improved ? InsightTone.positive : InsightTone.negative;
   }
+
+  /// The arrow follows the number; [tone] follows the meaning. For
+  /// lowerIsBetter metrics the two disagree on purpose: a falling Y-BOCS or
+  /// distress score is a green ↓, never a green ↑.
+  String get arrow {
+    if (tone == InsightTone.neutral) return '→';
+    return value > 0 ? '↑' : '↓';
+  }
 }
 
 class DashboardPoint {
@@ -190,6 +198,21 @@ class RecoveryDashboardSummary {
   final int compulsions;
   final bool hasAnyData;
 
+  /// Y-BOCS totals in the window, oldest first. Empty when the user has never
+  /// taken the self-check, which is the common case.
+  final List<DashboardPoint> ybocsTrend;
+
+  /// The most recent self-check in the window, for the headline number.
+  final YbocsAssessment? latestYbocs;
+
+  /// Change from the earliest to the latest self-check in the window. A falling
+  /// Y-BOCS total is an improvement, hence [InsightDelta.lowerIsBetter].
+  final InsightDelta ybocsDelta;
+
+  /// Two points is the minimum that says anything about direction. Below that
+  /// the card invites a self-check instead of drawing a line through one dot.
+  bool get hasYbocsTrend => ybocsTrend.length >= 2;
+
   const RecoveryDashboardSummary({
     required this.rangeDays,
     required this.recoveryScore,
@@ -209,6 +232,9 @@ class RecoveryDashboardSummary {
     required this.thoughts,
     required this.compulsions,
     required this.hasAnyData,
+    this.ybocsTrend = const [],
+    this.latestYbocs,
+    this.ybocsDelta = const InsightDelta(value: 0, lowerIsBetter: true),
   });
 }
 
@@ -337,6 +363,20 @@ class AnalyticsService {
         .toList();
   }
 
+  /// Self-checks inside [filter], oldest first, so callers can read them as a
+  /// sequence without re-sorting. Y-BOCS assessments arrive newest-first from
+  /// the database, which is the wrong way round for a trend or a report table.
+  static List<YbocsAssessment> filterYbocs(
+    List<YbocsAssessment> assessments,
+    DateRangeFilter filter,
+  ) {
+    final kept = assessments
+        .where((a) => filter.includesOcdDateTime(a.datetime))
+        .toList();
+    kept.sort((a, b) => a.datetime.compareTo(b.datetime));
+    return kept;
+  }
+
   static double averageDistress(List<OcdEntry> entries) {
     if (entries.isEmpty) return 0;
     return entries.map((e) => e.distressLevel).reduce((a, b) => a + b) /
@@ -407,6 +447,7 @@ class AnalyticsService {
     required List<ExposureStep> exposureSteps,
     List<ResponsePreventionLog> responsePreventionLogs = const [],
     List<UrgeSurfSession> urgeSurfSessions = const [],
+    List<YbocsAssessment> ybocsAssessments = const [],
     AnalyticsDateRange range = AnalyticsDateRange.thirty,
     DateTime? now,
   }) {
@@ -448,6 +489,13 @@ class AnalyticsService {
       days: rangeDays,
     );
 
+    // Self-checks are taken every few weeks at most, so they are windowed and
+    // sorted directly rather than bucketed by day like the daily measures.
+    final ybocsInRange = ybocsAssessments
+        .where((a) => _inRange(a.datetime, currentStart, currentEnd))
+        .toList();
+    ybocsInRange.sort((a, b) => a.datetime.compareTo(b.datetime));
+
     return RecoveryDashboardSummary(
       rangeDays: rangeDays,
       recoveryScore: current.recoveryScore,
@@ -476,6 +524,18 @@ class AnalyticsService {
           .where((e) => e.type == OcdType.compulsion)
           .length,
       hasAnyData: current.hasAnyData,
+      ybocsTrend: [
+        for (final a in ybocsInRange)
+          DashboardPoint(date: a.datetime, value: a.totalScore.toDouble()),
+      ],
+      latestYbocs: ybocsInRange.isEmpty ? null : ybocsInRange.last,
+      ybocsDelta: InsightDelta(
+        value: ybocsInRange.length < 2
+            ? 0
+            : (ybocsInRange.last.totalScore - ybocsInRange.first.totalScore)
+                  .toDouble(),
+        lowerIsBetter: true,
+      ),
     );
   }
 

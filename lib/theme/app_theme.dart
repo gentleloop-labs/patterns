@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'app_colors.dart';
+
 class AppTheme {
   static const Color primaryYellow = Color(
     0xFFFFD700,
@@ -250,6 +252,8 @@ class AppTheme {
       overlayColor: Color(0x29F4C95D),
     ),
     snackBarTheme: _snackBarTheme(charcoalCard, textPrimary, softBorder),
+    // Semantic tokens for call sites that have moved off the constants.
+    extensions: const [AppColors.dark],
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -351,6 +355,9 @@ class AppTheme {
       }),
     ),
     snackBarTheme: _snackBarTheme(darkSurface, darkTextPrimary, darkBorder),
+    // Desktop keeps its own greys and brighter yellow, so it gets its own
+    // token set rather than sharing the mobile one.
+    extensions: const [AppColors.desktopDark],
   );
 
   static SnackBarThemeData _snackBarTheme(

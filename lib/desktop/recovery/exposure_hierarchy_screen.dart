@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../widgets/desktop_chrome.dart';
+import '../../content/ocd_tracks.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../theme/app_theme.dart';
@@ -371,7 +372,7 @@ class _ExposureHierarchyBuilderScreenState
     if (title.isEmpty) {
       showAppSnackBar(
         context,
-        'Give your hierarchy a name to get started.',
+        'Give this ladder a name and it will save.',
         type: ToastType.info,
       );
       return;
@@ -379,7 +380,7 @@ class _ExposureHierarchyBuilderScreenState
     if (steps.isEmpty) {
       showAppSnackBar(
         context,
-        'Add at least one exposure step.',
+        'Add one step you could imagine trying, and this will save.',
         type: ToastType.info,
       );
       return;
@@ -450,6 +451,22 @@ class _ExposureHierarchyBuilderScreenState
               label: 'Theme (optional)',
               hint: 'e.g. Contamination',
               controller: _themeController,
+            ),
+            const SizedBox(height: 8),
+            // Suggestions, not a fixed list: the field stays free text, but
+            // tapping one keeps ladders and tracks using the same words.
+            Wrap(
+              spacing: 6,
+              runSpacing: 6,
+              children: [
+                for (final track in ocdTracks)
+                  _ThemeChip(
+                    label: track.hierarchyThemeLabel,
+                    onTap: () => setState(() {
+                      _themeController.text = track.hierarchyThemeLabel;
+                    }),
+                  ),
+              ],
             ),
             const SizedBox(height: 22),
             Row(
@@ -962,6 +979,35 @@ class _MiniIconButton extends StatelessWidget {
         icon,
         size: 18,
         color: disabled ? Theme.of(context).disabledColor : null,
+      ),
+    );
+  }
+}
+
+/// Fills the free-text theme field with one of the track themes. Tapping one is
+/// a shortcut, not a constraint: typing anything else still works.
+class _ThemeChip extends StatelessWidget {
+  final String label;
+  final VoidCallback onTap;
+
+  const _ThemeChip({required this.label, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(999),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(999),
+          border: Border.all(color: theme.dividerColor),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(color: AppTheme.textSecondary, fontSize: 12.5),
+        ),
       ),
     );
   }

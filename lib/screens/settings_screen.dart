@@ -120,7 +120,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       ref.invalidate(urgeSurfProvider);
 
       if (context.mounted) {
-        showAppSnackBar(context, 'Backup restored successfully', type: ToastType.success);
+        showAppSnackBar(
+          context,
+          'Backup restored successfully',
+          type: ToastType.success,
+        );
       }
     } catch (e) {
       debugPrint('Import Error: $e');
@@ -175,19 +179,29 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     if (selected == null) return;
 
     try {
-      await ref.read(reminderProvider.notifier).setTime(selected.hour, selected.minute);
+      await ref
+          .read(reminderProvider.notifier)
+          .setTime(selected.hour, selected.minute);
       if (ref.read(reminderProvider).enabled) {
         await NotificationService.scheduleDailyReminder(selected);
       }
       if (context.mounted) {
-        showAppSnackBar(context, 'Reminder time updated', type: ToastType.success);
+        showAppSnackBar(
+          context,
+          'Reminder time updated',
+          type: ToastType.success,
+        );
       }
     } catch (e) {
       debugPrint('Reminder time update failed: $e');
     }
   }
 
-  Future<void> _setAppLock(BuildContext context, WidgetRef ref, bool enabled) async {
+  Future<void> _setAppLock(
+    BuildContext context,
+    WidgetRef ref,
+    bool enabled,
+  ) async {
     try {
       if (enabled) {
         final authenticator = ref.read(biometricAuthenticatorProvider);
@@ -253,7 +267,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       ref.invalidate(urgeSurfProvider);
 
       if (context.mounted) {
-        showAppSnackBar(context, 'All local data has been wiped.', type: ToastType.success);
+        showAppSnackBar(
+          context,
+          'All local data has been wiped.',
+          type: ToastType.success,
+        );
       }
     } catch (e) {
       debugPrint('Wipe failed: $e');
@@ -300,7 +318,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         (_SettingsCategory.reminders, 'Reminders', LineIcons.bell),
       (_SettingsCategory.privacy, 'Privacy', LineIcons.userShield),
       if (ProService.isPlatformSupported)
-        (_SettingsCategory.pro, 'Patterns Desktop Pro', Icons.verified_user_rounded),
+        (
+          _SettingsCategory.pro,
+          'Patterns Desktop Pro',
+          Icons.verified_user_rounded,
+        ),
       (_SettingsCategory.support, 'Support', Icons.help_outline_rounded),
     ];
     if (!categories.any((c) => c.$1 == _category)) {
@@ -348,7 +370,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 ),
               ),
               child: ListView(
-                padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 24,
+                  horizontal: 12,
+                ),
                 children: [
                   for (final (cat, label, icon) in categories)
                     _CategoryTile(
@@ -402,19 +427,32 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               children: [
                                 _SettingsListRow(
                                   title: 'Export Data',
-                                  subtitle: 'Save a zip backup including exposures and journals',
+                                  subtitle:
+                                      'Save a zip backup including exposures and journals',
                                   icon: Icons.download_rounded,
                                   onTap: () => _exportData(context),
                                 ),
-                                Divider(height: 1, color: Colors.white.withOpacity(0.04), indent: 20, endIndent: 20),
+                                Divider(
+                                  height: 1,
+                                  color: Colors.white.withOpacity(0.04),
+                                  indent: 20,
+                                  endIndent: 20,
+                                ),
                                 if (isPdfExportSupported) ...[
                                   _SettingsListRow(
                                     title: 'Export Report (PDF)',
-                                    subtitle: 'Save journal, OCD log, and insights for a date range',
+                                    subtitle:
+                                        'Save journal, OCD log, and insights for a date range',
                                     icon: Icons.description_rounded,
-                                    onTap: () => ExportReportSheet.show(context),
+                                    onTap: () =>
+                                        ExportReportSheet.show(context),
                                   ),
-                                  Divider(height: 1, color: Colors.white.withOpacity(0.04), indent: 20, endIndent: 20),
+                                  Divider(
+                                    height: 1,
+                                    color: Colors.white.withOpacity(0.04),
+                                    indent: 20,
+                                    endIndent: 20,
+                                  ),
                                 ],
                                 _SettingsListRow(
                                   title: 'Import Data',
@@ -431,7 +469,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                   Icon(
                                     Icons.info_outline_rounded,
                                     size: 15,
-                                    color: theme.colorScheme.onSurface.withOpacity(0.4),
+                                    color: theme.colorScheme.onSurface
+                                        .withOpacity(0.4),
                                   ),
                                   const SizedBox(width: 8),
                                   Expanded(
@@ -439,7 +478,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                       'All data stays on your device unless you choose to export.',
                                       style: TextStyle(
                                         fontSize: 12,
-                                        color: theme.colorScheme.onSurface.withOpacity(0.4),
+                                        color: theme.colorScheme.onSurface
+                                            .withOpacity(0.4),
                                       ),
                                     ),
                                   ),
@@ -458,10 +498,16 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                   : 'A gentle daily check-in nudge',
                               icon: LineIcons.bell,
                               value: reminder.enabled,
-                              onChanged: (v) => _setReminderEnabled(context, ref, v),
+                              onChanged: (v) =>
+                                  _setReminderEnabled(context, ref, v),
                             ),
                             if (reminder.enabled) ...[
-                              Divider(height: 1, color: Colors.white.withOpacity(0.04), indent: 20, endIndent: 20),
+                              Divider(
+                                height: 1,
+                                color: Colors.white.withOpacity(0.04),
+                                indent: 20,
+                                endIndent: 20,
+                              ),
                               _SettingsListRow(
                                 title: 'Reminder time',
                                 subtitle: TimeOfDay(
@@ -483,40 +529,54 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               icon: LineIcons.userShield,
                               onTap: () => _showPrivacy(context),
                             ),
-                            Divider(height: 1, color: Colors.white.withOpacity(0.04), indent: 20, endIndent: 20),
+                            Divider(
+                              height: 1,
+                              color: Colors.white.withOpacity(0.04),
+                              indent: 20,
+                              endIndent: 20,
+                            ),
                             _SettingsSwitchRow(
                               title: 'App lock',
-                              subtitle: 'Require device unlock when Patterns reopens',
+                              subtitle:
+                                  'Require device unlock when Patterns reopens',
                               icon: LineIcons.lock,
                               value: appLockEnabled,
                               onChanged: (v) => _setAppLock(context, ref, v),
                             ),
-                            Divider(height: 1, color: Colors.white.withOpacity(0.04), indent: 20, endIndent: 20),
+                            Divider(
+                              height: 1,
+                              color: Colors.white.withOpacity(0.04),
+                              indent: 20,
+                              endIndent: 20,
+                            ),
                             _SettingsListRow(
                               title: 'Wipe all data',
-                              subtitle: 'Delete local entries and reset preferences',
+                              subtitle:
+                                  'Delete local entries and reset preferences',
                               icon: LineIcons.trash,
                               isDestructive: true,
                               onTap: () => _confirmWipe(context, ref),
                             ),
                           ],
                         ),
-                        _SettingsCategory.pro => isPro
-                            ? _SettingsGroup(
-                                title: 'Patterns Desktop Pro',
-                                children: [
-                                  _SettingsListRow(
-                                    title: 'Patterns Desktop Pro is active',
-                                    subtitle: 'Every desktop recovery tool is unlocked. Thank you',
-                                    icon: LineIcons.crown,
-                                    onTap: () => showAppSnackBar(
-                                      context,
-                                      'Patterns Desktop Pro is active on this device.',
+                        _SettingsCategory.pro =>
+                          isPro
+                              ? _SettingsGroup(
+                                  title: 'Patterns Desktop Pro',
+                                  children: [
+                                    _SettingsListRow(
+                                      title: 'Patterns Desktop Pro is active',
+                                      subtitle:
+                                          'Every desktop recovery tool is unlocked. Thank you',
+                                      icon: LineIcons.crown,
+                                      onTap: () => showAppSnackBar(
+                                        context,
+                                        'Patterns Desktop Pro is active on this device.',
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              )
-                            : const DesktopPaywallView(),
+                                  ],
+                                )
+                              : const DesktopPaywallView(),
                         _SettingsCategory.support => _SettingsGroup(
                           title: 'Support & Sponsorship',
                           children: [
@@ -524,20 +584,44 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               title: 'Rate Patterns',
                               subtitle: 'Tell the store what you think',
                               icon: LineIcons.star,
-                              onTap: () => ReviewPromptService.requestReviewManually(context),
+                              onTap: () =>
+                                  ReviewPromptService.requestReviewManually(
+                                    context,
+                                  ),
                             ),
-                            Divider(height: 1, color: Colors.white.withOpacity(0.04), indent: 20, endIndent: 20),
+                            Divider(
+                              height: 1,
+                              color: Colors.white.withOpacity(0.04),
+                              indent: 20,
+                              endIndent: 20,
+                            ),
+                            _SettingsListRow(
+                              title: 'Send feedback',
+                              subtitle:
+                                  'Share an idea or tell us what went wrong',
+                              icon: LineIcons.envelope,
+                              onTap: () =>
+                                  ReviewPromptService.sendFeedback(context),
+                            ),
+                            Divider(
+                              height: 1,
+                              color: Colors.white.withOpacity(0.04),
+                              indent: 20,
+                              endIndent: 20,
+                            ),
                             if (TipJarService.isPlatformSupported)
                               _SettingsListRow(
                                 title: 'Support Patterns',
-                                subtitle: 'Leave a small tip to keep development going',
+                                subtitle:
+                                    'Leave a small tip to keep development going',
                                 icon: LineIcons.heart,
                                 onTap: () => TipJarSheet.show(context),
                               )
                             else
                               _SettingsListRow(
                                 title: 'Sponsor on GitHub',
-                                subtitle: 'Support development through GitHub Sponsors',
+                                subtitle:
+                                    'Support development through GitHub Sponsors',
                                 icon: LineIcons.heart,
                                 onTap: () => launchUrl(
                                   Uri.parse(_githubSponsorsUrl),
@@ -598,11 +682,14 @@ class _CategoryTileState extends State<_CategoryTile> {
               color: widget.selected
                   ? theme.colorScheme.primary.withOpacity(0.08)
                   : _hovered
-                      ? theme.colorScheme.onSurface.withOpacity(0.04)
-                      : Colors.transparent,
+                  ? theme.colorScheme.onSurface.withOpacity(0.04)
+                  : Colors.transparent,
               borderRadius: BorderRadius.circular(12),
               border: widget.selected
-                  ? Border.all(color: theme.colorScheme.primary.withOpacity(0.3), width: 1.2)
+                  ? Border.all(
+                      color: theme.colorScheme.primary.withOpacity(0.3),
+                      width: 1.2,
+                    )
                   : Border.all(color: Colors.transparent, width: 1.2),
             ),
             child: Row(
@@ -693,7 +780,9 @@ class _SettingsListRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final iconColor = isDestructive ? Colors.redAccent : theme.colorScheme.primary;
+    final iconColor = isDestructive
+        ? Colors.redAccent
+        : theme.colorScheme.primary;
 
     return InkWell(
       onTap: onTap,
@@ -711,11 +800,7 @@ class _SettingsListRow extends StatelessWidget {
                 border: Border.all(color: theme.dividerColor),
               ),
               alignment: Alignment.center,
-              child: Icon(
-                icon,
-                size: 20,
-                color: iconColor,
-              ),
+              child: Icon(icon, size: 20, color: iconColor),
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -784,11 +869,7 @@ class _SettingsSwitchRow extends StatelessWidget {
               border: Border.all(color: theme.dividerColor),
             ),
             alignment: Alignment.center,
-            child: Icon(
-              icon,
-              size: 20,
-              color: theme.colorScheme.primary,
-            ),
+            child: Icon(icon, size: 20, color: theme.colorScheme.primary),
           ),
           const SizedBox(width: 16),
           Expanded(

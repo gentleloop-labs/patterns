@@ -279,7 +279,7 @@ class _ImplementationIntentionEditScreenState
     if (trigger.isEmpty || response.isEmpty) {
       showAppSnackBar(
         context,
-        'Fill in both the "if" and the "then" to save.',
+        'Both halves, the if and the then, and this will save.',
         type: ToastType.info,
       );
       return;
