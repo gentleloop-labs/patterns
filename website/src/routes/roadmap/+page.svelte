@@ -59,6 +59,11 @@
       icon: Eraser,
       title: 'Clearing a day you wrote by mistake',
       body: 'If an entry went onto the wrong date, open that day, tap the bin, and confirm. The day goes blank again and nothing else is touched.'
+    },
+    {
+      icon: Crown,
+      title: 'What Pro costs',
+      body: 'Pro is now $39.99 in the US, with local pricing elsewhere. Still one payment, still lifetime, still no subscription. If you already own Pro, nothing changes and you pay nothing again.'
     }
   ];
 
@@ -122,12 +127,7 @@
       icon: HeartHandshake,
       title: 'Kinder wording when something is missing',
       body: 'A pass over every screen that can stop you saving, so the message reads like a nudge rather than a telling-off. Nobody needs that from an app about OCD.'
-    },
-    {
-      icon: Crown,
-      title: 'What Pro costs from the next update',
-      body: 'Pro on your phone moves to $19.99, paid once. If you already own Pro, nothing changes and you pay nothing again.'
-    },
+    }
   ];
 
   const exploring = [
