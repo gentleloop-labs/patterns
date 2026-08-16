@@ -99,7 +99,7 @@ class _RecoveryHubScreenState extends ConsumerState<RecoveryHubScreen> {
     _RecoveryTool(
       icon: Icons.self_improvement_rounded,
       title: 'Guided ERP',
-      subtitle: 'Practice with guidance',
+      subtitle: 'Practise with guidance',
       destination: _RecoveryDestination.guidedErp,
     ),
     _RecoveryTool(

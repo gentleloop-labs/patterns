@@ -152,7 +152,7 @@ class DesktopWelcomeScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'A private companion for journaling, OCD tracking, and ERP practice — on your desktop.',
+                  'A private companion for journaling, OCD tracking, and ERP practice, on your desktop.',
                   style: TextStyle(
                     color: theme.colorScheme.onSurface.withOpacity(0.55),
                     fontSize: 16,
@@ -245,7 +245,7 @@ class DesktopWhatsNewScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'Desktop now includes Home, Recovery Hub with ERP tools, richer Insights, reminders, and app lock — matching the mobile companion.',
+                  'Desktop now includes Home, Recovery Hub with ERP tools, richer Insights, reminders, and app lock, matching the mobile companion.',
                   style: TextStyle(
                     color: theme.colorScheme.onSurface.withOpacity(0.55),
                     height: 1.45,

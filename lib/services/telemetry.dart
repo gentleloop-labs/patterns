@@ -34,13 +34,17 @@ class Telemetry {
   /// Logs [event] at most once ever (across launches), keyed by a persisted
   /// marker. Useful for "first time X happened" milestones like the score
   /// first appearing.
-  static void logOnce(String event) {
+  ///
+  /// Returns true when the event was actually recorded (i.e. this was the first
+  /// time), so callers can chain a further once-only effect off it.
+  static bool logOnce(String event, [Map<String, Object?>? props]) {
     final prefs = appPreferences;
-    if (prefs == null) return;
+    if (prefs == null) return false;
     final key = 'tel_once_$event';
-    if (prefs.getBool(key) ?? false) return;
+    if (prefs.getBool(key) ?? false) return false;
     prefs.setBool(key, true);
-    log(event);
+    log(event, props);
+    return true;
   }
 
   static void _sink(String event, Map<String, Object?>? props) {

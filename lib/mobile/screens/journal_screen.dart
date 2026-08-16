@@ -10,6 +10,7 @@ import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../services/analytics_service.dart';
 import '../../services/review_prompt.dart';
+import '../../services/app_events.dart';
 import '../../services/telemetry.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
@@ -1625,7 +1626,7 @@ class _JournalEntryEditorState extends ConsumerState<JournalEntryEditor> {
                   ),
                   if (hasExistingEntry)
                     IconButton(
-                      tooltip: 'Reset entry',
+                      tooltip: 'Clear this day',
                       onPressed: _saving ? null : () => _confirmReset(dateKey),
                       icon: const Icon(LineIcons.trash),
                       color: AppTheme.textSecondary,
@@ -1702,64 +1703,17 @@ class _JournalEntryEditorState extends ConsumerState<JournalEntryEditor> {
   }
 
   Future<void> _confirmReset(String dateKey) async {
-    showModalBottomSheet<void>(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (sheetContext) => _BottomPanel(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Reset this entry?',
-              style: Theme.of(
-                sheetContext,
-              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'This clears everything saved for '
-              '${DateFormat('MMMM d, yyyy').format(widget.date)} so the day '
-              'starts fresh. You can write here again anytime.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
-            ),
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: () => Navigator.pop(sheetContext),
-                    child: const Text('Keep it'),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      Navigator.pop(sheetContext);
-                      await _resetEntry(dateKey);
-                    },
-                    child: const Text('Reset'),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Future<void> _resetEntry(String dateKey) async {
-    await ref.read(journalProvider.notifier).deleteEntry(dateKey);
-    if (!mounted) return;
+    final cleared = await confirmClearJournalDay(context, ref, widget.date);
+    if (!cleared || !mounted) return;
+    // The editor is still open on a day that no longer has an entry, so reset
+    // the document before leaving or the unsaved-changes guard will fire.
     _controller.document = Document();
     _savedSnapshot = storedFromDocument(_controller.document);
     setState(() => _saved = true);
     Navigator.pop(context);
     showAppSnackBar(
       context,
-      'Entry reset. This day is clear now.',
+      'That day is clear now.',
       type: ToastType.success,
     );
   }
@@ -1785,6 +1739,8 @@ class _JournalEntryEditorState extends ConsumerState<JournalEntryEditor> {
       _saved = true;
     });
     showAppSnackBar(context, 'Entry saved', type: ToastType.success);
+    // Milestone only — the entry itself never leaves the device or the DB.
+    AppEvents.logFirstJournalEntryCreated();
     await ReviewPromptService.recordJournalSaved();
     if (!mounted) return;
     await ReviewPromptService.maybeRequestReview(
@@ -1794,13 +1750,78 @@ class _JournalEntryEditorState extends ConsumerState<JournalEntryEditor> {
   }
 }
 
-class _JournalListCard extends StatelessWidget {
+/// Confirms and then clears everything saved for [date].
+///
+/// Shared by the editor's bin button and a long press on a list card, so an
+/// entry that landed on the wrong date can be cleared without opening it, and
+/// both routes use one wording and one confirmation.
+///
+/// Returns true only when the day was actually deleted. Callers own their own
+/// feedback, because the editor also has to reset its document and pop.
+Future<bool> confirmClearJournalDay(
+  BuildContext context,
+  WidgetRef ref,
+  DateTime date,
+) async {
+  final confirmed =
+      await showModalBottomSheet<bool>(
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (sheetContext) => _BottomPanel(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Clear this day?',
+                style: Theme.of(
+                  sheetContext,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'This clears everything saved for '
+                '${DateFormat('MMMM d, yyyy').format(date)} so the day '
+                'starts fresh. You can write here again anytime.',
+                style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () => Navigator.pop(sheetContext, false),
+                      child: const Text('Keep it'),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () => Navigator.pop(sheetContext, true),
+                      child: const Text('Clear the day'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ) ??
+      false;
+
+  if (!confirmed) return false;
+  final dateKey = DateFormat('yyyy-MM-dd').format(date);
+  await ref.read(journalProvider.notifier).deleteEntry(dateKey);
+  return true;
+}
+
+class _JournalListCard extends ConsumerWidget {
   final JournalEntry entry;
 
   const _JournalListCard({required this.entry});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final date = DateTime.parse(entry.date);
 
@@ -1812,6 +1833,15 @@ class _JournalListCard extends StatelessWidget {
             builder: (_) => JournalEntryEditor(date: date),
           ),
         ),
+        onLongPress: () async {
+          final cleared = await confirmClearJournalDay(context, ref, date);
+          if (!cleared || !context.mounted) return;
+          showAppSnackBar(
+            context,
+            'That day is clear now.',
+            type: ToastType.success,
+          );
+        },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -2029,8 +2059,9 @@ class _RoundIconButton extends StatelessWidget {
 class _Card extends StatelessWidget {
   final Widget child;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
 
-  const _Card({required this.child, this.onTap});
+  const _Card({required this.child, this.onTap, this.onLongPress});
 
   @override
   Widget build(BuildContext context) {
@@ -2040,8 +2071,12 @@ class _Card extends StatelessWidget {
       child: child,
     );
 
-    if (onTap == null) return content;
-    return PressScale(onTap: onTap, child: content);
+    if (onTap == null && onLongPress == null) return content;
+    return PressScale(
+      onTap: onTap,
+      onLongPress: onLongPress,
+      child: content,
+    );
   }
 }
 

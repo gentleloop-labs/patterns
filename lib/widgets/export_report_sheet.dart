@@ -85,15 +85,20 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
     final theme = Theme.of(context);
     final journalAsync = ref.watch(journalProvider);
     final ocdAsync = ref.watch(ocdProvider);
+    // Self-checks are optional in the report, so a load failure here must
+    // not block exporting the journal and OCD log.
+    final ybocs = ref.watch(ybocsAssessmentProvider).asData?.value ?? const [];
 
     final content = journalAsync.when(
       data: (journals) => ocdAsync.when(
-        data: (ocds) => _buildContent(theme, journals, ocds),
+        data: (ocds) => _buildContent(theme, journals, ocds, ybocs),
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stackTrace) => _buildContent(theme, const [], const []),
+        error: (error, stackTrace) =>
+            _buildContent(theme, const [], const [], ybocs),
       ),
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stackTrace) => _buildContent(theme, const [], const []),
+      error: (error, stackTrace) =>
+          _buildContent(theme, const [], const [], ybocs),
     );
 
     if (kIsDesktop) {
@@ -118,14 +123,17 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
     ThemeData theme,
     List<JournalEntry> journals,
     List<OcdEntry> ocds,
+    List<YbocsAssessment> ybocs,
   ) {
     final filter = _options.filter;
     final filteredJournals = AnalyticsService.filterJournals(journals, filter);
     final filteredOcds = AnalyticsService.filterOcds(ocds, filter);
+    final filteredYbocs = AnalyticsService.filterYbocs(ybocs, filter);
     final totalEntries = filteredJournals.length + filteredOcds.length;
     final canExport = _options.hasExportableContent(
       journalCount: filteredJournals.length,
       ocdCount: filteredOcds.length,
+      ybocsCount: filteredYbocs.length,
     );
 
     return Column(
@@ -219,10 +227,18 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
           onChanged: (value) =>
               setState(() => _sections = _sections.copyWith(ocd: value)),
         ),
+        _SectionToggle(
+          label: 'Y-BOCS self-checks',
+          value: _sections.ybocs,
+          onChanged: (value) =>
+              setState(() => _sections = _sections.copyWith(ybocs: value)),
+        ),
         const SizedBox(height: 16),
         Text(
           '$totalEntries entries in this range '
-          '(${filteredJournals.length} journal, ${filteredOcds.length} OCD)',
+          '(${filteredJournals.length} journal, ${filteredOcds.length} OCD'
+          '${filteredYbocs.isEmpty ? '' : ', ${filteredYbocs.length} self-check'}'
+          ')',
           style: TextStyle(color: AppTheme.textSecondary, fontSize: 13),
         ),
         if (totalEntries > 500) ...[
@@ -247,7 +263,7 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
           child: ElevatedButton(
             onPressed: _saving || !canExport
                 ? null
-                : () => _saveReport(journals, ocds),
+                : () => _saveReport(journals, ocds, ybocs),
             child: _saving
                 ? const SizedBox(
                     width: 20,
@@ -273,6 +289,7 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
   Future<void> _saveReport(
     List<JournalEntry> journals,
     List<OcdEntry> ocds,
+    List<YbocsAssessment> ybocs,
   ) async {
     final navigator = Navigator.of(context, rootNavigator: kIsDesktop);
     final messenger = ScaffoldMessenger.of(context);
@@ -283,6 +300,7 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
         options: _options,
         journals: journals,
         ocds: ocds,
+        ybocs: ybocs,
       );
       final saved = await ReportExportSaver.save(
         bytes,

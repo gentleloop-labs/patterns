@@ -417,7 +417,7 @@ class _BehavioralExperimentEditScreenState
     if (prediction.isEmpty || experiment.isEmpty) {
       showAppSnackBar(
         context,
-        'Add a prediction and an experiment to save.',
+        'What OCD predicts, and what you will do to test it. Then it saves.',
         type: ToastType.info,
       );
       return;
@@ -475,12 +475,12 @@ class _BehavioralExperimentEditScreenState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _LabeledBlock(
-                      label: 'Prediction',
+                      label: 'What OCD predicted',
                       value: widget.existing!.fearPrediction,
                     ),
                     const SizedBox(height: 10),
                     _LabeledBlock(
-                      label: 'Experiment',
+                      label: 'What you did to test it',
                       value: widget.existing!.experiment,
                     ),
                   ],
@@ -489,14 +489,14 @@ class _BehavioralExperimentEditScreenState
               const SizedBox(height: 16),
               LabeledField(
                 label: 'What actually happened?',
-                hint: 'The real outcome',
+                hint: 'What really happened, not what nearly happened',
                 controller: _outcomeController,
                 minLines: 2,
               ),
               const SizedBox(height: 16),
               LabeledField(
                 label: 'What did you learn? (optional)',
-                hint: 'How did reality compare to the fear?',
+                hint: 'How did the forecast compare with the day?',
                 controller: _learningController,
                 minLines: 2,
               ),

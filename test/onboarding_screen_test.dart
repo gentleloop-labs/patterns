@@ -11,7 +11,7 @@ void main() {
   ) async {
     await _pumpOnboarding(tester);
 
-    expect(find.textContaining('calm, private place'), findsOneWidget);
+    expect(find.textContaining('practise with OCD'), findsOneWidget);
     expect(find.textContaining('stays on this device'), findsOneWidget);
     expect(find.text('Get started'), findsOneWidget);
     // No paywall / Pro comparison up front.
@@ -28,7 +28,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('What would help right now?'), findsOneWidget);
-    expect(find.text("I'm dealing with an urge"), findsOneWidget);
+    expect(find.text("I'm fighting an urge right now"), findsOneWidget);
     expect(find.text('I want to write something down'), findsOneWidget);
     expect(find.text("I'm just exploring"), findsOneWidget);
   });
@@ -39,7 +39,7 @@ void main() {
 
     await tester.tap(find.text('Get started'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text("I'm dealing with an urge"));
+    await tester.tap(find.text("I'm fighting an urge right now"));
     await tester.pump();
 
     expect(chosen, FirstRunPath.urge);
@@ -61,7 +61,7 @@ void main() {
     await _pumpOnboarding(tester);
 
     final title = tester.widget<Text>(
-      find.textContaining('calm, private place'),
+      find.textContaining('practise with OCD'),
     );
     expect(title.style?.color, AppTheme.textPrimary);
   });

@@ -39,10 +39,10 @@ const ybocsSeverityQuestions = <YbocsSeverityQuestion>[
     prompt: 'How much of my time is taken up by obsessive thoughts?',
     options: [
       'None at all',
-      'A little — less than an hour a day, or a few now and then',
-      'A moderate amount — 1 to 3 hours a day, or frequent intrusions',
-      'A lot — 3 to 8 hours a day, or very frequent intrusions',
-      'Almost constant — more than 8 hours a day',
+      'A little: less than an hour a day, or a few now and then',
+      'A moderate amount: 1 to 3 hours a day, or frequent intrusions',
+      'A lot: 3 to 8 hours a day, or very frequent intrusions',
+      'Almost constant: more than 8 hours a day',
     ],
   ),
   YbocsSeverityQuestion(
@@ -51,9 +51,9 @@ const ybocsSeverityQuestions = <YbocsSeverityQuestion>[
     prompt: 'How much do the obsessions get in the way of my life?',
     options: [
       'Not at all',
-      'A little — they don\'t really affect what I do',
-      'Some — they interfere but I can still manage',
-      'A lot — they clearly get in the way of my day',
+      'A little: they don\'t really affect what I do',
+      'Some: they interfere but I can still manage',
+      'A lot: they clearly get in the way of my day',
       'So much that I can barely function',
     ],
   ),
@@ -63,9 +63,9 @@ const ybocsSeverityQuestions = <YbocsSeverityQuestion>[
     prompt: 'How much distress do the obsessive thoughts cause me?',
     options: [
       'None',
-      'A little — not too disturbing',
-      'A moderate amount — disturbing but manageable',
-      'A lot — very disturbing',
+      'A little: not too disturbing',
+      'A moderate amount: disturbing but manageable',
+      'A lot: very disturbing',
       'Nearly constant, disabling distress',
     ],
   ),
@@ -86,11 +86,11 @@ const ybocsSeverityQuestions = <YbocsSeverityQuestion>[
     dimension: YbocsDimension.obsessions,
     prompt: 'How much control do I have over the obsessive thoughts?',
     options: [
-      'Full control — I can dismiss them easily',
-      'A lot of control — usually I can stop or divert them',
-      'Some control — sometimes I can, sometimes I can\'t',
-      'Little control — I rarely manage to stop them',
-      'No control — they feel completely involuntary',
+      'Full control: I can dismiss them easily',
+      'A lot of control: usually I can stop or divert them',
+      'Some control: sometimes I can, sometimes I can\'t',
+      'Little control: I rarely manage to stop them',
+      'No control: they feel completely involuntary',
     ],
   ),
   // Compulsions (items 6–10)
@@ -100,10 +100,10 @@ const ybocsSeverityQuestions = <YbocsSeverityQuestion>[
     prompt: 'How much time do I spend on compulsions (rituals, checking, etc.)?',
     options: [
       'None at all',
-      'A little — less than an hour a day, or a few now and then',
-      'A moderate amount — 1 to 3 hours a day, or frequent rituals',
-      'A lot — 3 to 8 hours a day, or very frequent rituals',
-      'Almost constant — more than 8 hours a day',
+      'A little: less than an hour a day, or a few now and then',
+      'A moderate amount: 1 to 3 hours a day, or frequent rituals',
+      'A lot: 3 to 8 hours a day, or very frequent rituals',
+      'Almost constant: more than 8 hours a day',
     ],
   ),
   YbocsSeverityQuestion(
@@ -112,9 +112,9 @@ const ybocsSeverityQuestions = <YbocsSeverityQuestion>[
     prompt: 'How much do the compulsions get in the way of my life?',
     options: [
       'Not at all',
-      'A little — they don\'t really affect what I do',
-      'Some — they interfere but I can still manage',
-      'A lot — they clearly get in the way of my day',
+      'A little: they don\'t really affect what I do',
+      'Some: they interfere but I can still manage',
+      'A lot: they clearly get in the way of my day',
       'So much that I can barely function',
     ],
   ),
@@ -147,11 +147,11 @@ const ybocsSeverityQuestions = <YbocsSeverityQuestion>[
     dimension: YbocsDimension.compulsions,
     prompt: 'How much control do I have over the compulsions?',
     options: [
-      'Full control — I can stop myself easily',
-      'A lot of control — usually I can stop or delay',
-      'Some control — sometimes I can, sometimes I can\'t',
-      'Little control — I can rarely stop or delay',
-      'No control — I have to complete them',
+      'Full control: I can stop myself easily',
+      'A lot of control: usually I can stop or delay',
+      'Some control: sometimes I can, sometimes I can\'t',
+      'Little control: I can rarely stop or delay',
+      'No control: I have to complete them',
     ],
   ),
 ];
@@ -332,6 +332,22 @@ const ybocsCategories = <YbocsSymptomCategory>[
   ),
 ];
 
+/// The category for a stored theme id, or null if the id is unknown (an old
+/// backup from a build where the checklist differed, for instance).
+///
+/// Assessments persist theme ids rather than titles, so anything rendering a
+/// saved assessment has to resolve them back through here.
+YbocsSymptomCategory? ybocsCategoryFor(String id) {
+  for (final category in ybocsCategories) {
+    if (category.id == id) return category;
+  }
+  return null;
+}
+
+/// Convenience for report and label rendering. Null for unknown ids so callers
+/// can drop them rather than printing a raw id at a clinician.
+String? ybocsCategoryTitleFor(String id) => ybocsCategoryFor(id)?.title;
+
 // ── Severity band presentation ─────────────────────────────────────────────
 
 extension YbocsSeverityDisplay on YbocsSeverity {
@@ -361,7 +377,7 @@ extension YbocsSeverityDisplay on YbocsSeverity {
     YbocsSeverity.severe =>
       'Symptoms are demanding a lot of your day and energy. Working with a clinician is strongly worth it.',
     YbocsSeverity.extreme =>
-      'Symptoms sound overwhelming and disabling. Please consider reaching out to a professional soon — you don\'t have to manage this alone.',
+      'Symptoms sound overwhelming and disabling. Please consider reaching out to a professional soon. You do not have to manage this alone.',
   };
 
   Color get color => switch (this) {

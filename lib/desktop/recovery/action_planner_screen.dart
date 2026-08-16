@@ -340,7 +340,7 @@ class _ActionPlanEditScreenState extends ConsumerState<ActionPlanEditScreen> {
     if (situation.isEmpty || action.isEmpty) {
       showAppSnackBar(
         context,
-        'Add a trigger and your planned response to save.',
+        'When OCD shows up, and what you will do instead. Then it saves.',
         type: ToastType.info,
       );
       return;
@@ -388,14 +388,14 @@ class _ActionPlanEditScreenState extends ConsumerState<ActionPlanEditScreen> {
             ),
             const SizedBox(height: 18),
             LabeledField(
-              label: 'Trigger / situation',
+              label: 'When OCD shows up',
               hint: 'e.g. The urge to Google a symptom',
               controller: _situation,
               minLines: 2,
             ),
             const SizedBox(height: 16),
             LabeledField(
-              label: 'Planned response',
+              label: 'What you will do instead',
               hint: 'e.g. Wait 15 minutes before searching',
               controller: _action,
               minLines: 2,

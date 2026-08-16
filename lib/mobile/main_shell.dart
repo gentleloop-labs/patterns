@@ -8,6 +8,7 @@ import 'package:local_auth/local_auth.dart'
 import '../models/models.dart';
 import '../providers/providers.dart';
 import '../services/analytics_service.dart';
+import '../services/app_events.dart';
 import '../services/demo_seed_service.dart';
 import '../services/notification_service.dart';
 import '../services/telemetry.dart';
@@ -88,6 +89,9 @@ class _MobileShellState extends ConsumerState<MobileShell> {
     mobilePreferences?.setString(firstRunPathKey, path.name);
     mobilePreferences?.setString(lastSeenReleaseKey, currentReleaseId);
     Telemetry.log('onboarding.path_chosen', {'path': path.name});
+    // Choosing a path is the last step of onboarding — there is no further
+    // screen to dismiss, so this is the completion point.
+    AppEvents.logOnboardingCompleted(path: path.name);
     setState(() {
       _hasStarted = true;
       _hasSeenCurrentRelease = true;
@@ -689,6 +693,7 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
       });
       if (path == FirstRunPath.selfcheck) {
         Telemetry.log('selfcheck.completed');
+        AppEvents.logFirstSelfCheckCompleted();
       }
       if (!mounted) return;
       // Reflect firstActivityDone on the Today screen (streak, score gating).

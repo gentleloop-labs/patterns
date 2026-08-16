@@ -1,14 +1,18 @@
+import 'package:flutter/foundation.dart'
+    show TargetPlatform, defaultTargetPlatform, kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_quill/flutter_quill.dart'
     show FlutterQuillLocalizations;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'app_preferences.dart';
 import 'desktop/onboarding.dart';
 import 'desktop/shell.dart';
 import 'mobile/main_shell.dart';
+import 'services/app_events.dart';
 import 'services/notification_service.dart';
 import 'services/pro_service.dart';
 import 'services/review_prompt.dart';
@@ -20,10 +24,21 @@ import 'widgets/platform.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Android 15+ enforces edge-to-edge for apps targeting API 35 or newer.
+  // Opt in explicitly so older Android versions exercise the same inset
+  // behavior and the UI does not change at an OS-version boundary.
+  if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
+    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  }
+
   GoogleFonts.config.allowRuntimeFetching = false;
 
   await initAppPreferences();
+  // Order matters: recordSessionStart anchors the install day, and first_open
+  // must be attributable to that same first session.
   await Telemetry.recordSessionStart();
+  AppEvents.logFirstOpen();
 
   if (!kIsDesktop) {
     await ReviewPromptService.recordSessionStart();
@@ -105,7 +120,9 @@ class PatternsApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      navigatorKey: kIsDesktop ? desktopRootNavigatorKey : mobileRootNavigatorKey,
+      navigatorKey: kIsDesktop
+          ? desktopRootNavigatorKey
+          : mobileRootNavigatorKey,
       builder: kIsDesktop
           ? null
           : (context, child) => MobileAppFrame(child: child),

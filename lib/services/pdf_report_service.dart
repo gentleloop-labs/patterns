@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import '../content/ybocs_content.dart';
 import '../models/export_report_options.dart';
 import '../models/models.dart';
 import '../widgets/rich_journal.dart';
@@ -29,12 +30,14 @@ class PdfReportService {
     required ExportReportOptions options,
     required List<JournalEntry> journals,
     required List<OcdEntry> ocds,
+    List<YbocsAssessment> ybocs = const [],
   }) async {
     final filter = options.filter;
     final filteredJournals = AnalyticsService.filterJournals(journals, filter)
       ..sort((a, b) => a.date.compareTo(b.date));
     final filteredOcds = AnalyticsService.filterOcds(ocds, filter)
       ..sort((a, b) => a.datetime.compareTo(b.datetime));
+    final filteredYbocs = AnalyticsService.filterYbocs(ybocs, filter);
     final summary = AnalyticsService.buildSummary(
       journals: filteredJournals,
       ocds: filteredOcds,
@@ -87,6 +90,11 @@ class PdfReportService {
           if (options.sections.analytics) {
             widgets.addAll(_analyticsSection(summary));
           }
+          // Before the raw entries: a clinician reading this wants the
+          // standardised measure first, then the detail behind it.
+          if (options.sections.ybocs && filteredYbocs.isNotEmpty) {
+            widgets.addAll(_ybocsSection(filteredYbocs, dateFmt));
+          }
           if (options.sections.journal) {
             widgets.addAll(_journalSection(filteredJournals, dateFmt));
           }
@@ -129,6 +137,95 @@ class PdfReportService {
       ),
       pw.SizedBox(height: 24),
     ];
+  }
+
+  /// Y-BOCS self-checks as a clinician would want to read them: the latest
+  /// total with its severity band, the obsession and compulsion subtotals, the
+  /// change across the range, then every dated score.
+  ///
+  /// Deliberately no chart. fl_chart cannot render into a PDF, and a dated table
+  /// is more useful in an appointment than a sparkline anyway.
+  static List<pw.Widget> _ybocsSection(
+    List<YbocsAssessment> assessments,
+    DateFormat dateFmt,
+  ) {
+    final latest = assessments.last;
+    final first = assessments.first;
+    final change = latest.totalScore - first.totalScore;
+    final changeLabel = assessments.length < 2
+        ? 'Single self-check in this range'
+        : '${change > 0 ? '+' : ''}$change since '
+              '${dateFmt.format(first.datetime)}';
+
+    final themeLabels = latest.themes
+        .map((id) => ybocsCategoryTitleFor(id))
+        .whereType<String>()
+        .toList();
+
+    return [
+      _sectionTitle('Y-BOCS Self-Checks'),
+      pw.SizedBox(height: 4),
+      pw.Text(
+        'Yale-Brown Obsessive Compulsive Scale, self-rated in the app. '
+        'Total is out of 40, with obsessions and compulsions each out of 20.',
+        style: const pw.TextStyle(fontSize: 10, color: PdfColors.grey700),
+      ),
+      pw.SizedBox(height: 10),
+      _statRow(
+        'Most recent total',
+        '${latest.totalScore}/40 · ${latest.severity.label} '
+            '(${latest.severity.range})',
+      ),
+      _statRow('Taken on', dateFmt.format(latest.datetime)),
+      _statRow('Obsessions subtotal', '${latest.obsessionScore}/20'),
+      _statRow('Compulsions subtotal', '${latest.compulsionScore}/20'),
+      _statRow('Change across range', changeLabel),
+      _statRow('Self-checks in range', '${assessments.length}'),
+      if (themeLabels.isNotEmpty) ...[
+        pw.SizedBox(height: 4),
+        _statRow('Themes flagged', themeLabels.join(', ')),
+      ],
+      pw.SizedBox(height: 12),
+      pw.Table(
+        border: pw.TableBorder.all(color: PdfColors.grey300, width: 0.5),
+        children: [
+          pw.TableRow(
+            decoration: const pw.BoxDecoration(color: PdfColors.grey100),
+            children: [
+              _ybocsCell('Date', bold: true),
+              _ybocsCell('Total', bold: true),
+              _ybocsCell('Obsessions', bold: true),
+              _ybocsCell('Compulsions', bold: true),
+              _ybocsCell('Band', bold: true),
+            ],
+          ),
+          for (final a in assessments)
+            pw.TableRow(
+              children: [
+                _ybocsCell(dateFmt.format(a.datetime)),
+                _ybocsCell('${a.totalScore}/40'),
+                _ybocsCell('${a.obsessionScore}/20'),
+                _ybocsCell('${a.compulsionScore}/20'),
+                _ybocsCell(a.severity.label),
+              ],
+            ),
+        ],
+      ),
+      pw.SizedBox(height: 24),
+    ];
+  }
+
+  static pw.Widget _ybocsCell(String text, {bool bold = false}) {
+    return pw.Padding(
+      padding: const pw.EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+      child: pw.Text(
+        text,
+        style: pw.TextStyle(
+          fontSize: 10,
+          fontWeight: bold ? pw.FontWeight.bold : pw.FontWeight.normal,
+        ),
+      ),
+    );
   }
 
   static List<pw.Widget> _journalSection(

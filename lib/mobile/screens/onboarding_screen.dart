@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../../services/app_events.dart';
 import '../../services/telemetry.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
@@ -40,6 +41,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   void initState() {
     super.initState();
     Telemetry.log('onboarding.s1_shown');
+    AppEvents.logOnboardingStarted();
   }
 
   @override
@@ -183,7 +185,7 @@ class _PromiseView extends StatelessWidget {
                 FadeSlideIn(
                   delay: const Duration(milliseconds: 90),
                   child: Text(
-                    'A calm, private place\nfor the hard moments.',
+                    'A quiet place to\npractise with OCD.',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontFamily: AppTheme.displayFamily,
@@ -198,8 +200,8 @@ class _PromiseView extends StatelessWidget {
                 FadeSlideIn(
                   delay: const Duration(milliseconds: 130),
                   child: Text(
-                    'Notice a thought, sit with an urge, and practise '
-                    'responding differently, one small step at a time.',
+                    'Log the intrusive thought, delay the compulsion, and '
+                    'practise responding differently, one small step at a time.',
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodyLarge?.copyWith(
                       color: AppTheme.textSecondary,
@@ -282,26 +284,26 @@ const _choices = <_Choice>[
   _Choice(
     FirstRunPath.urge,
     LineIcons.hourglassHalf,
-    "I'm dealing with an urge",
-    'Create some space before you respond.',
+    "I'm fighting an urge right now",
+    'Put some time between the urge and the ritual.',
   ),
   _Choice(
     FirstRunPath.journal,
     LineIcons.pen,
     'I want to write something down',
-    'Get the thought out of your head.',
+    'Get the thought out of your head and onto a page.',
   ),
   _Choice(
     FirstRunPath.erp,
     LineIcons.seedling,
-    'I want to practise responding differently',
-    'A short, guided exercise.',
+    'I want to practise leaving a compulsion undone',
+    'One short, guided exposure.',
   ),
   _Choice(
     FirstRunPath.selfcheck,
     LineIcons.clipboardList,
-    'I want to understand my patterns',
-    'An optional check-in. About 10 minutes.',
+    'I want to see where my OCD is right now',
+    'The Y-BOCS self-check. About 10 minutes.',
   ),
   _Choice(
     FirstRunPath.explore,

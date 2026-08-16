@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../../content/ybocs_content.dart';
 import '../../models/export_report_options.dart';
 import '../../providers/providers.dart';
 import '../../services/analytics_service.dart';
@@ -62,6 +63,8 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
     final responses =
         ref.watch(responsePreventionProvider).asData?.value ?? const [];
     final surfs = ref.watch(urgeSurfProvider).asData?.value ?? const [];
+    final ybocs =
+        ref.watch(ybocsAssessmentProvider).asData?.value ?? const [];
 
     return Scaffold(
       body: DecoratedBox(
@@ -125,6 +128,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
                       exposureSteps: steps,
                       responsePreventionLogs: responses,
                       urgeSurfSessions: surfs,
+                      ybocsAssessments: ybocs,
                       range: _range,
                     );
                     // Gate the practice-progress score on all-time activity
@@ -220,6 +224,8 @@ class _OverviewDashboard extends StatelessWidget {
         const SizedBox(height: 12),
         _MoodCard(summary: summary),
         const SizedBox(height: 12),
+        _YbocsCard(summary: summary),
+        const SizedBox(height: 12),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -252,7 +258,7 @@ class _ThoughtsDashboard extends StatelessWidget {
           children: [
             Expanded(
               child: _KpiCard(
-                label: 'Thought logs',
+                label: 'Obsessions logged',
                 value: '${summary.thoughts}',
                 icon: LineIcons.brain,
               ),
@@ -267,6 +273,8 @@ class _ThoughtsDashboard extends StatelessWidget {
             ),
           ],
         ),
+        const SizedBox(height: 12),
+        _YbocsCard(summary: summary),
         const SizedBox(height: 12),
         _TopThemesCard(summary: summary),
         const SizedBox(height: 12),
@@ -472,6 +480,125 @@ class _MoodCard extends StatelessWidget {
   }
 }
 
+/// The Y-BOCS total over time. The app has always told people that retaking the
+/// self-check every few weeks shows whether things are shifting; this is where
+/// that promise is actually kept.
+///
+/// Severity colour, band name, and standard range all come from
+/// [YbocsSeverityDisplay] so there is exactly one place that decides how a band
+/// is presented.
+class _YbocsCard extends StatelessWidget {
+  final RecoveryDashboardSummary summary;
+
+  const _YbocsCard({required this.summary});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final latest = summary.latestYbocs;
+
+    // One point is not a trend, and a line through a single dot reads as a flat
+    // result rather than as "not enough yet". Invite a retake instead.
+    if (!summary.hasYbocsTrend) {
+      return _GlassCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _CardTitle('Y-BOCS over time', info: true),
+            const SizedBox(height: 10),
+            if (latest == null)
+              Text(
+                'Take the self-check and your score will start a line here.',
+                style: _mutedStyle,
+              )
+            else ...[
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    '${latest.totalScore}',
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.w900,
+                      color: latest.severity.color,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 3, bottom: 4),
+                    child: Text('/40', style: _mutedStyle),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Text(
+                '${latest.severity.label} range. Take it again in a few weeks '
+                'to see which way it is going.',
+                style: _mutedStyle,
+              ),
+            ],
+          ],
+        ),
+      );
+    }
+
+    final severity = latest!.severity;
+    return _GlassCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _CardTitle('Y-BOCS over time', info: true),
+          const SizedBox(height: 10),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                '${latest.totalScore}',
+                style: theme.textTheme.headlineMedium?.copyWith(
+                  fontWeight: FontWeight.w900,
+                  color: severity.color,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 3, bottom: 4),
+                child: Text('/40', style: _mutedStyle),
+              ),
+              const SizedBox(width: 8),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: Text(
+                  '${severity.label} (${severity.range})',
+                  style: _mutedStyle.copyWith(color: severity.color),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          _DeltaLabel(
+            delta: summary.ybocsDelta,
+            suffix: 'across ${summary.ybocsTrend.length} self-checks',
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            height: 132,
+            child: _MiniLineChart(
+              points: summary.ybocsTrend,
+              minY: 0,
+              maxY: 40,
+              color: severity.color,
+              bottomLabels: true,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            'A snapshot, not a diagnosis. Scores move around, and one higher '
+            'week is not a setback.',
+            style: _mutedStyle,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _UrgeIntensityCard extends StatelessWidget {
   final RecoveryDashboardSummary summary;
   final bool wide;
@@ -638,7 +765,7 @@ class _TopThemesCard extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           if (themes.isEmpty)
-            Text('Themes will appear as you log patterns.', style: _mutedStyle)
+            Text('Themes will appear as you log what OCD focuses on.', style: _mutedStyle)
           else
             for (var i = 0; i < themes.length; i++) ...[
               _ThemeRow(
@@ -823,12 +950,12 @@ class _InsightSegmentedControl extends StatelessWidget {
             onTap: () => onChanged(_InsightTab.overview),
           ),
           _SegmentButton(
-            label: 'Thoughts',
+            label: 'Obsessions',
             selected: tab == _InsightTab.thoughts,
             onTap: () => onChanged(_InsightTab.thoughts),
           ),
           _SegmentButton(
-            label: 'Urges',
+            label: 'Compulsions',
             selected: tab == _InsightTab.urges,
             onTap: () => onChanged(_InsightTab.urges),
           ),
@@ -876,13 +1003,19 @@ class _SegmentButton extends StatelessWidget {
                   ]
                 : null,
           ),
-          child: Text(
-            label,
-            maxLines: 1,
-            style: TextStyle(
-              color: selected ? AppTheme.warmYellow : AppTheme.textSecondary,
-              fontWeight: FontWeight.w800,
-              fontSize: 12,
+          // "Compulsions" does not fit a quarter of a narrow phone at 12px, so
+          // the label scales down rather than truncating to "Compulsio...".
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: selected ? AppTheme.warmYellow : AppTheme.textSecondary,
+                fontWeight: FontWeight.w800,
+                fontSize: 12,
+              ),
             ),
           ),
         ),
@@ -988,11 +1121,7 @@ class _DeltaLabel extends StatelessWidget {
       InsightTone.negative => AppTheme.mutedRed,
       InsightTone.neutral => AppTheme.textSecondary,
     };
-    final arrow = switch (delta.tone) {
-      InsightTone.positive => '↑',
-      InsightTone.negative => '↓',
-      InsightTone.neutral => '→',
-    };
+    final arrow = delta.arrow;
     return Text(
       '$arrow ${delta.value.abs().toStringAsFixed(delta.value.abs() < 10 ? 1 : 0)} $suffix',
       maxLines: 1,

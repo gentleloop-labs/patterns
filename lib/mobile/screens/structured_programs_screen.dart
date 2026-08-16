@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../content/ocd_tracks.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../theme/app_theme.dart';
@@ -78,7 +79,7 @@ const erpPrograms = <ErpProgram>[
   ErpProgram(
     id: 'uncertainty-3wk',
     title: 'Uncertainty Tolerance',
-    subtitle: 'Practice living with not knowing',
+    subtitle: 'Practise living with not knowing',
     weeks: [
       ErpProgramWeek(
         title: 'Week 1 · Leave it open',
@@ -106,6 +107,42 @@ const erpPrograms = <ErpProgram>[
 ];
 
 // ---------------------------------------------------------------------------
+// OCD theme tracks
+// ---------------------------------------------------------------------------
+
+/// Adapts a themed track into the program shape the catalogue and detail screen
+/// already understand, so enrollment and per-task progress work unchanged.
+ErpProgram programForTrack(OcdTrack track) {
+  return ErpProgram(
+    id: track.programId,
+    title: track.title,
+    subtitle: track.blurb,
+    weeks: [
+      for (final week in track.weeks)
+        ErpProgramWeek(
+          title: week.title,
+          tasks: [
+            for (final task in week.tasks) ErpProgramTask(task.id, task.label),
+          ],
+        ),
+    ],
+  );
+}
+
+/// The track a program id came from, or null for a hand-written program.
+OcdTrack? trackForProgramId(String programId) {
+  for (final track in ocdTracks) {
+    if (track.programId == programId) return track;
+  }
+  return null;
+}
+
+/// Every track as a program, in catalogue order.
+final trackPrograms = <ErpProgram>[
+  for (final track in ocdTracks) programForTrack(track),
+];
+
+// ---------------------------------------------------------------------------
 // Catalog
 // ---------------------------------------------------------------------------
 
@@ -119,6 +156,12 @@ class StructuredProgramsScreen extends ConsumerWidget {
         ref.watch(programEnrollmentProvider).asData?.value ?? const [];
     final progress =
         ref.watch(programTaskProgressProvider).asData?.value ?? const [];
+    // The newest self-check's flagged categories, used only to mark which
+    // tracks are likely relevant. Never used to hide or reorder anything: the
+    // whole catalogue stays visible whatever the assessment said.
+    final assessments =
+        ref.watch(ybocsAssessmentProvider).asData?.value ?? const [];
+    final suggestedThemes = _newestThemes(assessments);
 
     return Scaffold(
       body: SafeArea(
@@ -146,6 +189,30 @@ class StructuredProgramsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 18),
             const SectionIntro(id: 'structuredPrograms'),
+            _GroupLabel(
+              label: 'By OCD theme',
+              caption: suggestedThemes.isEmpty
+                  ? 'Pick the one that sounds most like your OCD.'
+                  : 'Your last self-check points at the ones marked below.',
+            ),
+            for (final track in ocdTracks) ...[
+              _ProgramCard(
+                program: programForTrack(track),
+                enrollmentId: _enrollmentIdFor(enrollments, track.programId),
+                completedTasks: _completedFor(
+                  progress,
+                  _enrollmentIdFor(enrollments, track.programId),
+                ),
+                suggested: track.matchesThemes(suggestedThemes),
+                onTap: () => _open(context, ref, programForTrack(track)),
+              ),
+              const SizedBox(height: 10),
+            ],
+            const SizedBox(height: 12),
+            const _GroupLabel(
+              label: 'General practice',
+              caption: 'Skills that apply whatever the theme is.',
+            ),
             for (final program in erpPrograms) ...[
               _ProgramCard(
                 program: program,
@@ -162,6 +229,18 @@ class StructuredProgramsScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  /// Themes from the most recent self-check. Picks by date rather than trusting
+  /// the provider's ordering, so a change to the query cannot silently start
+  /// suggesting tracks from a year-old assessment.
+  List<String> _newestThemes(List<YbocsAssessment> assessments) {
+    if (assessments.isEmpty) return const [];
+    var newest = assessments.first;
+    for (final a in assessments.skip(1)) {
+      if (a.datetime.isAfter(newest.datetime)) newest = a;
+    }
+    return newest.themes;
   }
 
   int? _enrollmentIdFor(List<ProgramEnrollment> enrollments, String programId) {
@@ -194,17 +273,57 @@ class StructuredProgramsScreen extends ConsumerWidget {
   }
 }
 
+/// Section heading inside the catalogue. Keeps the themed tracks visually
+/// separate from the general programs without nesting them in cards.
+class _GroupLabel extends StatelessWidget {
+  final String label;
+  final String caption;
+
+  const _GroupLabel({required this.label, required this.caption});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label.toUpperCase(),
+            style: theme.textTheme.labelSmall?.copyWith(
+              fontWeight: FontWeight.w800,
+              letterSpacing: 1.1,
+              color: AppTheme.textSecondary,
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            caption,
+            style: TextStyle(color: AppTheme.textSecondary, fontSize: 12.5),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _ProgramCard extends StatelessWidget {
   final ErpProgram program;
   final int? enrollmentId;
   final int completedTasks;
   final VoidCallback onTap;
 
+  /// Marks a track that matches the newest self-check. A hint, not a
+  /// prescription: every track stays visible and openable.
+  final bool suggested;
+
   const _ProgramCard({
     required this.program,
     required this.enrollmentId,
     required this.completedTasks,
     required this.onTap,
+    this.suggested = false,
   });
 
   @override
@@ -232,6 +351,24 @@ class _ProgramCard extends StatelessWidget {
                     ),
                   ),
                 ),
+                if (suggested && !started)
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.primary.withValues(alpha: 0.14),
+                      borderRadius: BorderRadius.circular(999),
+                    ),
+                    child: Text(
+                      'From your self-check',
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        fontWeight: FontWeight.w800,
+                        color: theme.colorScheme.primary,
+                      ),
+                    ),
+                  ),
                 if (started)
                   Text(
                     '${(pct * 100).round()}%',
@@ -336,6 +473,9 @@ class _ProgramDetailScreenState extends ConsumerState<ProgramDetailScreen> {
     final pct = total == 0 ? 0.0 : done / total;
     final currentWeek = _currentWeek(progress);
     final activeExpanded = _expandedWeek ?? currentWeek;
+    // Only themed tracks carry a note, and only when the theme is absent from
+    // the Y-BOCS checklist.
+    final checklistNote = trackForProgramId(program.id)?.checklistNote;
 
     return Scaffold(
       body: SafeArea(
@@ -356,6 +496,17 @@ class _ProgramDetailScreenState extends ConsumerState<ProgramDetailScreen> {
                 ),
               ],
             ),
+            if (checklistNote != null) ...[
+              const SizedBox(height: 14),
+              Text(
+                checklistNote,
+                style: TextStyle(
+                  color: AppTheme.textSecondary,
+                  height: 1.45,
+                  fontSize: 12.5,
+                ),
+              ),
+            ],
             const SizedBox(height: 16),
             Container(
               padding: const EdgeInsets.all(16),

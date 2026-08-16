@@ -256,7 +256,7 @@ class _DisclaimerCard extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              'This is a self-check to help you understand your experience — '
+              'This is a self-check to help you understand your experience, '
               'not a diagnosis. Only a qualified professional can diagnose OCD. '
               'Bring your results to them if anything here resonates.',
               style: TextStyle(
@@ -497,7 +497,7 @@ class _ChecklistView extends StatelessWidget {
             children: staggered([
               Text(
                 'Tick anything you\'ve experienced, now or in the past. Skip '
-                'what doesn\'t fit — there are no wrong answers.',
+                'what doesn\'t fit. There are no wrong answers.',
                 style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
               ),
               const SizedBox(height: 18),
@@ -1163,8 +1163,8 @@ class _TypesCard extends StatelessWidget {
       if (hasCompulsions) 'Compulsions',
     ];
     final text = switch (types.length) {
-      0 => 'You didn\'t flag a clear pattern this time — that\'s okay.',
-      2 => 'You noticed both obsessions and compulsions — the two often feed '
+      0 => 'You didn\'t flag a clear pattern this time, and that\'s okay.',
+      2 => 'You noticed both obsessions and compulsions, and the two often feed '
           'each other.',
       _ => 'You mainly noticed ${types.first.toLowerCase()}.',
     };
@@ -1285,7 +1285,7 @@ class _NextStepsCard extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             'This score is a snapshot, not a diagnosis. If these patterns are '
-            'affecting your life, a therapist trained in ERP can help — and the '
+            'affecting your life, a therapist trained in ERP can help, and the '
             'Recovery tools here are a good place to start practising in the '
             'meantime.',
             style: TextStyle(
