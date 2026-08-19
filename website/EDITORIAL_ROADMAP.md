@@ -17,9 +17,9 @@ This queue supports one carefully sourced article each week. Do not publish a dr
 
 | Week | Working title | Category | Primary reader question | Status |
 | --- | --- | --- | --- | --- |
-| 1 | Do I Have OCD or Just Intrusive Thoughts? Understanding the Difference | Recognizing OCD | Does this pattern justify an OCD assessment? | Approved for publication |
-| 2 | OCD Avoidance: When Staying Away Becomes a Compulsion | Recognizing OCD | Can avoidance function like a ritual? | Brief next |
-| 3 | OCD Guilt and Shame: Why a Feeling Is Not Evidence | Living With OCD | Why does guilt feel like proof? | Queued |
+| 1 | Do I Have OCD or Just Intrusive Thoughts? Understanding the Difference | Recognizing OCD | Does this pattern justify an OCD assessment? | Published |
+| 2 | OCD Avoidance: When Staying Away Becomes a Compulsion | Recognizing OCD | Can avoidance function like a ritual? | Published |
+| 3 | OCD Guilt and Shame: Why a Feeling Is Not Evidence | Living With OCD | Why does guilt feel like proof? | Brief next |
 | 4 | What Happens During an OCD Assessment? | Recognizing OCD | What will a clinician ask and how can I prepare? | Queued |
 | 5 | Existential OCD: When Life's Biggest Questions Become a Loop | OCD Themes | How is existential doubt turned into a compulsion cycle? | Queued |
 | 6 | Health OCD vs Health Anxiety: What Is the Difference? | OCD Themes | What distinguishes the response patterns? | Queued |
