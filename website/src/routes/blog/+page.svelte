@@ -94,11 +94,12 @@
 
 <style>
   .blog {
+    --blog-content-width: 980px;
     background: var(--surface);
   }
 
   .head {
-    max-width: 720px;
+    max-width: var(--blog-content-width);
     margin: 0 auto 48px;
     text-align: center;
   }
@@ -138,7 +139,7 @@
   }
 
   .categories {
-    max-width: 980px;
+    max-width: var(--blog-content-width);
     margin: 0 auto 56px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -176,7 +177,7 @@
   }
 
   .latest-head {
-    max-width: 760px;
+    max-width: var(--blog-content-width);
     margin: 0 auto 22px;
     display: flex;
     align-items: baseline;
@@ -199,7 +200,7 @@
   }
 
   .pager {
-    max-width: 760px;
+    max-width: var(--blog-content-width);
     margin: 36px auto 0;
     display: flex;
     align-items: center;
