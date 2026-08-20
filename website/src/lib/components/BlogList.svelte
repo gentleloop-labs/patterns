@@ -42,7 +42,7 @@
 
 <style>
   .list {
-    max-width: 760px;
+    max-width: var(--blog-content-width, 760px);
     margin: 0 auto;
     display: grid;
     gap: 20px;
