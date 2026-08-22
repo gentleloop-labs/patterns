@@ -16,6 +16,22 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173).
 
+## Creator download links
+
+The `/get` page accepts a `ref` query parameter. Future creator links are
+created by changing the value after `?ref=` - no new page is required.
+
+```
+https://patternsocd.com/get?ref=shahhyashvi
+https://patternsocd.com/get?ref=anothercreator
+```
+
+Locally: `http://localhost:5173/get?ref=shahhyashvi`
+
+The first valid `ref` is kept in `sessionStorage` for the rest of the tab and
+stamped on `get_landing_view`, `app_store_click`, and `play_store_click` in GA4.
+Invalid or missing values leave the page behaving as it does today.
+
 ## Build
 
 ```bash

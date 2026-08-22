@@ -3,6 +3,7 @@
   import { afterNavigate } from '$app/navigation';
   import { page } from '$app/stores';
   import { captureAttribution } from '$lib/utils/attribution';
+  import { captureReferral } from '$lib/utils/referral';
   import '../app.css';
   import AnalyticsDebugPanel from '$lib/components/AnalyticsDebugPanel.svelte';
   import AppInstallBanner from '$lib/components/AppInstallBanner.svelte';
@@ -16,15 +17,18 @@
   const bareRoutes = ['/get'];
   const bare = $derived(bareRoutes.includes($page.url.pathname.replace(/\/$/, '') || '/'));
 
-  // Campaign params are captured on every entry, not just /get, and the first
-  // valid one wins for the session — so a visitor who lands on an ad URL and
-  // then browses to /erp still has their store click credited to the ad.
+  // Campaign params and creator referrals are captured on every entry, not just
+  // /get, and the first valid one wins for the session - so a visitor who lands
+  // on an ad or creator URL and then browses to /erp still has their store click
+  // credited to that visit.
   afterNavigate(() => {
     captureAttribution(window.location.search, window.location.pathname);
+    captureReferral(window.location.search);
   });
 
   onMount(() => {
     captureAttribution(window.location.search, window.location.pathname);
+    captureReferral(window.location.search);
     theme.init();
 
     if (window.location.hash === '#/privacy') {
