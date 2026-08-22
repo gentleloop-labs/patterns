@@ -7,7 +7,7 @@ readingMinutes: 10
 excerpt: 'An OCD assessment is not an exam you pass by describing the thought correctly. It is a conversation about the pattern: what shows up, what you do next, and what it costs.'
 category: recognizing-ocd
 contentType: evidence-guide
-draft: true
+draft: false
 tags: [ocd-basics, erp]
 keywords: 'OCD assessment, what happens during an OCD assessment, how is OCD diagnosed, Y-BOCS, OCD diagnosis, OCD evaluation, OCD screening'
 faq:

@@ -7,7 +7,7 @@ readingMinutes: 10
 excerpt: 'Guilt in OCD can arrive with the force of a verdict. The intensity is real. What it is not is proof that the feared meaning is true.'
 category: living-with-ocd
 contentType: evidence-guide
-draft: true
+draft: false
 tags: [ocd-basics, compulsions, intrusive-thoughts]
 keywords: 'OCD guilt, OCD shame, OCD guilt and shame, why does OCD make me feel guilty, is guilt a symptom of OCD, emotional reasoning OCD, thought-action fusion guilt'
 faq:
