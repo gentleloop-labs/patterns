@@ -24,7 +24,8 @@ const APPROVED_PARAMS = new Set([
   'destination_store',
   'external_url',
   'app_platform',
-  'transport_type'
+  'transport_type',
+  'ref'
 ]);
 
 test.describe('store click events', () => {
@@ -178,6 +179,82 @@ test.describe('store click events', () => {
     await link.click();
 
     expect(events.named('play_store_click')).toHaveLength(1);
+  });
+});
+
+test.describe('creator referral', () => {
+  let events: EventRecorder;
+
+  test.beforeEach(async ({ page }) => {
+    events = await recordEvents(page);
+    await stubStores(page);
+  });
+
+  test('an App Store tap from a creator link includes ref and ios', async ({ page }) => {
+    await page.goto('/get?ref=shahhyashvi');
+    await page.getByRole('link', { name: APP_STORE_LABEL }).click();
+    await page.waitForURL(/apps\.apple\.com/);
+
+    const [event] = events.named('app_store_click');
+    expect(event.params).toMatchObject({
+      ref: 'shahhyashvi',
+      app_platform: 'ios',
+      destination_store: 'app_store'
+    });
+    expect(String(event.params.page_path)).toContain('/get');
+  });
+
+  test('a Google Play tap from a creator link includes ref and android', async ({ page }) => {
+    await page.goto('/get?ref=shahhyashvi');
+    await page.getByRole('link', { name: PLAY_STORE_LABEL }).click();
+    await page.waitForURL(/play\.google\.com/);
+
+    const [event] = events.named('play_store_click');
+    expect(event.params).toMatchObject({
+      ref: 'shahhyashvi',
+      app_platform: 'android',
+      destination_store: 'play_store'
+    });
+  });
+
+  test('the landing view includes ref without duplicating the event', async ({ page }) => {
+    await page.goto('/get?ref=shahhyashvi');
+    await expect.poll(() => events.named('get_landing_view').length).toBe(1);
+    expect(events.named('get_landing_view')[0].params.ref).toBe('shahhyashvi');
+  });
+
+  test('is retained after navigating away from /get', async ({ page, context }) => {
+    await page.goto('/get?ref=shahhyashvi');
+    await page.goto('/');
+    expect(page.url()).not.toContain('ref=');
+
+    const popupPromise = context.waitForEvent('page');
+    await page.locator('#download').getByRole('link', { name: PLAY_STORE_LABEL }).click();
+    await popupPromise;
+
+    const [event] = events.named('play_store_click');
+    expect(event.params.ref).toBe('shahhyashvi');
+  });
+
+  test('a direct visit sends no ref', async ({ page }) => {
+    await page.goto('/get');
+    await page.getByRole('link', { name: APP_STORE_LABEL }).click();
+    await page.waitForURL(/apps\.apple\.com/);
+
+    expect(events.named('app_store_click')[0].params.ref).toBeUndefined();
+    expect(events.named('get_landing_view')[0].params.ref).toBeUndefined();
+  });
+
+  test('store destinations are unchanged by the referral query', async ({ page }) => {
+    await page.goto('/get?ref=shahhyashvi');
+    await expect(page.getByRole('link', { name: APP_STORE_LABEL })).toHaveAttribute(
+      'href',
+      /apps\.apple\.com/
+    );
+    await expect(page.getByRole('link', { name: PLAY_STORE_LABEL })).toHaveAttribute(
+      'href',
+      /play\.google\.com/
+    );
   });
 });
 

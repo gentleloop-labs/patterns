@@ -1,4 +1,5 @@
 import { getAttribution } from './attribution';
+import { getReferral } from './referral';
 
 /**
  * GA4 event transport.
@@ -84,7 +85,8 @@ const STORE_CLICK_PARAMS = [
   'destination_store',
   'external_url',
   'app_platform',
-  'transport_type'
+  'transport_type',
+  'ref'
 ] as const;
 
 const EVENT_PARAM_ALLOWLIST: Record<string, readonly string[]> = {
@@ -97,7 +99,8 @@ const EVENT_PARAM_ALLOWLIST: Record<string, readonly string[]> = {
     'click_medium',
     'click_content',
     'click_term',
-    'transport_type'
+    'transport_type',
+    'ref'
   ],
   download: ['platform', 'version', 'placement', 'transport_type']
 };
@@ -343,7 +346,8 @@ export function trackStoreClick(
     device_category: deviceCategory(),
     destination_store: store,
     external_url: externalUrl,
-    app_platform: STORE_PLATFORM[store]
+    app_platform: STORE_PLATFORM[store],
+    ref: getReferral()
   });
 
   // Legacy, kept temporarily so pre-existing reports do not go blank. Flagged

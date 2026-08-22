@@ -10,6 +10,7 @@
     type StoreNavigationRecord
   } from '$lib/utils/analytics';
   import { getAttribution, type Attribution } from '$lib/utils/attribution';
+  import { getReferral } from '$lib/utils/referral';
 
   /**
    * Diagnostics for `?analytics_debug=1`, safe to ship to production.
@@ -23,6 +24,7 @@
   let collapsed = $state(false);
   let device = $state<'mobile' | 'tablet' | 'desktop'>('desktop');
   let attribution = $state<Attribution>({});
+  let referral = $state<string | undefined>();
   let gtagReady = $state(false);
   let events = $state<readonly DebugEventRecord[]>([]);
   let navigation = $state<StoreNavigationRecord | null>(null);
@@ -37,6 +39,7 @@
     gtagReady = isGtagAvailable();
     navigation = getLastStoreNavigation();
     attribution = getAttribution();
+    referral = getReferral();
   }
 
   onMount(() => {
@@ -83,6 +86,9 @@
             <br />landed on: <code>{attribution.landing_page ?? '(none)'}</code>
           {:else}
             <em>direct / unattributed</em>
+          {/if}
+          {#if referral}
+            <br />ref: <code>{referral}</code>
           {/if}
         </dd>
 

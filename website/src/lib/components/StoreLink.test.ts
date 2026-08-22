@@ -3,6 +3,7 @@ import { cleanup, render } from '@testing-library/svelte';
 import StoreLink from './StoreLink.svelte';
 import { resetStoreClickDedupe, trackStoreClick } from '$lib/utils/analytics';
 import { clearAttribution } from '$lib/utils/attribution';
+import { captureReferral, clearReferral } from '$lib/utils/referral';
 import { links } from '$lib/data/links';
 
 function gtag() {
@@ -21,6 +22,7 @@ describe('StoreLink', () => {
     window.gtag = vi.fn();
     resetStoreClickDedupe();
     clearAttribution();
+    clearReferral();
   });
 
   it('renders a real anchor to the App Store with an accessible label', () => {
@@ -143,5 +145,29 @@ describe('StoreLink', () => {
       click_medium: 'paid_video',
       placement: 'sticky_banner'
     });
+  });
+
+  it('carries the session creator referral onto the click', () => {
+    captureReferral('?ref=shahhyashvi');
+
+    const { getByRole } = render(StoreLink, {
+      props: { store: 'app_store', placement: 'hero' }
+    });
+    getByRole('link').click();
+
+    expect(eventsNamed('app_store_click')[0]).toMatchObject({
+      ref: 'shahhyashvi',
+      app_platform: 'ios',
+      destination_store: 'app_store'
+    });
+  });
+
+  it('omits ref when the visit has no creator referral', () => {
+    const { getByRole } = render(StoreLink, {
+      props: { store: 'play_store', placement: 'hero' }
+    });
+    getByRole('link').click();
+
+    expect(eventsNamed('play_store_click')[0].ref).toBeUndefined();
   });
 });

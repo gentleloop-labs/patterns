@@ -6,6 +6,7 @@
   import { links } from '$lib/data/links';
   import { deviceCategory, ensureAnalyticsLoaded, logEvent } from '$lib/utils/analytics';
   import { getAttribution } from '$lib/utils/attribution';
+  import { captureReferral } from '$lib/utils/referral';
   import { siAppstore, siGoogleplay } from 'simple-icons';
 
   /**
@@ -25,13 +26,17 @@
     ensureAnalyticsLoaded();
 
     const attribution = getAttribution();
+    // Capture here so the landing event has `ref` even if this mounts before
+    // the layout navigation hook. First valid value still wins for the tab.
+    const ref = captureReferral(window.location.search);
     logEvent('get_landing_view', {
       device_category: deviceCategory(),
       click_source: attribution.source,
       click_medium: attribution.medium,
       click_campaign: attribution.campaign,
       click_content: attribution.content,
-      click_term: attribution.term
+      click_term: attribution.term,
+      ref
     });
   });
 
