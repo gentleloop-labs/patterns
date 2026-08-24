@@ -1,0 +1,30 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "patterns-analytics",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-08-24",
+	"observability": {
+		"enabled": true
+	},
+	"triggers": {
+		"crons": ["17 3 * * *"]
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "patterns-analytics-db",
+			"database_id": "fc1f53e9-7161-4ff9-9240-a72345c8664f",
+			"migrations_dir": "migrations"
+		}
+	],
+	"ratelimits": [
+		{
+			"name": "RATE_LIMITER",
+			"namespace_id": "1001",
+			"simple": {
+				"limit": 120,
+				"period": 60
+			}
+		}
+	]
+}

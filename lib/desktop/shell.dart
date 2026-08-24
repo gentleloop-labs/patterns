@@ -7,6 +7,7 @@ import '../screens/analytics_screen.dart';
 import '../screens/journal_screen.dart';
 import '../screens/ocd_tracker_screen.dart';
 import '../screens/settings_screen.dart';
+import '../services/app_events.dart';
 import 'home_screen.dart';
 import 'recovery/recovery_hub_screen.dart';
 
@@ -29,10 +30,33 @@ class DesktopShell extends ConsumerStatefulWidget {
 class DesktopShellState extends ConsumerState<DesktopShell> {
   late DesktopTab _selectedTab = widget.initialTab ?? _savedTab();
 
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _logTabOpened(_selectedTab),
+    );
+  }
+
   void selectTab(DesktopTab tab) {
     if (tab == _selectedTab) return;
     appPreferences?.setString(desktopSelectedTabKey, tab.name);
+    _logTabOpened(tab);
     setState(() => _selectedTab = tab);
+  }
+
+  void _logTabOpened(DesktopTab tab) {
+    switch (tab) {
+      case DesktopTab.journal:
+        AppEvents.logJournalOpened();
+      case DesktopTab.insights:
+        AppEvents.logInsightsOpened();
+      case DesktopTab.home:
+      case DesktopTab.track:
+      case DesktopTab.recovery:
+      case DesktopTab.settings:
+        break;
+    }
   }
 
   DesktopTab _savedTab() {
@@ -222,7 +246,9 @@ class _NavTileState extends State<_NavTile> {
                   child: Text(
                     widget.label,
                     style: TextStyle(
-                      fontWeight: widget.isSelected ? FontWeight.w700 : FontWeight.w500,
+                      fontWeight: widget.isSelected
+                          ? FontWeight.w700
+                          : FontWeight.w500,
                       fontSize: 14,
                       color: widget.isSelected
                           ? widget.theme.colorScheme.onSurface

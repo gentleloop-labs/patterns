@@ -37,7 +37,7 @@ export const features: Feature[] = [
     icon: Shield,
     title: 'Privacy First',
     description:
-      'Your journal entries and OCD records stay on your device. No cloud uploads, no ads, and no third-party sharing. Product-usage counters remain local too.'
+      'Your journal entries and OCD records stay on your device. No cloud sync, ads, or third-party analytics SDK. Optional anonymous feature-use analytics never include personal OCD content.'
   },
   {
     icon: Moon,

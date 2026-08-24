@@ -136,7 +136,7 @@
         <h2 id="cta-heading">Track the loop in a place that stays private</h2>
         <p>
           Patterns is a free OCD journal and ERP companion. No account, no cloud sync,
-          nothing leaves your device.
+          and your journal and OCD records stay on your device.
         </p>
         <div class="cta-buttons">
           <StoreLink store="app_store" placement="body" class="store-btn">

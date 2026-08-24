@@ -46,6 +46,14 @@ const firstActivityDoneKey = 'firstActivityDone';
 /// from Settings > Debug to populate sample data on the next launch.
 const debugSeedEnabledKey = 'debugSeedEnabled';
 
+/// User consent for first-party, anonymous product analytics. Collection stays
+/// opt-in by default even when a production endpoint is configured.
+const usageAnalyticsEnabledKey = 'usageAnalyticsEnabled';
+const defaultUsageAnalyticsEnabled = bool.fromEnvironment(
+  'PATTERNS_ANALYTICS_DEFAULT_ENABLED',
+  defaultValue: false,
+);
+
 Future<void> initAppPreferences() async {
   appPreferences = await SharedPreferences.getInstance();
 }
@@ -136,3 +144,20 @@ class ReminderNotifier extends Notifier<ReminderSettings> {
 final reminderProvider = NotifierProvider<ReminderNotifier, ReminderSettings>(
   ReminderNotifier.new,
 );
+
+class UsageAnalyticsPreferenceNotifier extends Notifier<bool> {
+  @override
+  bool build() =>
+      appPreferences?.getBool(usageAnalyticsEnabledKey) ??
+      defaultUsageAnalyticsEnabled;
+
+  Future<void> setEnabled(bool enabled) async {
+    await appPreferences?.setBool(usageAnalyticsEnabledKey, enabled);
+    state = enabled;
+  }
+}
+
+final usageAnalyticsEnabledProvider =
+    NotifierProvider<UsageAnalyticsPreferenceNotifier, bool>(
+      UsageAnalyticsPreferenceNotifier.new,
+    );

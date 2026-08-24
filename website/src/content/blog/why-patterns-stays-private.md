@@ -1,8 +1,8 @@
 ---
-title: Why Patterns stays private (and always will)
-description: People with OCD write down their most frightening thoughts. Here is why Patterns has no account, no cloud sync, and no remote analytics, and never will.
+title: Why Patterns keeps your OCD data private
+description: People with OCD write down their most frightening thoughts. Patterns keeps that content on-device and makes limited anonymous product analytics optional.
 date: '2026-07-11'
-updated: '2026-07-11'
+updated: '2026-08-25'
 readingMinutes: 3
 excerpt: The things people with OCD write down are exactly the things they least want anyone to see. So Patterns keeps all of it on your device. Here is why.
 category: personal-stories
@@ -24,9 +24,15 @@ related: [why-i-built-patterns, what-i-wanted-in-an-ocd-app]
   Everything you record in Patterns - journal entries, tracked obsessions and
   compulsions, distress ratings, every note in the recovery toolkit - is stored
   locally on your device. There is no account to create. There is no cloud sync.
-  There are no remote analytics watching what you type. I cannot read your entries, and
-  neither can anyone else, because they never leave your phone or computer in the
-  first place.
+  I cannot read your entries because they never leave your phone or computer.
+</p>
+<p>
+  Patterns offers optional, default-off first-party product analytics to understand
+  whether people reach useful features. If you enable it, the app sends only a random
+  installation ID, platform, app version, and a closed set of feature event names and
+  times. It never sends what you wrote, OCD categories, ratings, exposures, recovery
+  notes, or purchase details. Uploaded events expire after 90 days, and you can turn
+  collection off at any time in Privacy settings.
 </p>
 <p>
   When you want a backup, you export a file yourself, and it goes wherever you
@@ -63,7 +69,8 @@ related: [why-i-built-patterns, what-i-wanted-in-an-ocd-app]
 
 <h2>The short version</h2>
 <p>
-  No account. No cloud sync. No remote analytics. Your thoughts stay yours. If you have OCD, you
+  No account. No cloud sync. Your thoughts stay on your device. Anonymous feature-use
+  analytics are optional and never contain personal OCD content. If you have OCD, you
   deserve at least one place that is genuinely safe to be honest - and I wanted that
   place to exist, so I built it.
 </p>

@@ -12,6 +12,7 @@ import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../services/notification_service.dart';
 import '../../services/review_prompt.dart';
+import '../../services/app_events.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
@@ -114,6 +115,7 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
       return;
     }
     _plannedSeconds = _custom ? (_customMinutes.round() * 60) : _plannedSeconds;
+    AppEvents.logFirstCompulsionDelayStarted();
     _urgeAfter = _urgeBefore;
     final startedAt = DateTime.now();
     _timerStartedAt = startedAt;
@@ -271,6 +273,7 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
       createdAt: DateTime.now(),
     );
     await ref.read(delaySessionProvider.notifier).addSession(session);
+    AppEvents.logFirstCompulsionDelayCompleted(ranToCompletion: _completed);
     await ReviewPromptService.recordUrgePracticeCompleted();
     if (!mounted) return;
     Navigator.pop(context);

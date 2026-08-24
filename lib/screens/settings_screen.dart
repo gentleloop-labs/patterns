@@ -14,6 +14,7 @@ import '../services/notification_service.dart';
 import '../services/pro_service.dart';
 import '../services/review_prompt.dart';
 import '../services/tip_jar.dart';
+import '../services/usage_analytics.dart';
 import '../widgets/app_snack_bar.dart';
 import '../widgets/export_report_sheet.dart';
 import '../widgets/paywall_sheet.dart';
@@ -258,6 +259,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     try {
       await DbHelper.instance.clearAll();
       await clearLocalPreferences();
+      ref.invalidate(usageAnalyticsEnabledProvider);
       ref.invalidate(journalProvider);
       ref.invalidate(ocdProvider);
       ref.invalidate(delaySessionProvider);
@@ -286,7 +288,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         content: const Text(
           'Patterns is a local-first application. Your entries, logs, '
           'exposures, and settings are stored locally on your device\'s SQLite database. '
-          'No analytical trackers are included, and no data is transmitted to remote servers.',
+          'If you enable anonymous usage analytics, only named feature-use events, '
+          'a random installation ID, platform, app version, and event time are sent '
+          'to our first-party service. Personal OCD content is never included. '
+          'Uploaded events expire after 90 days. Turning analytics off clears '
+          'pending events and the local analytics ID.',
         ),
         actions: [
           TextButton(
@@ -310,6 +316,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final theme = Theme.of(context);
     final reminder = ref.watch(reminderProvider);
     final appLockEnabled = ref.watch(appLockEnabledProvider);
+    final usageAnalyticsEnabled = ref.watch(usageAnalyticsEnabledProvider);
     final isPro = ref.watch(proProvider);
 
     final categories = <(_SettingsCategory, String, IconData)>[
@@ -536,6 +543,21 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               endIndent: 20,
                             ),
                             _SettingsSwitchRow(
+                              title: 'Share Anonymous Usage Analytics',
+                              subtitle:
+                                  'Share feature-use events only. Personal OCD data is never included.',
+                              icon: LineIcons.barChart,
+                              value: usageAnalyticsEnabled,
+                              onChanged: (value) =>
+                                  _setUsageAnalytics(ref, value),
+                            ),
+                            Divider(
+                              height: 1,
+                              color: Colors.white.withOpacity(0.04),
+                              indent: 20,
+                              endIndent: 20,
+                            ),
+                            _SettingsSwitchRow(
                               title: 'App lock',
                               subtitle:
                                   'Require device unlock when Patterns reopens',
@@ -640,6 +662,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> _setUsageAnalytics(WidgetRef ref, bool enabled) async {
+    await ref.read(usageAnalyticsEnabledProvider.notifier).setEnabled(enabled);
+    await usageAnalytics.setCollectionEnabled(enabled);
   }
 }
 

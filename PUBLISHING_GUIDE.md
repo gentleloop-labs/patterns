@@ -34,7 +34,7 @@ INSIGHTS WITHOUT JUDGMENT
 See distress trends, journaling consistency, urge intensity, and ERP practice across 7-day, 30-day, 90-day, yearly, or custom ranges. Progress reflects practice—not a diagnosis or a clinical score.
 
 PRIVATE BY DESIGN
-Your journal entries and OCD records stay on your device. There is no account, cloud sync, advertising, or remote analytics. Small product-usage counters also remain on-device.
+Your journal entries and OCD records stay on your device. There is no account, cloud sync, advertising, or third-party analytics SDK. Optional, default-off anonymous product analytics can share feature-use events, but never journal entries, intrusive thoughts, compulsions, exposures, notes, ratings, or other personal OCD content.
 
 APP LOCK
 Keep your reflections private with an optional Face ID, Touch ID, or device-passcode lock, plus a privacy screen when you switch apps.
@@ -59,7 +59,7 @@ Patterns has been rebuilt around a calmer first session and one clear next step.
 - Optional app lock and improved privacy explanations
 - Patterns Pro is now available as a one-time unlock, with no subscription
 
-Your journal entries, OCD records, and product-usage counters remain on-device.
+Your journal entries and OCD records remain on-device. Optional anonymous product analytics are now explained and controlled in Privacy settings.
 
 **Keywords (iOS, 100 characters maximum):**
 
@@ -104,35 +104,43 @@ cycle. Deploy it as soon as the live price is confirmed.
 
 ## 2. Privacy Policy
 - **URL:** [https://patternsocd.com/privacy](https://patternsocd.com/privacy)
-- **Data Collection:** The app does not transmit user data to the developer or a third-party analytics service. Journal entries, OCD records, and product-usage counters are stored locally.
-- **Data Deletion:** Users can delete individual entries or use the "Wipe all data" button in Settings to clear all local storage.
+- **OCD Data:** Journal entries, obsessions, compulsions, exposures, notes, ratings, Y-BOCS answers, and recovery content remain on-device and are never included in analytics.
+- **Optional Analytics:** When a user enables **Share Anonymous Usage Analytics**, Patterns sends only a random installation UUID, coarse platform, app version, and whitelisted feature event name/version/time to the first-party Cloudflare Worker. The identifier is not based on an account or device identifier.
+- **Retention:** Uploaded analytics events are automatically deleted after 90 days, based on their server receipt time.
+- **Data Deletion:** Users can delete individual entries or wipe local app data. Turning analytics off immediately deletes the pending analytics queue and local analytics installation ID. Previously uploaded anonymous events cannot be associated with an account or individually retrieved; they expire automatically within 90 days.
 
 ### App Store Connect Privacy Answers
-- **Data collected:** No data collected.
+- **Data collected:** Yes.
+- **Usage Data → Product Interaction:** Collected for Analytics; not linked to identity; not used for tracking.
+- **Identifiers → Device ID:** Collected for Analytics; not linked to identity; not used for tracking. This is the conservative classification for the random app-installation UUID.
 - **Tracking:** No.
 - **Third-party tracking or advertising SDKs:** No.
 - **Privacy Policy URL:** `https://patternsocd.com/privacy`
 
-Apple defines data processed only on the device as not collected. The local
-telemetry counters therefore do not change the "No data collected" answer.
-Apple processes App Store purchases; Patterns only stores the resulting Pro
-entitlement locally.
+The analytics capability is optional and default-off, but it must still be disclosed
+for a release that can collect it. Do not select Health, Sensitive Information,
+Purchase History, or User Content: none of those values are sent to this service.
+Apple processes App Store purchases under its own terms; Patterns sends only the
+closed `purchase_started` and confirmed `purchase_completed` feature events, never
+price, receipt, transaction, StoreKit, account, or RevenueCat identifiers.
 
 ### Google Play Data Safety Answers
-- **Data collection:** No data collected.
-- **Data sharing:** No data shared.
-- **Data processed ephemerally:** No.
-- **Data encrypted in transit:** Not applicable because the app does not transmit user data.
-- **Users can request data deletion:** Yes, users can delete local entries and wipe all app data in Settings.
+- **Data collection:** Yes.
+- **App activity → App interactions:** Collected, optional, for Analytics.
+- **Device or other IDs:** Collected, optional, for Analytics. This is the conservative classification for the random app-installation UUID.
+- **Data sharing:** No, if Cloudflare remains a service provider processing data only on Patterns' behalf; confirm the current Cloudflare terms before submitting.
+- **Data processed ephemerally:** No; events are retained for up to 90 days.
+- **Data encrypted in transit:** Yes; production uploads require HTTPS.
+- **Users can request server-side data deletion:** No. Opt-out clears local analytics data, while previously uploaded anonymous rows expire automatically within 90 days and cannot be retrieved by account.
 - **Privacy Policy URL:** `https://patternsocd.com/privacy`
 
-Google defines collection as transmitting user data off the device. The local
-telemetry counters do not meet that definition. Google Play Billing processes
-payment details under Google's terms; Patterns does not access payment-card
-information or send purchase data to a developer server.
+Do not select Health and fitness, Personal info, Financial info, or User-generated
+content for this analytics service. Google Play Billing processes payment details
+under Google's terms; Patterns does not access payment-card information or transmit
+prices, receipts, transaction identifiers, or RevenueCat identities to analytics.
 
 ### App Review Notes
-Patterns is a local-first journaling and OCD self-tracking app. It does not create an account, transmit user entries or product-usage telemetry to a developer server, provide diagnosis, provide treatment, or replace professional care. Product-usage counters and recent funnel events remain in local SharedPreferences and are not uploaded. Users can manually export an unencrypted JSON backup or PDF report and can delete all local data from Settings.
+Patterns is a local-first journaling and OCD self-tracking app. It does not create an account, upload user entries or OCD records, provide diagnosis, provide treatment, or replace professional care. Users may opt into first-party anonymous product analytics in Privacy settings. The service receives only a random installation UUID, coarse platform, app version, and closed feature event names/version/timestamps; it never receives journal text, intrusive thoughts, compulsions, exposures, notes, ratings, Y-BOCS answers, purchase records, or other personal OCD data. Opt-out clears pending events and the local identifier. Server events expire automatically after 90 days. Users can manually export an unencrypted JSON backup or PDF report and delete all local app data from Settings.
 
 If App Store Connect asks about regulated medical device status, answer that Patterns is not a regulated medical device. The app is for personal reflection and self-tracking only.
 

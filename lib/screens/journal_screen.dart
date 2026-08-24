@@ -11,6 +11,7 @@ import '../theme/app_theme.dart';
 import '../widgets/app_snack_bar.dart';
 import '../widgets/rich_journal.dart';
 import '../widgets/window_controls.dart';
+import '../services/app_events.dart';
 
 class JournalScreen extends ConsumerStatefulWidget {
   const JournalScreen({super.key});
@@ -62,8 +63,11 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
       return;
     }
 
-    setState(() => _isSaving = true);
     final dateStr = DateFormat('yyyy-MM-dd').format(_selectedDate);
+    final isNew =
+        !(ref.read(journalProvider).asData?.value ?? const <JournalEntry>[])
+            .any((entry) => entry.date == dateStr);
+    setState(() => _isSaving = true);
     await ref
         .read(journalProvider.notifier)
         .saveEntry(dateStr, storedFromDocument(_controller.document));
@@ -75,6 +79,7 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
         _hasUnsavedChanges = false;
       });
       showAppSnackBar(context, 'Entry saved', type: ToastType.success);
+      if (isNew) AppEvents.logFirstJournalEntryCreated();
     }
   }
 
@@ -88,7 +93,8 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
     setState(() {
       _selectedDate = date;
       _hasUnsavedChanges = false;
-      _isEditing = existing == null; // Go directly to edit mode if entry doesn't exist
+      _isEditing =
+          existing == null; // Go directly to edit mode if entry doesn't exist
     });
   }
 
@@ -131,19 +137,36 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
   // Simple keyword-based theme detection for journal entries
   String? _detectTheme(String content) {
     final text = content.toLowerCase();
-    if (text.contains('contamination') || text.contains('wash') || text.contains('germs') || text.contains('dirt') || text.contains('clean')) {
+    if (text.contains('contamination') ||
+        text.contains('wash') ||
+        text.contains('germs') ||
+        text.contains('dirt') ||
+        text.contains('clean')) {
       return 'Contamination';
     }
-    if (text.contains('uncertain') || text.contains('doubt') || text.contains('reassurance') || text.contains('certainty') || text.contains('solve')) {
+    if (text.contains('uncertain') ||
+        text.contains('doubt') ||
+        text.contains('reassurance') ||
+        text.contains('certainty') ||
+        text.contains('solve')) {
       return 'Uncertainty';
     }
-    if (text.contains('check') || text.contains('lock') || text.contains('door') || text.contains('stove')) {
+    if (text.contains('check') ||
+        text.contains('lock') ||
+        text.contains('door') ||
+        text.contains('stove')) {
       return 'Checking';
     }
-    if (text.contains('relationship') || text.contains('love') || text.contains('partner')) {
+    if (text.contains('relationship') ||
+        text.contains('love') ||
+        text.contains('partner')) {
       return 'Relationship';
     }
-    if (text.contains('health') || text.contains('illness') || text.contains('cancer') || text.contains('sick') || text.contains('die')) {
+    if (text.contains('health') ||
+        text.contains('illness') ||
+        text.contains('cancer') ||
+        text.contains('sick') ||
+        text.contains('die')) {
       return 'Health';
     }
     return null;
@@ -224,7 +247,7 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                   ],
                 ),
                 const Spacer(),
-                
+
                 // Search journals...
                 Container(
                   width: 240,
@@ -232,7 +255,8 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                   child: TextField(
                     controller: _searchController,
                     onChanged: (value) =>
-                        ref.read(journalSearchQueryProvider.notifier).query = value,
+                        ref.read(journalSearchQueryProvider.notifier).query =
+                            value,
                     style: TextStyle(
                       fontSize: 13,
                       color: theme.colorScheme.onSurface,
@@ -248,17 +272,23 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                       fillColor: theme.cardTheme.color,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(18),
-                        borderSide: BorderSide(color: theme.dividerColor, width: 1),
+                        borderSide: BorderSide(
+                          color: theme.dividerColor,
+                          width: 1,
+                        ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(18),
-                        borderSide: BorderSide(color: theme.dividerColor, width: 1),
+                        borderSide: BorderSide(
+                          color: theme.dividerColor,
+                          width: 1,
+                        ),
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(width: 12),
-                
+
                 // + New entry button
                 SizedBox(
                   height: 36,
@@ -281,7 +311,11 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                     ),
-                    icon: const Icon(LineIcons.plus, size: 16, color: Colors.black),
+                    icon: const Icon(
+                      LineIcons.plus,
+                      size: 16,
+                      color: Colors.black,
+                    ),
                     label: const Text(
                       'New entry',
                       style: TextStyle(
@@ -295,7 +329,7 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
               ],
             ),
           ),
-          
+
           // 2. Split View Area
           Expanded(
             child: Row(
@@ -307,7 +341,9 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                   decoration: BoxDecoration(
                     color: theme.colorScheme.surface,
                     border: Border(
-                      right: BorderSide(color: theme.dividerColor.withOpacity(0.5)),
+                      right: BorderSide(
+                        color: theme.dividerColor.withOpacity(0.5),
+                      ),
                     ),
                   ),
                   child: filteredJournalAsync.when(
@@ -325,9 +361,15 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                       }
 
                       // Group entries into "Today" and "Earlier"
-                      final todayStr = DateFormat('yyyy-MM-dd').format(DateTime.now());
-                      final todayEntries = entries.where((e) => e.date == todayStr).toList();
-                      final earlierEntries = entries.where((e) => e.date != todayStr).toList();
+                      final todayStr = DateFormat(
+                        'yyyy-MM-dd',
+                      ).format(DateTime.now());
+                      final todayEntries = entries
+                          .where((e) => e.date == todayStr)
+                          .toList();
+                      final earlierEntries = entries
+                          .where((e) => e.date != todayStr)
+                          .toList();
 
                       return ListView(
                         padding: const EdgeInsets.symmetric(vertical: 8),
@@ -366,7 +408,8 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                                   Icon(
                                     Icons.keyboard_arrow_down,
                                     size: 16,
-                                    color: theme.colorScheme.onSurface.withOpacity(0.4),
+                                    color: theme.colorScheme.onSurface
+                                        .withOpacity(0.4),
                                   ),
                                   const SizedBox(width: 4),
                                   Text(
@@ -374,7 +417,8 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
-                                      color: theme.colorScheme.onSurface.withOpacity(0.4),
+                                      color: theme.colorScheme.onSurface
+                                          .withOpacity(0.4),
                                     ),
                                   ),
                                 ],
@@ -397,18 +441,19 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                         ],
                       );
                     },
-                    loading: () => const Center(child: CircularProgressIndicator()),
+                    loading: () =>
+                        const Center(child: CircularProgressIndicator()),
                     error: (e, s) => Center(child: Text('Error: $e')),
                   ),
                 ),
-                
+
                 // Right Pane: Editor / Viewer
                 Expanded(
                   child: Container(
                     color: theme.scaffoldBackgroundColor,
-                    child: _isEditing 
-                      ? _buildEditView(theme, journalAsync.value ?? [])
-                      : _buildReadView(theme, journalAsync.value ?? []),
+                    child: _isEditing
+                        ? _buildEditView(theme, journalAsync.value ?? [])
+                        : _buildReadView(theme, journalAsync.value ?? []),
                   ),
                 ),
               ],
@@ -451,7 +496,10 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 12,
+                ),
               ),
               child: const Text('Create Entry'),
             ),
@@ -495,9 +543,16 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                     value: 'delete',
                     child: Row(
                       children: [
-                        Icon(LineIcons.trash, size: 18, color: Colors.redAccent),
+                        Icon(
+                          LineIcons.trash,
+                          size: 18,
+                          color: Colors.redAccent,
+                        ),
                         const SizedBox(width: 12),
-                        const Text('Delete Entry', style: TextStyle(color: Colors.redAccent)),
+                        const Text(
+                          'Delete Entry',
+                          style: TextStyle(color: Colors.redAccent),
+                        ),
                       ],
                     ),
                   ),
@@ -506,7 +561,7 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
             ],
           ),
         ),
-        
+
         // Journal content body
         Expanded(
           child: SingleChildScrollView(
@@ -530,7 +585,7 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
             ),
           ),
         ),
-        
+
         // Bottom toolbar: Theme Chip (left), Action buttons (right)
         Padding(
           padding: const EdgeInsets.fromLTRB(48, 20, 48, 36),
@@ -538,7 +593,10 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
             children: [
               if (themeDetected != null)
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: theme.colorScheme.surface,
                     borderRadius: BorderRadius.circular(18),
@@ -568,7 +626,7 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                   ),
                 ),
               const Spacer(),
-              
+
               // Edit button
               OutlinedButton(
                 onPressed: () {
@@ -580,7 +638,10 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 12,
+                  ),
                 ),
                 child: Text(
                   'Edit',
@@ -591,7 +652,7 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                 ),
               ),
               const SizedBox(width: 12),
-              
+
               // Delete button (icon style)
               IconButton(
                 onPressed: () => _deleteEntry(existing.date),
@@ -638,22 +699,22 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                 _hasUnsavedChanges ? 'Unsaved changes' : 'Saved',
                 style: TextStyle(
                   fontSize: 12,
-                  color: _hasUnsavedChanges 
-                      ? theme.colorScheme.primary 
+                  color: _hasUnsavedChanges
+                      ? theme.colorScheme.primary
                       : theme.colorScheme.onSurface.withOpacity(0.4),
                 ),
               ),
             ],
           ),
         ),
-        
+
         // Format Toolbar
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 48),
           child: JournalFormatToolbar(controller: _controller),
         ),
         const SizedBox(height: 12),
-        
+
         // Editor input
         Expanded(
           child: Padding(
@@ -675,7 +736,7 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
             ),
           ),
         ),
-        
+
         // Action row: Save / Cancel
         Padding(
           padding: const EdgeInsets.fromLTRB(48, 20, 48, 36),
@@ -692,31 +753,42 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 12,
+                  ),
                 ),
                 child: const Text('Cancel'),
               ),
               const SizedBox(width: 12),
               ElevatedButton(
-                onPressed: _isSaving ? null : () async {
-                  await _save();
-                  setState(() => _isEditing = false);
-                },
+                onPressed: _isSaving
+                    ? null
+                    : () async {
+                        await _save();
+                        setState(() => _isEditing = false);
+                      },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: theme.colorScheme.primary,
                   foregroundColor: Colors.black,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 12,
+                  ),
                 ),
-                child: _isSaving 
-                  ? const SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black),
-                    )
-                  : const Text('Save Entry'),
+                child: _isSaving
+                    ? const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.black,
+                        ),
+                      )
+                    : const Text('Save Entry'),
               ),
             ],
           ),
@@ -776,7 +848,8 @@ class _JournalTileState extends State<_JournalTile> {
 
   @override
   Widget build(BuildContext context) {
-    final dateObj = DateTime.tryParse(widget.entry.date) ?? widget.entry.createdAt;
+    final dateObj =
+        DateTime.tryParse(widget.entry.date) ?? widget.entry.createdAt;
     final dateStr = DateFormat('MMMM d, yyyy').format(dateObj);
     final timeStr = DateFormat('h:mm a').format(widget.entry.createdAt);
 
@@ -821,8 +894,8 @@ class _JournalTileState extends State<_JournalTile> {
               color: widget.isSelected
                   ? widget.theme.colorScheme.primary.withOpacity(0.06)
                   : (_isHovered
-                      ? widget.theme.colorScheme.onSurface.withOpacity(0.04)
-                      : Colors.transparent),
+                        ? widget.theme.colorScheme.onSurface.withOpacity(0.04)
+                        : Colors.transparent),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: widget.isSelected

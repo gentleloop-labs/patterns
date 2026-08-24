@@ -70,7 +70,7 @@ Insights show how often you practise, how urges move, and how consistent the wee
 
 ## Privacy
 
-Patterns is local-first. Journal entries, OCD events, distress ratings, practice logs, and preferences stay on your device. There is no account, no cloud sync, no ads, and no remote analytics.
+Patterns is local-first. Journal entries, OCD events, distress ratings, practice logs, and other personal OCD data stay on your device. There is no account, cloud sync, advertising, or third-party analytics SDK. An optional, default-off first-party analytics setting can share a small closed set of anonymous feature-use events; it never includes journal entries, intrusive thoughts, compulsions, exposures, notes, ratings, or other user-entered OCD content.
 
 You can lock the app behind the device passcode, delete a single day, or wipe local data from Settings. Manual export writes an unencrypted JSON or PDF file wherever you choose, so keep those files somewhere private.
 

@@ -41,12 +41,20 @@ if [ -n "$CI_BUILD_NUMBER" ]; then
   echo "Overriding pubspec build number with CI_BUILD_NUMBER=$CI_BUILD_NUMBER"
 fi
 
+# Remote usage analytics remains disabled unless the Xcode Cloud workflow
+# explicitly provides the production endpoint. The URL is configuration, not
+# application source, and the in-app collection preference still defaults off.
+ANALYTICS_ARGS=""
+if [ -n "${PATTERNS_ANALYTICS_PROD_ENDPOINT:-}" ]; then
+  ANALYTICS_ARGS="--dart-define=PATTERNS_ANALYTICS_ENV=production --dart-define=PATTERNS_ANALYTICS_PROD_ENDPOINT=$PATTERNS_ANALYTICS_PROD_ENDPOINT"
+fi
+
 # Writes ios/Flutter/Generated.xcconfig with FLUTTER_ROOT baked in as an
 # absolute path, plus FLUTTER_BUILD_NAME/FLUTTER_BUILD_NUMBER. $HOME persists
 # into the xcodebuild step, so the build phases resolve correctly from here.
 # This also regenerates FlutterGeneratedPluginSwiftPackage with no dependencies
 # and runs pod install, which is what actually fetches the native libraries.
-flutter build ios --release --no-codesign --config-only $BUILD_NUMBER_ARG
+flutter build ios --release --no-codesign --config-only $BUILD_NUMBER_ARG $ANALYTICS_ARGS
 
 cd "$CI_PRIMARY_REPOSITORY_PATH/ios"
 pod install
