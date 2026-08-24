@@ -33,7 +33,7 @@ export const faqs: FaqItem[] = [
   {
     question: 'Is my data private?',
     answer:
-      'Yes. Your journal entries, intrusive thoughts, compulsions, exposures, notes, ratings, and other personal OCD data stay on your device. Patterns has no accounts, cloud sync, ads, or third-party analytics SDK. Optional anonymous product analytics are off by default and send only a random installation ID, platform, app version, and whitelisted feature-use event names and times. Personal OCD content is never included, and uploaded events expire after 90 days. The app is open source, so anyone can verify this.'
+      'Yes. Your journal entries, intrusive thoughts, compulsions, exposures, notes, ratings, and other personal OCD data stay on your device. Patterns has no accounts, cloud sync, ads, or third-party analytics SDK. Optional anonymous product analytics are off by default and send only a random installation ID, platform, app version, and whitelisted feature-use event names and times. Personal OCD content is never included, and uploaded events expire within 90 days. The app is open source, so anyone can verify this.'
   },
   {
     question: 'Which platforms is Patterns available on?',

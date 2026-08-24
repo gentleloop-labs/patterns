@@ -21,8 +21,12 @@ const INSERT_EVENT = `
   ) VALUES (?, ?, ?, ?, ?, ?, ?)
 `;
 
-export const RETENTION_DAYS = 90;
-const RETENTION_MS = RETENTION_DAYS * 24 * 60 * 60 * 1000;
+export const RETENTION_POLICY_DAYS = 90;
+// Cleanup starts one day before the public maximum. Because the cron runs daily,
+// this margin prevents rows received just after one run from crossing 90 days
+// before the next run.
+export const RETENTION_CLEANUP_DAYS = RETENTION_POLICY_DAYS - 1;
+const RETENTION_CLEANUP_MS = RETENTION_CLEANUP_DAYS * 24 * 60 * 60 * 1000;
 
 function json(body: unknown, status = 200): Response {
   return Response.json(body, {
@@ -135,8 +139,8 @@ export async function deleteExpiredEvents(
   db: D1Database,
   now = Date.now(),
 ): Promise<void> {
-  const cutoff = now - RETENTION_MS;
-  await db.prepare("DELETE FROM events WHERE received_at < ?").bind(cutoff).run();
+  const cutoff = now - RETENTION_CLEANUP_MS;
+  await db.prepare("DELETE FROM events WHERE received_at <= ?").bind(cutoff).run();
 }
 
 export default {

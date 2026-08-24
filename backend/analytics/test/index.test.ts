@@ -1,6 +1,10 @@
 import { env } from "cloudflare:test";
 import { beforeEach, describe, expect, it } from "vitest";
-import { deleteExpiredEvents, RETENTION_DAYS } from "../src/index";
+import {
+  deleteExpiredEvents,
+  RETENTION_CLEANUP_DAYS,
+  RETENTION_POLICY_DAYS,
+} from "../src/index";
 import worker from "../src/index";
 
 const validInstallId = "8dcf21e4-2372-4a43-8b78-53eb07bcf7fd";
@@ -111,7 +115,7 @@ describe("public routes", () => {
 });
 
 describe("retention", () => {
-  it("deletes events received more than 90 days ago and keeps newer rows", async () => {
+  it("uses a daily-cleanup margin that keeps retention within 90 days", async () => {
     const now = Date.UTC(2026, 7, 25);
     const dayMs = 24 * 60 * 60 * 1000;
     const insert = env.DB.prepare(`
@@ -121,16 +125,23 @@ describe("retention", () => {
       ) VALUES (?, 1, ?, 'ios', '1.8.0', ?, ?)
     `);
     await env.DB.batch([
-      insert.bind("app_opened", validInstallId, now - 91 * dayMs, now - 91 * dayMs),
+      insert.bind("app_opened", validInstallId, now - 90 * dayMs, now - 90 * dayMs),
       insert.bind("app_opened", validInstallId, now - 89 * dayMs, now - 89 * dayMs),
+      insert.bind(
+        "app_opened",
+        validInstallId,
+        now - 89 * dayMs + 1,
+        now - 89 * dayMs + 1,
+      ),
     ]);
 
-    expect(RETENTION_DAYS).toBe(90);
+    expect(RETENTION_POLICY_DAYS).toBe(90);
+    expect(RETENTION_CLEANUP_DAYS).toBe(89);
     await deleteExpiredEvents(env.DB, now);
 
     const result = await env.DB.prepare(
       "SELECT received_at FROM events ORDER BY received_at",
     ).all();
-    expect(result.results).toEqual([{ received_at: now - 89 * dayMs }]);
+    expect(result.results).toEqual([{ received_at: now - 89 * dayMs + 1 }]);
   });
 });

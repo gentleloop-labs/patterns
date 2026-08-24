@@ -291,7 +291,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           'If you enable anonymous usage analytics, only named feature-use events, '
           'a random installation ID, platform, app version, and event time are sent '
           'to our first-party service. Personal OCD content is never included. '
-          'Uploaded events expire after 90 days. Turning analytics off clears '
+          'Uploaded events expire within 90 days. Turning analytics off clears '
           'pending events and the local analytics ID.',
         ),
         actions: [

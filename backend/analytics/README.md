@@ -34,9 +34,10 @@ app preferences, depending on platform backup behavior.
 
 Opt-out cannot identify and delete rows that were already uploaded: there is no
 account, the app deliberately has no analytics read/delete API, and the local ID is
-discarded. A scheduled Worker deletes uploaded rows 90 days after `received_at`.
-The cleanup runs daily at 03:17 UTC and uses server receipt time so a forged client
-timestamp cannot extend storage.
+discarded. Uploaded rows are retained for no more than 90 days. Cleanup begins at
+89 days and runs daily at 03:17 UTC, providing a full scheduling-day margin before
+the public maximum. It uses server receipt time so a forged client timestamp cannot
+extend storage.
 
 Never add journal text, obsession/compulsion descriptions, intrusive thoughts,
 exposures, notes, Y-BOCS answers/results, distress/anxiety/recovery scores, OCD
@@ -329,9 +330,10 @@ if traffic patterns later justify them.
 ## Retention operations
 
 `wrangler.jsonc` registers the daily `17 3 * * *` UTC cron. The scheduled handler
-deletes rows whose Worker-generated `received_at` is older than 90 days. Migration
-`0002_received_at_index.sql` indexes that column so cleanup remains bounded by the
-retention range rather than scanning unexpired rows.
+deletes rows once their Worker-generated `received_at` reaches 89 days. The
+one-day scheduling margin keeps normal daily cleanup within the public 90-day
+maximum. Migration `0002_received_at_index.sql` indexes that column so cleanup
+remains bounded by the retention range rather than scanning unexpired rows.
 
 Check the trigger after deployment in **Workers & Pages → patterns-analytics →
 Triggers**. To inspect the age of retained rows without exposing a public route:

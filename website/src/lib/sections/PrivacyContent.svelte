@@ -36,7 +36,7 @@
     },
     {
       title: 'Analytics retention and opt-out',
-      body: 'Uploaded analytics events are automatically deleted 90 days after the server receives them. Turning analytics off stops new collection and immediately deletes the pending queue and analytics UUID from your device. Because Patterns has no account and discards that UUID, previously uploaded rows cannot be looked up or deleted for an individual; they expire through the automatic 90-day cleanup.'
+      body: 'Uploaded analytics events are automatically deleted within 90 days of the server receiving them. Turning analytics off stops new collection and immediately deletes the pending queue and analytics UUID from your device. Because Patterns has no account and discards that UUID, previously uploaded rows cannot be looked up or deleted for an individual; they expire through the automatic cleanup.'
     },
     {
       title: 'Purchases',
