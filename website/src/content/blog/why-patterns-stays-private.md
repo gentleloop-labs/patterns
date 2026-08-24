@@ -31,7 +31,7 @@ related: [why-i-built-patterns, what-i-wanted-in-an-ocd-app]
   whether people reach useful features. If you enable it, the app sends only a random
   installation ID, platform, app version, and a closed set of feature event names and
   times. It never sends what you wrote, OCD categories, ratings, exposures, recovery
-  notes, or purchase details. Uploaded events expire after 90 days, and you can turn
+  notes, or purchase details. Uploaded events expire within 90 days, and you can turn
   collection off at any time in Privacy settings.
 </p>
 <p>

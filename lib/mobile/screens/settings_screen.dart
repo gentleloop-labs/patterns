@@ -796,7 +796,7 @@ class SettingsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              'If you enable anonymous usage analytics, Patterns sends only named feature-use events, a random installation ID, platform, app version, and event time to our first-party service. Journal entries, exposures, compulsions, recovery notes, and other personal OCD data are never included. Uploaded events expire after 90 days. Turning analytics off clears pending events and the local analytics ID.',
+              'If you enable anonymous usage analytics, Patterns sends only named feature-use events, a random installation ID, platform, app version, and event time to our first-party service. Journal entries, exposures, compulsions, recovery notes, and other personal OCD data are never included. Uploaded events expire within 90 days. Turning analytics off clears pending events and the local analytics ID.',
               style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
             ),
             const SizedBox(height: 12),
