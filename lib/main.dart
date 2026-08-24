@@ -18,6 +18,7 @@ import 'services/pro_service.dart';
 import 'services/review_prompt.dart';
 import 'services/telemetry.dart';
 import 'services/tip_jar.dart';
+import 'services/usage_analytics.dart';
 import 'theme/app_theme.dart';
 import 'widgets/app_snack_bar.dart';
 import 'widgets/platform.dart';
@@ -35,6 +36,7 @@ void main() async {
   GoogleFonts.config.allowRuntimeFetching = false;
 
   await initAppPreferences();
+  await initUsageAnalytics();
   // Order matters: recordSessionStart anchors the install day, and first_open
   // must be attributable to that same first session.
   await Telemetry.recordSessionStart();

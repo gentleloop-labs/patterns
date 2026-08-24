@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../../app_preferences.dart';
+import '../../services/app_events.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/pro_gate.dart';
 import '../widgets/desktop_chrome.dart';
@@ -149,18 +150,21 @@ class _RecoveryHubScreenState extends ConsumerState<RecoveryHubScreen> {
       ..._assessTools,
       ..._planTools,
       ..._practiceTools,
-      ..._reviewTools
+      ..._reviewTools,
     ];
     return all
-        .where((t) => t.destination == _selected)
-        .map((t) => t.title)
-        .firstOrNull ??
+            .where((t) => t.destination == _selected)
+            .map((t) => t.title)
+            .firstOrNull ??
         'Recovery';
   }
 
   void _select(BuildContext context, WidgetRef ref, _RecoveryTool tool) {
     if (tool.pro && !ref.read(proProvider) && !requirePro(context, ref)) {
       return;
+    }
+    if (tool.destination == _RecoveryDestination.guidedErp) {
+      AppEvents.logErpOpened();
     }
     setState(() => _selected = tool.destination);
   }
@@ -259,7 +263,9 @@ class _RecoveryHubScreenState extends ConsumerState<RecoveryHubScreen> {
                           'Tools and guidance to support your healing.',
                           style: TextStyle(
                             fontSize: 14,
-                            color: theme.colorScheme.onSurface.withOpacity(0.55),
+                            color: theme.colorScheme.onSurface.withOpacity(
+                              0.55,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 32),

@@ -18,6 +18,7 @@ import '../../services/notification_service.dart';
 import '../../services/pro_service.dart';
 import '../../services/review_prompt.dart';
 import '../../services/tip_jar.dart';
+import '../../services/usage_analytics.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
@@ -38,6 +39,7 @@ class SettingsScreen extends ConsumerWidget {
     final theme = Theme.of(context);
     final appLockEnabled = ref.watch(appLockEnabledProvider);
     final reminder = ref.watch(reminderProvider);
+    final usageAnalyticsEnabled = ref.watch(usageAnalyticsEnabledProvider);
 
     return Scaffold(
       body: SafeArea(
@@ -129,6 +131,15 @@ class SettingsScreen extends ConsumerWidget {
               title: 'Privacy & safety',
               subtitle: 'How your local data is handled',
               onTap: () => _showPrivacySheet(context),
+            ),
+            const SizedBox(height: 10),
+            _SettingsSwitchItem(
+              icon: LineIcons.barChart,
+              title: 'Share Anonymous Usage Analytics',
+              subtitle:
+                  'Share feature-use events only. Personal OCD data is never included.',
+              value: usageAnalyticsEnabled,
+              onChanged: (value) => _setUsageAnalytics(ref, value),
             ),
             const SizedBox(height: 10),
             _SettingsSwitchItem(
@@ -601,6 +612,7 @@ class SettingsScreen extends ConsumerWidget {
                       await DbHelper.instance.clearAll();
                       await MaterialFileStore.deleteAll();
                       await clearLocalPreferences();
+                      ref.invalidate(usageAnalyticsEnabledProvider);
                       ref.invalidate(journalProvider);
                       ref.invalidate(ocdProvider);
                       ref.invalidate(delaySessionProvider);
@@ -784,6 +796,11 @@ class SettingsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 12),
             Text(
+              'If you enable anonymous usage analytics, Patterns sends only named feature-use events, a random installation ID, platform, app version, and event time to our first-party service. Journal entries, exposures, compulsions, recovery notes, and other personal OCD data are never included. Uploaded events expire after 90 days. Turning analytics off clears pending events and the local analytics ID.',
+              style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+            ),
+            const SizedBox(height: 12),
+            Text(
               'Patterns is for personal reflection and self-tracking. It does not diagnose, treat, or replace care from a qualified clinician.',
               style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
             ),
@@ -802,6 +819,11 @@ class SettingsScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _setUsageAnalytics(WidgetRef ref, bool enabled) async {
+    await ref.read(usageAnalyticsEnabledProvider.notifier).setEnabled(enabled);
+    await usageAnalytics.setCollectionEnabled(enabled);
   }
 }
 

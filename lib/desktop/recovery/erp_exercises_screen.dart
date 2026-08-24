@@ -13,6 +13,7 @@ import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../services/notification_service.dart';
 import '../../services/review_prompt.dart';
+import '../../services/app_events.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
@@ -293,19 +294,13 @@ class ErpExercisesScreen extends ConsumerWidget {
 
   void _openPlanEditor(BuildContext context, {ErpExercisePlan? plan}) {
     Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        
-        builder: (_) => ErpPlanEditorScreen(plan: plan),
-      ),
+      MaterialPageRoute<void>(builder: (_) => ErpPlanEditorScreen(plan: plan)),
     );
   }
 
   void _openPractice(BuildContext context, ErpExercisePlan plan) {
     Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        
-        builder: (_) => ErpPlanPracticeFlow(plan: plan),
-      ),
+      MaterialPageRoute<void>(builder: (_) => ErpPlanPracticeFlow(plan: plan)),
     );
   }
 
@@ -629,6 +624,7 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
   }
 
   void _begin() {
+    AppEvents.logErpSessionStarted();
     _anxietyAfter = _anxietyBefore;
     final startedAt = DateTime.now();
     _timerStartedAt = startedAt;
@@ -794,6 +790,7 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
       createdAt: DateTime.now(),
     );
     await ref.read(erpExerciseSessionProvider.notifier).addSession(session);
+    AppEvents.logFirstExposureCompleted(ranToCompletion: _completed);
     await ReviewPromptService.recordErpPracticeCompleted();
     if (!mounted) return;
     Navigator.pop(context);

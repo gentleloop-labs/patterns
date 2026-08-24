@@ -234,8 +234,8 @@ class _PromiseView extends StatelessWidget {
                         const SizedBox(width: 12),
                         const Expanded(
                           child: Text(
-                            'Everything stays on this device. No account. '
-                            'No cloud. No remote analytics.',
+                            'Your OCD data stays on this device. '
+                            'No account. No cloud sync.',
                             style: TextStyle(
                               fontSize: 13.5,
                               height: 1.35,

@@ -124,7 +124,10 @@ class _MobileShellState extends ConsumerState<MobileShell> {
         // Returning users who bring a backup skip the activity prompt and land
         // on a normal (explore) home, then jump to import.
         mobilePreferences?.setBool('hasStarted', true);
-        mobilePreferences?.setString(firstRunPathKey, FirstRunPath.explore.name);
+        mobilePreferences?.setString(
+          firstRunPathKey,
+          FirstRunPath.explore.name,
+        );
         mobilePreferences?.setString(lastSeenReleaseKey, currentReleaseId);
         setState(() {
           _hasStarted = true;
@@ -668,6 +671,7 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _seedDemoData();
+      _logTabOpened(_selectedTab);
       final path = widget.firstRunPath;
       if (path != null) _startFirstRun(path);
     });
@@ -942,6 +946,7 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
   }
 
   void _openJournalEditor(BuildContext context) {
+    if (_selectedTab != _Tab.journal) AppEvents.logJournalOpened();
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (_) => JournalEntryEditor(date: DateTime.now()),
@@ -1000,6 +1005,7 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
           ),
         );
       case RecoveryStep.dailyPractice:
+        AppEvents.logErpOpened();
         Navigator.of(context).push(
           MaterialPageRoute<void>(
             builder: (_) => const ErpExercisesScreen(showBack: true),
@@ -1019,7 +1025,21 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
 
   void _selectTab(_Tab tab) {
     mobilePreferences?.setString(mobileSelectedTabKey, tab.name);
+    _logTabOpened(tab);
     setState(() => _selectedTab = tab);
+  }
+
+  void _logTabOpened(_Tab tab) {
+    switch (tab) {
+      case _Tab.journal:
+        AppEvents.logJournalOpened();
+      case _Tab.insights:
+        AppEvents.logInsightsOpened();
+      case _Tab.home:
+      case _Tab.track:
+      case _Tab.erp:
+        break;
+    }
   }
 
   _Tab _savedTab() {

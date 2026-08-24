@@ -78,7 +78,7 @@
   <div class="callout">
     <h3>Your ERP practice, kept private</h3>
     <p>
-      Everything you record stays on your device - no accounts, no cloud, no one watching.
+      Your ERP records stay on your device - no accounts, no cloud sync, and no one reading them.
       That privacy makes it easier to be honest, which is exactly what ERP needs.
       <a href="/#download">Download Patterns</a> or start with
       <a href="/ocd">understanding the OCD cycle</a>.

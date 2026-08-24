@@ -18,7 +18,7 @@
 
 <Seo
   title="Privacy Policy - Patterns"
-  description="Patterns privacy policy: local-first OCD tracker and journal. No cloud sync, no accounts, and no remote analytics. Your journal data stays on your device."
+  description="Patterns privacy policy: personal OCD data stays on-device, with no accounts or cloud sync and optional privacy-preserving product analytics."
   path="privacy"
   {jsonLd}
 />

@@ -6,14 +6,13 @@ import '../app_preferences.dart';
 
 /// On-device, privacy-preserving product telemetry.
 ///
-/// This is NOT analytics in the tracking sense: nothing leaves the device.
+/// This local debug telemetry never leaves the device. It is separate from the
+/// explicitly opt-in, closed-vocabulary service in `usage_analytics.dart`.
 /// Events increment [SharedPreferences] counters and append to a capped local
 /// ring buffer that a hidden Settings > Debug > Funnel screen renders. It exists
 /// to validate the first-session redesign (activation + retention) without
-/// breaking the app's privacy promise.
+/// exposing any personal recovery content.
 ///
-/// Transport is deliberately funnelled through the single [_sink] seam so an
-/// opt-in remote sink can be added later without touching any call site.
 class Telemetry {
   Telemetry._();
 

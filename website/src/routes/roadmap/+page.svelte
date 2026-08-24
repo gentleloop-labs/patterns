@@ -103,7 +103,7 @@
     {
       icon: FolderLock,
       title: 'Private by design',
-      body: 'Everything stays on your device. No account, no cloud. Lock the app behind your face or fingerprint, and keep your own backup copy whenever you like.'
+      body: 'Your journal and OCD records stay on your device. No account or cloud sync. Optional anonymous feature-use analytics never include personal OCD content.'
     },
     {
       icon: Crown,

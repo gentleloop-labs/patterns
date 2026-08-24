@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'telemetry.dart';
+import 'usage_analytics.dart';
 
 /// The canonical acquisition and activation funnel, named to match the website.
 ///
@@ -8,10 +11,9 @@ import 'telemetry.dart';
 ///
 /// ## Where these go
 ///
-/// [Telemetry], which is on-device only: SharedPreferences counters plus a
-/// capped local ring buffer that `Settings > Debug > Funnel` renders. Nothing
-/// is uploaded. That is deliberate — the app's published privacy policy states
-/// there is no remote telemetry, and these events do not change that.
+/// [Telemetry] remains an on-device debug funnel. A deliberately smaller set of
+/// events also goes to [usageAnalytics], but only after explicit consent and
+/// only through the closed [UsageAnalyticsEvent] enum.
 ///
 /// ## Privacy contract
 ///
@@ -73,28 +75,39 @@ class AppEvents {
   // --- Funnel ------------------------------------------------------------
 
   /// First launch of this installation. Once per install, by construction.
-  static void logFirstOpen() => Telemetry.logOnce(firstOpen);
+  static void logFirstOpen() {
+    Telemetry.logOnce(firstOpen);
+    _track(UsageAnalyticsEvent.appOpened);
+  }
 
   /// The user reached the first onboarding screen.
-  static void logOnboardingStarted() => Telemetry.logOnce(onboardingStarted);
+  static void logOnboardingStarted() {
+    Telemetry.logOnce(onboardingStarted);
+    _track(UsageAnalyticsEvent.onboardingStarted);
+  }
 
   /// The user finished onboarding by choosing a starting path.
   ///
   /// [path] is a [FirstRunPath] enum name (`urge`, `journal`, `erp`,
   /// `selfcheck`, `explore`) — a fixed vocabulary, never user text.
-  static void logOnboardingCompleted({required String path}) =>
-      Telemetry.logOnce(onboardingCompleted, {'path': _slug(path)});
+  static void logOnboardingCompleted({required String path}) {
+    Telemetry.logOnce(onboardingCompleted, {'path': _slug(path)});
+    _track(UsageAnalyticsEvent.onboardingCompleted);
+  }
 
   /// The user saved their first journal entry. Content is never passed.
   static void logFirstJournalEntryCreated() {
     Telemetry.logOnce(firstJournalEntryCreated);
+    _track(UsageAnalyticsEvent.journalEntryCreated);
     _logFirstMeaningfulAction('journal');
   }
 
   /// The user started their first compulsion-delay timer. The compulsion they
   /// named is deliberately not a parameter.
-  static void logFirstCompulsionDelayStarted() =>
-      Telemetry.logOnce(firstCompulsionDelayStarted);
+  static void logFirstCompulsionDelayStarted() {
+    Telemetry.logOnce(firstCompulsionDelayStarted);
+    _track(UsageAnalyticsEvent.compulsionDelayStarted);
+  }
 
   /// The user saved their first completed compulsion-delay session.
   ///
@@ -106,6 +119,9 @@ class AppEvents {
     Telemetry.logOnce(firstCompulsionDelayCompleted, {
       'completed': ranToCompletion,
     });
+    if (ranToCompletion) {
+      _track(UsageAnalyticsEvent.compulsionDelayCompleted);
+    }
     _logFirstMeaningfulAction('compulsion_delay');
   }
 
@@ -119,8 +135,18 @@ class AppEvents {
   /// The user finished their first ERP exposure session.
   static void logFirstExposureCompleted({required bool ranToCompletion}) {
     Telemetry.logOnce(firstExposureCompleted, {'completed': ranToCompletion});
+    if (ranToCompletion) _track(UsageAnalyticsEvent.erpSessionCompleted);
     _logFirstMeaningfulAction('exposure');
   }
+
+  static void logJournalOpened() => _track(UsageAnalyticsEvent.journalOpened);
+
+  static void logErpOpened() => _track(UsageAnalyticsEvent.erpOpened);
+
+  static void logErpSessionStarted() =>
+      _track(UsageAnalyticsEvent.erpSessionStarted);
+
+  static void logInsightsOpened() => _track(UsageAnalyticsEvent.insightsOpened);
 
   /// The user completed their first Y-BOCS style self-check.
   static void logFirstSelfCheckCompleted() =>
@@ -130,16 +156,22 @@ class AppEvents {
 
   /// The supporter/Pro screen was shown. [source] is a call-site constant such
   /// as `settings` or `paywall_cta`, slugged defensively.
-  static void logSupporterScreenViewed({required String source}) =>
-      Telemetry.log(supporterScreenViewed, {'source': _slug(source)});
+  static void logSupporterScreenViewed({required String source}) {
+    Telemetry.log(supporterScreenViewed, {'source': _slug(source)});
+    _track(UsageAnalyticsEvent.paywallViewed);
+  }
 
   /// The user tapped buy and the store flow was launched.
-  static void logSupporterPurchaseStarted() =>
-      Telemetry.log(supporterPurchaseStarted);
+  static void logSupporterPurchaseStarted() {
+    Telemetry.log(supporterPurchaseStarted);
+    _track(UsageAnalyticsEvent.purchaseStarted);
+  }
 
   /// A purchase or restore succeeded. No price, no receipt, no store account.
-  static void logSupporterPurchaseCompleted({required bool restored}) =>
-      Telemetry.log(supporterPurchaseCompleted, {'restored': restored});
+  static void logSupporterPurchaseCompleted({required bool restored}) {
+    Telemetry.log(supporterPurchaseCompleted, {'restored': restored});
+    if (!restored) _track(UsageAnalyticsEvent.purchaseCompleted);
+  }
 
   // --- Reviews and feedback ----------------------------------------------
 
@@ -197,6 +229,10 @@ class AppEvents {
   /// primary action the user completes first. [kind] records which one it was.
   static void _logFirstMeaningfulAction(String kind) =>
       Telemetry.logOnce(firstMeaningfulAction, {'kind': _slug(kind)});
+
+  static void _track(UsageAnalyticsEvent event) {
+    unawaited(usageAnalytics.track(event));
+  }
 
   /// Reduces a value to a short lowercase identifier. This is the guard that
   /// makes it structurally impossible for prose to reach the sink: anything

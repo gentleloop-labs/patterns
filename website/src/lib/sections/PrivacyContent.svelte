@@ -1,18 +1,18 @@
 <script lang="ts">
   import ContentContainer from '$lib/components/ContentContainer.svelte';
   import AnimatedOnScroll from '$lib/components/AnimatedOnScroll.svelte';
-  import { CloudOff, EyeOff, Code, Lock } from 'lucide-svelte';
+  import { CloudOff, BarChart3, Code, Lock } from 'lucide-svelte';
 
   const points = [
     {
       icon: CloudOff,
-      title: 'No Cloud',
-      description: 'Your journal and OCD records stay on your device.'
+      title: 'OCD Data Stays Local',
+      description: 'Your journal, exposures, compulsions, notes, and ratings stay on your device.'
     },
     {
-      icon: EyeOff,
-      title: 'No Remote Analytics',
-      description: 'No ads, trackers, third-party analytics, or remote telemetry.'
+      icon: BarChart3,
+      title: 'Optional Usage Analytics',
+      description: 'Default-off, first-party feature-use events with no personal OCD content.'
     },
     {
       icon: Code,
@@ -28,11 +28,19 @@
     },
     {
       title: 'Local storage',
-      body: 'Patterns does not create accounts, upload journal entries or OCD records, provide cloud sync, or include advertising and third-party analytics. The app keeps a small set of product-usage counters and recent events on your device to improve the first-session experience; these are not uploaded as remote telemetry. Patterns does not sell, share, or send your entries to third parties. Manual exports go only where you choose to save them.'
+      body: 'Patterns does not create accounts, upload journal entries or OCD records, provide cloud sync, or include advertising or a third-party analytics SDK. Patterns does not sell, share, or send your entries to third parties. Manual exports go only where you choose to save them.'
+    },
+    {
+      title: 'Anonymous product analytics',
+      body: 'Share Anonymous Usage Analytics is optional and off by default. If you enable it, Patterns sends a random installation UUID, coarse platform, app version, and a closed set of feature event names, schema versions, and timestamps to a first-party Cloudflare Worker and D1 database. It never sends journal entries, intrusive thoughts, obsessions, compulsions, exposures, notes, ratings, Y-BOCS answers, recovery text, price, receipts, transaction identifiers, account identifiers, advertising IDs, device fingerprints, or location. The UUID is random, is not based on your device or an account, and is used only for this service.'
+    },
+    {
+      title: 'Analytics retention and opt-out',
+      body: 'Uploaded analytics events are automatically deleted 90 days after the server receives them. Turning analytics off stops new collection and immediately deletes the pending queue and analytics UUID from your device. Because Patterns has no account and discards that UUID, previously uploaded rows cannot be looked up or deleted for an individual; they expire through the automatic 90-day cleanup.'
     },
     {
       title: 'Purchases',
-      body: 'Apple App Store and Google Play process in-app purchases under their own terms. Patterns receives the purchase result needed to unlock Pro and stores that entitlement locally. Patterns does not use purchase information for advertising, analytics, or profiling, and your journal and OCD records are never included.'
+      body: 'Apple App Store and Google Play process in-app purchases under their own terms. Patterns receives the purchase result needed to unlock Pro and stores that entitlement locally. Anonymous analytics may record only that a purchase was started or completed. It never includes price, receipt data, transaction identifiers, StoreKit identifiers, RevenueCat identity, financial information, journal entries, or OCD records.'
     },
     {
       title: 'Export and import',
@@ -44,7 +52,7 @@
     },
     {
       title: 'Data deletion',
-      body: 'You can delete individual OCD events in the app. Settings also includes a Wipe all data action that deletes local journal entries, OCD events, and app preferences from the device.'
+      body: 'You can delete individual OCD events in the app. Settings also includes a Wipe all data action that deletes local journal entries, OCD events, app preferences, pending analytics events, and the local analytics UUID from the device. Already uploaded anonymous analytics events remain only until the automatic 90-day expiry described above.'
     }
   ];
 </script>
@@ -58,8 +66,9 @@
         </div>
         <h1 id="privacy-title" class="title serif">Your data stays yours.</h1>
         <p class="intro">
-          Patterns is local-first. No accounts, no cloud sync, and no remote analytics. Your journal
-          and OCD records live on your device; product-usage counters remain on-device.
+          Patterns is local-first. No accounts or cloud sync. Your journal and OCD records live on
+          your device. Optional, default-off anonymous product analytics contain only feature-use
+          events and never include personal OCD content.
         </p>
       </div>
 
@@ -76,7 +85,7 @@
 
       <div class="policy">
         <h2 class="serif">Privacy policy</h2>
-        <p class="updated">Last updated: May 3, 2026</p>
+        <p class="updated">Last updated: August 25, 2026</p>
         {#each policyBlocks as block}
           <div class="policy-block">
             <span class="bullet"></span>

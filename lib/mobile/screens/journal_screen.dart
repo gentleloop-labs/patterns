@@ -202,11 +202,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
   List<Widget> _firstRunChildren({required bool hasYbocs}) {
     final primary = _firstRunPrimary(readFirstRunPath());
     return [
-      _HomeHeader(
-        streak: 0,
-        showStreak: false,
-        onSettings: widget.onSettings,
-      ),
+      _HomeHeader(streak: 0, showStreak: false, onSettings: widget.onSettings),
       const SizedBox(height: 18),
       _NextStepCard(step: primary.step, onTap: primary.onTap),
       const SizedBox(height: 22),
@@ -234,9 +230,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
       ),
       if (!hasYbocs) ...[
         const SizedBox(height: 18),
-        _SelfCheckRow(
-          onTap: () => widget.onNextStep(RecoveryStep.selfCheck),
-        ),
+        _SelfCheckRow(onTap: () => widget.onNextStep(RecoveryStep.selfCheck)),
       ],
       const SizedBox(height: 18),
       const _InsightsPlaceholder(),
@@ -275,7 +269,8 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
           step: const RecoveryNextStep(
             step: RecoveryStep.dailyPractice,
             title: 'Try a two-minute delay',
-            subtitle: 'When an urge feels strong, put a little space before it.',
+            subtitle:
+                'When an urge feels strong, put a little space before it.',
             ctaLabel: 'Start a delay',
           ),
           onTap: widget.onDelay,
@@ -463,7 +458,10 @@ class _HomeScoreCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 14),
                       Text(
-                        _deltaText(summary.scoreDelta.value, summary.hasAnyData),
+                        _deltaText(
+                          summary.scoreDelta.value,
+                          summary.hasAnyData,
+                        ),
                         style: const TextStyle(
                           color: AppTheme.warmYellow,
                           fontSize: 12,
@@ -1711,11 +1709,7 @@ class _JournalEntryEditorState extends ConsumerState<JournalEntryEditor> {
     _savedSnapshot = storedFromDocument(_controller.document);
     setState(() => _saved = true);
     Navigator.pop(context);
-    showAppSnackBar(
-      context,
-      'That day is clear now.',
-      type: ToastType.success,
-    );
+    showAppSnackBar(context, 'That day is clear now.', type: ToastType.success);
   }
 
   Future<void> _save() async {
@@ -1727,8 +1721,11 @@ class _JournalEntryEditorState extends ConsumerState<JournalEntryEditor> {
       );
       return;
     }
-    setState(() => _saving = true);
     final dateKey = DateFormat('yyyy-MM-dd').format(widget.date);
+    final isNew =
+        !(ref.read(journalProvider).asData?.value ?? const <JournalEntry>[])
+            .any((entry) => entry.date == dateKey);
+    setState(() => _saving = true);
     await ref
         .read(journalProvider.notifier)
         .saveEntry(dateKey, storedFromDocument(_controller.document));
@@ -1740,7 +1737,7 @@ class _JournalEntryEditorState extends ConsumerState<JournalEntryEditor> {
     });
     showAppSnackBar(context, 'Entry saved', type: ToastType.success);
     // Milestone only — the entry itself never leaves the device or the DB.
-    AppEvents.logFirstJournalEntryCreated();
+    if (isNew) AppEvents.logFirstJournalEntryCreated();
     await ReviewPromptService.recordJournalSaved();
     if (!mounted) return;
     await ReviewPromptService.maybeRequestReview(
@@ -2072,11 +2069,7 @@ class _Card extends StatelessWidget {
     );
 
     if (onTap == null && onLongPress == null) return content;
-    return PressScale(
-      onTap: onTap,
-      onLongPress: onLongPress,
-      child: content,
-    );
+    return PressScale(onTap: onTap, onLongPress: onLongPress, child: content);
   }
 }
 

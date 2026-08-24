@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../../theme/app_theme.dart';
+import '../../services/app_events.dart';
 import '../../widgets/animations.dart';
 import '../preferences.dart';
 import '../widgets/pro_gate.dart';
@@ -239,6 +240,9 @@ class RecoveryHubScreen extends ConsumerWidget {
     _RecoveryDestination destination, {
     bool fullscreen = false,
   }) {
+    if (destination == _RecoveryDestination.guidedErp) {
+      AppEvents.logErpOpened();
+    }
     final screen = _screenFor(destination);
     Navigator.of(context).push(
       MaterialPageRoute<void>(
@@ -488,7 +492,10 @@ class _ToolSection extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(subtitle, style: _mutedStyle.copyWith(fontSize: 12)),
+                child: Text(
+                  subtitle,
+                  style: _mutedStyle.copyWith(fontSize: 12),
+                ),
               ),
             ],
           ),
@@ -520,11 +527,7 @@ class _ToolList extends StatelessWidget {
       children: [
         for (var i = 0; i < tools.length; i++) ...[
           if (i != 0)
-            const Divider(
-              height: 1,
-              thickness: 1,
-              color: Color(0xFF262521),
-            ),
+            const Divider(height: 1, thickness: 1, color: Color(0xFF262521)),
           _ToolRow(
             tool: tools[i],
             locked: tools[i].pro && !isPro,

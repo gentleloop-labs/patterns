@@ -640,6 +640,7 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
   }
 
   void _begin() {
+    AppEvents.logErpSessionStarted();
     _anxietyAfter = _anxietyBefore;
     final startedAt = DateTime.now();
     _timerStartedAt = startedAt;
