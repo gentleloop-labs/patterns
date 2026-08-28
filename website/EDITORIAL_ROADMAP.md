@@ -22,8 +22,8 @@ This queue supports one carefully sourced article each week. Do not publish a dr
 | 3 | OCD Guilt and Shame: Why a Feeling Is Not Evidence | Living With OCD | Why does guilt feel like proof? | Published |
 | 4 | What Happens During an OCD Assessment? | Recognizing OCD | What will a clinician ask and how can I prepare? | Published |
 | 5 | Existential OCD: When Life's Biggest Questions Become a Loop | OCD Themes | How is existential doubt turned into a compulsion cycle? | Published |
-| 6 | Health OCD vs Health Anxiety: What Is the Difference? | OCD Themes | What distinguishes the response patterns? | Queued |
-| 7 | Sensorimotor OCD: When You Cannot Stop Noticing Your Body | OCD Themes | Why does attention become stuck on an automatic sensation? | Queued |
+| 6 | Health OCD vs Health Anxiety: What Is the Difference? | OCD Themes | What distinguishes the response patterns? | Published |
+| 7 | Sensorimotor OCD: When You Cannot Stop Noticing Your Body | OCD Themes | Why does attention become stuck on an automatic sensation? | Published |
 | 8 | Just Right OCD: Perfectionism, Repeating, and Incompleteness | OCD Themes | What is the difference between a preference and a driven ritual? | Queued |
 | 9 | Responsibility OCD: Feeling Responsible for Preventing Harm | OCD Themes | Why does possibility feel like personal responsibility? | Queued |
 | 10 | How to Find an OCD Therapist: Questions to Ask Before Starting | Treatment & ERP | How can I tell whether a therapist understands ERP? | Queued |
