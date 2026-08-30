@@ -149,11 +149,7 @@ void main() {
   });
 
   test('an older backup missing the new Pro tables still restores', () {
-    final old = {
-      'schema_version': 3,
-      'journal': [],
-      'ocd': [],
-    };
+    final old = {'schema_version': 3, 'journal': [], 'ocd': []};
     final summary = DbHelper.previewBackup(jsonEncode(old));
     expect(summary.exposureHierarchyCount, 0);
     expect(summary.behavioralExperimentCount, 0);

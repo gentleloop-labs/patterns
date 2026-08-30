@@ -83,7 +83,7 @@ class _OcdTrackerScreenState extends ConsumerState<OcdTrackerScreen> {
                   ],
                 ),
                 const Spacer(),
-                
+
                 // Segments Segmented Capsule Control
                 Container(
                   decoration: BoxDecoration(
@@ -104,42 +104,51 @@ class _OcdTrackerScreenState extends ConsumerState<OcdTrackerScreen> {
                       _CustomSegment(
                         label: 'Obsessions',
                         isSelected: _selectedType == OcdType.obsession,
-                        onTap: () => setState(() => _selectedType = OcdType.obsession),
+                        onTap: () =>
+                            setState(() => _selectedType = OcdType.obsession),
                         theme: theme,
                       ),
                       _CustomSegment(
                         label: 'Compulsions',
                         isSelected: _selectedType == OcdType.compulsion,
-                        onTap: () => setState(() => _selectedType = OcdType.compulsion),
+                        onTap: () =>
+                            setState(() => _selectedType = OcdType.compulsion),
                         theme: theme,
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(width: 12),
-                
+
                 // Distress Filter Button (funnel icon)
                 GestureDetector(
-                  onTap: () => ref.read(ocdHighDistressOnlyProvider.notifier).toggle(),
+                  onTap: () =>
+                      ref.read(ocdHighDistressOnlyProvider.notifier).toggle(),
                   child: Container(
                     width: 36,
                     height: 36,
                     decoration: BoxDecoration(
-                      color: isHighDistressOnly ? theme.colorScheme.primary.withOpacity(0.15) : theme.cardTheme.color,
+                      color: isHighDistressOnly
+                          ? theme.colorScheme.primary.withOpacity(0.15)
+                          : theme.cardTheme.color,
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                        color: isHighDistressOnly ? theme.colorScheme.primary : theme.dividerColor,
+                        color: isHighDistressOnly
+                            ? theme.colorScheme.primary
+                            : theme.dividerColor,
                       ),
                     ),
                     child: Icon(
                       LineIcons.filter,
                       size: 18,
-                      color: isHighDistressOnly ? theme.colorScheme.primary : theme.colorScheme.onSurface.withOpacity(0.6),
+                      color: isHighDistressOnly
+                          ? theme.colorScheme.primary
+                          : theme.colorScheme.onSurface.withOpacity(0.6),
                     ),
                   ),
                 ),
                 const SizedBox(width: 12),
-                
+
                 // + Log entry button
                 SizedBox(
                   height: 36,
@@ -153,7 +162,11 @@ class _OcdTrackerScreenState extends ConsumerState<OcdTrackerScreen> {
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                     ),
-                    icon: const Icon(LineIcons.plus, size: 16, color: Colors.black),
+                    icon: const Icon(
+                      LineIcons.plus,
+                      size: 16,
+                      color: Colors.black,
+                    ),
                     label: const Text(
                       'Log entry',
                       style: TextStyle(
@@ -167,7 +180,7 @@ class _OcdTrackerScreenState extends ConsumerState<OcdTrackerScreen> {
               ],
             ),
           ),
-          
+
           // 2. Split View Area
           Expanded(
             child: filteredOcdAsync.when(
@@ -175,14 +188,15 @@ class _OcdTrackerScreenState extends ConsumerState<OcdTrackerScreen> {
                 final filtered = _selectedType == null
                     ? data
                     : data.where((e) => e.type == _selectedType).toList();
-                final selected = filtered.where((e) => e.id == _selectedId).firstOrNull ??
+                final selected =
+                    filtered.where((e) => e.id == _selectedId).firstOrNull ??
                     (filtered.isNotEmpty ? filtered.first : null);
                 if (selected != null && selected.id != _selectedId) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     if (mounted) setState(() => _selectedId = selected.id);
                   });
                 }
-                
+
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -192,7 +206,9 @@ class _OcdTrackerScreenState extends ConsumerState<OcdTrackerScreen> {
                       decoration: BoxDecoration(
                         color: theme.colorScheme.surface,
                         border: Border(
-                          right: BorderSide(color: theme.dividerColor.withOpacity(0.5)),
+                          right: BorderSide(
+                            color: theme.dividerColor.withOpacity(0.5),
+                          ),
                         ),
                       ),
                       child: filtered.isEmpty
@@ -200,7 +216,8 @@ class _OcdTrackerScreenState extends ConsumerState<OcdTrackerScreen> {
                               child: Text(
                                 'No entries',
                                 style: TextStyle(
-                                  color: theme.colorScheme.onSurface.withOpacity(0.35),
+                                  color: theme.colorScheme.onSurface
+                                      .withOpacity(0.35),
                                 ),
                               ),
                             )
@@ -213,13 +230,14 @@ class _OcdTrackerScreenState extends ConsumerState<OcdTrackerScreen> {
                                 return _OcdListTile(
                                   entry: entry,
                                   isSelected: isSelected,
-                                  onTap: () => setState(() => _selectedId = entry.id),
+                                  onTap: () =>
+                                      setState(() => _selectedId = entry.id),
                                   theme: theme,
                                 );
                               },
                             ),
                     ),
-                    
+
                     // Right Panel: Details
                     Expanded(
                       child: Container(
@@ -232,43 +250,59 @@ class _OcdTrackerScreenState extends ConsumerState<OcdTrackerScreen> {
                                     Icon(
                                       LineIcons.list,
                                       size: 48,
-                                      color: theme.colorScheme.onSurface.withOpacity(0.15),
+                                      color: theme.colorScheme.onSurface
+                                          .withOpacity(0.15),
                                     ),
                                     const SizedBox(height: 16),
                                     Text(
                                       'Select an event or track a new one',
                                       style: TextStyle(
                                         fontSize: 15,
-                                        color: theme.colorScheme.onSurface.withOpacity(0.4),
+                                        color: theme.colorScheme.onSurface
+                                            .withOpacity(0.4),
                                       ),
                                     ),
                                   ],
                                 ),
                               )
                             : SingleChildScrollView(
-                                padding: const EdgeInsets.fromLTRB(40, 24, 40, 48),
+                                padding: const EdgeInsets.fromLTRB(
+                                  40,
+                                  24,
+                                  40,
+                                  48,
+                                ),
                                 child: Center(
                                   child: Container(
-                                    constraints: const BoxConstraints(maxWidth: 800),
+                                    constraints: const BoxConstraints(
+                                      maxWidth: 800,
+                                    ),
                                     child: Column(
                                       children: [
                                         _OcdCard(entry: selected, theme: theme),
                                         const SizedBox(height: 16),
                                         // Bottom Strategy tip box
                                         Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 20,
+                                            vertical: 16,
+                                          ),
                                           decoration: BoxDecoration(
                                             color: theme.cardTheme.color,
-                                            borderRadius: BorderRadius.circular(12),
+                                            borderRadius: BorderRadius.circular(
+                                              12,
+                                            ),
                                             border: Border.all(
-                                              color: theme.colorScheme.primary.withOpacity(0.15),
+                                              color: theme.colorScheme.primary
+                                                  .withOpacity(0.15),
                                             ),
                                           ),
                                           child: Row(
                                             children: [
                                               Icon(
                                                 Icons.star_outline_rounded,
-                                                color: theme.colorScheme.primary,
+                                                color:
+                                                    theme.colorScheme.primary,
                                                 size: 20,
                                               ),
                                               const SizedBox(width: 12),
@@ -277,7 +311,10 @@ class _OcdTrackerScreenState extends ConsumerState<OcdTrackerScreen> {
                                                   'Great job using your strategy. Small steps build big change.',
                                                   style: TextStyle(
                                                     fontSize: 13,
-                                                    color: theme.colorScheme.onSurface.withOpacity(0.85),
+                                                    color: theme
+                                                        .colorScheme
+                                                        .onSurface
+                                                        .withOpacity(0.85),
                                                   ),
                                                 ),
                                               ),
@@ -341,7 +378,9 @@ class _CustomSegment extends StatelessWidget {
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
-            color: isSelected ? Colors.black : theme.colorScheme.onSurface.withOpacity(0.6),
+            color: isSelected
+                ? Colors.black
+                : theme.colorScheme.onSurface.withOpacity(0.6),
           ),
         ),
       ),
@@ -387,8 +426,8 @@ class _OcdListTileState extends State<_OcdListTile> {
               color: widget.isSelected
                   ? widget.theme.colorScheme.primary.withOpacity(0.06)
                   : (_hovered
-                      ? widget.theme.colorScheme.onSurface.withOpacity(0.04)
-                      : Colors.transparent),
+                        ? widget.theme.colorScheme.onSurface.withOpacity(0.04)
+                        : Colors.transparent),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: widget.isSelected
@@ -403,11 +442,15 @@ class _OcdListTileState extends State<_OcdListTile> {
                 Row(
                   children: [
                     Text(
-                      widget.entry.type == OcdType.obsession ? 'Obsession' : 'Compulsion',
+                      widget.entry.type == OcdType.obsession
+                          ? 'Obsession'
+                          : 'Compulsion',
                       style: TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.bold,
-                        color: widget.theme.colorScheme.primary.withOpacity(0.9),
+                        color: widget.theme.colorScheme.primary.withOpacity(
+                          0.9,
+                        ),
                       ),
                     ),
                     const Spacer(),
@@ -416,7 +459,9 @@ class _OcdListTileState extends State<_OcdListTile> {
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
-                        color: widget.theme.colorScheme.onSurface.withOpacity(0.55),
+                        color: widget.theme.colorScheme.onSurface.withOpacity(
+                          0.55,
+                        ),
                       ),
                     ),
                   ],
@@ -465,8 +510,10 @@ class _OcdCardState extends State<_OcdCard> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
-        final formattedTime = DateFormat('MMM d, h:mm a').format(widget.entry.datetime);
-        
+        final formattedTime = DateFormat(
+          'MMM d, h:mm a',
+        ).format(widget.entry.datetime);
+
         return Container(
           decoration: BoxDecoration(
             color: widget.theme.cardTheme.color,
@@ -487,7 +534,9 @@ class _OcdCardState extends State<_OcdCard> {
                         formattedTime,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: widget.theme.colorScheme.onSurface.withOpacity(0.55),
+                          color: widget.theme.colorScheme.onSurface.withOpacity(
+                            0.55,
+                          ),
                           fontSize: 13,
                         ),
                       ),
@@ -505,10 +554,13 @@ class _OcdCardState extends State<_OcdCard> {
                             context: context,
                             builder: (context) => AlertDialog(
                               title: const Text('Delete Log Entry?'),
-                              content: const Text('This will permanently delete this OCD event entry.'),
+                              content: const Text(
+                                'This will permanently delete this OCD event entry.',
+                              ),
                               actions: [
                                 TextButton(
-                                  onPressed: () => Navigator.pop(context, false),
+                                  onPressed: () =>
+                                      Navigator.pop(context, false),
                                   child: const Text('Cancel'),
                                 ),
                                 ElevatedButton(
@@ -539,14 +591,17 @@ class _OcdCardState extends State<_OcdCard> {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  
+
                   // Compulsion vs Obsession header + Distress level
                   Row(
                     children: [
                       Text(
-                        widget.entry.type == OcdType.obsession ? 'OBSESSION' : 'COMPULSION',
+                        widget.entry.type == OcdType.obsession
+                            ? 'OBSESSION'
+                            : 'COMPULSION',
                         style: TextStyle(
-                          color: widget.theme.colorScheme.primary, // Yellow accent
+                          color:
+                              widget.theme.colorScheme.primary, // Yellow accent
                           fontSize: 11,
                           fontWeight: FontWeight.w800,
                           letterSpacing: 1.2,
@@ -556,7 +611,9 @@ class _OcdCardState extends State<_OcdCard> {
                       Text(
                         'Distress ${widget.entry.distressLevel}/10',
                         style: TextStyle(
-                          color: const Color(0xFFFF9500), // Orange/gold distress text
+                          color: const Color(
+                            0xFFFF9500,
+                          ), // Orange/gold distress text
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
@@ -564,7 +621,7 @@ class _OcdCardState extends State<_OcdCard> {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  
+
                   // Large urge text
                   Text(
                     widget.entry.content,
@@ -576,7 +633,7 @@ class _OcdCardState extends State<_OcdCard> {
                       color: widget.theme.colorScheme.onSurface,
                     ),
                   ),
-                  
+
                   // Action taken (Compulsions only)
                   if (widget.entry.actionTaken != null &&
                       widget.entry.actionTaken!.isNotEmpty) ...[
@@ -584,7 +641,9 @@ class _OcdCardState extends State<_OcdCard> {
                     Text(
                       'ACTION TAKEN',
                       style: TextStyle(
-                        color: widget.theme.colorScheme.onSurface.withOpacity(0.4),
+                        color: widget.theme.colorScheme.onSurface.withOpacity(
+                          0.4,
+                        ),
                         fontSize: 11,
                         fontWeight: FontWeight.w800,
                         letterSpacing: 1.2,
@@ -600,13 +659,15 @@ class _OcdCardState extends State<_OcdCard> {
                       ),
                     ),
                   ],
-                  
+
                   // Strategy/Response
                   const SizedBox(height: 24),
                   Text(
                     'STRATEGY / RESPONSE',
                     style: TextStyle(
-                      color: widget.theme.colorScheme.onSurface.withOpacity(0.4),
+                      color: widget.theme.colorScheme.onSurface.withOpacity(
+                        0.4,
+                      ),
                       fontSize: 11,
                       fontWeight: FontWeight.w800,
                       letterSpacing: 1.2,

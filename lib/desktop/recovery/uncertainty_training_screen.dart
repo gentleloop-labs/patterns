@@ -109,7 +109,6 @@ class UncertaintyTrainingScreen extends ConsumerWidget {
   void _openPractice(BuildContext context, UncertaintyExercise exercise) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        
         builder: (_) => UncertaintyPracticeScreen(exercise: exercise),
       ),
     );

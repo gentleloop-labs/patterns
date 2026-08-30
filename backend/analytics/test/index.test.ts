@@ -62,6 +62,38 @@ describe("POST /v1/events/batch", () => {
     ]);
   });
 
+  it("accepts v2 events with a closed context and persists it", async () => {
+    const response = await post(JSON.stringify(payload({
+      events: [
+        {
+          name: "paywall_viewed",
+          version: 2,
+          timestamp: Date.now(),
+          context: "exposure_hierarchy",
+        },
+      ],
+    })));
+    expect(response.status).toBe(202);
+    const result = await env.DB.prepare(
+      "SELECT event_name, event_version, event_context FROM events",
+    ).first();
+    expect(result).toEqual({
+      event_name: "paywall_viewed",
+      event_version: 2,
+      event_context: "exposure_hierarchy",
+    });
+  });
+
+  it.each([
+    ["v1 context", { name: "paywall_viewed", version: 1, timestamp: Date.now(), context: "settings" }],
+    ["unknown context", { name: "paywall_viewed", version: 2, timestamp: Date.now(), context: "journal_text" }],
+    ["wrong event context", { name: "activation_completed", version: 2, timestamp: Date.now(), context: "settings" }],
+    ["missing v2 context", { name: "paywall_viewed", version: 2, timestamp: Date.now() }],
+  ])("rejects %s", async (_label, event) => {
+    const response = await post(JSON.stringify(payload({ events: [event] })));
+    expect(response.status).toBe(400);
+  });
+
   it.each([
     ["unknown event", payload({ events: [{ name: "journal_text", version: 1, timestamp: Date.now() }] })],
     ["invalid UUID", payload({ installId: "not-a-uuid" })],

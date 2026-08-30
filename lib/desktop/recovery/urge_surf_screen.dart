@@ -95,12 +95,9 @@ class UrgeSurfScreen extends ConsumerWidget {
   }
 
   void _startSurf(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        
-        builder: (_) => const UrgeSurfFlow(),
-      ),
-    );
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute<void>(builder: (_) => const UrgeSurfFlow()));
   }
 }
 

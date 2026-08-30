@@ -1,10 +1,10 @@
-import { EVENT_NAME_SET, type EventName } from "./events";
+import { EVENT_NAME_SET, isAllowedContext, type EventName } from "./events";
 
 export const MAX_BODY_BYTES = 16 * 1024;
 export const MAX_BATCH_SIZE = 50;
 
 const ROOT_FIELDS = new Set(["installId", "platform", "appVersion", "events"]);
-const EVENT_FIELDS = new Set(["name", "version", "timestamp"]);
+const EVENT_FIELDS = new Set(["name", "version", "timestamp", "context"]);
 const PLATFORMS = new Set(["ios", "android", "macos", "windows", "linux", "web"]);
 const UUID_V4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const APP_VERSION = /^[A-Za-z0-9][A-Za-z0-9._+-]*$/;
@@ -13,8 +13,9 @@ const MAX_FUTURE_SKEW_MS = 24 * 60 * 60 * 1000;
 
 export interface ValidatedEvent {
   name: EventName;
-  version: 1;
+  version: 1 | 2;
   timestamp: number;
+  context: string | null;
 }
 
 export interface ValidatedBatch {
@@ -70,8 +71,19 @@ export function validateBatch(value: unknown, now = Date.now()): ValidatedBatch 
     if (typeof event.name !== "string" || !EVENT_NAME_SET.has(event.name)) {
       throw new ValidationError(`events[${index}].name is not allowed`);
     }
-    if (event.version !== 1) {
-      throw new ValidationError(`events[${index}].version must be 1`);
+    if (event.version !== 1 && event.version !== 2) {
+      throw new ValidationError(`events[${index}].version must be 1 or 2`);
+    }
+    if (event.version === 1 && event.context !== undefined) {
+      throw new ValidationError(`events[${index}].context requires version 2`);
+    }
+    if (
+      event.version === 2 &&
+      (typeof event.context !== "string" ||
+        event.context.length > 32 ||
+        !isAllowedContext(event.name as EventName, event.context))
+    ) {
+      throw new ValidationError(`events[${index}].context is not allowed`);
     }
     if (
       typeof event.timestamp !== "number" ||
@@ -83,8 +95,9 @@ export function validateBatch(value: unknown, now = Date.now()): ValidatedBatch 
     }
     return {
       name: event.name as EventName,
-      version: 1,
+      version: event.version,
       timestamp: event.timestamp,
+      context: typeof event.context === "string" ? event.context : null,
     };
   });
 

@@ -157,7 +157,6 @@ class ExposureMaterialsScreen extends ConsumerWidget {
                     Navigator.pop(sheetContext);
                     Navigator.of(context).push(
                       MaterialPageRoute<void>(
-                        
                         builder: (_) => ExposureMaterialEditScreen(
                           type: type,
                           linkedStepId: linkedStepId,

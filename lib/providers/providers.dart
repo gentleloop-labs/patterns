@@ -3,6 +3,7 @@ import '../models/models.dart';
 import '../database/db_helper.dart';
 import '../services/material_file_store.dart';
 import '../widgets/rich_journal.dart';
+import '../app_preferences.dart';
 
 class JournalNotifier extends AsyncNotifier<List<JournalEntry>> {
   @override
@@ -13,6 +14,8 @@ class JournalNotifier extends AsyncNotifier<List<JournalEntry>> {
   }
 
   Future<void> saveEntry(String date, String content) async {
+    final wasNew =
+        !(state.asData?.value.any((entry) => entry.date == date) ?? false);
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final entry = JournalEntry(
@@ -26,6 +29,11 @@ class JournalNotifier extends AsyncNotifier<List<JournalEntry>> {
       entries.sort((a, b) => a.date.compareTo(b.date));
       return entries;
     });
+    if (wasNew && !state.hasError) {
+      await ref
+          .read(meaningfulActionCountProvider.notifier)
+          .record(MeaningfulAction.journal);
+    }
   }
 
   /// Removes the entry for [date] entirely, freeing the date to be written
@@ -140,6 +148,11 @@ class DelaySessionNotifier extends AsyncNotifier<List<DelaySession>> {
       await DbHelper.instance.insertDelaySession(session);
       return await DbHelper.instance.getDelaySessions();
     });
+    if (!state.hasError) {
+      await ref
+          .read(meaningfulActionCountProvider.notifier)
+          .record(MeaningfulAction.compulsionDelay);
+    }
   }
 }
 
@@ -197,6 +210,11 @@ class ErpExerciseSessionNotifier
       await DbHelper.instance.insertErpExerciseSession(session);
       return await DbHelper.instance.getErpExerciseSessions();
     });
+    if (!state.hasError) {
+      await ref
+          .read(meaningfulActionCountProvider.notifier)
+          .record(MeaningfulAction.guidedErp);
+    }
   }
 }
 
@@ -612,6 +630,11 @@ class YbocsAssessmentNotifier extends AsyncNotifier<List<YbocsAssessment>> {
       await DbHelper.instance.insertYbocsAssessment(assessment);
       return await DbHelper.instance.getYbocsAssessments();
     });
+    if (!state.hasError) {
+      await ref
+          .read(meaningfulActionCountProvider.notifier)
+          .record(MeaningfulAction.selfCheck);
+    }
   }
 
   Future<void> delete(int id) async {

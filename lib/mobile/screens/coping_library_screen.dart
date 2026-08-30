@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/app_theme.dart';
+import '../../theme/app_colors.dart';
 import '../../widgets/animations.dart';
 import '../widgets/recovery_ui.dart';
 import '../widgets/section_intro.dart';
@@ -97,7 +97,10 @@ class CopingLibraryScreen extends StatelessWidget {
             const SizedBox(height: 6),
             Text(
               'Healthy ways to ride out a hard moment.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.4),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.4,
+              ),
             ),
             const SizedBox(height: 18),
             const SectionIntro(id: 'copingLibrary'),
@@ -160,7 +163,7 @@ class _StrategyCardState extends State<_StrategyCard> {
                   duration: AppMotion.fast,
                   child: Icon(
                     Icons.keyboard_arrow_down_rounded,
-                    color: AppTheme.textSecondary,
+                    color: context.appColors.textSecondary,
                   ),
                 ),
               ],
@@ -171,7 +174,10 @@ class _StrategyCardState extends State<_StrategyCard> {
                 padding: const EdgeInsets.only(top: 10),
                 child: Text(
                   widget.strategy.body,
-                  style: TextStyle(color: AppTheme.textSecondary, height: 1.5),
+                  style: TextStyle(
+                    color: context.appColors.textSecondary,
+                    height: 1.5,
+                  ),
                 ),
               ),
               crossFadeState: _expanded

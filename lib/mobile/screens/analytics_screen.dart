@@ -13,6 +13,7 @@ import '../../models/export_report_options.dart';
 import '../../providers/providers.dart';
 import '../../services/analytics_service.dart';
 import '../../services/review_prompt.dart';
+import '../../theme/app_colors.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/export_report_sheet.dart';
@@ -63,16 +64,15 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
     final responses =
         ref.watch(responsePreventionProvider).asData?.value ?? const [];
     final surfs = ref.watch(urgeSurfProvider).asData?.value ?? const [];
-    final ybocs =
-        ref.watch(ybocsAssessmentProvider).asData?.value ?? const [];
+    final ybocs = ref.watch(ybocsAssessmentProvider).asData?.value ?? const [];
 
     return Scaffold(
       body: DecoratedBox(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFF0C0C0B), AppTheme.deepCharcoal],
+            colors: [theme.scaffoldBackgroundColor, context.appColors.surface],
           ),
         ),
         child: SafeArea(
@@ -372,7 +372,7 @@ class _RecoveryScoreCard extends StatelessWidget {
                   : 'A score will appear here once you’ve practised a few '
                         'times. Nothing to measure just yet.',
               style: TextStyle(
-                color: AppTheme.textSecondary,
+                color: context.appColors.textSecondary,
                 fontSize: 13,
                 height: 1.4,
               ),
@@ -414,7 +414,7 @@ class _RecoveryScoreCard extends StatelessWidget {
                         points: summary.scoreTrend,
                         minY: 0,
                         maxY: 100,
-                        color: AppTheme.warmYellow,
+                        color: context.appColors.accent,
                         showDots: false,
                       ),
                     ),
@@ -430,7 +430,7 @@ class _RecoveryScoreCard extends StatelessWidget {
             'Reflects how often you practise, not a diagnosis or how you’re '
             'doing clinically. A lower number on a hard week is normal.',
             style: TextStyle(
-              color: AppTheme.textSecondary.withValues(alpha: 0.85),
+              color: context.appColors.textSecondary.withValues(alpha: 0.85),
               fontSize: 11,
               height: 1.3,
             ),
@@ -455,11 +455,11 @@ class _MoodCard extends StatelessWidget {
           Row(
             children: [
               const Expanded(child: _CardTitle('Mood over time', info: true)),
-              _LegendDot(color: AppTheme.softGreen, label: 'Good'),
+              _LegendDot(color: context.appColors.positive, label: 'Good'),
               const SizedBox(width: 10),
-              _LegendDot(color: AppTheme.warmYellow, label: 'Okay'),
+              _LegendDot(color: context.appColors.accent, label: 'Okay'),
               const SizedBox(width: 10),
-              _LegendDot(color: AppTheme.mutedRed, label: 'Low'),
+              _LegendDot(color: context.appColors.negative, label: 'Low'),
             ],
           ),
           const SizedBox(height: 14),
@@ -469,7 +469,7 @@ class _MoodCard extends StatelessWidget {
               points: summary.moodTrend,
               minY: 0,
               maxY: 10,
-              color: AppTheme.softGreen,
+              color: context.appColors.positive,
               moodColors: true,
               bottomLabels: true,
             ),
@@ -642,7 +642,7 @@ class _UrgeIntensityCard extends StatelessWidget {
               points: summary.urgeTrend,
               minY: 0,
               maxY: 10,
-              color: AppTheme.warmYellow,
+              color: context.appColors.accent,
               bottomLabels: wide,
             ),
           ),
@@ -736,7 +736,7 @@ class _ConsistencyCard extends StatelessWidget {
           Expanded(
             child: _DotHeatmap(
               values: summary.consistencyHeatmap,
-              active: AppTheme.warmYellow,
+              active: context.appColors.accent,
             ),
           ),
         ],
@@ -760,12 +760,18 @@ class _TopThemesCard extends StatelessWidget {
           Row(
             children: [
               const Expanded(child: _CardTitle('Top themes', info: true)),
-              Text('View all', style: TextStyle(color: AppTheme.warmYellow)),
+              Text(
+                'View all',
+                style: TextStyle(color: context.appColors.accent),
+              ),
             ],
           ),
           const SizedBox(height: 14),
           if (themes.isEmpty)
-            Text('Themes will appear as you log what OCD focuses on.', style: _mutedStyle)
+            Text(
+              'Themes will appear as you log what OCD focuses on.',
+              style: _mutedStyle,
+            )
           else
             for (var i = 0; i < themes.length; i++) ...[
               _ThemeRow(
@@ -799,7 +805,7 @@ class _ThemeRow extends StatelessWidget {
             theme.label,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
           ),
         ),
         Expanded(
@@ -823,9 +829,9 @@ class _ThemeRow extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 2),
-        const Icon(
+        Icon(
           LineIcons.angleRight,
-          color: AppTheme.textSecondary,
+          color: context.appColors.textSecondary,
           size: 16,
         ),
       ],
@@ -855,7 +861,7 @@ class _KpiCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: AppTheme.warmYellow, size: 22),
+          Icon(icon, color: context.appColors.accent, size: 22),
           const SizedBox(height: 14),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -893,10 +899,11 @@ class _RangeMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return PopupMenuButton<AnalyticsDateRange>(
       tooltip: 'Change range',
       onSelected: onChanged,
-      color: const Color(0xFF1B1B19),
+      color: context.appColors.card,
       itemBuilder: (_) => const [
         PopupMenuItem(value: AnalyticsDateRange.seven, child: Text('7 days')),
         PopupMenuItem(value: AnalyticsDateRange.thirty, child: Text('30 days')),
@@ -906,23 +913,23 @@ class _RangeMenu extends StatelessWidget {
       child: Container(
         height: 38,
         padding: const EdgeInsets.symmetric(horizontal: 12),
-        decoration: _premiumDecoration(radius: 18),
+        decoration: _premiumDecoration(theme, radius: 18),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               _rangeLabel(range),
-              style: const TextStyle(
-                color: AppTheme.warmYellow,
+              style: TextStyle(
+                color: context.appColors.accent,
                 fontWeight: FontWeight.w800,
                 fontSize: 13,
               ),
             ),
             const SizedBox(width: 6),
-            const Icon(
+            Icon(
               LineIcons.angleDown,
               size: 14,
-              color: AppTheme.textSecondary,
+              color: context.appColors.textSecondary,
             ),
           ],
         ),
@@ -939,9 +946,10 @@ class _InsightSegmentedControl extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.all(4),
-      decoration: _premiumDecoration(radius: 18),
+      decoration: _premiumDecoration(theme, radius: 18),
       child: Row(
         children: [
           _SegmentButton(
@@ -997,7 +1005,7 @@ class _SegmentButton extends StatelessWidget {
             boxShadow: selected
                 ? [
                     BoxShadow(
-                      color: AppTheme.warmYellow.withValues(alpha: 0.10),
+                      color: context.appColors.accent.withValues(alpha: 0.10),
                       blurRadius: 18,
                     ),
                   ]
@@ -1012,7 +1020,9 @@ class _SegmentButton extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                color: selected ? AppTheme.warmYellow : AppTheme.textSecondary,
+                color: selected
+                    ? context.appColors.accent
+                    : context.appColors.textSecondary,
                 fontWeight: FontWeight.w800,
                 fontSize: 12,
               ),
@@ -1037,11 +1047,12 @@ class _GlassCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       constraints: BoxConstraints(minHeight: minHeight ?? 0),
       width: double.infinity,
       padding: padding,
-      decoration: _premiumDecoration(),
+      decoration: _premiumDecoration(theme),
       child: child,
     );
   }
@@ -1060,6 +1071,7 @@ class _IconGlassButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Tooltip(
       message: tooltip,
       child: InkWell(
@@ -1068,8 +1080,8 @@ class _IconGlassButton extends StatelessWidget {
         child: Container(
           width: 38,
           height: 38,
-          decoration: _premiumDecoration(radius: 14),
-          child: Icon(icon, size: 18, color: AppTheme.textSecondary),
+          decoration: _premiumDecoration(theme, radius: 14),
+          child: Icon(icon, size: 18, color: context.appColors.textSecondary),
         ),
       ),
     );
@@ -1092,15 +1104,15 @@ class _CardTitle extends StatelessWidget {
             text,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w800),
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w800),
           ),
         ),
         if (info) ...[
           const SizedBox(width: 4),
-          const Icon(
+          Icon(
             LineIcons.infoCircle,
             size: 13,
-            color: AppTheme.textSecondary,
+            color: context.appColors.textSecondary,
           ),
         ],
       ],
@@ -1117,9 +1129,9 @@ class _DeltaLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = switch (delta.tone) {
-      InsightTone.positive => AppTheme.softGreen,
-      InsightTone.negative => AppTheme.mutedRed,
-      InsightTone.neutral => AppTheme.textSecondary,
+      InsightTone.positive => context.appColors.positive,
+      InsightTone.negative => context.appColors.negative,
+      InsightTone.neutral => context.appColors.textSecondary,
     };
     final arrow = delta.arrow;
     return Text(
@@ -1169,11 +1181,15 @@ class _ScoreRing extends StatelessWidget {
       width: 96,
       height: 96,
       child: CustomPaint(
-        painter: _ScoreRingPainter(score: score),
+        painter: _ScoreRingPainter(
+          score: score,
+          accent: context.appColors.accent,
+          track: context.appColors.border,
+        ),
         child: Center(
           child: Icon(
             LineIcons.lineChart,
-            color: AppTheme.textSecondary,
+            color: context.appColors.textSecondary,
             size: 28,
           ),
         ),
@@ -1184,26 +1200,32 @@ class _ScoreRing extends StatelessWidget {
 
 class _ScoreRingPainter extends CustomPainter {
   final int score;
+  final Color accent;
+  final Color track;
 
-  _ScoreRingPainter({required this.score});
+  _ScoreRingPainter({
+    required this.score,
+    required this.accent,
+    required this.track,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
     final center = size.center(Offset.zero);
     final radius = math.min(size.width, size.height) / 2 - 7;
-    final track = Paint()
-      ..color = const Color(0xFF2B2A27)
+    final trackPaint = Paint()
+      ..color = track
       ..strokeWidth = 8
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
     final progress = Paint()
-      ..shader = const SweepGradient(
-        colors: [AppTheme.warmYellow, Color(0xFFFFE28A), AppTheme.warmYellow],
+      ..shader = SweepGradient(
+        colors: [accent, const Color(0xFFFFE28A), accent],
       ).createShader(Rect.fromCircle(center: center, radius: radius))
       ..strokeWidth = 8
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
-    canvas.drawCircle(center, radius, track);
+    canvas.drawCircle(center, radius, trackPaint);
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: radius),
       -math.pi / 2,
@@ -1215,7 +1237,9 @@ class _ScoreRingPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _ScoreRingPainter oldDelegate) {
-    return oldDelegate.score != score;
+    return oldDelegate.score != score ||
+        oldDelegate.accent != accent ||
+        oldDelegate.track != track;
   }
 }
 
@@ -1296,11 +1320,11 @@ class _MiniLineChart extends StatelessWidget {
             barWidth: 2.6,
             color: color,
             gradient: moodColors
-                ? const LinearGradient(
+                ? LinearGradient(
                     colors: [
-                      AppTheme.mutedRed,
-                      AppTheme.warmYellow,
-                      AppTheme.softGreen,
+                      context.appColors.negative,
+                      context.appColors.accent,
+                      context.appColors.positive,
                     ],
                   )
                 : null,
@@ -1375,7 +1399,7 @@ class _MiniBarChart extends StatelessWidget {
                   toY: points[i].value,
                   width: 7,
                   borderRadius: BorderRadius.circular(6),
-                  color: AppTheme.warmYellow,
+                  color: context.appColors.accent,
                   backDrawRodData: BackgroundBarChartRodData(
                     show: true,
                     toY: maxValue + 1,
@@ -1461,25 +1485,21 @@ class _InsightsError extends StatelessWidget {
   }
 }
 
-BoxDecoration _premiumDecoration({double radius = 20}) {
+BoxDecoration _premiumDecoration(ThemeData theme, {double radius = 20}) {
+  final colors = theme.appColors;
   return BoxDecoration(
-    gradient: const LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      colors: [Color(0xFF1C1C1A), Color(0xFF151514)],
-    ),
+    color: colors.card,
     borderRadius: BorderRadius.circular(radius),
-    border: Border.all(color: const Color(0xFF34322D)),
+    border: Border.all(color: colors.border),
     boxShadow: [
       BoxShadow(
-        color: Colors.black.withValues(alpha: 0.28),
+        color: Colors.black.withValues(
+          alpha: theme.brightness == Brightness.dark ? 0.28 : 0.08,
+        ),
         blurRadius: 20,
         offset: const Offset(0, 10),
       ),
-      BoxShadow(
-        color: AppTheme.warmYellow.withValues(alpha: 0.035),
-        blurRadius: 28,
-      ),
+      BoxShadow(color: colors.accent.withValues(alpha: 0.035), blurRadius: 28),
     ],
   );
 }
@@ -1523,14 +1543,10 @@ IconData _themeIcon(String label) {
 }
 
 const _themeColors = [
-  AppTheme.mutedRed,
+  Color(0xFFA13F3F),
   Color(0xFFFF9F43),
   Color(0xFF5CA7FF),
-  AppTheme.softGreen,
+  Color(0xFF407A52),
 ];
 
-const _mutedStyle = TextStyle(
-  color: AppTheme.textSecondary,
-  fontSize: 12,
-  height: 1.25,
-);
+const _mutedStyle = TextStyle(fontSize: 12, height: 1.25);

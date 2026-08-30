@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../models/models.dart';
 import '../../providers/providers.dart';
-import '../../theme/app_theme.dart';
+import '../../theme/app_colors.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
 import '../widgets/recovery_ui.dart';
@@ -17,16 +17,16 @@ const _outcomeLabels = {
   ResponseOutcome.performed: 'Did it',
 };
 
-Color _outcomeColor(ResponseOutcome outcome) {
+Color _outcomeColor(BuildContext context, ResponseOutcome outcome) {
   switch (outcome) {
     case ResponseOutcome.resisted:
-      return AppTheme.softGreen;
+      return context.appColors.positive;
     case ResponseOutcome.delayed:
-      return AppTheme.warmYellow;
+      return context.appColors.accent;
     case ResponseOutcome.partial:
-      return AppTheme.compulsionChip;
+      return context.appColors.compulsionChip;
     case ResponseOutcome.performed:
-      return AppTheme.mutedRed;
+      return context.appColors.negative;
   }
 }
 
@@ -66,7 +66,10 @@ class ResponsePreventionScreen extends ConsumerWidget {
             Text(
               'After a trigger, note how you responded to the urge. Every '
               'resisted or delayed urge is progress.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.4),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.4,
+              ),
             ),
             const SizedBox(height: 18),
             const SectionIntro(id: 'responsePrevention'),
@@ -93,7 +96,7 @@ class ResponsePreventionScreen extends ConsumerWidget {
               ),
               error: (_, _) => Text(
                 'Your logs are unavailable right now.',
-                style: TextStyle(color: AppTheme.textSecondary),
+                style: TextStyle(color: context.appColors.textSecondary),
               ),
             ),
           ]),
@@ -143,7 +146,10 @@ class ResponsePreventionScreen extends ConsumerWidget {
               const SizedBox(height: 10),
               Text(
                 'This entry will be removed for good.',
-                style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+                style: TextStyle(
+                  color: context.appColors.textSecondary,
+                  height: 1.45,
+                ),
               ),
               const SizedBox(height: 20),
               Row(
@@ -185,7 +191,7 @@ class _LogCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final color = _outcomeColor(log.outcome);
+    final color = _outcomeColor(context, log.outcome);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: recoverySoftDecoration(theme),
@@ -214,7 +220,10 @@ class _LogCard extends StatelessWidget {
               const Spacer(),
               Text(
                 DateFormat('MMM d').format(log.datetime),
-                style: TextStyle(color: AppTheme.textSecondary, fontSize: 12),
+                style: TextStyle(
+                  color: context.appColors.textSecondary,
+                  fontSize: 12,
+                ),
               ),
               const SizedBox(width: 4),
               GestureDetector(
@@ -222,7 +231,7 @@ class _LogCard extends StatelessWidget {
                 child: Icon(
                   Icons.close_rounded,
                   size: 16,
-                  color: AppTheme.textSecondary,
+                  color: context.appColors.textSecondary,
                 ),
               ),
             ],
@@ -235,14 +244,17 @@ class _LogCard extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             'Anxiety ${log.anxietyLevel}/10',
-            style: TextStyle(color: AppTheme.textSecondary, fontSize: 12),
+            style: TextStyle(
+              color: context.appColors.textSecondary,
+              fontSize: 12,
+            ),
           ),
           if (log.note != null && log.note!.trim().isNotEmpty) ...[
             const SizedBox(height: 8),
             Text(
               log.note!,
               style: TextStyle(
-                color: AppTheme.textSecondary,
+                color: context.appColors.textSecondary,
                 fontSize: 13,
                 height: 1.4,
               ),
@@ -283,7 +295,10 @@ class _EmptyState extends StatelessWidget {
           Text(
             'Log what happened after a trigger and how you handled the urge. '
             'Over time you will see your resistance grow.',
-            style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+            style: TextStyle(
+              color: context.appColors.textSecondary,
+              height: 1.45,
+            ),
           ),
           const SizedBox(height: 16),
           SizedBox(
@@ -469,7 +484,7 @@ class _OutcomePicker extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                   color: outcome == entry.key
                       ? theme.colorScheme.onPrimary
-                      : AppTheme.textSecondary,
+                      : context.appColors.textSecondary,
                 ),
               ),
             ),

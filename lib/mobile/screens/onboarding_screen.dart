@@ -5,6 +5,7 @@ import 'package:line_icons/line_icons.dart';
 
 import '../../services/app_events.dart';
 import '../../services/telemetry.dart';
+import '../../theme/app_colors.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../first_run.dart';
@@ -69,12 +70,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Hard-coded dark surface (fixed gradient + glass), so force the dark theme
-    // regardless of the app's resolved mode to keep descendants readable.
-    return Theme(
-      data: AppTheme.mobileDarkTheme,
-      child: Builder(builder: _buildContent),
-    );
+    return _buildContent(context);
   }
 
   Widget _buildContent(BuildContext context) {
@@ -82,11 +78,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
     return Scaffold(
       body: DecoratedBox(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFF0B0B0A), AppTheme.deepCharcoal],
+            colors: [context.appColors.surface, context.appColors.surface],
           ),
         ),
         child: SafeArea(
@@ -106,7 +102,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               key: const ValueKey('back'),
                               tooltip: 'Back',
                               onPressed: _back,
-                              icon: const Icon(LineIcons.angleLeft, size: 20),
+                              icon: Icon(LineIcons.angleLeft, size: 20),
                             ),
                     ),
                   ),
@@ -134,7 +130,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   'professional care.',
                   textAlign: TextAlign.center,
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: AppTheme.textSecondary,
+                    color: context.appColors.textSecondary,
                     height: 1.3,
                   ),
                 ),
@@ -170,7 +166,7 @@ class _PromiseView extends StatelessWidget {
                   child: Text(
                     'PATTERNS',
                     style: theme.textTheme.labelMedium?.copyWith(
-                      color: AppTheme.warmYellow,
+                      color: context.appColors.accent,
                       letterSpacing: 3,
                       fontWeight: FontWeight.w800,
                     ),
@@ -187,12 +183,12 @@ class _PromiseView extends StatelessWidget {
                   child: Text(
                     'A quiet place to\npractise with OCD.',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: AppTheme.displayFamily,
                       fontWeight: FontWeight.w600,
                       fontSize: 32,
                       height: 1.1,
-                      color: AppTheme.textPrimary,
+                      color: context.appColors.textPrimary,
                     ),
                   ),
                 ),
@@ -204,7 +200,7 @@ class _PromiseView extends StatelessWidget {
                     'practise responding differently, one small step at a time.',
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodyLarge?.copyWith(
-                      color: AppTheme.textSecondary,
+                      color: context.appColors.textSecondary,
                       height: 1.48,
                     ),
                   ),
@@ -215,7 +211,7 @@ class _PromiseView extends StatelessWidget {
                   child: Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(15),
-                    decoration: _glassDecoration(),
+                    decoration: _glassDecoration(theme),
                     child: Row(
                       children: [
                         Container(
@@ -223,23 +219,25 @@ class _PromiseView extends StatelessWidget {
                           height: 34,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: AppTheme.warmYellow.withValues(alpha: 0.14),
+                            color: context.appColors.accent.withValues(
+                              alpha: 0.14,
+                            ),
                           ),
-                          child: const Icon(
+                          child: Icon(
                             LineIcons.lock,
-                            color: AppTheme.warmYellow,
+                            color: context.appColors.accent,
                             size: 17,
                           ),
                         ),
                         const SizedBox(width: 12),
-                        const Expanded(
+                        Expanded(
                           child: Text(
                             'Your OCD data stays on this device. '
                             'No account. No cloud sync.',
                             style: TextStyle(
                               fontSize: 13.5,
                               height: 1.35,
-                              color: AppTheme.textPrimary,
+                              color: context.appColors.textPrimary,
                             ),
                           ),
                         ),
@@ -257,13 +255,10 @@ class _PromiseView extends StatelessWidget {
           width: double.infinity,
           child: ElevatedButton(
             onPressed: onGetStarted,
-            child: const Text('Get started'),
+            child: Text('Get started'),
           ),
         ),
-        TextButton(
-          onPressed: onImport,
-          child: const Text('Import existing data'),
-        ),
+        TextButton(onPressed: onImport, child: Text('Import existing data')),
       ],
     );
   }
@@ -329,12 +324,12 @@ class _ChoicesView extends StatelessWidget {
         FadeSlideIn(
           child: Text(
             'What would help right now?',
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: AppTheme.displayFamily,
               fontWeight: FontWeight.w600,
               fontSize: 28,
               height: 1.1,
-              color: AppTheme.textPrimary,
+              color: context.appColors.textPrimary,
             ),
           ),
         ),
@@ -344,7 +339,7 @@ class _ChoicesView extends StatelessWidget {
           child: Text(
             'Pick one. You can do the rest whenever you like.',
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: AppTheme.textSecondary,
+              color: context.appColors.textSecondary,
               height: 1.4,
             ),
           ),
@@ -384,7 +379,7 @@ class _ChoiceCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(16),
-        decoration: _glassDecoration(),
+        decoration: _glassDecoration(Theme.of(context)),
         child: Row(
           children: [
             Container(
@@ -392,9 +387,13 @@ class _ChoiceCard extends StatelessWidget {
               height: 42,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppTheme.warmYellow.withValues(alpha: 0.13),
+                color: context.appColors.accent.withValues(alpha: 0.13),
               ),
-              child: Icon(choice.icon, color: AppTheme.warmYellow, size: 20),
+              child: Icon(
+                choice.icon,
+                color: context.appColors.accent,
+                size: 20,
+              ),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -403,29 +402,29 @@ class _ChoiceCard extends StatelessWidget {
                 children: [
                   Text(
                     choice.title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 15.5,
                       fontWeight: FontWeight.w700,
                       height: 1.2,
-                      color: AppTheme.textPrimary,
+                      color: context.appColors.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 3),
                   Text(
                     choice.subtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 12.5,
                       height: 1.3,
-                      color: AppTheme.textSecondary,
+                      color: context.appColors.textSecondary,
                     ),
                   ),
                 ],
               ),
             ),
             const SizedBox(width: 8),
-            const Icon(
+            Icon(
               LineIcons.angleRight,
-              color: AppTheme.textSecondary,
+              color: context.appColors.textSecondary,
               size: 18,
             ),
           ],
@@ -450,7 +449,7 @@ class _Hero extends StatelessWidget {
       width: size,
       height: size,
       child: CustomPaint(
-        painter: const _SignalPainter(color: AppTheme.warmYellow),
+        painter: _SignalPainter(color: context.appColors.accent),
         child: Center(
           child: Container(
             width: inner,
@@ -461,13 +460,13 @@ class _Hero extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  AppTheme.warmYellow,
-                  AppTheme.warmYellow.withValues(alpha: 0.62),
+                  context.appColors.accent,
+                  context.appColors.accent.withValues(alpha: 0.62),
                 ],
               ),
               boxShadow: [
                 BoxShadow(
-                  color: AppTheme.warmYellow.withValues(alpha: 0.28),
+                  color: context.appColors.accent.withValues(alpha: 0.28),
                   blurRadius: 24,
                   offset: const Offset(0, 10),
                 ),
@@ -522,18 +521,17 @@ class _SignalPainter extends CustomPainter {
   }
 }
 
-BoxDecoration _glassDecoration() {
+BoxDecoration _glassDecoration(ThemeData theme) {
+  final colors = theme.appColors;
   return BoxDecoration(
-    gradient: const LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      colors: [Color(0xFF1B1B19), Color(0xFF141413)],
-    ),
+    color: colors.card,
     borderRadius: BorderRadius.circular(18),
-    border: Border.all(color: const Color(0xFF34322D)),
+    border: Border.all(color: colors.border),
     boxShadow: [
       BoxShadow(
-        color: Colors.black.withValues(alpha: 0.22),
+        color: Colors.black.withValues(
+          alpha: theme.brightness == Brightness.dark ? 0.22 : 0.07,
+        ),
         blurRadius: 20,
         offset: const Offset(0, 10),
       ),

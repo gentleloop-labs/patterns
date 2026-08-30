@@ -17,8 +17,9 @@ const INSERT_EVENT = `
     platform,
     app_version,
     event_timestamp,
+    event_context,
     received_at
-  ) VALUES (?, ?, ?, ?, ?, ?, ?)
+  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 `;
 
 export const RETENTION_POLICY_DAYS = 90;
@@ -122,6 +123,7 @@ async function ingest(request: Request, env: Env): Promise<Response> {
           batch.platform,
           batch.appVersion,
           event.timestamp,
+          event.context,
           receivedAt,
         ),
       ),

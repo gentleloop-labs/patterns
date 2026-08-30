@@ -5,7 +5,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../services/tip_jar.dart';
-import '../theme/app_theme.dart';
+import '../theme/app_colors.dart';
 import 'app_snack_bar.dart';
 import 'platform.dart';
 import 'tip_thanks_dialog.dart';
@@ -213,7 +213,10 @@ class _TipJarSheetState extends State<TipJarSheet> {
             Text(
               'Patterns is independent and ad-free. If it has helped you, '
               'a small tip means a lot. Tips are optional and do not unlock anything.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.45,
+              ),
             ),
             const SizedBox(height: 20),
             _buildBody(theme),
@@ -237,7 +240,10 @@ class _TipJarSheetState extends State<TipJarSheet> {
         children: [
           Text(
             error,
-            style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+            style: TextStyle(
+              color: context.appColors.textSecondary,
+              height: 1.45,
+            ),
           ),
           const SizedBox(height: 16),
           OutlinedButton(
@@ -310,7 +316,7 @@ class _TipChoice extends StatelessWidget {
                       Text(
                         subtitle,
                         style: TextStyle(
-                          color: AppTheme.textSecondary,
+                          color: context.appColors.textSecondary,
                           fontSize: 13,
                         ),
                       ),

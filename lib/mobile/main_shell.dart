@@ -11,8 +11,11 @@ import '../services/analytics_service.dart';
 import '../services/app_events.dart';
 import '../services/demo_seed_service.dart';
 import '../services/notification_service.dart';
+import '../services/pro_entry_point.dart';
 import '../services/telemetry.dart';
+import '../services/usage_analytics.dart';
 import '../theme/app_theme.dart';
+import '../theme/app_colors.dart';
 import '../widgets/animations.dart';
 import '../widgets/liquid_glass.dart';
 import 'biometric_auth.dart';
@@ -158,11 +161,11 @@ class WhatsNewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: DecoratedBox(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFF090A09), AppTheme.deepCharcoal],
+            colors: [context.appColors.surface, context.appColors.surface],
           ),
         ),
         child: SafeArea(
@@ -173,13 +176,9 @@ class WhatsNewScreen extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(22),
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [Color(0xFF20201D), Color(0xFF141413)],
-                    ),
+                    color: context.appColors.card,
                     borderRadius: BorderRadius.circular(30),
-                    border: Border.all(color: const Color(0xFF39362F)),
+                    border: Border.all(color: context.appColors.border),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withValues(alpha: 0.35),
@@ -196,18 +195,20 @@ class WhatsNewScreen extends StatelessWidget {
                         height: 54,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: AppTheme.warmYellow.withValues(alpha: 0.16),
+                          color: context.appColors.accent.withValues(
+                            alpha: 0.16,
+                          ),
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.auto_awesome_rounded,
-                          color: AppTheme.warmYellow,
+                          color: context.appColors.accent,
                         ),
                       ),
                       const SizedBox(height: 24),
-                      const Text(
-                        'Patterns got a major upgrade',
+                      Text(
+                        'A lighter Patterns, when you want it',
                         style: TextStyle(
-                          color: AppTheme.textPrimary,
+                          color: context.appColors.textPrimary,
                           fontFamily: AppTheme.displayFamily,
                           fontSize: 35,
                           fontWeight: FontWeight.w700,
@@ -216,10 +217,10 @@ class WhatsNewScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 12),
-                      const Text(
-                        'Today now shows one clear next step, and Recovery groups every tool by where you are in your work.',
+                      Text(
+                        'Patterns 1.9 adds System, Light, and Dark appearance options, a calmer path to Pro, and stronger purchase reliability.',
                         style: TextStyle(
-                          color: AppTheme.textSecondary,
+                          color: context.appColors.textSecondary,
                           fontSize: 15,
                           height: 1.45,
                         ),
@@ -240,7 +241,7 @@ class WhatsNewScreen extends StatelessWidget {
                   onPressed: () {
                     onShowHome();
                   },
-                  child: const Text('Show me the new Today'),
+                  child: Text('Explore Patterns 1.9'),
                 ),
               ),
               const SizedBox(height: 10),
@@ -250,15 +251,15 @@ class WhatsNewScreen extends StatelessWidget {
                   onPressed: () {
                     onContinue();
                   },
-                  child: const Text('Continue to Patterns'),
+                  child: Text('Continue to Patterns'),
                 ),
               ),
               const SizedBox(height: 18),
-              const Text(
+              Text(
                 'Notifications are only used if you already opted in. You can change reminders any time in Settings.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: AppTheme.textSecondary,
+                  color: context.appColors.textSecondary,
                   fontSize: 12,
                   height: 1.35,
                 ),
@@ -277,18 +278,18 @@ class _WhatsNewFeatureList extends StatelessWidget {
   static const _features = [
     _WhatsNewFeature(
       icon: LineIcons.checkCircle,
-      title: 'One clear next step',
-      body: 'Today suggests the single best thing to do right now.',
+      title: 'Light + dark appearance',
+      body: 'Follow your device or choose the theme that feels best.',
     ),
     _WhatsNewFeature(
       icon: LineIcons.layerGroup,
-      title: 'Recovery, grouped by stage',
-      body: 'Assess, Plan, Practice, and Review. Tools where you expect them.',
+      title: 'A clearer path to Pro',
+      body: 'Discover advanced tools after they become relevant, never by popup.',
     ),
     _WhatsNewFeature(
       icon: LineIcons.heart,
-      title: 'Help right now, up top',
-      body: 'Grounding tools stay one tap away when a moment gets hard.',
+      title: 'More reliable purchases',
+      body: 'Improved product loading, restore outcomes, and entitlement checks.',
     ),
   ];
 
@@ -327,9 +328,9 @@ class _WhatsNewFeatureTile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF181817),
+        color: context.appColors.card,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFF34322D)),
+        border: Border.all(color: context.appColors.border),
       ),
       child: Row(
         children: [
@@ -339,9 +340,13 @@ class _WhatsNewFeatureTile extends StatelessWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(14),
-              color: AppTheme.warmYellow.withValues(alpha: 0.14),
+              color: context.appColors.accent.withValues(alpha: 0.14),
             ),
-            child: Icon(feature.icon, color: AppTheme.warmYellow, size: 22),
+            child: Icon(
+              feature.icon,
+              color: context.appColors.accent,
+              size: 22,
+            ),
           ),
           const SizedBox(width: 14),
           Expanded(
@@ -350,8 +355,8 @@ class _WhatsNewFeatureTile extends StatelessWidget {
               children: [
                 Text(
                   feature.title,
-                  style: const TextStyle(
-                    color: AppTheme.textPrimary,
+                  style: TextStyle(
+                    color: context.appColors.textPrimary,
                     fontSize: 15,
                     fontWeight: FontWeight.w800,
                   ),
@@ -359,8 +364,8 @@ class _WhatsNewFeatureTile extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   feature.body,
-                  style: const TextStyle(
-                    color: AppTheme.textSecondary,
+                  style: TextStyle(
+                    color: context.appColors.textSecondary,
                     fontSize: 12.5,
                     height: 1.25,
                   ),
@@ -632,7 +637,10 @@ class _PrivacyCover extends StatelessWidget {
                 child: Text(
                   message!,
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: AppTheme.textSecondary, height: 1.4),
+                  style: TextStyle(
+                    color: context.appColors.textSecondary,
+                    height: 1.4,
+                  ),
                 ),
               ),
             ],
@@ -665,6 +673,7 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
     for (final tab in _Tab.values) tab: GlobalKey(),
   };
   bool _tourRunning = false;
+  bool _analyticsConsentShowing = false;
 
   @override
   void initState() {
@@ -845,6 +854,9 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
   Widget build(BuildContext context) {
     // Replay requests (from Settings) re-run the tour on the live app.
     ref.listen<int>(tourRequestProvider, (_, _) => _startTour(force: true));
+    ref.listen<int>(meaningfulActionCountProvider, (previous, next) {
+      if (next > (previous ?? 0)) _maybeAskAnalyticsConsent();
+    });
 
     final today = TodayScreen(
       onJournal: () => _openJournalEditor(context),
@@ -945,6 +957,63 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
     );
   }
 
+  Future<void> _maybeAskAnalyticsConsent() async {
+    if (_analyticsConsentShowing ||
+        analyticsConsentDecision != AnalyticsConsentDecision.undecided) {
+      return;
+    }
+    final actionName = mobilePreferences?.getString(lastMeaningfulActionKey);
+    final action = MeaningfulAction.values.firstWhere(
+      (value) => value.name == actionName,
+      orElse: () => MeaningfulAction.journal,
+    );
+    _analyticsConsentShowing = true;
+    await Future<void>.delayed(const Duration(milliseconds: 450));
+    if (!mounted ||
+        analyticsConsentDecision != AnalyticsConsentDecision.undecided) {
+      _analyticsConsentShowing = false;
+      return;
+    }
+    final share = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Help improve Patterns?'),
+        content: const Text(
+          'Share anonymous feature-use events so we can improve what helps. '
+          'Journal entries, OCD content, ratings, and notes are never included.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Not now'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('Share anonymous usage'),
+          ),
+        ],
+      ),
+    );
+    _analyticsConsentShowing = false;
+    if (share == true) {
+      await mobilePreferences?.setString(
+        analyticsConsentDecisionKey,
+        AnalyticsConsentDecision.granted.name,
+      );
+      await ref.read(usageAnalyticsEnabledProvider.notifier).setEnabled(true);
+      await usageAnalytics.setCollectionEnabled(true);
+      AppEvents.logAnalyticsConsentGranted(action);
+      await usageAnalytics.flush();
+    } else {
+      await mobilePreferences?.setString(
+        analyticsConsentDecisionKey,
+        AnalyticsConsentDecision.declined.name,
+      );
+      await ref.read(usageAnalyticsEnabledProvider.notifier).setEnabled(false);
+      await usageAnalytics.setCollectionEnabled(false);
+    }
+  }
+
   void _openJournalEditor(BuildContext context) {
     if (_selectedTab != _Tab.journal) AppEvents.logJournalOpened();
     Navigator.of(context).push(
@@ -998,7 +1067,13 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
           ),
         );
       case RecoveryStep.buildHierarchy:
-        if (!requirePro(context, ref)) return;
+        if (!requirePro(
+          context,
+          ref,
+          entryPoint: ProEntryPoint.exposureHierarchy,
+        )) {
+          return;
+        }
         Navigator.of(context).push(
           MaterialPageRoute<void>(
             builder: (_) => const ExposureHierarchyScreen(),
@@ -1012,7 +1087,13 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
           ),
         );
       case RecoveryStep.reflect:
-        if (!requirePro(context, ref)) return;
+        if (!requirePro(
+          context,
+          ref,
+          entryPoint: ProEntryPoint.reflectionJournal,
+        )) {
+          return;
+        }
         Navigator.of(context).push(
           MaterialPageRoute<void>(
             builder: (_) => const ExposureReflectionScreen(),
@@ -1107,7 +1188,7 @@ class _FloatingTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return LiquidGlass(
       borderRadius: 28,
-      tint: AppTheme.charcoalCard,
+      tint: context.appColors.card,
       opacity: 0.58,
       blurSigma: 22,
       saturation: 1.25,
@@ -1231,7 +1312,7 @@ class _SegmentTabItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final inactiveColor = AppTheme.textSecondary;
+    final inactiveColor = context.appColors.textSecondary;
     final activeColor = theme.colorScheme.primary;
     final activeBackground = activeColor.withValues(alpha: 0.14);
 
@@ -1460,8 +1541,8 @@ class _SheetAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final fill = AppTheme.charcoalInput;
-    final textColor = AppTheme.textPrimary;
+    final fill = context.appColors.input;
+    final textColor = context.appColors.textPrimary;
 
     return PressScale(
       onTap: onTap,

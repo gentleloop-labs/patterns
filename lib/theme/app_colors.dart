@@ -88,6 +88,23 @@ class AppColors extends ThemeExtension<AppColors> {
     compulsionChip: AppTheme.compulsionChip,
   );
 
+  /// Warm, low-stimulation mobile light palette. The accent is intentionally
+  /// darker than the dark-theme yellow so text and controls retain AA contrast
+  /// on the cream surfaces.
+  static const AppColors light = AppColors(
+    surface: Color(0xFFF7F3EA),
+    card: Color(0xFFFFFCF6),
+    input: Color(0xFFEEE8DC),
+    border: Color(0xFFD8D0C2),
+    textPrimary: Color(0xFF201D18),
+    textSecondary: Color(0xFF6F685F),
+    accent: Color(0xFF8A6500),
+    positive: Color(0xFF407A52),
+    negative: Color(0xFFA13F3F),
+    obsessionChip: Color(0xFF5B4B8A),
+    compulsionChip: Color(0xFF8A5A18),
+  );
+
   /// The desktop dark palette, which uses its own greys and a brighter yellow.
   static const AppColors desktopDark = AppColors(
     surface: AppTheme.darkBg,

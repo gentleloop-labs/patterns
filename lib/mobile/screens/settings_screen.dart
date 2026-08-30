@@ -14,12 +14,15 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../database/db_helper.dart';
 import '../../providers/providers.dart';
 import '../../services/material_file_store.dart';
+import '../../services/app_events.dart';
 import '../../services/notification_service.dart';
 import '../../services/pro_service.dart';
+import '../../services/pro_entry_point.dart';
 import '../../services/review_prompt.dart';
 import '../../services/tip_jar.dart';
 import '../../services/usage_analytics.dart';
 import '../../theme/app_theme.dart';
+import '../../theme/app_colors.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
 import '../../widgets/export_report_sheet.dart';
@@ -40,6 +43,7 @@ class SettingsScreen extends ConsumerWidget {
     final appLockEnabled = ref.watch(appLockEnabledProvider);
     final reminder = ref.watch(reminderProvider);
     final usageAnalyticsEnabled = ref.watch(usageAnalyticsEnabledProvider);
+    final appearance = ref.watch(appearanceProvider);
 
     return Scaffold(
       body: SafeArea(
@@ -56,6 +60,19 @@ class SettingsScreen extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: 22),
+            Text(
+              'Appearance',
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+            const SizedBox(height: 12),
+            _AppearancePicker(
+              value: appearance,
+              onChanged: (value) =>
+                  ref.read(appearanceProvider.notifier).setAppearance(value),
+            ),
+            const SizedBox(height: 28),
             Text(
               'Data',
               style: theme.textTheme.titleMedium?.copyWith(
@@ -181,7 +198,10 @@ class SettingsScreen extends ConsumerWidget {
                   icon: LineIcons.unlock,
                   title: 'Unlock Patterns Pro',
                   subtitle: 'One-time unlock for all recovery tools',
-                  onTap: () => PaywallSheet.show(context, source: 'settings'),
+                  onTap: () => PaywallSheet.show(
+                    context,
+                    entryPoint: ProEntryPoint.settings,
+                  ),
                 ),
               const SizedBox(height: 10),
               _SettingsItem(
@@ -303,7 +323,10 @@ class SettingsScreen extends ConsumerWidget {
             const SizedBox(height: 10),
             Text(
               'The backup is a readable JSON file and is not encrypted by Patterns. Save it somewhere private.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.45,
+              ),
             ),
             const SizedBox(height: 20),
             SizedBox(
@@ -359,7 +382,10 @@ class SettingsScreen extends ConsumerWidget {
             const SizedBox(height: 10),
             Text(
               'Choose a JSON backup. Patterns will show what it contains before replacing current entries.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.45,
+              ),
             ),
             const SizedBox(height: 20),
             SizedBox(
@@ -445,7 +471,10 @@ class SettingsScreen extends ConsumerWidget {
             const SizedBox(height: 10),
             Text(
               'This backup contains ${summary.journalCount} journal entries, ${summary.ocdCount} OCD events, ${summary.delaySessionCount} delay sessions, ${summary.erpExercisePlanCount} ERP plans, and ${summary.erpExerciseSessionCount} ERP practices. Importing replaces your current entries.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.45,
+              ),
             ),
             const SizedBox(height: 20),
             Row(
@@ -527,6 +556,7 @@ class SettingsScreen extends ConsumerWidget {
   /// The outcome arrives on [ProService.events]; a restore that matches no
   /// purchase emits nothing at all, hence the deadline.
   Future<void> _restorePurchases(BuildContext context, WidgetRef ref) async {
+    AppEvents.logRestoreStarted(ProEntryPoint.settings);
     final messenger = ScaffoldMessenger.of(context);
     showAppSnackBar(context, 'Checking your purchases…', type: ToastType.info);
 
@@ -545,6 +575,10 @@ class SettingsScreen extends ConsumerWidget {
       messenger.hideCurrentSnackBar();
 
       if (event is ProSuccess) {
+        AppEvents.logSupporterPurchaseCompleted(
+          restored: true,
+          source: ProEntryPoint.settings,
+        );
         ref.read(proProvider.notifier).refresh();
         showAppSnackBar(
           context,
@@ -552,8 +586,10 @@ class SettingsScreen extends ConsumerWidget {
           type: ToastType.success,
         );
       } else if (event is ProError) {
+        AppEvents.logRestoreFailed(ProEntryPoint.settings);
         showAppSnackBar(context, event.message, type: ToastType.error);
       } else {
+        AppEvents.logRestoreNotFound(ProEntryPoint.settings);
         showAppSnackBar(
           context,
           'No previous purchase found on this account. If you bought Pro with '
@@ -562,6 +598,7 @@ class SettingsScreen extends ConsumerWidget {
         );
       }
     } catch (_) {
+      AppEvents.logRestoreFailed(ProEntryPoint.settings);
       if (!context.mounted) return;
       messenger.hideCurrentSnackBar();
       showAppSnackBar(
@@ -593,7 +630,10 @@ class SettingsScreen extends ConsumerWidget {
             Text(
               'This deletes local journal entries, OCD events, ERP practice history, and app preferences from this device. This cannot be undone.\n\n'
               'If you have Patterns Pro, your purchase is safe, but this device will forget it. Tap Restore purchases afterwards to bring it back.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.45,
+              ),
             ),
             const SizedBox(height: 20),
             Row(
@@ -613,6 +653,8 @@ class SettingsScreen extends ConsumerWidget {
                       await MaterialFileStore.deleteAll();
                       await clearLocalPreferences();
                       ref.invalidate(usageAnalyticsEnabledProvider);
+                      ref.invalidate(appearanceProvider);
+                      ref.invalidate(meaningfulActionCountProvider);
                       ref.invalidate(journalProvider);
                       ref.invalidate(ocdProvider);
                       ref.invalidate(delaySessionProvider);
@@ -792,17 +834,26 @@ class SettingsScreen extends ConsumerWidget {
             const SizedBox(height: 12),
             Text(
               'Patterns stores journal entries, OCD events, distress ratings, and reflections on this device. Manual export creates an unencrypted JSON backup or PDF report wherever you choose to save it.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.45,
+              ),
             ),
             const SizedBox(height: 12),
             Text(
               'If you enable anonymous usage analytics, Patterns sends only named feature-use events, a random installation ID, platform, app version, and event time to our first-party service. Journal entries, exposures, compulsions, recovery notes, and other personal OCD data are never included. Uploaded events expire within 90 days. Turning analytics off clears pending events and the local analytics ID.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.45,
+              ),
             ),
             const SizedBox(height: 12),
             Text(
               'Patterns is for personal reflection and self-tracking. It does not diagnose, treat, or replace care from a qualified clinician.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.45,
+              ),
             ),
             const SizedBox(height: 20),
             SizedBox(
@@ -822,8 +873,19 @@ class SettingsScreen extends ConsumerWidget {
   }
 
   Future<void> _setUsageAnalytics(WidgetRef ref, bool enabled) async {
+    await appPreferences?.setString(
+      analyticsConsentDecisionKey,
+      (enabled
+              ? AnalyticsConsentDecision.granted
+              : AnalyticsConsentDecision.declined)
+          .name,
+    );
     await ref.read(usageAnalyticsEnabledProvider.notifier).setEnabled(enabled);
     await usageAnalytics.setCollectionEnabled(enabled);
+    if (enabled) {
+      AppEvents.logAnalyticsConsentGranted();
+      await usageAnalytics.flush();
+    }
   }
 }
 
@@ -867,14 +929,18 @@ class _SettingsItem extends StatelessWidget {
                   Text(
                     subtitle,
                     style: TextStyle(
-                      color: AppTheme.textSecondary,
+                      color: context.appColors.textSecondary,
                       fontSize: 13,
                     ),
                   ),
                 ],
               ),
             ),
-            Icon(LineIcons.angleRight, color: AppTheme.textSecondary, size: 18),
+            Icon(
+              LineIcons.angleRight,
+              color: context.appColors.textSecondary,
+              size: 18,
+            ),
           ],
         ),
       ),
@@ -921,13 +987,54 @@ class _SettingsSwitchItem extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   subtitle,
-                  style: TextStyle(color: AppTheme.textSecondary, fontSize: 13),
+                  style: TextStyle(
+                    color: context.appColors.textSecondary,
+                    fontSize: 13,
+                  ),
                 ),
               ],
             ),
           ),
           Switch(value: value, onChanged: onChanged),
         ],
+      ),
+    );
+  }
+}
+
+class _AppearancePicker extends StatelessWidget {
+  final AppAppearance value;
+  final ValueChanged<AppAppearance> onChanged;
+
+  const _AppearancePicker({required this.value, required this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      padding: const EdgeInsets.all(6),
+      decoration: _softDecoration(theme, radius: 22),
+      child: SegmentedButton<AppAppearance>(
+        segments: const [
+          ButtonSegment(
+            value: AppAppearance.system,
+            icon: Icon(LineIcons.adjust),
+            label: Text('System'),
+          ),
+          ButtonSegment(
+            value: AppAppearance.light,
+            icon: Icon(LineIcons.sun),
+            label: Text('Light'),
+          ),
+          ButtonSegment(
+            value: AppAppearance.dark,
+            icon: Icon(LineIcons.moon),
+            label: Text('Dark'),
+          ),
+        ],
+        selected: {value},
+        showSelectedIcon: false,
+        onSelectionChanged: (selection) => onChanged(selection.single),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io' show Platform;
 
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/widgets.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
 import '../app_preferences.dart';
@@ -23,6 +24,9 @@ class ProService {
   static final StreamController<ProEvent> _events =
       StreamController<ProEvent>.broadcast();
   static ProductDetails? _cachedProduct;
+  static final _ProLifecycleObserver _lifecycleObserver =
+      _ProLifecycleObserver();
+  static DateTime? _lastReconciliation;
 
   static Stream<ProEvent> get events => _events.stream;
 
@@ -50,6 +54,28 @@ class ProService {
       _onPurchaseUpdates,
       onError: (error) => _events.add(ProError('$error')),
     );
+    WidgetsBinding.instance.addObserver(_lifecycleObserver);
+    unawaited(reconcileEntitlements());
+  }
+
+  /// Asks the store to replay owned non-consumables. A missing response never
+  /// clears the offline cache: the store may simply be unreachable. Unlocks
+  /// are only granted from a store-signed purchase update with verification
+  /// payload present.
+  static Future<void> reconcileEntitlements({bool force = false}) async {
+    if (!isPlatformSupported) return;
+    final now = DateTime.now();
+    if (!force &&
+        _lastReconciliation != null &&
+        now.difference(_lastReconciliation!) < const Duration(minutes: 15)) {
+      return;
+    }
+    _lastReconciliation = now;
+    try {
+      if (await _iap.isAvailable()) await _iap.restorePurchases();
+    } catch (_) {
+      // Reconciliation is best-effort and must never block offline use.
+    }
   }
 
   /// Whether the store is reachable. False on unsupported platforms, in
@@ -106,9 +132,19 @@ class ProService {
 
       switch (purchase.status) {
         case PurchaseStatus.pending:
+          _events.add(const ProPending());
           break;
         case PurchaseStatus.purchased:
         case PurchaseStatus.restored:
+          if (!_hasVerificationData(purchase)) {
+            if (purchase.pendingCompletePurchase) {
+              await _iap.completePurchase(purchase);
+            }
+            _events.add(
+              const ProError('The store could not verify this purchase.'),
+            );
+            continue;
+          }
           await appPreferences?.setBool(proUnlockedKey, true);
           if (purchase.pendingCompletePurchase) {
             await _iap.completePurchase(purchase);
@@ -129,6 +165,10 @@ class ProService {
       }
     }
   }
+
+  static bool _hasVerificationData(PurchaseDetails purchase) =>
+      purchase.verificationData.localVerificationData.trim().isNotEmpty ||
+      purchase.verificationData.serverVerificationData.trim().isNotEmpty;
 }
 
 sealed class ProEvent {
@@ -150,10 +190,23 @@ class ProCanceled extends ProEvent {
   const ProCanceled();
 }
 
+class ProPending extends ProEvent {
+  const ProPending();
+}
+
 class ProException implements Exception {
   final String message;
   ProException(this.message);
 
   @override
   String toString() => 'ProException: $message';
+}
+
+class _ProLifecycleObserver with WidgetsBindingObserver {
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      unawaited(ProService.reconcileEntitlements());
+    }
+  }
 }

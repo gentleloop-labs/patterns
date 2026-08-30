@@ -13,7 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../services/material_file_store.dart';
-import '../../theme/app_theme.dart';
+import '../../theme/app_colors.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
 import '../widgets/recovery_ui.dart';
@@ -89,7 +89,10 @@ class ExposureMaterialsScreen extends ConsumerWidget {
             Text(
               'Keep your scripts, loop tapes, images, and links here so they are '
               'one tap away during an exposure.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.4),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.4,
+              ),
             ),
             const SizedBox(height: 18),
             const SectionIntro(id: 'exposureMaterials'),
@@ -121,7 +124,7 @@ class ExposureMaterialsScreen extends ConsumerWidget {
               ),
               error: (_, _) => Text(
                 'Your materials are unavailable right now.',
-                style: TextStyle(color: AppTheme.textSecondary),
+                style: TextStyle(color: context.appColors.textSecondary),
               ),
             ),
           ]),
@@ -204,7 +207,10 @@ class ExposureMaterialsScreen extends ConsumerWidget {
               const SizedBox(height: 10),
               Text(
                 'The file (if any) is removed from your device too.',
-                style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+                style: TextStyle(
+                  color: context.appColors.textSecondary,
+                  height: 1.45,
+                ),
               ),
               const SizedBox(height: 20),
               Row(
@@ -266,7 +272,10 @@ class _EmptyState extends StatelessWidget {
           Text(
             'Save a script to read, record a loop tape, add an image, or keep a '
             'link, ready for your next exposure.',
-            style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+            style: TextStyle(
+              color: context.appColors.textSecondary,
+              height: 1.45,
+            ),
           ),
           const SizedBox(height: 16),
           SizedBox(
@@ -322,7 +331,7 @@ class MaterialCard extends StatelessWidget {
                 child: Icon(
                   Icons.close_rounded,
                   size: 16,
-                  color: AppTheme.textSecondary,
+                  color: context.appColors.textSecondary,
                 ),
               ),
             ],
@@ -866,7 +875,7 @@ class _ExposureMaterialEditScreenState
               'Recording… ${_elapsed}s',
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w800,
-                color: AppTheme.mutedRed,
+                color: context.appColors.negative,
               ),
             ),
             const SizedBox(height: 12),
@@ -892,7 +901,10 @@ class _ExposureMaterialEditScreenState
           ] else ...[
             Text(
               'Record a short clip to replay on a loop.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.4),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.4,
+              ),
             ),
             const SizedBox(height: 12),
             SizedBox(

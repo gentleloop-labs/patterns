@@ -73,14 +73,17 @@ void main() {
   });
 
   group('theme matching', () {
-    test('matches a track when the assessment flagged one of its categories', () {
-      final contamination = ocdTracks.firstWhere(
-        (t) => t.id == 'contamination',
-      );
+    test(
+      'matches a track when the assessment flagged one of its categories',
+      () {
+        final contamination = ocdTracks.firstWhere(
+          (t) => t.id == 'contamination',
+        );
 
-      expect(contamination.matchesThemes(['washing']), isTrue);
-      expect(contamination.matchesThemes(['checking']), isFalse);
-    });
+        expect(contamination.matchesThemes(['washing']), isTrue);
+        expect(contamination.matchesThemes(['checking']), isFalse);
+      },
+    );
 
     test('a track with no categories never claims a match', () {
       final relationship = ocdTracks.firstWhere((t) => t.id == 'relationship');

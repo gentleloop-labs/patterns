@@ -12,10 +12,13 @@ import '../../services/analytics_service.dart';
 import '../../services/review_prompt.dart';
 import '../../services/app_events.dart';
 import '../../services/telemetry.dart';
+import '../../services/pro_entry_point.dart';
+import '../../theme/app_colors.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
 import '../../widgets/rich_journal.dart';
+import '../../widgets/paywall_sheet.dart';
 import '../first_run.dart';
 import '../preferences.dart';
 
@@ -80,6 +83,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
     // The single recommended next action, mirroring the ERP journey stages so
     // Today always shows one clear thing to do instead of a wall of tools.
     final isPro = ref.watch(proProvider);
+    final meaningfulActionCount = ref.watch(meaningfulActionCountProvider);
     final ybocs = ref.watch(ybocsAssessmentProvider).asData?.value ?? const [];
     final hierarchySteps =
         ref.watch(exposureStepProvider).asData?.value ?? const [];
@@ -95,6 +99,12 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
       hasHierarchy: hierarchySteps.isNotEmpty,
       practicedToday: practicedToday,
     );
+    final dismissedUntilMillis =
+        mobilePreferences?.getInt(proCardDismissedUntilKey) ?? 0;
+    final showProCard =
+        !isPro &&
+        meaningfulActionCount >= 2 &&
+        DateTime.now().millisecondsSinceEpoch >= dismissedUntilMillis;
 
     // As soon as the user has done anything real, the home becomes the full,
     // responsive cockpit so their work is reflected back to them. The truly
@@ -123,16 +133,20 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
             recentDelay: recentDelay,
             hasCheckedIn: hasCheckedIn,
             enoughForScore: enoughForScore,
+            showProCard: showProCard,
           )
         : _firstRunChildren(hasYbocs: ybocs.isNotEmpty);
 
     return Scaffold(
       body: DecoratedBox(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFF090A09), AppTheme.deepCharcoal],
+            colors: [
+              Theme.of(context).scaffoldBackgroundColor,
+              context.appColors.surface,
+            ],
           ),
         ),
         child: SafeArea(
@@ -152,6 +166,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
     required DelaySession? recentDelay,
     required bool hasCheckedIn,
     required bool enoughForScore,
+    required bool showProCard,
   }) {
     return [
       _HomeHeader(
@@ -170,6 +185,22 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
         step: nextStep,
         onTap: () => widget.onNextStep(nextStep.step),
       ),
+      if (showProCard) ...[
+        const SizedBox(height: 12),
+        _ProProgressionCard(
+          onTap: () => PaywallSheet.show(
+            context,
+            entryPoint: ProEntryPoint.todayNextStep,
+          ),
+          onDismiss: () async {
+            final until = DateTime.now()
+                .add(const Duration(days: 7))
+                .millisecondsSinceEpoch;
+            await mobilePreferences?.setInt(proCardDismissedUntilKey, until);
+            if (mounted) setState(() {});
+          },
+        ),
+      ],
       const SizedBox(height: 20),
       _HomeSectionHeader(
         title: 'Continue your practice',
@@ -289,6 +320,73 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
   }
 }
 
+class _ProProgressionCard extends StatelessWidget {
+  final VoidCallback onTap;
+  final VoidCallback onDismiss;
+
+  const _ProProgressionCard({required this.onTap, required this.onDismiss});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 14, 8, 14),
+      decoration: _homeCardDecoration(Theme.of(context), radius: 18).copyWith(
+        border: Border.all(
+          color: context.appColors.accent.withValues(alpha: 0.55),
+        ),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 42,
+            height: 42,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: context.appColors.accent.withValues(alpha: 0.14),
+            ),
+            child: Icon(
+              LineIcons.seedling,
+              color: context.appColors.accent,
+              size: 21,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: InkWell(
+              onTap: onTap,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Continue with Patterns Pro',
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    'Build a plan, practise it, and see progress over time.',
+                    style: TextStyle(
+                      color: context.appColors.textSecondary,
+                      fontSize: 12.5,
+                      height: 1.3,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          IconButton(
+            tooltip: 'Hide for 7 days',
+            onPressed: onDismiss,
+            icon: const Icon(Icons.close_rounded, size: 18),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _HomeHeader extends StatelessWidget {
   final int streak;
   final VoidCallback onSettings;
@@ -312,20 +410,20 @@ class _HomeHeader extends StatelessWidget {
             children: [
               Text(
                 greeting,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: AppTheme.sansFamily,
                   fontSize: 23,
                   fontWeight: FontWeight.w900,
                   letterSpacing: -0.4,
-                  color: AppTheme.warmYellow,
+                  color: context.appColors.accent,
                   height: 1.12,
                 ),
               ),
               const SizedBox(height: 6),
-              const Text(
+              Text(
                 "You've got this. One choice at a time.",
                 style: TextStyle(
-                  color: AppTheme.textSecondary,
+                  color: context.appColors.textSecondary,
                   fontSize: 14,
                   height: 1.25,
                 ),
@@ -337,20 +435,20 @@ class _HomeHeader extends StatelessWidget {
           const SizedBox(width: 12),
           Container(
             padding: const EdgeInsets.fromLTRB(11, 10, 13, 10),
-            decoration: _homeCardDecoration(radius: 16),
+            decoration: _homeCardDecoration(Theme.of(context), radius: 16),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(
+                Icon(
                   Icons.local_fire_department_rounded,
-                  color: AppTheme.warmYellow,
+                  color: context.appColors.accent,
                   size: 18,
                 ),
                 const SizedBox(width: 6),
                 Text(
                   '$streak',
-                  style: const TextStyle(
-                    color: AppTheme.warmYellow,
+                  style: TextStyle(
+                    color: context.appColors.accent,
                     fontWeight: FontWeight.w900,
                     fontSize: 14,
                   ),
@@ -367,10 +465,10 @@ class _HomeHeader extends StatelessWidget {
             label: 'Settings',
             child: Container(
               padding: const EdgeInsets.all(10),
-              decoration: _homeCardDecoration(radius: 16),
-              child: const Icon(
+              decoration: _homeCardDecoration(Theme.of(context), radius: 16),
+              child: Icon(
                 LineIcons.cog,
-                color: AppTheme.textSecondary,
+                color: context.appColors.textSecondary,
                 size: 18,
               ),
             ),
@@ -414,7 +512,7 @@ class _HomeScoreCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(18),
-        decoration: _homeCardDecoration(radius: 22),
+        decoration: _homeCardDecoration(Theme.of(context), radius: 22),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -426,10 +524,10 @@ class _HomeScoreCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'PRACTICE PROGRESS',
                         style: TextStyle(
-                          color: AppTheme.warmYellow,
+                          color: context.appColors.accent,
                           fontSize: 11,
                           fontWeight: FontWeight.w900,
                           letterSpacing: 0.6,
@@ -438,8 +536,8 @@ class _HomeScoreCard extends StatelessWidget {
                       const SizedBox(height: 18),
                       Text(
                         summary.hasAnyData ? 'Steady practice' : 'Start gently',
-                        style: const TextStyle(
-                          color: AppTheme.textPrimary,
+                        style: TextStyle(
+                          color: context.appColors.textPrimary,
                           fontSize: 18,
                           fontWeight: FontWeight.w800,
                           height: 1.18,
@@ -450,8 +548,8 @@ class _HomeScoreCard extends StatelessWidget {
                         summary.hasAnyData
                             ? "You're showing up and building new patterns."
                             : 'This grows as you journal, track, and practise.',
-                        style: const TextStyle(
-                          color: AppTheme.textSecondary,
+                        style: TextStyle(
+                          color: context.appColors.textSecondary,
                           fontSize: 13,
                           height: 1.34,
                         ),
@@ -462,8 +560,8 @@ class _HomeScoreCard extends StatelessWidget {
                           summary.scoreDelta.value,
                           summary.hasAnyData,
                         ),
-                        style: const TextStyle(
-                          color: AppTheme.warmYellow,
+                        style: TextStyle(
+                          color: context.appColors.accent,
                           fontSize: 12,
                           fontWeight: FontWeight.w800,
                         ),
@@ -472,7 +570,10 @@ class _HomeScoreCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8),
-                const Icon(LineIcons.angleRight, color: AppTheme.textSecondary),
+                Icon(
+                  LineIcons.angleRight,
+                  color: context.appColors.textSecondary,
+                ),
               ],
             ),
             const SizedBox(height: 14),
@@ -480,7 +581,7 @@ class _HomeScoreCard extends StatelessWidget {
               'Reflects how often you practise, not a diagnosis or how you’re '
               'doing clinically. A lower number on a hard week is normal.',
               style: TextStyle(
-                color: AppTheme.textSecondary.withValues(alpha: 0.8),
+                color: context.appColors.textSecondary.withValues(alpha: 0.8),
                 fontSize: 11,
                 height: 1.3,
               ),
@@ -496,35 +597,35 @@ class _HomeScoreCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(18),
-        decoration: _homeCardDecoration(radius: 22),
+        decoration: _homeCardDecoration(Theme.of(context), radius: 22),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'PRACTICE PROGRESS',
               style: TextStyle(
-                color: AppTheme.warmYellow,
+                color: context.appColors.accent,
                 fontSize: 11,
                 fontWeight: FontWeight.w900,
                 letterSpacing: 0.6,
               ),
             ),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'You’ve started. Nice.',
               style: TextStyle(
-                color: AppTheme.textPrimary,
+                color: context.appColors.textPrimary,
                 fontSize: 18,
                 fontWeight: FontWeight.w800,
                 height: 1.18,
               ),
             ),
             const SizedBox(height: 6),
-            const Text(
+            Text(
               'A progress number will appear here once you’ve practised a few '
               'times, enough for it to actually mean something.',
               style: TextStyle(
-                color: AppTheme.textSecondary,
+                color: context.appColors.textSecondary,
                 fontSize: 13,
                 height: 1.34,
               ),
@@ -564,15 +665,19 @@ class _HomeScoreRing extends StatelessWidget {
       width: 108,
       height: 108,
       child: CustomPaint(
-        painter: _HomeScoreRingPainter(score),
+        painter: _HomeScoreRingPainter(
+          score,
+          accent: context.appColors.accent,
+          trackColor: context.appColors.border,
+        ),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 '$score',
-                style: const TextStyle(
-                  color: AppTheme.textPrimary,
+                style: TextStyle(
+                  color: context.appColors.textPrimary,
                   fontSize: 31,
                   fontWeight: FontWeight.w800,
                   height: 1,
@@ -581,8 +686,8 @@ class _HomeScoreRing extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 label,
-                style: const TextStyle(
-                  color: AppTheme.warmYellow,
+                style: TextStyle(
+                  color: context.appColors.accent,
                   fontSize: 11,
                   fontWeight: FontWeight.w800,
                 ),
@@ -597,21 +702,27 @@ class _HomeScoreRing extends StatelessWidget {
 
 class _HomeScoreRingPainter extends CustomPainter {
   final int score;
+  final Color accent;
+  final Color trackColor;
 
-  const _HomeScoreRingPainter(this.score);
+  _HomeScoreRingPainter(
+    this.score, {
+    required this.accent,
+    required this.trackColor,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
     final center = size.center(Offset.zero);
     final radius = math.min(size.width, size.height) / 2 - 8;
     final track = Paint()
-      ..color = Colors.white.withValues(alpha: 0.09)
+      ..color = trackColor
       ..strokeWidth = 8
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
     final progress = Paint()
-      ..shader = const SweepGradient(
-        colors: [AppTheme.warmYellow, Color(0xFFFFE994), AppTheme.warmYellow],
+      ..shader = SweepGradient(
+        colors: [accent, const Color(0xFFFFE994), accent],
       ).createShader(Rect.fromCircle(center: center, radius: radius))
       ..strokeWidth = 8
       ..style = PaintingStyle.stroke
@@ -628,7 +739,9 @@ class _HomeScoreRingPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _HomeScoreRingPainter oldDelegate) {
-    return oldDelegate.score != score;
+    return oldDelegate.score != score ||
+        oldDelegate.accent != accent ||
+        oldDelegate.trackColor != trackColor;
   }
 }
 
@@ -645,23 +758,23 @@ class _NextStepCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
+          gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [Color(0xFF23200F), Color(0xFF15140F)],
           ),
           borderRadius: BorderRadius.circular(22),
           border: Border.all(
-            color: AppTheme.warmYellow.withValues(alpha: 0.35),
+            color: context.appColors.accent.withValues(alpha: 0.35),
           ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'YOUR NEXT STEP',
               style: TextStyle(
-                color: AppTheme.warmYellow,
+                color: context.appColors.accent,
                 fontSize: 11,
                 fontWeight: FontWeight.w900,
                 letterSpacing: 0.6,
@@ -670,8 +783,8 @@ class _NextStepCard extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               step.title,
-              style: const TextStyle(
-                color: AppTheme.textPrimary,
+              style: TextStyle(
+                color: context.appColors.textPrimary,
                 fontSize: 18,
                 fontWeight: FontWeight.w800,
                 height: 1.15,
@@ -680,8 +793,8 @@ class _NextStepCard extends StatelessWidget {
             const SizedBox(height: 6),
             Text(
               step.subtitle,
-              style: const TextStyle(
-                color: AppTheme.textSecondary,
+              style: TextStyle(
+                color: context.appColors.textSecondary,
                 fontSize: 13,
                 height: 1.34,
               ),
@@ -723,8 +836,8 @@ class _HomeSectionHeader extends StatelessWidget {
         Expanded(
           child: Text(
             title,
-            style: const TextStyle(
-              color: AppTheme.textPrimary,
+            style: TextStyle(
+              color: context.appColors.textPrimary,
               fontSize: 17,
               fontWeight: FontWeight.w800,
             ),
@@ -735,8 +848,8 @@ class _HomeSectionHeader extends StatelessWidget {
             onTap: onAction,
             child: Text(
               actionLabel!,
-              style: const TextStyle(
-                color: AppTheme.warmYellow,
+              style: TextStyle(
+                color: context.appColors.accent,
                 fontSize: 12,
                 fontWeight: FontWeight.w800,
               ),
@@ -770,18 +883,22 @@ class _ContinuePracticeCard extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: _homeCardDecoration(radius: 18),
+      decoration: _homeCardDecoration(Theme.of(context), radius: 18),
       child: Row(
         children: [
           SizedBox(
             width: 60,
             height: 60,
             child: CustomPaint(
-              painter: _MiniProgressPainter(progress),
-              child: const Center(
+              painter: _MiniProgressPainter(
+                progress,
+                accent: context.appColors.accent,
+                trackColor: context.appColors.border,
+              ),
+              child: Center(
                 child: Icon(
                   LineIcons.clock,
-                  color: AppTheme.warmYellow,
+                  color: context.appColors.accent,
                   size: 22,
                 ),
               ),
@@ -794,8 +911,8 @@ class _ContinuePracticeCard extends StatelessWidget {
               children: [
                 Text(
                   hasSession ? 'Compulsion Delay' : 'Start ERP Practice',
-                  style: const TextStyle(
-                    color: AppTheme.textPrimary,
+                  style: TextStyle(
+                    color: context.appColors.textPrimary,
                     fontSize: 16,
                     fontWeight: FontWeight.w800,
                   ),
@@ -805,8 +922,8 @@ class _ContinuePracticeCard extends StatelessWidget {
                   hasSession
                       ? 'Resist the urge, ride the wave.'
                       : 'Build tolerance step by step.',
-                  style: const TextStyle(
-                    color: AppTheme.textSecondary,
+                  style: TextStyle(
+                    color: context.appColors.textSecondary,
                     fontSize: 12,
                     height: 1.25,
                   ),
@@ -821,8 +938,8 @@ class _ContinuePracticeCard extends StatelessWidget {
                           value: progress,
                           minHeight: 4,
                           backgroundColor: Colors.white.withValues(alpha: 0.13),
-                          valueColor: const AlwaysStoppedAnimation<Color>(
-                            AppTheme.warmYellow,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            context.appColors.accent,
                           ),
                         ),
                       ),
@@ -830,8 +947,8 @@ class _ContinuePracticeCard extends StatelessWidget {
                     const SizedBox(width: 8),
                     Text(
                       '$elapsed / $planned',
-                      style: const TextStyle(
-                        color: AppTheme.textSecondary,
+                      style: TextStyle(
+                        color: context.appColors.textSecondary,
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
                       ),
@@ -867,20 +984,26 @@ class _ContinuePracticeCard extends StatelessWidget {
 
 class _MiniProgressPainter extends CustomPainter {
   final double progress;
+  final Color accent;
+  final Color trackColor;
 
-  const _MiniProgressPainter(this.progress);
+  _MiniProgressPainter(
+    this.progress, {
+    required this.accent,
+    required this.trackColor,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
     final center = size.center(Offset.zero);
     final radius = math.min(size.width, size.height) / 2 - 5;
     final track = Paint()
-      ..color = Colors.white.withValues(alpha: 0.10)
+      ..color = trackColor
       ..strokeWidth = 5
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
     final active = Paint()
-      ..color = AppTheme.warmYellow
+      ..color = accent
       ..strokeWidth = 5
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
@@ -896,7 +1019,9 @@ class _MiniProgressPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _MiniProgressPainter oldDelegate) {
-    return oldDelegate.progress != progress;
+    return oldDelegate.progress != progress ||
+        oldDelegate.accent != accent ||
+        oldDelegate.trackColor != trackColor;
   }
 }
 
@@ -985,11 +1110,11 @@ class _QuickActionTile extends StatelessWidget {
       child: Container(
         height: 98,
         padding: const EdgeInsets.all(14),
-        decoration: _homeCardDecoration(radius: 16),
+        decoration: _homeCardDecoration(Theme.of(context), radius: 16),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon, color: AppTheme.warmYellow, size: 27),
+            Icon(icon, color: context.appColors.accent, size: 27),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
@@ -999,8 +1124,8 @@ class _QuickActionTile extends StatelessWidget {
                     title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: AppTheme.textPrimary,
+                    style: TextStyle(
+                      color: context.appColors.textPrimary,
                       fontSize: 14,
                       fontWeight: FontWeight.w800,
                       height: 1.05,
@@ -1011,8 +1136,8 @@ class _QuickActionTile extends StatelessWidget {
                     subtitle,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: AppTheme.textSecondary,
+                    style: TextStyle(
+                      color: context.appColors.textSecondary,
                       fontSize: 11.5,
                       height: 1.18,
                     ),
@@ -1020,9 +1145,9 @@ class _QuickActionTile extends StatelessWidget {
                 ],
               ),
             ),
-            const Icon(
+            Icon(
               LineIcons.angleRight,
-              color: AppTheme.textSecondary,
+              color: context.appColors.textSecondary,
               size: 17,
             ),
           ],
@@ -1045,23 +1170,23 @@ class _SelfCheckRow extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(14),
-        decoration: _homeCardDecoration(radius: 16),
+        decoration: _homeCardDecoration(Theme.of(context), radius: 16),
         child: Row(
           children: [
-            const Icon(
+            Icon(
               LineIcons.clipboardList,
-              color: AppTheme.textSecondary,
+              color: context.appColors.textSecondary,
               size: 22,
             ),
             const SizedBox(width: 12),
-            const Expanded(
+            Expanded(
               child: Text.rich(
                 TextSpan(
                   children: [
                     TextSpan(
                       text: 'Understand your patterns',
                       style: TextStyle(
-                        color: AppTheme.textPrimary,
+                        color: context.appColors.textPrimary,
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
                       ),
@@ -1069,7 +1194,7 @@ class _SelfCheckRow extends StatelessWidget {
                     TextSpan(
                       text: '   ·   optional, ~10 min',
                       style: TextStyle(
-                        color: AppTheme.textSecondary,
+                        color: context.appColors.textSecondary,
                         fontSize: 12,
                       ),
                     ),
@@ -1077,9 +1202,9 @@ class _SelfCheckRow extends StatelessWidget {
                 ),
               ),
             ),
-            const Icon(
+            Icon(
               LineIcons.angleRight,
-              color: AppTheme.textSecondary,
+              color: context.appColors.textSecondary,
               size: 17,
             ),
           ],
@@ -1099,20 +1224,20 @@ class _InsightsPlaceholder extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16),
-      decoration: _homeCardDecoration(radius: 16),
+      decoration: _homeCardDecoration(Theme.of(context), radius: 16),
       child: Row(
         children: [
           Icon(
             LineIcons.lineChart,
-            color: AppTheme.textSecondary.withValues(alpha: 0.8),
+            color: context.appColors.textSecondary.withValues(alpha: 0.8),
             size: 20,
           ),
           const SizedBox(width: 12),
-          const Expanded(
+          Expanded(
             child: Text(
               'Your insights will appear here as you practise.',
               style: TextStyle(
-                color: AppTheme.textSecondary,
+                color: context.appColors.textSecondary,
                 fontSize: 13,
                 height: 1.3,
               ),
@@ -1134,7 +1259,7 @@ class _DailyCheckInCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: _homeCardDecoration(radius: 18),
+      decoration: _homeCardDecoration(Theme.of(context), radius: 18),
       child: Row(
         children: [
           Container(
@@ -1143,9 +1268,9 @@ class _DailyCheckInCard extends StatelessWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: AppTheme.softGreen.withValues(alpha: 0.12),
+              color: context.appColors.positive.withValues(alpha: 0.12),
             ),
-            child: const Icon(Icons.eco_rounded, color: AppTheme.softGreen),
+            child: Icon(Icons.eco_rounded, color: context.appColors.positive),
           ),
           const SizedBox(width: 14),
           Expanded(
@@ -1154,8 +1279,8 @@ class _DailyCheckInCard extends StatelessWidget {
               children: [
                 Text(
                   checkedIn ? 'Daily check-in complete' : 'Daily check-in',
-                  style: const TextStyle(
-                    color: AppTheme.textPrimary,
+                  style: TextStyle(
+                    color: context.appColors.textPrimary,
                     fontSize: 16,
                     fontWeight: FontWeight.w800,
                   ),
@@ -1165,8 +1290,8 @@ class _DailyCheckInCard extends StatelessWidget {
                   checkedIn
                       ? 'You showed up today. Let that count.'
                       : 'Small steps today create lasting change.',
-                  style: const TextStyle(
-                    color: AppTheme.textSecondary,
+                  style: TextStyle(
+                    color: context.appColors.textSecondary,
                     fontSize: 12,
                     height: 1.25,
                   ),
@@ -1192,25 +1317,21 @@ class _DailyCheckInCard extends StatelessWidget {
   }
 }
 
-BoxDecoration _homeCardDecoration({double radius = 20}) {
+BoxDecoration _homeCardDecoration(ThemeData theme, {double radius = 20}) {
+  final colors = theme.appColors;
   return BoxDecoration(
-    gradient: const LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      colors: [Color(0xFF1D1D1B), Color(0xFF141413)],
-    ),
+    color: colors.card,
     borderRadius: BorderRadius.circular(radius),
-    border: Border.all(color: const Color(0xFF35332F)),
+    border: Border.all(color: colors.border),
     boxShadow: [
       BoxShadow(
-        color: Colors.black.withValues(alpha: 0.28),
+        color: Colors.black.withValues(
+          alpha: theme.brightness == Brightness.dark ? 0.28 : 0.08,
+        ),
         blurRadius: 24,
         offset: const Offset(0, 12),
       ),
-      BoxShadow(
-        color: AppTheme.warmYellow.withValues(alpha: 0.035),
-        blurRadius: 30,
-      ),
+      BoxShadow(color: colors.accent.withValues(alpha: 0.035), blurRadius: 30),
     ],
   );
 }
@@ -1451,7 +1572,11 @@ class _InlineSearchBarState extends State<_InlineSearchBar> {
             padding: const EdgeInsets.symmetric(horizontal: 14),
             child: Row(
               children: [
-                Icon(LineIcons.search, size: 18, color: AppTheme.textSecondary),
+                Icon(
+                  LineIcons.search,
+                  size: 18,
+                  color: context.appColors.textSecondary,
+                ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: TextField(
@@ -1464,7 +1589,9 @@ class _InlineSearchBarState extends State<_InlineSearchBar> {
                       isCollapsed: true,
                       hintText: 'Search entries',
                       hintStyle: TextStyle(
-                        color: AppTheme.textSecondary.withValues(alpha: 0.7),
+                        color: context.appColors.textSecondary.withValues(
+                          alpha: 0.7,
+                        ),
                       ),
                       border: InputBorder.none,
                       enabledBorder: InputBorder.none,
@@ -1483,7 +1610,9 @@ class _InlineSearchBarState extends State<_InlineSearchBar> {
                     child: Icon(
                       Icons.cancel,
                       size: 18,
-                      color: AppTheme.textSecondary.withValues(alpha: 0.8),
+                      color: context.appColors.textSecondary.withValues(
+                        alpha: 0.8,
+                      ),
                     ),
                   ),
               ],
@@ -1499,10 +1628,7 @@ class _InlineSearchBarState extends State<_InlineSearchBar> {
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             foregroundColor: theme.colorScheme.primary,
           ),
-          child: const Text(
-            'Cancel',
-            style: TextStyle(fontWeight: FontWeight.w600),
-          ),
+          child: Text('Cancel', style: TextStyle(fontWeight: FontWeight.w600)),
         ),
       ],
     );
@@ -1584,7 +1710,7 @@ class _JournalEntryEditorState extends ConsumerState<JournalEntryEditor> {
                 children: [
                   IconButton(
                     onPressed: () => Navigator.pop(context),
-                    icon: const Icon(LineIcons.angleLeft),
+                    icon: Icon(LineIcons.angleLeft),
                   ),
                   Expanded(
                     child: Column(
@@ -1626,12 +1752,12 @@ class _JournalEntryEditorState extends ConsumerState<JournalEntryEditor> {
                     IconButton(
                       tooltip: 'Clear this day',
                       onPressed: _saving ? null : () => _confirmReset(dateKey),
-                      icon: const Icon(LineIcons.trash),
-                      color: AppTheme.textSecondary,
+                      icon: Icon(LineIcons.trash),
+                      color: context.appColors.textSecondary,
                     ),
                   TextButton(
                     onPressed: (_saving || _saved) ? null : _save,
-                    child: const Text('Save'),
+                    child: Text('Save'),
                   ),
                 ],
               ),
@@ -1691,7 +1817,9 @@ class _JournalEntryEditorState extends ConsumerState<JournalEntryEditor> {
         null,
       ),
       placeHolder: DefaultTextBlockStyle(
-        base.copyWith(color: AppTheme.textSecondary.withValues(alpha: 0.5)),
+        base.copyWith(
+          color: context.appColors.textSecondary.withValues(alpha: 0.5),
+        ),
         const HorizontalSpacing(0, 0),
         const VerticalSpacing(0, 0),
         const VerticalSpacing(0, 0),
@@ -1780,7 +1908,10 @@ Future<bool> confirmClearJournalDay(
                 'This clears everything saved for '
                 '${DateFormat('MMMM d, yyyy').format(date)} so the day '
                 'starts fresh. You can write here again anytime.',
-                style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+                style: TextStyle(
+                  color: context.appColors.textSecondary,
+                  height: 1.45,
+                ),
               ),
               const SizedBox(height: 20),
               Row(
@@ -1788,14 +1919,14 @@ Future<bool> confirmClearJournalDay(
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () => Navigator.pop(sheetContext, false),
-                      child: const Text('Keep it'),
+                      child: Text('Keep it'),
                     ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () => Navigator.pop(sheetContext, true),
-                      child: const Text('Clear the day'),
+                      child: Text('Clear the day'),
                     ),
                   ),
                 ],
@@ -1887,7 +2018,7 @@ class _TodayEntryCard extends StatelessWidget {
               ),
             ),
           ),
-          Icon(LineIcons.angleRight, color: AppTheme.textSecondary),
+          Icon(LineIcons.angleRight, color: context.appColors.textSecondary),
         ],
       ),
     );
@@ -2011,7 +2142,7 @@ class _DatePickerSheetState extends State<_DatePickerSheet> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () => Navigator.pop(context, _date),
-                  child: const Text('Open entry'),
+                  child: Text('Open entry'),
                 ),
               ),
             ],
@@ -2146,7 +2277,7 @@ TextStyle _screenTitle(ThemeData theme) {
 }
 
 TextStyle _muted(ThemeData theme, double size) {
-  return TextStyle(color: AppTheme.textSecondary, fontSize: size);
+  return TextStyle(color: theme.appColors.textSecondary, fontSize: size);
 }
 
 BoxDecoration _softDecoration(ThemeData theme, {required double radius}) {

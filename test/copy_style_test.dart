@@ -18,17 +18,23 @@ void main() {
       expect(sectionIntros, isNotEmpty);
       for (final entry in sectionIntros.entries) {
         expect(entry.value.title, isNotEmpty, reason: 'title for ${entry.key}');
-        expect(entry.value.points, isNotEmpty, reason: 'points for ${entry.key}');
+        expect(
+          entry.value.points,
+          isNotEmpty,
+          reason: 'points for ${entry.key}',
+        );
       }
     });
 
     test('no em dashes', () {
       for (final entry in sectionIntros.entries) {
-        expect(entry.value.title, isNot(contains('—')),
-            reason: 'title for ${entry.key}');
+        expect(
+          entry.value.title,
+          isNot(contains('—')),
+          reason: 'title for ${entry.key}',
+        );
         for (final point in entry.value.points) {
-          expect(point, isNot(contains('—')),
-              reason: 'point in ${entry.key}');
+          expect(point, isNot(contains('—')), reason: 'point in ${entry.key}');
         }
       }
     });
@@ -66,8 +72,12 @@ void main() {
           }
         }
       }
-      expect(offenders, isEmpty,
-          reason: 'Rephrase instead of using an em dash:\n${offenders.join('\n')}');
+      expect(
+        offenders,
+        isEmpty,
+        reason:
+            'Rephrase instead of using an em dash:\n${offenders.join('\n')}',
+      );
     });
 
     test('uses "practise" for the verb, not "practice"', () {
@@ -87,8 +97,11 @@ void main() {
           }
         }
       }
-      expect(offenders, isEmpty,
-          reason: 'Use "practise" for the verb:\n${offenders.join('\n')}');
+      expect(
+        offenders,
+        isEmpty,
+        reason: 'Use "practise" for the verb:\n${offenders.join('\n')}',
+      );
     });
   });
 }

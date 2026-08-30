@@ -3,17 +3,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../app_preferences.dart';
-import '../theme/app_theme.dart';
+import '../theme/app_colors.dart';
+import '../services/pro_entry_point.dart';
 import 'paywall_sheet.dart';
 
-/// Small "PRO" pill shown on locked feature cards. Tint uses [AppTheme.warmYellow]
+/// Small "PRO" pill shown on locked feature cards. Tint uses [context.appColors.accent]
 /// so it reads as a premium accent in both light and dark themes.
 class ProLockBadge extends StatelessWidget {
   const ProLockBadge({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const accent = AppTheme.warmYellow;
+    final accent = context.appColors.accent;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
@@ -23,7 +24,7 @@ class ProLockBadge extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(LineIcons.lock, size: 12, color: accent),
+          Icon(LineIcons.lock, size: 12, color: accent),
           const SizedBox(width: 4),
           Text(
             'PRO',
@@ -47,8 +48,12 @@ class ProLockBadge extends StatelessWidget {
 ///   if (requirePro(context, ref)) openFeature();
 /// }
 /// ```
-bool requirePro(BuildContext context, WidgetRef ref, {String source = 'gate'}) {
+bool requirePro(
+  BuildContext context,
+  WidgetRef ref, {
+  ProEntryPoint entryPoint = ProEntryPoint.settings,
+}) {
   if (ref.read(proProvider)) return true;
-  PaywallSheet.show(context, source: source);
+  PaywallSheet.show(context, entryPoint: entryPoint);
   return false;
 }

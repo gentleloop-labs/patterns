@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../../theme/app_colors.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../widgets/recovery_ui.dart';
@@ -60,7 +61,7 @@ class EmergencyToolkitScreen extends StatelessWidget {
                     'You do not have to act on the urge. Pick one thing below '
                     'and take it slowly.',
                     style: TextStyle(
-                      color: AppTheme.textSecondary,
+                      color: context.appColors.textSecondary,
                       height: 1.45,
                     ),
                   ),
@@ -180,7 +181,7 @@ class _ActionTile extends StatelessWidget {
                   Text(
                     subtitle,
                     style: TextStyle(
-                      color: AppTheme.textSecondary,
+                      color: context.appColors.textSecondary,
                       fontSize: 13,
                     ),
                   ),
@@ -312,7 +313,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
                     Text(
                       'Follow the circle. In for 4, hold, out for 4.',
                       style: TextStyle(
-                        color: AppTheme.textSecondary,
+                        color: context.appColors.textSecondary,
                         height: 1.4,
                       ),
                     ),

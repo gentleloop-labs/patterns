@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../theme/app_colors.dart';
 import '../theme/app_theme.dart';
 
 /// Semantic flavour of a toast. Controls only the leading icon and its tint -
@@ -55,7 +56,7 @@ class _ToastCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final accent = _accent(type);
+    final accent = _accent(type, theme);
     final icon = _icon(type);
 
     return Container(
@@ -104,14 +105,14 @@ class _ToastCard extends StatelessWidget {
     );
   }
 
-  static Color? _accent(ToastType type) {
+  static Color? _accent(ToastType type, ThemeData theme) {
     switch (type) {
       case ToastType.success:
-        return AppTheme.softGreen;
+        return theme.appColors.positive;
       case ToastType.error:
-        return AppTheme.mutedRed;
+        return theme.appColors.negative;
       case ToastType.info:
-        return AppTheme.warmYellow;
+        return theme.appColors.accent;
       case ToastType.neutral:
         return null;
     }

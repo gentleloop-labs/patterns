@@ -7,6 +7,7 @@ import 'package:line_icons/line_icons.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../services/review_prompt.dart';
+import '../../theme/app_colors.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
@@ -380,7 +381,7 @@ class _FilterChip extends StatelessWidget {
             style: TextStyle(
               color: selected
                   ? theme.colorScheme.onPrimary
-                  : AppTheme.textSecondary,
+                  : context.appColors.textSecondary,
               fontWeight: FontWeight.w800,
               fontSize: 13,
             ),
@@ -413,14 +414,14 @@ class _OcdEventCard extends ConsumerWidget {
               const Spacer(),
               Text(
                 DateFormat('MMM d, h:mm a').format(entry.datetime),
-                style: _muted(12),
+                style: _muted(theme, 12),
               ),
               const SizedBox(width: 4),
               IconButton(
                 tooltip: 'Edit event',
                 visualDensity: VisualDensity.compact,
                 iconSize: 18,
-                color: AppTheme.textSecondary,
+                color: context.appColors.textSecondary,
                 onPressed: entry.id == null
                     ? null
                     : () => _openEditor(context, entry),
@@ -430,7 +431,7 @@ class _OcdEventCard extends ConsumerWidget {
                 tooltip: 'Delete event',
                 visualDensity: VisualDensity.compact,
                 iconSize: 18,
-                color: AppTheme.textSecondary,
+                color: context.appColors.textSecondary,
                 onPressed: entry.id == null
                     ? null
                     : () => _confirmDelete(context, ref, entry),
@@ -458,7 +459,7 @@ class _OcdEventCard extends ConsumerWidget {
               Text(
                 'Distress ${entry.distressLevel}/10',
                 style: TextStyle(
-                  color: _distressColor(entry.distressLevel),
+                  color: _distressColor(theme, entry.distressLevel),
                   fontWeight: FontWeight.w800,
                   fontSize: 13,
                 ),
@@ -469,7 +470,7 @@ class _OcdEventCard extends ConsumerWidget {
                   entry.response.isEmpty ? 'No strategy noted' : entry.response,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: _muted(13),
+                  style: _muted(theme, 13),
                 ),
               ),
             ],
@@ -506,7 +507,10 @@ class _OcdEventCard extends ConsumerWidget {
             const SizedBox(height: 10),
             Text(
               'This removes the event from your local history.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.45,
+              ),
             ),
             const SizedBox(height: 20),
             Row(
@@ -647,7 +651,7 @@ class _DistressCard extends StatelessWidget {
                     duration: const Duration(milliseconds: 220),
                     curve: Curves.easeOutCubic,
                     style: TextStyle(
-                      color: _distressColor(rounded),
+                      color: _distressColor(theme, rounded),
                       fontSize: 22,
                       fontWeight: FontWeight.w900,
                     ),
@@ -725,8 +729,8 @@ class _TypeChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final isObsession = type == OcdType.obsession;
     final color = isObsession
-        ? AppTheme.obsessionChip
-        : AppTheme.compulsionChip;
+        ? context.appColors.obsessionChip
+        : context.appColors.compulsionChip;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -776,7 +780,10 @@ class _EmptyTrackState extends StatelessWidget {
           Text(
             'Log only what feels useful. A short note is enough.',
             textAlign: TextAlign.center,
-            style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+            style: TextStyle(
+              color: context.appColors.textSecondary,
+              height: 1.45,
+            ),
           ),
           const SizedBox(height: 22),
           ElevatedButton(
@@ -826,8 +833,8 @@ TextStyle _screenTitle(ThemeData theme) {
   );
 }
 
-TextStyle _muted(double size) {
-  return TextStyle(color: AppTheme.textSecondary, fontSize: size);
+TextStyle _muted(ThemeData theme, double size) {
+  return TextStyle(color: theme.appColors.textSecondary, fontSize: size);
 }
 
 BoxDecoration _softDecoration(ThemeData theme, {required double radius}) {
@@ -838,10 +845,10 @@ BoxDecoration _softDecoration(ThemeData theme, {required double radius}) {
   );
 }
 
-Color _distressColor(int level) {
-  if (level <= 3) return AppTheme.softGreen;
-  if (level <= 7) return AppTheme.warmYellow;
-  return AppTheme.mutedRed;
+Color _distressColor(ThemeData theme, int level) {
+  if (level <= 3) return theme.appColors.positive;
+  if (level <= 7) return theme.appColors.accent;
+  return theme.appColors.negative;
 }
 
 int _typeOrder(OcdType? type) {

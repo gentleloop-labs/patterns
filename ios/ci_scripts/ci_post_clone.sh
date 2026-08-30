@@ -41,9 +41,9 @@ if [ -n "$CI_BUILD_NUMBER" ]; then
   echo "Overriding pubspec build number with CI_BUILD_NUMBER=$CI_BUILD_NUMBER"
 fi
 
-# Remote usage analytics remains disabled unless the Xcode Cloud workflow
-# explicitly provides the production endpoint. The URL is configuration, not
-# application source, and the in-app collection preference still defaults off.
+# Release builds use the checked-in first-party production endpoint by default.
+# The workflow variable remains an optional override for endpoint migrations.
+# The in-app collection preference still defaults off and requires consent.
 ANALYTICS_ARGS=""
 if [ -n "${PATTERNS_ANALYTICS_PROD_ENDPOINT:-}" ]; then
   ANALYTICS_ARGS="--dart-define=PATTERNS_ANALYTICS_ENV=production --dart-define=PATTERNS_ANALYTICS_PROD_ENDPOINT=$PATTERNS_ANALYTICS_PROD_ENDPOINT"

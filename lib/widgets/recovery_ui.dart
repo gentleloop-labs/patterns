@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
-import '../theme/app_theme.dart';
+import '../theme/app_colors.dart';
 import 'animations.dart';
 
 /// Shared building blocks for the Pro "Recovery" tools (Response Prevention,
@@ -100,7 +100,10 @@ class RatingSlider extends StatelessWidget {
             Expanded(
               child: Text(
                 label,
-                style: TextStyle(color: AppTheme.textSecondary, fontSize: 13),
+                style: TextStyle(
+                  color: context.appColors.textSecondary,
+                  fontSize: 13,
+                ),
               ),
             ),
             Text(

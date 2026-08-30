@@ -12,6 +12,7 @@ import '../../providers/providers.dart';
 import '../../services/app_events.dart';
 import '../../services/notification_service.dart';
 import '../../services/review_prompt.dart';
+import '../../theme/app_colors.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
@@ -238,7 +239,10 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
             const SizedBox(height: 10),
             Text(
               'It’s okay to stop. Every moment you waited still counts as practice.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.45,
+              ),
             ),
             const SizedBox(height: 20),
             Row(
@@ -478,7 +482,10 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
           Text(
             'Notice the urge without acting. It will rise, then fall on its own.',
             textAlign: TextAlign.center,
-            style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+            style: TextStyle(
+              color: context.appColors.textSecondary,
+              height: 1.45,
+            ),
           ),
           Expanded(
             child: Center(
@@ -675,7 +682,7 @@ class _UrgeCard extends StatelessWidget {
                     duration: const Duration(milliseconds: 220),
                     curve: Curves.easeOutCubic,
                     style: TextStyle(
-                      color: _urgeColor(rounded),
+                      color: _urgeColor(theme, rounded),
                       fontSize: 22,
                       fontWeight: FontWeight.w900,
                     ),
@@ -849,7 +856,7 @@ class _SegmentChip extends StatelessWidget {
             style: TextStyle(
               color: selected
                   ? theme.colorScheme.onPrimary
-                  : AppTheme.textSecondary,
+                  : context.appColors.textSecondary,
               fontWeight: FontWeight.w800,
               fontSize: 13,
             ),
@@ -895,7 +902,7 @@ class _SuggestionChip extends StatelessWidget {
           style: TextStyle(
             color: selected
                 ? theme.colorScheme.primary
-                : AppTheme.textSecondary,
+                : context.appColors.textSecondary,
             fontSize: 13,
             fontWeight: FontWeight.w700,
           ),
@@ -986,8 +993,8 @@ BoxDecoration _softDecoration(ThemeData theme, {required double radius}) {
   );
 }
 
-Color _urgeColor(int level) {
-  if (level <= 3) return AppTheme.softGreen;
-  if (level <= 7) return AppTheme.warmYellow;
-  return AppTheme.mutedRed;
+Color _urgeColor(ThemeData theme, int level) {
+  if (level <= 3) return theme.appColors.positive;
+  if (level <= 7) return theme.appColors.accent;
+  return theme.appColors.negative;
 }

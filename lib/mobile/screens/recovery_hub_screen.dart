@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
-import '../../theme/app_theme.dart';
+import '../../theme/app_colors.dart';
 import '../../services/app_events.dart';
+import '../../services/pro_entry_point.dart';
 import '../../widgets/animations.dart';
 import '../preferences.dart';
 import '../widgets/pro_gate.dart';
@@ -183,11 +184,11 @@ class RecoveryHubScreen extends ConsumerWidget {
 
     return Scaffold(
       body: DecoratedBox(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFF0B0B0A), AppTheme.deepCharcoal],
+            colors: [context.appColors.surface, context.appColors.surface],
           ),
         ),
         child: SafeArea(
@@ -231,7 +232,11 @@ class RecoveryHubScreen extends ConsumerWidget {
     _RecoveryTool tool, {
     required bool isPro,
   }) {
-    if (tool.pro && !isPro && !requirePro(context, ref)) return;
+    if (tool.pro &&
+        !isPro &&
+        !requirePro(context, ref, entryPoint: tool.destination.proEntryPoint)) {
+      return;
+    }
     _open(context, tool.destination, fullscreen: tool.fullscreen);
   }
 
@@ -309,6 +314,30 @@ enum _RecoveryDestination {
   implementationIntentions,
 }
 
+extension on _RecoveryDestination {
+  ProEntryPoint get proEntryPoint => switch (this) {
+    _RecoveryDestination.recoveryMetrics => ProEntryPoint.recoveryMetrics,
+    _RecoveryDestination.exposureHierarchy => ProEntryPoint.exposureHierarchy,
+    _RecoveryDestination.exposureMaterials => ProEntryPoint.exposureMaterials,
+    _RecoveryDestination.structuredPrograms => ProEntryPoint.structuredPrograms,
+    _RecoveryDestination.actionPlanner => ProEntryPoint.actionPlanner,
+    _RecoveryDestination.implementationIntentions =>
+      ProEntryPoint.implementationIntentions,
+    _RecoveryDestination.urgeSurfing => ProEntryPoint.urgeSurfing,
+    _RecoveryDestination.responsePrevention => ProEntryPoint.responsePrevention,
+    _RecoveryDestination.uncertaintyTraining =>
+      ProEntryPoint.uncertaintyTraining,
+    _RecoveryDestination.behavioralExperiments =>
+      ProEntryPoint.behavioralExperiments,
+    _RecoveryDestination.reflectionJournal => ProEntryPoint.reflectionJournal,
+    _RecoveryDestination.guidedErp ||
+    _RecoveryDestination.ybocsSelfCheck ||
+    _RecoveryDestination.compulsionDelay ||
+    _RecoveryDestination.emergencyToolkit ||
+    _RecoveryDestination.copingLibrary => ProEntryPoint.settings,
+  };
+}
+
 /// The ERP journey stages the library is grouped into, ordered as a user
 /// progresses. Plain-language titles/subtitles keep the framing calm.
 enum _Stage {
@@ -363,7 +392,7 @@ class _RecoveryHeader extends StatelessWidget {
         Text(
           'Tools and practices, grouped by where you are in your work.',
           style: TextStyle(
-            color: AppTheme.textSecondary,
+            color: context.appColors.textSecondary,
             fontSize: 14,
             height: 1.3,
           ),
@@ -388,11 +417,11 @@ class _SosStrip extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
               Icon(
                 Icons.favorite_rounded,
-                color: AppTheme.warmYellow,
+                color: context.appColors.accent,
                 size: 16,
               ),
               SizedBox(width: 7),
@@ -435,20 +464,20 @@ class _SosButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
         decoration: BoxDecoration(
-          color: const Color(0xFF181817),
+          color: context.appColors.card,
           borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: const Color(0xFF2D2B27)),
+          border: Border.all(color: context.appColors.border),
         ),
         child: Column(
           children: [
-            Icon(tool.icon, color: AppTheme.warmYellow, size: 22),
+            Icon(tool.icon, color: context.appColors.accent, size: 22),
             const SizedBox(height: 7),
             Text(
               tool.title,
               maxLines: 2,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 11,
                 height: 1.1,
@@ -474,6 +503,7 @@ class _ToolSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return _CockpitCard(
       padding: const EdgeInsets.fromLTRB(14, 14, 14, 12),
       child: Column(
@@ -485,16 +515,13 @@ class _ToolSection extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w900,
-                  fontSize: 16,
-                ),
+                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
               ),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
                   subtitle,
-                  style: _mutedStyle.copyWith(fontSize: 12),
+                  style: _mutedStyle(theme).copyWith(fontSize: 12),
                 ),
               ),
             ],
@@ -552,6 +579,7 @@ class _ToolRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return PressScale(
       onTap: onTap,
       child: Padding(
@@ -563,10 +591,10 @@ class _ToolRow extends StatelessWidget {
               height: 40,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: AppTheme.warmYellow.withValues(alpha: 0.12),
+                color: context.appColors.accent.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Icon(tool.icon, color: AppTheme.warmYellow, size: 21),
+              child: Icon(tool.icon, color: context.appColors.accent, size: 21),
             ),
             const SizedBox(width: 13),
             Expanded(
@@ -575,15 +603,12 @@ class _ToolRow extends StatelessWidget {
                 children: [
                   Text(
                     tool.title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w800,
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14),
                   ),
                   const SizedBox(height: 2),
                   Text(
                     tool.subtitle,
-                    style: _mutedStyle.copyWith(fontSize: 11.5),
+                    style: _mutedStyle(theme).copyWith(fontSize: 11.5),
                   ),
                 ],
               ),
@@ -591,7 +616,7 @@ class _ToolRow extends StatelessWidget {
             const SizedBox(width: 10),
             Icon(
               locked ? LineIcons.lock : LineIcons.angleRight,
-              color: AppTheme.textSecondary,
+              color: context.appColors.textSecondary,
               size: locked ? 15 : 18,
             ),
           ],
@@ -612,40 +637,34 @@ class _CockpitCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       width: double.infinity,
       padding: padding,
-      decoration: _cockpitDecoration(),
+      decoration: _cockpitDecoration(theme),
       child: child,
     );
   }
 }
 
-BoxDecoration _cockpitDecoration({double radius = 20}) {
+BoxDecoration _cockpitDecoration(ThemeData theme, {double radius = 20}) {
+  final colors = theme.appColors;
   return BoxDecoration(
-    gradient: const LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      colors: [Color(0xFF1B1B19), Color(0xFF141413)],
-    ),
+    color: colors.card,
     borderRadius: BorderRadius.circular(radius),
-    border: Border.all(color: const Color(0xFF34322D)),
+    border: Border.all(color: colors.border),
     boxShadow: [
       BoxShadow(
-        color: Colors.black.withValues(alpha: 0.28),
+        color: Colors.black.withValues(
+          alpha: theme.brightness == Brightness.dark ? 0.28 : 0.08,
+        ),
         blurRadius: 20,
         offset: const Offset(0, 10),
       ),
-      BoxShadow(
-        color: AppTheme.warmYellow.withValues(alpha: 0.035),
-        blurRadius: 28,
-      ),
+      BoxShadow(color: colors.accent.withValues(alpha: 0.035), blurRadius: 28),
     ],
   );
 }
 
-const _mutedStyle = TextStyle(
-  color: AppTheme.textSecondary,
-  fontSize: 12,
-  height: 1.25,
-);
+TextStyle _mutedStyle(ThemeData theme) =>
+    TextStyle(color: theme.appColors.textSecondary, fontSize: 12, height: 1.25);

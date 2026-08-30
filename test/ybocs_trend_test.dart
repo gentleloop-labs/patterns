@@ -198,29 +198,40 @@ void main() {
     // are loaded from the asset bundle, so this needs the binding.
     setUpAll(TestWidgetsFlutterBinding.ensureInitialized);
 
-    test('generates a report from self-checks with no journals or OCD logs', () async {
-      const options = ExportReportOptions(
-        range: AnalyticsDateRange.allTime,
-        sections: ExportSections(journal: false, ocd: false, analytics: false),
-      );
-
-      final bytes = await PdfReportService.generate(
-        options: options,
-        journals: const [],
-        ocds: const [],
-        ybocs: [
-          _assessment(
-            at: DateTime(2026, 2, 10),
-            obsessions: 12,
-            compulsions: 12,
-            themes: const ['contamination'],
+    test(
+      'generates a report from self-checks with no journals or OCD logs',
+      () async {
+        const options = ExportReportOptions(
+          range: AnalyticsDateRange.allTime,
+          sections: ExportSections(
+            journal: false,
+            ocd: false,
+            analytics: false,
           ),
-          _assessment(at: DateTime(2026, 3, 20), obsessions: 6, compulsions: 6),
-        ],
-      );
+        );
 
-      expect(bytes, isNotEmpty);
-    });
+        final bytes = await PdfReportService.generate(
+          options: options,
+          journals: const [],
+          ocds: const [],
+          ybocs: [
+            _assessment(
+              at: DateTime(2026, 2, 10),
+              obsessions: 12,
+              compulsions: 12,
+              themes: const ['contamination'],
+            ),
+            _assessment(
+              at: DateTime(2026, 3, 20),
+              obsessions: 6,
+              compulsions: 6,
+            ),
+          ],
+        );
+
+        expect(bytes, isNotEmpty);
+      },
+    );
   });
 
   group('InsightDelta.arrow', () {

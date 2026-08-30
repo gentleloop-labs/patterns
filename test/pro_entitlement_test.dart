@@ -47,12 +47,14 @@ void main() {
       expect(ProService.isUnlocked, isTrue);
     });
 
-    test('the product id is unchanged, which is what keeps restore working',
-        () {
-      // If this ever changes, every existing purchase stops being recognised,
-      // because `_onPurchaseUpdates` matches restored transactions on it.
-      expect(ProService.productIdPro, 'com.maskedsyntax.patterns.pro');
-    });
+    test(
+      'the product id is unchanged, which is what keeps restore working',
+      () {
+        // If this ever changes, every existing purchase stops being recognised,
+        // because `_onPurchaseUpdates` matches restored transactions on it.
+        expect(ProService.productIdPro, 'com.maskedsyntax.patterns.pro');
+      },
+    );
 
     test('proProvider reflects the stored unlock', () async {
       await setStoredUnlock(true);
@@ -101,17 +103,19 @@ void main() {
   });
 
   group('wipe all data', () {
-    test('clears the unlock, which is why the wipe dialog warns about it',
-        () async {
-      await setStoredUnlock(true);
-      expect(ProService.isUnlocked, isTrue);
+    test(
+      'clears the unlock, which is why the wipe dialog warns about it',
+      () async {
+        await setStoredUnlock(true);
+        expect(ProService.isUnlocked, isTrue);
 
-      await clearLocalPreferences();
+        await clearLocalPreferences();
 
-      // Documented, not desired: the purchase is safe with the store and comes
-      // back via Restore. The settings dialog says so before wiping.
-      expect(ProService.isUnlocked, isFalse);
-    });
+        // Documented, not desired: the purchase is safe with the store and comes
+        // back via Restore. The settings dialog says so before wiping.
+        expect(ProService.isUnlocked, isFalse);
+      },
+    );
   });
 
   group('requirePro', () {

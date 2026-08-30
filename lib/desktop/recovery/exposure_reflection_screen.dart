@@ -85,7 +85,6 @@ class ExposureReflectionScreen extends ConsumerWidget {
   void _openCreate(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        
         builder: (_) => const ExposureReflectionEditScreen(),
       ),
     );

@@ -24,8 +24,14 @@ const reminderMinuteKey = 'reminderMinute';
 const proUnlockedKey = 'proUnlocked';
 const lastSeenReleaseKey = 'lastSeenReleaseId';
 const releaseAnnouncementScheduledKey = 'releaseAnnouncementScheduledId';
-const currentReleaseId = 'patterns_1_6_home_cockpit';
+const currentReleaseId = 'patterns_1_9_light_theme';
 const hasStartedKey = 'hasStarted';
+const appearancePreferenceKey = 'appearance';
+const appearanceMigrationKey = 'appearanceMigrationV1';
+const analyticsConsentDecisionKey = 'analyticsConsentDecision';
+const meaningfulActionCountKey = 'meaningfulActionCount';
+const lastMeaningfulActionKey = 'lastMeaningfulAction';
+const proCardDismissedUntilKey = 'proCardDismissedUntil';
 
 /// One-time flag for the first-run spotlight tour of the bottom tabs. Uses the
 /// same `sectionSeen_` convention as [SectionIntro] so a single "replay" reset
@@ -54,8 +60,39 @@ const defaultUsageAnalyticsEnabled = bool.fromEnvironment(
   defaultValue: false,
 );
 
+enum AppAppearance { system, light, dark }
+
+enum AnalyticsConsentDecision { undecided, granted, declined }
+
+enum MeaningfulAction { journal, compulsionDelay, guidedErp, selfCheck }
+
 Future<void> initAppPreferences() async {
   appPreferences = await SharedPreferences.getInstance();
+  final preferences = appPreferences!;
+
+  if (!(preferences.getBool(appearanceMigrationKey) ?? false)) {
+    final establishedInstall = preferences.getKeys().isNotEmpty;
+    await preferences.setString(
+      appearancePreferenceKey,
+      establishedInstall ? AppAppearance.dark.name : AppAppearance.system.name,
+    );
+    await preferences.setBool(appearanceMigrationKey, true);
+  }
+
+  if (!preferences.containsKey(analyticsConsentDecisionKey) &&
+      (preferences.getBool(usageAnalyticsEnabledKey) ?? false)) {
+    await preferences.setString(
+      analyticsConsentDecisionKey,
+      AnalyticsConsentDecision.granted.name,
+    );
+  }
+
+  if (!preferences.containsKey(meaningfulActionCountKey)) {
+    await preferences.setInt(
+      meaningfulActionCountKey,
+      (preferences.getBool(firstActivityDoneKey) ?? false) ? 2 : 0,
+    );
+  }
 }
 
 /// Legacy name used by the mobile entry path.
@@ -161,3 +198,48 @@ final usageAnalyticsEnabledProvider =
     NotifierProvider<UsageAnalyticsPreferenceNotifier, bool>(
       UsageAnalyticsPreferenceNotifier.new,
     );
+
+class AppearanceNotifier extends Notifier<AppAppearance> {
+  @override
+  AppAppearance build() {
+    final stored = appPreferences?.getString(appearancePreferenceKey);
+    return AppAppearance.values.firstWhere(
+      (value) => value.name == stored,
+      orElse: () => AppAppearance.system,
+    );
+  }
+
+  Future<void> setAppearance(AppAppearance appearance) async {
+    await appPreferences?.setString(appearancePreferenceKey, appearance.name);
+    state = appearance;
+  }
+}
+
+final appearanceProvider = NotifierProvider<AppearanceNotifier, AppAppearance>(
+  AppearanceNotifier.new,
+);
+
+class MeaningfulActionNotifier extends Notifier<int> {
+  @override
+  int build() => appPreferences?.getInt(meaningfulActionCountKey) ?? 0;
+
+  Future<void> record(MeaningfulAction action) async {
+    final next = state + 1;
+    await appPreferences?.setInt(meaningfulActionCountKey, next);
+    await appPreferences?.setString(lastMeaningfulActionKey, action.name);
+    state = next;
+  }
+}
+
+final meaningfulActionCountProvider =
+    NotifierProvider<MeaningfulActionNotifier, int>(
+      MeaningfulActionNotifier.new,
+    );
+
+AnalyticsConsentDecision get analyticsConsentDecision {
+  final stored = appPreferences?.getString(analyticsConsentDecisionKey);
+  return AnalyticsConsentDecision.values.firstWhere(
+    (value) => value.name == stored,
+    orElse: () => AnalyticsConsentDecision.undecided,
+  );
+}

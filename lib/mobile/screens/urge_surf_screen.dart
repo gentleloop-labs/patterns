@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../models/models.dart';
 import '../../providers/providers.dart';
+import '../../theme/app_colors.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
@@ -42,7 +43,10 @@ class UrgeSurfScreen extends ConsumerWidget {
             Text(
               'Urges rise, crest, and fall on their own. Ride one out without '
               'acting on it.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.4),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.4,
+              ),
             ),
             const SizedBox(height: 16),
             const SectionIntro(id: 'urgeSurf'),
@@ -67,7 +71,7 @@ class UrgeSurfScreen extends ConsumerWidget {
                 if (items.isEmpty) {
                   return Text(
                     'No surfs yet. Your first one will appear here.',
-                    style: TextStyle(color: AppTheme.textSecondary),
+                    style: TextStyle(color: context.appColors.textSecondary),
                   );
                 }
                 return Column(
@@ -85,7 +89,7 @@ class UrgeSurfScreen extends ConsumerWidget {
               ),
               error: (_, _) => Text(
                 'Your surfs are unavailable right now.',
-                style: TextStyle(color: AppTheme.textSecondary),
+                style: TextStyle(color: context.appColors.textSecondary),
               ),
             ),
           ]),
@@ -131,7 +135,10 @@ class _SurfCard extends StatelessWidget {
               ),
               Text(
                 DateFormat('MMM d').format(session.datetime),
-                style: TextStyle(color: AppTheme.textSecondary, fontSize: 12),
+                style: TextStyle(
+                  color: context.appColors.textSecondary,
+                  fontSize: 12,
+                ),
               ),
             ],
           ),
@@ -139,7 +146,10 @@ class _SurfCard extends StatelessWidget {
           Text(
             'Urge ${session.initialUrge} → peak ${session.peakUrge} → '
             '${session.finalUrge}   ·   surfed ${mins}m ${secs}s',
-            style: TextStyle(color: AppTheme.textSecondary, fontSize: 13),
+            style: TextStyle(
+              color: context.appColors.textSecondary,
+              fontSize: 13,
+            ),
           ),
         ],
       ),
@@ -340,7 +350,10 @@ class _UrgeSurfFlowState extends ConsumerState<UrgeSurfFlow>
           Text(
             'Notice the urge without feeding it. It will pass.',
             textAlign: TextAlign.center,
-            style: TextStyle(color: AppTheme.textSecondary, height: 1.4),
+            style: TextStyle(
+              color: context.appColors.textSecondary,
+              height: 1.4,
+            ),
           ),
           const Spacer(),
           AnimatedBuilder(
@@ -433,7 +446,10 @@ class _UrgeSurfFlowState extends ConsumerState<UrgeSurfFlow>
               const SizedBox(height: 8),
               Text(
                 'Started at ${_initialUrge.round()} · peaked at $_peakUrge',
-                style: TextStyle(color: AppTheme.textSecondary, height: 1.4),
+                style: TextStyle(
+                  color: context.appColors.textSecondary,
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -510,7 +526,7 @@ class _DurationPicker extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                       color: seconds == entry.key
                           ? theme.colorScheme.onPrimary
-                          : AppTheme.textSecondary,
+                          : context.appColors.textSecondary,
                     ),
                   ),
                 ),
