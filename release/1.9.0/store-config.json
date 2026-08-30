@@ -1,0 +1,13 @@
+{
+  "appStoreAppId": "6762611172",
+  "appStoreIapId": "6785513588",
+  "version": "1.9.0",
+  "build": 31,
+  "baseTerritory": "USA",
+  "basePrice": "19.99",
+  "basePricePointId": "eyJzIjoiNjc4NTUxMzU4OCIsInQiOiJVU0EiLCJwIjoiMTAxNzcifQ",
+  "indiaPrice": "1499",
+  "indiaPricePointId": "eyJzIjoiNjc4NTUxMzU4OCIsInQiOiJJTkQiLCJwIjoiMTAyNzMifQ",
+  "releaseMode": "phased",
+  "priceEffectiveDate": null
+}

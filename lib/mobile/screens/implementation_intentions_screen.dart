@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/models.dart';
 import '../../providers/providers.dart';
+import '../../theme/app_colors.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
@@ -45,7 +46,10 @@ class ImplementationIntentionsScreen extends ConsumerWidget {
             Text(
               'Pre-decide your response so it becomes automatic: '
               '"If X, then I will Y."',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.4),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.4,
+              ),
             ),
             const SizedBox(height: 18),
             const SectionIntro(id: 'implementationIntentions'),
@@ -72,7 +76,7 @@ class ImplementationIntentionsScreen extends ConsumerWidget {
               ),
               error: (_, _) => Text(
                 'Your intentions are unavailable right now.',
-                style: TextStyle(color: AppTheme.textSecondary),
+                style: TextStyle(color: context.appColors.textSecondary),
               ),
             ),
           ]),
@@ -122,7 +126,10 @@ class ImplementationIntentionsScreen extends ConsumerWidget {
               const SizedBox(height: 10),
               Text(
                 'It will be removed for good.',
-                style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+                style: TextStyle(
+                  color: context.appColors.textSecondary,
+                  height: 1.45,
+                ),
               ),
               const SizedBox(height: 20),
               Row(
@@ -198,7 +205,7 @@ class _IntentionCard extends StatelessWidget {
             child: Icon(
               Icons.close_rounded,
               size: 16,
-              color: AppTheme.textSecondary,
+              color: context.appColors.textSecondary,
             ),
           ),
         ],
@@ -236,7 +243,10 @@ class _EmptyState extends StatelessWidget {
           Text(
             'Linking a trigger to a planned response makes it far easier to '
             'follow through in the moment.',
-            style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+            style: TextStyle(
+              color: context.appColors.textSecondary,
+              height: 1.45,
+            ),
           ),
           const SizedBox(height: 16),
           SizedBox(

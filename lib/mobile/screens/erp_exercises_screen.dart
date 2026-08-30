@@ -13,6 +13,7 @@ import '../../providers/providers.dart';
 import '../../services/app_events.dart';
 import '../../services/notification_service.dart';
 import '../../services/review_prompt.dart';
+import '../../theme/app_colors.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
@@ -250,7 +251,7 @@ class ErpExercisesScreen extends ConsumerWidget {
               ),
               error: (error, stackTrace) => Text(
                 'ERP plans are unavailable right now.',
-                style: TextStyle(color: AppTheme.textSecondary),
+                style: TextStyle(color: context.appColors.textSecondary),
               ),
             ),
             const SizedBox(height: 22),
@@ -283,7 +284,7 @@ class ErpExercisesScreen extends ConsumerWidget {
               ),
               error: (error, stackTrace) => Text(
                 'Practice history is unavailable right now.',
-                style: TextStyle(color: AppTheme.textSecondary),
+                style: TextStyle(color: context.appColors.textSecondary),
               ),
             ),
           ]),
@@ -334,7 +335,10 @@ class ErpExercisesScreen extends ConsumerWidget {
             const SizedBox(height: 10),
             Text(
               'It will leave your active plans, but past practice stays in your history.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.45,
+              ),
             ),
             const SizedBox(height: 20),
             Row(
@@ -749,7 +753,10 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
             const SizedBox(height: 10),
             Text(
               'Stopping early is okay. The time you practiced still counts.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.45,
+              ),
             ),
             const SizedBox(height: 20),
             Row(
@@ -943,7 +950,9 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
                             const SizedBox(height: 8),
                             Text(
                               'Practice without',
-                              style: TextStyle(color: AppTheme.textSecondary),
+                              style: TextStyle(
+                                color: context.appColors.textSecondary,
+                              ),
                             ),
                           ],
                         ),
@@ -1205,7 +1214,7 @@ class _PlanCard extends StatelessWidget {
                 PopupMenuButton<_PlanMenuAction>(
                   icon: Icon(
                     LineIcons.verticalEllipsis,
-                    color: AppTheme.textSecondary,
+                    color: context.appColors.textSecondary,
                   ),
                   onSelected: (action) {
                     switch (action) {
@@ -1305,7 +1314,7 @@ class _TemplatePill extends StatelessWidget {
         decoration: BoxDecoration(
           color: selected
               ? primary.withValues(alpha: 0.18)
-              : AppTheme.charcoalInput,
+              : context.appColors.input,
           borderRadius: BorderRadius.circular(999),
           border: Border.all(
             color: selected
@@ -1319,7 +1328,7 @@ class _TemplatePill extends StatelessWidget {
             Icon(
               template.icon,
               size: 17,
-              color: selected ? primary : AppTheme.textSecondary,
+              color: selected ? primary : context.appColors.textSecondary,
             ),
             const SizedBox(width: 7),
             Text(
@@ -1599,7 +1608,7 @@ class _LabeledTextField extends StatelessWidget {
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: theme.textTheme.bodyLarge?.copyWith(
-              color: AppTheme.textSecondary.withValues(alpha: 0.58),
+              color: context.appColors.textSecondary.withValues(alpha: 0.58),
               height: 1.35,
             ),
           ),
@@ -1722,7 +1731,7 @@ class _RatingCard extends StatelessWidget {
           Text(
             label,
             style: theme.textTheme.labelLarge?.copyWith(
-              color: AppTheme.textSecondary,
+              color: context.appColors.textSecondary,
               fontWeight: FontWeight.w800,
               height: 1.25,
             ),
@@ -1908,7 +1917,7 @@ class _SegmentChip extends StatelessWidget {
             style: TextStyle(
               color: selected
                   ? theme.colorScheme.onPrimary
-                  : AppTheme.textSecondary,
+                  : context.appColors.textSecondary,
               fontWeight: FontWeight.w800,
               fontSize: 12,
             ),
@@ -2083,7 +2092,7 @@ class _RingPainter extends CustomPainter {
 
 BoxDecoration _softDecoration(ThemeData theme, {required double radius}) {
   return BoxDecoration(
-    color: AppTheme.charcoalInput,
+    color: theme.appColors.input,
     borderRadius: BorderRadius.circular(radius),
     border: Border.all(color: theme.dividerColor.withValues(alpha: 0.75)),
   );
@@ -2091,14 +2100,14 @@ BoxDecoration _softDecoration(ThemeData theme, {required double radius}) {
 
 TextStyle _bodyText(ThemeData theme) {
   return theme.textTheme.bodyMedium!.copyWith(
-    color: AppTheme.textSecondary,
+    color: theme.appColors.textSecondary,
     height: 1.5,
   );
 }
 
 TextStyle _muted(ThemeData theme, double size) {
   return theme.textTheme.bodyMedium!.copyWith(
-    color: AppTheme.textSecondary,
+    color: theme.appColors.textSecondary,
     fontSize: size,
   );
 }

@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../models/models.dart';
 import '../../providers/providers.dart';
-import '../../theme/app_theme.dart';
+import '../../theme/app_colors.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
 import '../widgets/recovery_ui.dart';
@@ -45,7 +45,10 @@ class ActionPlannerScreen extends ConsumerWidget {
             const SizedBox(height: 6),
             Text(
               'Decide your response before a trigger arrives.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.4),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.4,
+              ),
             ),
             const SizedBox(height: 18),
             const SectionIntro(id: 'actionPlanner'),
@@ -75,7 +78,7 @@ class ActionPlannerScreen extends ConsumerWidget {
               ),
               error: (_, _) => Text(
                 'Your plans are unavailable right now.',
-                style: TextStyle(color: AppTheme.textSecondary),
+                style: TextStyle(color: context.appColors.textSecondary),
               ),
             ),
           ]),
@@ -121,7 +124,10 @@ class ActionPlannerScreen extends ConsumerWidget {
               const SizedBox(height: 10),
               Text(
                 'It will be removed for good.',
-                style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+                style: TextStyle(
+                  color: context.appColors.textSecondary,
+                  height: 1.45,
+                ),
               ),
               const SizedBox(height: 20),
               Row(
@@ -183,7 +189,7 @@ class _PlanCard extends StatelessWidget {
                     : Icons.radio_button_unchecked_rounded,
                 color: done
                     ? theme.colorScheme.primary
-                    : AppTheme.textSecondary,
+                    : context.appColors.textSecondary,
               ),
             ),
           ),
@@ -197,14 +203,14 @@ class _PlanCard extends StatelessWidget {
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w800,
                     decoration: done ? TextDecoration.lineThrough : null,
-                    color: done ? AppTheme.textSecondary : null,
+                    color: done ? context.appColors.textSecondary : null,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   plan.plannedAction,
                   style: TextStyle(
-                    color: AppTheme.textSecondary,
+                    color: context.appColors.textSecondary,
                     fontSize: 13,
                     height: 1.4,
                   ),
@@ -238,7 +244,7 @@ class _PlanCard extends StatelessWidget {
             child: Icon(
               Icons.close_rounded,
               size: 16,
-              color: AppTheme.textSecondary,
+              color: context.appColors.textSecondary,
             ),
           ),
         ],
@@ -284,7 +290,10 @@ class _EmptyState extends StatelessWidget {
           Text(
             'Pick a likely trigger and decide now how you will respond, so the '
             'moment is easier.',
-            style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+            style: TextStyle(
+              color: context.appColors.textSecondary,
+              height: 1.45,
+            ),
           ),
           const SizedBox(height: 16),
           SizedBox(
@@ -430,7 +439,7 @@ class _ActionPlanEditScreenState extends ConsumerState<ActionPlanEditScreen> {
                           : DateFormat('EEE, MMM d, y').format(_date!),
                       style: TextStyle(
                         color: _date == null
-                            ? AppTheme.textSecondary
+                            ? context.appColors.textSecondary
                             : theme.colorScheme.onSurface,
                       ),
                     ),
@@ -441,7 +450,7 @@ class _ActionPlanEditScreenState extends ConsumerState<ActionPlanEditScreen> {
                         child: Icon(
                           Icons.close_rounded,
                           size: 18,
-                          color: AppTheme.textSecondary,
+                          color: context.appColors.textSecondary,
                         ),
                       ),
                   ],

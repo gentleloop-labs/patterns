@@ -108,13 +108,18 @@ class PatternsApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final appearance = ref.watch(appearanceProvider);
+    final mobileThemeMode = switch (appearance) {
+      AppAppearance.system => ThemeMode.system,
+      AppAppearance.light => ThemeMode.light,
+      AppAppearance.dark => ThemeMode.dark,
+    };
     return MaterialApp(
       title: 'Patterns',
       debugShowCheckedModeBanner: false,
-      // Dark-only app. A single dark theme is supplied and the mode is pinned,
-      // so the OS appearance setting and any legacy saved preference are ignored.
-      theme: kIsDesktop ? AppTheme.darkTheme : AppTheme.mobileDarkTheme,
-      themeMode: ThemeMode.dark,
+      theme: kIsDesktop ? AppTheme.darkTheme : AppTheme.mobileLightTheme,
+      darkTheme: kIsDesktop ? AppTheme.darkTheme : AppTheme.mobileDarkTheme,
+      themeMode: kIsDesktop ? ThemeMode.dark : mobileThemeMode,
       scaffoldMessengerKey: rootScaffoldMessengerKey,
       localizationsDelegates: const [
         FlutterQuillLocalizations.delegate,

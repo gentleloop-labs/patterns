@@ -24,7 +24,7 @@ Future<(CloudflareAnalyticsService, _FakeTransport)> createService({
     preferences: await SharedPreferences.getInstance(),
     transport: transport,
     platform: 'ios',
-    appVersion: '1.8.0+30',
+    appVersion: '1.9.0+31',
     hasConsent: hasConsent,
     observeLifecycle: false,
     flushInterval: const Duration(days: 1),
@@ -66,7 +66,35 @@ void main() {
       'paywall_viewed',
       'purchase_started',
       'purchase_completed',
+      'analytics_consent_granted',
+      'activation_completed',
+      'pro_feature_tapped',
+      'product_load_result',
+      'purchase_canceled',
+      'purchase_failed',
+      'restore_started',
+      'restore_completed',
+      'restore_not_found',
+      'restore_failed',
     });
+  });
+
+  test('v2 context serialization stays closed and contains no properties', () {
+    final event = QueuedAnalyticsEvent(
+      event: UsageAnalyticsEvent.paywallViewed,
+      version: 2,
+      timestamp: 1787571700000,
+      context: UsageAnalyticsContext.exposureHierarchy,
+    );
+
+    expect(event.toJson(), {
+      'name': 'paywall_viewed',
+      'version': 2,
+      'timestamp': 1787571700000,
+      'context': 'exposure_hierarchy',
+    });
+    expect(QueuedAnalyticsEvent.decode(event.encode())?.context,
+        UsageAnalyticsContext.exposureHierarchy);
   });
 
   test('queue persists between service instances', () async {
@@ -117,7 +145,7 @@ void main() {
         ),
       );
       expect(transport.batches.single.platform, 'ios');
-      expect(transport.batches.single.appVersion, '1.8.0+30');
+      expect(transport.batches.single.appVersion, '1.9.0+31');
       expect(await service.pendingEventCount, 0);
       service.dispose();
     },

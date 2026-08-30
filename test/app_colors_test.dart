@@ -50,14 +50,16 @@ void main() {
 
   group('theme wiring', () {
     test('the mobile theme carries the mobile tokens', () {
-      expect(
-        AppTheme.mobileDarkTheme.extension<AppColors>(),
-        AppColors.dark,
-      );
+      expect(AppTheme.mobileDarkTheme.extension<AppColors>(), AppColors.dark);
     });
 
     test('the desktop theme carries the desktop tokens', () {
       expect(AppTheme.darkTheme.extension<AppColors>(), AppColors.desktopDark);
+    });
+
+    test('the mobile light theme carries the light tokens', () {
+      expect(AppTheme.mobileLightTheme.extension<AppColors>(), AppColors.light);
+      expect(AppTheme.mobileLightTheme.brightness, Brightness.light);
     });
 
     test('tokens agree with the ColorScheme the theme already exposes', () {
@@ -73,6 +75,24 @@ void main() {
       expect(tokens.textPrimary, scheme.onSurface);
       expect(tokens.border, scheme.outline);
       expect(tokens.surface, AppTheme.mobileDarkTheme.scaffoldBackgroundColor);
+    });
+  });
+
+  group('light theme contrast', () {
+    double contrast(Color foreground, Color background) {
+      final lighter = foreground.computeLuminance() > background.computeLuminance()
+          ? foreground.computeLuminance()
+          : background.computeLuminance();
+      final darker = foreground.computeLuminance() > background.computeLuminance()
+          ? background.computeLuminance()
+          : foreground.computeLuminance();
+      return (lighter + 0.05) / (darker + 0.05);
+    }
+
+    test('primary and secondary text meet WCAG AA', () {
+      expect(contrast(AppColors.light.textPrimary, AppColors.light.surface), greaterThanOrEqualTo(4.5));
+      expect(contrast(AppColors.light.textSecondary, AppColors.light.surface), greaterThanOrEqualTo(4.5));
+      expect(contrast(AppColors.light.accent, AppColors.light.surface), greaterThanOrEqualTo(4.5));
     });
   });
 
@@ -119,8 +139,14 @@ void main() {
     test('interpolates every channel, so a theme swap can animate', () {
       final mid = AppColors.dark.lerp(AppColors.desktopDark, 0.5);
 
-      expect(mid.surface, Color.lerp(AppTheme.deepCharcoal, AppTheme.darkBg, 0.5));
-      expect(mid.accent, Color.lerp(AppTheme.warmYellow, AppTheme.primaryYellow, 0.5));
+      expect(
+        mid.surface,
+        Color.lerp(AppTheme.deepCharcoal, AppTheme.darkBg, 0.5),
+      );
+      expect(
+        mid.accent,
+        Color.lerp(AppTheme.warmYellow, AppTheme.primaryYellow, 0.5),
+      );
     });
 
     test('returns itself when there is nothing to interpolate towards', () {

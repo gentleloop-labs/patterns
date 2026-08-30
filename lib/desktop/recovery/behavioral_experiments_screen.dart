@@ -86,7 +86,6 @@ class BehavioralExperimentsScreen extends ConsumerWidget {
   void _openCreate(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        
         builder: (_) => const BehavioralExperimentEditScreen(),
       ),
     );
@@ -95,7 +94,6 @@ class BehavioralExperimentsScreen extends ConsumerWidget {
   void _openOutcome(BuildContext context, BehavioralExperiment exp) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        
         builder: (_) => BehavioralExperimentEditScreen(existing: exp),
       ),
     );

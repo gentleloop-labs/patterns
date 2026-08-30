@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../app_preferences.dart';
 import '../../services/telemetry.dart';
-import '../../theme/app_theme.dart';
+import '../../theme/app_colors.dart';
 
 /// Hidden debug readout for on-device [Telemetry]. Reachable only from a
 /// debug-gated Settings entry. Renders the funnel counters and the recent
@@ -93,10 +93,7 @@ class _DebugFunnelScreenState extends State<DebugFunnelScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 3),
                 child: Text(
                   '${e['e']}${props == null ? '' : '  $props'}',
-                  style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                  ),
+                  style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
                 ),
               );
             }),
@@ -110,7 +107,7 @@ class _DebugFunnelScreenState extends State<DebugFunnelScreen> {
     child: Text(
       text.toUpperCase(),
       style: theme.textTheme.labelSmall?.copyWith(
-        color: AppTheme.textSecondary,
+        color: context.appColors.textSecondary,
         letterSpacing: 1,
         fontWeight: FontWeight.w700,
       ),
@@ -121,7 +118,7 @@ class _DebugFunnelScreenState extends State<DebugFunnelScreen> {
     padding: const EdgeInsets.symmetric(vertical: 8),
     child: Text(
       text,
-      style: TextStyle(color: AppTheme.textSecondary, fontSize: 13),
+      style: TextStyle(color: context.appColors.textSecondary, fontSize: 13),
     ),
   );
 }

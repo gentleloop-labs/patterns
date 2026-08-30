@@ -87,10 +87,7 @@ class ActionPlannerScreen extends ConsumerWidget {
 
   void _openCreate(BuildContext context) {
     Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        
-        builder: (_) => const ActionPlanEditScreen(),
-      ),
+      MaterialPageRoute<void>(builder: (_) => const ActionPlanEditScreen()),
     );
   }
 

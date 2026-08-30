@@ -81,6 +81,9 @@ void main() {
     expect(saved.length, 1);
     expect(saved.first.totalScore, 20);
     expect(saved.first.severity, YbocsSeverity.moderate);
-    expect(saved.first.symptoms, contains(ybocsCategories.first.items.first.id));
+    expect(
+      saved.first.symptoms,
+      contains(ybocsCategories.first.items.first.id),
+    );
   });
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/app_theme.dart';
+import '../../theme/app_colors.dart';
 import '../../widgets/animations.dart';
 
 /// One step of a [showSpotlightTour]: a widget to spotlight (via its
@@ -157,7 +157,12 @@ class _SpotlightOverlayState extends State<_SpotlightOverlay> {
             child: GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () {},
-              child: CustomPaint(painter: _SpotlightPainter(_rect)),
+              child: CustomPaint(
+                painter: _SpotlightPainter(
+                  _rect,
+                  accent: context.appColors.accent,
+                ),
+              ),
             ),
           ),
           if (_ready) _buildBubble(size, _rect),
@@ -175,9 +180,7 @@ class _SpotlightOverlayState extends State<_SpotlightOverlay> {
       isLast: _isLast,
       onNext: _next,
       onSkip: () => widget.onClose(),
-      onCta: _step.ctaLabel != null
-          ? () => widget.onClose(runCta: true)
-          : null,
+      onCta: _step.ctaLabel != null ? () => widget.onClose(runCta: true) : null,
       reduceMotion: motionDisabled(context),
     );
     const constraints = BoxConstraints(maxWidth: 440);
@@ -237,13 +240,9 @@ class _TourBubble extends StatelessWidget {
     final card = Container(
       padding: const EdgeInsets.fromLTRB(18, 14, 18, 12),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xFF1F1F1D), Color(0xFF141413)],
-        ),
+        color: context.appColors.card,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFF3A382F)),
+        border: Border.all(color: context.appColors.border),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.4),
@@ -260,8 +259,8 @@ class _TourBubble extends StatelessWidget {
             children: [
               Text(
                 '${index + 1} of $total',
-                style: const TextStyle(
-                  color: AppTheme.warmYellow,
+                style: TextStyle(
+                  color: context.appColors.accent,
                   fontSize: 11,
                   fontWeight: FontWeight.w900,
                   letterSpacing: 0.5,
@@ -276,22 +275,22 @@ class _TourBubble extends StatelessWidget {
                     minimumSize: const Size(0, 32),
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
-                  child: const Text('Skip'),
+                  child: Text('Skip'),
                 ),
             ],
           ),
           const SizedBox(height: 6),
           Text(
             step.title,
-            style: const TextStyle(
-              color: AppTheme.textPrimary,
+            style: TextStyle(
+              color: context.appColors.textPrimary,
               fontSize: 17,
               fontWeight: FontWeight.w800,
               height: 1.15,
             ),
           ),
           const SizedBox(height: 8),
-          for (final point in step.points) _bullet(point),
+          for (final point in step.points) _bullet(context, point),
           const SizedBox(height: 6),
           Align(
             alignment: Alignment.centerRight,
@@ -316,7 +315,7 @@ class _TourBubble extends StatelessWidget {
         : FadeSlideIn(duration: AppMotion.medium, child: card);
   }
 
-  Widget _bullet(String text) {
+  Widget _bullet(BuildContext context, String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Row(
@@ -327,9 +326,9 @@ class _TourBubble extends StatelessWidget {
             child: Container(
               width: 4,
               height: 4,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppTheme.textSecondary,
+                color: context.appColors.textSecondary,
               ),
             ),
           ),
@@ -337,8 +336,8 @@ class _TourBubble extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(
-                color: AppTheme.textSecondary,
+              style: TextStyle(
+                color: context.appColors.textSecondary,
                 fontSize: 13.5,
                 height: 1.4,
               ),
@@ -352,8 +351,9 @@ class _TourBubble extends StatelessWidget {
 
 class _SpotlightPainter extends CustomPainter {
   final Rect? rect;
+  final Color accent;
 
-  const _SpotlightPainter(this.rect);
+  const _SpotlightPainter(this.rect, {required this.accent});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -371,26 +371,20 @@ class _SpotlightPainter extends CustomPainter {
       inflated.right.clamp(m, size.width - m),
       inflated.bottom.clamp(m, size.height - m),
     );
-    final rrect = RRect.fromRectAndRadius(
-      holeRect,
-      const Radius.circular(16),
-    );
+    final rrect = RRect.fromRectAndRadius(holeRect, const Radius.circular(16));
     final full = Path()..addRect(Offset.zero & size);
     final hole = Path()..addRRect(rrect);
-    canvas.drawPath(
-      Path.combine(PathOperation.difference, full, hole),
-      scrim,
-    );
+    canvas.drawPath(Path.combine(PathOperation.difference, full, hole), scrim);
     canvas.drawRRect(
       rrect,
       Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = 1.5
-        ..color = AppTheme.warmYellow.withValues(alpha: 0.55),
+        ..color = accent.withValues(alpha: 0.55),
     );
   }
 
   @override
   bool shouldRepaint(covariant _SpotlightPainter oldDelegate) =>
-      oldDelegate.rect != rect;
+      oldDelegate.rect != rect || oldDelegate.accent != accent;
 }

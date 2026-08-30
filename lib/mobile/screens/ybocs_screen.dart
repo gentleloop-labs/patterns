@@ -5,6 +5,7 @@ import 'package:line_icons/line_icons.dart';
 
 import '../../models/models.dart';
 import '../../providers/providers.dart';
+import '../../theme/app_colors.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
@@ -98,11 +99,7 @@ class _YbocsScreenState extends ConsumerState<YbocsScreen> {
     await ref.read(ybocsAssessmentProvider.notifier).add(assessment);
     if (!mounted) return;
     setState(() => _saved = true);
-    showAppSnackBar(
-      context,
-      'Saved to your history.',
-      type: ToastType.success,
-    );
+    showAppSnackBar(context, 'Saved to your history.', type: ToastType.success);
   }
 
   @override
@@ -125,7 +122,8 @@ class _YbocsScreenState extends ConsumerState<YbocsScreen> {
           _Stage.severity => _SeverityView(
             index: _questionIndex,
             answers: _answers,
-            onSelect: (score) => setState(() => _answers[_questionIndex] = score),
+            onSelect: (score) =>
+                setState(() => _answers[_questionIndex] = score),
             onBack: () {
               if (_questionIndex == 0) {
                 _goTo(_Stage.checklist);
@@ -150,9 +148,7 @@ class _YbocsScreenState extends ConsumerState<YbocsScreen> {
             onSave: _save,
             onRetake: _restart,
             onClose: () => Navigator.of(context).pop(
-              widget.firstRun && _saved
-                  ? const FirstRunActivityResult()
-                  : null,
+              widget.firstRun && _saved ? const FirstRunActivityResult() : null,
             ),
           ),
         },
@@ -172,7 +168,8 @@ class _IntroView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final history = ref.watch(ybocsAssessmentProvider).asData?.value ?? const [];
+    final history =
+        ref.watch(ybocsAssessmentProvider).asData?.value ?? const [];
 
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 14, 20, 32),
@@ -195,7 +192,10 @@ class _IntroView extends ConsumerWidget {
         Text(
           'A guided walk through the Yale-Brown Obsessive Compulsive Scale '
           '(Y-BOCS): the patterns you notice, and how much they affect you.',
-          style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+          style: TextStyle(
+            color: context.appColors.textSecondary,
+            height: 1.45,
+          ),
         ),
         const SizedBox(height: 18),
         const _DisclaimerCard(),
@@ -213,13 +213,15 @@ class _IntroView extends ConsumerWidget {
               _IntroPoint(
                 icon: Icons.speed_rounded,
                 title: 'Measure the impact',
-                body: '10 short questions rate how much they take from your day.',
+                body:
+                    '10 short questions rate how much they take from your day.',
               ),
               SizedBox(height: 14),
               _IntroPoint(
                 icon: Icons.insights_rounded,
                 title: 'See where you stand',
-                body: 'Get your themes and a severity band you can retake anytime.',
+                body:
+                    'Get your themes and a severity band you can retake anytime.',
               ),
             ],
           ),
@@ -240,7 +242,10 @@ class _IntroView extends ConsumerWidget {
         Text(
           'Takes about 10 minutes. Everything stays private on your device.',
           textAlign: TextAlign.center,
-          style: TextStyle(color: AppTheme.textSecondary, fontSize: 12.5),
+          style: TextStyle(
+            color: context.appColors.textSecondary,
+            fontSize: 12.5,
+          ),
         ),
       ]),
     );
@@ -255,14 +260,16 @@ class _DisclaimerCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppTheme.warmYellow.withValues(alpha: 0.10),
+        color: context.appColors.accent.withValues(alpha: 0.10),
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppTheme.warmYellow.withValues(alpha: 0.25)),
+        border: Border.all(
+          color: context.appColors.accent.withValues(alpha: 0.25),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.info_outline_rounded, color: AppTheme.warmYellow),
+          Icon(Icons.info_outline_rounded, color: context.appColors.accent),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
@@ -270,7 +277,7 @@ class _DisclaimerCard extends StatelessWidget {
               'not a diagnosis. Only a qualified professional can diagnose OCD. '
               'Bring your results to them if anything here resonates.',
               style: TextStyle(
-                color: AppTheme.textPrimary,
+                color: context.appColors.textPrimary,
                 height: 1.45,
                 fontSize: 13.5,
               ),
@@ -304,9 +311,9 @@ class _IntroPoint extends StatelessWidget {
           alignment: Alignment.center,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: AppTheme.warmYellow.withValues(alpha: 0.14),
+            color: context.appColors.accent.withValues(alpha: 0.14),
           ),
-          child: Icon(icon, color: AppTheme.warmYellow, size: 21),
+          child: Icon(icon, color: context.appColors.accent, size: 21),
         ),
         const SizedBox(width: 14),
         Expanded(
@@ -315,16 +322,13 @@ class _IntroPoint extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 15,
-                ),
+                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 15),
               ),
               const SizedBox(height: 3),
               Text(
                 body,
                 style: TextStyle(
-                  color: AppTheme.textSecondary,
+                  color: context.appColors.textSecondary,
                   fontSize: 13,
                   height: 1.35,
                 ),
@@ -348,14 +352,17 @@ class _HistorySection extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Your history',
             style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
           ),
           const SizedBox(height: 4),
           Text(
             'Retaking every few weeks shows whether things are shifting.',
-            style: TextStyle(color: AppTheme.textSecondary, fontSize: 12.5),
+            style: TextStyle(
+              color: context.appColors.textSecondary,
+              fontSize: 12.5,
+            ),
           ),
           const SizedBox(height: 12),
           for (final a in history.take(5)) ...[
@@ -365,12 +372,14 @@ class _HistorySection extends ConsumerWidget {
                 final confirmed = await showDialog<bool>(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: const Text('Delete Assessment?'),
-                    content: const Text('This will permanently delete this Y-BOCS assessment history entry.'),
+                    title: Text('Delete Assessment?'),
+                    content: Text(
+                      'This will permanently delete this Y-BOCS assessment history entry.',
+                    ),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context, false),
-                        child: const Text('Cancel'),
+                        child: Text('Cancel'),
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -378,7 +387,7 @@ class _HistorySection extends ConsumerWidget {
                           foregroundColor: Colors.white,
                         ),
                         onPressed: () => Navigator.pop(context, true),
-                        child: const Text('Delete'),
+                        child: Text('Delete'),
                       ),
                     ],
                   ),
@@ -407,9 +416,9 @@ class _HistoryRow extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(12, 10, 6, 10),
       decoration: BoxDecoration(
-        color: const Color(0xFF181817),
+        color: context.appColors.card,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: const Color(0xFF2D2B27)),
+        border: Border.all(color: context.appColors.border),
       ),
       child: Row(
         children: [
@@ -428,16 +437,13 @@ class _HistoryRow extends StatelessWidget {
               children: [
                 Text(
                   '${assessment.severity.label} · ${assessment.totalScore}/40',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 13.5,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13.5),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   DateFormat('MMM d, y').format(assessment.datetime),
                   style: TextStyle(
-                    color: AppTheme.textSecondary,
+                    color: context.appColors.textSecondary,
                     fontSize: 11.5,
                   ),
                 ),
@@ -446,10 +452,10 @@ class _HistoryRow extends StatelessWidget {
           ),
           IconButton(
             onPressed: onDelete,
-            icon: const Icon(
+            icon: Icon(
               LineIcons.trash,
               size: 18,
-              color: AppTheme.textSecondary,
+              color: context.appColors.textSecondary,
             ),
             tooltip: 'Delete',
           ),
@@ -477,10 +483,12 @@ class _ChecklistView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final obsessions =
-        ybocsCategories.where((c) => c.kind == YbocsDimension.obsessions);
-    final compulsions =
-        ybocsCategories.where((c) => c.kind == YbocsDimension.compulsions);
+    final obsessions = ybocsCategories.where(
+      (c) => c.kind == YbocsDimension.obsessions,
+    );
+    final compulsions = ybocsCategories.where(
+      (c) => c.kind == YbocsDimension.compulsions,
+    );
 
     return Column(
       children: [
@@ -508,7 +516,10 @@ class _ChecklistView extends StatelessWidget {
               Text(
                 'Tick anything you\'ve experienced, now or in the past. Skip '
                 'what doesn\'t fit. There are no wrong answers.',
-                style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+                style: TextStyle(
+                  color: context.appColors.textSecondary,
+                  height: 1.45,
+                ),
               ),
               const SizedBox(height: 18),
               _GroupLabel(
@@ -569,12 +580,15 @@ class _GroupLabel extends StatelessWidget {
       children: [
         Text(
           label,
-          style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 17),
+          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 17),
         ),
         const SizedBox(height: 2),
         Text(
           sub,
-          style: TextStyle(color: AppTheme.textSecondary, fontSize: 12.5),
+          style: TextStyle(
+            color: context.appColors.textSecondary,
+            fontSize: 12.5,
+          ),
         ),
       ],
     );
@@ -608,10 +622,7 @@ class _CategoryBlock extends StatelessWidget {
               Expanded(
                 child: Text(
                   category.title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 14.5,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14.5),
                 ),
               ),
               if (count > 0)
@@ -677,9 +688,7 @@ class _CheckRow extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(7),
-                color: checked
-                    ? theme.colorScheme.primary
-                    : Colors.transparent,
+                color: checked ? theme.colorScheme.primary : Colors.transparent,
                 border: Border.all(
                   color: checked
                       ? theme.colorScheme.primary
@@ -703,8 +712,8 @@ class _CheckRow extends StatelessWidget {
                   fontSize: 13.5,
                   height: 1.35,
                   color: checked
-                      ? AppTheme.textPrimary
-                      : AppTheme.textSecondary,
+                      ? context.appColors.textPrimary
+                      : context.appColors.textSecondary,
                 ),
               ),
             ),
@@ -757,7 +766,7 @@ class _SeverityView extends StatelessWidget {
                   children: [
                     Text(
                       'Question ${index + 1} of $total',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.w800,
                         fontSize: 15,
                       ),
@@ -785,8 +794,8 @@ class _SeverityView extends StatelessWidget {
               value: (index + 1) / total,
               minHeight: 6,
               backgroundColor: const Color(0xFF2B2926),
-              valueColor: const AlwaysStoppedAnimation<Color>(
-                AppTheme.warmYellow,
+              valueColor: AlwaysStoppedAnimation<Color>(
+                context.appColors.accent,
               ),
             ),
           ),
@@ -982,7 +991,7 @@ class _ResultsView extends StatelessWidget {
               Expanded(
                 child: OutlinedButton(
                   onPressed: onRetake,
-                  child: const Text('Retake'),
+                  child: Text('Retake'),
                 ),
               ),
               const SizedBox(width: 12),
@@ -1039,14 +1048,14 @@ class _SeverityCard extends StatelessWidget {
                   color: severity.color,
                 ),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(bottom: 8),
                 child: Text(
                   ' / 40',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
-                    color: AppTheme.textSecondary,
+                    color: context.appColors.textSecondary,
                   ),
                 ),
               ),
@@ -1074,7 +1083,7 @@ class _SeverityCard extends StatelessWidget {
           const SizedBox(height: 12),
           Text(
             severity.blurb,
-            style: const TextStyle(color: AppTheme.textPrimary, height: 1.5),
+            style: TextStyle(color: context.appColors.textPrimary, height: 1.5),
           ),
         ],
       ),
@@ -1097,7 +1106,7 @@ class _BreakdownCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Where it weighs most',
             style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
           ),
@@ -1127,16 +1136,13 @@ class _ScoreBar extends StatelessWidget {
             Expanded(
               child: Text(
                 label,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13.5,
-                ),
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13.5),
               ),
             ),
             Text(
               '$score/20',
               style: TextStyle(
-                color: AppTheme.textSecondary,
+                color: context.appColors.textSecondary,
                 fontWeight: FontWeight.w800,
                 fontSize: 12.5,
               ),
@@ -1150,9 +1156,7 @@ class _ScoreBar extends StatelessWidget {
             value: score / 20,
             minHeight: 8,
             backgroundColor: const Color(0xFF2B2926),
-            valueColor: const AlwaysStoppedAnimation<Color>(
-              AppTheme.warmYellow,
-            ),
+            valueColor: AlwaysStoppedAnimation<Color>(context.appColors.accent),
           ),
         ),
       ],
@@ -1174,15 +1178,16 @@ class _TypesCard extends StatelessWidget {
     ];
     final text = switch (types.length) {
       0 => 'You didn\'t flag a clear pattern this time, and that\'s okay.',
-      2 => 'You noticed both obsessions and compulsions, and the two often feed '
-          'each other.',
+      2 =>
+        'You noticed both obsessions and compulsions, and the two often feed '
+            'each other.',
       _ => 'You mainly noticed ${types.first.toLowerCase()}.',
     };
     return _CockpitCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'The types you noticed',
             style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
           ),
@@ -1196,7 +1201,10 @@ class _TypesCard extends StatelessWidget {
           if (types.isNotEmpty) const SizedBox(height: 12),
           Text(
             text,
-            style: const TextStyle(color: AppTheme.textSecondary, height: 1.45),
+            style: TextStyle(
+              color: context.appColors.textSecondary,
+              height: 1.45,
+            ),
           ),
         ],
       ),
@@ -1215,22 +1223,23 @@ class _ThemesCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Your themes',
             style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
           ),
           const SizedBox(height: 4),
           Text(
             'The areas your obsessions and compulsions cluster around.',
-            style: TextStyle(color: AppTheme.textSecondary, fontSize: 12.5),
+            style: TextStyle(
+              color: context.appColors.textSecondary,
+              fontSize: 12.5,
+            ),
           ),
           const SizedBox(height: 12),
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: [
-              for (final c in categories) _Chip(label: c.title),
-            ],
+            children: [for (final c in categories) _Chip(label: c.title)],
           ),
         ],
       ),
@@ -1275,16 +1284,21 @@ class _NextStepsCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppTheme.warmYellow.withValues(alpha: 0.10),
+        color: context.appColors.accent.withValues(alpha: 0.10),
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppTheme.warmYellow.withValues(alpha: 0.25)),
+        border: Border.all(
+          color: context.appColors.accent.withValues(alpha: 0.25),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: const [
-              Icon(Icons.favorite_border_rounded, color: AppTheme.warmYellow),
+            children: [
+              Icon(
+                Icons.favorite_border_rounded,
+                color: context.appColors.accent,
+              ),
               SizedBox(width: 10),
               Text(
                 'What now?',
@@ -1299,7 +1313,7 @@ class _NextStepsCard extends StatelessWidget {
             'Recovery tools here are a good place to start practising in the '
             'meantime.',
             style: TextStyle(
-              color: AppTheme.textPrimary,
+              color: context.appColors.textPrimary,
               height: 1.5,
               fontSize: 13.5,
             ),

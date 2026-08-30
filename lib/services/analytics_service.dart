@@ -276,7 +276,8 @@ class AnalyticsService {
       return const RecoveryNextStep(
         step: RecoveryStep.selfCheck,
         title: 'See where you are',
-        subtitle: 'A quick self-check sets a baseline to measure progress against.',
+        subtitle:
+            'A quick self-check sets a baseline to measure progress against.',
         ctaLabel: 'Take self-check',
       );
     }

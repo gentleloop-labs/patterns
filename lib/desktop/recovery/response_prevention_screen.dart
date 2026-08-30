@@ -106,7 +106,6 @@ class ResponsePreventionScreen extends ConsumerWidget {
   void _openLog(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        
         builder: (_) => const ResponsePreventionLogScreen(),
       ),
     );

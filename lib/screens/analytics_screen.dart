@@ -117,7 +117,8 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
                                 'What your obsessions, compulsions, and practice look like over time.',
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: theme.colorScheme.onSurface.withOpacity(0.55),
+                                  color: theme.colorScheme.onSurface
+                                      .withOpacity(0.55),
                                 ),
                               ),
                             ],
@@ -230,7 +231,10 @@ class _RangeSelector extends StatelessWidget {
               onTap: () => onChanged(value),
               borderRadius: BorderRadius.circular(8),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: range == value
                       ? Colors.transparent
@@ -313,12 +317,13 @@ class _OverviewTab extends StatelessWidget {
     final hasMood = summary.moodTrend.isNotEmpty;
     final mood = hasMood
         ? summary.moodTrend.map((p) => p.value).reduce((a, b) => a + b) /
-            summary.moodTrend.length
+              summary.moodTrend.length
         : 0.0;
 
     double moodDeltaVal = 0.0;
     if (summary.moodTrend.length >= 2) {
-      moodDeltaVal = summary.moodTrend.last.value - summary.moodTrend.first.value;
+      moodDeltaVal =
+          summary.moodTrend.last.value - summary.moodTrend.first.value;
     }
 
     final moodDeltaText = moodDeltaVal == 0
@@ -332,7 +337,9 @@ class _OverviewTab extends StatelessWidget {
     final heatmap = summary.consistencyHeatmap;
     final dotsList = heatmap.isEmpty
         ? List.generate(20, (i) => i < 15) // Fallback indicators
-        : (heatmap.length > 20 ? heatmap.sublist(heatmap.length - 20) : heatmap);
+        : (heatmap.length > 20
+              ? heatmap.sublist(heatmap.length - 20)
+              : heatmap);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -385,11 +392,15 @@ class _OverviewTab extends StatelessWidget {
                 title: 'Consistency',
                 value: '${summary.consistencyPercent}',
                 suffix: '%',
-                trend: summary.consistencyPercent > 0 ? 'Active practice' : 'No practice',
+                trend: summary.consistencyPercent > 0
+                    ? 'Active practice'
+                    : 'No practice',
                 trendLabel: 'this cycle',
                 sparklineData: _plotData(summary.erpTrend),
                 color: AppTheme.warmYellow,
-                trendColor: summary.consistencyPercent > 0 ? Colors.green : Colors.grey,
+                trendColor: summary.consistencyPercent > 0
+                    ? Colors.green
+                    : Colors.grey,
               ),
             ),
           ],
@@ -440,13 +451,18 @@ class _OverviewTab extends StatelessWidget {
                               '/10',
                               style: TextStyle(
                                 fontSize: 16,
-                                color: theme.colorScheme.onSurface.withOpacity(0.4),
+                                color: theme.colorScheme.onSurface.withOpacity(
+                                  0.4,
+                                ),
                               ),
                             ),
                           const SizedBox(width: 16),
                           if (hasMood && moodDeltaVal != 0)
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
                               decoration: BoxDecoration(
                                 color: moodDeltaColor.withOpacity(0.12),
                                 borderRadius: BorderRadius.circular(6),
@@ -454,7 +470,9 @@ class _OverviewTab extends StatelessWidget {
                               child: Row(
                                 children: [
                                   Icon(
-                                    moodDeltaVal > 0 ? Icons.arrow_upward_rounded : Icons.arrow_downward_rounded,
+                                    moodDeltaVal > 0
+                                        ? Icons.arrow_upward_rounded
+                                        : Icons.arrow_downward_rounded,
                                     color: moodDeltaColor,
                                     size: 12,
                                   ),
@@ -474,14 +492,19 @@ class _OverviewTab extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        hasMood ? '$moodDeltaText last range' : 'Journal daily to track mood',
+                        hasMood
+                            ? '$moodDeltaText last range'
+                            : 'Journal daily to track mood',
                         style: TextStyle(
                           fontSize: 12,
                           color: theme.colorScheme.onSurface.withOpacity(0.4),
                         ),
                       ),
                       const SizedBox(height: 24),
-                      _Sparkline(data: _plotData(summary.moodTrend), color: AppTheme.warmYellow),
+                      _Sparkline(
+                        data: _plotData(summary.moodTrend),
+                        color: AppTheme.warmYellow,
+                      ),
                     ],
                   ),
                 ),
@@ -522,7 +545,9 @@ class _OverviewTab extends StatelessWidget {
                               'Themes appear as you journal\nand track exposures.',
                               style: TextStyle(
                                 fontSize: 13,
-                                color: theme.colorScheme.onSurface.withOpacity(0.4),
+                                color: theme.colorScheme.onSurface.withOpacity(
+                                  0.4,
+                                ),
                                 height: 1.4,
                               ),
                               textAlign: TextAlign.center,
@@ -530,13 +555,17 @@ class _OverviewTab extends StatelessWidget {
                           ),
                         )
                       else ...[
-                        for (final themeSummary in summary.topThemes.take(4)) ...[
+                        for (final themeSummary in summary.topThemes.take(
+                          4,
+                        )) ...[
                           _ThemeProgressBar(
                             label: themeSummary.label,
                             count: themeSummary.count,
                             maxCount: summary.topThemes.isEmpty
                                 ? 0
-                                : summary.topThemes.map((t) => t.count).reduce((a, b) => a > b ? a : b),
+                                : summary.topThemes
+                                      .map((t) => t.count)
+                                      .reduce((a, b) => a > b ? a : b),
                           ),
                           const SizedBox(height: 16),
                         ],
@@ -560,7 +589,10 @@ class _OverviewTab extends StatelessWidget {
             side: BorderSide(color: theme.dividerColor),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 24.0,
+              vertical: 20.0,
+            ),
             child: Row(
               children: [
                 Expanded(
@@ -601,7 +633,9 @@ class _OverviewTab extends StatelessWidget {
                             border: Border.all(
                               color: dotsList[i]
                                   ? AppTheme.warmYellow
-                                  : theme.colorScheme.onSurface.withOpacity(0.2),
+                                  : theme.colorScheme.onSurface.withOpacity(
+                                      0.2,
+                                    ),
                               width: 1.5,
                             ),
                           ),
@@ -632,8 +666,13 @@ class _ThoughtsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final thoughtsData = _plotData(summary.moodTrend); // Fallback to mood mapping if thoughts trend is local
-    final themesData = [summary.topThemes.length.toDouble(), summary.topThemes.length.toDouble()];
+    final thoughtsData = _plotData(
+      summary.moodTrend,
+    ); // Fallback to mood mapping if thoughts trend is local
+    final themesData = [
+      summary.topThemes.length.toDouble(),
+      summary.topThemes.length.toDouble(),
+    ];
 
     return Column(
       children: [
@@ -655,11 +694,15 @@ class _ThoughtsTab extends StatelessWidget {
               child: _OverviewStatCard(
                 title: 'Themes found',
                 value: '${summary.topThemes.length}',
-                trend: summary.topThemes.isNotEmpty ? 'Analysis active' : 'No themes yet',
+                trend: summary.topThemes.isNotEmpty
+                    ? 'Analysis active'
+                    : 'No themes yet',
                 trendLabel: 'detected automatically',
                 sparklineData: themesData,
                 color: AppTheme.warmYellow,
-                trendColor: summary.topThemes.isNotEmpty ? Colors.green : Colors.grey,
+                trendColor: summary.topThemes.isNotEmpty
+                    ? Colors.green
+                    : Colors.grey,
               ),
             ),
           ],
@@ -696,7 +739,9 @@ class _ThoughtsTab extends StatelessWidget {
                             _ThemeProgressBar(
                               label: themeSummary.label,
                               count: themeSummary.count,
-                              maxCount: summary.topThemes.map((t) => t.count).reduce((a, b) => a > b ? a : b),
+                              maxCount: summary.topThemes
+                                  .map((t) => t.count)
+                                  .reduce((a, b) => a > b ? a : b),
                             ),
                             const SizedBox(height: 16),
                           ],
@@ -821,11 +866,15 @@ class _ErpTab extends StatelessWidget {
             title: 'Consistency',
             value: '${summary.consistencyPercent}',
             suffix: '%',
-            trend: summary.consistencyPercent > 0 ? 'Active practice' : 'No practice',
+            trend: summary.consistencyPercent > 0
+                ? 'Active practice'
+                : 'No practice',
             trendLabel: 'this cycle',
             sparklineData: _plotData(summary.erpTrend),
             color: AppTheme.warmYellow,
-            trendColor: summary.consistencyPercent > 0 ? Colors.green : Colors.grey,
+            trendColor: summary.consistencyPercent > 0
+                ? Colors.green
+                : Colors.grey,
           ),
         ),
         const SizedBox(width: 16),
@@ -975,10 +1024,7 @@ class _ThemeProgressBar extends StatelessWidget {
           width: 90,
           child: Text(
             label,
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
-            ),
+            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -990,7 +1036,9 @@ class _ThemeProgressBar extends StatelessWidget {
             child: LinearProgressIndicator(
               value: percent,
               backgroundColor: theme.colorScheme.onSurface.withOpacity(0.06),
-              valueColor: const AlwaysStoppedAnimation<Color>(AppTheme.warmYellow),
+              valueColor: const AlwaysStoppedAnimation<Color>(
+                AppTheme.warmYellow,
+              ),
               minHeight: 6,
             ),
           ),
@@ -1050,7 +1098,7 @@ class _SparklinePainter extends CustomPainter {
 
     final path = Path();
     final double stepX = size.width / (data.length - 1);
-    
+
     double minVal = data.reduce((a, b) => a < b ? a : b);
     double maxVal = data.reduce((a, b) => a > b ? a : b);
     if (maxVal == minVal) {
@@ -1060,13 +1108,17 @@ class _SparklinePainter extends CustomPainter {
 
     for (var i = 0; i < data.length; i++) {
       final double x = i * stepX;
-      final double y = size.height - ((data[i] - minVal) / range) * (size.height - 4) - 2;
-      
+      final double y =
+          size.height - ((data[i] - minVal) / range) * (size.height - 4) - 2;
+
       if (i == 0) {
         path.moveTo(x, y);
       } else {
         final double prevX = (i - 1) * stepX;
-        final double prevY = size.height - ((data[i - 1] - minVal) / range) * (size.height - 4) - 2;
+        final double prevY =
+            size.height -
+            ((data[i - 1] - minVal) / range) * (size.height - 4) -
+            2;
         final double cx1 = prevX + stepX / 2;
         final double cy1 = prevY;
         final double cx2 = prevX + stepX / 2;
@@ -1086,10 +1138,7 @@ class _SparklinePainter extends CustomPainter {
       ..shader = LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: [
-          color.withOpacity(0.18),
-          color.withOpacity(0.0),
-        ],
+        colors: [color.withOpacity(0.18), color.withOpacity(0.0)],
       ).createShader(Rect.fromLTWH(0, 0, size.width, size.height))
       ..style = PaintingStyle.fill;
 

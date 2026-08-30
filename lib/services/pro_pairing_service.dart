@@ -52,7 +52,11 @@ class ProPairingService {
                 return;
               }
             }
-            _respondHtml(request, 403, _errorHtml('Invalid signature or session expired.'));
+            _respondHtml(
+              request,
+              403,
+              _errorHtml('Invalid signature or session expired.'),
+            );
           } catch (e) {
             _respondHtml(request, 500, _errorHtml('Error: $e'));
           }
@@ -62,7 +66,7 @@ class ProPairingService {
           try {
             final content = await utf8.decoder.bind(request).join();
             final data = jsonDecode(content) as Map<String, dynamic>;
-            
+
             final token = data['token'] as String?;
             final signature = data['signature'] as String?;
 
@@ -70,24 +74,37 @@ class ProPairingService {
               final expectedSig = _computeHmac(token!, secretSalt);
               if (signature == expectedSig) {
                 await unlockProLocally();
-                _respondJson(request, 200, {'status': 'success', 'message': 'Pro unlocked!'});
+                _respondJson(request, 200, {
+                  'status': 'success',
+                  'message': 'Pro unlocked!',
+                });
                 _pairingController.add(true);
                 stopDesktopServer();
                 return;
               }
             }
-            _respondJson(request, 403, {'status': 'error', 'message': 'Invalid signature.'});
+            _respondJson(request, 403, {
+              'status': 'error',
+              'message': 'Invalid signature.',
+            });
           } catch (e) {
-            _respondJson(request, 500, {'status': 'error', 'message': 'Error: $e'});
+            _respondJson(request, 500, {
+              'status': 'error',
+              'message': 'Error: $e',
+            });
           }
         } else {
-          _respondJson(request, 404, {'status': 'error', 'message': 'Not found.'});
+          _respondJson(request, 404, {
+            'status': 'error',
+            'message': 'Not found.',
+          });
         }
       });
 
       // Construct URL: http://<desktop_ip>:<port>/unlock?token=<currentSessionToken>&sig=<signature>
       final sig = _computeHmac(_currentSessionToken!, secretSalt);
-      final qrUrl = 'http://${ips.first}:$port/unlock?token=$_currentSessionToken&sig=$sig';
+      final qrUrl =
+          'http://${ips.first}:$port/unlock?token=$_currentSessionToken&sig=$sig';
       return qrUrl;
     } catch (e) {
       debugPrint('Failed to start pairing server: $e');
@@ -116,13 +133,10 @@ class ProPairingService {
     try {
       final request = await client.post(desktopIp, desktopPort, '/unlock');
       request.headers.contentType = ContentType.json;
-      
-      final body = jsonEncode({
-        'token': sessionToken,
-        'signature': signature,
-      });
+
+      final body = jsonEncode({'token': sessionToken, 'signature': signature});
       request.write(body);
-      
+
       final response = await request.close();
       if (response.statusCode == 200) {
         return true;
@@ -144,7 +158,9 @@ class ProPairingService {
 
   /// Offline fallback: Generates a 6-digit linking code for the current 5-minute time window.
   static String generateOfflineOTP() {
-    final window = DateTime.now().millisecondsSinceEpoch ~/ (1000 * 60 * 5); // 5 min window
+    final window =
+        DateTime.now().millisecondsSinceEpoch ~/
+        (1000 * 60 * 5); // 5 min window
     return _computeOTP(window);
   }
 
@@ -154,7 +170,7 @@ class ProPairingService {
     if (cleanCode.length != 6) return false;
 
     final window = DateTime.now().millisecondsSinceEpoch ~/ (1000 * 60 * 5);
-    
+
     // Check current, previous, and next window to accommodate clock drift (up to 5 mins off)
     for (var i = -1; i <= 1; i++) {
       if (cleanCode == _computeOTP(window + i)) {
@@ -181,7 +197,11 @@ class ProPairingService {
     return otp;
   }
 
-  static void _respondJson(HttpRequest request, int code, Map<String, dynamic> body) {
+  static void _respondJson(
+    HttpRequest request,
+    int code,
+    Map<String, dynamic> body,
+  ) {
     request.response.statusCode = code;
     request.response.headers.contentType = ContentType.json;
     request.response.write(jsonEncode(body));
@@ -240,7 +260,8 @@ class ProPairingService {
   </html>
   ''';
 
-  static String _errorHtml(String message) => '''
+  static String _errorHtml(String message) =>
+      '''
   <!DOCTYPE html>
   <html>
     <head>
@@ -287,7 +308,9 @@ class ProPairingService {
 
   static Future<List<String>> getLocalIPs() async {
     try {
-      final interfaces = await NetworkInterface.list(type: InternetAddressType.IPv4);
+      final interfaces = await NetworkInterface.list(
+        type: InternetAddressType.IPv4,
+      );
       return interfaces
           .expand((interface) => interface.addresses)
           .map((addr) => addr.address)

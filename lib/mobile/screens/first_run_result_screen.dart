@@ -5,6 +5,7 @@ import 'package:line_icons/line_icons.dart';
 import '../../app_preferences.dart';
 import '../../services/notification_service.dart';
 import '../../services/telemetry.dart';
+import '../../theme/app_colors.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
@@ -95,99 +96,94 @@ class _FirstRunResultScreenState extends ConsumerState<FirstRunResultScreen> {
     final theme = Theme.of(context);
     final copy = _copy;
 
-    return Theme(
-      data: AppTheme.mobileDarkTheme,
-      child: Builder(
-        builder: (context) => Scaffold(
-          body: DecoratedBox(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color(0xFF0B0B0A), AppTheme.deepCharcoal],
-              ),
-            ),
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(24, 24, 24, 20),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Center(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              FadeSlideIn(
-                                child: Container(
-                                  width: 76,
-                                  height: 76,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: AppTheme.warmYellow.withValues(
-                                      alpha: 0.15,
-                                    ),
-                                  ),
-                                  child: Icon(
-                                    copy.icon,
-                                    color: AppTheme.warmYellow,
-                                    size: 34,
-                                  ),
+    return Scaffold(
+      body: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [context.appColors.surface, context.appColors.surface],
+          ),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(24, 24, 24, 20),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Center(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          FadeSlideIn(
+                            child: Container(
+                              width: 76,
+                              height: 76,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: context.appColors.accent.withValues(
+                                  alpha: 0.15,
                                 ),
                               ),
-                              const SizedBox(height: 26),
-                              FadeSlideIn(
-                                delay: const Duration(milliseconds: 90),
-                                child: Text(
-                                  copy.headline,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontFamily: AppTheme.displayFamily,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 27,
-                                    height: 1.15,
-                                    color: AppTheme.textPrimary,
-                                  ),
-                                ),
+                              child: Icon(
+                                copy.icon,
+                                color: context.appColors.accent,
+                                size: 34,
                               ),
-                              const SizedBox(height: 14),
-                              FadeSlideIn(
-                                delay: const Duration(milliseconds: 130),
-                                child: Text(
-                                  copy.body,
-                                  textAlign: TextAlign.center,
-                                  style: theme.textTheme.bodyLarge?.copyWith(
-                                    color: AppTheme.textSecondary,
-                                    height: 1.5,
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
-                        ),
+                          const SizedBox(height: 26),
+                          FadeSlideIn(
+                            delay: const Duration(milliseconds: 90),
+                            child: Text(
+                              copy.headline,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: AppTheme.displayFamily,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 27,
+                                height: 1.15,
+                                color: context.appColors.textPrimary,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 14),
+                          FadeSlideIn(
+                            delay: const Duration(milliseconds: 130),
+                            child: Text(
+                              copy.body,
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.bodyLarge?.copyWith(
+                                color: context.appColors.textSecondary,
+                                height: 1.5,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    if (!_reminderSet)
-                      OutlinedButton.icon(
-                        onPressed: _askReminder,
-                        icon: const Icon(LineIcons.bell, size: 18),
-                        label: const Text('Set a gentle reminder'),
-                      ),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Telemetry.log('result.cta_today', {
-                            'kind': widget.kind.name,
-                          });
-                          widget.onDone();
-                        },
-                        child: const Text('Go to my space'),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                if (!_reminderSet)
+                  OutlinedButton.icon(
+                    onPressed: _askReminder,
+                    icon: Icon(LineIcons.bell, size: 18),
+                    label: Text('Set a gentle reminder'),
+                  ),
+                const SizedBox(height: 10),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Telemetry.log('result.cta_today', {
+                        'kind': widget.kind.name,
+                      });
+                      widget.onDone();
+                    },
+                    child: Text('Go to my space'),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -226,7 +222,9 @@ class _FirstRunResultScreenState extends ConsumerState<FirstRunResultScreen> {
     }
 
     await NotificationService.scheduleDailyReminder(picked);
-    await ref.read(reminderProvider.notifier).setTime(picked.hour, picked.minute);
+    await ref
+        .read(reminderProvider.notifier)
+        .setTime(picked.hour, picked.minute);
     await ref.read(reminderProvider.notifier).setEnabled(true);
     Telemetry.log('reminder.enabled');
     if (!mounted) return;

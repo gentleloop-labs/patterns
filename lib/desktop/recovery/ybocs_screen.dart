@@ -92,11 +92,7 @@ class _YbocsScreenState extends ConsumerState<YbocsScreen> {
     await ref.read(ybocsAssessmentProvider.notifier).add(assessment);
     if (!mounted) return;
     setState(() => _saved = true);
-    showAppSnackBar(
-      context,
-      'Saved to your history.',
-      type: ToastType.success,
-    );
+    showAppSnackBar(context, 'Saved to your history.', type: ToastType.success);
   }
 
   @override
@@ -119,7 +115,8 @@ class _YbocsScreenState extends ConsumerState<YbocsScreen> {
           _Stage.severity => _SeverityView(
             index: _questionIndex,
             answers: _answers,
-            onSelect: (score) => setState(() => _answers[_questionIndex] = score),
+            onSelect: (score) =>
+                setState(() => _answers[_questionIndex] = score),
             onBack: () {
               if (_questionIndex == 0) {
                 _goTo(_Stage.checklist);
@@ -162,7 +159,8 @@ class _IntroView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final history = ref.watch(ybocsAssessmentProvider).asData?.value ?? const [];
+    final history =
+        ref.watch(ybocsAssessmentProvider).asData?.value ?? const [];
 
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 14, 20, 32),
@@ -203,13 +201,15 @@ class _IntroView extends ConsumerWidget {
               _IntroPoint(
                 icon: Icons.speed_rounded,
                 title: 'Measure the impact',
-                body: '10 short questions rate how much they take from your day.',
+                body:
+                    '10 short questions rate how much they take from your day.',
               ),
               SizedBox(height: 14),
               _IntroPoint(
                 icon: Icons.insights_rounded,
                 title: 'See where you stand',
-                body: 'Get your themes and a severity band you can retake anytime.',
+                body:
+                    'Get your themes and a severity band you can retake anytime.',
               ),
             ],
           ),
@@ -356,7 +356,9 @@ class _HistorySection extends ConsumerWidget {
                   context: context,
                   builder: (context) => AlertDialog(
                     title: const Text('Delete Assessment?'),
-                    content: const Text('This will permanently delete this Y-BOCS assessment history entry.'),
+                    content: const Text(
+                      'This will permanently delete this Y-BOCS assessment history entry.',
+                    ),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context, false),
@@ -467,10 +469,12 @@ class _ChecklistView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final obsessions =
-        ybocsCategories.where((c) => c.kind == YbocsDimension.obsessions);
-    final compulsions =
-        ybocsCategories.where((c) => c.kind == YbocsDimension.compulsions);
+    final obsessions = ybocsCategories.where(
+      (c) => c.kind == YbocsDimension.obsessions,
+    );
+    final compulsions = ybocsCategories.where(
+      (c) => c.kind == YbocsDimension.compulsions,
+    );
 
     return Column(
       children: [
@@ -667,9 +671,7 @@ class _CheckRow extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(7),
-                color: checked
-                    ? theme.colorScheme.primary
-                    : Colors.transparent,
+                color: checked ? theme.colorScheme.primary : Colors.transparent,
                 border: Border.all(
                   color: checked
                       ? theme.colorScheme.primary
@@ -1164,8 +1166,9 @@ class _TypesCard extends StatelessWidget {
     ];
     final text = switch (types.length) {
       0 => 'You didn\'t flag a clear pattern this time, and that\'s okay.',
-      2 => 'You noticed both obsessions and compulsions, and the two often feed '
-          'each other.',
+      2 =>
+        'You noticed both obsessions and compulsions, and the two often feed '
+            'each other.',
       _ => 'You mainly noticed ${types.first.toLowerCase()}.',
     };
     return _CockpitCard(
@@ -1218,9 +1221,7 @@ class _ThemesCard extends StatelessWidget {
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: [
-              for (final c in categories) _Chip(label: c.title),
-            ],
+            children: [for (final c in categories) _Chip(label: c.title)],
           ),
         ],
       ),

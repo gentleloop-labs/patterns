@@ -7,8 +7,11 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../services/app_events.dart';
 import '../services/pro_service.dart';
+import '../services/pro_entry_point.dart';
+import '../services/usage_analytics.dart';
 import '../services/telemetry.dart';
 import '../theme/app_theme.dart';
+import '../theme/app_colors.dart';
 import '../app_preferences.dart';
 import 'app_snack_bar.dart';
 import 'platform.dart';
@@ -16,11 +19,17 @@ import 'platform.dart';
 /// Bottom sheet that sells the one-time "Patterns Pro" unlock.
 /// On desktop, it automatically shows the high-fidelity [DesktopPaywallView].
 class PaywallSheet extends StatefulWidget {
-  const PaywallSheet({super.key});
+  final ProEntryPoint entryPoint;
 
-  static Future<void> show(BuildContext context, {String source = 'unknown'}) {
-    Telemetry.log('paywall.shown', {'source': source});
-    AppEvents.logSupporterScreenViewed(source: source);
+  const PaywallSheet({super.key, this.entryPoint = ProEntryPoint.settings});
+
+  static Future<void> show(
+    BuildContext context, {
+    ProEntryPoint entryPoint = ProEntryPoint.settings,
+  }) {
+    Telemetry.log('paywall.shown', {'source': entryPoint.wireName});
+    AppEvents.logProFeatureTapped(entryPoint);
+    AppEvents.logSupporterScreenViewed(source: entryPoint);
     if (kIsDesktop) {
       return showDialog<void>(
         context: context,
@@ -33,9 +42,7 @@ class PaywallSheet extends StatefulWidget {
           ),
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 680),
-            child: DesktopPaywallView(
-              onUnlocked: () => Navigator.pop(context),
-            ),
+            child: DesktopPaywallView(onUnlocked: () => Navigator.pop(context)),
           ),
         ),
       );
@@ -44,7 +51,7 @@ class PaywallSheet extends StatefulWidget {
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
-      builder: (_) => const PaywallSheet(),
+      builder: (_) => PaywallSheet(entryPoint: entryPoint),
     );
   }
 
@@ -53,19 +60,11 @@ class PaywallSheet extends StatefulWidget {
 }
 
 class _PaywallSheetState extends State<PaywallSheet> {
-  static const _mobileProPoints = <String>[
-    'Exposure Hierarchy Builder: climb fear ladders step by step',
-    'Exposure materials: scripts, loop tapes, images & links',
-    'Urge surfing & response-prevention trackers',
-    'Structured ERP programs & uncertainty training',
-    'Action planner & behavioral experiments',
-    'Recovery metrics & reflection worksheets',
-  ];
-
   ProductDetails? _product;
   String? _loadError;
   bool _loading = true;
   bool _purchaseInFlight = false;
+  bool _restoreInFlight = false;
   StreamSubscription<ProEvent>? _eventSub;
   Timer? _restoreTimeout;
 
@@ -97,6 +96,9 @@ class _PaywallSheetState extends State<PaywallSheet> {
     try {
       final available = await ProService.isAvailable();
       if (!available) {
+        AppEvents.logProductLoadResult(
+          result: UsageAnalyticsContext.unavailable,
+        );
         _applyProduct(
           null,
           unavailableMessage:
@@ -105,16 +107,22 @@ class _PaywallSheetState extends State<PaywallSheet> {
         return;
       }
       final product = await _fetchProductWithRetry();
+      AppEvents.logProductLoadResult(
+        result: product == null
+            ? UsageAnalyticsContext.unavailable
+            : UsageAnalyticsContext.success,
+      );
       _applyProduct(
         product,
         unavailableMessage:
-          'Patterns Pro is not available right now. Please try again later.',
+            'Patterns Pro is not available right now. Please try again later.',
       );
     } catch (_) {
+      AppEvents.logProductLoadResult(result: UsageAnalyticsContext.error);
       _applyProduct(
         null,
         unavailableMessage:
-          'Could not load Patterns Pro. Please try again later.',
+            'Could not load Patterns Pro. Please try again later.',
       );
     }
   }
@@ -133,7 +141,10 @@ class _PaywallSheetState extends State<PaywallSheet> {
     return null;
   }
 
-  void _applyProduct(ProductDetails? product, {required String unavailableMessage}) {
+  void _applyProduct(
+    ProductDetails? product, {
+    required String unavailableMessage,
+  }) {
     if (mounted) {
       setState(() {
         _product = product;
@@ -152,32 +163,54 @@ class _PaywallSheetState extends State<PaywallSheet> {
 
     if (event is ProSuccess) {
       Telemetry.log(event.restored ? 'paywall.restore' : 'paywall.purchase');
-      AppEvents.logSupporterPurchaseCompleted(restored: event.restored);
+      AppEvents.logSupporterPurchaseCompleted(
+        restored: event.restored,
+        source: widget.entryPoint,
+      );
       _restoreTimeout?.cancel();
-      setState(() => _purchaseInFlight = false);
+      setState(() {
+        _purchaseInFlight = false;
+        _restoreInFlight = false;
+      });
       Navigator.pop(context);
       _showUnlockedDialog(context, restored: event.restored);
     } else if (event is ProError) {
+      if (_restoreInFlight) {
+        AppEvents.logRestoreFailed(widget.entryPoint);
+      } else {
+        AppEvents.logPurchaseFailed(widget.entryPoint);
+      }
       _restoreTimeout?.cancel();
-      setState(() => _purchaseInFlight = false);
+      setState(() {
+        _purchaseInFlight = false;
+        _restoreInFlight = false;
+      });
       showAppSnackBar(context, event.message, type: ToastType.error);
     } else if (event is ProCanceled) {
+      AppEvents.logPurchaseCanceled(widget.entryPoint);
       // Without this the in-flight flag stayed true after the user dismissed
       // the store sheet, leaving Unlock *and* Restore disabled. Someone who
       // already owns Pro could not then restore it.
       _restoreTimeout?.cancel();
-      setState(() => _purchaseInFlight = false);
+      setState(() {
+        _purchaseInFlight = false;
+        _restoreInFlight = false;
+      });
     }
   }
 
   void _onBuy() async {
     final product = _product;
     if (product == null) return;
-    AppEvents.logSupporterPurchaseStarted();
-    setState(() => _purchaseInFlight = true);
+    AppEvents.logSupporterPurchaseStarted(widget.entryPoint);
+    setState(() {
+      _purchaseInFlight = true;
+      _restoreInFlight = false;
+    });
     try {
       final success = await ProService.buyPro(product);
       if (!success) {
+        AppEvents.logPurchaseFailed(widget.entryPoint);
         setState(() => _purchaseInFlight = false);
         showAppSnackBar(
           context,
@@ -186,19 +219,28 @@ class _PaywallSheetState extends State<PaywallSheet> {
         );
       }
     } catch (e) {
+      AppEvents.logPurchaseFailed(widget.entryPoint);
       setState(() => _purchaseInFlight = false);
       showAppSnackBar(context, '$e', type: ToastType.error);
     }
   }
 
   void _onRestore() async {
-    setState(() => _purchaseInFlight = true);
+    AppEvents.logRestoreStarted(widget.entryPoint);
+    setState(() {
+      _purchaseInFlight = true;
+      _restoreInFlight = true;
+    });
     // A restore that finds nothing emits no event at all, which used to leave
     // the sheet spinning forever. Give it a deadline and say so plainly.
     _restoreTimeout?.cancel();
     _restoreTimeout = Timer(const Duration(seconds: 12), () {
       if (!mounted || !_purchaseInFlight) return;
-      setState(() => _purchaseInFlight = false);
+      AppEvents.logRestoreNotFound(widget.entryPoint);
+      setState(() {
+        _purchaseInFlight = false;
+        _restoreInFlight = false;
+      });
       showAppSnackBar(
         context,
         'No previous purchase found on this account. If you bought Pro with a '
@@ -209,9 +251,13 @@ class _PaywallSheetState extends State<PaywallSheet> {
     try {
       await ProService.restore();
     } catch (_) {
+      AppEvents.logRestoreFailed(widget.entryPoint);
       _restoreTimeout?.cancel();
       if (!mounted) return;
-      setState(() => _purchaseInFlight = false);
+      setState(() {
+        _purchaseInFlight = false;
+        _restoreInFlight = false;
+      });
       showAppSnackBar(
         context,
         'Could not restore purchases. Please try again.',
@@ -266,8 +312,11 @@ class _PaywallSheetState extends State<PaywallSheet> {
             ),
             const SizedBox(height: 12),
             Text(
-              'Move beyond tracking and practise recovery. A one-time unlock, yours for good, no subscription.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+              widget.entryPoint.headline,
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.45,
+              ),
             ),
             const SizedBox(height: 12),
             // Someone who already bought Pro and reinstalled arrives here
@@ -277,10 +326,19 @@ class _PaywallSheetState extends State<PaywallSheet> {
               onRestore: _purchaseInFlight ? null : _onRestore,
             ),
             const SizedBox(height: 18),
-            for (final point in _mobileProPoints) ...[
+            for (final point in widget.entryPoint.benefits) ...[
               _ProPoint(text: point),
               const SizedBox(height: 10),
             ],
+            const SizedBox(height: 6),
+            Text(
+              'Also includes every Pro planning, practice, metrics, and reflection tool.',
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                fontSize: 12.5,
+                height: 1.4,
+              ),
+            ),
             const SizedBox(height: 10),
             _buildBody(theme),
           ],
@@ -303,7 +361,10 @@ class _PaywallSheetState extends State<PaywallSheet> {
         children: [
           Text(
             error,
-            style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+            style: TextStyle(
+              color: context.appColors.textSecondary,
+              height: 1.45,
+            ),
           ),
           const SizedBox(height: 16),
           OutlinedButton(
@@ -319,7 +380,9 @@ class _PaywallSheetState extends State<PaywallSheet> {
       );
     }
     final product = _product;
-    final buttonText = product != null ? 'Unlock Pro · ${product.price}' : 'Unlock Pro';
+    final buttonText = product != null
+        ? 'Unlock Pro · ${product.price}'
+        : 'Unlock Pro';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -370,7 +433,7 @@ class _AlreadyPurchasedRow extends StatelessWidget {
             child: Text(
               'Already bought Pro? You will not be charged again.',
               style: TextStyle(
-                color: AppTheme.textSecondary,
+                color: context.appColors.textSecondary,
                 height: 1.4,
                 fontSize: 13,
               ),
@@ -481,11 +544,7 @@ class _DesktopPaywallViewState extends State<DesktopPaywallView> {
                 borderRadius: BorderRadius.circular(8),
               ),
               alignment: Alignment.center,
-              child: Icon(
-                icon,
-                color: theme.colorScheme.primary,
-                size: 18,
-              ),
+              child: Icon(icon, color: theme.colorScheme.primary, size: 18),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -698,11 +757,15 @@ class _DesktopPaywallViewState extends State<DesktopPaywallView> {
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: () => launchUrl(
-                                Uri.parse('https://maskedsyntax.lemonsqueezy.com/buy/patterns-desktop-pro'),
+                                Uri.parse(
+                                  'https://maskedsyntax.lemonsqueezy.com/buy/patterns-desktop-pro',
+                                ),
                                 mode: LaunchMode.externalApplication,
                               ),
                               style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(vertical: 14),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 14,
+                                ),
                               ),
                               child: const Text('Purchase License Key'),
                             ),
@@ -746,7 +809,10 @@ class _DesktopPaywallViewState extends State<DesktopPaywallView> {
                           hintStyle: TextStyle(
                             color: theme.colorScheme.onSurface.withOpacity(0.3),
                           ),
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -773,12 +839,18 @@ class _DesktopPaywallViewState extends State<DesktopPaywallView> {
                                   onPressed: () async {
                                     final key = _licenseController.text.trim();
                                     if (key.length >= 8) {
-                                      await appPreferences?.setBool(proUnlockedKey, true);
+                                      await appPreferences?.setBool(
+                                        proUnlockedKey,
+                                        true,
+                                      );
                                       ref.read(proProvider.notifier).refresh();
                                       if (widget.onUnlocked != null) {
                                         widget.onUnlocked!();
                                       } else {
-                                        _showUnlockedDialog(context, restored: false);
+                                        _showUnlockedDialog(
+                                          context,
+                                          restored: false,
+                                        );
                                       }
                                     } else {
                                       showAppSnackBar(
@@ -824,7 +896,7 @@ void _showUnlockedDialog(BuildContext context, {required bool restored}) {
     barrierDismissible: true,
     builder: (dialogContext) {
       final theme = Theme.of(dialogContext);
-      final surface = AppTheme.charcoalCard;
+      final surface = context.appColors.card;
       return Dialog(
         backgroundColor: Colors.transparent,
         insetPadding: const EdgeInsets.symmetric(horizontal: 28, vertical: 24),
@@ -868,7 +940,7 @@ void _showUnlockedDialog(BuildContext context, {required bool restored}) {
                     ? 'Patterns Desktop Pro has been restored on this device.'
                     : 'Patterns Desktop Pro is unlocked. Every desktop recovery tool is now yours.',
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: AppTheme.textSecondary,
+                  color: context.appColors.textSecondary,
                   height: 1.5,
                 ),
               ),

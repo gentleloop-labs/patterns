@@ -33,10 +33,7 @@ void main() {
     expect(counters['activity.completed'], 1);
     expect(counters['activity.completed.kind:urge'], 1);
     // Large numeric prop is recorded in the ring buffer, not as a counter.
-    expect(
-      counters.keys.any((k) => k.contains('durationSec')),
-      isFalse,
-    );
+    expect(counters.keys.any((k) => k.contains('durationSec')), isFalse);
   });
 
   test('recent events are returned most-recent first', () async {

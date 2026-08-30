@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../content/ocd_tracks.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
-import '../../theme/app_theme.dart';
+import '../../theme/app_colors.dart';
 import '../../widgets/animations.dart';
 import '../widgets/recovery_ui.dart';
 import '../widgets/section_intro.dart';
@@ -185,7 +185,10 @@ class StructuredProgramsScreen extends ConsumerWidget {
             const SizedBox(height: 6),
             Text(
               'Follow a guided, week-by-week plan at your own pace.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.4),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.4,
+              ),
             ),
             const SizedBox(height: 18),
             const SectionIntro(id: 'structuredPrograms'),
@@ -294,13 +297,16 @@ class _GroupLabel extends StatelessWidget {
             style: theme.textTheme.labelSmall?.copyWith(
               fontWeight: FontWeight.w800,
               letterSpacing: 1.1,
-              color: AppTheme.textSecondary,
+              color: context.appColors.textSecondary,
             ),
           ),
           const SizedBox(height: 2),
           Text(
             caption,
-            style: TextStyle(color: AppTheme.textSecondary, fontSize: 12.5),
+            style: TextStyle(
+              color: context.appColors.textSecondary,
+              fontSize: 12.5,
+            ),
           ),
         ],
       ),
@@ -383,7 +389,7 @@ class _ProgramCard extends StatelessWidget {
             Text(
               '${program.weeks.length} weeks · ${program.subtitle}',
               style: TextStyle(
-                color: AppTheme.textSecondary,
+                color: context.appColors.textSecondary,
                 fontSize: 13,
                 height: 1.3,
               ),
@@ -501,7 +507,7 @@ class _ProgramDetailScreenState extends ConsumerState<ProgramDetailScreen> {
               Text(
                 checklistNote,
                 style: TextStyle(
-                  color: AppTheme.textSecondary,
+                  color: context.appColors.textSecondary,
                   height: 1.45,
                   fontSize: 12.5,
                 ),
@@ -608,7 +614,7 @@ class _WeekSection extends StatelessWidget {
                           : Icons.circle_outlined,
                       color: allDone
                           ? theme.colorScheme.primary
-                          : AppTheme.textSecondary,
+                          : context.appColors.textSecondary,
                       size: 20,
                     ),
                     const SizedBox(width: 12),
@@ -623,7 +629,7 @@ class _WeekSection extends StatelessWidget {
                     Text(
                       '$doneCount/${week.tasks.length}',
                       style: TextStyle(
-                        color: AppTheme.textSecondary,
+                        color: context.appColors.textSecondary,
                         fontSize: 13,
                       ),
                     ),
@@ -632,7 +638,7 @@ class _WeekSection extends StatelessWidget {
                       expanded
                           ? Icons.keyboard_arrow_up_rounded
                           : Icons.keyboard_arrow_down_rounded,
-                      color: AppTheme.textSecondary,
+                      color: context.appColors.textSecondary,
                     ),
                   ],
                 ),
@@ -683,7 +689,9 @@ class _TaskRow extends StatelessWidget {
           children: [
             Icon(
               done ? Icons.check_box_rounded : Icons.check_box_outline_blank,
-              color: done ? theme.colorScheme.primary : AppTheme.textSecondary,
+              color: done
+                  ? theme.colorScheme.primary
+                  : context.appColors.textSecondary,
               size: 22,
             ),
             const SizedBox(width: 12),
@@ -693,7 +701,7 @@ class _TaskRow extends StatelessWidget {
                 style: theme.textTheme.bodyMedium?.copyWith(
                   height: 1.35,
                   color: done
-                      ? AppTheme.textSecondary
+                      ? context.appColors.textSecondary
                       : theme.colorScheme.onSurface,
                   decoration: done ? TextDecoration.lineThrough : null,
                 ),

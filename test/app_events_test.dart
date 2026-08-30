@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:patterns/app_preferences.dart';
 import 'package:patterns/services/app_events.dart';
 import 'package:patterns/services/telemetry.dart';
+import 'package:patterns/services/pro_entry_point.dart';
 
 void main() {
   Future<void> initPrefs() async {
@@ -82,7 +83,10 @@ void main() {
         counters['${AppEvents.firstMeaningfulAction}.kind:compulsion_delay'],
         1,
       );
-      expect(counters['${AppEvents.firstMeaningfulAction}.kind:journal'], isNull);
+      expect(
+        counters['${AppEvents.firstMeaningfulAction}.kind:journal'],
+        isNull,
+      );
     });
 
     test('a journal-first user is attributed to journal', () async {
@@ -113,29 +117,40 @@ void main() {
     test('screen views and purchases accumulate', () async {
       await initPrefs();
 
-      AppEvents.logSupporterScreenViewed(source: 'settings');
-      AppEvents.logSupporterScreenViewed(source: 'settings');
-      AppEvents.logSupporterPurchaseStarted();
-      AppEvents.logSupporterPurchaseCompleted(restored: false);
-      AppEvents.logSupporterPurchaseCompleted(restored: true);
+      AppEvents.logSupporterScreenViewed(source: ProEntryPoint.settings);
+      AppEvents.logSupporterScreenViewed(source: ProEntryPoint.settings);
+      AppEvents.logSupporterPurchaseStarted(ProEntryPoint.settings);
+      AppEvents.logSupporterPurchaseCompleted(
+        restored: false,
+        source: ProEntryPoint.settings,
+      );
+      AppEvents.logSupporterPurchaseCompleted(
+        restored: true,
+        source: ProEntryPoint.settings,
+      );
 
       final counters = Telemetry.counters();
       expect(counters[AppEvents.supporterScreenViewed], 2);
       expect(counters['${AppEvents.supporterScreenViewed}.source:settings'], 2);
       expect(counters[AppEvents.supporterPurchaseStarted], 1);
       expect(counters[AppEvents.supporterPurchaseCompleted], 2);
-      expect(counters['${AppEvents.supporterPurchaseCompleted}.restored:true'], 1);
-      expect(counters['${AppEvents.supporterPurchaseCompleted}.restored:false'], 1);
+      expect(
+        counters['${AppEvents.supporterPurchaseCompleted}.restored:true'],
+        1,
+      );
+      expect(
+        counters['${AppEvents.supporterPurchaseCompleted}.restored:false'],
+        1,
+      );
     });
   });
 
   group('privacy contract', () {
-    test('no event carries free text, even if a call site passes prose', () async {
+    test('Pro event context is closed and never accepts free text', () async {
       await initPrefs();
 
-      // A future call site mistakenly passing user-entered content.
       AppEvents.logSupporterScreenViewed(
-        source: 'I keep checking the stove because I am afraid of a fire',
+        source: ProEntryPoint.exposureHierarchy,
       );
       AppEvents.logOnboardingCompleted(
         path: 'my trigger is touching door handles in public',
@@ -147,27 +162,33 @@ void main() {
         for (final value in props.values) {
           if (value is! String) continue;
           expect(value.length, lessThanOrEqualTo(24));
-          expect(RegExp(r'^[a-z0-9_]+$').hasMatch(value), isTrue,
-              reason: 'prop "$value" is not a slug');
+          expect(
+            RegExp(r'^[a-z0-9_]+$').hasMatch(value),
+            isTrue,
+            reason: 'prop "$value" is not a slug',
+          );
         }
       }
     });
 
-    test('slugging strips punctuation and spaces', () async {
+    test('typed Pro context uses its fixed wire name', () async {
       await initPrefs();
 
-      AppEvents.logSupporterScreenViewed(source: 'Settings / Pro Row!');
+      AppEvents.logSupporterScreenViewed(source: ProEntryPoint.todayNextStep);
 
       expect(
-        Telemetry.counters()['${AppEvents.supporterScreenViewed}.source:settings_pro_row'],
+        Telemetry.counters()['${AppEvents.supporterScreenViewed}.source:today_next_step'],
         1,
       );
     });
 
     test('event names are GA4-compatible lowercase snake_case', () {
       for (final name in AppEvents.all) {
-        expect(RegExp(r'^[a-z][a-z0-9_]{0,39}$').hasMatch(name), isTrue,
-            reason: '"$name" is not a valid GA4 event name');
+        expect(
+          RegExp(r'^[a-z][a-z0-9_]{0,39}$').hasMatch(name),
+          isTrue,
+          reason: '"$name" is not a valid GA4 event name',
+        );
       }
     });
   });

@@ -4,9 +4,10 @@ import 'package:line_icons/line_icons.dart';
 
 import '../../providers/providers.dart';
 import '../../services/analytics_service.dart';
-import '../../theme/app_theme.dart';
+import '../../theme/app_colors.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/paywall_sheet.dart';
+import '../../services/pro_entry_point.dart';
 import '../preferences.dart';
 import '../widgets/pro_gate.dart';
 import '../widgets/section_intro.dart';
@@ -83,7 +84,12 @@ class RecoveryMetricsSection extends ConsumerWidget {
         if (isPro)
           const RecoveryMetricsView()
         else
-          _LockedTeaser(onTap: () => PaywallSheet.show(context)),
+          _LockedTeaser(
+            onTap: () => PaywallSheet.show(
+              context,
+              entryPoint: ProEntryPoint.recoveryMetrics,
+            ),
+          ),
       ],
     );
   }
@@ -117,7 +123,10 @@ class _LockedTeaser extends StatelessWidget {
             Text(
               'Streaks, exposures completed, and how your urges drop over time, '
               'across every ERP tool. Unlock with Patterns Pro.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.45,
+              ),
             ),
             const SizedBox(height: 14),
             Align(
@@ -237,7 +246,10 @@ class _StreakCard extends StatelessWidget {
               ),
               Text(
                 days == 1 ? 'day streak' : 'day streak',
-                style: TextStyle(color: AppTheme.textSecondary, fontSize: 13),
+                style: TextStyle(
+                  color: context.appColors.textSecondary,
+                  fontSize: 13,
+                ),
               ),
             ],
           ),
@@ -284,7 +296,10 @@ class _MetricCard extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             label,
-            style: TextStyle(color: AppTheme.textSecondary, fontSize: 12),
+            style: TextStyle(
+              color: context.appColors.textSecondary,
+              fontSize: 12,
+            ),
           ),
         ],
       ),
@@ -343,7 +358,7 @@ class _WeeklyStrip extends StatelessWidget {
                                   1) %
                               7],
                           style: TextStyle(
-                            color: AppTheme.textSecondary,
+                            color: context.appColors.textSecondary,
                             fontSize: 11,
                           ),
                         ),
@@ -382,7 +397,10 @@ class _EmptyMetrics extends StatelessWidget {
           Text(
             'Practise a delay, an ERP session, or an exposure step and your '
             'streak and progress will start building.',
-            style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+            style: TextStyle(
+              color: context.appColors.textSecondary,
+              height: 1.45,
+            ),
           ),
         ],
       ),

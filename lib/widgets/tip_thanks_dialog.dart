@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../theme/app_colors.dart';
 import '../theme/app_theme.dart';
 
 class TipThanksDialog extends StatelessWidget {
@@ -17,7 +18,7 @@ class TipThanksDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final surface = AppTheme.charcoalCard;
+    final surface = context.appColors.card;
 
     return Dialog(
       backgroundColor: Colors.transparent,
@@ -60,7 +61,7 @@ class TipThanksDialog extends StatelessWidget {
             Text(
               'Your support means a lot. Patterns stays ad-free and independent because of people like you.',
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: AppTheme.textSecondary,
+                color: context.appColors.textSecondary,
                 height: 1.5,
               ),
             ),

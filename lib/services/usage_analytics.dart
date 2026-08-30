@@ -27,6 +27,16 @@ enum UsageAnalyticsEvent {
   paywallViewed,
   purchaseStarted,
   purchaseCompleted,
+  analyticsConsentGranted,
+  activationCompleted,
+  proFeatureTapped,
+  productLoadResult,
+  purchaseCanceled,
+  purchaseFailed,
+  restoreStarted,
+  restoreCompleted,
+  restoreNotFound,
+  restoreFailed,
 }
 
 extension UsageAnalyticsEventWireName on UsageAnalyticsEvent {
@@ -46,11 +56,73 @@ extension UsageAnalyticsEventWireName on UsageAnalyticsEvent {
     UsageAnalyticsEvent.paywallViewed => 'paywall_viewed',
     UsageAnalyticsEvent.purchaseStarted => 'purchase_started',
     UsageAnalyticsEvent.purchaseCompleted => 'purchase_completed',
+    UsageAnalyticsEvent.analyticsConsentGranted => 'analytics_consent_granted',
+    UsageAnalyticsEvent.activationCompleted => 'activation_completed',
+    UsageAnalyticsEvent.proFeatureTapped => 'pro_feature_tapped',
+    UsageAnalyticsEvent.productLoadResult => 'product_load_result',
+    UsageAnalyticsEvent.purchaseCanceled => 'purchase_canceled',
+    UsageAnalyticsEvent.purchaseFailed => 'purchase_failed',
+    UsageAnalyticsEvent.restoreStarted => 'restore_started',
+    UsageAnalyticsEvent.restoreCompleted => 'restore_completed',
+    UsageAnalyticsEvent.restoreNotFound => 'restore_not_found',
+    UsageAnalyticsEvent.restoreFailed => 'restore_failed',
+  };
+}
+
+enum UsageAnalyticsContext {
+  journal,
+  compulsionDelay,
+  guidedErp,
+  selfCheck,
+  success,
+  unavailable,
+  error,
+  settings,
+  todayNextStep,
+  recoveryMetrics,
+  exposureHierarchy,
+  exposureMaterials,
+  structuredPrograms,
+  actionPlanner,
+  implementationIntentions,
+  urgeSurfing,
+  responsePrevention,
+  uncertaintyTraining,
+  behavioralExperiments,
+  reflectionJournal,
+}
+
+extension UsageAnalyticsContextWireName on UsageAnalyticsContext {
+  String get wireName => switch (this) {
+    UsageAnalyticsContext.journal => 'journal',
+    UsageAnalyticsContext.compulsionDelay => 'compulsion_delay',
+    UsageAnalyticsContext.guidedErp => 'guided_erp',
+    UsageAnalyticsContext.selfCheck => 'self_check',
+    UsageAnalyticsContext.success => 'success',
+    UsageAnalyticsContext.unavailable => 'unavailable',
+    UsageAnalyticsContext.error => 'error',
+    UsageAnalyticsContext.settings => 'settings',
+    UsageAnalyticsContext.todayNextStep => 'today_next_step',
+    UsageAnalyticsContext.recoveryMetrics => 'recovery_metrics',
+    UsageAnalyticsContext.exposureHierarchy => 'exposure_hierarchy',
+    UsageAnalyticsContext.exposureMaterials => 'exposure_materials',
+    UsageAnalyticsContext.structuredPrograms => 'structured_programs',
+    UsageAnalyticsContext.actionPlanner => 'action_planner',
+    UsageAnalyticsContext.implementationIntentions =>
+      'implementation_intentions',
+    UsageAnalyticsContext.urgeSurfing => 'urge_surfing',
+    UsageAnalyticsContext.responsePrevention => 'response_prevention',
+    UsageAnalyticsContext.uncertaintyTraining => 'uncertainty_training',
+    UsageAnalyticsContext.behavioralExperiments => 'behavioral_experiments',
+    UsageAnalyticsContext.reflectionJournal => 'reflection_journal',
   };
 }
 
 abstract interface class UsageAnalyticsService {
-  Future<void> track(UsageAnalyticsEvent event);
+  Future<void> track(
+    UsageAnalyticsEvent event, {
+    UsageAnalyticsContext? context,
+  });
   Future<void> flush();
   Future<void> setCollectionEnabled(bool enabled);
 }
@@ -65,24 +137,30 @@ class NoopAnalyticsService implements UsageAnalyticsService {
   Future<void> setCollectionEnabled(bool enabled) async {}
 
   @override
-  Future<void> track(UsageAnalyticsEvent event) async {}
+  Future<void> track(
+    UsageAnalyticsEvent event, {
+    UsageAnalyticsContext? context,
+  }) async {}
 }
 
 class QueuedAnalyticsEvent {
   final UsageAnalyticsEvent event;
   final int version;
   final int timestamp;
+  final UsageAnalyticsContext? context;
 
   const QueuedAnalyticsEvent({
     required this.event,
     required this.version,
     required this.timestamp,
+    this.context,
   });
 
   Map<String, Object> toJson() => {
     'name': event.wireName,
     'version': version,
     'timestamp': timestamp,
+    if (context != null) 'context': context!.wireName,
   };
 
   String encode() => jsonEncode(toJson());
@@ -92,20 +170,32 @@ class QueuedAnalyticsEvent {
       final json = jsonDecode(value);
       if (json is! Map<String, dynamic> ||
           json.keys.any(
-            (key) => !const {'name', 'version', 'timestamp'}.contains(key),
+            (key) => !const {
+              'name',
+              'version',
+              'timestamp',
+              'context',
+            }.contains(key),
           ) ||
-          json['version'] != 1 ||
+          (json['version'] != 1 && json['version'] != 2) ||
           json['timestamp'] is! int ||
-          json['name'] is! String) {
+          json['name'] is! String ||
+          (json['context'] != null && json['context'] is! String)) {
         return null;
       }
       final event = UsageAnalyticsEvent.values.firstWhere(
         (candidate) => candidate.wireName == json['name'],
       );
+      final context = json['context'] == null
+          ? null
+          : UsageAnalyticsContext.values.firstWhere(
+              (candidate) => candidate.wireName == json['context'],
+            );
       return QueuedAnalyticsEvent(
         event: event,
-        version: 1,
+        version: json['version'] as int,
         timestamp: json['timestamp'] as int,
+        context: context,
       );
     } catch (_) {
       return null;
@@ -201,7 +291,10 @@ class CloudflareAnalyticsService
       _synchronized(() async => _load().length);
 
   @override
-  Future<void> track(UsageAnalyticsEvent event) async {
+  Future<void> track(
+    UsageAnalyticsEvent event, {
+    UsageAnalyticsContext? context,
+  }) async {
     if (!isCollectionEnabled) return;
     try {
       final count = await _synchronized(() async {
@@ -210,8 +303,9 @@ class CloudflareAnalyticsService
           ..add(
             QueuedAnalyticsEvent(
               event: event,
-              version: 1,
+              version: context == null ? 1 : 2,
               timestamp: DateTime.now().millisecondsSinceEpoch,
+              context: context,
             ),
           );
         if (queued.length > maxQueueSize) {
@@ -343,15 +437,18 @@ class CloudflareAnalyticsService
 enum AnalyticsEnvironment { disabled, development, production }
 
 class UsageAnalyticsConfiguration {
+  static const _defaultProductionEndpoint =
+      'https://patterns-analytics.maskedsyntax.workers.dev';
   static const _environmentName = String.fromEnvironment(
     'PATTERNS_ANALYTICS_ENV',
-    defaultValue: 'disabled',
+    defaultValue: kReleaseMode ? 'production' : 'disabled',
   );
   static const _developmentEndpoint = String.fromEnvironment(
     'PATTERNS_ANALYTICS_DEV_ENDPOINT',
   );
   static const _productionEndpoint = String.fromEnvironment(
     'PATTERNS_ANALYTICS_PROD_ENDPOINT',
+    defaultValue: _defaultProductionEndpoint,
   );
 
   static AnalyticsEnvironment get environment => switch (_environmentName) {

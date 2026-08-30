@@ -60,9 +60,7 @@ void main() {
   ) async {
     await _pumpOnboarding(tester);
 
-    final title = tester.widget<Text>(
-      find.textContaining('practise with OCD'),
-    );
+    final title = tester.widget<Text>(find.textContaining('practise with OCD'));
     expect(title.style?.color, AppTheme.textPrimary);
   });
 }

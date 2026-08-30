@@ -61,7 +61,10 @@ void main() {
     test('malformed JSON is treated as plain text, not an error', () {
       const broken = '{not valid delta';
       expect(plainTextFromStored(broken), '{not valid delta');
-      expect(documentFromStored(broken).toPlainText().trim(), '{not valid delta');
+      expect(
+        documentFromStored(broken).toPlainText().trim(),
+        '{not valid delta',
+      );
     });
   });
 }

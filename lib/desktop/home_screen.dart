@@ -40,7 +40,7 @@ class DesktopHomeScreen extends ConsumerWidget {
 
     final todayKey = DateFormat('yyyy-MM-dd').format(DateTime.now());
     final hasCheckedIn = journals.any((entry) => entry.date == todayKey);
-    
+
     final metrics = AnalyticsService.buildRecoveryMetrics(
       delaySessions: delays,
       erpSessions: erp,
@@ -57,7 +57,7 @@ class DesktopHomeScreen extends ConsumerWidget {
       responsePreventionLogs: responses,
       urgeSurfSessions: surfs,
     );
-    
+
     final recentDelay = _latestDelay(delays);
     final hour = DateTime.now().hour;
     final greeting = hour < 12
@@ -71,15 +71,26 @@ class DesktopHomeScreen extends ConsumerWidget {
     final last7Days = List.generate(7, (index) {
       final date = today.subtract(Duration(days: 6 - index));
       final dateKey = DateFormat('yyyy-MM-dd').format(date);
-      
+
       final hasJournal = journals.any((e) => e.date == dateKey);
-      final hasOcd = ocds.any((e) => DateFormat('yyyy-MM-dd').format(e.datetime) == dateKey);
-      final hasDelay = delays.any((e) => DateFormat('yyyy-MM-dd').format(e.createdAt) == dateKey);
-      final hasErp = erp.any((e) => DateFormat('yyyy-MM-dd').format(e.createdAt) == dateKey);
-      final hasResponse = responses.any((e) => DateFormat('yyyy-MM-dd').format(e.createdAt) == dateKey);
-      final hasSurf = surfs.any((e) => DateFormat('yyyy-MM-dd').format(e.createdAt) == dateKey);
-      
-      final active = hasJournal || hasOcd || hasDelay || hasErp || hasResponse || hasSurf;
+      final hasOcd = ocds.any(
+        (e) => DateFormat('yyyy-MM-dd').format(e.datetime) == dateKey,
+      );
+      final hasDelay = delays.any(
+        (e) => DateFormat('yyyy-MM-dd').format(e.createdAt) == dateKey,
+      );
+      final hasErp = erp.any(
+        (e) => DateFormat('yyyy-MM-dd').format(e.createdAt) == dateKey,
+      );
+      final hasResponse = responses.any(
+        (e) => DateFormat('yyyy-MM-dd').format(e.createdAt) == dateKey,
+      );
+      final hasSurf = surfs.any(
+        (e) => DateFormat('yyyy-MM-dd').format(e.createdAt) == dateKey,
+      );
+
+      final active =
+          hasJournal || hasOcd || hasDelay || hasErp || hasResponse || hasSurf;
       final weekdayStr = DateFormat('E').format(date).substring(0, 1);
       return (weekdayStr, active);
     });
@@ -151,7 +162,9 @@ class DesktopHomeScreen extends ConsumerWidget {
                         Text(
                           "You've got this. One step at a time.",
                           style: TextStyle(
-                            color: theme.colorScheme.onSurface.withOpacity(0.55),
+                            color: theme.colorScheme.onSurface.withOpacity(
+                              0.55,
+                            ),
                             fontSize: 14,
                           ),
                         ),
@@ -169,7 +182,7 @@ class DesktopHomeScreen extends ConsumerWidget {
                 ],
               ),
               const SizedBox(height: 32),
-              
+
               // Mockup Dashboard Grid Layout
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -191,14 +204,16 @@ class DesktopHomeScreen extends ConsumerWidget {
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,
-                                      color: theme.colorScheme.onSurface.withOpacity(0.6),
+                                      color: theme.colorScheme.onSurface
+                                          .withOpacity(0.6),
                                     ),
                                   ),
                                   const Spacer(),
                                   Icon(
                                     LineIcons.angleRight,
                                     size: 16,
-                                    color: theme.colorScheme.onSurface.withOpacity(0.3),
+                                    color: theme.colorScheme.onSurface
+                                        .withOpacity(0.3),
                                   ),
                                 ],
                               ),
@@ -207,7 +222,8 @@ class DesktopHomeScreen extends ConsumerWidget {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         '${dashboard.recoveryScore}',
@@ -235,7 +251,9 @@ class DesktopHomeScreen extends ConsumerWidget {
                                       alignment: Alignment.bottomRight,
                                       child: CustomPaint(
                                         size: const Size(160, 60),
-                                        painter: _WavyLinePainter(color: theme.colorScheme.primary),
+                                        painter: _WavyLinePainter(
+                                          color: theme.colorScheme.primary,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -245,7 +263,7 @@ class DesktopHomeScreen extends ConsumerWidget {
                           ),
                         ),
                         const SizedBox(height: 20),
-                        
+
                         // Quick Actions Card
                         _DashboardCard(
                           child: Column(
@@ -260,15 +278,23 @@ class DesktopHomeScreen extends ConsumerWidget {
                               const SizedBox(height: 14),
                               _ActionItem(
                                 icon: Icons.hourglass_empty_rounded,
-                                title: recentDelay != null ? 'Resume compulsion delay' : 'Start compulsion delay',
-                                subtitle: recentDelay != null ? 'Pick up where you left off' : 'Practice sitting with urges',
+                                title: recentDelay != null
+                                    ? 'Resume compulsion delay'
+                                    : 'Start compulsion delay',
+                                subtitle: recentDelay != null
+                                    ? 'Pick up where you left off'
+                                    : 'Practice sitting with urges',
                                 onTap: onOpenRecovery,
                               ),
                               const SizedBox(height: 12),
                               _ActionItem(
                                 icon: LineIcons.penNib,
-                                title: hasCheckedIn ? 'Read today\'s check-in' : 'Daily check-in',
-                                subtitle: hasCheckedIn ? 'Open Journal to read or add more' : 'Write a short journal entry',
+                                title: hasCheckedIn
+                                    ? 'Read today\'s check-in'
+                                    : 'Daily check-in',
+                                subtitle: hasCheckedIn
+                                    ? 'Open Journal to read or add more'
+                                    : 'Write a short journal entry',
                                 onTap: onOpenJournal,
                               ),
                             ],
@@ -278,7 +304,7 @@ class DesktopHomeScreen extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(width: 20),
-                  
+
                   // Right Column: Practice Streak & Explore
                   Expanded(
                     child: Column(
@@ -296,14 +322,16 @@ class DesktopHomeScreen extends ConsumerWidget {
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,
-                                      color: theme.colorScheme.onSurface.withOpacity(0.6),
+                                      color: theme.colorScheme.onSurface
+                                          .withOpacity(0.6),
                                     ),
                                   ),
                                   const Spacer(),
                                   Icon(
                                     LineIcons.angleRight,
                                     size: 16,
-                                    color: theme.colorScheme.onSurface.withOpacity(0.3),
+                                    color: theme.colorScheme.onSurface
+                                        .withOpacity(0.3),
                                   ),
                                 ],
                               ),
@@ -326,16 +354,18 @@ class DesktopHomeScreen extends ConsumerWidget {
                                     'days',
                                     style: TextStyle(
                                       fontSize: 16,
-                                      color: theme.colorScheme.onSurface.withOpacity(0.55),
+                                      color: theme.colorScheme.onSurface
+                                          .withOpacity(0.55),
                                     ),
                                   ),
                                 ],
                               ),
                               const SizedBox(height: 16),
-                              
+
                               // Weekday Check-in Row
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   for (final (dayLabel, active) in last7Days)
                                     Column(
@@ -344,14 +374,23 @@ class DesktopHomeScreen extends ConsumerWidget {
                                           width: 32,
                                           height: 32,
                                           decoration: BoxDecoration(
-                                            color: active ? theme.colorScheme.primary : Colors.transparent,
+                                            color: active
+                                                ? theme.colorScheme.primary
+                                                : Colors.transparent,
                                             shape: BoxShape.circle,
-                                            border: active ? null : Border.all(color: theme.dividerColor, width: 1.5),
+                                            border: active
+                                                ? null
+                                                : Border.all(
+                                                    color: theme.dividerColor,
+                                                    width: 1.5,
+                                                  ),
                                           ),
                                           child: Icon(
                                             Icons.check,
                                             size: 16,
-                                            color: active ? Colors.black : theme.dividerColor,
+                                            color: active
+                                                ? Colors.black
+                                                : theme.dividerColor,
                                           ),
                                         ),
                                         const SizedBox(height: 6),
@@ -360,7 +399,8 @@ class DesktopHomeScreen extends ConsumerWidget {
                                           style: TextStyle(
                                             fontSize: 11,
                                             fontWeight: FontWeight.bold,
-                                            color: theme.colorScheme.onSurface.withOpacity(0.55),
+                                            color: theme.colorScheme.onSurface
+                                                .withOpacity(0.55),
                                           ),
                                         ),
                                       ],
@@ -371,7 +411,7 @@ class DesktopHomeScreen extends ConsumerWidget {
                           ),
                         ),
                         const SizedBox(height: 20),
-                        
+
                         // Explore Card
                         _DashboardCard(
                           child: Column(
@@ -622,14 +662,20 @@ class _WavyLinePainter extends CustomPainter {
     final path = Path();
     path.moveTo(0, size.height * 0.7);
     path.cubicTo(
-      size.width * 0.25, size.height * 0.9,
-      size.width * 0.25, size.height * 0.3,
-      size.width * 0.5, size.height * 0.6,
+      size.width * 0.25,
+      size.height * 0.9,
+      size.width * 0.25,
+      size.height * 0.3,
+      size.width * 0.5,
+      size.height * 0.6,
     );
     path.cubicTo(
-      size.width * 0.75, size.height * 0.9,
-      size.width * 0.75, size.height * 0.1,
-      size.width, size.height * 0.3,
+      size.width * 0.75,
+      size.height * 0.9,
+      size.width * 0.75,
+      size.height * 0.1,
+      size.width,
+      size.height * 0.3,
     );
 
     final fillPath = Path.from(path)
@@ -639,10 +685,7 @@ class _WavyLinePainter extends CustomPainter {
 
     final fillPaint = Paint()
       ..shader = LinearGradient(
-        colors: [
-          color.withOpacity(0.2),
-          color.withOpacity(0.0),
-        ],
+        colors: [color.withOpacity(0.2), color.withOpacity(0.0)],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));

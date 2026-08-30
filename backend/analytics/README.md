@@ -23,7 +23,9 @@ Each request contains only:
 - platform (`ios`, `android`, `macos`, `windows`, `linux`, or `web`);
 - app version;
 - whitelisted event name, schema version, and client timestamp in Unix epoch
-  milliseconds.
+  milliseconds;
+- for selected version 2 events, one whitelisted context such as the fixed Pro
+  entry point or a store result category. Arbitrary properties are rejected.
 
 The ID is generated when the first enabled queue is uploaded. It is not based on
 device or account information and is used only by this service. It remains stable
@@ -119,7 +121,13 @@ curl https://YOUR-WORKER.workers.dev/health
 
 ## Flutter configuration
 
-Analytics is build-disabled by default, including tests and normal developer builds.
+The current production origin is
+`https://patterns-analytics.maskedsyntax.workers.dev`. Its `/health` route can
+be checked without sending an analytics event.
+
+Release builds use the production endpoint above by default, but collection
+still remains off until the user explicitly consents. Debug and normal developer
+builds are analytics-disabled unless configured. For local Worker testing:
 For local Worker testing:
 
 ```bash
@@ -141,20 +149,13 @@ Use the equivalent defines with `flutter build appbundle`, `macos`, or `windows`
 The endpoint is centralized in `lib/services/usage_analytics.dart`; it is not
 hardcoded in UI code.
 
-Because existing public copy promises no remote analytics, user consent defaults
-off. After privacy disclosures and store labels have been updated, a product owner
-can intentionally change the build default with:
-
-```bash
---dart-define=PATTERNS_ANALYTICS_DEFAULT_ENABLED=true
-```
-
-Without that define, a user must enable the Settings toggle. Turning it off stops
-new collection, clears unsent events, and deletes the analytics installation ID.
+User consent defaults off. A user must explicitly accept the contextual consent
+prompt or enable the Settings toggle. Turning it off stops new collection, clears
+unsent events, and deletes the analytics installation ID.
 
 ## Event whitelist
 
-The v1 whitelist is:
+The accepted event whitelist is:
 
 ```text
 app_opened
@@ -171,6 +172,16 @@ insights_opened
 paywall_viewed
 purchase_started
 purchase_completed
+analytics_consent_granted
+activation_completed
+pro_feature_tapped
+product_load_result
+purchase_canceled
+purchase_failed
+restore_started
+restore_completed
+restore_not_found
+restore_failed
 ```
 
 To add an event, make a deliberate schema review and update both:
@@ -179,8 +190,9 @@ To add an event, make a deliberate schema review and update both:
 2. `UsageAnalyticsEvent` plus its wire-name mapping in
    `lib/services/usage_analytics.dart`.
 
-Do not add a generic event name or properties dictionary. Bump the accepted schema
-version deliberately if an event's meaning changes.
+Do not add a generic event name or properties dictionary. Version 1 remains
+accepted for context-free events and existing clients. Version 2 requires an
+event-specific context from the independent server allowlist in `src/events.ts`.
 
 ## Querying D1
 

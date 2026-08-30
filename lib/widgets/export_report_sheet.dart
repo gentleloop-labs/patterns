@@ -9,7 +9,7 @@ import '../providers/providers.dart';
 import '../services/analytics_service.dart';
 import '../services/pdf_report_service.dart';
 import '../services/report_export_saver.dart';
-import '../theme/app_theme.dart';
+import '../theme/app_colors.dart';
 import '../widgets/app_snack_bar.dart';
 import '../widgets/platform.dart';
 
@@ -163,7 +163,10 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
         Text(
           'Save a combined PDF of your journal, OCD log, and insights. '
           'You choose where to save it and whether to share it.',
-          style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
+          style: TextStyle(
+            color: context.appColors.textSecondary,
+            height: 1.45,
+          ),
         ),
         const SizedBox(height: 20),
         Text(
@@ -239,7 +242,10 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
           '(${filteredJournals.length} journal, ${filteredOcds.length} OCD'
           '${filteredYbocs.isEmpty ? '' : ', ${filteredYbocs.length} self-check'}'
           ')',
-          style: TextStyle(color: AppTheme.textSecondary, fontSize: 13),
+          style: TextStyle(
+            color: context.appColors.textSecondary,
+            fontSize: 13,
+          ),
         ),
         if (totalEntries > 500) ...[
           const SizedBox(height: 8),
@@ -252,7 +258,7 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
         Text(
           'This creates an unencrypted PDF. Save it somewhere private.',
           style: TextStyle(
-            color: AppTheme.textSecondary,
+            color: context.appColors.textSecondary,
             height: 1.45,
             fontSize: 13,
           ),
@@ -409,7 +415,7 @@ class _RangeChip extends StatelessWidget {
           style: TextStyle(
             color: selected
                 ? theme.colorScheme.onPrimary
-                : AppTheme.textSecondary,
+                : context.appColors.textSecondary,
             fontWeight: FontWeight.w800,
             fontSize: 13,
           ),
@@ -457,7 +463,7 @@ class _CustomDateRow extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
-                color: AppTheme.textSecondary,
+                color: context.appColors.textSecondary,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -469,7 +475,11 @@ class _CustomDateRow extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            Icon(LineIcons.calendar, size: 18, color: AppTheme.textSecondary),
+            Icon(
+              LineIcons.calendar,
+              size: 18,
+              color: context.appColors.textSecondary,
+            ),
           ],
         ),
       ),

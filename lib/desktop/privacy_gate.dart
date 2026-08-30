@@ -112,9 +112,7 @@ class _DesktopPrivacyGateState extends ConsumerState<DesktopPrivacyGate>
         if (mounted) setState(() => _locked = false);
         return;
       }
-      final ok = await auth.authenticate(
-        reason: 'Unlock Patterns',
-      );
+      final ok = await auth.authenticate(reason: 'Unlock Patterns');
       if (!mounted) return;
       setState(() {
         _locked = !ok;

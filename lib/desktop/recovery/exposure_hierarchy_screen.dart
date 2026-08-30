@@ -104,7 +104,6 @@ class ExposureHierarchyScreen extends ConsumerWidget {
   void _openBuilder(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        
         builder: (_) => const ExposureHierarchyBuilderScreen(),
       ),
     );
@@ -962,7 +961,6 @@ class _ProgressRing extends StatelessWidget {
     );
   }
 }
-
 
 class _MiniIconButton extends StatelessWidget {
   final IconData icon;

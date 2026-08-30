@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'app_colors.dart';
 
@@ -254,6 +255,111 @@ class AppTheme {
     snackBarTheme: _snackBarTheme(charcoalCard, textPrimary, softBorder),
     // Semantic tokens for call sites that have moved off the constants.
     extensions: const [AppColors.dark],
+  );
+
+  static ThemeData mobileLightTheme = ThemeData(
+    useMaterial3: true,
+    brightness: Brightness.light,
+    colorScheme: const ColorScheme.light(
+      primary: Color(0xFF8A6500),
+      onPrimary: Colors.white,
+      secondary: Color(0xFF407A52),
+      onSecondary: Colors.white,
+      error: Color(0xFFA13F3F),
+      onError: Colors.white,
+      surface: Color(0xFFFFFCF6),
+      onSurface: Color(0xFF201D18),
+      outline: Color(0xFFD8D0C2),
+    ),
+    scaffoldBackgroundColor: const Color(0xFFF7F3EA),
+    dividerColor: const Color(0xFFD8D0C2),
+    fontFamily: sansFamily,
+    textTheme: _buildMobileTextTheme(
+      const Color(0xFF201D18),
+      const Color(0xFF6F685F),
+    ),
+    cardTheme: CardThemeData(
+      color: const Color(0xFFFFFCF6),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+        side: const BorderSide(color: Color(0xFFD8D0C2), width: 1),
+      ),
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Color(0xFFF7F3EA),
+      foregroundColor: Color(0xFF201D18),
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      centerTitle: false,
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
+      titleTextStyle: TextStyle(
+        fontFamily: displayFamily,
+        fontSize: 28,
+        fontWeight: FontWeight.w500,
+        letterSpacing: -0.4,
+        color: Color(0xFF201D18),
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xFF8A6500),
+        foregroundColor: Colors.white,
+        elevation: 0,
+        minimumSize: const Size(0, 54),
+        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        textStyle: const TextStyle(
+          fontFamily: sansFamily,
+          fontWeight: FontWeight.w700,
+          fontSize: 15,
+          letterSpacing: -0.1,
+        ),
+      ),
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: const Color(0xFF201D18),
+        minimumSize: const Size(0, 54),
+        side: const BorderSide(color: Color(0xFFD8D0C2)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        textStyle: const TextStyle(
+          fontFamily: sansFamily,
+          fontWeight: FontWeight.w700,
+          fontSize: 15,
+          letterSpacing: -0.1,
+        ),
+      ),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: const Color(0xFFEEE8DC),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(18),
+        borderSide: const BorderSide(color: Color(0xFFD8D0C2)),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(18),
+        borderSide: const BorderSide(color: Color(0xFFD8D0C2)),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(18),
+        borderSide: const BorderSide(color: Color(0xFF8A6500), width: 1.5),
+      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+    ),
+    sliderTheme: const SliderThemeData(
+      activeTrackColor: Color(0xFF8A6500),
+      thumbColor: Color(0xFF8A6500),
+      inactiveTrackColor: Color(0xFFD8D0C2),
+      overlayColor: Color(0x298A6500),
+    ),
+    snackBarTheme: _snackBarTheme(
+      const Color(0xFFFFFCF6),
+      const Color(0xFF201D18),
+      const Color(0xFFD8D0C2),
+    ),
+    extensions: const [AppColors.light],
   );
 
   static ThemeData darkTheme = ThemeData(

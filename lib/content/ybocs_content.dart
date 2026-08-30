@@ -97,7 +97,8 @@ const ybocsSeverityQuestions = <YbocsSeverityQuestion>[
   YbocsSeverityQuestion(
     id: 'c_time',
     dimension: YbocsDimension.compulsions,
-    prompt: 'How much time do I spend on compulsions (rituals, checking, etc.)?',
+    prompt:
+        'How much time do I spend on compulsions (rituals, checking, etc.)?',
     options: [
       'None at all',
       'A little: less than an hour a day, or a few now and then',
@@ -121,7 +122,8 @@ const ybocsSeverityQuestions = <YbocsSeverityQuestion>[
   YbocsSeverityQuestion(
     id: 'c_distress',
     dimension: YbocsDimension.compulsions,
-    prompt: 'How anxious or upset would I feel if I could not do the compulsion?',
+    prompt:
+        'How anxious or upset would I feel if I could not do the compulsion?',
     options: [
       'Not at all',
       'A little uneasy',
@@ -188,9 +190,15 @@ const ybocsCategories = <YbocsSymptomCategory>[
       YbocsSymptomItem('agg_harm_self', 'Fear I might harm myself'),
       YbocsSymptomItem('agg_harm_others', 'Fear I might harm someone else'),
       YbocsSymptomItem('agg_violent', 'Violent or horrific images in my mind'),
-      YbocsSymptomItem('agg_blurt', 'Fear I\'ll blurt out insults or obscenities'),
+      YbocsSymptomItem(
+        'agg_blurt',
+        'Fear I\'ll blurt out insults or obscenities',
+      ),
       YbocsSymptomItem('agg_impulse', 'Fear I\'ll act on an unwanted impulse'),
-      YbocsSymptomItem('agg_responsible', 'Fear I\'ll be responsible for something terrible happening'),
+      YbocsSymptomItem(
+        'agg_responsible',
+        'Fear I\'ll be responsible for something terrible happening',
+      ),
     ],
   ),
   YbocsSymptomCategory(
@@ -200,10 +208,19 @@ const ybocsCategories = <YbocsSymptomCategory>[
     items: [
       YbocsSymptomItem('con_dirt', 'Concern with dirt or germs'),
       YbocsSymptomItem('con_bodily', 'Disgust with bodily waste or secretions'),
-      YbocsSymptomItem('con_chemicals', 'Concern about household chemicals or cleaners'),
+      YbocsSymptomItem(
+        'con_chemicals',
+        'Concern about household chemicals or cleaners',
+      ),
       YbocsSymptomItem('con_ill', 'Fear I\'ll get ill from contamination'),
-      YbocsSymptomItem('con_spread', 'Fear I\'ll spread contamination to others'),
-      YbocsSymptomItem('con_sticky', 'Bothered by sticky substances or residues'),
+      YbocsSymptomItem(
+        'con_spread',
+        'Fear I\'ll spread contamination to others',
+      ),
+      YbocsSymptomItem(
+        'con_sticky',
+        'Bothered by sticky substances or residues',
+      ),
     ],
   ),
   YbocsSymptomCategory(
@@ -211,10 +228,22 @@ const ybocsCategories = <YbocsSymptomCategory>[
     title: 'Sexual',
     kind: YbocsDimension.obsessions,
     items: [
-      YbocsSymptomItem('sex_forbidden', 'Forbidden or unwanted sexual thoughts or images'),
-      YbocsSymptomItem('sex_others', 'Sexual thoughts involving others that disturb me'),
-      YbocsSymptomItem('sex_orientation', 'Unwanted doubts about my sexual orientation'),
-      YbocsSymptomItem('sex_aggressive', 'Aggressive sexual thoughts toward others'),
+      YbocsSymptomItem(
+        'sex_forbidden',
+        'Forbidden or unwanted sexual thoughts or images',
+      ),
+      YbocsSymptomItem(
+        'sex_others',
+        'Sexual thoughts involving others that disturb me',
+      ),
+      YbocsSymptomItem(
+        'sex_orientation',
+        'Unwanted doubts about my sexual orientation',
+      ),
+      YbocsSymptomItem(
+        'sex_aggressive',
+        'Aggressive sexual thoughts toward others',
+      ),
     ],
   ),
   YbocsSymptomCategory(
@@ -222,8 +251,14 @@ const ybocsCategories = <YbocsSymptomCategory>[
     title: 'Hoarding / saving',
     kind: YbocsDimension.obsessions,
     items: [
-      YbocsSymptomItem('hoard_discard', 'Fear of throwing away something I might need'),
-      YbocsSymptomItem('hoard_value', 'Feeling objects have value I can\'t let go of'),
+      YbocsSymptomItem(
+        'hoard_discard',
+        'Fear of throwing away something I might need',
+      ),
+      YbocsSymptomItem(
+        'hoard_value',
+        'Feeling objects have value I can\'t let go of',
+      ),
     ],
   ),
   YbocsSymptomCategory(
@@ -232,7 +267,10 @@ const ybocsCategories = <YbocsSymptomCategory>[
     kind: YbocsDimension.obsessions,
     items: [
       YbocsSymptomItem('rel_sacrilege', 'Concern with sacrilege or blasphemy'),
-      YbocsSymptomItem('rel_rightwrong', 'Excessive concern with right and wrong, or morality'),
+      YbocsSymptomItem(
+        'rel_rightwrong',
+        'Excessive concern with right and wrong, or morality',
+      ),
       YbocsSymptomItem('rel_punish', 'Fear of punishment by God or fate'),
     ],
   ),
@@ -241,9 +279,15 @@ const ybocsCategories = <YbocsSymptomCategory>[
     title: 'Symmetry / exactness',
     kind: YbocsDimension.obsessions,
     items: [
-      YbocsSymptomItem('sym_even', 'Need things even, balanced, or "just right"'),
+      YbocsSymptomItem(
+        'sym_even',
+        'Need things even, balanced, or "just right"',
+      ),
       YbocsSymptomItem('sym_exact', 'Need for exactness, order, or precision'),
-      YbocsSymptomItem('sym_incomplete', 'A feeling of incompleteness until things feel right'),
+      YbocsSymptomItem(
+        'sym_incomplete',
+        'A feeling of incompleteness until things feel right',
+      ),
     ],
   ),
   YbocsSymptomCategory(
@@ -251,8 +295,14 @@ const ybocsCategories = <YbocsSymptomCategory>[
     title: 'Body / illness',
     kind: YbocsDimension.obsessions,
     items: [
-      YbocsSymptomItem('som_illness', 'Excessive concern with illness or disease'),
-      YbocsSymptomItem('som_body', 'Excessive concern with a body part or appearance'),
+      YbocsSymptomItem(
+        'som_illness',
+        'Excessive concern with illness or disease',
+      ),
+      YbocsSymptomItem(
+        'som_body',
+        'Excessive concern with a body part or appearance',
+      ),
     ],
   ),
   YbocsSymptomCategory(
@@ -262,8 +312,14 @@ const ybocsCategories = <YbocsSymptomCategory>[
     items: [
       YbocsSymptomItem('misc_know', 'Need to know or remember things'),
       YbocsSymptomItem('misc_saywrong', 'Fear of saying the wrong thing'),
-      YbocsSymptomItem('misc_lucky', 'Lucky or unlucky numbers, words, or colours'),
-      YbocsSymptomItem('misc_sounds', 'Intrusive sounds, words, or music I can\'t stop'),
+      YbocsSymptomItem(
+        'misc_lucky',
+        'Lucky or unlucky numbers, words, or colours',
+      ),
+      YbocsSymptomItem(
+        'misc_sounds',
+        'Intrusive sounds, words, or music I can\'t stop',
+      ),
       YbocsSymptomItem('misc_lose', 'Fear of losing things'),
     ],
   ),
@@ -274,7 +330,10 @@ const ybocsCategories = <YbocsSymptomCategory>[
     kind: YbocsDimension.compulsions,
     items: [
       YbocsSymptomItem('wash_hands', 'Excessive or ritualised hand-washing'),
-      YbocsSymptomItem('wash_shower', 'Excessive showering, bathing, or grooming'),
+      YbocsSymptomItem(
+        'wash_shower',
+        'Excessive showering, bathing, or grooming',
+      ),
       YbocsSymptomItem('wash_clean', 'Excessive cleaning of household items'),
       YbocsSymptomItem('wash_avoid', 'Avoiding things I see as contaminated'),
     ],
@@ -284,7 +343,10 @@ const ybocsCategories = <YbocsSymptomCategory>[
     title: 'Checking',
     kind: YbocsDimension.compulsions,
     items: [
-      YbocsSymptomItem('chk_locks', 'Checking locks, appliances, taps, or the stove'),
+      YbocsSymptomItem(
+        'chk_locks',
+        'Checking locks, appliances, taps, or the stove',
+      ),
       YbocsSymptomItem('chk_harm', 'Checking I didn\'t or won\'t harm someone'),
       YbocsSymptomItem('chk_mistake', 'Checking I didn\'t make a mistake'),
       YbocsSymptomItem('chk_body', 'Checking my body for signs of illness'),
@@ -296,8 +358,14 @@ const ybocsCategories = <YbocsSymptomCategory>[
     kind: YbocsDimension.compulsions,
     items: [
       YbocsSymptomItem('rep_reread', 'Re-reading or re-writing'),
-      YbocsSymptomItem('rep_routine', 'Repeating routine actions (in/out doors, up/down)'),
-      YbocsSymptomItem('rep_untilright', 'Repeating until it feels "just right"'),
+      YbocsSymptomItem(
+        'rep_routine',
+        'Repeating routine actions (in/out doors, up/down)',
+      ),
+      YbocsSymptomItem(
+        'rep_untilright',
+        'Repeating until it feels "just right"',
+      ),
     ],
   ),
   YbocsSymptomCategory(
@@ -314,8 +382,14 @@ const ybocsCategories = <YbocsSymptomCategory>[
     title: 'Ordering / arranging',
     kind: YbocsDimension.compulsions,
     items: [
-      YbocsSymptomItem('ord_arrange', 'Arranging things until they\'re symmetrical or exact'),
-      YbocsSymptomItem('ord_align', 'Aligning or straightening objects repeatedly'),
+      YbocsSymptomItem(
+        'ord_arrange',
+        'Arranging things until they\'re symmetrical or exact',
+      ),
+      YbocsSymptomItem(
+        'ord_align',
+        'Aligning or straightening objects repeatedly',
+      ),
     ],
   ),
   YbocsSymptomCategory(
@@ -323,8 +397,14 @@ const ybocsCategories = <YbocsSymptomCategory>[
     title: 'Other compulsions',
     kind: YbocsDimension.compulsions,
     items: [
-      YbocsSymptomItem('mc_mental', 'Mental rituals (silent prayers, phrases, reviewing)'),
-      YbocsSymptomItem('mc_reassure', 'Asking for reassurance, or confessing, repeatedly'),
+      YbocsSymptomItem(
+        'mc_mental',
+        'Mental rituals (silent prayers, phrases, reviewing)',
+      ),
+      YbocsSymptomItem(
+        'mc_reassure',
+        'Asking for reassurance, or confessing, repeatedly',
+      ),
       YbocsSymptomItem('mc_touch', 'Needing to touch, tap, or rub things'),
       YbocsSymptomItem('mc_lists', 'Excessive list-making'),
       YbocsSymptomItem('mc_avoid', 'Avoiding situations to prevent an urge'),

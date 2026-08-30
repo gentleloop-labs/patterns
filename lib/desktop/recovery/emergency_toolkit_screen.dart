@@ -120,9 +120,7 @@ class EmergencyToolkitScreen extends StatelessWidget {
   }
 
   void _pushFullscreen(BuildContext context, Widget screen) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>( builder: (_) => screen),
-    );
+    Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => screen));
   }
 
   static const _statements = [

@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import '../app_preferences.dart';
 import 'telemetry.dart';
 import 'usage_analytics.dart';
+import 'pro_entry_point.dart';
 
 /// The canonical acquisition and activation funnel, named to match the website.
 ///
@@ -156,21 +158,68 @@ class AppEvents {
 
   /// The supporter/Pro screen was shown. [source] is a call-site constant such
   /// as `settings` or `paywall_cta`, slugged defensively.
-  static void logSupporterScreenViewed({required String source}) {
-    Telemetry.log(supporterScreenViewed, {'source': _slug(source)});
-    _track(UsageAnalyticsEvent.paywallViewed);
+  static void logProFeatureTapped(ProEntryPoint source) {
+    _track(UsageAnalyticsEvent.proFeatureTapped, context: _proContext(source));
+  }
+
+  static void logSupporterScreenViewed({required ProEntryPoint source}) {
+    Telemetry.log(supporterScreenViewed, {'source': source.wireName});
+    _track(UsageAnalyticsEvent.paywallViewed, context: _proContext(source));
   }
 
   /// The user tapped buy and the store flow was launched.
-  static void logSupporterPurchaseStarted() {
+  static void logSupporterPurchaseStarted(ProEntryPoint source) {
     Telemetry.log(supporterPurchaseStarted);
-    _track(UsageAnalyticsEvent.purchaseStarted);
+    _track(UsageAnalyticsEvent.purchaseStarted, context: _proContext(source));
   }
 
   /// A purchase or restore succeeded. No price, no receipt, no store account.
-  static void logSupporterPurchaseCompleted({required bool restored}) {
+  static void logSupporterPurchaseCompleted({
+    required bool restored,
+    required ProEntryPoint source,
+  }) {
     Telemetry.log(supporterPurchaseCompleted, {'restored': restored});
-    if (!restored) _track(UsageAnalyticsEvent.purchaseCompleted);
+    _track(
+      restored
+          ? UsageAnalyticsEvent.restoreCompleted
+          : UsageAnalyticsEvent.purchaseCompleted,
+      context: _proContext(source),
+    );
+  }
+
+  static void logProductLoadResult({required UsageAnalyticsContext result}) =>
+      _track(UsageAnalyticsEvent.productLoadResult, context: result);
+
+  static void logPurchaseCanceled(ProEntryPoint source) => _track(
+    UsageAnalyticsEvent.purchaseCanceled,
+    context: _proContext(source),
+  );
+
+  static void logPurchaseFailed(ProEntryPoint source) =>
+      _track(UsageAnalyticsEvent.purchaseFailed, context: _proContext(source));
+
+  static void logRestoreStarted(ProEntryPoint source) =>
+      _track(UsageAnalyticsEvent.restoreStarted, context: _proContext(source));
+
+  static void logRestoreNotFound(ProEntryPoint source) =>
+      _track(UsageAnalyticsEvent.restoreNotFound, context: _proContext(source));
+
+  static void logRestoreFailed(ProEntryPoint source) =>
+      _track(UsageAnalyticsEvent.restoreFailed, context: _proContext(source));
+
+  static void logAnalyticsConsentGranted([MeaningfulAction? action]) {
+    _track(UsageAnalyticsEvent.analyticsConsentGranted);
+    if (action == null) return;
+    _track(
+      UsageAnalyticsEvent.activationCompleted,
+      context: switch (action) {
+        MeaningfulAction.journal => UsageAnalyticsContext.journal,
+        MeaningfulAction.compulsionDelay =>
+          UsageAnalyticsContext.compulsionDelay,
+        MeaningfulAction.guidedErp => UsageAnalyticsContext.guidedErp,
+        MeaningfulAction.selfCheck => UsageAnalyticsContext.selfCheck,
+      },
+    );
   }
 
   // --- Reviews and feedback ----------------------------------------------
@@ -230,9 +279,35 @@ class AppEvents {
   static void _logFirstMeaningfulAction(String kind) =>
       Telemetry.logOnce(firstMeaningfulAction, {'kind': _slug(kind)});
 
-  static void _track(UsageAnalyticsEvent event) {
-    unawaited(usageAnalytics.track(event));
+  static void _track(
+    UsageAnalyticsEvent event, {
+    UsageAnalyticsContext? context,
+  }) {
+    unawaited(usageAnalytics.track(event, context: context));
   }
+
+  static UsageAnalyticsContext _proContext(
+    ProEntryPoint source,
+  ) => switch (source) {
+    ProEntryPoint.settings => UsageAnalyticsContext.settings,
+    ProEntryPoint.todayNextStep => UsageAnalyticsContext.todayNextStep,
+    ProEntryPoint.recoveryMetrics => UsageAnalyticsContext.recoveryMetrics,
+    ProEntryPoint.exposureHierarchy => UsageAnalyticsContext.exposureHierarchy,
+    ProEntryPoint.exposureMaterials => UsageAnalyticsContext.exposureMaterials,
+    ProEntryPoint.structuredPrograms =>
+      UsageAnalyticsContext.structuredPrograms,
+    ProEntryPoint.actionPlanner => UsageAnalyticsContext.actionPlanner,
+    ProEntryPoint.implementationIntentions =>
+      UsageAnalyticsContext.implementationIntentions,
+    ProEntryPoint.urgeSurfing => UsageAnalyticsContext.urgeSurfing,
+    ProEntryPoint.responsePrevention =>
+      UsageAnalyticsContext.responsePrevention,
+    ProEntryPoint.uncertaintyTraining =>
+      UsageAnalyticsContext.uncertaintyTraining,
+    ProEntryPoint.behavioralExperiments =>
+      UsageAnalyticsContext.behavioralExperiments,
+    ProEntryPoint.reflectionJournal => UsageAnalyticsContext.reflectionJournal,
+  };
 
   /// Reduces a value to a short lowercase identifier. This is the guard that
   /// makes it structurally impossible for prose to reach the sink: anything

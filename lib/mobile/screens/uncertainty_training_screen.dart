@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/models.dart';
 import '../../providers/providers.dart';
-import '../../theme/app_theme.dart';
+import '../../theme/app_colors.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
 import '../widgets/recovery_ui.dart';
@@ -86,7 +86,10 @@ class UncertaintyTrainingScreen extends ConsumerWidget {
             const SizedBox(height: 6),
             Text(
               'Build your willingness to live with not knowing.',
-              style: TextStyle(color: AppTheme.textSecondary, height: 1.4),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.4,
+              ),
             ),
             const SizedBox(height: 18),
             const SectionIntro(id: 'uncertaintyTraining'),
@@ -162,7 +165,7 @@ class _ExerciseCard extends StatelessWidget {
             Text(
               exercise.intro,
               style: TextStyle(
-                color: AppTheme.textSecondary,
+                color: context.appColors.textSecondary,
                 fontSize: 13,
                 height: 1.4,
               ),
@@ -256,7 +259,7 @@ class _UncertaintyPracticeScreenState
                   Text(
                     'WHY IT WORKS',
                     style: theme.textTheme.labelSmall?.copyWith(
-                      color: AppTheme.textSecondary,
+                      color: context.appColors.textSecondary,
                       fontWeight: FontWeight.w800,
                       height: 1.35,
                       letterSpacing: 0.5,
@@ -266,7 +269,7 @@ class _UncertaintyPracticeScreenState
                   Text(
                     exercise.why,
                     style: TextStyle(
-                      color: AppTheme.textSecondary,
+                      color: context.appColors.textSecondary,
                       height: 1.45,
                     ),
                   ),
