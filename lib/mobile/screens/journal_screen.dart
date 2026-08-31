@@ -753,15 +753,18 @@ class _NextStepCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return PressScale(
       onTap: onTap,
       child: Container(
+        key: const ValueKey('today-next-step-card'),
         padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFF23200F), Color(0xFF15140F)],
+            colors: nextStepCardGradientColors(theme),
           ),
           borderRadius: BorderRadius.circular(22),
           border: Border.all(
@@ -816,6 +819,19 @@ class _NextStepCard extends StatelessWidget {
       ),
     );
   }
+}
+
+@visibleForTesting
+List<Color> nextStepCardGradientColors(ThemeData theme) {
+  if (theme.brightness == Brightness.dark) {
+    return const [Color(0xFF23200F), Color(0xFF15140F)];
+  }
+
+  final colors = theme.appColors;
+  return [
+    Color.alphaBlend(colors.accent.withValues(alpha: 0.12), colors.card),
+    colors.card,
+  ];
 }
 
 class _HomeSectionHeader extends StatelessWidget {
