@@ -25,6 +25,11 @@ const roadmapSource = readFileSync(
 // Blog posts are the third place pricing gets described, and the least
 // reviewed. A draft of one of them announced a $14.99/year subscription that
 // was never built, and it only escaped publication because a deploy failed.
+const pricingSource = readFileSync(
+  resolve(process.cwd(), 'src/lib/data/pricing.ts'),
+  'utf-8'
+);
+
 const blogDir = resolve(process.cwd(), 'src/content/blog');
 const blogPosts = readdirSync(blogDir)
   .filter((name) => name.endsWith('.md'))
@@ -55,17 +60,19 @@ describe('pricing claims', () => {
     expect(pricingAnswer.toLowerCase()).not.toContain('free to download and use, with no');
   });
 
-  // The rise to $39.99 was applied on 16 August 2026, so it is now simply the
-  // price. The FAQ answers are rendered into FAQPage JSON-LD, so a stale figure
-  // here is a structured-data claim search engines repeat as the current price.
+  // Pro came back down to $19.99 on 31 August 2026, confirmed against the App
+  // Store Connect price schedule. The FAQ answers are rendered into FAQPage
+  // JSON-LD, so a stale figure here is a structured-data claim search engines
+  // repeat as the current price.
   it('quotes the price people are charged today', () => {
-    expect(pricingAnswer).toContain('$39.99');
+    expect(pricingAnswer).toContain('$19.99');
   });
 
-  // The rise has landed, so nothing may still frame it as upcoming, and nothing
-  // may dangle a buy-before-the-deadline discount that can no longer be taken.
-  it('does not present the price rise as still to come', () => {
+  // $39.99 is now only ever the "was" half of the drop. It may still appear,
+  // but never as what someone would be charged if they bought Pro today.
+  it('only ever quotes $39.99 as the old price', () => {
     for (const source of [pricingAnswer, roadmapSource]) {
+      expect(source).not.toMatch(/(?:is|costs|now)\s+\$39\.99/);
       expect(source).not.toMatch(/goes to \$39\.99|rises to \$39\.99|going to \$39\.99/);
       expect(source).not.toMatch(/before the \d{1,2}th|before then you keep/);
     }
@@ -102,8 +109,27 @@ describe('pricing claims', () => {
     }
   });
 
-  it('does not leave the retired $19.99 figure anywhere', () => {
-    expect(pricingAnswer).not.toContain('$19.99');
-    expect(roadmapSource).not.toContain('$19.99');
+  // The drop is only legible if the site says what Pro used to cost, so the
+  // pages that quote a price must show both halves rather than silently
+  // swapping the number.
+  it('shows the drop rather than just the new number', () => {
+    for (const source of [pricingAnswer, roadmapSource]) {
+      expect(source).toContain('$39.99');
+      expect(source).toContain('$19.99');
+    }
+  });
+
+  // Indian pricing is set manually and is deliberately not advertised on the
+  // site, so no page may quote a rupee figure.
+  it('does not publish Indian pricing', () => {
+    const rupees = /₹|\bINR\b|\bRs\.?\s*\d/;
+    for (const faq of faqs) {
+      expect(faq.answer, `answer to: ${faq.question}`).not.toMatch(rupees);
+    }
+    expect(roadmapSource, 'roadmap').not.toMatch(rupees);
+    expect(pricingSource, 'pricing data').not.toMatch(rupees);
+    for (const post of blogPosts) {
+      expect(post.body, `blog post: ${post.name}`).not.toMatch(rupees);
+    }
   });
 });

@@ -6,11 +6,13 @@
   import Preview from '$lib/sections/Preview.svelte';
   import BuiltForErp from '$lib/sections/BuiltForErp.svelte';
   import RecoveryToolkit from '$lib/sections/RecoveryToolkit.svelte';
+  import PriceDrop from '$lib/sections/PriceDrop.svelte';
   import Download from '$lib/sections/Download.svelte';
   import Support from '$lib/sections/Support.svelte';
   import Footer from '$lib/sections/Footer.svelte';
   import { links } from '$lib/data/links';
   import { site } from '$lib/data/site';
+  import { proPricing } from '$lib/data/pricing';
 
   const jsonLd = [
     {
@@ -67,8 +69,8 @@
           category: 'One-time purchase',
           priceSpecification: {
             '@type': 'PriceSpecification',
-            price: '39.99',
-            priceCurrency: 'USD'
+            price: proPricing.currentUsdAmount,
+            priceCurrency: proPricing.currency
           }
         }
       ],
@@ -145,6 +147,7 @@
 <Preview />
 <BuiltForErp />
 <RecoveryToolkit />
+<PriceDrop />
 <Download />
 <Support />
 <Footer />
