@@ -2,24 +2,35 @@
 
 This campaign is ordered for storefront discovery rather than feature chronology:
 
-1. **When OCD feels urgent, start here** — the redesigned Today screen and its single next step.
+1. **Light + Dark** — the redesigned Today screen in the new light appearance.
 2. **Delay the urge. Watch it change** — immediate, practical compulsion-delay value.
-3. **Build the ladder. Take the next step** — the full ERP/exposure practice promise.
-4. **See patterns. Not judgments** — private, non-clinical progress insights.
-5. **A journal for thoughts you don't say out loud** — private daily journaling.
-6. **Your hardest thoughts stay yours** — local-first privacy and app lock.
-7. **Move beyond tracking. Practise recovery** — the one-time Pro toolkit.
+3. **Build the ladder. Take the next step** — a clearly labeled Patterns Pro exposure tool.
+4. **See patterns. Not judgments** — clearly labeled Pro recovery metrics.
+5. **No AI to ask. No answer to chase** — the anti-reassurance position that separates Patterns from chatbot-led competitors.
+6. **Your OCD data stays on your phone** — local-first records and optional anonymous analytics as verifiable proof.
+7. **A journal for thoughts you don't say out loud** — private daily journaling.
+8. **Patterns Pro. One-time unlock** — the price-free one-time Pro toolkit.
+
+## Look
+
+Saturated brand-yellow ground, oversized Fraunces headline, hard-cropped dark
+product UI, and one floating fact pill per frame. This follows the category's
+dominant App Store grammar: claim poster, single-mechanic crop, objection pill,
+and a full-slot proof card. The Patterns lockup appears only in slot 1.
 
 ## Exports
 
-- `exports/app-store-1290x2796/`: Apple App Store 6.9-inch iPhone portrait screenshots.
+- `exports/app-store-1284x2778/`: Apple App Store 6.7-inch iPhone portrait screenshots.
+- `exports/app-store-1242x2688/`: Apple App Store 6.5-inch iPhone portrait screenshots.
 - `exports/play-store-1080x1920/`: Google Play 9:16 phone screenshots.
 - `exports/play-store-feature/`: Google Play 1024x500 feature graphic.
 
 All assets use the real Patterns logo and the app's current Manrope/Fraunces
 typography and mobile color palette. In-frame UI follows the production Flutter
 widget hierarchy and copy. Apple exports use an iPhone frame; Play exports use
-an Android camera cutout.
+an Android camera cutout. The Apple layout is authored at 1290x2796 and zoomed
+at render time to each accepted App Store Connect portrait size, so no export
+is resampled.
 
 ## Render
 
@@ -30,11 +41,12 @@ node render.js
 ## Suggested Google Play alt text
 
 1. Today screen recommending a two-minute compulsion delay as one clear next step.
-2. Compulsion-delay setup with an urge field, intensity slider, wait duration, and Begin button.
-3. Exposure hierarchy with large, readable rungs and status controls for each practice step.
-4. Private Insights overview showing practice progress, mood, urge intensity, ERP sessions, and consistency.
-5. Full-screen private journal editor with a reflective entry and formatting controls.
-6. Settings screen showing Privacy & Safety, app lock, local-only records, data deletion, exports, and Pro controls.
-7. Standalone Patterns Pro value card with the one-time $39.99 unlock and six recovery tools.
+2. Compulsion-delay setup with an urge field, intensity slider, wait duration, and a post-wait reflection showing before/now intensity and outcome.
+3. No-chatbot claim poster explaining that reassurance is the compulsion and the question can stay open.
+4. Exposure hierarchy with three large, readable rungs, ratings for each practice step, and a compact ladder-progress summary.
+5. Privacy proof stating that OCD content stays on-device, with no account or cloud sync and optional anonymous usage analytics.
+6. Private Insights overview showing practice progress, mood, urge intensity, ERP sessions, consistency, and a 30-day activity summary without a bottom tab bar.
+7. Full-screen private journal editor with a reflective entry and formatting controls.
+8. Patterns Pro poster showing the one-time unlock, all six Pro tools, offline access, and no recurring charge without hardcoding a price.
 
 Feature graphic: Patterns branding beside a card recommending a two-minute delay, with the line “A quieter way through OCD.”

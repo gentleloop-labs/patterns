@@ -6,21 +6,32 @@ const root = __dirname;
 const chrome = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
 const shots = [
-  "01-when-ocd-feels-urgent",
-  "02-delay-the-urge",
-  "03-build-your-exposure-ladder",
-  "04-see-patterns-not-judgments",
-  "05-private-journaling",
-  "06-private-by-design",
-  "07-patterns-pro",
+  { selector: "#shot-1", name: "01-light-and-dark-today" },
+  { selector: "#shot-2", name: "02-delay-the-urge" },
+  { selector: "#shot-4", name: "03-build-your-exposure-ladder" },
+  { selector: "#shot-6", name: "04-see-patterns-not-judgments" },
+  { selector: "#shot-3", name: "05-no-ai-to-ask" },
+  { selector: "#shot-5", name: "06-nothing-leaves-your-phone" },
+  { selector: "#shot-7", name: "07-private-journaling" },
+  { selector: "#shot-8", name: "08-patterns-pro" },
 ];
+
+// The Apple layout is authored at 1290x2796 and zoomed to each accepted
+// App Store Connect portrait size, so nothing is resampled after render.
+const appleDesign = { width: 1290, height: 2796 };
 
 const targets = [
   {
     mode: "apple",
-    width: 1290,
-    height: 2796,
-    directory: path.join(root, "exports", "app-store-1290x2796"),
+    width: 1284,
+    height: 2778,
+    directory: path.join(root, "exports", "app-store-1284x2778"),
+  },
+  {
+    mode: "apple",
+    width: 1242,
+    height: 2688,
+    directory: path.join(root, "exports", "app-store-1242x2688"),
   },
   {
     mode: "play",
@@ -41,13 +52,29 @@ async function renderScreenshots(browser, target) {
   await page.goto(`file://${path.join(root, "index.html")}?mode=${target.mode}`, {
     waitUntil: "networkidle0",
   });
+  if (target.mode === "apple") {
+    const zoom = target.width / appleDesign.width;
+    await page.evaluate((values) => {
+      document.documentElement.style.setProperty("--shot-zoom", values.zoom);
+      document.documentElement.style.setProperty("--shot-h-design", `${values.shotHeight}px`);
+    }, { zoom, shotHeight: Math.round(target.height / zoom) });
+  }
   await page.evaluate(async () => document.fonts.ready);
 
-  for (let i = 0; i < shots.length; i += 1) {
-    const element = await page.$(`#shot-${i + 1}`);
-    if (!element) throw new Error(`Missing #shot-${i + 1}`);
-    await element.screenshot({
-      path: path.join(target.directory, `${shots[i]}.png`),
+  for (const shot of shots) {
+    const element = await page.$(shot.selector);
+    if (!element) throw new Error(`Missing ${shot.selector}`);
+    const box = await element.boundingBox();
+    // Clip to the exact store size: zoom rounding can leave a stray pixel.
+    await page.screenshot({
+      path: path.join(target.directory, `${shot.name}.png`),
+      clip: {
+        x: Math.round(box.x),
+        y: Math.round(box.y),
+        width: target.width,
+        height: target.height,
+      },
+      captureBeyondViewport: true,
       omitBackground: false,
     });
   }

@@ -1,0 +1,37 @@
+r/OCDRecovery post draft
+
+
+TITLE OPTIONS (pick one)
+
+1. I have been building an OCD app for a while and I have hit the part where I do not know what actually helps anymore
+2. Six weeks of not posting here, and an honest question about what an OCD app should even do
+3. The features are built. I am not sure any of them are the ones that matter.
+
+
+BODY
+
+I have posted here twice before and both times people were more generous than I expected, so I am coming back with a harder question.
+
+Quick context so nobody has to guess my angle: I have OCD, and I built an app called Patterns because I needed somewhere to put the loops. Journal, log an obsession or compulsion with a distress rating, delay an urge, work an exposure ladder. It is free, local only, no account. I am naming it because hiding it would be weirder than saying it. If you want to treat this as marketing, fair enough, but that is honestly not why I am typing this at 1am. I have gotten to a strange place with it and I want to think out loud with people who actually live this.
+
+Here is the strange place.
+
+The features are basically done. Everything I set out to build six months ago exists. And instead of feeling finished I feel a bit blank, because I no longer know if I built the things that help or just the things that were easy to picture. When I was in a bad patch I knew exactly what I wanted the app to do. Now that I am doing okay, I keep opening the code and thinking, who is this actually for, and is it doing anything.
+
+I also suspect I have made a very common mistake. I built the app I would want on a good day. Organised, structured, a nice ladder with rungs. But nobody in an actual spiral opens an app and calmly builds a hierarchy. On my worst days I did not want a tool. I wanted someone to tell me to put the phone down and wait ten minutes. I am not sure the app knows the difference between those two days yet, and I think that gap might be the whole problem.
+
+So the questions I actually want to ask you:
+
+1. Think about the last time an urge really had you. What would a thing on your phone have needed to do in that exact moment? Not "helpful in general". That moment. And if the honest answer is "nothing, an app would have made it worse", I want to hear that too, because that changes what I build next.
+
+2. What made you quit the last OCD or mental health app you tried? I care much more about the moment you stopped than the reason you started. Streaks, guilt, too much setup, felt like homework, felt like a compulsion of its own. I have a suspicion about that last one.
+
+3. Has any app ever tipped over into being part of the OCD instead of a way out of it? Checking the log, re-reading old entries, tracking as reassurance. I have caught myself doing it with my own app and I do not know whether to design against it or just say it out loud in the app.
+
+4. There is a paid tier, and barely anybody buys it, and I think that is information rather than a marketing problem. Either the paid parts are not worth it, or charging for parts of ERP is a bad idea, or people just do not trust an app enough to pay before it has helped once. I would rather move things to free and be wrong about the money than keep a wall in front of something that helps. What would you actually want on which side of that line?
+
+5. What is the thing no OCD app has ever done for you? The thing you have quietly wished existed and assumed nobody would build. Ask for the unreasonable one.
+
+You do not need to download anything to answer. If you would rather DM than post, that is completely fine. I read everything, and the last two threads here changed the app more than any other feedback I have had.
+
+Thanks for putting up with a long post.

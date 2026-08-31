@@ -1,1 +1,5 @@
-Patterns 1.9 adds a complete light theme. Choose System, Light, or Dark in Settings. Patterns Pro is easier to discover and now has a lower one-time price. We also improved optional anonymous analytics controls and purchase reliability. Your journal and OCD content remain on your device.
+Patterns 1.9 adds a full light theme. Choose System, Light, or Dark in Settings and the whole app follows, including Today, Journal, Insights, and every recovery tool.
+
+Advanced Pro tools now introduce themselves where you meet them instead of interrupting you with popups. Purchases are more reliable, with clearer restore results. Optional anonymous analytics has a clearer consent choice and stays off until you turn it on.
+
+Your journal, exposures, and compulsions stay on your device.

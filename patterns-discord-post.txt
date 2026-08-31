@@ -1,0 +1,18 @@
+Discord self-promotion channel post (OCD server)
+
+Check the server rules first. Some servers require a mod ping before any promo
+post, even in the promo channel. Post once, in one channel, and do not repost.
+
+
+BODY
+
+Hey. I have OCD and I built a free app for it called Patterns, so here it is in the right channel.
+
+It is a private place to journal, log obsessions and compulsions with a distress rating, delay an urge, and work through ERP exercises. Everything stays on your phone. No account, no cloud, no ads, no analytics. It is open source if you want to check that claim yourself.
+
+iOS: https://apps.apple.com/us/app/patterns-ocd-journaling/id6762611172
+Android: https://play.google.com/store/apps/details?id=com.maskedsyntax.patterns
+Site: https://patternsocd.com/
+Code: https://github.com/gentleloop-labs/patterns
+
+I am not trying to sell anyone anything here. I mostly want to know what is missing. If you try it and it annoys you, or it does the wrong thing on a bad day, please tell me. That feedback is the only reason the app is any good so far.

@@ -8,27 +8,27 @@
     body {
       margin: 0;
       padding: 42px;
-      background: #0b0b0a;
-      color: #f4f0e8;
+      background: #ffffff;
+      color: #241c10;
       font-family: Arial, sans-serif;
     }
     h1 { margin: 0 0 32px; font-size: 30px; }
-    h2 { margin: 34px 0 16px; color: #f4c95d; font-size: 20px; }
+    h2 { margin: 34px 0 16px; color: #a9791d; font-size: 20px; }
     .grid {
       display: grid;
-      grid-template-columns: repeat(7, 1fr);
+      grid-template-columns: repeat(8, 1fr);
       gap: 14px;
     }
     figure { margin: 0; }
     img {
       display: block;
       width: 100%;
-      border: 1px solid #343434;
+      border: 1px solid #e3dbcd;
       border-radius: 8px;
     }
     figcaption {
       margin-top: 8px;
-      color: #a9a39a;
+      color: #7d6d58;
       font-size: 11px;
       text-align: center;
     }
@@ -39,7 +39,7 @@
 </head>
 <body>
   <h1>Patterns store campaign</h1>
-  <h2>Apple · 1290×2796</h2>
+  <h2>Apple · 1284×2778</h2>
   <div class="grid" id="apple"></div>
   <h2>Google Play · 1080×1920</h2>
   <div class="grid" id="play"></div>
@@ -47,16 +47,17 @@
   <img class="feature" src="./exports/play-store-feature/patterns-feature-graphic-1024x500.png" alt="" />
   <script>
     const names = [
-      "01-when-ocd-feels-urgent",
+      "01-light-and-dark-today",
       "02-delay-the-urge",
       "03-build-your-exposure-ladder",
       "04-see-patterns-not-judgments",
-      "05-private-journaling",
-      "06-private-by-design",
-      "07-patterns-pro",
+      "05-no-ai-to-ask",
+      "06-nothing-leaves-your-phone",
+      "07-private-journaling",
+      "08-patterns-pro",
     ];
     for (const [id, directory] of [
-      ["apple", "app-store-1290x2796"],
+      ["apple", "app-store-1284x2778"],
       ["play", "play-store-1080x1920"],
     ]) {
       document.getElementById(id).innerHTML = names.map((name, index) => `

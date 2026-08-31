@@ -1,0 +1,118 @@
+PATTERNS INSTAGRAM SCHEDULE
+August 27-31, 2026
+Timezone: India Standard Time (IST / UTC+5:30)
+
+CADENCE
+4 feed posts per day: 3 carousels/static posts plus 1 reel.
+Total: 12 carousels, 5 reels, 3 static/product posts.
+
+THURSDAY, AUGUST 27
+
+08:00 AM IST - CAROUSEL
+Why the relief never lasts
+Asset: august-2026-posts/output/01-2026-08-27-carousel-ocd-loop/
+
+12:30 PM IST - STATIC / PRODUCT
+Put 5 minutes between the urge and the action
+Asset: august-2026-posts/output/03-2026-08-27-static-compulsion-delay/01.png
+
+05:30 PM IST - CAROUSEL
+Compulsions do not always look like rituals
+Asset: august-2026-posts/output/02-2026-08-27-carousel-hidden-compulsions/
+
+08:30 PM IST - REEL
+Just check one more time
+Asset: august-2026-reels/output/01-one-more-check.mp4
+
+
+FRIDAY, AUGUST 28
+
+09:00 AM IST - CAROUSEL
+Why reassurance never feels finished
+Asset: august-2026-posts/output/04-2026-08-28-carousel-reassurance-loop/
+
+01:00 PM IST - STATIC / PRODUCT
+Your OCD data stays on your phone
+Asset: august-2026-posts/output/06-2026-08-28-static-private-by-design/01.png
+
+06:30 PM IST - CAROUSEL
+How Compulsion Delay works in Patterns
+Asset: august-2026-posts/output/05-2026-08-28-carousel-delay-tool/
+
+09:30 PM IST - REEL
+Searching for certainty in 12 browser tabs
+Asset: august-2026-reels/output/02-browser-tabs.mp4
+
+
+SATURDAY, AUGUST 29
+
+10:00 AM IST - CAROUSEL
+ERP is not "just face your fears"
+Asset: august-2026-posts/output/07-2026-08-29-carousel-what-erp-is/
+
+02:30 PM IST - CAROUSEL
+Build an exposure ladder, not a leap
+Asset: august-2026-posts/output/08-2026-08-29-carousel-exposure-ladder/
+
+06:30 PM IST - CAROUSEL
+Track the loop without feeding it
+Asset: august-2026-posts/output/09-2026-08-29-carousel-track-without-ritual/
+
+09:00 PM IST - REEL
+What people think ERP is vs. what it actually is
+Asset: august-2026-reels/output/03-erp-expectation-vs-reality.mp4
+
+
+SUNDAY, AUGUST 30
+
+10:00 AM IST - CAROUSEL
+The ritual can happen entirely in your head
+Asset: august-2026-posts/output/10-2026-08-30-carousel-mental-compulsions/
+
+02:00 PM IST - STATIC / PRODUCT
+See patterns, not judgments
+Asset: august-2026-posts/output/12-2026-08-30-static-patterns-insights/01.png
+
+06:30 PM IST - CAROUSEL
+Recovery is not always feeling calm
+Asset: august-2026-posts/output/11-2026-08-30-carousel-recovery-progress/
+
+09:00 PM IST - REEL
+The mental ritual no one else can see
+Asset: august-2026-reels/output/04-invisible-mental-ritual.mp4
+
+
+MONDAY, AUGUST 31
+
+09:00 AM IST - CAROUSEL
+When an intrusive thought feels urgent
+Asset: august-2026-posts/output/13-2026-08-31-carousel-when-thought-feels-urgent/
+
+02:30 PM IST - CAROUSEL
+What to bring to an OCD therapy session
+Asset: august-2026-posts/output/15-2026-08-31-carousel-therapy-notes/
+
+06:30 PM IST - CAROUSEL
+An urge is a wave, not a deadline
+Asset: august-2026-posts/output/14-2026-08-31-carousel-urge-surfing/
+
+08:00 PM IST - REEL
+An urge rises like a wave, then changes
+Asset: august-2026-reels/output/05-urge-wave.mp4
+
+
+POSTING NOTES
+
+1. Upload carousel slides in their numbered order.
+2. Use the matching numbered caption in AUGUST_27-31_2026_CAPTIONS.txt.
+3. Share each feed post to Stories 10-20 minutes after publishing.
+4. Do not add reassurance-based calls to action such as "Comment if this means you have OCD."
+5. Check Instagram Insights after the campaign. Replace these benchmark times with the audience's actual active hours for September.
+
+TIMING BASIS
+
+The plan uses spaced test windows because four posts per day is much higher than standard Instagram guidance. Current benchmarks favor Thursday morning, Monday evening, and late-evening posting on Friday through Sunday. Reels are placed in evening viewing windows. Times are local and therefore already apply to IST.
+
+Sources consulted:
+https://buffer.com/resources/when-is-the-best-time-to-post-on-instagram/
+https://sproutsocial.com/insights/best-times-to-post-on-instagram/

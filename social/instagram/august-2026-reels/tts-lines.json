@@ -1,0 +1,354 @@
+{
+  "version": 1,
+  "audioFormat": {
+    "preferred": "wav",
+    "sampleRateHz": 48000,
+    "channels": 1,
+    "headSilenceMs": 120,
+    "tailSilenceMs": 120
+  },
+  "voices": {
+    "maya": {
+      "description": "Adult, warm, grounded, conversational, 145-155 words per minute"
+    },
+    "loop": {
+      "description": "Adult, quick, persuasive, matter-of-fact, 160-170 words per minute"
+    }
+  },
+  "reels": [
+    {
+      "id": "01-one-more-check",
+      "durationMs": 22000,
+      "lines": [
+        {
+          "file": "r01_l01_loop.wav",
+          "speaker": "loop",
+          "targetStartMs": 150,
+          "targetEndMs": 2800,
+          "direction": "Helpful certainty, lightly insistent",
+          "text": "Just check the lock one more time."
+        },
+        {
+          "file": "r01_l02_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 2900,
+          "targetEndMs": 4600,
+          "direction": "Tired, matter-of-fact",
+          "text": "I already checked it."
+        },
+        {
+          "file": "r01_l03_loop.wav",
+          "speaker": "loop",
+          "targetStartMs": 4700,
+          "targetEndMs": 8100,
+          "direction": "Logical and confident",
+          "text": "Right. So one more check will make you certain."
+        },
+        {
+          "file": "r01_l04_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 8200,
+          "targetEndMs": 10700,
+          "direction": "Recognizing the pattern",
+          "text": "That's what you said last time."
+        },
+        {
+          "file": "r01_l05_loop.wav",
+          "speaker": "loop",
+          "targetStartMs": 10800,
+          "targetEndMs": 12350,
+          "direction": "Quick rebuttal",
+          "text": "This time is different."
+        },
+        {
+          "file": "r01_l06_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 12450,
+          "targetEndMs": 14950,
+          "direction": "Uncertain but deliberate",
+          "text": "Maybe. I'm leaving without checking again."
+        },
+        {
+          "file": "r01_l07_loop.wav",
+          "speaker": "loop",
+          "targetStartMs": 15050,
+          "targetEndMs": 16250,
+          "direction": "Trailing upward inflection",
+          "text": "But what if..."
+        },
+        {
+          "file": "r01_l08_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 16350,
+          "targetEndMs": 21650,
+          "direction": "Grounded, not triumphant",
+          "text": "The question can stay open. Patterns can help me pause before I respond."
+        }
+      ]
+    },
+    {
+      "id": "02-browser-tabs",
+      "durationMs": 25000,
+      "lines": [
+        {
+          "file": "r02_l01_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 150,
+          "targetEndMs": 3450,
+          "direction": "Focused, searching",
+          "text": "One more search and I'll know for sure."
+        },
+        {
+          "file": "r02_l02_loop.wav",
+          "speaker": "loop",
+          "targetStartMs": 3550,
+          "targetEndMs": 5500,
+          "direction": "Cheerfully helpful",
+          "text": "Great. Open this result too."
+        },
+        {
+          "file": "r02_l03_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 5600,
+          "targetEndMs": 7700,
+          "direction": "Confused frustration",
+          "text": "It says the same thing."
+        },
+        {
+          "file": "r02_l04_loop.wav",
+          "speaker": "loop",
+          "targetStartMs": 7800,
+          "targetEndMs": 10450,
+          "direction": "Persuasive what-if",
+          "text": "But what if the next one doesn't?"
+        },
+        {
+          "file": "r02_l05_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 10550,
+          "targetEndMs": 14650,
+          "direction": "Realization, slightly breathless",
+          "text": "I've opened twelve tabs and the question is still here."
+        },
+        {
+          "file": "r02_l06_loop.wav",
+          "speaker": "loop",
+          "targetStartMs": 14750,
+          "targetEndMs": 17050,
+          "direction": "Dry optimism",
+          "text": "Thirteen could be the lucky one."
+        },
+        {
+          "file": "r02_l07_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 17150,
+          "targetEndMs": 20050,
+          "direction": "Decision, no anger",
+          "text": "Or I can stop chasing an answer."
+        },
+        {
+          "file": "r02_l08_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 20150,
+          "targetEndMs": 24250,
+          "direction": "Clear product explanation",
+          "text": "Patterns records the loop. It does not answer the obsession."
+        }
+      ]
+    },
+    {
+      "id": "03-erp-expectation-vs-reality",
+      "durationMs": 24000,
+      "lines": [
+        {
+          "file": "r03_l01_loop.wav",
+          "speaker": "loop",
+          "targetStartMs": 150,
+          "targetEndMs": 3200,
+          "direction": "Overconfident misconception",
+          "text": "ERP means facing your biggest fear at once."
+        },
+        {
+          "file": "r03_l02_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 3300,
+          "targetEndMs": 6200,
+          "direction": "Correcting calmly",
+          "text": "No. Good ERP is planned and gradual."
+        },
+        {
+          "file": "r03_l03_loop.wav",
+          "speaker": "loop",
+          "targetStartMs": 6300,
+          "targetEndMs": 8950,
+          "direction": "Genuine question",
+          "text": "So the goal is to feel calm?"
+        },
+        {
+          "file": "r03_l04_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 9050,
+          "targetEndMs": 13150,
+          "direction": "Measured and explanatory",
+          "text": "The goal is to meet uncertainty without the usual compulsion."
+        },
+        {
+          "file": "r03_l05_loop.wav",
+          "speaker": "loop",
+          "targetStartMs": 13250,
+          "targetEndMs": 15200,
+          "direction": "Dry observation",
+          "text": "That sounds harder than jumping."
+        },
+        {
+          "file": "r03_l06_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 15300,
+          "targetEndMs": 17800,
+          "direction": "Firm, concise",
+          "text": "It is practice. Not a stunt."
+        },
+        {
+          "file": "r03_l07_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 17900,
+          "targetEndMs": 22800,
+          "direction": "Practical closing line",
+          "text": "Build the ladder with an OCD-trained clinician. Organize the steps in Patterns."
+        }
+      ]
+    },
+    {
+      "id": "04-invisible-mental-ritual",
+      "durationMs": 24000,
+      "lines": [
+        {
+          "file": "r04_l01_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 150,
+          "targetEndMs": 2250,
+          "direction": "Certain, slightly defensive",
+          "text": "I'm not doing any compulsions."
+        },
+        {
+          "file": "r04_l02_loop.wav",
+          "speaker": "loop",
+          "targetStartMs": 2350,
+          "targetEndMs": 4300,
+          "direction": "Pleased and helpful",
+          "text": "Perfect. Let's replay that conversation."
+        },
+        {
+          "file": "r04_l03_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 4400,
+          "targetEndMs": 4900,
+          "direction": "Questioning",
+          "text": "Again?"
+        },
+        {
+          "file": "r04_l04_loop.wav",
+          "speaker": "loop",
+          "targetStartMs": 5000,
+          "targetEndMs": 6950,
+          "direction": "Matter-of-fact certainty",
+          "text": "Until every detail feels certain."
+        },
+        {
+          "file": "r04_l05_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 7050,
+          "targetEndMs": 9150,
+          "direction": "Recognition",
+          "text": "Wait. Replaying is the compulsion."
+        },
+        {
+          "file": "r04_l06_loop.wav",
+          "speaker": "loop",
+          "targetStartMs": 9250,
+          "targetEndMs": 10800,
+          "direction": "Innocent objection",
+          "text": "But we're just thinking."
+        },
+        {
+          "file": "r04_l07_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 10900,
+          "targetEndMs": 15000,
+          "direction": "Clear realization",
+          "text": "Thinking can become a ritual when it is chasing certainty."
+        },
+        {
+          "file": "r04_l08_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 15100,
+          "targetEndMs": 18400,
+          "direction": "Deliberate return to action",
+          "text": "I can notice the loop without finishing it."
+        }
+      ]
+    },
+    {
+      "id": "05-urge-wave",
+      "durationMs": 23000,
+      "lines": [
+        {
+          "file": "r05_l01_loop.wav",
+          "speaker": "loop",
+          "targetStartMs": 150,
+          "targetEndMs": 2450,
+          "direction": "Urgent command",
+          "text": "This urge is urgent. Act now."
+        },
+        {
+          "file": "r05_l02_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 2550,
+          "targetEndMs": 5050,
+          "direction": "Calm alternative",
+          "text": "Or I can watch it change."
+        },
+        {
+          "file": "r05_l03_loop.wav",
+          "speaker": "loop",
+          "targetStartMs": 5150,
+          "targetEndMs": 7100,
+          "direction": "Concerned what-if",
+          "text": "What if it gets stronger?"
+        },
+        {
+          "file": "r05_l04_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 7200,
+          "targetEndMs": 11300,
+          "direction": "Observational rhythm",
+          "text": "Then I notice the rise, the crest, and the shift."
+        },
+        {
+          "file": "r05_l05_loop.wav",
+          "speaker": "loop",
+          "targetStartMs": 11400,
+          "targetEndMs": 13350,
+          "direction": "Genuinely puzzled",
+          "text": "You're not making it disappear?"
+        },
+        {
+          "file": "r05_l06_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 13450,
+          "targetEndMs": 15950,
+          "direction": "Firm without triumph",
+          "text": "No. I'm practicing not obeying it."
+        },
+        {
+          "file": "r05_l07_maya.wav",
+          "speaker": "maya",
+          "targetStartMs": 16050,
+          "targetEndMs": 21350,
+          "direction": "Clear product explanation",
+          "text": "Patterns can guide the timer and reflection. Urge Surfing is a Pro tool."
+        }
+      ]
+    }
+  ]
+}

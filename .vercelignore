@@ -1,0 +1,21 @@
+# Local CLI deploys only (untracked; git-based builds are unaffected).
+# The site is website/. Everything below is Flutter app source or local build
+# junk. linux|macos|windows/flutter/ephemeral hold absolute symlinks into
+# ~/.pub-cache that are broken inside Vercel's build container.
+# Leading slashes are required: a bare "lib" would also match website/src/lib.
+/android
+/ios
+/linux
+/macos
+/windows
+/lib
+/test
+/assets
+/app-store
+/marketing_videos
+/remotion
+/social
+/content
+/backend
+/dist
+/.dart_tool

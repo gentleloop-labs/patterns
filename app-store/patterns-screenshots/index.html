@@ -11,11 +11,23 @@
     <section class="shot shot-1" id="shot-1">
       <div class="ambient ambient-a"></div>
       <div class="brand"><img src="../../assets/logo.png" alt="" /><span>Patterns</span></div>
+      <div class="fact-pill">LIGHT + DARK</div>
       <header class="hero-copy">
         <span class="eyebrow">A CALMER FIRST STEP</span>
         <h1>When OCD feels<br /><em>urgent,</em> start here.</h1>
-        <p>One clear next step. No feed. No noise.</p>
+        <p>One clear next step.</p>
       </header>
+      <ul class="trust-strip">
+        <li>No account</li>
+        <li>No cloud</li>
+        <li>No AI</li>
+      </ul>
+      <article class="hero-card">
+        <span class="card-label">YOUR NEXT STEP</span>
+        <h3>Try a two-minute delay</h3>
+        <p>When an urge feels strong, put a little space before it.</p>
+        <button class="primary-button">Start a delay <span>&rarr;</span></button>
+      </article>
       <div class="phone">
         <div class="speaker"></div>
         <div class="screen">
@@ -57,11 +69,11 @@
             <article class="checkin-card"><span>♧</span><div><b>Daily check-in</b><small>Small steps today create lasting change.</small></div><button>Check in</button></article>
           </div>
           <nav class="dock">
-            <span class="active">⌂<small>Today</small></span>
-            <span>✎<small>Journal</small></span>
-            <span>◎<small>Track</small></span>
-            <span>↗<small>Recovery</small></span>
-            <span>⌁<small>Insights</small></span>
+            <span class="active" data-slide-target="shot-1">⌂<small>Today</small></span>
+            <span data-slide-target="shot-7">✎<small>Journal</small></span>
+            <span data-slide-target="shot-2">◎<small>Track</small></span>
+            <span data-slide-target="shot-4">↗<small>Recovery</small></span>
+            <span data-slide-target="shot-6">⌁<small>Insights</small></span>
           </nav>
         </div>
       </div>
@@ -70,6 +82,7 @@
     <section class="shot shot-2" id="shot-2">
       <div class="ambient ambient-b"></div>
       <div class="brand"><img src="../../assets/logo.png" alt="" /><span>Patterns</span></div>
+      <div class="fact-pill">RESPONSE PREVENTION TOOL</div>
       <header class="hero-copy">
         <span class="eyebrow">COMPULSION DELAY</span>
         <h1>Delay the urge.<br /><em>Watch it change.</em></h1>
@@ -100,14 +113,39 @@
               <div class="duration-picker"><span>1 min</span><span class="selected">5 min</span><span>15 min</span><span>Custom</span></div>
             </div>
             <button class="begin-button">Begin</button>
+            <article class="delay-reflection-widget">
+              <div class="support-widget-head">
+                <span>AFTER THE WAIT</span>
+                <b>Notice what happened</b>
+              </div>
+              <div class="urge-compare">
+                <div><small>BEFORE</small><strong>7</strong><i>/10</i></div>
+                <span>→</span>
+                <div class="current"><small>NOW</small><strong>5</strong><i>/10</i></div>
+              </div>
+              <p>You waited the whole time. That’s the skill, right there.</p>
+              <div class="mini-outcome-picker"><span class="selected">Resisted</span><span>Delayed it</span><span>Did it</span></div>
+            </article>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="shot shot-3" id="shot-3">
+    <section class="shot wedge-shot" id="shot-3">
+      <div class="fact-pill">NO CHATBOT</div>
+      <header class="hero-copy">
+        <h1>No AI to ask.<br /><em>No answer to chase.</em></h1>
+      </header>
+      <article class="wedge-card">
+        <div class="wedge-symbol" aria-hidden="true"><span>?</span><i>•••</i></div>
+        <p>Reassurance is the compulsion. This is a place to practise letting the question stay open.</p>
+      </article>
+    </section>
+
+    <section class="shot shot-3 hierarchy-shot" id="shot-4">
       <div class="ambient ambient-c"></div>
       <div class="brand"><img src="../../assets/logo.png" alt="" /><span>Patterns</span></div>
+      <div class="fact-pill">PATTERNS PRO · ERP LADDER</div>
       <header class="hero-copy">
         <span class="eyebrow">EXPOSURE &amp; RESPONSE PREVENTION</span>
         <h1>Build the ladder.<br /><em>Take the next step.</em></h1>
@@ -121,7 +159,7 @@
             <div class="detail-header">
               <button class="square-back">‹</button>
               <div><h2>Checking ladder</h2><p>Leaving home</p></div>
-              <div class="small-progress"><b>17%</b></div>
+              <div class="small-progress"><b>33%</b></div>
             </div>
             <article class="climb-card">
               <div class="climb-title"><span class="done">✓</span><b>Leave one item slightly uneven</b></div>
@@ -140,72 +178,112 @@
               <small>Difficulty 5/10 · Anxiety 6/10</small>
               <div class="status-picker"><span class="selected muted-select">Not started</span><span>In progress</span><span>Done</span></div>
             </article>
-            <button class="material-link">＋ &nbsp; Material</button>
-            <article class="climb-card">
-              <div class="climb-title"><span>4</span><b>Leave home after one check</b></div>
-              <small>Difficulty 6/10 · Anxiety 7/10</small>
-              <div class="status-picker"><span class="selected muted-select">Not started</span><span>In progress</span><span>Done</span></div>
-            </article>
-            <button class="material-link">＋ &nbsp; Material</button>
-            <article class="climb-card">
-              <div class="climb-title"><span>5</span><b>Leave a small task unfinished</b></div>
-              <small>Difficulty 7/10 · Anxiety 7/10</small>
-              <div class="status-picker"><span class="selected muted-select">Not started</span><span>In progress</span><span>Done</span></div>
+            <article class="ladder-support-widget">
+              <div class="support-widget-head">
+                <span>PRACTICE OVERVIEW</span>
+                <b>One rung at a time.</b>
+              </div>
+              <div class="mini-ladder">
+                <div><i class="done">✓</i><small>Done</small></div>
+                <span></span>
+                <div><i class="current">2</i><small>Practising</small></div>
+                <span></span>
+                <div><i>3</i><small>Next</small></div>
+              </div>
+              <p>One done. One in progress. One ready when you are.</p>
             </article>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="shot shot-4" id="shot-4">
+    <section class="shot proof-shot" id="shot-5">
+      <div class="fact-pill">PRIVACY-FIRST BY DESIGN</div>
+      <header class="hero-copy">
+        <h1>Your OCD data stays<br /><em>on your phone.</em></h1>
+      </header>
+      <article class="privacy-quote-card">
+        <span class="privacy-kicker">LOCAL-FIRST</span>
+        <blockquote>“No account.<br />No cloud sync.<br /><em>No OCD content uploaded.</em>”</blockquote>
+        <p>Your journal and ERP records stay on this device.</p>
+        <ul class="privacy-verification">
+          <li><i>✓</i><span>Journal and ERP records stay local</span></li>
+          <li><i>✓</i><span>Anonymous usage sharing is optional</span></li>
+          <li><i>✓</i><span>No ads or third-party analytics SDK</span></li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="shot shot-4 insights-shot" id="shot-6">
       <div class="ambient ambient-d"></div>
       <div class="brand"><img src="../../assets/logo.png" alt="" /><span>Patterns</span></div>
+      <div class="fact-pill">PATTERNS PRO · RECOVERY METRICS</div>
       <header class="hero-copy">
         <span class="eyebrow">PRIVATE INSIGHTS</span>
         <h1>See patterns.<br /><em>Not judgments.</em></h1>
-        <p>Progress is practice—not a perfect score.</p>
+        <p>Progress is practice, not a perfect score.</p>
       </header>
       <div class="phone">
         <div class="speaker"></div>
         <div class="screen">
           <div class="status"><b>9:41</b><span>▮▮▮ &nbsp; ◉ &nbsp; ▰</span></div>
           <div class="app-view insights-view">
-            <div class="insights-header"><h2>Insights</h2><button>↗</button><button class="range">30 days⌄</button></div>
-            <div class="segments"><span class="selected">Overview</span><span>Thoughts</span><span>Urges</span><span>ERP</span></div>
-            <article class="glass score-overview">
-              <div>
-                <span class="card-title">Practice progress</span>
-                <b class="score-value">72%</b>
-                <small class="positive">↑ 8% vs previous 30 days</small>
-                <svg viewBox="0 0 280 55" preserveAspectRatio="none"><path d="M0 45 C40 43 55 29 84 34 C118 40 141 16 172 23 C210 31 232 10 280 12" /></svg>
-              </div>
-              <div class="large-progress"><b>72</b></div>
-              <p>Reflects how often you practise, not a diagnosis or how you’re doing clinically. A lower number on a hard week is normal.</p>
-            </article>
-            <article class="glass mood-card">
-              <div class="card-row"><span class="card-title">Mood over time ⓘ</span><small><i class="good"></i>Good &nbsp; <i class="okay"></i>Okay &nbsp; <i class="low"></i>Low</small></div>
-              <svg viewBox="0 0 620 160" preserveAspectRatio="none"><path class="mood-line" d="M0 115 C65 90 88 118 142 84 C194 53 232 79 282 60 C345 36 372 94 430 70 C490 44 532 54 620 23" /></svg>
-            </article>
-            <div class="metric-pair">
-              <article class="glass"><span class="card-title">Average urge intensity ⓘ</span><b>5.2<small>/10</small></b><em class="positive">↓ 1.4 vs previous 30 days</em></article>
-              <article class="glass"><span class="card-title">ERP practice ⓘ</span><b>12<small> sessions</small></b><em class="positive">↑ 4 vs previous 30 days</em></article>
+            <div class="insights-header"><h2>Insights</h2><button aria-label="Share insights">↗</button><button class="range"><span>30 days</span><i>⌄</i></button></div>
+            <div class="segments" role="tablist" aria-label="Insight category">
+              <button class="selected" type="button" role="tab" aria-selected="true" data-insight-tab="overview">Overview</button>
+              <button type="button" role="tab" aria-selected="false" data-insight-tab="thoughts">Thoughts</button>
+              <button type="button" role="tab" aria-selected="false" data-insight-tab="urges">Urges</button>
+              <button type="button" role="tab" aria-selected="false" data-insight-tab="erp">ERP</button>
             </div>
-            <article class="glass consistency"><div><span class="card-title">Consistency ⓘ</span><b>68%</b><small>20 of 30 days</small></div><div class="heatmap"></div></article>
+            <div class="insight-panel selected" data-insight-panel="overview">
+              <article class="glass score-overview">
+                <div>
+                  <span class="card-title">Practice progress</span>
+                  <b class="score-value">72%</b>
+                  <small class="positive">↑ 8% vs previous 30 days</small>
+                  <svg viewBox="0 0 280 55" preserveAspectRatio="none"><path d="M0 45 C40 43 55 29 84 34 C118 40 141 16 172 23 C210 31 232 10 280 12" /></svg>
+                </div>
+                <div class="large-progress"><b>72</b></div>
+                <p>Reflects how often you practise, not a diagnosis or how you’re doing clinically. A lower number on a hard week is normal.</p>
+              </article>
+              <article class="glass mood-card">
+                <div class="card-row"><span class="card-title">Mood over time ⓘ</span><small><i class="good"></i>Good &nbsp; <i class="okay"></i>Okay &nbsp; <i class="low"></i>Low</small></div>
+                <svg viewBox="0 0 620 160" preserveAspectRatio="none"><path class="mood-line" d="M0 115 C65 90 88 118 142 84 C194 53 232 79 282 60 C345 36 372 94 430 70 C490 44 532 54 620 23" /></svg>
+              </article>
+              <div class="metric-pair">
+                <article class="glass"><span class="card-title">Average urge intensity ⓘ</span><b>5.2<small>/10</small></b><em class="positive">↓ 1.4 vs previous 30 days</em></article>
+                <article class="glass"><span class="card-title">ERP practice ⓘ</span><b>12<small> sessions</small></b><em class="positive">↑ 4 vs previous 30 days</em></article>
+              </div>
+              <article class="glass consistency"><div><span class="card-title">Consistency ⓘ</span><b>68%</b><small>20 of 30 days</small></div><div class="heatmap"></div></article>
+              <article class="glass insight-activity-summary">
+                <span class="card-title">30-day activity</span>
+                <div><span><b>18</b><small>Journal entries</small></span><span><b>11</b><small>Urges delayed</small></span><span><b>12</b><small>ERP sessions</small></span></div>
+              </article>
+            </div>
+            <div class="insight-panel" data-insight-panel="thoughts">
+              <article class="glass tab-summary-card"><span class="card-title">Journal entries</span><b>18</b><small>in the last 30 days</small></article>
+              <article class="glass tab-detail-card"><h3>Common themes</h3><div><span>Checking</span><b>7 entries</b></div><div><span>Uncertainty</span><b>6 entries</b></div><div><span>Intrusive thoughts</span><b>5 entries</b></div></article>
+              <article class="glass tab-note-card"><span>REFLECTION</span><b>You wrote most often after leaving home.</b><p>A pattern to notice, not a judgment.</p></article>
+            </div>
+            <div class="insight-panel" data-insight-panel="urges">
+              <article class="glass tab-summary-card"><span class="card-title">Average urge intensity</span><b>5.2<small>/10</small></b><small class="positive">↓ 1.4 vs previous 30 days</small></article>
+              <article class="glass tab-detail-card"><h3>Urges logged</h3><div><span>Re-checking</span><b>9</b></div><div><span>Seeking reassurance</span><b>6</b></div><div><span>Washing</span><b>4</b></div></article>
+              <article class="glass tab-note-card"><span>PRACTICE</span><b>You delayed 11 urges this month.</b><p>The pause is the practice, whether or not the feeling drops.</p></article>
+            </div>
+            <div class="insight-panel" data-insight-panel="erp">
+              <article class="glass tab-summary-card"><span class="card-title">ERP practice</span><b>12<small> sessions</small></b><small class="positive">↑ 4 vs previous 30 days</small></article>
+              <article class="glass tab-detail-card"><h3>Checking ladder</h3><div><span>Steps complete</span><b>1 of 3</b></div><div><span>In progress</span><b>1</b></div><div><span>Next rung</span><b>Difficulty 5/10</b></div></article>
+              <article class="glass tab-note-card"><span>NEXT PRACTICE</span><b>Wait before re-checking.</b><p>One rung at a time.</p></article>
+            </div>
           </div>
-          <nav class="dock">
-            <span>⌂<small>Today</small></span>
-            <span>✎<small>Journal</small></span>
-            <span>◎<small>Track</small></span>
-            <span>↗<small>Recovery</small></span>
-            <span class="active">⌁<small>Insights</small></span>
-          </nav>
         </div>
       </div>
     </section>
 
-    <section class="shot shot-5" id="shot-5">
+    <section class="shot shot-5 journal-shot" id="shot-7">
       <div class="ambient ambient-e"></div>
       <div class="brand"><img src="../../assets/logo.png" alt="" /><span>Patterns</span></div>
+      <div class="fact-pill">ON-DEVICE JOURNAL</div>
       <header class="hero-copy">
         <span class="eyebrow">PRIVATE JOURNALING</span>
         <h1>A journal for thoughts<br /><em>you don’t say out loud.</em></h1>
@@ -225,7 +303,7 @@
             <div class="editor-copy">
               <h3>Today, I let the thought be there.</h3>
               <p>The urge to check showed up again before I left. I noticed it, named it, and walked away without going back.</p>
-              <p>It felt uncomfortable—not dangerous. I did not need to solve the feeling or make it disappear.</p>
+              <p>It felt uncomfortable, not dangerous. I did not need to solve the feeling or make it disappear.</p>
               <p>The uncertainty stayed with me for a while. Then, without another check, it became quieter on its own.</p>
               <p>I kept moving through the evening instead of returning to the door. The doubt came back twice, and I let it pass twice.</p>
               <p>I do not need certainty to choose what matters next.</p>
@@ -237,71 +315,28 @@
       </div>
     </section>
 
-    <section class="shot shot-6" id="shot-6">
-      <div class="ambient ambient-f"></div>
-      <div class="brand"><img src="../../assets/logo.png" alt="" /><span>Patterns</span></div>
-      <header class="hero-copy">
-        <span class="eyebrow">PRIVATE BY DESIGN</span>
-        <h1>Your hardest thoughts<br /><em>stay yours.</em></h1>
-        <p>No account. No cloud sync. No OCD content uploaded.</p>
-      </header>
-      <div class="phone">
-        <div class="speaker"></div>
-        <div class="screen">
-          <div class="status"><b>9:41</b><span>▮▮▮ &nbsp; ◉ &nbsp; ▰</span></div>
-          <div class="app-view settings-view">
-            <div class="settings-header"><button>‹</button><h2>Settings</h2></div>
-            <h3>Privacy</h3>
-            <article class="settings-row highlight"><span>⌑</span><div><b>Privacy &amp; safety</b><small>How your local data is handled</small></div><i>›</i></article>
-            <article class="settings-row"><span>⌾</span><div><b>App lock</b><small>Require device unlock when Patterns reopens</small></div><i class="toggle"></i></article>
-            <article class="settings-row danger"><span>⌫</span><div><b>Wipe all data</b><small>Delete local entries and reset app preferences</small></div><i>›</i></article>
-            <article class="privacy-summary">
-              <span class="card-label">LOCAL-FIRST</span>
-              <h4>Your records stay on this device.</h4>
-              <p>No account, cloud sync, advertising, or remote analytics. Manual exports go only where you choose to save them.</p>
-              <div class="privacy-points">
-                <span><b>⌂</b><i>Journal and OCD records stay local</i></span>
-                <span><b>⊘</b><i>No advertising or cross-app tracking</i></span>
-                <span><b>⇩</b><i>You control every manual export</i></span>
-              </div>
-            </article>
-            <h3>Patterns Pro</h3>
-            <article class="settings-row"><span>⌁</span><div><b>Unlock Patterns Pro</b><small>One-time unlock for all recovery tools</small></div><i>›</i></article>
-            <article class="settings-row"><span>⟳</span><div><b>Restore purchases</b><small>Re-apply a previous Patterns Pro unlock</small></div><i>›</i></article>
-            <h3>Your data</h3>
-            <article class="settings-row"><span>⇩</span><div><b>Export data</b><small>Save your records to a local JSON file</small></div><i>›</i></article>
-            <article class="settings-row"><span>▧</span><div><b>Export report (PDF)</b><small>Create a report for a date range</small></div><i>›</i></article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="shot shot-7" id="shot-7">
+    <section class="shot shot-7 pro-shot" id="shot-8">
       <div class="ambient ambient-g"></div>
       <div class="brand"><img src="../../assets/logo.png" alt="" /><span>Patterns</span></div>
+      <div class="fact-pill">ONE-TIME PURCHASE</div>
       <header class="hero-copy">
         <span class="eyebrow">PATTERNS PRO</span>
-        <h1>Move beyond tracking.<br /><em>Practise recovery.</em></h1>
-        <p>One-time unlock. No subscription.</p>
+        <h1>One unlock.<br /><em>Not another subscription.</em></h1>
+        <p>Pay once. Unlock every recovery tool.</p>
       </header>
-      <div class="pro-showcase">
-        <article class="pro-price-card">
-          <div class="pro-card-head"><img src="../../assets/logo.png" alt="" /><div><span>ONE-TIME PURCHASE</span><strong>$39.99</strong></div></div>
-          <h2>The full recovery toolkit.<br />Yours for good.</h2>
-          <p>Move beyond tracking with practical tools for ERP, uncertainty, and response prevention.</p>
-          <div class="pro-feature-grid">
-            <div><span>↗</span><b>Exposure hierarchies</b><small>Build fear ladders step by step.</small></div>
-            <div><span>◷</span><b>Urge surfing</b><small>Ride the wave without responding.</small></div>
-            <div><span>◎</span><b>Structured ERP</b><small>Practise with guided programs.</small></div>
-            <div><span>⌁</span><b>Recovery metrics</b><small>Understand consistency and change.</small></div>
-            <div><span>◇</span><b>Action planner</b><small>Turn intentions into small experiments.</small></div>
-            <div><span>▤</span><b>Reflection worksheets</b><small>Learn from practice without self-judgment.</small></div>
-          </div>
-          <div class="pro-promise"><span>✓ No subscription</span><span>✓ Restore anytime</span><span>✓ Works offline</span></div>
-          <button>Unlock Patterns Pro</button>
-        </article>
-        <div class="pro-orbit orbit-a"></div><div class="pro-orbit orbit-b"></div>
-      </div>
+      <article class="purchase-poster">
+        <div class="purchase-brand"><img src="../../assets/logo.png" alt="" /><span>PATTERNS PRO</span></div>
+        <div class="purchase-price"><strong>ONE-TIME UNLOCK</strong><span>NO SUBSCRIPTION</span></div>
+        <div class="purchase-features">
+          <div><i>↗</i><span><b>Exposure hierarchies</b><small>Build fear ladders step by step.</small></span></div>
+          <div><i>◷</i><span><b>Urge surfing</b><small>Ride the wave without responding.</small></span></div>
+          <div><i>◎</i><span><b>Structured ERP</b><small>Practise with guided programs.</small></span></div>
+          <div><i>⌁</i><span><b>Recovery metrics</b><small>Understand consistency and change.</small></span></div>
+          <div><i>◇</i><span><b>Action planner</b><small>Turn intentions into small experiments.</small></span></div>
+          <div><i>▤</i><span><b>Reflection worksheets</b><small>Learn from practice without self-judgment.</small></span></div>
+        </div>
+        <div class="purchase-footer"><span><i>✓</i>Restore anytime</span><span><i>✓</i>Works offline</span><span><i>✓</i>No recurring charge</span></div>
+      </article>
     </section>
   </main>
 
@@ -319,6 +354,36 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     document.body.dataset.mode = params.get("mode") || "apple";
+
+    document.querySelectorAll("[data-insight-tab]").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const name = tab.dataset.insightTab;
+        document.querySelectorAll("[data-insight-tab]").forEach((item) => {
+          const selected = item === tab;
+          item.classList.toggle("selected", selected);
+          item.setAttribute("aria-selected", String(selected));
+        });
+        document.querySelectorAll("[data-insight-panel]").forEach((panel) => {
+          panel.classList.toggle("selected", panel.dataset.insightPanel === name);
+        });
+      });
+    });
+
+    document.querySelectorAll("[data-slide-target]").forEach((tab) => {
+      tab.setAttribute("role", "button");
+      tab.setAttribute("tabindex", "0");
+      const activate = () => {
+        const target = document.getElementById(tab.dataset.slideTarget);
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      };
+      tab.addEventListener("click", activate);
+      tab.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          activate();
+        }
+      });
+    });
   </script>
 </body>
 </html>
