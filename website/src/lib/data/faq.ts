@@ -43,7 +43,7 @@ export const faqs: FaqItem[] = [
   {
     question: 'How much does Patterns cost?',
     answer:
-      'Patterns is free to download, and the journal, the OCD log, the Y-BOCS self-check, guided ERP, the compulsion delay tool, and the emergency toolkit are all free with no time limit. Patterns Pro is an optional one-time unlock for the deeper ERP tools: exposure ladders, exposure materials, urge surfing, response prevention, structured programs, and the extra insights. Pro is $39.99 in the US on iPhone and Android, with local pricing elsewhere. It is one payment, never a subscription and nothing to renew. If you already own Pro, nothing changes and you are never charged again. Patterns is open source, and optional tips and GitHub Sponsors are there if you would like to contribute beyond that.'
+      'Patterns is free to download, and the journal, the OCD log, the Y-BOCS self-check, guided ERP, the compulsion delay tool, and the emergency toolkit are all free with no time limit. Patterns Pro is an optional one-time unlock for the deeper ERP tools: exposure ladders, exposure materials, urge surfing, response prevention, structured programs, and the extra insights. Pro is $19.99 in the US on iPhone and Android, down from $39.99, with local pricing elsewhere. It is one payment, never a subscription and nothing to renew. If you already own Pro, nothing changes and you are never charged again. Patterns is open source, and optional tips and GitHub Sponsors are there if you would like to contribute beyond that.'
   },
   {
     question: 'Can I back up or move my data?',

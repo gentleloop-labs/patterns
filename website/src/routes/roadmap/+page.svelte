@@ -62,8 +62,8 @@
     },
     {
       icon: Crown,
-      title: 'What Pro costs',
-      body: 'Pro is now $39.99 in the US, with local pricing elsewhere. Still one payment, still lifetime, still no subscription. If you already own Pro, nothing changes and you pay nothing again.'
+      title: 'Pro is $19.99 again',
+      body: 'Pro has come back down to $19.99 in the US from $39.99, with local pricing elsewhere. Still one payment, still lifetime, still no subscription. If you already own Pro, nothing changes and you pay nothing again.'
     }
   ];
 

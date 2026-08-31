@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { proPricing } from '$lib/data/pricing';
   import Seo from '$lib/components/Seo.svelte';
   import ContentContainer from '$lib/components/ContentContainer.svelte';
   import AnimatedOnScroll from '$lib/components/AnimatedOnScroll.svelte';
@@ -152,8 +153,14 @@
     <AnimatedOnScroll delay={140}>
       <section class="pro-banner" aria-labelledby="unlock-title">
         <h2 id="unlock-title">A one-time unlock, yours for good</h2>
+        <p class="price-line">
+          <span class="was">{proPricing.previousUsd}</span>
+          <span class="now">{proPricing.currentUsd}</span>
+          <span class="once">one time, in the US</span>
+        </p>
         <p>
-          Patterns Pro is a single purchase - not a subscription. You own it, it works
+          Pro has come back down from {proPricing.previousUsd} to {proPricing.currentUsd}, with
+          local pricing elsewhere. Patterns Pro is a single purchase - not a subscription. You own it, it works
           offline, and it keeps the same privacy promise as the rest of the app: nothing
           leaves your device. Buying Pro is also how a person with OCD gets to keep
           building this for everyone else, without ever turning your hardest moments into
@@ -185,6 +192,32 @@
 </article>
 
 <style>
+  .price-line {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 0 18px;
+  }
+
+  .price-line .was {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    text-decoration: line-through;
+  }
+
+  .price-line .now {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 2.6rem);
+    line-height: 1;
+    color: var(--accent);
+  }
+
+  .price-line .once {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
   .toolkit {
     background: var(--surface);
   }
