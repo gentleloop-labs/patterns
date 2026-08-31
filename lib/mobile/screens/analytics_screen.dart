@@ -991,6 +991,9 @@ class _SegmentButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final segmentColors = insightSegmentColors(theme, selected: selected);
+
     return Expanded(
       child: InkWell(
         borderRadius: BorderRadius.circular(14),
@@ -1000,12 +1003,12 @@ class _SegmentButton extends StatelessWidget {
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(
-            color: selected ? const Color(0xFF27251C) : Colors.transparent,
+            color: segmentColors.background,
             borderRadius: BorderRadius.circular(14),
             boxShadow: selected
                 ? [
                     BoxShadow(
-                      color: context.appColors.accent.withValues(alpha: 0.10),
+                      color: context.appColors.accent.withValues(alpha: 0.16),
                       blurRadius: 18,
                     ),
                   ]
@@ -1020,9 +1023,7 @@ class _SegmentButton extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                color: selected
-                    ? context.appColors.accent
-                    : context.appColors.textSecondary,
+                color: segmentColors.foreground,
                 fontWeight: FontWeight.w800,
                 fontSize: 12,
               ),
@@ -1032,6 +1033,31 @@ class _SegmentButton extends StatelessWidget {
       ),
     );
   }
+}
+
+@visibleForTesting
+({Color background, Color foreground}) insightSegmentColors(
+  ThemeData theme, {
+  required bool selected,
+}) {
+  if (!selected) {
+    return (
+      background: Colors.transparent,
+      foreground: theme.appColors.textSecondary,
+    );
+  }
+
+  if (theme.brightness == Brightness.light) {
+    return (
+      background: theme.colorScheme.primary,
+      foreground: theme.colorScheme.onPrimary,
+    );
+  }
+
+  return (
+    background: const Color(0xFF27251C),
+    foreground: theme.appColors.accent,
+  );
 }
 
 class _GlassCard extends StatelessWidget {
