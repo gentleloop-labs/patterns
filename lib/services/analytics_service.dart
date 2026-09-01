@@ -888,9 +888,10 @@ class _DashboardPeriodData {
       for (final entry in periodResponses) entry.anxietyLevel,
       for (final entry in periodSurfs) entry.finalUrge,
     ];
+    // Round average urge to 1 decimal place to prevent long floating‑point strings
     final averageUrge = urgeValues.isEmpty
         ? 0.0
-        : urgeValues.reduce((a, b) => a + b) / urgeValues.length;
+        : double.parse((urgeValues.reduce((a, b) => a + b) / urgeValues.length).toStringAsFixed(1));
     final consistencyPercent = ((activeDays.length / days) * 100).round().clamp(
       0,
       100,
@@ -1008,7 +1009,8 @@ class _DashboardPeriodData {
 
   double get mood {
     if (ocds.isEmpty) return journals.isEmpty ? 5 : 6;
-    return (10 - averageUrge).clamp(0, 10);
+    // Round to 1 decimal place to avoid floating-point precision issues
+    return double.parse(((10 - averageUrge).clamp(0, 10)).toStringAsFixed(1));
   }
 }
 

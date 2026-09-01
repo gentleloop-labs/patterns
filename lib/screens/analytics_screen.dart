@@ -315,21 +315,39 @@ class _OverviewTab extends StatelessWidget {
 
     // Dynamic calculations for mood from SQLite trend data
     final hasMood = summary.moodTrend.isNotEmpty;
+    // final mood = hasMood
+    //     ? summary.moodTrend.map((p) => p.value).reduce((a, b) => a + b) /
+    //           summary.moodTrend.length
+    //     : 0.0;
+
     final mood = hasMood
-        ? summary.moodTrend.map((p) => p.value).reduce((a, b) => a + b) /
-              summary.moodTrend.length
+        ? double.parse(
+            (summary.moodTrend.map((p) => p.value).reduce((a, b) => a + b) /
+                    summary.moodTrend.length)
+                .toStringAsFixed(1)
+          )
         : 0.0;
+
+    // double moodDeltaVal = 0.0;
+    // if (summary.moodTrend.length >= 2) {
+    //   moodDeltaVal =
+    //       summary.moodTrend.last.value - summary.moodTrend.first.value;
+    // }
 
     double moodDeltaVal = 0.0;
     if (summary.moodTrend.length >= 2) {
-      moodDeltaVal =
-          summary.moodTrend.last.value - summary.moodTrend.first.value;
+      moodDeltaVal = double.parse(
+        (summary.moodTrend.last.value - summary.moodTrend.first.value)
+            .toStringAsFixed(1)
+      );
     }
 
-    final moodDeltaText = moodDeltaVal == 0
+    // Use epsilon-based comparison for floating-point safety instead of == 0
+    final moodDeltaIsZero = moodDeltaVal.abs() < 0.05;
+    final moodDeltaText = moodDeltaIsZero
         ? 'Unchanged'
         : '${moodDeltaVal > 0 ? '↑' : '↓'} ${moodDeltaVal.abs().toStringAsFixed(1)}';
-    final moodDeltaColor = moodDeltaVal == 0
+    final moodDeltaColor = moodDeltaIsZero
         ? Colors.grey
         : (moodDeltaVal > 0 ? Colors.green : Colors.red);
 
