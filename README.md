@@ -51,7 +51,7 @@ Requires iOS 14 or later, or Android 8 or later.
 
 <p align="center">
   <img src="app-store/patterns-screenshots/exports/app-store-1284x2778/04-see-patterns-not-judgments.png" width="32%" alt="Insights: practice progress, mood, and consistency over time">
-  <img src="app-store\patterns-screenshots\exports\app-store-1284x2778\06-nothing-leaves-your-phone.png" width="32%" alt="Settings: local-first privacy, app lock, and export">
+  <img src="app-store/patterns-screenshots/exports/app-store-1284x2778/06-nothing-leaves-your-phone.png" width="32%" alt="Settings: local-first privacy, app lock, and export">
 </p>
 
 ## What you can do
