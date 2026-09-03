@@ -9,7 +9,9 @@ const PUBLIC_COPY_FILES = [
   'src/routes/+page.svelte',
   'src/routes/roadmap/+page.svelte',
   'src/lib/sections/Download.svelte',
-  'src/lib/sections/Preview.svelte'
+  'src/lib/sections/Preview.svelte',
+  'src/lib/sections/YbocsSpotlight.svelte',
+  'src/lib/sections/EverydayMoments.svelte'
 ];
 
 const publicCopy = PUBLIC_COPY_FILES.map((path) => ({

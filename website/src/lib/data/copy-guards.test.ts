@@ -2,6 +2,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { faqs } from './faq';
+import { testimonialEditDisclosure, testimonialOutcomeDisclosure, testimonials } from './homepage';
 
 /**
  * Two things that are invisible in CI and embarrassing in production.
@@ -30,6 +31,17 @@ const pricingSource = readFileSync(
   'utf-8'
 );
 
+const ybocsSource = readFileSync(
+  resolve(process.cwd(), 'src/lib/sections/YbocsSpotlight.svelte'),
+  'utf-8'
+);
+
+const trustSectionSources = [
+  ybocsSource,
+  readFileSync(resolve(process.cwd(), 'src/lib/sections/CommunityProof.svelte'), 'utf-8'),
+  readFileSync(resolve(process.cwd(), 'src/lib/data/homepage.ts'), 'utf-8')
+];
+
 const blogDir = resolve(process.cwd(), 'src/content/blog');
 const blogPosts = readdirSync(blogDir)
   .filter((name) => name.endsWith('.md'))
@@ -45,6 +57,29 @@ describe('copy style', () => {
 
   it('keeps em dashes out of the roadmap', () => {
     expect(roadmapSource).not.toContain('—');
+  });
+});
+
+describe('homepage medical and testimonial guardrails', () => {
+  it('keeps the Y-BOCS limitation visible word for word', () => {
+    expect(ybocsSource).toContain(
+      'This is a self-check, not a diagnosis. A qualified professional should interpret'
+    );
+    expect(ybocsSource).toContain('symptoms in context.');
+  });
+
+  it('keeps both testimonial disclosures present', () => {
+    expect(testimonialEditDisclosure).toBe('Excerpts lightly edited for length and clarity.');
+    expect(testimonialOutcomeDisclosure).toContain('not evidence of a clinical outcome');
+    expect(testimonials).toHaveLength(4);
+  });
+
+  it('does not introduce clinical validation, diagnosis, or outcome claims', () => {
+    const prohibited =
+      /clinically validated|clinically proven|guaranteed results|cures OCD|diagnoses OCD|treats OCD/i;
+    for (const source of trustSectionSources) {
+      expect(source).not.toMatch(prohibited);
+    }
   });
 });
 

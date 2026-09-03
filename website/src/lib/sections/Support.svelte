@@ -16,7 +16,7 @@
   }
 </script>
 
-<section class="support content-below-fold" aria-labelledby="support-title">
+<section id="support" class="support content-below-fold" aria-labelledby="support-title">
   <ContentContainer padding="56px 0">
     <AnimatedOnScroll>
       <div class="card">

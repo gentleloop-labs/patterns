@@ -25,7 +25,7 @@
   ];
 </script>
 
-<section class="erp section-pad content-below-fold" aria-labelledby="erp-title">
+<section id="built-for-erp" class="erp section-pad content-below-fold" aria-labelledby="erp-title">
   <ContentContainer>
     <AnimatedOnScroll>
       <div class="header">

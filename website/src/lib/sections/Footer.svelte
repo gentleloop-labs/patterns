@@ -31,7 +31,7 @@
   const year = new Date().getFullYear();
 </script>
 
-<footer class="footer">
+<footer id="footer" class="footer">
   <hr />
   <ContentContainer padding="48px 0">
     <div class="footer-grid">
@@ -62,6 +62,13 @@
         </nav>
       </div>
     </div>
+    <aside class="crisis-note" aria-label="Urgent support">
+      <strong>Patterns is not a crisis service.</strong> If you may be in immediate danger or unable
+      to stay safe, contact local emergency services or use
+      <a href="https://findahelpline.com/" target="_blank" rel="noopener noreferrer"
+        >Find A Helpline</a
+      >.
+    </aside>
     <hr class="divider" />
     <p class="copyright">© {year} Patterns. MIT License.</p>
   </ContentContainer>
@@ -154,6 +161,31 @@
     margin: 40px 0 24px;
     border: none;
     border-top: 1px solid color-mix(in srgb, var(--border) 30%, transparent);
+  }
+
+  .crisis-note {
+    max-width: 820px;
+    margin: 40px auto 0;
+    padding: 15px 18px;
+    border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+    border-radius: 14px;
+    color: var(--text-secondary);
+    background: var(--bg);
+    font-size: 13px;
+    font-style: normal;
+    line-height: 1.55;
+    text-align: center;
+  }
+
+  .crisis-note strong {
+    color: var(--text);
+  }
+
+  .crisis-note a {
+    color: var(--accent);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .copyright {
