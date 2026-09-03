@@ -22,12 +22,12 @@
           <picture>
             <source
               type="image/webp"
-              srcset="/assets/people/reflection-v3-640.webp 640w, /assets/people/reflection-v3-1024.webp 1024w, /assets/people/reflection-v3-1536.webp 1536w"
+              srcset="/assets/people/reflection-v4-640.webp 640w, /assets/people/reflection-v4-1024.webp 1024w, /assets/people/reflection-v4-1536.webp 1536w"
               sizes="(max-width: 759px) calc(100vw - 32px), 42vw"
             />
             <img
-              src="/assets/people/reflection-v3-1024.jpg"
-              srcset="/assets/people/reflection-v3-640.jpg 640w, /assets/people/reflection-v3-1024.jpg 1024w, /assets/people/reflection-v3-1536.jpg 1536w"
+              src="/assets/people/reflection-v4-1024.jpg"
+              srcset="/assets/people/reflection-v4-640.jpg 640w, /assets/people/reflection-v4-1024.jpg 1024w, /assets/people/reflection-v4-1536.jpg 1536w"
               sizes="(max-width: 759px) calc(100vw - 32px), 42vw"
               alt="A person writing in a notebook at a kitchen table with a phone nearby"
               width="1536"
