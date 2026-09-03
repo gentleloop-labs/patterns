@@ -44,7 +44,7 @@ const staticEntries: Entry[] = [
         title: 'Patterns OCD severity self-check results with demonstration data'
       },
       {
-        loc: `${links.site}assets/people/reflection-v3-1536.jpg`,
+        loc: `${links.site}assets/people/reflection-v4-1536.jpg`,
         title: 'A person using a journal during an ordinary moment at home'
       },
       {
