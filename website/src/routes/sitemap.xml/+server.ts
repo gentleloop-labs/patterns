@@ -36,7 +36,7 @@ const staticEntries: Entry[] = [
         title: 'Patterns mobile app download CTA for OCD journaling and ERP practice'
       },
       {
-        loc: `${links.site}assets/mockups/feature-graphic.jpg`,
+        loc: `${links.site}assets/mockups/feature-graphic-v2.jpg`,
         title: 'Patterns OCD tracker app for iPhone and Android'
       },
       {

@@ -25,8 +25,8 @@
         <div class="showcase">
           <div class="mockup-wrap feature-graphic">
             <img
-              src="/assets/mockups/feature-graphic.jpg"
-              alt="Patterns mobile screens for OCD tracking, ERP practice, and private journaling"
+              src="/assets/mockups/feature-graphic-v2.jpg"
+              alt="Patterns compulsion-delay screen with the message See the pattern, choose your response"
               width="1024"
               height="500"
               loading="lazy"

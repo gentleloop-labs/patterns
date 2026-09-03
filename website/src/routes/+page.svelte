@@ -36,7 +36,7 @@
       image: site.ogImage,
       screenshot: [
         `${links.site}assets/website-cta-1200.jpg`,
-        `${links.site}assets/mockups/feature-graphic.jpg`,
+        `${links.site}assets/mockups/feature-graphic-v2.jpg`,
         `${links.site}assets/mockups/frame-1.jpg`,
         `${links.site}assets/mockups/mobile-hero.jpg`
       ],
