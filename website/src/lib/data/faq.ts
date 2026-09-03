@@ -2,11 +2,14 @@ export type FaqItem = {
   question: string;
   /** Plain-text answer used for FAQPage JSON-LD (no markup). */
   answer: string;
+  /** Featured in the shorter accordion on the homepage. */
+  homepage?: boolean;
 };
 
 export const faqs: FaqItem[] = [
   {
     question: 'Is Patterns a replacement for therapy?',
+    homepage: true,
     answer:
       'No. Patterns is a self-reflection and tracking tool that supports your own journaling and ERP practice. It does not diagnose, treat, or cure OCD, and it is not a substitute for care from a qualified clinician. The most effective treatment for OCD is Exposure and Response Prevention (ERP), ideally guided by an OCD-trained therapist.'
   },
@@ -32,6 +35,7 @@ export const faqs: FaqItem[] = [
   },
   {
     question: 'Is my data private?',
+    homepage: true,
     answer:
       'Yes. Your journal entries, intrusive thoughts, compulsions, exposures, notes, ratings, and other personal OCD data stay on your device. Patterns has no accounts, cloud sync, ads, or third-party analytics SDK. Optional anonymous product analytics are off by default and send only a random installation ID, platform, app version, and whitelisted feature-use event names and times. Personal OCD content is never included, and uploaded events expire within 90 days. The app is open source, so anyone can verify this.'
   },
@@ -42,6 +46,7 @@ export const faqs: FaqItem[] = [
   },
   {
     question: 'How much does Patterns cost?',
+    homepage: true,
     answer:
       'Patterns is free to download, and the journal, the OCD log, the Y-BOCS self-check, guided ERP, the compulsion delay tool, and the emergency toolkit are all free with no time limit. Patterns Pro is an optional one-time unlock for the deeper ERP tools: exposure ladders, exposure materials, urge surfing, response prevention, structured programs, and the extra insights. Pro is $19.99 in the US on iPhone and Android, down from $39.99, with local pricing elsewhere. It is one payment, never a subscription and nothing to renew. If you already own Pro, nothing changes and you are never charged again. Patterns is open source, and optional tips and GitHub Sponsors are there if you would like to contribute beyond that.'
   },
@@ -62,7 +67,22 @@ export const faqs: FaqItem[] = [
   },
   {
     question: 'I think I might have OCD. What should I do?',
+    homepage: true,
     answer:
       'Only a qualified mental-health professional can assess and diagnose OCD. If intrusive thoughts and compulsions are affecting your life, consider reaching out to a clinician or an OCD specialist. Reaching out for help is a sign of strength. Patterns can help you track what you are experiencing so you can share clear notes with them.'
+  },
+  {
+    question: 'What is the OCD severity self-check?',
+    homepage: true,
+    answer:
+      'Patterns includes a private, plain-language self-check informed by the severity dimensions used in the Yale-Brown Obsessive Compulsive Scale (Y-BOCS). It can help you record how obsessions and compulsions affect your week and notice changes across repeated check-ins. It is not a diagnosis, and a qualified professional should interpret symptoms in their full context.'
+  },
+  {
+    question: 'What if I need urgent help?',
+    homepage: true,
+    answer:
+      'Patterns is not a crisis service. If you may be in immediate danger or unable to stay safe, contact local emergency services or a crisis service in your country now. Find A Helpline can help you locate verified services where you live.'
   }
 ];
+
+export const homepageFaqs = faqs.filter((item) => item.homepage);

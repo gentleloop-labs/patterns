@@ -1,17 +1,35 @@
 <script lang="ts">
   import ContentContainer from '$lib/components/ContentContainer.svelte';
   import AnimatedOnScroll from '$lib/components/AnimatedOnScroll.svelte';
+  import { loopSteps } from '$lib/data/homepage';
   import { ArrowRight } from 'lucide-svelte';
 
-  const steps = [
-    { label: 'Obsession', note: 'An intrusive thought latches on' },
-    { label: 'Distress', note: 'Anxiety spikes fast' },
-    { label: 'Compulsion', note: 'You act to feel safe' },
-    { label: 'Relief', note: 'It fades - briefly' }
-  ];
+  let activeIndex = $state(0);
+  let stepButtons: HTMLButtonElement[] = [];
+
+  function selectStep(index: number, focus = false) {
+    activeIndex = (index + loopSteps.length) % loopSteps.length;
+    if (focus) stepButtons[activeIndex]?.focus();
+  }
+
+  function handleStepKey(event: KeyboardEvent, index: number) {
+    const moves: Record<string, number> = {
+      ArrowRight: index + 1,
+      ArrowDown: index + 1,
+      ArrowLeft: index - 1,
+      ArrowUp: index - 1,
+      Home: 0,
+      End: loopSteps.length - 1
+    };
+
+    if (event.key in moves) {
+      event.preventDefault();
+      selectStep(moves[event.key], true);
+    }
+  }
 </script>
 
-<section class="understanding section-pad content-below-fold" aria-labelledby="understanding-title">
+<section id="understanding" class="understanding section-pad content-below-fold" aria-labelledby="understanding-title">
   <ContentContainer>
     <AnimatedOnScroll>
       <div class="header">
@@ -29,18 +47,45 @@
     </AnimatedOnScroll>
 
     <AnimatedOnScroll delay={100}>
-      <ul class="cycle" aria-label="The OCD cycle">
-        {#each steps as step, i}
+      <ul class="cycle" aria-label="Explore the four steps in the OCD cycle">
+        {#each loopSteps as step, i}
           <li class="step">
-            <span class="num">{i + 1}</span>
-            <span class="step-label">{step.label}</span>
-            <span class="step-note">{step.note}</span>
+            <button
+              type="button"
+              class:active={i === activeIndex}
+              aria-pressed={i === activeIndex}
+              aria-controls="loop-detail"
+              tabindex={i === activeIndex ? 0 : -1}
+              bind:this={stepButtons[i]}
+              onclick={() => selectStep(i)}
+              onkeydown={(event) => handleStepKey(event, i)}
+            >
+              <span class="num">{i + 1}</span>
+              <span class="step-label">{step.label}</span>
+              <span class="step-note">{step.note}</span>
+            </button>
           </li>
-          {#if i < steps.length - 1}
+          {#if i < loopSteps.length - 1}
             <li class="arrow" aria-hidden="true"><ArrowRight size={18} /></li>
           {/if}
         {/each}
       </ul>
+
+      <div id="loop-detail" class="detail" aria-live="polite">
+        <div>
+          <span>What is happening</span>
+          <p>{loopSteps[activeIndex].detail}</p>
+        </div>
+        <div>
+          <span>How the loop tightens</span>
+          <p>{loopSteps[activeIndex].reinforcement}</p>
+        </div>
+        <div>
+          <span>A possible next response</span>
+          <p>{loopSteps[activeIndex].nextResponse}</p>
+        </div>
+      </div>
+      <p class="education-note">General education, not personalized treatment advice.</p>
     </AnimatedOnScroll>
 
     <AnimatedOnScroll delay={150}>
@@ -104,13 +149,39 @@
 
   .step {
     flex: 1 1 170px;
+    min-width: 0;
+  }
+
+  .step button {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 6px;
     padding: 20px;
+    cursor: pointer;
+    text-align: left;
     border-radius: 16px;
     border: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
     background: var(--surface);
+    font: inherit;
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  }
+
+  .step button:hover,
+  .step button.active {
+    border-color: color-mix(in srgb, var(--accent) 60%, var(--border));
+    background: color-mix(in srgb, var(--accent) 7%, var(--surface));
+  }
+
+  .step button:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--accent) 72%, transparent);
+    outline-offset: 3px;
+  }
+
+  .step button.active {
+    transform: translateY(-3px);
   }
 
   .num {
@@ -142,6 +213,45 @@
     display: flex;
     align-items: center;
     color: color-mix(in srgb, var(--accent) 70%, transparent);
+  }
+
+  .detail {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    max-width: 880px;
+    margin: 20px auto 0;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--border));
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--border) 55%, transparent);
+  }
+
+  .detail > div {
+    padding: 22px;
+    background: color-mix(in srgb, var(--accent) 5%, var(--surface));
+  }
+
+  .detail span {
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .detail p {
+    margin: 9px 0 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .education-note {
+    margin: 12px 0 0;
+    color: var(--text-secondary);
+    font-size: 12px;
+    text-align: center;
   }
 
   .cta-row {
@@ -189,6 +299,10 @@
     .step {
       flex-basis: calc(50% - 12px);
     }
+
+    .detail {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 599px) {
@@ -198,6 +312,16 @@
 
     .subtitle {
       font-size: 16px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .step button {
+      transition: none;
+    }
+
+    .step button.active {
+      transform: none;
     }
   }
 </style>

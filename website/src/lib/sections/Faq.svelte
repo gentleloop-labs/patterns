@@ -2,27 +2,42 @@
   import ContentContainer from '$lib/components/ContentContainer.svelte';
   import AnimatedOnScroll from '$lib/components/AnimatedOnScroll.svelte';
   import MedicalDisclaimer from '$lib/components/MedicalDisclaimer.svelte';
-  import { faqs } from '$lib/data/faq';
+  import { faqs, type FaqItem } from '$lib/data/faq';
   import { HelpCircle, Plus } from 'lucide-svelte';
+
+  let { items = faqs, variant = 'page' }: { items?: FaqItem[]; variant?: 'page' | 'home' } = $props();
 </script>
 
-<section class="faq section-pad" aria-labelledby="faq-title">
+<section
+  id={variant === 'home' ? 'home-faq' : 'faq'}
+  class:compact={variant === 'home'}
+  class="faq section-pad content-below-fold"
+  aria-labelledby={variant === 'home' ? 'home-faq-title' : 'faq-title'}
+>
   <ContentContainer>
     <AnimatedOnScroll>
       <div class="head">
-        <div class="icon-tile">
-          <HelpCircle size={34} color="var(--accent)" strokeWidth={1.75} />
-        </div>
-        <p class="eyebrow">Frequently asked questions</p>
-        <h1 id="faq-title" class="title serif">Questions, answered.</h1>
-        <p class="intro">
-          A few common questions about OCD, ERP, and how Patterns works - and what it
-          isn't.
-        </p>
+        {#if variant === 'page'}
+          <div class="icon-tile">
+            <HelpCircle size={34} color="var(--accent)" strokeWidth={1.75} />
+          </div>
+          <p class="eyebrow">Frequently asked questions</p>
+          <h1 id="faq-title" class="title serif">Questions, answered.</h1>
+          <p class="intro">
+            A few common questions about OCD, ERP, and how Patterns works - and what it
+            isn't.
+          </p>
+        {:else}
+          <p class="eyebrow">Common questions</p>
+          <h2 id="home-faq-title" class="title serif">A few things worth knowing.</h2>
+          <p class="intro">
+            Clear answers about privacy, the self-check, pricing, and where the app's limits are.
+          </p>
+        {/if}
       </div>
 
       <div class="list">
-        {#each faqs as item}
+        {#each items as item}
           <details class="item">
             <summary>
               <span>{item.question}</span>
@@ -33,18 +48,22 @@
         {/each}
       </div>
 
-      <div class="disclaimer-wrap">
-        <MedicalDisclaimer />
-      </div>
+      {#if variant === 'page'}
+        <div class="disclaimer-wrap">
+          <MedicalDisclaimer />
+        </div>
 
-      <nav class="related" aria-label="Related pages">
-        <a href="/ocd" class="related-card">Understanding OCD</a>
-        <a href="/erp" class="related-card">How ERP works in Patterns</a>
-      </nav>
+        <nav class="related" aria-label="Related pages">
+          <a href="/ocd" class="related-card">Understanding OCD</a>
+          <a href="/erp" class="related-card">How ERP works in Patterns</a>
+        </nav>
 
-      <div class="back-wrap">
-        <a href="/">← Back to Home</a>
-      </div>
+        <div class="back-wrap">
+          <a href="/">← Back to Home</a>
+        </div>
+      {:else}
+        <div class="all-faq-wrap"><a href="/faq">Read every question and answer →</a></div>
+      {/if}
     </AnimatedOnScroll>
   </ContentContainer>
 </section>
@@ -52,6 +71,10 @@
 <style>
   .faq {
     background: var(--surface);
+  }
+
+  .faq.compact {
+    background: var(--bg);
   }
 
   .head {
@@ -179,6 +202,17 @@
   .back-wrap a {
     font-weight: 600;
     color: var(--accent);
+  }
+
+  .all-faq-wrap {
+    margin-top: 32px;
+    text-align: center;
+  }
+
+  .all-faq-wrap a {
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 700;
   }
 
   @media (max-width: 599px) {

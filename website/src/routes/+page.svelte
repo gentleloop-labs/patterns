@@ -1,18 +1,25 @@
 <script lang="ts">
   import Seo from '$lib/components/Seo.svelte';
   import Hero from '$lib/sections/Hero.svelte';
+  import TrustStrip from '$lib/sections/TrustStrip.svelte';
   import Understanding from '$lib/sections/Understanding.svelte';
+  import EverydayMoments from '$lib/sections/EverydayMoments.svelte';
   import Features from '$lib/sections/Features.svelte';
   import Preview from '$lib/sections/Preview.svelte';
+  import YbocsSpotlight from '$lib/sections/YbocsSpotlight.svelte';
   import BuiltForErp from '$lib/sections/BuiltForErp.svelte';
   import RecoveryToolkit from '$lib/sections/RecoveryToolkit.svelte';
+  import CommunityProof from '$lib/sections/CommunityProof.svelte';
   import PriceDrop from '$lib/sections/PriceDrop.svelte';
+  import LatestArticles from '$lib/sections/LatestArticles.svelte';
+  import Faq from '$lib/sections/Faq.svelte';
   import Download from '$lib/sections/Download.svelte';
   import Support from '$lib/sections/Support.svelte';
   import Footer from '$lib/sections/Footer.svelte';
   import { links } from '$lib/data/links';
   import { site } from '$lib/data/site';
   import { proPricing } from '$lib/data/pricing';
+  import { homepageFaqs } from '$lib/data/faq';
 
   const jsonLd = [
     {
@@ -37,6 +44,7 @@
       screenshot: [
         `${links.site}assets/website-cta-1200.jpg`,
         `${links.site}assets/mockups/feature-graphic-v2.jpg`,
+        `${links.site}assets/mockups/ybocs-app-ui-v1.png`,
         `${links.site}assets/mockups/frame-1.jpg`,
         `${links.site}assets/mockups/mobile-hero.jpg`
       ],
@@ -56,6 +64,9 @@
         'Recovery toolkit with guided ERP, emergency toolkit, and coping library',
         'Patterns Pro: exposure hierarchy builder, urge surfing, response-prevention and uncertainty training',
         'Structured ERP programs, behavioral experiments, action planner, and recovery metrics',
+        'Private OCD severity self-check informed by Y-BOCS severity dimensions',
+        'Longitudinal self-check history and trends',
+        'Optional PDF export for discussion with a clinician',
         'Mobile app for iOS and Android',
         'Local-first storage - no accounts or cloud sync',
         'Optional app lock with Face ID or device passcode',
@@ -142,12 +153,18 @@
 </svelte:head>
 
 <Hero onDownload={scrollToDownload} />
+<TrustStrip />
 <Understanding />
+<EverydayMoments />
 <Features />
 <Preview />
+<YbocsSpotlight />
 <BuiltForErp />
 <RecoveryToolkit />
+<CommunityProof />
 <PriceDrop />
+<LatestArticles />
+<Faq variant="home" items={homepageFaqs} />
 <Download />
 <Support />
 <Footer />
