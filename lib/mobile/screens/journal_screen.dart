@@ -1980,7 +1980,7 @@ class _JournalEntryEditorState extends ConsumerState<JournalEntryEditor> {
       context,
       const ActivityCompletionResult(ActivityCompletionKind.journal),
     );
-    if (mounted) Navigator.pop(context);
+    if (mounted) returnToNeutralHome(context);
   }
 }
 

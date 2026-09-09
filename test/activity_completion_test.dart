@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:patterns/l10n/app_localizations.dart';
+import 'package:patterns/navigation/neutral_home_navigation.dart';
 import 'package:patterns/widgets/activity_completion.dart';
 
 void main() {
@@ -60,4 +61,39 @@ void main() {
     expect(find.text('練習を記録しました'), findsOneWidget);
     expect(find.text('今はここまで'), findsOneWidget);
   });
+
+  testWidgets(
+    'return to neutral home closes activity routes and signals shell',
+    (tester) async {
+      late BuildContext activityContext;
+      final before = neutralHomeNavigation.requestCount;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(
+            builder: (context) => TextButton(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (context) {
+                    activityContext = context;
+                    return const Scaffold(body: Text('activity'));
+                  },
+                ),
+              ),
+              child: const Text('open'),
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('open'));
+      await tester.pumpAndSettle();
+      expect(find.text('activity'), findsOneWidget);
+
+      returnToNeutralHome(activityContext);
+      await tester.pumpAndSettle();
+
+      expect(find.text('activity'), findsNothing);
+      expect(neutralHomeNavigation.requestCount, before + 1);
+    },
+  );
 }

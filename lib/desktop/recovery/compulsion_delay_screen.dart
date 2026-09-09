@@ -282,7 +282,7 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
       context,
       const ActivityCompletionResult(ActivityCompletionKind.compulsionDelay),
     );
-    if (mounted) Navigator.pop(context);
+    if (mounted) returnToNeutralHome(context);
   }
 
   // ----- build -----
