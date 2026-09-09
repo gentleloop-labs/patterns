@@ -7,6 +7,7 @@ import 'package:local_auth/local_auth.dart'
 
 import '../l10n/l10n.dart';
 import '../models/models.dart';
+import '../navigation/neutral_home_navigation.dart';
 import '../providers/providers.dart';
 import '../services/analytics_service.dart';
 import '../services/app_events.dart';
@@ -680,12 +681,24 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
   @override
   void initState() {
     super.initState();
+    neutralHomeNavigation.addListener(_returnToToday);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _seedDemoData();
       _logTabOpened(_selectedTab);
       final path = widget.firstRunPath;
       if (path != null) _startFirstRun(path);
     });
+  }
+
+  @override
+  void dispose() {
+    neutralHomeNavigation.removeListener(_returnToToday);
+    super.dispose();
+  }
+
+  void _returnToToday() {
+    if (!mounted || _selectedTab == _Tab.home) return;
+    _selectTab(_Tab.home);
   }
 
   /// Routes a brand-new user straight into the activity they picked on S2, then

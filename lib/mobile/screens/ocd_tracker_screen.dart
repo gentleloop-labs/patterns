@@ -313,7 +313,7 @@ class _OcdEventFlowState extends ConsumerState<OcdEventFlow> {
           updated: _isEditing,
         ),
       );
-      if (mounted) Navigator.pop(context);
+      if (mounted) returnToNeutralHome(context);
     }
   }
 }

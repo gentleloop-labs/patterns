@@ -864,7 +864,7 @@ class _OcdEntryDialogState extends ConsumerState<OcdEntryDialog> {
                           ActivityCompletionKind.trackedMoment,
                         ),
                       );
-                      if (mounted) Navigator.pop(context);
+                      if (mounted) returnToNeutralHome(context);
                     }
                   },
                   child: const Text('Save Entry'),

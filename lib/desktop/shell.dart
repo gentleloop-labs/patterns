@@ -4,6 +4,7 @@ import 'package:line_icons/line_icons.dart';
 
 import '../app_preferences.dart';
 import '../l10n/l10n.dart';
+import '../navigation/neutral_home_navigation.dart';
 import '../screens/analytics_screen.dart';
 import '../screens/journal_screen.dart';
 import '../screens/ocd_tracker_screen.dart';
@@ -34,10 +35,19 @@ class DesktopShellState extends ConsumerState<DesktopShell> {
   @override
   void initState() {
     super.initState();
+    neutralHomeNavigation.addListener(_returnToHome);
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => _logTabOpened(_selectedTab),
     );
   }
+
+  @override
+  void dispose() {
+    neutralHomeNavigation.removeListener(_returnToHome);
+    super.dispose();
+  }
+
+  void _returnToHome() => selectTab(DesktopTab.home);
 
   void selectTab(DesktopTab tab) {
     if (tab == _selectedTab) return;

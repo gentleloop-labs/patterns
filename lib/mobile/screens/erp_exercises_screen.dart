@@ -834,7 +834,7 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
       context,
       const ActivityCompletionResult(ActivityCompletionKind.erp),
     );
-    if (mounted) Navigator.pop(context);
+    if (mounted) returnToNeutralHome(context);
   }
 
   @override

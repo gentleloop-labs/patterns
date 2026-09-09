@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/l10n.dart';
+import '../navigation/neutral_home_navigation.dart';
 import 'platform.dart';
 
 enum ActivityCompletionKind { journal, trackedMoment, compulsionDelay, erp }
@@ -89,4 +90,13 @@ Future<void> showQuietCompletion(
       builder: (_) => SafeArea(child: content),
     );
   }
+}
+
+/// Closes any full-screen activity route and asks the platform shell to select
+/// its neutral Today/Home tab. Calling this after [showQuietCompletion]
+/// preserves the already-saved data while giving the user a clear stopping
+/// point.
+void returnToNeutralHome(BuildContext context) {
+  Navigator.of(context, rootNavigator: true).popUntil((route) => route.isFirst);
+  neutralHomeNavigation.request();
 }
