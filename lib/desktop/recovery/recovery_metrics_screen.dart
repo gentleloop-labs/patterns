@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../../l10n/l10n.dart';
 import '../../providers/providers.dart';
 import '../../services/analytics_service.dart';
 import '../../theme/app_theme.dart';
@@ -37,7 +38,7 @@ class RecoveryMetricsScreen extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'Recovery Metrics',
+                    context.l10n.recoveryMetricsTitle,
                     style: theme.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w800,
                     ),
@@ -63,6 +64,7 @@ class RecoveryMetricsSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final isPro = ref.watch(proProvider);
+    final calmInsightsEnabled = ref.watch(calmInsightsProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +72,7 @@ class RecoveryMetricsSection extends ConsumerWidget {
         Row(
           children: [
             Text(
-              'Recovery metrics',
+              context.l10n.recoveryMetricsTitle,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
@@ -83,7 +85,10 @@ class RecoveryMetricsSection extends ConsumerWidget {
         if (isPro)
           const RecoveryMetricsView()
         else
-          _LockedTeaser(onTap: () => PaywallSheet.show(context)),
+          _LockedTeaser(
+            calmInsightsEnabled: calmInsightsEnabled,
+            onTap: () => PaywallSheet.show(context),
+          ),
       ],
     );
   }
@@ -91,7 +96,9 @@ class RecoveryMetricsSection extends ConsumerWidget {
 
 class _LockedTeaser extends StatelessWidget {
   final VoidCallback onTap;
-  const _LockedTeaser({required this.onTap});
+  final bool calmInsightsEnabled;
+
+  const _LockedTeaser({required this.onTap, required this.calmInsightsEnabled});
 
   @override
   Widget build(BuildContext context) {
@@ -108,15 +115,16 @@ class _LockedTeaser extends StatelessWidget {
             Icon(LineIcons.fire, color: theme.colorScheme.primary, size: 26),
             const SizedBox(height: 12),
             Text(
-              'See your recovery come together',
+              context.l10n.recoveryMetricsTeaserTitle,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
             ),
             const SizedBox(height: 6),
             Text(
-              'Streaks, exposures completed, and how your urges drop over time, '
-              'across every ERP tool. Unlock with Patterns Desktop Pro.',
+              calmInsightsEnabled
+                  ? context.l10n.recoveryMetricsCalmTeaserBody
+                  : context.l10n.recoveryMetricsDetailedTeaserBody,
               style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
             ),
             const SizedBox(height: 14),
@@ -124,7 +132,7 @@ class _LockedTeaser extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: ElevatedButton(
                 onPressed: onTap,
-                child: const Text('Unlock Desktop Pro'),
+                child: Text(context.l10n.recoveryMetricsUnlockPro),
               ),
             ),
           ],
@@ -158,7 +166,7 @@ class RecoveryMetricsView extends ConsumerWidget {
     );
 
     if (!metrics.hasAnyData) {
-      return _EmptyMetrics();
+      return _EmptyMetrics(calmInsightsEnabled: calmInsightsEnabled);
     }
 
     return Column(
@@ -173,7 +181,7 @@ class RecoveryMetricsView extends ConsumerWidget {
               child: _MetricCard(
                 icon: Icons.stairs_rounded,
                 value: metrics.exposuresCompleted.toDouble(),
-                label: 'Exposures done',
+                label: context.l10n.recoveryMetricsExposuresDone,
               ),
             ),
             const SizedBox(width: 12),
@@ -181,7 +189,7 @@ class RecoveryMetricsView extends ConsumerWidget {
               child: _MetricCard(
                 icon: Icons.self_improvement_rounded,
                 value: metrics.sessionsPracticed.toDouble(),
-                label: 'Sessions practiced',
+                label: context.l10n.recoveryMetricsSessionsPracticed,
               ),
             ),
           ],
@@ -191,7 +199,7 @@ class RecoveryMetricsView extends ConsumerWidget {
           icon: Icons.trending_down_rounded,
           value: metrics.avgUrgeReduction,
           fractionDigits: 1,
-          label: 'Average urge drop',
+          label: context.l10n.recoveryMetricsAverageUrgeDrop,
           fullWidth: true,
         ),
         if (!calmInsightsEnabled) ...[
@@ -234,15 +242,11 @@ class _StreakCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AnimatedCounter(
-                value: days.toDouble(),
+              Text(
+                context.l10n.recoveryMetricsDayStreak(days),
                 style: theme.textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.w900,
                 ),
-              ),
-              Text(
-                days == 1 ? 'day streak' : 'day streak',
-                style: TextStyle(color: AppTheme.textSecondary, fontSize: 13),
               ),
             ],
           ),
@@ -315,7 +319,7 @@ class _WeeklyStrip extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'This week',
+            context.l10n.recoveryMetricsThisWeek,
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w800,
             ),
@@ -365,6 +369,10 @@ class _WeeklyStrip extends StatelessWidget {
 }
 
 class _EmptyMetrics extends StatelessWidget {
+  final bool calmInsightsEnabled;
+
+  const _EmptyMetrics({required this.calmInsightsEnabled});
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -378,15 +386,16 @@ class _EmptyMetrics extends StatelessWidget {
           Icon(LineIcons.fire, color: theme.colorScheme.primary, size: 26),
           const SizedBox(height: 12),
           Text(
-            'Your metrics will appear here',
+            context.l10n.recoveryMetricsEmptyTitle,
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w800,
             ),
           ),
           const SizedBox(height: 6),
           Text(
-            'Practise a delay, an ERP session, or an exposure step and your '
-            'streak and progress will start building.',
+            calmInsightsEnabled
+                ? context.l10n.recoveryMetricsCalmEmptyBody
+                : context.l10n.recoveryMetricsDetailedEmptyBody,
             style: TextStyle(color: AppTheme.textSecondary, height: 1.45),
           ),
         ],

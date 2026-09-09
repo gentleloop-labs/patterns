@@ -102,6 +102,59 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get recoveryMetricsTitle => 'Actividad de recuperación';
+
+  @override
+  String get recoveryMetricsTeaserTitle => 'Reúne tu actividad de recuperación';
+
+  @override
+  String get recoveryMetricsCalmTeaserBody =>
+      'Consulta exposiciones, sesiones de práctica y cambios registrados en la urgencia en tus herramientas de ERP. Desbloquéalo con Patterns Pro.';
+
+  @override
+  String get recoveryMetricsDetailedTeaserBody =>
+      'Consulta rachas de práctica, exposiciones completadas y cambios registrados en la urgencia en tus herramientas de ERP. Desbloquéalo con Patterns Pro.';
+
+  @override
+  String get recoveryMetricsUnlockPro => 'Desbloquear Patterns Pro';
+
+  @override
+  String get recoveryMetricsEmptyTitle =>
+      'Tu actividad de recuperación aparecerá aquí';
+
+  @override
+  String get recoveryMetricsCalmEmptyBody =>
+      'Practica un retraso, una sesión de ERP o un paso de exposición para ver aquí recuentos objetivos de actividad.';
+
+  @override
+  String get recoveryMetricsDetailedEmptyBody =>
+      'Practica un retraso, una sesión de ERP o un paso de exposición para empezar tu historial de actividad y tu racha de práctica.';
+
+  @override
+  String get recoveryMetricsExposuresDone => 'Exposiciones completadas';
+
+  @override
+  String get recoveryMetricsSessionsPracticed => 'Sesiones practicadas';
+
+  @override
+  String get recoveryMetricsAverageUrgeDrop =>
+      'Cambio medio registrado en la urgencia';
+
+  @override
+  String get recoveryMetricsThisWeek => 'Esta semana';
+
+  @override
+  String recoveryMetricsDayStreak(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: 'Racha de $days días',
+      one: 'Racha de 1 día',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get systemDefault => 'Predeterminado del sistema';
 
   @override

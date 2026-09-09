@@ -204,6 +204,7 @@ void main() {
                   body: Column(
                     children: [
                       Text(AppLocalizations.of(context).settingsTitle),
+                      const TextField(key: ValueKey('draft-field')),
                       TextButton(
                         onPressed: () => ref
                             .read(languageProvider.notifier)
@@ -221,10 +222,15 @@ void main() {
     );
 
     expect(find.text('Settings'), findsOneWidget);
+    await tester.enterText(
+      find.byKey(const ValueKey('draft-field')),
+      'unsaved journal draft',
+    );
     await tester.tap(find.text('switch'));
     await tester.pumpAndSettle();
 
     expect(find.text('設定'), findsOneWidget);
+    expect(find.text('unsaved journal draft'), findsOneWidget);
     expect(
       appPreferences?.getString(languagePreferenceKey),
       AppLanguage.japanese.preferenceValue,

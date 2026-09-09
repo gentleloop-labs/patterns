@@ -70,6 +70,51 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String get recoveryMetricsTitle => '回復アクティビティ';
+
+  @override
+  String get recoveryMetricsTeaserTitle => '回復アクティビティをまとめて確認';
+
+  @override
+  String get recoveryMetricsCalmTeaserBody =>
+      'ERPツールで記録したエクスポージャー、練習セッション、衝動の変化を確認できます。Patterns Proで利用できます。';
+
+  @override
+  String get recoveryMetricsDetailedTeaserBody =>
+      'ERPツールで練習の連続記録、完了したエクスポージャー、記録した衝動の変化を確認できます。Patterns Proで利用できます。';
+
+  @override
+  String get recoveryMetricsUnlockPro => 'Patterns Proを利用する';
+
+  @override
+  String get recoveryMetricsEmptyTitle => '回復アクティビティがここに表示されます';
+
+  @override
+  String get recoveryMetricsCalmEmptyBody =>
+      '強迫行為の延期、ERPセッション、またはエクスポージャーのステップを練習すると、事実に基づく活動件数がここに表示されます。';
+
+  @override
+  String get recoveryMetricsDetailedEmptyBody =>
+      '強迫行為の延期、ERPセッション、またはエクスポージャーのステップを練習すると、活動履歴と練習の連続記録が始まります。';
+
+  @override
+  String get recoveryMetricsExposuresDone => '完了したエクスポージャー';
+
+  @override
+  String get recoveryMetricsSessionsPracticed => '練習したセッション';
+
+  @override
+  String get recoveryMetricsAverageUrgeDrop => '記録した衝動の平均変化';
+
+  @override
+  String get recoveryMetricsThisWeek => '今週';
+
+  @override
+  String recoveryMetricsDayStreak(int days) {
+    return '$days日連続';
+  }
+
+  @override
   String get systemDefault => 'システム設定';
 
   @override

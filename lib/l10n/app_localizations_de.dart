@@ -102,6 +102,60 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String get recoveryMetricsTitle => 'Genesungsaktivität';
+
+  @override
+  String get recoveryMetricsTeaserTitle =>
+      'Ihre Genesungsaktivität im Überblick';
+
+  @override
+  String get recoveryMetricsCalmTeaserBody =>
+      'Sehen Sie Expositionen, Übungseinheiten und erfasste Veränderungen des Drangs aus Ihren ERP-Werkzeugen. Mit Patterns Pro freischalten.';
+
+  @override
+  String get recoveryMetricsDetailedTeaserBody =>
+      'Sehen Sie Übungsserien, abgeschlossene Expositionen und erfasste Veränderungen des Drangs aus Ihren ERP-Werkzeugen. Mit Patterns Pro freischalten.';
+
+  @override
+  String get recoveryMetricsUnlockPro => 'Patterns Pro freischalten';
+
+  @override
+  String get recoveryMetricsEmptyTitle =>
+      'Ihre Genesungsaktivität erscheint hier';
+
+  @override
+  String get recoveryMetricsCalmEmptyBody =>
+      'Üben Sie einen Aufschub, eine ERP-Einheit oder einen Expositionsschritt, um hier sachliche Aktivitätszahlen zu sehen.';
+
+  @override
+  String get recoveryMetricsDetailedEmptyBody =>
+      'Üben Sie einen Aufschub, eine ERP-Einheit oder einen Expositionsschritt, um Ihren Aktivitätsverlauf und Ihre Übungsserie aufzubauen.';
+
+  @override
+  String get recoveryMetricsExposuresDone => 'Expositionen abgeschlossen';
+
+  @override
+  String get recoveryMetricsSessionsPracticed => 'Einheiten geübt';
+
+  @override
+  String get recoveryMetricsAverageUrgeDrop =>
+      'Durchschnittliche erfasste Drangänderung';
+
+  @override
+  String get recoveryMetricsThisWeek => 'Diese Woche';
+
+  @override
+  String recoveryMetricsDayStreak(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days Tage Serie',
+      one: '1 Tag Serie',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get systemDefault => 'Systemstandard';
 
   @override

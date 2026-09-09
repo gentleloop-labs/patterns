@@ -102,6 +102,60 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
+  String get recoveryMetricsTitle => 'Atividade de recuperação';
+
+  @override
+  String get recoveryMetricsTeaserTitle =>
+      'Veja sua atividade de recuperação reunida';
+
+  @override
+  String get recoveryMetricsCalmTeaserBody =>
+      'Veja exposições, sessões de prática e mudanças registradas no impulso em suas ferramentas de ERP. Desbloqueie com o Patterns Pro.';
+
+  @override
+  String get recoveryMetricsDetailedTeaserBody =>
+      'Veja sequências de prática, exposições concluídas e mudanças registradas no impulso em suas ferramentas de ERP. Desbloqueie com o Patterns Pro.';
+
+  @override
+  String get recoveryMetricsUnlockPro => 'Desbloquear Patterns Pro';
+
+  @override
+  String get recoveryMetricsEmptyTitle =>
+      'Sua atividade de recuperação aparecerá aqui';
+
+  @override
+  String get recoveryMetricsCalmEmptyBody =>
+      'Pratique um adiamento, uma sessão de ERP ou uma etapa de exposição para ver aqui contagens objetivas de atividade.';
+
+  @override
+  String get recoveryMetricsDetailedEmptyBody =>
+      'Pratique um adiamento, uma sessão de ERP ou uma etapa de exposição para começar seu histórico e sua sequência de prática.';
+
+  @override
+  String get recoveryMetricsExposuresDone => 'Exposições concluídas';
+
+  @override
+  String get recoveryMetricsSessionsPracticed => 'Sessões praticadas';
+
+  @override
+  String get recoveryMetricsAverageUrgeDrop =>
+      'Mudança média registrada no impulso';
+
+  @override
+  String get recoveryMetricsThisWeek => 'Esta semana';
+
+  @override
+  String recoveryMetricsDayStreak(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: 'Sequência de $days dias',
+      one: 'Sequência de 1 dia',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get systemDefault => 'Padrão do sistema';
 
   @override
@@ -689,6 +743,60 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       locale: localeName,
       other: '$count exposições concluídas',
       one: '1 exposição concluída',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get recoveryMetricsTitle => 'Atividade de recuperação';
+
+  @override
+  String get recoveryMetricsTeaserTitle =>
+      'Veja sua atividade de recuperação reunida';
+
+  @override
+  String get recoveryMetricsCalmTeaserBody =>
+      'Veja exposições, sessões de prática e mudanças registradas no impulso em suas ferramentas de ERP. Desbloqueie com o Patterns Pro.';
+
+  @override
+  String get recoveryMetricsDetailedTeaserBody =>
+      'Veja sequências de prática, exposições concluídas e mudanças registradas no impulso em suas ferramentas de ERP. Desbloqueie com o Patterns Pro.';
+
+  @override
+  String get recoveryMetricsUnlockPro => 'Desbloquear Patterns Pro';
+
+  @override
+  String get recoveryMetricsEmptyTitle =>
+      'Sua atividade de recuperação aparecerá aqui';
+
+  @override
+  String get recoveryMetricsCalmEmptyBody =>
+      'Pratique um adiamento, uma sessão de ERP ou uma etapa de exposição para ver aqui contagens objetivas de atividade.';
+
+  @override
+  String get recoveryMetricsDetailedEmptyBody =>
+      'Pratique um adiamento, uma sessão de ERP ou uma etapa de exposição para começar seu histórico e sua sequência de prática.';
+
+  @override
+  String get recoveryMetricsExposuresDone => 'Exposições concluídas';
+
+  @override
+  String get recoveryMetricsSessionsPracticed => 'Sessões praticadas';
+
+  @override
+  String get recoveryMetricsAverageUrgeDrop =>
+      'Mudança média registrada no impulso';
+
+  @override
+  String get recoveryMetricsThisWeek => 'Esta semana';
+
+  @override
+  String recoveryMetricsDayStreak(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: 'Sequência de $days dias',
+      one: 'Sequência de 1 dia',
     );
     return '$_temp0';
   }

@@ -17,6 +17,19 @@
   "calmDelayActivity": "強迫行為の延期 {count}回", "@calmDelayActivity": {"placeholders": {"count": {"type": "int"}}},
   "calmErpActivity": "ERP練習 {count}回", "@calmErpActivity": {"placeholders": {"count": {"type": "int"}}},
   "calmExposureActivity": "完了した曝露 {count}回", "@calmExposureActivity": {"placeholders": {"count": {"type": "int"}}},
+  "recoveryMetricsTitle": "回復アクティビティ",
+  "recoveryMetricsTeaserTitle": "回復アクティビティをまとめて確認",
+  "recoveryMetricsCalmTeaserBody": "ERPツールで記録したエクスポージャー、練習セッション、衝動の変化を確認できます。Patterns Proで利用できます。",
+  "recoveryMetricsDetailedTeaserBody": "ERPツールで練習の連続記録、完了したエクスポージャー、記録した衝動の変化を確認できます。Patterns Proで利用できます。",
+  "recoveryMetricsUnlockPro": "Patterns Proを利用する",
+  "recoveryMetricsEmptyTitle": "回復アクティビティがここに表示されます",
+  "recoveryMetricsCalmEmptyBody": "強迫行為の延期、ERPセッション、またはエクスポージャーのステップを練習すると、事実に基づく活動件数がここに表示されます。",
+  "recoveryMetricsDetailedEmptyBody": "強迫行為の延期、ERPセッション、またはエクスポージャーのステップを練習すると、活動履歴と練習の連続記録が始まります。",
+  "recoveryMetricsExposuresDone": "完了したエクスポージャー",
+  "recoveryMetricsSessionsPracticed": "練習したセッション",
+  "recoveryMetricsAverageUrgeDrop": "記録した衝動の平均変化",
+  "recoveryMetricsThisWeek": "今週",
+  "recoveryMetricsDayStreak": "{days}日連続", "@recoveryMetricsDayStreak": {"placeholders": {"days": {"type": "int"}}},
   "systemDefault": "システム設定",
   "cancelAction": "キャンセル",
   "doneAction": "完了",
@@ -47,5 +60,5 @@
   "whatsNewTitle": "プレッシャーのない練習", "whatsNewBody": "Patterns 1.10では、穏やかなインサイト、静かなセッション終了、アクセシビリティの改善、任意の言語選択が加わりました。", "whatsNewLanguagesTitle": "穏やかなインサイト", "whatsNewLanguagesBody": "計算されたスコア、連続記録、一貫性の割合の代わりに、事実に基づく活動概要を選べます。", "whatsNewPrivateTitle": "明確な終了点", "whatsNewPrivateBody": "日記、記録、強迫行為の延期、ERPセッションは、事実に基づく確認と「今はここまで」で終了します。", "whatsNewReportsTitle": "より使いやすく、あなたの言語で", "whatsNewReportsBody": "ラベルと動きを抑える動作を改善し、英語、ブラジルポルトガル語、ドイツ語、日本語、スペイン語、フランス語に対応しました。", "whatsNewExploreAction": "Patterns 1.10を見る", "continueToPatternsAction": "Patternsに進む", "whatsNewNotificationNote": "入力内容はそのまま保持されます。言語と穏やかなインサイトの設定は端末内だけに保存され、分析やバックアップには含まれません。",
   "formatBold": "太字", "formatItalic": "斜体", "formatBulletedList": "箇条書き", "formatToggleHint": "ダブルタップして、この書式をオンまたはオフにします。", "journalEditorLabel": "日記エディター", "journalEditorHint": "日記の文章を入力します。書式設定コントロールはエディターの後にあります。", "timerRemaining": "残り時間：{time}", "recoveryScoreSemantics": "回復スコア：100点中{score}点。",
   "privacySafetyTitle": "プライバシーと安全", "privacyLocalContent": "日記、OCDの記録、苦痛度、振り返り、アプリ設定はこの端末内に保存されます。", "privacyPurchases": "Patterns Proとチップはアプリストアが処理します。Patternsが支払いカード情報を受け取ることはありません。", "privacyExports": "手動で書き出すと、暗号化されていないJSONバックアップまたはPDFレポートが、選択した保存先または共有先にのみ作成されます。", "privacyAnalytics": "匿名の利用状況分析は、あなたが有効にしない限りオフです。有効にすると、機能利用イベント、ランダムなインストールID、プラットフォーム、アプリのバージョン、イベント時刻が自社サービスに送信されます。日記、OCDデータ、生成した概要、地域設定、言語選択は含まれません。オフにすると、保留中のイベントと端末内の分析IDが削除されます。", "privacyClinicalBoundary": "Patternsは個人の振り返りとERP練習のためのセルフヘルプツールです。OCDの診断や治療、専門家によるケアの代替、緊急支援は提供しません。", "viewPrivacyPolicyAction": "プライバシーポリシーを表示", "closeAction": "閉じる",
-  "@formatBold": {}, "@formatItalic": {}, "@formatBulletedList": {}, "@formatToggleHint": {}, "@journalEditorLabel": {}, "@journalEditorHint": {}, "@timerRemaining": {"placeholders": {"time": {"type": "String"}}}, "@recoveryScoreSemantics": {"placeholders": {"score": {"type": "int"}}}, "@privacySafetyTitle": {}, "@privacyLocalContent": {}, "@privacyPurchases": {}, "@privacyExports": {}, "@privacyAnalytics": {}, "@privacyClinicalBoundary": {}, "@viewPrivacyPolicyAction": {}, "@closeAction": {}
+  "@formatBold": {}, "@formatItalic": {}, "@formatBulletedList": {}, "@formatToggleHint": {}, "@journalEditorLabel": {}, "@journalEditorHint": {}, "@timerRemaining": {"placeholders": {"time": {"type": "String"}}}, "@recoveryScoreSemantics": {"placeholders": {"score": {"type": "int"}}}, "@privacySafetyTitle": {}, "@privacyLocalContent": {}, "@privacyPurchases": {}, "@privacyExports": {}, "@privacyAnalytics": {}, "@privacyClinicalBoundary": {}, "@viewPrivacyPolicyAction": {}, "@closeAction": {}, "@recoveryMetricsTitle": {}, "@recoveryMetricsTeaserTitle": {}, "@recoveryMetricsCalmTeaserBody": {}, "@recoveryMetricsDetailedTeaserBody": {}, "@recoveryMetricsUnlockPro": {}, "@recoveryMetricsEmptyTitle": {}, "@recoveryMetricsCalmEmptyBody": {}, "@recoveryMetricsDetailedEmptyBody": {}, "@recoveryMetricsExposuresDone": {}, "@recoveryMetricsSessionsPracticed": {}, "@recoveryMetricsAverageUrgeDrop": {}, "@recoveryMetricsThisWeek": {}
 }

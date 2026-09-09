@@ -102,6 +102,59 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get recoveryMetricsTitle => 'Recovery metrics';
+
+  @override
+  String get recoveryMetricsTeaserTitle =>
+      'See your recovery activity together';
+
+  @override
+  String get recoveryMetricsCalmTeaserBody =>
+      'Review exposures, practice sessions, and recorded urge changes across your ERP tools. Unlock with Patterns Pro.';
+
+  @override
+  String get recoveryMetricsDetailedTeaserBody =>
+      'Review practice streaks, completed exposures, and recorded urge changes across your ERP tools. Unlock with Patterns Pro.';
+
+  @override
+  String get recoveryMetricsUnlockPro => 'Unlock Patterns Pro';
+
+  @override
+  String get recoveryMetricsEmptyTitle =>
+      'Your recovery activity will appear here';
+
+  @override
+  String get recoveryMetricsCalmEmptyBody =>
+      'Practise a delay, an ERP session, or an exposure step to see factual activity counts here.';
+
+  @override
+  String get recoveryMetricsDetailedEmptyBody =>
+      'Practise a delay, an ERP session, or an exposure step to begin building your activity history and practice streak.';
+
+  @override
+  String get recoveryMetricsExposuresDone => 'Exposures done';
+
+  @override
+  String get recoveryMetricsSessionsPracticed => 'Sessions practised';
+
+  @override
+  String get recoveryMetricsAverageUrgeDrop => 'Average recorded urge change';
+
+  @override
+  String get recoveryMetricsThisWeek => 'This week';
+
+  @override
+  String recoveryMetricsDayStreak(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days day streak',
+      one: '1 day streak',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get systemDefault => 'System Default';
 
   @override
