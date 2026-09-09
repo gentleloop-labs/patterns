@@ -1,0 +1,54 @@
+{
+  "observedAt": "2026-09-09",
+  "readOnlyInspection": true,
+  "app": {
+    "id": "6762611172",
+    "bundleId": "com.maskedsyntax.patterns",
+    "name": "Patterns: OCD & ERP Journal",
+    "version110Exists": false,
+    "build110Exists": false
+  },
+  "inAppPurchases": [
+    {
+      "productId": "com.maskedsyntax.patterns.pro",
+      "iapId": "6785513588",
+      "type": "NON_CONSUMABLE",
+      "editableVersionId": "a08dbd2f-033d-42e6-875a-c7844019a602",
+      "editableVersionState": "PREPARE_FOR_SUBMISSION",
+      "action": "reuse"
+    },
+    {
+      "productId": "com.maskedsyntax.patterns.tip.small",
+      "iapId": "6770887482",
+      "type": "CONSUMABLE",
+      "approvedVersionId": "d8778db8-23a0-4b90-85b9-9b6a536988b4",
+      "editableVersionId": null,
+      "action": "create_exactly_one_after_release_approval"
+    },
+    {
+      "productId": "com.maskedsyntax.patterns.tip.medium",
+      "iapId": "6770892197",
+      "type": "CONSUMABLE",
+      "approvedVersionId": "041d0484-41ba-4595-8a9a-43240eab1238",
+      "editableVersionId": null,
+      "action": "create_exactly_one_after_release_approval"
+    },
+    {
+      "productId": "com.maskedsyntax.patterns.tip.large",
+      "iapId": "6770892883",
+      "type": "CONSUMABLE",
+      "approvedVersionId": "7730858d-96da-434a-84c2-d8a4893220bd",
+      "editableVersionId": null,
+      "action": "create_exactly_one_after_release_approval"
+    }
+  ],
+  "ppp": {
+    "snapshot": "app-store/patterns-pro-ppp-2026-09-08.json",
+    "verifiedAt": "2026-09-09",
+    "verifiedTerritories": 12,
+    "drift": false,
+    "priceWritesMade": false,
+    "note": "Apple currently reports automatic future adjustments in COG, ISR, and MAR. None affects the nine manual PPP pilot territories or the three unchanged spot checks."
+  },
+  "remoteWritesMade": false
+}

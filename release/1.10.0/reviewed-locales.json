@@ -1,0 +1,41 @@
+{
+  "release": "1.10.0",
+  "sourceLocale": "en",
+  "requiredInAppLocales": ["en", "pt-BR", "de", "ja", "es", "fr"],
+  "requiredStorefrontLocales": [
+    "en-US",
+    "en-GB",
+    "en-CA",
+    "en-AU",
+    "pt-BR",
+    "de-DE",
+    "ja",
+    "es-MX",
+    "es-ES",
+    "fr-FR",
+    "fr-CA"
+  ],
+  "reviews": {
+    "en": {"copyFrozen": false, "clinical": false, "privacy": false, "accessibility": false},
+    "pt-BR": {"copyFrozen": false, "clinical": false, "privacy": false, "accessibility": false},
+    "de": {"copyFrozen": false, "clinical": false, "privacy": false, "accessibility": false},
+    "ja": {"copyFrozen": false, "clinical": false, "privacy": false, "accessibility": false},
+    "es": {"copyFrozen": false, "clinical": false, "privacy": false, "accessibility": false},
+    "fr": {"copyFrozen": false, "clinical": false, "privacy": false, "accessibility": false}
+  },
+  "storefrontReviews": {
+    "en-US": false,
+    "en-GB": false,
+    "en-CA": false,
+    "en-AU": false,
+    "pt-BR": false,
+    "de-DE": false,
+    "ja": false,
+    "es-MX": false,
+    "es-ES": false,
+    "fr-FR": false,
+    "fr-CA": false
+  },
+  "physicalIphoneAccessibilityVerified": false,
+  "approvedByReleaseOwner": false
+}

@@ -1,0 +1,11 @@
+# Narrow regular expressions matched against `path:line:source` audit output.
+# Each entry must be a stable wire/debug/format value, never ordinary UI copy.
+
+# Debug-only local telemetry inspector; excluded from production builds.
+^lib/mobile/screens/debug_funnel_screen\.dart:
+
+# Locale-formatted value assembled from caller-supplied localized prefix/suffix.
+^lib/widgets/animations\.dart:.*formatter\.format
+
+# Stable example format for an offline desktop license key, not prose.
+^lib/widgets/paywall_sheet\.dart:.*DESKTOP-XXXX-XXXX-XXXX

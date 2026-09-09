@@ -6,7 +6,7 @@ const root = __dirname;
 const chrome = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
 const shots = [
-  { selector: "#shot-1", name: "01-light-and-dark-today" },
+  { selector: "#shot-1", name: "01-calm-today" },
   { selector: "#shot-2", name: "02-delay-the-urge" },
   { selector: "#shot-4", name: "03-build-your-exposure-ladder" },
   { selector: "#shot-6", name: "04-see-patterns-not-judgments" },
@@ -16,22 +16,16 @@ const shots = [
   { selector: "#shot-8", name: "08-patterns-pro" },
 ];
 
-// The Apple layout is authored at 1290x2796 and zoomed to each accepted
-// App Store Connect portrait size, so nothing is resampled after render.
+// The Apple layout is authored and exported at APP_IPHONE_69 (1290x2796).
+// Do not create redundant 6.5-inch variants for the 1.10 campaign.
 const appleDesign = { width: 1290, height: 2796 };
 
 const targets = [
   {
     mode: "apple",
-    width: 1284,
-    height: 2778,
-    directory: path.join(root, "exports", "app-store-1284x2778"),
-  },
-  {
-    mode: "apple",
-    width: 1242,
-    height: 2688,
-    directory: path.join(root, "exports", "app-store-1242x2688"),
+    width: 1290,
+    height: 2796,
+    directory: path.join(root, "exports", "app-store-1290x2796"),
   },
   {
     mode: "play",

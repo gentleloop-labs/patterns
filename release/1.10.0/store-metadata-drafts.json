@@ -1,0 +1,98 @@
+{
+  "status": "machine_assisted_draft_not_approved",
+  "canonical": false,
+  "shared": {
+    "marketingUrl": "https://www.patternsocd.com/",
+    "supportUrl": "https://github.com/maskedsyntax/patterns/issues"
+  },
+  "locales": {
+    "en-US": {
+      "name": "Patterns: OCD & ERP Journal",
+      "subtitle": "Private journal & ERP tools",
+      "keywords": "ocd,intrusive thoughts,compulsion,erp,exposure,ritual,rumination,reassurance,anxiety,journal",
+      "promotionalText": "Private OCD journaling, factual Calm Insights, and guided ERP practice. No account, no ads, and one optional lifetime Pro unlock.",
+      "description": "Patterns is a private OCD journal and self-help practice companion. Record intrusive thoughts and compulsions, write journal entries, delay an urge, and practise exposure and response prevention (ERP). Calm Insights can replace calculated scores and streaks with factual activity counts. Personal content stays on your device unless you choose to export an unencrypted JSON backup or PDF. Optional anonymous usage analytics are off by default and never include OCD content, summaries, locale, or language choice. Patterns does not diagnose or treat OCD and is not a replacement for qualified care or emergency support.",
+      "whatsNew": "Patterns 1.10 introduces optional Calm Insights, quieter endings after journal and practice sessions, and optional English, Brazilian Portuguese, German, Japanese, Spanish, and French interfaces. Your entries stay as written and your language choice remains on this device."
+    },
+    "en-GB": {
+      "name": "Patterns: OCD & ERP Journal",
+      "subtitle": "Private diary & ERP practice",
+      "keywords": "ocd,intrusive thoughts,compulsions,erp,exposure,rituals,rumination,reassurance,anxiety,diary",
+      "promotionalText": "Private OCD journalling, factual Calm Insights and guided ERP practice. No account, no adverts and one optional lifetime Pro unlock.",
+      "description": "Patterns is a private OCD diary and self-help practice companion. Record intrusive thoughts and compulsions, write journal entries, delay an urge, and practise exposure and response prevention (ERP). Calm Insights can replace calculated scores and streaks with factual activity counts. Personal content stays on your device unless you choose to export an unencrypted JSON backup or PDF. Optional anonymous usage analytics are off by default and never include OCD content, summaries, locale or language choice. Patterns does not diagnose or treat OCD and is not a replacement for qualified care or emergency support.",
+      "whatsNew": "Patterns 1.10 introduces optional Calm Insights, quieter endings after diary and practice sessions, and optional English, Brazilian Portuguese, German, Japanese, Spanish and French interfaces. Your entries stay as written and your language choice remains on this device."
+    },
+    "en-CA": {
+      "name": "Patterns: OCD & ERP Journal",
+      "subtitle": "Private journal & ERP tools",
+      "keywords": "ocd,intrusive thoughts,compulsions,erp,exposure,rituals,rumination,reassurance,anxiety,journal",
+      "promotionalText": "Private OCD journaling, factual Calm Insights and guided ERP practice. No account, no ads and one optional lifetime Pro unlock.",
+      "description": "Patterns is a private OCD journal and self-help practice companion. Record intrusive thoughts and compulsions, write journal entries, delay an urge, and practise exposure and response prevention (ERP). Calm Insights can replace calculated scores and streaks with factual activity counts. Personal content stays on your device unless you choose to export an unencrypted JSON backup or PDF. Optional anonymous usage analytics are off by default and never include OCD content, summaries, locale or language choice. Patterns does not diagnose or treat OCD and is not a replacement for qualified care or emergency support.",
+      "whatsNew": "Patterns 1.10 introduces optional Calm Insights, quieter endings after journal and practice sessions, and optional English, Brazilian Portuguese, German, Japanese, Spanish and French interfaces. Your entries stay as written and your language choice remains on this device."
+    },
+    "en-AU": {
+      "name": "Patterns: OCD & ERP Journal",
+      "subtitle": "Private diary & ERP practice",
+      "keywords": "ocd,intrusive thoughts,compulsions,erp,exposure,rituals,rumination,reassurance,anxiety,diary",
+      "promotionalText": "Private OCD journalling, factual Calm Insights and guided ERP practice. No account, no ads and one optional lifetime Pro unlock.",
+      "description": "Patterns is a private OCD diary and self-help practice companion. Record intrusive thoughts and compulsions, write journal entries, delay an urge, and practise exposure and response prevention (ERP). Calm Insights can replace calculated scores and streaks with factual activity counts. Personal content stays on your device unless you choose to export an unencrypted JSON backup or PDF. Optional anonymous usage analytics are off by default and never include OCD content, summaries, locale or language choice. Patterns does not diagnose or treat OCD and is not a replacement for qualified care or emergency support.",
+      "whatsNew": "Patterns 1.10 introduces optional Calm Insights, quieter endings after diary and practice sessions, and optional English, Brazilian Portuguese, German, Japanese, Spanish and French interfaces. Your entries stay as written and your language choice remains on this device."
+    },
+    "pt-BR": {
+      "name": "Patterns: Diário OCD e ERP",
+      "subtitle": "Diário privado e prática ERP",
+      "keywords": "ocd,pensamentos intrusivos,compulsão,erp,exposição,rituais,ruminação,ansiedade,diário,hábitos",
+      "promotionalText": "Diário privado para OCD, Insights tranquilos factuais e prática guiada de ERP. Sem conta, sem anúncios e com desbloqueio Pro opcional.",
+      "description": "Patterns é um diário privado para OCD e uma ferramenta de autoajuda. Registre pensamentos intrusivos e compulsões, escreva no diário, adie um impulso e pratique exposição e prevenção de resposta (ERP). Os Insights tranquilos podem trocar pontuações e sequências calculadas por contagens factuais de atividade. O conteúdo pessoal fica no dispositivo, a menos que você exporte um backup JSON ou PDF sem criptografia. A análise anônima é opcional, fica desativada por padrão e nunca inclui conteúdo de OCD, resumos, localidade ou idioma. Patterns não diagnostica nem trata OCD e não substitui cuidado qualificado nem suporte de emergência.",
+      "whatsNew": "Patterns 1.10 traz Insights tranquilos opcionais, finais mais discretos para diário e práticas e interfaces opcionais em inglês, português do Brasil, alemão, japonês, espanhol e francês. Seus registros não são alterados e a escolha de idioma fica no dispositivo."
+    },
+    "de-DE": {
+      "name": "Patterns: OCD & ERP Tagebuch",
+      "subtitle": "Privates Tagebuch & ERP",
+      "keywords": "ocd,zwangsgedanken,zwangshandlung,erp,exposition,rituale,grübeln,rückversicherung,angst,tagebuch",
+      "promotionalText": "Privates OCD-Tagebuch, sachliche Ruhige Einblicke und geführte ERP-Übungen. Ohne Konto oder Werbung, mit optionalem Pro-Einmalkauf.",
+      "description": "Patterns ist ein privates OCD-Tagebuch und Selbsthilfetool. Erfassen Sie Zwangsgedanken und Zwangshandlungen, schreiben Sie Tagebuch, schieben Sie einen Drang auf und üben Sie Exposition mit Reaktionsverhinderung (ERP). Ruhige Einblicke können berechnete Punktzahlen und Serien durch sachliche Aktivitätszahlen ersetzen. Persönliche Inhalte bleiben auf dem Gerät, außer Sie exportieren selbst eine unverschlüsselte JSON-Sicherung oder PDF. Anonyme Nutzungsanalysen sind standardmäßig aus und enthalten nie OCD-Inhalte, Zusammenfassungen, Region oder Sprachauswahl. Patterns diagnostiziert oder behandelt OCD nicht und ersetzt keine qualifizierte Betreuung oder Notfallhilfe.",
+      "whatsNew": "Patterns 1.10 bringt optionale Ruhige Einblicke, ruhigere Abschlüsse nach Tagebuch und Übungen sowie optionale Oberflächen auf Englisch, brasilianischem Portugiesisch, Deutsch, Japanisch, Spanisch und Französisch. Ihre Einträge bleiben unverändert; die Sprachauswahl bleibt auf dem Gerät."
+    },
+    "ja": {
+      "name": "Patterns: OCD・ERP日記",
+      "subtitle": "OCD記録とERP練習を非公開で",
+      "keywords": "OCD,強迫性障害,強迫観念,強迫行為,ERP,曝露反応妨害,侵入思考,不安,日記,記録",
+      "promotionalText": "端末内に保存するOCD日記、事実に基づく穏やかなインサイト、ガイド付きERP練習。アカウントも広告もなく、Proは任意の買い切りです。",
+      "description": "Patternsは、OCDの記録と練習を支えるプライベートなセルフヘルプツールです。侵入思考や強迫行為を記録し、日記を書き、衝動を遅らせ、曝露反応妨害（ERP）を練習できます。穏やかなインサイトでは、計算されたスコアや連続記録の代わりに事実に基づく活動回数を表示できます。個人の内容は、暗号化されていないJSONまたはPDFを自分で書き出さない限り端末内に残ります。匿名の利用状況分析は初期状態でオフで、OCDの内容、概要、地域設定、言語選択は含みません。PatternsはOCDの診断や治療を行わず、専門家によるケアや緊急支援の代わりではありません。",
+      "whatsNew": "Patterns 1.10では、任意の穏やかなインサイト、日記や練習後の静かな終了、英語、ブラジルポルトガル語、ドイツ語、日本語、スペイン語、フランス語の任意の表示言語が加わりました。入力した内容は変更されず、言語選択は端末内に保存されます。"
+    },
+    "es-MX": {
+      "name": "Patterns: Diario OCD y ERP",
+      "subtitle": "Diario privado y práctica ERP",
+      "keywords": "toc,ocd,pensamientos intrusivos,compulsiones,erp,exposición,rituales,rumiación,ansiedad,diario",
+      "promotionalText": "Diario privado para OCD, Insights tranquilos objetivos y práctica guiada de ERP. Sin cuenta ni anuncios, con compra Pro opcional.",
+      "description": "Patterns es un diario privado para OCD y una herramienta de autoayuda. Registre pensamientos intrusivos y compulsiones, escriba en el diario, retrase un impulso y practique exposición y prevención de respuesta (ERP). Insights tranquilos puede reemplazar puntuaciones y rachas calculadas por conteos objetivos de actividad. El contenido personal permanece en el dispositivo salvo que usted exporte una copia JSON o PDF sin cifrar. Las analíticas anónimas son opcionales, están desactivadas por defecto y nunca incluyen contenido de OCD, resúmenes, región ni idioma. Patterns no diagnostica ni trata el OCD y no sustituye la atención profesional ni la ayuda de emergencia.",
+      "whatsNew": "Patterns 1.10 incorpora Insights tranquilos opcionales, finales más sencillos para el diario y las prácticas, e interfaces opcionales en inglés, portugués de Brasil, alemán, japonés, español y francés. Sus entradas no cambian y el idioma elegido permanece en el dispositivo."
+    },
+    "es-ES": {
+      "name": "Patterns: Diario OCD y ERP",
+      "subtitle": "Diario privado y práctica ERP",
+      "keywords": "toc,ocd,pensamientos intrusivos,compulsiones,erp,exposición,rituales,rumiación,ansiedad,diario",
+      "promotionalText": "Diario privado para OCD, Insights tranquilos objetivos y práctica guiada de ERP. Sin cuenta ni anuncios, con compra Pro opcional.",
+      "description": "Patterns es un diario privado para OCD y una herramienta de autoayuda. Registre pensamientos intrusivos y compulsiones, escriba en el diario, retrase un impulso y practique exposición y prevención de respuesta (ERP). Insights tranquilos puede reemplazar puntuaciones y rachas calculadas por recuentos objetivos de actividad. El contenido personal permanece en el dispositivo salvo que usted exporte una copia JSON o PDF sin cifrar. Las analíticas anónimas son opcionales, están desactivadas por defecto y nunca incluyen contenido de OCD, resúmenes, región ni idioma. Patterns no diagnostica ni trata el OCD y no sustituye la atención profesional ni la ayuda de emergencia.",
+      "whatsNew": "Patterns 1.10 incorpora Insights tranquilos opcionales, finales más sencillos para el diario y las prácticas, e interfaces opcionales en inglés, portugués de Brasil, alemán, japonés, español y francés. Sus entradas no cambian y el idioma elegido permanece en el dispositivo."
+    },
+    "fr-FR": {
+      "name": "Patterns : Journal OCD et ERP",
+      "subtitle": "Journal privé et pratique ERP",
+      "keywords": "toc,ocd,pensées intrusives,compulsions,erp,exposition,rituels,rumination,anxiété,journal",
+      "promotionalText": "Journal OCD privé, Insights apaisés factuels et pratique ERP guidée. Sans compte ni publicité, avec achat Pro facultatif.",
+      "description": "Patterns est un journal OCD privé et un outil d’auto-assistance. Notez les pensées intrusives et compulsions, écrivez dans le journal, retardez une envie et pratiquez l’exposition avec prévention de la réponse (ERP). Les Insights apaisés peuvent remplacer scores et séries calculés par des nombres factuels d’activités. Le contenu personnel reste sur l’appareil sauf si vous exportez une sauvegarde JSON ou un PDF non chiffré. Les analyses anonymes sont facultatives, désactivées par défaut et n’incluent jamais contenu OCD, résumés, région ou langue. Patterns ne diagnostique ni ne traite l’OCD et ne remplace pas un professionnel ni une aide d’urgence.",
+      "whatsNew": "Patterns 1.10 apporte des Insights apaisés facultatifs, des fins plus sobres après le journal et les exercices, et des interfaces facultatives en anglais, portugais brésilien, allemand, japonais, espagnol et français. Vos entrées restent inchangées et la langue choisie reste sur l’appareil."
+    },
+    "fr-CA": {
+      "name": "Patterns : Journal OCD et ERP",
+      "subtitle": "Journal privé et pratique ERP",
+      "keywords": "toc,ocd,pensées intrusives,compulsions,erp,exposition,rituels,rumination,anxiété,journal",
+      "promotionalText": "Journal OCD privé, Insights apaisés factuels et pratique ERP guidée. Sans compte ni publicité, avec achat Pro facultatif.",
+      "description": "Patterns est un journal OCD privé et un outil d’auto-assistance. Notez les pensées intrusives et compulsions, écrivez dans le journal, retardez une envie et pratiquez l’exposition avec prévention de la réponse (ERP). Les Insights apaisés peuvent remplacer scores et séries calculés par des nombres factuels d’activités. Le contenu personnel reste sur l’appareil sauf si vous exportez une sauvegarde JSON ou un PDF non chiffré. Les analyses anonymes sont facultatives, désactivées par défaut et n’incluent jamais contenu OCD, résumés, région ou langue. Patterns ne diagnostique ni ne traite l’OCD et ne remplace pas un professionnel ni une aide d’urgence.",
+      "whatsNew": "Patterns 1.10 apporte des Insights apaisés facultatifs, des fins plus sobres après le journal et les exercices, et des interfaces facultatives en anglais, portugais brésilien, allemand, japonais, espagnol et français. Vos entrées restent inchangées et la langue choisie reste sur l’appareil."
+    }
+  }
+}

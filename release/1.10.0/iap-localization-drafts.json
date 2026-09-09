@@ -1,0 +1,78 @@
+{
+  "status": "machine_assisted_draft_not_approved",
+  "canonical": false,
+  "products": {
+    "com.maskedsyntax.patterns.pro": {
+      "iapId": "6785513588",
+      "versionId": "a08dbd2f-033d-42e6-875a-c7844019a602",
+      "versionAction": "reuse",
+      "localizations": {
+        "en-US": {"name": "Patterns Pro", "description": "One-time unlock for every Patterns recovery tool."},
+        "en-GB": {"name": "Patterns Pro", "description": "One-time unlock for every Patterns recovery tool."},
+        "en-CA": {"name": "Patterns Pro", "description": "One-time unlock for every Patterns recovery tool."},
+        "en-AU": {"name": "Patterns Pro", "description": "One-time unlock for every Patterns recovery tool."},
+        "pt-BR": {"name": "Patterns Pro", "description": "Desbloqueio único de todas as ferramentas de recuperação do Patterns."},
+        "de-DE": {"name": "Patterns Pro", "description": "Einmaliger Kauf für alle Recovery-Werkzeuge in Patterns."},
+        "ja": {"name": "Patterns Pro", "description": "Patternsのすべての回復練習ツールを買い切りで利用できます。"},
+        "es-MX": {"name": "Patterns Pro", "description": "Compra única para desbloquear todas las herramientas de recuperación de Patterns."},
+        "es-ES": {"name": "Patterns Pro", "description": "Compra única para desbloquear todas las herramientas de recuperación de Patterns."},
+        "fr-FR": {"name": "Patterns Pro", "description": "Achat unique pour débloquer tous les outils de rétablissement de Patterns."},
+        "fr-CA": {"name": "Patterns Pro", "description": "Achat unique pour débloquer tous les outils de rétablissement de Patterns."}
+      }
+    },
+    "com.maskedsyntax.patterns.tip.small": {
+      "iapId": "6770887482",
+      "versionId": null,
+      "versionAction": "create_exactly_one_after_approval",
+      "localizations": {
+        "en-US": {"name": "Small tip", "description": "An optional small tip to support Patterns development. Unlocks no features."},
+        "en-GB": {"name": "Small tip", "description": "An optional small tip to support Patterns development. Unlocks no features."},
+        "en-CA": {"name": "Small tip", "description": "An optional small tip to support Patterns development. Unlocks no features."},
+        "en-AU": {"name": "Small tip", "description": "An optional small tip to support Patterns development. Unlocks no features."},
+        "pt-BR": {"name": "Gorjeta pequena", "description": "Uma gorjeta pequena e opcional para apoiar o desenvolvimento. Não libera recursos."},
+        "de-DE": {"name": "Kleines Trinkgeld", "description": "Ein optionales kleines Trinkgeld für die Entwicklung. Schaltet keine Funktionen frei."},
+        "ja": {"name": "小さなチップ", "description": "開発を支援する任意の小さなチップです。機能は追加されません。"},
+        "es-MX": {"name": "Propina pequeña", "description": "Una propina pequeña y opcional para apoyar el desarrollo. No desbloquea funciones."},
+        "es-ES": {"name": "Propina pequeña", "description": "Una propina pequeña y opcional para apoyar el desarrollo. No desbloquea funciones."},
+        "fr-FR": {"name": "Petit pourboire", "description": "Un petit pourboire facultatif pour soutenir le développement. Ne débloque aucune fonction."},
+        "fr-CA": {"name": "Petit pourboire", "description": "Un petit pourboire facultatif pour soutenir le développement. Ne débloque aucune fonction."}
+      }
+    },
+    "com.maskedsyntax.patterns.tip.medium": {
+      "iapId": "6770892197",
+      "versionId": null,
+      "versionAction": "create_exactly_one_after_approval",
+      "localizations": {
+        "en-US": {"name": "Medium tip", "description": "An optional medium tip to support Patterns development. Unlocks no features."},
+        "en-GB": {"name": "Medium tip", "description": "An optional medium tip to support Patterns development. Unlocks no features."},
+        "en-CA": {"name": "Medium tip", "description": "An optional medium tip to support Patterns development. Unlocks no features."},
+        "en-AU": {"name": "Medium tip", "description": "An optional medium tip to support Patterns development. Unlocks no features."},
+        "pt-BR": {"name": "Gorjeta média", "description": "Uma gorjeta média e opcional para apoiar o desenvolvimento. Não libera recursos."},
+        "de-DE": {"name": "Mittleres Trinkgeld", "description": "Ein optionales mittleres Trinkgeld für die Entwicklung. Schaltet keine Funktionen frei."},
+        "ja": {"name": "中くらいのチップ", "description": "開発を支援する任意のチップです。機能は追加されません。"},
+        "es-MX": {"name": "Propina mediana", "description": "Una propina mediana y opcional para apoyar el desarrollo. No desbloquea funciones."},
+        "es-ES": {"name": "Propina mediana", "description": "Una propina mediana y opcional para apoyar el desarrollo. No desbloquea funciones."},
+        "fr-FR": {"name": "Pourboire moyen", "description": "Un pourboire facultatif pour soutenir le développement. Ne débloque aucune fonction."},
+        "fr-CA": {"name": "Pourboire moyen", "description": "Un pourboire facultatif pour soutenir le développement. Ne débloque aucune fonction."}
+      }
+    },
+    "com.maskedsyntax.patterns.tip.large": {
+      "iapId": "6770892883",
+      "versionId": null,
+      "versionAction": "create_exactly_one_after_approval",
+      "localizations": {
+        "en-US": {"name": "Large tip", "description": "An optional large tip to support Patterns development. Unlocks no features."},
+        "en-GB": {"name": "Large tip", "description": "An optional large tip to support Patterns development. Unlocks no features."},
+        "en-CA": {"name": "Large tip", "description": "An optional large tip to support Patterns development. Unlocks no features."},
+        "en-AU": {"name": "Large tip", "description": "An optional large tip to support Patterns development. Unlocks no features."},
+        "pt-BR": {"name": "Gorjeta grande", "description": "Uma gorjeta grande e opcional para apoiar o desenvolvimento. Não libera recursos."},
+        "de-DE": {"name": "Großes Trinkgeld", "description": "Ein optionales großes Trinkgeld für die Entwicklung. Schaltet keine Funktionen frei."},
+        "ja": {"name": "大きなチップ", "description": "開発を支援する任意の大きなチップです。機能は追加されません。"},
+        "es-MX": {"name": "Propina grande", "description": "Una propina grande y opcional para apoyar el desarrollo. No desbloquea funciones."},
+        "es-ES": {"name": "Propina grande", "description": "Una propina grande y opcional para apoyar el desarrollo. No desbloquea funciones."},
+        "fr-FR": {"name": "Grand pourboire", "description": "Un grand pourboire facultatif pour soutenir le développement. Ne débloque aucune fonction."},
+        "fr-CA": {"name": "Grand pourboire", "description": "Un grand pourboire facultatif pour soutenir le développement. Ne débloque aucune fonction."}
+      }
+    }
+  }
+}
