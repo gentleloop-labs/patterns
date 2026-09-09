@@ -209,6 +209,84 @@ abstract class AppLocalizations {
   /// **'{count, plural, =1{1 exposure completed} other{{count} exposures completed}}'**
   String calmExposureActivity(int count);
 
+  /// Title for the recovery activity and metrics screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery metrics'**
+  String get recoveryMetricsTitle;
+
+  /// Heading for the locked Recovery Metrics preview.
+  ///
+  /// In en, this message translates to:
+  /// **'See your recovery activity together'**
+  String get recoveryMetricsTeaserTitle;
+
+  /// Calm Insights preview copy; must remain factual and must not mention scores, streaks, progress, or judgments.
+  ///
+  /// In en, this message translates to:
+  /// **'Review exposures, practice sessions, and recorded urge changes across your ERP tools. Unlock with Patterns Pro.'**
+  String get recoveryMetricsCalmTeaserBody;
+
+  /// Recovery Metrics preview copy shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Review practice streaks, completed exposures, and recorded urge changes across your ERP tools. Unlock with Patterns Pro.'**
+  String get recoveryMetricsDetailedTeaserBody;
+
+  /// Button that opens the Patterns Pro purchase screen from Recovery Metrics.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock Patterns Pro'**
+  String get recoveryMetricsUnlockPro;
+
+  /// Heading shown before any recovery-practice data has been recorded.
+  ///
+  /// In en, this message translates to:
+  /// **'Your recovery activity will appear here'**
+  String get recoveryMetricsEmptyTitle;
+
+  /// Calm Insights empty state; must not imply scoring, progress, consistency, or streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise a delay, an ERP session, or an exposure step to see factual activity counts here.'**
+  String get recoveryMetricsCalmEmptyBody;
+
+  /// Recovery Metrics empty state shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise a delay, an ERP session, or an exposure step to begin building your activity history and practice streak.'**
+  String get recoveryMetricsDetailedEmptyBody;
+
+  /// Label for the factual count of completed exposure steps.
+  ///
+  /// In en, this message translates to:
+  /// **'Exposures done'**
+  String get recoveryMetricsExposuresDone;
+
+  /// Label for the factual count of completed recovery practice sessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Sessions practised'**
+  String get recoveryMetricsSessionsPracticed;
+
+  /// Label for the calculated average change between deliberately recorded pre- and post-practice urge values.
+  ///
+  /// In en, this message translates to:
+  /// **'Average recorded urge change'**
+  String get recoveryMetricsAverageUrgeDrop;
+
+  /// Heading for a seven-day recovery activity strip shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'This week'**
+  String get recoveryMetricsThisWeek;
+
+  /// Practice-streak value shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'{days, plural, =1{1 day streak} other{{days} day streak}}'**
+  String recoveryMetricsDayStreak(int days);
+
   /// No description provided for @systemDefault.
   ///
   /// In en, this message translates to:
