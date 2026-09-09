@@ -5,6 +5,7 @@ import 'package:line_icons/line_icons.dart';
 
 import '../models/export_report_options.dart';
 import '../models/models.dart';
+import '../l10n/l10n.dart';
 import '../providers/providers.dart';
 import '../services/analytics_service.dart';
 import '../services/pdf_report_service.dart';
@@ -144,7 +145,7 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
           children: [
             Expanded(
               child: Text(
-                'Export report',
+                context.l10n.exportReportTitle,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w800,
                 ),
@@ -161,8 +162,7 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
         ),
         const SizedBox(height: 8),
         Text(
-          'Save a combined PDF of your journal, OCD log, and insights. '
-          'You choose where to save it and whether to share it.',
+          context.l10n.exportReportDescription,
           style: TextStyle(
             color: context.appColors.textSecondary,
             height: 1.45,
@@ -170,7 +170,7 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
         ),
         const SizedBox(height: 20),
         Text(
-          'Time window',
+          context.l10n.exportTimeWindow,
           style: theme.textTheme.titleSmall?.copyWith(
             fontWeight: FontWeight.w800,
           ),
@@ -183,7 +183,7 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
         if (_range == AnalyticsDateRange.custom) ...[
           const SizedBox(height: 12),
           _CustomDateRow(
-            label: 'Start',
+            label: context.l10n.exportStart,
             date: _customStart,
             onPick: (date) => setState(() {
               _customStart = date;
@@ -194,7 +194,7 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
           ),
           const SizedBox(height: 8),
           _CustomDateRow(
-            label: 'End',
+            label: context.l10n.exportEnd,
             date: _customEnd,
             onPick: (date) => setState(() {
               _customEnd = date.isAfter(DateTime.now()) ? DateTime.now() : date;
@@ -206,42 +206,44 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
         ],
         const SizedBox(height: 20),
         Text(
-          'Include sections',
+          context.l10n.exportIncludeSections,
           style: theme.textTheme.titleSmall?.copyWith(
             fontWeight: FontWeight.w800,
           ),
         ),
         const SizedBox(height: 8),
         _SectionToggle(
-          label: 'Analytics summary',
+          label: context.l10n.exportAnalyticsSummary,
           value: _sections.analytics,
           onChanged: (value) =>
               setState(() => _sections = _sections.copyWith(analytics: value)),
         ),
         _SectionToggle(
-          label: 'Journal entries',
+          label: context.l10n.exportJournalEntries,
           value: _sections.journal,
           onChanged: (value) =>
               setState(() => _sections = _sections.copyWith(journal: value)),
         ),
         _SectionToggle(
-          label: 'OCD events',
+          label: context.l10n.exportOcdEvents,
           value: _sections.ocd,
           onChanged: (value) =>
               setState(() => _sections = _sections.copyWith(ocd: value)),
         ),
         _SectionToggle(
-          label: 'Y-BOCS self-checks',
+          label: context.l10n.exportYbocsSelfChecks,
           value: _sections.ybocs,
           onChanged: (value) =>
               setState(() => _sections = _sections.copyWith(ybocs: value)),
         ),
         const SizedBox(height: 16),
         Text(
-          '$totalEntries entries in this range '
-          '(${filteredJournals.length} journal, ${filteredOcds.length} OCD'
-          '${filteredYbocs.isEmpty ? '' : ', ${filteredYbocs.length} self-check'}'
-          ')',
+          context.l10n.exportEntrySummary(
+            totalEntries + filteredYbocs.length,
+            filteredJournals.length,
+            filteredOcds.length,
+            filteredYbocs.length,
+          ),
           style: TextStyle(
             color: context.appColors.textSecondary,
             fontSize: 13,
@@ -250,13 +252,13 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
         if (totalEntries > 500) ...[
           const SizedBox(height: 8),
           Text(
-            'This report is large and may take a moment to generate.',
+            context.l10n.exportLargeReport,
             style: TextStyle(color: theme.colorScheme.primary, fontSize: 13),
           ),
         ],
         const SizedBox(height: 16),
         Text(
-          'This creates an unencrypted PDF. Save it somewhere private.',
+          context.l10n.exportPrivacyWarning,
           style: TextStyle(
             color: context.appColors.textSecondary,
             height: 1.45,
@@ -276,15 +278,15 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
                     height: 20,
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
-                : const Text('Save PDF'),
+                : Text(context.l10n.exportSavePdf),
           ),
         ),
         if (!canExport) ...[
           const SizedBox(height: 10),
           Text(
             !_sections.hasAny
-                ? 'Select at least one section to export.'
-                : 'No entries match this range and section selection.',
+                ? context.l10n.exportSelectSectionError
+                : context.l10n.exportNoEntriesError,
             style: TextStyle(color: theme.colorScheme.error, fontSize: 13),
           ),
         ],
@@ -307,6 +309,8 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
         journals: journals,
         ocds: ocds,
         ybocs: ybocs,
+        locale: Localizations.localeOf(context),
+        strings: context.l10n,
       );
       final saved = await ReportExportSaver.save(
         bytes,
@@ -322,7 +326,7 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
         navigator.pop();
         showAppSnackBar(
           context,
-          'Report saved',
+          context.l10n.exportReportSaved,
           type: ToastType.success,
           messenger: messenger,
         );
@@ -332,7 +336,7 @@ class _ExportReportSheetState extends ConsumerState<ExportReportSheet> {
       if (mounted) setState(() => _saving = false);
       showAppSnackBar(
         context,
-        'Could not create report',
+        context.l10n.exportReportFailed,
         type: ToastType.error,
         messenger: messenger,
       );
@@ -355,7 +359,7 @@ class _RangeSelector extends StatelessWidget {
       children: [
         for (final option in AnalyticsDateRange.values)
           _RangeChip(
-            label: _labelFor(option),
+            label: _labelFor(context, option),
             selected: range == option,
             onTap: () => onChanged(option),
             theme: theme,
@@ -364,20 +368,20 @@ class _RangeSelector extends StatelessWidget {
     );
   }
 
-  static String _labelFor(AnalyticsDateRange range) {
+  static String _labelFor(BuildContext context, AnalyticsDateRange range) {
     switch (range) {
       case AnalyticsDateRange.seven:
-        return '7D';
+        return context.l10n.rangeSevenDays;
       case AnalyticsDateRange.thirty:
-        return '30D';
+        return context.l10n.rangeThirtyDays;
       case AnalyticsDateRange.ninety:
-        return '90D';
+        return context.l10n.rangeNinetyDays;
       case AnalyticsDateRange.year:
-        return 'Year';
+        return context.l10n.rangeYear;
       case AnalyticsDateRange.allTime:
-        return 'All';
+        return context.l10n.rangeAll;
       case AnalyticsDateRange.custom:
-        return 'Custom';
+        return context.l10n.rangeCustom;
     }
   }
 }
@@ -439,7 +443,9 @@ class _CustomDateRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final fmt = DateFormat('MMM d, yyyy');
+    final fmt = DateFormat.yMMMd(
+      Localizations.localeOf(context).toLanguageTag(),
+    );
 
     return InkWell(
       borderRadius: BorderRadius.circular(14),

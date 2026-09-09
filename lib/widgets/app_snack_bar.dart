@@ -38,7 +38,13 @@ void showAppSnackBar(
         duration: type == ToastType.error
             ? const Duration(seconds: 4)
             : const Duration(milliseconds: 2800),
-        content: _ToastCard(message: message, type: type, theme: theme),
+        content: Semantics(
+          container: true,
+          liveRegion: true,
+          label: message,
+          excludeSemantics: true,
+          child: _ToastCard(message: message, type: type, theme: theme),
+        ),
       ),
     );
 }
@@ -84,7 +90,9 @@ class _ToastCard extends StatelessWidget {
                 color: accent!.withValues(alpha: 0.16),
                 shape: BoxShape.circle,
               ),
-              child: Icon(icon, color: accent, size: 17),
+              child: ExcludeSemantics(
+                child: Icon(icon, color: accent, size: 17),
+              ),
             ),
             const SizedBox(width: 12),
           ],

@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../../l10n/l10n.dart';
 import '../../services/app_events.dart';
 import '../../services/telemetry.dart';
 import '../../theme/app_colors.dart';
@@ -100,7 +101,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           ? const SizedBox(key: ValueKey('no-back'))
                           : IconButton(
                               key: const ValueKey('back'),
-                              tooltip: 'Back',
+                              tooltip: context.l10n.backAction,
                               onPressed: _back,
                               icon: Icon(LineIcons.angleLeft, size: 20),
                             ),
@@ -126,8 +127,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'Private by design. Not a diagnosis or a replacement for '
-                  'professional care.',
+                  context.l10n.onboardingSafetyFootnote,
                   textAlign: TextAlign.center,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: context.appColors.textSecondary,
@@ -181,7 +181,7 @@ class _PromiseView extends StatelessWidget {
                 FadeSlideIn(
                   delay: const Duration(milliseconds: 90),
                   child: Text(
-                    'A quiet place to\npractise with OCD.',
+                    context.l10n.onboardingHeadline,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: AppTheme.displayFamily,
@@ -196,8 +196,7 @@ class _PromiseView extends StatelessWidget {
                 FadeSlideIn(
                   delay: const Duration(milliseconds: 130),
                   child: Text(
-                    'Log the intrusive thought, delay the compulsion, and '
-                    'practise responding differently, one small step at a time.',
+                    context.l10n.onboardingIntroduction,
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodyLarge?.copyWith(
                       color: context.appColors.textSecondary,
@@ -232,8 +231,7 @@ class _PromiseView extends StatelessWidget {
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
-                            'Your OCD data stays on this device. '
-                            'No account. No cloud sync.',
+                            context.l10n.onboardingPrivacy,
                             style: TextStyle(
                               fontSize: 13.5,
                               height: 1.35,
@@ -255,10 +253,13 @@ class _PromiseView extends StatelessWidget {
           width: double.infinity,
           child: ElevatedButton(
             onPressed: onGetStarted,
-            child: Text('Get started'),
+            child: Text(context.l10n.getStartedAction),
           ),
         ),
-        TextButton(onPressed: onImport, child: Text('Import existing data')),
+        TextButton(
+          onPressed: onImport,
+          child: Text(context.l10n.importExistingDataAction),
+        ),
       ],
     );
   }
@@ -275,36 +276,36 @@ class _Choice {
   const _Choice(this.path, this.icon, this.title, this.subtitle);
 }
 
-const _choices = <_Choice>[
+List<_Choice> _choices(BuildContext context) => <_Choice>[
   _Choice(
     FirstRunPath.urge,
     LineIcons.hourglassHalf,
-    "I'm fighting an urge right now",
-    'Put some time between the urge and the ritual.',
+    context.l10n.onboardingUrgeTitle,
+    context.l10n.onboardingUrgeSubtitle,
   ),
   _Choice(
     FirstRunPath.journal,
     LineIcons.pen,
-    'I want to write something down',
-    'Get the thought out of your head and onto a page.',
+    context.l10n.onboardingJournalTitle,
+    context.l10n.onboardingJournalSubtitle,
   ),
   _Choice(
     FirstRunPath.erp,
     LineIcons.seedling,
-    'I want to practise leaving a compulsion undone',
-    'One short, guided exposure.',
+    context.l10n.onboardingErpTitle,
+    context.l10n.onboardingErpSubtitle,
   ),
   _Choice(
     FirstRunPath.selfcheck,
     LineIcons.clipboardList,
-    'I want to see where my OCD is right now',
-    'The Y-BOCS self-check. About 10 minutes.',
+    context.l10n.onboardingSelfCheckTitle,
+    context.l10n.onboardingSelfCheckSubtitle,
   ),
   _Choice(
     FirstRunPath.explore,
     LineIcons.compass,
-    "I'm just exploring",
-    'Have a look around first.',
+    context.l10n.onboardingExploreTitle,
+    context.l10n.onboardingExploreSubtitle,
   ),
 ];
 
@@ -316,6 +317,7 @@ class _ChoicesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final choices = _choices(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -323,7 +325,7 @@ class _ChoicesView extends StatelessWidget {
         const SizedBox(height: 6),
         FadeSlideIn(
           child: Text(
-            'What would help right now?',
+            context.l10n.onboardingQuestion,
             style: TextStyle(
               fontFamily: AppTheme.displayFamily,
               fontWeight: FontWeight.w600,
@@ -337,7 +339,7 @@ class _ChoicesView extends StatelessWidget {
         FadeSlideIn(
           delay: const Duration(milliseconds: 80),
           child: Text(
-            'Pick one. You can do the rest whenever you like.',
+            context.l10n.onboardingPickOne,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: context.appColors.textSecondary,
               height: 1.4,
@@ -348,10 +350,10 @@ class _ChoicesView extends StatelessWidget {
         Expanded(
           child: ListView.separated(
             padding: const EdgeInsets.only(bottom: 4),
-            itemCount: _choices.length,
+            itemCount: choices.length,
             separatorBuilder: (_, _) => const SizedBox(height: 10),
             itemBuilder: (context, i) {
-              final choice = _choices[i];
+              final choice = choices[i];
               return FadeSlideIn(
                 delay: Duration(milliseconds: 120 + i * 50),
                 child: _ChoiceCard(

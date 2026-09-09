@@ -7,6 +7,8 @@ import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/data/latest_all.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 
+import '../l10n/app_localizations.dart';
+
 /// Local daily reminder ("gentle check-in") notifications.
 ///
 /// Scheduling is intentionally inexact ([AndroidScheduleMode.inexactAllowWhileIdle])
@@ -22,17 +24,8 @@ class NotificationService {
   static const int erpTimerNotificationId = 2002;
 
   static const String _channelId = 'daily_reminder';
-  static const String _channelName = 'Daily reminder';
-  static const String _channelDescription =
-      'A gentle daily nudge to check in with Patterns.';
   static const String _practiceTimerChannelId = 'practice_timer';
-  static const String _practiceTimerChannelName = 'Practice timer';
-  static const String _practiceTimerChannelDescription =
-      'A gentle alert when a timed practice window is complete.';
   static const String _updateChannelId = 'app_updates';
-  static const String _updateChannelName = 'App updates';
-  static const String _updateChannelDescription =
-      'Occasional notes when Patterns gets meaningful new recovery tools.';
 
   static const int defaultHour = 20; // 8:00 PM
   static const int defaultMinute = 0;
@@ -50,7 +43,7 @@ class NotificationService {
   }
 
   /// Initialises the plugin and the timezone database. Safe to call repeatedly.
-  static Future<void> init() async {
+  static Future<void> init({AppLocalizations? strings}) async {
     if (!isSupported || _initialized) return;
     await _ensureTimeZone();
     const android = AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -61,11 +54,11 @@ class NotificationService {
       requestBadgePermission: false,
       requestSoundPermission: false,
     );
-    const linux = LinuxInitializationSettings(
-      defaultActionName: 'Open notification',
+    final linux = LinuxInitializationSettings(
+      defaultActionName: strings?.notificationOpenAction ?? 'Open notification',
     );
     await _plugin.initialize(
-      settings: const InitializationSettings(
+      settings: InitializationSettings(
         android: android,
         iOS: darwin,
         macOS: darwin,
@@ -129,20 +122,23 @@ class NotificationService {
 
   /// (Re)schedules the single daily reminder for [time], replacing any existing
   /// one. Repeats every day at that local time.
-  static Future<void> scheduleDailyReminder(TimeOfDay time) async {
+  static Future<void> scheduleDailyReminder(
+    TimeOfDay time, {
+    required AppLocalizations strings,
+  }) async {
     if (!isSupported) return;
     await init();
     await _plugin.cancel(id: _reminderId);
     await _plugin.zonedSchedule(
       id: _reminderId,
-      title: 'A quiet check-in',
-      body: 'Take a gentle moment with Patterns whenever you’re ready.',
+      title: strings.dailyReminderTitle,
+      body: strings.dailyReminderBody,
       scheduledDate: _nextInstanceOf(time),
-      notificationDetails: const NotificationDetails(
+      notificationDetails: NotificationDetails(
         android: AndroidNotificationDetails(
           _channelId,
-          _channelName,
-          channelDescription: _channelDescription,
+          strings.dailyReminderChannelName,
+          channelDescription: strings.dailyReminderChannelDescription,
           importance: Importance.high,
           priority: Priority.high,
         ),
@@ -162,7 +158,10 @@ class NotificationService {
   /// Schedules a one-time release note for users who already opted into
   /// notifications. This never requests permission; if the OS has not granted
   /// it, the notification simply will not surface.
-  static Future<void> scheduleUpdateAnnouncement(DateTime scheduledAt) async {
+  static Future<void> scheduleUpdateAnnouncement(
+    DateTime scheduledAt, {
+    required AppLocalizations strings,
+  }) async {
     if (!isSupported) return;
     await init();
     final scheduled = _dateTimeInLocalZone(scheduledAt);
@@ -170,15 +169,14 @@ class NotificationService {
     await _plugin.cancel(id: _releaseAnnouncementId);
     await _plugin.zonedSchedule(
       id: _releaseAnnouncementId,
-      title: 'Patterns got better',
-      body:
-          'New recovery tools, progress insights, and a calmer Home are ready.',
+      title: strings.updateAnnouncementTitle,
+      body: strings.updateAnnouncementBody,
       scheduledDate: scheduled,
-      notificationDetails: const NotificationDetails(
+      notificationDetails: NotificationDetails(
         android: AndroidNotificationDetails(
           _updateChannelId,
-          _updateChannelName,
-          channelDescription: _updateChannelDescription,
+          strings.appUpdatesChannelName,
+          channelDescription: strings.appUpdatesChannelDescription,
           importance: Importance.defaultImportance,
           priority: Priority.defaultPriority,
         ),
@@ -204,6 +202,7 @@ class NotificationService {
     required DateTime endsAt,
     required String title,
     required String body,
+    required AppLocalizations strings,
   }) async {
     if (!isSupported) return false;
     await init();
@@ -216,11 +215,11 @@ class NotificationService {
         title: title,
         body: body,
         scheduledDate: scheduled,
-        notificationDetails: const NotificationDetails(
+        notificationDetails: NotificationDetails(
           android: AndroidNotificationDetails(
             _practiceTimerChannelId,
-            _practiceTimerChannelName,
-            channelDescription: _practiceTimerChannelDescription,
+            strings.practiceTimerChannelName,
+            channelDescription: strings.practiceTimerChannelDescription,
             importance: Importance.high,
             priority: Priority.high,
           ),

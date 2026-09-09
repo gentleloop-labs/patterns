@@ -1,11 +1,14 @@
 import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../content/ybocs_content.dart';
+import '../l10n/app_localizations.dart';
 import '../models/export_report_options.dart';
 import '../models/models.dart';
 import '../widgets/rich_journal.dart';
@@ -14,6 +17,7 @@ import 'analytics_service.dart';
 class PdfReportService {
   static pw.Font? _regularFont;
   static pw.Font? _boldFont;
+  static pw.Font? _japaneseFallbackFont;
 
   static Future<pw.ThemeData> _theme() async {
     _regularFont ??= pw.Font.ttf(
@@ -22,8 +26,15 @@ class PdfReportService {
     _boldFont ??= pw.Font.ttf(
       await rootBundle.load('assets/fonts/Manrope-Bold.ttf'),
     );
+    _japaneseFallbackFont ??= pw.Font.ttf(
+      await rootBundle.load('assets/fonts/NotoSansJP-Variable.ttf'),
+    );
 
-    return pw.ThemeData.withFont(base: _regularFont!, bold: _boldFont!);
+    return pw.ThemeData.withFont(
+      base: _regularFont!,
+      bold: _boldFont!,
+      fontFallback: [_japaneseFallbackFont!],
+    );
   }
 
   static Future<Uint8List> generate({
@@ -31,7 +42,10 @@ class PdfReportService {
     required List<JournalEntry> journals,
     required List<OcdEntry> ocds,
     List<YbocsAssessment> ybocs = const [],
+    required Locale locale,
+    required AppLocalizations strings,
   }) async {
+    await initializeDateFormatting(locale.toLanguageTag());
     final filter = options.filter;
     final filteredJournals = AnalyticsService.filterJournals(journals, filter)
       ..sort((a, b) => a.date.compareTo(b.date));
@@ -49,9 +63,12 @@ class PdfReportService {
       customStart: options.customStart,
       customEnd: options.customEnd,
     );
-    final dateFmt = DateFormat('MMM d, yyyy');
-    final timeFmt = DateFormat('MMM d, yyyy h:mm a');
-    final generatedAt = DateFormat('MMM d, yyyy h:mm a').format(DateTime.now());
+    final localeName = locale.toLanguageTag();
+    final dateFmt = DateFormat.yMMMd(localeName);
+    final timeFmt = DateFormat.yMMMd(localeName).add_jm();
+    final generatedAt = DateFormat.yMMMd(
+      localeName,
+    ).add_jm().format(DateTime.now());
     final theme = await _theme();
 
     final doc = pw.Document();
@@ -72,14 +89,14 @@ class PdfReportService {
             ),
             pw.SizedBox(height: 6),
             pw.Text(
-              'Personal Report',
+              strings.pdfPersonalReport,
               style: pw.TextStyle(fontSize: 22, fontWeight: pw.FontWeight.bold),
             ),
             pw.SizedBox(height: 8),
             pw.Text(
-              '${options.rangeLabel}\n'
+              '${options.localizedRangeLabel(strings, locale)}\n'
               '${dateFmt.format(bounds.$1)} – ${dateFmt.format(bounds.$2)}\n'
-              'Generated $generatedAt',
+              '${strings.pdfGenerated(generatedAt)}',
               style: const pw.TextStyle(fontSize: 11, color: PdfColors.grey700),
             ),
             pw.SizedBox(height: 24),
@@ -88,18 +105,18 @@ class PdfReportService {
           ];
 
           if (options.sections.analytics) {
-            widgets.addAll(_analyticsSection(summary));
+            widgets.addAll(_analyticsSection(summary, strings, localeName));
           }
           // Before the raw entries: a clinician reading this wants the
           // standardised measure first, then the detail behind it.
           if (options.sections.ybocs && filteredYbocs.isNotEmpty) {
-            widgets.addAll(_ybocsSection(filteredYbocs, dateFmt));
+            widgets.addAll(_ybocsSection(filteredYbocs, dateFmt, strings));
           }
           if (options.sections.journal) {
-            widgets.addAll(_journalSection(filteredJournals, dateFmt));
+            widgets.addAll(_journalSection(filteredJournals, dateFmt, strings));
           }
           if (options.sections.ocd) {
-            widgets.addAll(_ocdSection(filteredOcds, timeFmt));
+            widgets.addAll(_ocdSection(filteredOcds, timeFmt, strings));
           }
 
           widgets.addAll([
@@ -107,8 +124,7 @@ class PdfReportService {
             pw.Divider(color: PdfColors.grey300),
             pw.SizedBox(height: 12),
             pw.Text(
-              'This report contains personal notes created in Patterns for self-reflection. '
-              'It is not medical advice and does not replace care from a qualified clinician.',
+              strings.pdfDisclaimer,
               style: const pw.TextStyle(fontSize: 9, color: PdfColors.grey600),
             ),
           ]);
@@ -121,20 +137,26 @@ class PdfReportService {
     return doc.save();
   }
 
-  static List<pw.Widget> _analyticsSection(AnalyticsSummary summary) {
+  static List<pw.Widget> _analyticsSection(
+    AnalyticsSummary summary,
+    AppLocalizations strings,
+    String localeName,
+  ) {
+    final number = NumberFormat.decimalPattern(localeName);
     return [
-      _sectionTitle('Analytics Summary'),
+      _sectionTitle(strings.exportAnalyticsSummary),
       pw.SizedBox(height: 10),
-      _statRow('Journal entries', '${summary.journalCount}'),
-      _statRow('OCD events', '${summary.ocdCount}'),
-      _statRow('Average distress', summary.averageDistress.toStringAsFixed(1)),
-      _statRow('Obsessions', '${summary.obsessions}'),
-      _statRow('Compulsions', '${summary.compulsions}'),
-      pw.SizedBox(height: 8),
-      pw.Text(
-        summary.journalingConsistencyNote,
-        style: const pw.TextStyle(fontSize: 11),
+      _statRow(strings.pdfJournalCount, number.format(summary.journalCount)),
+      _statRow(strings.pdfOcdCount, number.format(summary.ocdCount)),
+      _statRow(
+        strings.pdfAverageDistress,
+        NumberFormat.decimalPatternDigits(
+          locale: localeName,
+          decimalDigits: 1,
+        ).format(summary.averageDistress),
       ),
+      _statRow(strings.pdfObsessions, number.format(summary.obsessions)),
+      _statRow(strings.pdfCompulsions, number.format(summary.compulsions)),
       pw.SizedBox(height: 24),
     ];
   }
@@ -148,14 +170,17 @@ class PdfReportService {
   static List<pw.Widget> _ybocsSection(
     List<YbocsAssessment> assessments,
     DateFormat dateFmt,
+    AppLocalizations strings,
   ) {
     final latest = assessments.last;
     final first = assessments.first;
     final change = latest.totalScore - first.totalScore;
     final changeLabel = assessments.length < 2
-        ? 'Single self-check in this range'
-        : '${change > 0 ? '+' : ''}$change since '
-              '${dateFmt.format(first.datetime)}';
+        ? strings.pdfSingleSelfCheck
+        : strings.pdfChangeSince(
+            '${change > 0 ? '+' : ''}$change',
+            dateFmt.format(first.datetime),
+          );
 
     final themeLabels = latest.themes
         .map((id) => ybocsCategoryTitleFor(id))
@@ -163,27 +188,26 @@ class PdfReportService {
         .toList();
 
     return [
-      _sectionTitle('Y-BOCS Self-Checks'),
+      _sectionTitle(strings.exportYbocsSelfChecks),
       pw.SizedBox(height: 4),
       pw.Text(
-        'Yale-Brown Obsessive Compulsive Scale, self-rated in the app. '
-        'Total is out of 40, with obsessions and compulsions each out of 20.',
+        strings.pdfYbocsDescription,
         style: const pw.TextStyle(fontSize: 10, color: PdfColors.grey700),
       ),
       pw.SizedBox(height: 10),
       _statRow(
-        'Most recent total',
-        '${latest.totalScore}/40 · ${latest.severity.label} '
-            '(${latest.severity.range})',
+        strings.pdfMostRecentTotal,
+        '${latest.totalScore}/40 · ${_severityLabel(latest.severity, strings)} '
+        '(${latest.severity.range})',
       ),
-      _statRow('Taken on', dateFmt.format(latest.datetime)),
-      _statRow('Obsessions subtotal', '${latest.obsessionScore}/20'),
-      _statRow('Compulsions subtotal', '${latest.compulsionScore}/20'),
-      _statRow('Change across range', changeLabel),
-      _statRow('Self-checks in range', '${assessments.length}'),
+      _statRow(strings.pdfTakenOn, dateFmt.format(latest.datetime)),
+      _statRow(strings.pdfObsessionsSubtotal, '${latest.obsessionScore}/20'),
+      _statRow(strings.pdfCompulsionsSubtotal, '${latest.compulsionScore}/20'),
+      _statRow(strings.pdfChangeAcrossRange, changeLabel),
+      _statRow(strings.pdfSelfChecksInRange, '${assessments.length}'),
       if (themeLabels.isNotEmpty) ...[
         pw.SizedBox(height: 4),
-        _statRow('Themes flagged', themeLabels.join(', ')),
+        _statRow(strings.pdfThemesFlagged, themeLabels.join(', ')),
       ],
       pw.SizedBox(height: 12),
       pw.Table(
@@ -192,11 +216,11 @@ class PdfReportService {
           pw.TableRow(
             decoration: const pw.BoxDecoration(color: PdfColors.grey100),
             children: [
-              _ybocsCell('Date', bold: true),
-              _ybocsCell('Total', bold: true),
-              _ybocsCell('Obsessions', bold: true),
-              _ybocsCell('Compulsions', bold: true),
-              _ybocsCell('Band', bold: true),
+              _ybocsCell(strings.pdfDate, bold: true),
+              _ybocsCell(strings.pdfTotal, bold: true),
+              _ybocsCell(strings.pdfObsessions, bold: true),
+              _ybocsCell(strings.pdfCompulsions, bold: true),
+              _ybocsCell(strings.pdfBand, bold: true),
             ],
           ),
           for (final a in assessments)
@@ -206,7 +230,7 @@ class PdfReportService {
                 _ybocsCell('${a.totalScore}/40'),
                 _ybocsCell('${a.obsessionScore}/20'),
                 _ybocsCell('${a.compulsionScore}/20'),
-                _ybocsCell(a.severity.label),
+                _ybocsCell(_severityLabel(a.severity, strings)),
               ],
             ),
         ],
@@ -231,16 +255,17 @@ class PdfReportService {
   static List<pw.Widget> _journalSection(
     List<JournalEntry> entries,
     DateFormat dateFmt,
+    AppLocalizations strings,
   ) {
     final widgets = <pw.Widget>[
-      _sectionTitle('Journal Entries'),
+      _sectionTitle(strings.exportJournalEntries),
       pw.SizedBox(height: 10),
     ];
 
     if (entries.isEmpty) {
       widgets.add(
         pw.Text(
-          'No journal entries in this range.',
+          strings.pdfNoJournalEntries,
           style: const pw.TextStyle(fontSize: 11, color: PdfColors.grey600),
         ),
       );
@@ -266,46 +291,50 @@ class PdfReportService {
   static List<pw.Widget> _ocdSection(
     List<OcdEntry> entries,
     DateFormat timeFmt,
+    AppLocalizations strings,
   ) {
     final widgets = <pw.Widget>[
-      _sectionTitle('OCD Events'),
+      _sectionTitle(strings.exportOcdEvents),
       pw.SizedBox(height: 10),
     ];
 
     if (entries.isEmpty) {
       widgets.add(
         pw.Text(
-          'No OCD events in this range.',
+          strings.pdfNoOcdEvents,
           style: const pw.TextStyle(fontSize: 11, color: PdfColors.grey600),
         ),
       );
     } else {
       for (final entry in entries) {
         final typeLabel = entry.type == OcdType.obsession
-            ? 'Obsession'
-            : 'Compulsion';
+            ? strings.pdfObsession
+            : strings.pdfCompulsion;
         widgets.addAll([
           pw.Text(
-            '${timeFmt.format(entry.datetime)} · $typeLabel · Distress ${entry.distressLevel}/10',
+            '${timeFmt.format(entry.datetime)} · $typeLabel · '
+            '${strings.pdfDistressScore(entry.distressLevel)}',
             style: pw.TextStyle(fontSize: 11, fontWeight: pw.FontWeight.bold),
           ),
           pw.SizedBox(height: 4),
           pw.Text(
-            entry.type == OcdType.obsession ? 'Thought' : 'Urge',
+            entry.type == OcdType.obsession
+                ? strings.pdfThought
+                : strings.pdfUrge,
             style: const pw.TextStyle(fontSize: 10, color: PdfColors.grey700),
           ),
           pw.Text(entry.content, style: const pw.TextStyle(fontSize: 11)),
           if (entry.response.isNotEmpty) ...[
             pw.SizedBox(height: 4),
             pw.Text(
-              'Response: ${entry.response}',
+              strings.pdfResponse(entry.response),
               style: const pw.TextStyle(fontSize: 11),
             ),
           ],
           if (entry.actionTaken != null && entry.actionTaken!.isNotEmpty) ...[
             pw.SizedBox(height: 4),
             pw.Text(
-              'Action taken: ${entry.actionTaken}',
+              strings.pdfActionTaken(entry.actionTaken!),
               style: const pw.TextStyle(fontSize: 11),
             ),
           ],
@@ -349,6 +378,17 @@ class PdfReportService {
       style: pw.TextStyle(fontSize: 14, fontWeight: pw.FontWeight.bold),
     );
   }
+
+  static String _severityLabel(
+    YbocsSeverity severity,
+    AppLocalizations strings,
+  ) => switch (severity) {
+    YbocsSeverity.subclinical => strings.severitySubclinical,
+    YbocsSeverity.mild => strings.severityMild,
+    YbocsSeverity.moderate => strings.severityModerate,
+    YbocsSeverity.severe => strings.severitySevere,
+    YbocsSeverity.extreme => strings.severityExtreme,
+  };
 
   static pw.Widget _statRow(String label, String value) {
     return pw.Padding(

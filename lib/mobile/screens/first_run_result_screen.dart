@@ -4,6 +4,7 @@ import 'package:line_icons/line_icons.dart';
 
 import '../../app_preferences.dart';
 import '../../services/notification_service.dart';
+import '../../l10n/l10n.dart';
 import '../../services/telemetry.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_theme.dart';
@@ -221,7 +222,10 @@ class _FirstRunResultScreenState extends ConsumerState<FirstRunResultScreen> {
       return;
     }
 
-    await NotificationService.scheduleDailyReminder(picked);
+    await NotificationService.scheduleDailyReminder(
+      picked,
+      strings: context.l10n,
+    );
     await ref
         .read(reminderProvider.notifier)
         .setTime(picked.hour, picked.minute);

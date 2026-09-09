@@ -1,0 +1,6 @@
+"CFBundleDisplayName" = "Patterns";
+"NSCameraUsageDescription" = "暴露練習の素材を添付する際に、システムのファイル選択画面でカメラが提示された場合にのみ、Patternsがカメラへのアクセスを求めることがあります。撮影したファイルは端末内に保存されます。";
+"NSFaceIDUsageDescription" = "アプリロックが有効な場合、PatternsはFace IDを使用して非公開の日記とOCD記録データのロックを解除します。";
+"NSLocationWhenInUseUsageDescription" = "Patternsは位置情報を追跡に使用しません。システムのファイル選択画面またはプラットフォームライブラリに位置情報対応APIが含まれるとAppleが検出する場合があるため、この説明を記載しています。";
+"NSMicrophoneUsageDescription" = "Patternsは、暴露練習用のループ音声を録音するときにのみマイクを使用します。録音は端末内に保存されます。";
+"NSPhotoLibraryUsageDescription" = "バックアップを読み込む、または書き出す際に、システムのファイル選択画面で写真ライブラリが提示された場合にのみ、Patternsがアクセスを求めることがあります。";

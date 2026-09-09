@@ -10,6 +10,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
+import '../l10n/l10n.dart';
+
 /// A single styled run of text - used for read-only rendering (list previews,
 /// PDF export) without depending on Quill's widget layer.
 class RichRun {
@@ -206,6 +208,7 @@ class _JournalFormatToolbarState extends State<JournalFormatToolbar> {
     return Row(
       children: [
         _FormatButton(
+          semanticLabel: context.l10n.formatBold,
           active: _isActive(Attribute.bold),
           onTap: () => _toggle(Attribute.bold),
           child: const Text(
@@ -215,6 +218,7 @@ class _JournalFormatToolbarState extends State<JournalFormatToolbar> {
         ),
         const SizedBox(width: 4),
         _FormatButton(
+          semanticLabel: context.l10n.formatItalic,
           active: _isActive(Attribute.italic),
           onTap: () => _toggle(Attribute.italic),
           child: const Text(
@@ -228,6 +232,7 @@ class _JournalFormatToolbarState extends State<JournalFormatToolbar> {
         ),
         const SizedBox(width: 4),
         _FormatButton(
+          semanticLabel: context.l10n.formatBulletedList,
           active: _isBulletActive(),
           onTap: _toggleBullet,
           child: const Icon(Icons.format_list_bulleted, size: 18),
@@ -238,11 +243,13 @@ class _JournalFormatToolbarState extends State<JournalFormatToolbar> {
 }
 
 class _FormatButton extends StatelessWidget {
+  final String semanticLabel;
   final bool active;
   final VoidCallback onTap;
   final Widget child;
 
   const _FormatButton({
+    required this.semanticLabel,
     required this.active,
     required this.onTap,
     required this.child,
@@ -255,22 +262,37 @@ class _FormatButton extends StatelessWidget {
         ? theme.colorScheme.primary
         : theme.colorScheme.onSurface.withValues(alpha: 0.75);
 
-    return InkWell(
-      borderRadius: BorderRadius.circular(10),
-      onTap: onTap,
-      child: Container(
-        width: 40,
-        height: 40,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: active
-              ? theme.colorScheme.primary.withValues(alpha: 0.14)
-              : Colors.transparent,
+    return Semantics(
+      button: true,
+      toggled: active,
+      label: semanticLabel,
+      hint: context.l10n.formatToggleHint,
+      excludeSemantics: true,
+      child: Tooltip(
+        message: semanticLabel,
+        child: InkWell(
           borderRadius: BorderRadius.circular(10),
-        ),
-        child: DefaultTextStyle.merge(
-          style: TextStyle(color: fg),
-          child: child,
+          onTap: onTap,
+          child: Container(
+            width: 44,
+            height: 44,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: active
+                  ? theme.colorScheme.primary.withValues(alpha: 0.14)
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: active
+                    ? theme.colorScheme.primary
+                    : theme.dividerColor.withValues(alpha: 0.7),
+              ),
+            ),
+            child: DefaultTextStyle.merge(
+              style: TextStyle(color: fg),
+              child: child,
+            ),
+          ),
         ),
       ),
     );

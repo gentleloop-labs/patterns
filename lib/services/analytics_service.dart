@@ -136,6 +136,33 @@ class AnalyticsSummary {
   });
 }
 
+/// A factual, pressure-free account of recent activity. It deliberately
+/// contains no score, streak, trend judgment, or pre-localized text.
+class CalmInsightsSummary {
+  final int journalCount;
+  final int trackedMomentCount;
+  final int delayCount;
+  final int erpPracticeCount;
+  final int exposureCount;
+
+  const CalmInsightsSummary({
+    required this.journalCount,
+    required this.trackedMomentCount,
+    required this.delayCount,
+    required this.erpPracticeCount,
+    required this.exposureCount,
+  });
+
+  int get totalCount =>
+      journalCount +
+      trackedMomentCount +
+      delayCount +
+      erpPracticeCount +
+      exposureCount;
+
+  bool get hasAnyData => totalCount > 0;
+}
+
 enum InsightTone { positive, neutral, negative }
 
 class InsightDelta {
@@ -346,6 +373,52 @@ class AnalyticsService {
       days.add(key(e.createdAt));
     }
     return count >= minActivities && days.length >= minDistinctDays;
+  }
+
+  static CalmInsightsSummary buildCalmInsights({
+    required List<JournalEntry> journals,
+    required List<OcdEntry> ocds,
+    required List<DelaySession> delaySessions,
+    required List<ErpExerciseSession> erpSessions,
+    required List<ExposureStep> exposureSteps,
+    DateTime? now,
+    int days = 7,
+  }) {
+    final end = now ?? DateTime.now();
+    final start = DateTime(
+      end.year,
+      end.month,
+      end.day,
+    ).subtract(Duration(days: days - 1));
+    final endExclusive = DateTime(
+      end.year,
+      end.month,
+      end.day,
+    ).add(const Duration(days: 1));
+
+    bool isRecent(DateTime value) =>
+        !value.isBefore(start) && value.isBefore(endExclusive);
+
+    return CalmInsightsSummary(
+      journalCount: journals.where((entry) => isRecent(entry.createdAt)).length,
+      trackedMomentCount: ocds
+          .where((entry) => isRecent(entry.datetime))
+          .length,
+      delayCount: delaySessions
+          .where((entry) => isRecent(entry.createdAt))
+          .length,
+      erpPracticeCount: erpSessions
+          .where((entry) => isRecent(entry.createdAt))
+          .length,
+      exposureCount: exposureSteps
+          .where(
+            (entry) =>
+                entry.status == ExposureStepStatus.completed &&
+                entry.completedAt != null &&
+                isRecent(entry.completedAt!),
+          )
+          .length,
+    );
   }
 
   static List<JournalEntry> filterJournals(

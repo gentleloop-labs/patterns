@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:patterns/mobile/first_run.dart';
+import 'package:patterns/l10n/app_localizations.dart';
+import 'package:patterns/l10n/app_language.dart';
 import 'package:patterns/mobile/screens/onboarding_screen.dart';
 import 'package:patterns/theme/app_theme.dart';
 
@@ -66,7 +68,12 @@ void main() {
 }
 
 Widget _host(Widget child) {
-  return MaterialApp(theme: AppTheme.mobileDarkTheme, home: child);
+  return MaterialApp(
+    theme: AppTheme.mobileDarkTheme,
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: supportedAppLocales,
+    home: child,
+  );
 }
 
 Future<void> _pumpOnboarding(

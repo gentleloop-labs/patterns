@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'l10n/app_language.dart';
 import 'services/pro_service.dart';
 
 /// Shared preferences used by both mobile and desktop.
@@ -24,10 +25,12 @@ const reminderMinuteKey = 'reminderMinute';
 const proUnlockedKey = 'proUnlocked';
 const lastSeenReleaseKey = 'lastSeenReleaseId';
 const releaseAnnouncementScheduledKey = 'releaseAnnouncementScheduledId';
-const currentReleaseId = 'patterns_1_9_light_theme';
+const currentReleaseId = 'patterns_1_10';
 const hasStartedKey = 'hasStarted';
 const appearancePreferenceKey = 'appearance';
 const appearanceMigrationKey = 'appearanceMigrationV1';
+const languagePreferenceKey = 'appLanguage';
+const calmInsightsPreferenceKey = 'calmInsightsEnabled';
 const analyticsConsentDecisionKey = 'analyticsConsentDecision';
 const meaningfulActionCountKey = 'meaningfulActionCount';
 const lastMeaningfulActionKey = 'lastMeaningfulAction';
@@ -69,9 +72,30 @@ enum MeaningfulAction { journal, compulsionDelay, guidedErp, selfCheck }
 Future<void> initAppPreferences() async {
   appPreferences = await SharedPreferences.getInstance();
   final preferences = appPreferences!;
+  // This must be captured before any migration writes a key. New installs
+  // follow the system language; upgrades deliberately remain in English until
+  // the user chooses otherwise.
+  final establishedInstall = preferences.getKeys().isNotEmpty;
+
+  final storedLanguage = AppLanguage.fromPreference(
+    preferences.get(languagePreferenceKey) is String
+        ? preferences.get(languagePreferenceKey) as String
+        : null,
+  );
+  if (storedLanguage == null) {
+    await preferences.setString(
+      languagePreferenceKey,
+      establishedInstall
+          ? AppLanguage.english.preferenceValue
+          : AppLanguage.system.preferenceValue,
+    );
+  }
+
+  if (preferences.get(calmInsightsPreferenceKey) is! bool) {
+    await preferences.setBool(calmInsightsPreferenceKey, !establishedInstall);
+  }
 
   if (!(preferences.getBool(appearanceMigrationKey) ?? false)) {
-    final establishedInstall = preferences.getKeys().isNotEmpty;
     await preferences.setString(
       appearancePreferenceKey,
       establishedInstall ? AppAppearance.dark.name : AppAppearance.system.name,
@@ -79,11 +103,17 @@ Future<void> initAppPreferences() async {
     await preferences.setBool(appearanceMigrationKey, true);
   }
 
-  if (!preferences.containsKey(analyticsConsentDecisionKey) &&
-      (preferences.getBool(usageAnalyticsEnabledKey) ?? false)) {
+  if (!preferences.containsKey(analyticsConsentDecisionKey)) {
+    final analyticsWasEnabled =
+        preferences.get(usageAnalyticsEnabledKey) is bool &&
+        (preferences.getBool(usageAnalyticsEnabledKey) ?? false);
     await preferences.setString(
       analyticsConsentDecisionKey,
-      AnalyticsConsentDecision.granted.name,
+      analyticsWasEnabled
+          ? AnalyticsConsentDecision.granted.name
+          : establishedInstall
+          ? AnalyticsConsentDecision.declined.name
+          : AnalyticsConsentDecision.undecided.name,
     );
   }
 
@@ -217,6 +247,43 @@ class AppearanceNotifier extends Notifier<AppAppearance> {
 
 final appearanceProvider = NotifierProvider<AppearanceNotifier, AppAppearance>(
   AppearanceNotifier.new,
+);
+
+class LanguageNotifier extends Notifier<AppLanguage> {
+  @override
+  AppLanguage build() {
+    final stored = appPreferences?.getString(languagePreferenceKey);
+    return AppLanguage.fromPreference(stored) ?? AppLanguage.english;
+  }
+
+  Future<void> setLanguage(AppLanguage language) async {
+    await appPreferences?.setString(
+      languagePreferenceKey,
+      language.preferenceValue,
+    );
+    state = language;
+  }
+}
+
+final languageProvider = NotifierProvider<LanguageNotifier, AppLanguage>(
+  LanguageNotifier.new,
+);
+
+class CalmInsightsNotifier extends Notifier<bool> {
+  @override
+  bool build() {
+    final stored = appPreferences?.get(calmInsightsPreferenceKey);
+    return stored is bool ? stored : false;
+  }
+
+  Future<void> setEnabled(bool enabled) async {
+    await appPreferences?.setBool(calmInsightsPreferenceKey, enabled);
+    state = enabled;
+  }
+}
+
+final calmInsightsProvider = NotifierProvider<CalmInsightsNotifier, bool>(
+  CalmInsightsNotifier.new,
 );
 
 class MeaningfulActionNotifier extends Notifier<int> {
