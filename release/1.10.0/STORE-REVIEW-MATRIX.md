@@ -26,6 +26,11 @@ The metadata and IAP drafts live beside this matrix, outside canonical
 `metadata/`. `tool/validate_store_drafts.dart` checks required locales,
 non-empty IAP fields, duplicate keywords, and Apple character limits.
 
+Every current English ARB message has translator context, and ARB message,
+metadata, placeholder, and selector parity passes across the six languages.
+Full-product copy is not frozen: the conservative literal audit still reports
+697 candidates that must be localized or narrowly reviewed before production.
+
 ## IAP resource plan
 
 | Product | App Store ID | Version resource | Action after approval |
