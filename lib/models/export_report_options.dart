@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:intl/intl.dart';
 
+import '../l10n/app_localizations.dart';
 import '../services/analytics_service.dart';
 
 class ExportSections {
@@ -65,22 +68,22 @@ class ExportReportOptions {
     customEnd: customEnd,
   );
 
-  String get rangeLabel {
+  String localizedRangeLabel(AppLocalizations strings, Locale locale) {
     switch (range) {
       case AnalyticsDateRange.seven:
-        return 'Last 7 days';
+        return strings.rangeLastSevenDays;
       case AnalyticsDateRange.thirty:
-        return 'Last 30 days';
+        return strings.rangeLastThirtyDays;
       case AnalyticsDateRange.ninety:
-        return 'Last 90 days';
+        return strings.rangeLastNinetyDays;
       case AnalyticsDateRange.year:
-        return 'Last year';
+        return strings.rangeLastYear;
       case AnalyticsDateRange.allTime:
-        return 'All time';
+        return strings.rangeAllTime;
       case AnalyticsDateRange.custom:
         final start = customStart ?? DateTime.now();
         final end = customEnd ?? DateTime.now();
-        final fmt = DateFormat('MMM d, yyyy');
+        final fmt = DateFormat.yMMMd(locale.toLanguageTag());
         return '${fmt.format(start)} – ${fmt.format(end)}';
     }
   }

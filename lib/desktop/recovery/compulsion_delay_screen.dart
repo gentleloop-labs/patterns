@@ -11,12 +11,13 @@ import '../widgets/desktop_chrome.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../services/notification_service.dart';
+import '../../l10n/l10n.dart';
 import '../../services/review_prompt.dart';
 import '../../services/app_events.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
-import '../shell.dart' show desktopRootNavigatorKey;
+import '../../widgets/activity_completion.dart';
 import '../../widgets/section_intro.dart';
 
 enum _Phase { setup, countdown, reflection }
@@ -187,8 +188,9 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
           await NotificationService.schedulePracticeTimerCompletion(
             id: NotificationService.pauseTimerNotificationId,
             endsAt: endsAt,
-            title: 'Practice window complete',
-            body: 'Take a moment to notice what happened.',
+            title: context.l10n.practiceWindowCompleteTitle,
+            body: context.l10n.practiceWindowCompleteBody,
+            strings: context.l10n,
           );
       if (mounted) _completionNotificationScheduled = scheduled;
     }());
@@ -276,21 +278,11 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
     AppEvents.logFirstCompulsionDelayCompleted(ranToCompletion: _completed);
     await ReviewPromptService.recordUrgePracticeCompleted();
     if (!mounted) return;
-    Navigator.pop(context);
-    showAppSnackBar(
+    await showQuietCompletion(
       context,
-      'Practice logged. That took real courage.',
-      type: ToastType.success,
+      const ActivityCompletionResult(ActivityCompletionKind.compulsionDelay),
     );
-    if (_completed) _requestReviewFromRoot(ReviewTrigger.urgeCompleted);
-  }
-
-  void _requestReviewFromRoot(ReviewTrigger trigger) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final rootContext = desktopRootNavigatorKey.currentContext;
-      if (rootContext == null) return;
-      ReviewPromptService.maybeRequestReview(rootContext, trigger: trigger);
-    });
+    if (mounted) Navigator.pop(context);
   }
 
   // ----- build -----
@@ -457,23 +449,29 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
                 builder: (context, _) {
                   final total = _timer.duration ?? Duration.zero;
                   final remaining = total * (1 - _timer.value);
-                  return SizedBox(
-                    width: 240,
-                    height: 240,
-                    child: CustomPaint(
-                      painter: _RingPainter(
-                        progress: _timer.value,
-                        trackColor: theme.dividerColor.withValues(alpha: 0.6),
-                        progressColor: theme.colorScheme.primary,
-                      ),
-                      child: Center(
-                        child: Text(
-                          _formatRemaining(remaining),
-                          style: TextStyle(
-                            fontFamily: AppTheme.displayFamily,
-                            fontSize: 52,
-                            fontWeight: FontWeight.w700,
-                            color: theme.colorScheme.onSurface,
+                  final displayTime = _formatRemaining(remaining);
+                  return Semantics(
+                    liveRegion: remaining.inSeconds == 0,
+                    label: context.l10n.timerRemaining(displayTime),
+                    excludeSemantics: true,
+                    child: SizedBox(
+                      width: 240,
+                      height: 240,
+                      child: CustomPaint(
+                        painter: _RingPainter(
+                          progress: _timer.value,
+                          trackColor: theme.dividerColor.withValues(alpha: 0.6),
+                          progressColor: theme.colorScheme.primary,
+                        ),
+                        child: Center(
+                          child: Text(
+                            displayTime,
+                            style: TextStyle(
+                              fontFamily: AppTheme.displayFamily,
+                              fontSize: 52,
+                              fontWeight: FontWeight.w700,
+                              color: theme.colorScheme.onSurface,
+                            ),
                           ),
                         ),
                       ),

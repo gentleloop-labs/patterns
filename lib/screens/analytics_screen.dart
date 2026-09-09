@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../app_preferences.dart';
 import '../models/export_report_options.dart';
 import '../providers/providers.dart';
 import '../services/analytics_service.dart';
@@ -34,6 +35,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
     final responses =
         ref.watch(responsePreventionProvider).asData?.value ?? const [];
     final surfs = ref.watch(urgeSurfProvider).asData?.value ?? const [];
+    final calmInsightsEnabled = ref.watch(calmInsightsProvider);
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
@@ -137,10 +139,16 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
                     ),
                     const SizedBox(height: 24),
                     switch (_tab) {
-                      _InsightTab.overview => _OverviewTab(summary: summary),
+                      _InsightTab.overview => _OverviewTab(
+                        summary: summary,
+                        calmInsightsEnabled: calmInsightsEnabled,
+                      ),
                       _InsightTab.thoughts => _ThoughtsTab(summary: summary),
                       _InsightTab.urges => _UrgesTab(summary: summary),
-                      _InsightTab.erp => _ErpTab(summary: summary),
+                      _InsightTab.erp => _ErpTab(
+                        summary: summary,
+                        calmInsightsEnabled: calmInsightsEnabled,
+                      ),
                     },
                   ],
                 ),
@@ -283,8 +291,12 @@ class _RangeSelector extends StatelessWidget {
 
 class _OverviewTab extends StatelessWidget {
   final RecoveryDashboardSummary summary;
+  final bool calmInsightsEnabled;
 
-  const _OverviewTab({required this.summary});
+  const _OverviewTab({
+    required this.summary,
+    required this.calmInsightsEnabled,
+  });
 
   List<double> _plotData(List<DashboardPoint> trend) {
     if (trend.isEmpty) return [0.0, 0.0];
@@ -347,19 +359,21 @@ class _OverviewTab extends StatelessWidget {
         // Grid of 4 stats cards
         Row(
           children: [
-            Expanded(
-              child: _OverviewStatCard(
-                title: 'Recovery score',
-                value: '${summary.recoveryScore}',
-                suffix: '/100 pts',
-                trend: _deltaText(summary.scoreDelta),
-                trendLabel: 'from last range',
-                sparklineData: _plotData(summary.scoreTrend),
-                color: AppTheme.warmYellow,
-                trendColor: _deltaColor(summary.scoreDelta),
+            if (!calmInsightsEnabled) ...[
+              Expanded(
+                child: _OverviewStatCard(
+                  title: 'Recovery score',
+                  value: '${summary.recoveryScore}',
+                  suffix: '/100 pts',
+                  trend: _deltaText(summary.scoreDelta),
+                  trendLabel: 'from last range',
+                  sparklineData: _plotData(summary.scoreTrend),
+                  color: AppTheme.warmYellow,
+                  trendColor: _deltaColor(summary.scoreDelta),
+                ),
               ),
-            ),
-            const SizedBox(width: 16),
+              const SizedBox(width: 16),
+            ],
             Expanded(
               child: _OverviewStatCard(
                 title: 'Avg urge',
@@ -386,23 +400,25 @@ class _OverviewTab extends StatelessWidget {
                 trendColor: _deltaColor(summary.erpDelta),
               ),
             ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: _OverviewStatCard(
-                title: 'Consistency',
-                value: '${summary.consistencyPercent}',
-                suffix: '%',
-                trend: summary.consistencyPercent > 0
-                    ? 'Active practice'
-                    : 'No practice',
-                trendLabel: 'this cycle',
-                sparklineData: _plotData(summary.erpTrend),
-                color: AppTheme.warmYellow,
-                trendColor: summary.consistencyPercent > 0
-                    ? Colors.green
-                    : Colors.grey,
+            if (!calmInsightsEnabled) ...[
+              const SizedBox(width: 16),
+              Expanded(
+                child: _OverviewStatCard(
+                  title: 'Consistency',
+                  value: '${summary.consistencyPercent}',
+                  suffix: '%',
+                  trend: summary.consistencyPercent > 0
+                      ? 'Active practice'
+                      : 'No practice',
+                  trendLabel: 'this cycle',
+                  sparklineData: _plotData(summary.erpTrend),
+                  color: AppTheme.warmYellow,
+                  trendColor: summary.consistencyPercent > 0
+                      ? Colors.green
+                      : Colors.grey,
+                ),
               ),
-            ),
+            ],
           ],
         ),
         const SizedBox(height: 16),
@@ -819,8 +835,9 @@ class _UrgesTab extends StatelessWidget {
 
 class _ErpTab extends StatelessWidget {
   final RecoveryDashboardSummary summary;
+  final bool calmInsightsEnabled;
 
-  const _ErpTab({required this.summary});
+  const _ErpTab({required this.summary, required this.calmInsightsEnabled});
 
   List<double> _plotData(List<DashboardPoint> trend) {
     if (trend.isEmpty) return [0.0, 0.0];
@@ -860,36 +877,38 @@ class _ErpTab extends StatelessWidget {
             trendColor: _deltaColor(summary.erpDelta),
           ),
         ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _OverviewStatCard(
-            title: 'Consistency',
-            value: '${summary.consistencyPercent}',
-            suffix: '%',
-            trend: summary.consistencyPercent > 0
-                ? 'Active practice'
-                : 'No practice',
-            trendLabel: 'this cycle',
-            sparklineData: _plotData(summary.erpTrend),
-            color: AppTheme.warmYellow,
-            trendColor: summary.consistencyPercent > 0
-                ? Colors.green
-                : Colors.grey,
+        if (!calmInsightsEnabled) ...[
+          const SizedBox(width: 16),
+          Expanded(
+            child: _OverviewStatCard(
+              title: 'Consistency',
+              value: '${summary.consistencyPercent}',
+              suffix: '%',
+              trend: summary.consistencyPercent > 0
+                  ? 'Active practice'
+                  : 'No practice',
+              trendLabel: 'this cycle',
+              sparklineData: _plotData(summary.erpTrend),
+              color: AppTheme.warmYellow,
+              trendColor: summary.consistencyPercent > 0
+                  ? Colors.green
+                  : Colors.grey,
+            ),
           ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _OverviewStatCard(
-            title: 'Recovery score',
-            value: '${summary.recoveryScore}',
-            suffix: '/100 pts',
-            trend: _deltaText(summary.scoreDelta),
-            trendLabel: 'from last range',
-            sparklineData: _plotData(summary.scoreTrend),
-            color: AppTheme.warmYellow,
-            trendColor: _deltaColor(summary.scoreDelta),
+          const SizedBox(width: 16),
+          Expanded(
+            child: _OverviewStatCard(
+              title: 'Recovery score',
+              value: '${summary.recoveryScore}',
+              suffix: '/100 pts',
+              trend: _deltaText(summary.scoreDelta),
+              trendLabel: 'from last range',
+              sparklineData: _plotData(summary.scoreTrend),
+              color: AppTheme.warmYellow,
+              trendColor: _deltaColor(summary.scoreDelta),
+            ),
           ),
-        ),
+        ],
       ],
     );
   }

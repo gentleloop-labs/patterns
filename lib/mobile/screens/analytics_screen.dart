@@ -9,6 +9,8 @@ import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../../content/ybocs_content.dart';
+import '../../app_preferences.dart';
+import '../../l10n/l10n.dart';
 import '../../models/export_report_options.dart';
 import '../../providers/providers.dart';
 import '../../services/analytics_service.dart';
@@ -65,6 +67,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
         ref.watch(responsePreventionProvider).asData?.value ?? const [];
     final surfs = ref.watch(urgeSurfProvider).asData?.value ?? const [];
     final ybocs = ref.watch(ybocsAssessmentProvider).asData?.value ?? const [];
+    final calmInsightsEnabled = ref.watch(calmInsightsProvider);
 
     return Scaffold(
       body: DecoratedBox(
@@ -160,6 +163,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
                         tab: _tab,
                         summary: dashboard,
                         enoughForScore: enoughForScore,
+                        calmInsightsEnabled: calmInsightsEnabled,
                       ),
                     );
                   },
@@ -181,12 +185,14 @@ class _DashboardTabBody extends StatelessWidget {
   final _InsightTab tab;
   final RecoveryDashboardSummary summary;
   final bool enoughForScore;
+  final bool calmInsightsEnabled;
 
   const _DashboardTabBody({
     super.key,
     required this.tab,
     required this.summary,
     required this.enoughForScore,
+    required this.calmInsightsEnabled,
   });
 
   @override
@@ -196,13 +202,20 @@ class _DashboardTabBody extends StatelessWidget {
         return _OverviewDashboard(
           summary: summary,
           enoughForScore: enoughForScore,
+          calmInsightsEnabled: calmInsightsEnabled,
         );
       case _InsightTab.thoughts:
         return _ThoughtsDashboard(summary: summary);
       case _InsightTab.urges:
-        return _UrgesDashboard(summary: summary);
+        return _UrgesDashboard(
+          summary: summary,
+          calmInsightsEnabled: calmInsightsEnabled,
+        );
       case _InsightTab.erp:
-        return _ErpDashboard(summary: summary);
+        return _ErpDashboard(
+          summary: summary,
+          calmInsightsEnabled: calmInsightsEnabled,
+        );
     }
   }
 }
@@ -210,18 +223,22 @@ class _DashboardTabBody extends StatelessWidget {
 class _OverviewDashboard extends StatelessWidget {
   final RecoveryDashboardSummary summary;
   final bool enoughForScore;
+  final bool calmInsightsEnabled;
 
   const _OverviewDashboard({
     required this.summary,
     required this.enoughForScore,
+    required this.calmInsightsEnabled,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _RecoveryScoreCard(summary: summary, enoughData: enoughForScore),
-        const SizedBox(height: 12),
+        if (!calmInsightsEnabled) ...[
+          _RecoveryScoreCard(summary: summary, enoughData: enoughForScore),
+          const SizedBox(height: 12),
+        ],
         _MoodCard(summary: summary),
         const SizedBox(height: 12),
         _YbocsCard(summary: summary),
@@ -235,8 +252,10 @@ class _OverviewDashboard extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 12),
-        _ConsistencyCard(summary: summary),
-        const SizedBox(height: 12),
+        if (!calmInsightsEnabled) ...[
+          _ConsistencyCard(summary: summary),
+          const SizedBox(height: 12),
+        ],
         _TopThemesCard(summary: summary),
         const SizedBox(height: 24),
         const RecoveryMetricsSection(),
@@ -286,8 +305,12 @@ class _ThoughtsDashboard extends StatelessWidget {
 
 class _UrgesDashboard extends StatelessWidget {
   final RecoveryDashboardSummary summary;
+  final bool calmInsightsEnabled;
 
-  const _UrgesDashboard({required this.summary});
+  const _UrgesDashboard({
+    required this.summary,
+    required this.calmInsightsEnabled,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -316,8 +339,10 @@ class _UrgesDashboard extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         _UrgeIntensityCard(summary: summary, wide: true),
-        const SizedBox(height: 12),
-        _ConsistencyCard(summary: summary),
+        if (!calmInsightsEnabled) ...[
+          const SizedBox(height: 12),
+          _ConsistencyCard(summary: summary),
+        ],
       ],
     );
   }
@@ -325,16 +350,22 @@ class _UrgesDashboard extends StatelessWidget {
 
 class _ErpDashboard extends StatelessWidget {
   final RecoveryDashboardSummary summary;
+  final bool calmInsightsEnabled;
 
-  const _ErpDashboard({required this.summary});
+  const _ErpDashboard({
+    required this.summary,
+    required this.calmInsightsEnabled,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         _ErpPracticeCard(summary: summary, wide: true),
-        const SizedBox(height: 12),
-        _ConsistencyCard(summary: summary),
+        if (!calmInsightsEnabled) ...[
+          const SizedBox(height: 12),
+          _ConsistencyCard(summary: summary),
+        ],
         const SizedBox(height: 24),
         const RecoveryMetricsSection(),
       ],
@@ -1203,20 +1234,24 @@ class _ScoreRing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 96,
-      height: 96,
-      child: CustomPaint(
-        painter: _ScoreRingPainter(
-          score: score,
-          accent: context.appColors.accent,
-          track: context.appColors.border,
-        ),
-        child: Center(
-          child: Icon(
-            LineIcons.lineChart,
-            color: context.appColors.textSecondary,
-            size: 28,
+    return Semantics(
+      label: context.l10n.recoveryScoreSemantics(score),
+      excludeSemantics: true,
+      child: SizedBox(
+        width: 96,
+        height: 96,
+        child: CustomPaint(
+          painter: _ScoreRingPainter(
+            score: score,
+            accent: context.appColors.accent,
+            track: context.appColors.border,
+          ),
+          child: Center(
+            child: Icon(
+              LineIcons.lineChart,
+              color: context.appColors.textSecondary,
+              size: 28,
+            ),
           ),
         ),
       ),

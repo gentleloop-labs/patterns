@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../../models/models.dart';
+import '../../l10n/l10n.dart';
 import '../../providers/providers.dart';
 import '../../services/analytics_service.dart';
 import '../../services/review_prompt.dart';
@@ -16,6 +17,7 @@ import '../../services/pro_entry_point.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
+import '../../widgets/activity_completion.dart';
 import '../../widgets/app_snack_bar.dart';
 import '../../widgets/rich_journal.dart';
 import '../../widgets/paywall_sheet.dart';
@@ -57,6 +59,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
     final responses =
         ref.watch(responsePreventionProvider).asData?.value ?? const [];
     final surfs = ref.watch(urgeSurfProvider).asData?.value ?? const [];
+    final calmInsightsEnabled = ref.watch(calmInsightsProvider);
 
     final journals = journalAsync.asData?.value ?? const <JournalEntry>[];
     final ocds = ocdAsync.asData?.value ?? const <OcdEntry>[];
@@ -79,6 +82,13 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
       urgeSurfSessions: surfs,
     );
     final recentDelay = _latestDelay(delays);
+    final calmSummary = AnalyticsService.buildCalmInsights(
+      journals: journals,
+      ocds: ocds,
+      delaySessions: delays,
+      erpSessions: erp,
+      exposureSteps: steps,
+    );
 
     // The single recommended next action, mirroring the ERP journey stages so
     // Today always shows one clear thing to do instead of a wall of tools.
@@ -134,6 +144,8 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
             hasCheckedIn: hasCheckedIn,
             enoughForScore: enoughForScore,
             showProCard: showProCard,
+            calmInsightsEnabled: calmInsightsEnabled,
+            calmSummary: calmSummary,
           )
         : _firstRunChildren(hasYbocs: ybocs.isNotEmpty);
 
@@ -167,19 +179,24 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
     required bool hasCheckedIn,
     required bool enoughForScore,
     required bool showProCard,
+    required bool calmInsightsEnabled,
+    required CalmInsightsSummary calmSummary,
   }) {
     return [
       _HomeHeader(
         streak: metrics.practiceStreakDays,
-        showStreak: metrics.practiceStreakDays > 0,
+        showStreak: !calmInsightsEnabled && metrics.practiceStreakDays > 0,
         onSettings: widget.onSettings,
       ),
       const SizedBox(height: 18),
-      _HomeScoreCard(
-        summary: dashboard,
-        enoughData: enoughForScore,
-        onTap: widget.onInsights,
-      ),
+      if (calmInsightsEnabled)
+        _CalmActivityCard(summary: calmSummary, onTap: widget.onInsights)
+      else
+        _HomeScoreCard(
+          summary: dashboard,
+          enoughData: enoughForScore,
+          onTap: widget.onInsights,
+        ),
       const SizedBox(height: 16),
       _NextStepCard(
         step: nextStep,
@@ -485,6 +502,82 @@ class _HomeHeader extends StatelessWidget {
         ? 'afternoon'
         : 'evening';
     return 'Good $part';
+  }
+}
+
+class _CalmActivityCard extends StatelessWidget {
+  final CalmInsightsSummary summary;
+  final VoidCallback onTap;
+
+  const _CalmActivityCard({required this.summary, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    final strings = context.l10n;
+    final facts = <String>[
+      if (summary.journalCount > 0)
+        strings.calmJournalActivity(summary.journalCount),
+      if (summary.trackedMomentCount > 0)
+        strings.calmTrackedActivity(summary.trackedMomentCount),
+      if (summary.delayCount > 0) strings.calmDelayActivity(summary.delayCount),
+      if (summary.erpPracticeCount > 0)
+        strings.calmErpActivity(summary.erpPracticeCount),
+      if (summary.exposureCount > 0)
+        strings.calmExposureActivity(summary.exposureCount),
+    ];
+    final theme = Theme.of(context);
+
+    return Semantics(
+      button: true,
+      label: strings.calmRecentActivityTitle,
+      child: Material(
+        color: context.appColors.card,
+        borderRadius: BorderRadius.circular(24),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(24),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      LineIcons.leaf,
+                      color: context.appColors.accent,
+                      semanticLabel: null,
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        strings.calmRecentActivityTitle,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                    const ExcludeSemantics(child: Icon(LineIcons.angleRight)),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                if (facts.isEmpty)
+                  Text(
+                    strings.calmNoRecentActivity,
+                    style: theme.textTheme.bodyMedium,
+                  )
+                else
+                  for (final fact in facts)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 6),
+                      child: Text('• $fact', style: theme.textTheme.bodyMedium),
+                    ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -1879,15 +1972,15 @@ class _JournalEntryEditorState extends ConsumerState<JournalEntryEditor> {
       _saving = false;
       _saved = true;
     });
-    showAppSnackBar(context, 'Entry saved', type: ToastType.success);
     // Milestone only — the entry itself never leaves the device or the DB.
     if (isNew) AppEvents.logFirstJournalEntryCreated();
     await ReviewPromptService.recordJournalSaved();
     if (!mounted) return;
-    await ReviewPromptService.maybeRequestReview(
+    await showQuietCompletion(
       context,
-      trigger: ReviewTrigger.journalSaved,
+      const ActivityCompletionResult(ActivityCompletionKind.journal),
     );
+    if (mounted) Navigator.pop(context);
   }
 }
 

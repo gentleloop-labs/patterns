@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../app_preferences.dart';
+import '../l10n/l10n.dart';
 import '../screens/analytics_screen.dart';
 import '../screens/journal_screen.dart';
 import '../screens/ocd_tracker_screen.dart';
@@ -119,35 +120,35 @@ class DesktopShellState extends ConsumerState<DesktopShell> {
                 const SizedBox(height: 32),
                 _NavTile(
                   icon: LineIcons.home,
-                  label: 'Home',
+                  label: context.l10n.navHome,
                   isSelected: _selectedTab == DesktopTab.home,
                   onTap: () => selectTab(DesktopTab.home),
                   theme: theme,
                 ),
                 _NavTile(
                   icon: LineIcons.penNib,
-                  label: 'Journal',
+                  label: context.l10n.navJournal,
                   isSelected: _selectedTab == DesktopTab.journal,
                   onTap: () => selectTab(DesktopTab.journal),
                   theme: theme,
                 ),
                 _NavTile(
                   icon: LineIcons.list,
-                  label: 'Tracker',
+                  label: context.l10n.navTracker,
                   isSelected: _selectedTab == DesktopTab.track,
                   onTap: () => selectTab(DesktopTab.track),
                   theme: theme,
                 ),
                 _NavTile(
                   icon: Icons.self_improvement_rounded,
-                  label: 'Recovery',
+                  label: context.l10n.navRecovery,
                   isSelected: _selectedTab == DesktopTab.recovery,
                   onTap: () => selectTab(DesktopTab.recovery),
                   theme: theme,
                 ),
                 _NavTile(
                   icon: LineIcons.barChart,
-                  label: 'Insights',
+                  label: context.l10n.navInsights,
                   isSelected: _selectedTab == DesktopTab.insights,
                   onTap: () => selectTab(DesktopTab.insights),
                   theme: theme,
@@ -155,7 +156,7 @@ class DesktopShellState extends ConsumerState<DesktopShell> {
                 const Spacer(),
                 _NavTile(
                   icon: LineIcons.cog,
-                  label: 'Settings',
+                  label: context.l10n.navSettings,
                   isSelected: _selectedTab == DesktopTab.settings,
                   onTap: () => selectTab(DesktopTab.settings),
                   theme: theme,

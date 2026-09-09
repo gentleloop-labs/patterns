@@ -1,0 +1,6 @@
+"CFBundleDisplayName" = "Patterns";
+"NSCameraUsageDescription" = "Patterns may request camera access only if the system file picker offers the camera while you attach exposure materials. Captured files stay on your device.";
+"NSFaceIDUsageDescription" = "Patterns uses Face ID to unlock your private journal and OCD tracking data when app lock is enabled.";
+"NSLocationWhenInUseUsageDescription" = "Patterns does not use your location for tracking. This text is included because Apple may detect location-capable APIs in the system file picker or platform libraries.";
+"NSMicrophoneUsageDescription" = "Patterns uses the microphone only when you record an audio loop tape for your exposure exercises. Recordings stay on your device.";
+"NSPhotoLibraryUsageDescription" = "Patterns may request photo library access only when the system file picker offers photo library sources while you import or export a backup file.";

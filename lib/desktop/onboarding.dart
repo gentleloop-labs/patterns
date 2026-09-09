@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../app_preferences.dart';
+import '../l10n/l10n.dart';
 import '../providers/providers.dart';
 import '../services/demo_seed_service.dart';
 import '../services/notification_service.dart';
@@ -142,7 +143,7 @@ class DesktopWelcomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Patterns',
+                  context.l10n.appTitle,
                   style: TextStyle(
                     fontFamily: AppTheme.displayFamily,
                     fontSize: 44,
@@ -152,7 +153,7 @@ class DesktopWelcomeScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'A private companion for journaling, OCD tracking, and ERP practice, on your desktop.',
+                  context.l10n.onboardingIntroduction,
                   style: TextStyle(
                     color: theme.colorScheme.onSurface.withOpacity(0.55),
                     fontSize: 16,
@@ -164,7 +165,7 @@ class DesktopWelcomeScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: onStart,
-                    child: const Text('Get started'),
+                    child: Text(context.l10n.getStartedAction),
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -174,7 +175,7 @@ class DesktopWelcomeScreen extends StatelessWidget {
                     onPressed: () {
                       onImport();
                     },
-                    child: const Text('I have a backup to import'),
+                    child: Text(context.l10n.importExistingDataAction),
                   ),
                 ),
                 if (ProService.isPlatformSupported) ...[
@@ -189,7 +190,7 @@ class DesktopWelcomeScreen extends StatelessWidget {
                 ],
                 const SizedBox(height: 28),
                 Text(
-                  'Private by design. Not a diagnosis or replacement for care.',
+                  context.l10n.onboardingSafetyFootnote,
                   style: TextStyle(
                     color: theme.colorScheme.onSurface.withOpacity(0.35),
                     fontSize: 12,
@@ -235,7 +236,7 @@ class DesktopWhatsNewScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'Patterns got a major upgrade',
+                  context.l10n.whatsNewTitle,
                   style: TextStyle(
                     fontFamily: AppTheme.displayFamily,
                     fontSize: 32,
@@ -245,7 +246,7 @@ class DesktopWhatsNewScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'Desktop now includes Home, Recovery Hub with ERP tools, richer Insights, reminders, and app lock, matching the mobile companion.',
+                  context.l10n.whatsNewBody,
                   style: TextStyle(
                     color: theme.colorScheme.onSurface.withOpacity(0.55),
                     height: 1.45,
@@ -254,22 +255,22 @@ class DesktopWhatsNewScreen extends StatelessWidget {
                 const SizedBox(height: 28),
                 _Bullet(
                   icon: LineIcons.home,
-                  text: 'Home cockpit with streak and next practice',
+                  text: context.l10n.whatsNewLanguagesBody,
                 ),
                 _Bullet(
                   icon: Icons.self_improvement_rounded,
-                  text: 'Full Recovery Hub with free and Pro tools',
+                  text: context.l10n.whatsNewPrivateBody,
                 ),
                 _Bullet(
                   icon: LineIcons.barChart,
-                  text: 'Insights: Overview, Thoughts, Urges, ERP',
+                  text: context.l10n.whatsNewReportsBody,
                 ),
                 const SizedBox(height: 32),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () => onShowHome(),
-                    child: const Text('Show me Home'),
+                    child: Text(context.l10n.whatsNewExploreAction),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -277,7 +278,7 @@ class DesktopWhatsNewScreen extends StatelessWidget {
                   width: double.infinity,
                   child: TextButton(
                     onPressed: () => onContinue(),
-                    child: const Text('Continue'),
+                    child: Text(context.l10n.continueToPatternsAction),
                   ),
                 ),
               ],

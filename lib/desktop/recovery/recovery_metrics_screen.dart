@@ -141,6 +141,7 @@ class RecoveryMetricsView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final calmInsightsEnabled = ref.watch(calmInsightsProvider);
     final delays = ref.watch(delaySessionProvider).asData?.value ?? const [];
     final erp = ref.watch(erpExerciseSessionProvider).asData?.value ?? const [];
     final steps = ref.watch(exposureStepProvider).asData?.value ?? const [];
@@ -162,8 +163,10 @@ class RecoveryMetricsView extends ConsumerWidget {
 
     return Column(
       children: [
-        _StreakCard(days: metrics.practiceStreakDays),
-        const SizedBox(height: 12),
+        if (!calmInsightsEnabled) ...[
+          _StreakCard(days: metrics.practiceStreakDays),
+          const SizedBox(height: 12),
+        ],
         Row(
           children: [
             Expanded(
@@ -191,8 +194,10 @@ class RecoveryMetricsView extends ConsumerWidget {
           label: 'Average urge drop',
           fullWidth: true,
         ),
-        const SizedBox(height: 12),
-        _WeeklyStrip(activity: metrics.weeklyActivity),
+        if (!calmInsightsEnabled) ...[
+          const SizedBox(height: 12),
+          _WeeklyStrip(activity: metrics.weeklyActivity),
+        ],
       ],
     );
   }

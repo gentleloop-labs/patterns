@@ -8,3 +8,8 @@ create_desktop_icon: true
 privileges_required: lowest
 locales:
   - en
+  - pt-BR
+  - de
+  - ja
+  - es
+  - fr

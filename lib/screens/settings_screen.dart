@@ -15,8 +15,11 @@ import '../services/pro_service.dart';
 import '../services/review_prompt.dart';
 import '../services/tip_jar.dart';
 import '../services/usage_analytics.dart';
+import '../l10n/l10n.dart';
+import '../l10n/app_language.dart';
 import '../widgets/app_snack_bar.dart';
 import '../widgets/export_report_sheet.dart';
+import '../widgets/language_picker.dart';
 import '../widgets/paywall_sheet.dart';
 import '../widgets/platform.dart';
 import '../widgets/tip_jar_sheet.dart';
@@ -32,10 +35,10 @@ class SettingsScreen extends ConsumerStatefulWidget {
   ConsumerState<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-enum _SettingsCategory { data, reminders, privacy, pro, support }
+enum _SettingsCategory { general, data, reminders, privacy, pro, support }
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
-  _SettingsCategory _category = _SettingsCategory.data;
+  _SettingsCategory _category = _SettingsCategory.general;
 
   Future<void> _exportData(BuildContext context) async {
     try {
@@ -161,6 +164,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         await ref.read(reminderProvider.notifier).setEnabled(true);
         await NotificationService.scheduleDailyReminder(
           TimeOfDay(hour: current.hour, minute: current.minute),
+          strings: context.l10n,
         );
       } else {
         await ref.read(reminderProvider.notifier).setEnabled(false);
@@ -184,7 +188,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           .read(reminderProvider.notifier)
           .setTime(selected.hour, selected.minute);
       if (ref.read(reminderProvider).enabled) {
-        await NotificationService.scheduleDailyReminder(selected);
+        await NotificationService.scheduleDailyReminder(
+          selected,
+          strings: context.l10n,
+        );
       }
       if (context.mounted) {
         showAppSnackBar(
@@ -281,18 +288,21 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   }
 
   void _showPrivacy(BuildContext context) {
+    final strings = context.l10n;
     showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Privacy & Safety'),
-        content: const Text(
-          'Patterns is a local-first application. Your entries, logs, '
-          'exposures, and settings are stored locally on your device\'s SQLite database. '
-          'If you enable anonymous usage analytics, only named feature-use events, '
-          'a random installation ID, platform, app version, and event time are sent '
-          'to our first-party service. Personal OCD content is never included. '
-          'Uploaded events expire within 90 days. Turning analytics off clears '
-          'pending events and the local analytics ID.',
+        title: Text(strings.privacySafetyTitle),
+        content: SingleChildScrollView(
+          child: Text(
+            [
+              strings.privacyLocalContent,
+              strings.privacyPurchases,
+              strings.privacyExports,
+              strings.privacyAnalytics,
+              strings.privacyClinicalBoundary,
+            ].join('\n\n'),
+          ),
         ),
         actions: [
           TextButton(
@@ -300,11 +310,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               Uri.parse('https://patternsocd.com/privacy'),
               mode: LaunchMode.externalApplication,
             ),
-            child: const Text('View full Privacy Policy'),
+            child: Text(strings.viewPrivacyPolicyAction),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
+            child: Text(strings.closeAction),
           ),
         ],
       ),
@@ -318,8 +328,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final appLockEnabled = ref.watch(appLockEnabledProvider);
     final usageAnalyticsEnabled = ref.watch(usageAnalyticsEnabledProvider);
     final isPro = ref.watch(proProvider);
+    final language = ref.watch(languageProvider);
+    final calmInsightsEnabled = ref.watch(calmInsightsProvider);
+    final strings = context.l10n;
 
     final categories = <(_SettingsCategory, String, IconData)>[
+      (_SettingsCategory.general, strings.languageTitle, LineIcons.language),
       (_SettingsCategory.data, 'Data', LineIcons.database),
       if (NotificationService.isSupported)
         (_SettingsCategory.reminders, 'Reminders', LineIcons.bell),
@@ -352,7 +366,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             backgroundColor: Colors.transparent,
             elevation: 0,
             title: Text(
-              'Settings',
+              strings.settingsTitle,
               style: TextStyle(
                 color: theme.colorScheme.onSurface,
                 fontWeight: FontWeight.bold,
@@ -426,6 +440,34 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
                       // Switched category widgets
                       switch (_category) {
+                        _SettingsCategory.general => _SettingsGroup(
+                          title: strings.settingsTitle,
+                          children: [
+                            _SettingsListRow(
+                              title: strings.languageTitle,
+                              subtitle: language == AppLanguage.system
+                                  ? strings.systemDefault
+                                  : language.nativeName,
+                              icon: LineIcons.language,
+                              onTap: () => showAppLanguagePicker(context, ref),
+                            ),
+                            Divider(
+                              height: 1,
+                              color: Colors.white.withOpacity(0.04),
+                              indent: 20,
+                              endIndent: 20,
+                            ),
+                            _SettingsSwitchRow(
+                              title: strings.calmInsightsTitle,
+                              subtitle: strings.calmInsightsSubtitle,
+                              icon: LineIcons.leaf,
+                              value: calmInsightsEnabled,
+                              onChanged: (value) => ref
+                                  .read(calmInsightsProvider.notifier)
+                                  .setEnabled(value),
+                            ),
+                          ],
+                        ),
                         _SettingsCategory.data => Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

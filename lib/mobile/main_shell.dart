@@ -5,6 +5,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:local_auth/local_auth.dart'
     show LocalAuthException, LocalAuthExceptionCode;
 
+import '../l10n/l10n.dart';
 import '../models/models.dart';
 import '../providers/providers.dart';
 import '../services/analytics_service.dart';
@@ -206,7 +207,7 @@ class WhatsNewScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 24),
                       Text(
-                        'A lighter Patterns, when you want it',
+                        context.l10n.whatsNewTitle,
                         style: TextStyle(
                           color: context.appColors.textPrimary,
                           fontFamily: AppTheme.displayFamily,
@@ -218,7 +219,7 @@ class WhatsNewScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 12),
                       Text(
-                        'Patterns 1.9 adds System, Light, and Dark appearance options, a calmer path to Pro, and stronger purchase reliability.',
+                        context.l10n.whatsNewBody,
                         style: TextStyle(
                           color: context.appColors.textSecondary,
                           fontSize: 15,
@@ -241,7 +242,7 @@ class WhatsNewScreen extends StatelessWidget {
                   onPressed: () {
                     onShowHome();
                   },
-                  child: Text('Explore Patterns 1.9'),
+                  child: Text(context.l10n.whatsNewExploreAction),
                 ),
               ),
               const SizedBox(height: 10),
@@ -251,12 +252,12 @@ class WhatsNewScreen extends StatelessWidget {
                   onPressed: () {
                     onContinue();
                   },
-                  child: Text('Continue to Patterns'),
+                  child: Text(context.l10n.continueToPatternsAction),
                 ),
               ),
               const SizedBox(height: 18),
               Text(
-                'Notifications are only used if you already opted in. You can change reminders any time in Settings.',
+                context.l10n.whatsNewNotificationNote,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: context.appColors.textSecondary,
@@ -275,31 +276,32 @@ class WhatsNewScreen extends StatelessWidget {
 class _WhatsNewFeatureList extends StatelessWidget {
   const _WhatsNewFeatureList();
 
-  static const _features = [
+  List<_WhatsNewFeature> _features(BuildContext context) => [
     _WhatsNewFeature(
       icon: LineIcons.checkCircle,
-      title: 'Light + dark appearance',
-      body: 'Follow your device or choose the theme that feels best.',
+      title: context.l10n.whatsNewLanguagesTitle,
+      body: context.l10n.whatsNewLanguagesBody,
     ),
     _WhatsNewFeature(
       icon: LineIcons.layerGroup,
-      title: 'A clearer path to Pro',
-      body: 'Discover advanced tools after they become relevant, never by popup.',
+      title: context.l10n.whatsNewPrivateTitle,
+      body: context.l10n.whatsNewPrivateBody,
     ),
     _WhatsNewFeature(
       icon: LineIcons.heart,
-      title: 'More reliable purchases',
-      body: 'Improved product loading, restore outcomes, and entitlement checks.',
+      title: context.l10n.whatsNewReportsTitle,
+      body: context.l10n.whatsNewReportsBody,
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
+    final features = _features(context);
     return Column(
       children: [
-        for (var i = 0; i < _features.length; i++) ...[
-          _WhatsNewFeatureTile(feature: _features[i]),
-          if (i != _features.length - 1) const SizedBox(height: 10),
+        for (var i = 0; i < features.length; i++) ...[
+          _WhatsNewFeatureTile(feature: features[i]),
+          if (i != features.length - 1) const SizedBox(height: 10),
         ],
       ],
     );
@@ -1168,24 +1170,35 @@ class _FloatingTabBar extends StatelessWidget {
     required this.onSelected,
   });
 
-  static const _items = [
-    _DockTabSpec(tab: _Tab.home, icon: LineIcons.home, label: 'Today'),
-    _DockTabSpec(tab: _Tab.journal, icon: LineIcons.bookOpen, label: 'Journal'),
-    _DockTabSpec(tab: _Tab.track, icon: LineIcons.bullseye, label: 'Track'),
-    _DockTabSpec(
-      tab: _Tab.erp,
-      icon: Icons.self_improvement_rounded,
-      label: 'Recovery',
-    ),
-    _DockTabSpec(
-      tab: _Tab.insights,
-      icon: LineIcons.barChart,
-      label: 'Insights',
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final items = [
+      _DockTabSpec(
+        tab: _Tab.home,
+        icon: LineIcons.home,
+        label: context.l10n.navToday,
+      ),
+      _DockTabSpec(
+        tab: _Tab.journal,
+        icon: LineIcons.bookOpen,
+        label: context.l10n.navJournal,
+      ),
+      _DockTabSpec(
+        tab: _Tab.track,
+        icon: LineIcons.bullseye,
+        label: context.l10n.navTrack,
+      ),
+      _DockTabSpec(
+        tab: _Tab.erp,
+        icon: Icons.self_improvement_rounded,
+        label: context.l10n.navRecovery,
+      ),
+      _DockTabSpec(
+        tab: _Tab.insights,
+        icon: LineIcons.barChart,
+        label: context.l10n.navInsights,
+      ),
+    ];
     return LiquidGlass(
       borderRadius: 28,
       tint: context.appColors.card,
@@ -1205,7 +1218,7 @@ class _FloatingTabBar extends StatelessWidget {
           borderRadius: BorderRadius.circular(28),
           child: Row(
             children: [
-              for (final item in _items)
+              for (final item in items)
                 _SegmentTabItem(
                   spec: item,
                   active: selectedTab == item.tab,

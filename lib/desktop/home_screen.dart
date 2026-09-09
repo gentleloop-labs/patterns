@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../app_preferences.dart';
+import '../l10n/l10n.dart';
 import '../models/models.dart';
 import '../providers/providers.dart';
 import '../services/analytics_service.dart';
@@ -37,6 +39,7 @@ class DesktopHomeScreen extends ConsumerWidget {
     final responses =
         ref.watch(responsePreventionProvider).asData?.value ?? const [];
     final surfs = ref.watch(urgeSurfProvider).asData?.value ?? const [];
+    final calmInsightsEnabled = ref.watch(calmInsightsProvider);
 
     final todayKey = DateFormat('yyyy-MM-dd').format(DateTime.now());
     final hasCheckedIn = journals.any((entry) => entry.date == todayKey);
@@ -56,6 +59,13 @@ class DesktopHomeScreen extends ConsumerWidget {
       exposureSteps: steps,
       responsePreventionLogs: responses,
       urgeSurfSessions: surfs,
+    );
+    final calmSummary = AnalyticsService.buildCalmInsights(
+      journals: journals,
+      ocds: ocds,
+      delaySessions: delays,
+      erpSessions: erp,
+      exposureSteps: steps,
     );
 
     final recentDelay = _latestDelay(delays);
@@ -200,7 +210,9 @@ class DesktopHomeScreen extends ConsumerWidget {
                               Row(
                                 children: [
                                   Text(
-                                    'Recovery score',
+                                    calmInsightsEnabled
+                                        ? context.l10n.calmRecentActivityTitle
+                                        : 'Recovery score',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,
@@ -226,7 +238,9 @@ class DesktopHomeScreen extends ConsumerWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        '${dashboard.recoveryScore}',
+                                        calmInsightsEnabled
+                                            ? '${calmSummary.totalCount}'
+                                            : '${dashboard.recoveryScore}',
                                         style: TextStyle(
                                           fontFamily: 'Manrope',
                                           fontSize: 54,
@@ -235,28 +249,35 @@ class DesktopHomeScreen extends ConsumerWidget {
                                         ),
                                       ),
                                       const SizedBox(height: 8),
-                                      const Text(
-                                        'Great progress',
+                                      Text(
+                                        calmInsightsEnabled
+                                            ? 'activities in the last 7 days'
+                                            : 'Great progress',
                                         style: TextStyle(
-                                          color: Color(0xFF34C759),
+                                          color: calmInsightsEnabled
+                                              ? theme.colorScheme.onSurface
+                                                    .withOpacity(0.55)
+                                              : const Color(0xFF34C759),
                                           fontWeight: FontWeight.bold,
                                           fontSize: 13,
                                         ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(width: 24),
-                                  Expanded(
-                                    child: Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: CustomPaint(
-                                        size: const Size(160, 60),
-                                        painter: _WavyLinePainter(
-                                          color: theme.colorScheme.primary,
+                                  if (!calmInsightsEnabled) ...[
+                                    const SizedBox(width: 24),
+                                    Expanded(
+                                      child: Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: CustomPaint(
+                                          size: const Size(160, 60),
+                                          painter: _WavyLinePainter(
+                                            color: theme.colorScheme.primary,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  ],
                                 ],
                               ),
                             ],
@@ -318,7 +339,9 @@ class DesktopHomeScreen extends ConsumerWidget {
                               Row(
                                 children: [
                                   Text(
-                                    'Practice streak',
+                                    calmInsightsEnabled
+                                        ? 'Practices recorded'
+                                        : 'Practice streak',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,
@@ -341,7 +364,9 @@ class DesktopHomeScreen extends ConsumerWidget {
                                 textBaseline: TextBaseline.alphabetic,
                                 children: [
                                   Text(
-                                    '${metrics.practiceStreakDays}',
+                                    calmInsightsEnabled
+                                        ? '${calmSummary.delayCount + calmSummary.erpPracticeCount + calmSummary.exposureCount}'
+                                        : '${metrics.practiceStreakDays}',
                                     style: TextStyle(
                                       fontFamily: 'Manrope',
                                       fontSize: 54,
@@ -351,7 +376,7 @@ class DesktopHomeScreen extends ConsumerWidget {
                                   ),
                                   const SizedBox(width: 6),
                                   Text(
-                                    'days',
+                                    calmInsightsEnabled ? 'sessions' : 'days',
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: theme.colorScheme.onSurface
@@ -360,53 +385,55 @@ class DesktopHomeScreen extends ConsumerWidget {
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 16),
+                              if (!calmInsightsEnabled)
+                                const SizedBox(height: 16),
 
                               // Weekday Check-in Row
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  for (final (dayLabel, active) in last7Days)
-                                    Column(
-                                      children: [
-                                        Container(
-                                          width: 32,
-                                          height: 32,
-                                          decoration: BoxDecoration(
-                                            color: active
-                                                ? theme.colorScheme.primary
-                                                : Colors.transparent,
-                                            shape: BoxShape.circle,
-                                            border: active
-                                                ? null
-                                                : Border.all(
-                                                    color: theme.dividerColor,
-                                                    width: 1.5,
-                                                  ),
+                              if (!calmInsightsEnabled)
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    for (final (dayLabel, active) in last7Days)
+                                      Column(
+                                        children: [
+                                          Container(
+                                            width: 32,
+                                            height: 32,
+                                            decoration: BoxDecoration(
+                                              color: active
+                                                  ? theme.colorScheme.primary
+                                                  : Colors.transparent,
+                                              shape: BoxShape.circle,
+                                              border: active
+                                                  ? null
+                                                  : Border.all(
+                                                      color: theme.dividerColor,
+                                                      width: 1.5,
+                                                    ),
+                                            ),
+                                            child: Icon(
+                                              Icons.check,
+                                              size: 16,
+                                              color: active
+                                                  ? Colors.black
+                                                  : theme.dividerColor,
+                                            ),
                                           ),
-                                          child: Icon(
-                                            Icons.check,
-                                            size: 16,
-                                            color: active
-                                                ? Colors.black
-                                                : theme.dividerColor,
+                                          const SizedBox(height: 6),
+                                          Text(
+                                            dayLabel,
+                                            style: TextStyle(
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.bold,
+                                              color: theme.colorScheme.onSurface
+                                                  .withOpacity(0.55),
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(height: 6),
-                                        Text(
-                                          dayLabel,
-                                          style: TextStyle(
-                                            fontSize: 11,
-                                            fontWeight: FontWeight.bold,
-                                            color: theme.colorScheme.onSurface
-                                                .withOpacity(0.55),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                ],
-                              ),
+                                        ],
+                                      ),
+                                  ],
+                                ),
                             ],
                           ),
                         ),

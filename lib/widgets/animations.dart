@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class AppMotion {
   static const fast = Duration(milliseconds: 160);
@@ -222,23 +223,30 @@ class AnimatedCounter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localeName = Localizations.localeOf(context).toLanguageTag();
+    final formatter = NumberFormat.decimalPatternDigits(
+      locale: localeName,
+      decimalDigits: fractionDigits,
+    );
+    final finalValue = '$prefix${formatter.format(value)}$suffix';
     if (motionDisabled(context)) {
-      final formatted = fractionDigits == 0
-          ? value.round().toString()
-          : value.toDouble().toStringAsFixed(fractionDigits);
-      return Text('$prefix$formatted$suffix', style: style);
+      return Semantics(
+        label: finalValue,
+        excludeSemantics: true,
+        child: Text(finalValue, style: style),
+      );
     }
 
-    return TweenAnimationBuilder<double>(
-      tween: Tween<double>(begin: 0, end: value.toDouble()),
-      duration: duration,
-      curve: curve,
-      builder: (context, v, _) {
-        final formatted = fractionDigits == 0
-            ? v.round().toString()
-            : v.toStringAsFixed(fractionDigits);
-        return Text('$prefix$formatted$suffix', style: style);
-      },
+    return Semantics(
+      label: finalValue,
+      excludeSemantics: true,
+      child: TweenAnimationBuilder<double>(
+        tween: Tween<double>(begin: 0, end: value.toDouble()),
+        duration: duration,
+        curve: curve,
+        builder: (context, v, _) =>
+            Text('$prefix${formatter.format(v)}$suffix', style: style),
+      ),
     );
   }
 }

@@ -21,11 +21,14 @@ import '../../services/pro_entry_point.dart';
 import '../../services/review_prompt.dart';
 import '../../services/tip_jar.dart';
 import '../../services/usage_analytics.dart';
+import '../../l10n/l10n.dart';
+import '../../l10n/app_language.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
 import '../../widgets/export_report_sheet.dart';
+import '../../widgets/language_picker.dart';
 import '../../widgets/paywall_sheet.dart';
 import '../../widgets/platform.dart';
 import '../../widgets/tip_jar_sheet.dart';
@@ -44,6 +47,9 @@ class SettingsScreen extends ConsumerWidget {
     final reminder = ref.watch(reminderProvider);
     final usageAnalyticsEnabled = ref.watch(usageAnalyticsEnabledProvider);
     final appearance = ref.watch(appearanceProvider);
+    final language = ref.watch(languageProvider);
+    final calmInsightsEnabled = ref.watch(calmInsightsProvider);
+    final strings = context.l10n;
 
     return Scaffold(
       body: SafeArea(
@@ -56,12 +62,17 @@ class SettingsScreen extends ConsumerWidget {
                   onPressed: () => Navigator.pop(context),
                   icon: const Icon(LineIcons.angleLeft),
                 ),
-                Expanded(child: Text('Settings', style: _screenTitle(theme))),
+                Expanded(
+                  child: Text(
+                    strings.settingsTitle,
+                    style: _screenTitle(theme),
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 22),
             Text(
-              'Appearance',
+              strings.appearanceTitle,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
@@ -71,6 +82,24 @@ class SettingsScreen extends ConsumerWidget {
               value: appearance,
               onChanged: (value) =>
                   ref.read(appearanceProvider.notifier).setAppearance(value),
+            ),
+            const SizedBox(height: 12),
+            _SettingsItem(
+              icon: LineIcons.language,
+              title: strings.languageTitle,
+              subtitle: language == AppLanguage.system
+                  ? strings.systemDefault
+                  : language.nativeName,
+              onTap: () => showAppLanguagePicker(context, ref),
+            ),
+            const SizedBox(height: 10),
+            _SettingsSwitchItem(
+              icon: LineIcons.leaf,
+              title: strings.calmInsightsTitle,
+              subtitle: strings.calmInsightsSubtitle,
+              value: calmInsightsEnabled,
+              onChanged: (value) =>
+                  ref.read(calmInsightsProvider.notifier).setEnabled(value),
             ),
             const SizedBox(height: 28),
             Text(
@@ -792,6 +821,7 @@ class SettingsScreen extends ConsumerWidget {
     final settings = ref.read(reminderProvider);
     await NotificationService.scheduleDailyReminder(
       TimeOfDay(hour: settings.hour, minute: settings.minute),
+      strings: context.l10n,
     );
     await ref.read(reminderProvider.notifier).setEnabled(true);
     if (context.mounted) _showMessage(context, 'Daily reminder is on');
@@ -808,7 +838,10 @@ class SettingsScreen extends ConsumerWidget {
         .read(reminderProvider.notifier)
         .setTime(picked.hour, picked.minute);
     if (ref.read(reminderProvider).enabled) {
-      await NotificationService.scheduleDailyReminder(picked);
+      await NotificationService.scheduleDailyReminder(
+        picked,
+        strings: context.l10n,
+      );
       if (context.mounted) {
         _showMessage(context, 'Reminder set for ${picked.format(context)}');
       }
@@ -816,6 +849,7 @@ class SettingsScreen extends ConsumerWidget {
   }
 
   void _showPrivacySheet(BuildContext context) {
+    final strings = context.l10n;
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
@@ -826,14 +860,14 @@ class SettingsScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Privacy & safety',
+              strings.privacySafetyTitle,
               style: Theme.of(
                 context,
               ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
             ),
             const SizedBox(height: 12),
             Text(
-              'Patterns stores journal entries, OCD events, distress ratings, and reflections on this device. Manual export creates an unencrypted JSON backup or PDF report wherever you choose to save it.',
+              strings.privacyLocalContent,
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.45,
@@ -841,7 +875,7 @@ class SettingsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              'If you enable anonymous usage analytics, Patterns sends only named feature-use events, a random installation ID, platform, app version, and event time to our first-party service. Journal entries, exposures, compulsions, recovery notes, and other personal OCD data are never included. Uploaded events expire within 90 days. Turning analytics off clears pending events and the local analytics ID.',
+              strings.privacyPurchases,
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.45,
@@ -849,7 +883,23 @@ class SettingsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              'Patterns is for personal reflection and self-tracking. It does not diagnose, treat, or replace care from a qualified clinician.',
+              strings.privacyExports,
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.45,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              strings.privacyAnalytics,
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.45,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              strings.privacyClinicalBoundary,
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.45,
@@ -863,7 +913,7 @@ class SettingsScreen extends ConsumerWidget {
                   Uri.parse('https://patternsocd.com/privacy'),
                   mode: LaunchMode.externalApplication,
                 ),
-                child: const Text('View full Privacy Policy'),
+                child: Text(strings.viewPrivacyPolicyAction),
               ),
             ),
           ],
@@ -1015,21 +1065,21 @@ class _AppearancePicker extends StatelessWidget {
       padding: const EdgeInsets.all(6),
       decoration: _softDecoration(theme, radius: 22),
       child: SegmentedButton<AppAppearance>(
-        segments: const [
+        segments: [
           ButtonSegment(
             value: AppAppearance.system,
-            icon: Icon(LineIcons.adjust),
-            label: Text('System'),
+            icon: const Icon(LineIcons.adjust),
+            label: Text(context.l10n.appearanceSystem),
           ),
           ButtonSegment(
             value: AppAppearance.light,
-            icon: Icon(LineIcons.sun),
-            label: Text('Light'),
+            icon: const Icon(LineIcons.sun),
+            label: Text(context.l10n.appearanceLight),
           ),
           ButtonSegment(
             value: AppAppearance.dark,
-            icon: Icon(LineIcons.moon),
-            label: Text('Dark'),
+            icon: const Icon(LineIcons.moon),
+            label: Text(context.l10n.appearanceDark),
           ),
         ],
         selected: {value},

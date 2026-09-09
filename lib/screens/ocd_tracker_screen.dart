@@ -6,6 +6,7 @@ import '../models/models.dart';
 import '../providers/providers.dart';
 import '../theme/app_theme.dart';
 import '../widgets/app_snack_bar.dart';
+import '../widgets/activity_completion.dart';
 import '../widgets/window_controls.dart';
 
 class OcdTrackerScreen extends ConsumerStatefulWidget {
@@ -857,12 +858,13 @@ class _OcdEntryDialogState extends ConsumerState<OcdEntryDialog> {
                     );
                     await ref.read(ocdProvider.notifier).addEntry(entry);
                     if (mounted) {
-                      showAppSnackBar(
+                      await showQuietCompletion(
                         context,
-                        'Event saved',
-                        type: ToastType.success,
+                        const ActivityCompletionResult(
+                          ActivityCompletionKind.trackedMoment,
+                        ),
                       );
-                      Navigator.pop(context);
+                      if (mounted) Navigator.pop(context);
                     }
                   },
                   child: const Text('Save Entry'),

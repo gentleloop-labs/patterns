@@ -10,6 +10,7 @@ import '../../services/review_prompt.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
+import '../../widgets/activity_completion.dart';
 import '../../widgets/app_snack_bar.dart';
 import '../first_run.dart';
 
@@ -305,12 +306,14 @@ class _OcdEventFlowState extends ConsumerState<OcdEventFlow> {
       return;
     }
     if (mounted) {
-      showAppSnackBar(
+      await showQuietCompletion(
         context,
-        _isEditing ? 'Event updated' : 'Event saved',
-        type: ToastType.success,
+        ActivityCompletionResult(
+          ActivityCompletionKind.trackedMoment,
+          updated: _isEditing,
+        ),
       );
-      Navigator.pop(context);
+      if (mounted) Navigator.pop(context);
     }
   }
 }

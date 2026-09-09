@@ -7,10 +7,13 @@ import 'package:flutter_quill/flutter_quill.dart'
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 import 'app_preferences.dart';
 import 'desktop/onboarding.dart';
 import 'desktop/shell.dart';
+import 'l10n/app_language.dart';
+import 'l10n/app_localizations.dart';
 import 'mobile/main_shell.dart';
 import 'services/app_events.dart';
 import 'services/notification_service.dart';
@@ -36,6 +39,16 @@ void main() async {
   GoogleFonts.config.allowRuntimeFetching = false;
 
   await initAppPreferences();
+  final startupLanguage =
+      AppLanguage.fromPreference(
+        appPreferences?.getString(languagePreferenceKey),
+      ) ??
+      AppLanguage.english;
+  final startupLocale = resolveEffectiveLocale(
+    startupLanguage,
+    WidgetsBinding.instance.platformDispatcher.locales,
+  );
+  final startupStrings = await AppLocalizations.delegate.load(startupLocale);
   await initUsageAnalytics();
   // Order matters: recordSessionStart anchors the install day, and first_open
   // must be attributable to that same first session.
@@ -44,7 +57,7 @@ void main() async {
 
   if (!kIsDesktop) {
     await ReviewPromptService.recordSessionStart();
-    await NotificationService.init();
+    await NotificationService.init(strings: startupStrings);
     // Re-arm the saved reminder so it survives app updates and reinstalls of
     // the schedule (the OS clears pending notifications on app upgrade).
     if (appPreferences?.getBool(reminderEnabledKey) ?? false) {
@@ -57,6 +70,7 @@ void main() async {
               appPreferences?.getInt(reminderMinuteKey) ??
               NotificationService.defaultMinute,
         ),
+        strings: startupStrings,
       );
     }
     final hasStarted = appPreferences?.getBool(hasStartedKey) ?? false;
@@ -73,6 +87,7 @@ void main() async {
         canUseExistingReminderPermission) {
       await NotificationService.scheduleUpdateAnnouncement(
         DateTime.now().add(const Duration(hours: 6)),
+        strings: startupStrings,
       );
       await appPreferences?.setString(
         releaseAnnouncementScheduledKey,
@@ -82,7 +97,7 @@ void main() async {
   } else {
     // Desktop: notifications (macOS) + review session for later settings/polish.
     await ReviewPromptService.recordSessionStart();
-    await NotificationService.init();
+    await NotificationService.init(strings: startupStrings);
     if (appPreferences?.getBool(reminderEnabledKey) ?? false) {
       await NotificationService.scheduleDailyReminder(
         TimeOfDay(
@@ -93,6 +108,7 @@ void main() async {
               appPreferences?.getInt(reminderMinuteKey) ??
               NotificationService.defaultMinute,
         ),
+        strings: startupStrings,
       );
     }
   }
@@ -109,30 +125,42 @@ class PatternsApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appearance = ref.watch(appearanceProvider);
+    final language = ref.watch(languageProvider);
     final mobileThemeMode = switch (appearance) {
       AppAppearance.system => ThemeMode.system,
       AppAppearance.light => ThemeMode.light,
       AppAppearance.dark => ThemeMode.dark,
     };
     return MaterialApp(
-      title: 'Patterns',
+      onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
       debugShowCheckedModeBanner: false,
       theme: kIsDesktop ? AppTheme.darkTheme : AppTheme.mobileLightTheme,
       darkTheme: kIsDesktop ? AppTheme.darkTheme : AppTheme.mobileDarkTheme,
       themeMode: kIsDesktop ? ThemeMode.dark : mobileThemeMode,
       scaffoldMessengerKey: rootScaffoldMessengerKey,
       localizationsDelegates: const [
+        AppLocalizations.delegate,
         FlutterQuillLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
+      supportedLocales: enabledAppLocales,
+      locale: localeOverrideForBuild(language),
+      localeListResolutionCallback: (preferredLocales, supportedLocales) =>
+          localeOverrideForBuild(language) ??
+          resolveSystemLocale(preferredLocales),
       navigatorKey: kIsDesktop
           ? desktopRootNavigatorKey
           : mobileRootNavigatorKey,
-      builder: kIsDesktop
-          ? null
-          : (context, child) => MobileAppFrame(child: child),
+      builder: (context, child) {
+        // Existing DateFormat/NumberFormat call sites that do not pass a
+        // locale still follow language changes, including system changes.
+        Intl.defaultLocale = Localizations.localeOf(context).toLanguageTag();
+        return kIsDesktop
+            ? child ?? const SizedBox.shrink()
+            : MobileAppFrame(child: child);
+      },
       home: kIsDesktop ? const DesktopRoot() : const MobileShell(),
     );
   }

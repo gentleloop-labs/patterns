@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:patterns/content/ybocs_content.dart';
+import 'package:patterns/l10n/app_localizations.dart';
 import 'package:patterns/models/export_report_options.dart';
 import 'package:patterns/models/models.dart';
 import 'package:patterns/services/analytics_service.dart';
@@ -227,6 +229,39 @@ void main() {
               compulsions: 6,
             ),
           ],
+          locale: const Locale('en'),
+          strings: lookupAppLocalizations(const Locale('en')),
+        );
+
+        expect(bytes, isNotEmpty);
+      },
+    );
+
+    test(
+      'renders Japanese interface and user content with bundled fallback',
+      () async {
+        const locale = Locale('ja');
+        final now = DateTime(2026, 9, 8);
+        final bytes = await PdfReportService.generate(
+          options: const ExportReportOptions(
+            range: AnalyticsDateRange.allTime,
+            sections: ExportSections(
+              ocd: false,
+              analytics: false,
+              ybocs: false,
+            ),
+          ),
+          journals: [
+            JournalEntry(
+              date: '2026-09-08',
+              content: '今日は不安があったけれど、少し待てました。',
+              createdAt: now,
+              updatedAt: now,
+            ),
+          ],
+          ocds: const [],
+          locale: locale,
+          strings: lookupAppLocalizations(locale),
         );
 
         expect(bytes, isNotEmpty);

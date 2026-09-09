@@ -12,12 +12,13 @@ import '../widgets/desktop_chrome.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../services/notification_service.dart';
+import '../../l10n/l10n.dart';
 import '../../services/review_prompt.dart';
 import '../../services/app_events.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
-import '../shell.dart' show desktopRootNavigatorKey;
+import '../../widgets/activity_completion.dart';
 import '../../widgets/section_intro.dart';
 
 enum _PracticePhase { setup, countdown, reflection }
@@ -699,8 +700,9 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
           await NotificationService.schedulePracticeTimerCompletion(
             id: NotificationService.erpTimerNotificationId,
             endsAt: endsAt,
-            title: 'ERP practice window complete',
-            body: 'Take a moment to reflect on what happened.',
+            title: context.l10n.erpWindowCompleteTitle,
+            body: context.l10n.erpWindowCompleteBody,
+            strings: context.l10n,
           );
       if (mounted) _completionNotificationScheduled = scheduled;
     }());
@@ -793,17 +795,11 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
     AppEvents.logFirstExposureCompleted(ranToCompletion: _completed);
     await ReviewPromptService.recordErpPracticeCompleted();
     if (!mounted) return;
-    Navigator.pop(context);
-    showAppSnackBar(context, 'ERP practice logged.', type: ToastType.success);
-    if (_completed) _requestReviewFromRoot(ReviewTrigger.erpCompleted);
-  }
-
-  void _requestReviewFromRoot(ReviewTrigger trigger) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final rootContext = desktopRootNavigatorKey.currentContext;
-      if (rootContext == null) return;
-      ReviewPromptService.maybeRequestReview(rootContext, trigger: trigger);
-    });
+    await showQuietCompletion(
+      context,
+      const ActivityCompletionResult(ActivityCompletionKind.erp),
+    );
+    if (mounted) Navigator.pop(context);
   }
 
   @override
@@ -895,29 +891,37 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
                   builder: (context, _) {
                     final total = _timer.duration ?? Duration.zero;
                     final remaining = total * (1 - _timer.value);
+                    final displayTime = _formatDuration(remaining);
                     return Center(
-                      child: _ProgressRing(
-                        progress: _timer.value,
-                        trackColor: theme.dividerColor.withValues(alpha: 0.45),
-                        progressColor: theme.colorScheme.primary,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              _formatDuration(remaining),
-                              style: TextStyle(
-                                fontFamily: AppTheme.displayFamily,
-                                fontSize: 52,
-                                fontWeight: FontWeight.w700,
-                                color: theme.colorScheme.onSurface,
+                      child: Semantics(
+                        liveRegion: remaining.inSeconds == 0,
+                        label: context.l10n.timerRemaining(displayTime),
+                        excludeSemantics: true,
+                        child: _ProgressRing(
+                          progress: _timer.value,
+                          trackColor: theme.dividerColor.withValues(
+                            alpha: 0.45,
+                          ),
+                          progressColor: theme.colorScheme.primary,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                displayTime,
+                                style: TextStyle(
+                                  fontFamily: AppTheme.displayFamily,
+                                  fontSize: 52,
+                                  fontWeight: FontWeight.w700,
+                                  color: theme.colorScheme.onSurface,
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              'Practice without',
-                              style: TextStyle(color: AppTheme.textSecondary),
-                            ),
-                          ],
+                              const SizedBox(height: 8),
+                              Text(
+                                'Practice without',
+                                style: TextStyle(color: AppTheme.textSecondary),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );

@@ -1,0 +1,6 @@
+"CFBundleDisplayName" = "Patterns";
+"NSCameraUsageDescription" = "Patterns peut demander l’accès à l’appareil photo uniquement si le sélecteur de fichiers du système le propose lorsque vous joignez du matériel d’exposition. Les fichiers capturés restent sur votre appareil.";
+"NSFaceIDUsageDescription" = "Patterns utilise Face ID pour déverrouiller votre journal privé et vos données de suivi de l’OCD lorsque le verrouillage de l’application est activé.";
+"NSLocationWhenInUseUsageDescription" = "Patterns n’utilise pas votre position à des fins de suivi. Ce texte est inclus, car Apple peut détecter des API de localisation dans le sélecteur de fichiers du système ou les bibliothèques de la plateforme.";
+"NSMicrophoneUsageDescription" = "Patterns utilise le microphone uniquement lorsque vous enregistrez un audio en boucle pour vos exercices d’exposition. Les enregistrements restent sur votre appareil.";
+"NSPhotoLibraryUsageDescription" = "Patterns peut demander l’accès à la photothèque uniquement lorsque le sélecteur de fichiers du système la propose pendant l’importation ou l’exportation d’une sauvegarde.";
