@@ -12,11 +12,46 @@
   "calmInsightsSubtitle": "Blendet Serien und berechnete Werte aus. Ihre erfassten Daten bleiben verfügbar.",
   "calmRecentActivityTitle": "Ihre letzten Aktivitäten",
   "calmNoRecentActivity": "In den letzten 7 Tagen wurde nichts erfasst. Dieser Bereich ist bereit, wenn Sie ihn brauchen.",
-  "calmJournalActivity": "{count, plural, =1{1 Tagebucheintrag} other{{count} Tagebucheinträge}}", "@calmJournalActivity": {"placeholders": {"count": {"type": "int"}}},
-  "calmTrackedActivity": "{count, plural, =1{1 erfasster Moment} other{{count} erfasste Momente}}", "@calmTrackedActivity": {"placeholders": {"count": {"type": "int"}}},
-  "calmDelayActivity": "{count, plural, =1{1 aufgeschobene Zwangshandlung} other{{count} aufgeschobene Zwangshandlungen}}", "@calmDelayActivity": {"placeholders": {"count": {"type": "int"}}},
-  "calmErpActivity": "{count, plural, =1{1 ERP-Übung} other{{count} ERP-Übungen}}", "@calmErpActivity": {"placeholders": {"count": {"type": "int"}}},
-  "calmExposureActivity": "{count, plural, =1{1 abgeschlossene Exposition} other{{count} abgeschlossene Expositionen}}", "@calmExposureActivity": {"placeholders": {"count": {"type": "int"}}},
+  "calmJournalActivity": "{count, plural, =1{1 Tagebucheintrag} other{{count} Tagebucheinträge}}",
+  "@calmJournalActivity": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "calmTrackedActivity": "{count, plural, =1{1 erfasster Moment} other{{count} erfasste Momente}}",
+  "@calmTrackedActivity": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "calmDelayActivity": "{count, plural, =1{1 aufgeschobene Zwangshandlung} other{{count} aufgeschobene Zwangshandlungen}}",
+  "@calmDelayActivity": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "calmErpActivity": "{count, plural, =1{1 ERP-Übung} other{{count} ERP-Übungen}}",
+  "@calmErpActivity": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "calmExposureActivity": "{count, plural, =1{1 abgeschlossene Exposition} other{{count} abgeschlossene Expositionen}}",
+  "@calmExposureActivity": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "recoveryMetricsTitle": "Genesungsaktivität",
   "recoveryMetricsTeaserTitle": "Ihre Genesungsaktivität im Überblick",
   "recoveryMetricsCalmTeaserBody": "Sehen Sie Expositionen, Übungseinheiten und erfasste Veränderungen des Drangs aus Ihren ERP-Werkzeugen. Mit Patterns Pro freischalten.",
@@ -29,11 +64,25 @@
   "recoveryMetricsSessionsPracticed": "Einheiten geübt",
   "recoveryMetricsAverageUrgeDrop": "Durchschnittliche erfasste Drangänderung",
   "recoveryMetricsThisWeek": "Diese Woche",
-  "recoveryMetricsDayStreak": "{days, plural, =1{1 Tag Serie} other{{days} Tage Serie}}", "@recoveryMetricsDayStreak": {"placeholders": {"days": {"type": "int"}}},
+  "recoveryMetricsDayStreak": "{days, plural, =1{1 Tag Serie} other{{days} Tage Serie}}",
+  "@recoveryMetricsDayStreak": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
   "systemDefault": "Systemstandard",
   "cancelAction": "Abbrechen",
   "doneAction": "Fertig",
-  "doneForNowAction": "Für jetzt fertig", "completionSavedTitle": "Gespeichert", "completionPracticeTitle": "Übung erfasst", "completionJournalBody": "Ihr Tagebucheintrag wurde auf diesem Gerät gespeichert.", "completionTrackedBody": "Der erfasste Moment wurde auf diesem Gerät gespeichert.", "completionTrackedUpdatedBody": "Der erfasste Moment wurde aktualisiert.", "completionDelayBody": "Ihre Übung zum Aufschieben einer Zwangshandlung wurde erfasst.", "completionErpBody": "Ihre ERP-Übung wurde erfasst.",
+  "doneForNowAction": "Für jetzt fertig",
+  "completionSavedTitle": "Gespeichert",
+  "completionPracticeTitle": "Übung erfasst",
+  "completionJournalBody": "Ihr Tagebucheintrag wurde auf diesem Gerät gespeichert.",
+  "completionTrackedBody": "Der erfasste Moment wurde auf diesem Gerät gespeichert.",
+  "completionTrackedUpdatedBody": "Der erfasste Moment wurde aktualisiert.",
+  "completionDelayBody": "Ihre Übung zum Aufschieben einer Zwangshandlung wurde erfasst.",
+  "completionErpBody": "Ihre ERP-Übung wurde erfasst.",
   "notificationOpenAction": "Mitteilung öffnen",
   "dailyReminderChannelName": "Tägliche Erinnerung",
   "dailyReminderChannelDescription": "Eine sanfte tägliche Erinnerung für einen Moment mit Patterns.",
@@ -49,16 +98,350 @@
   "practiceWindowCompleteBody": "Nehmen Sie sich einen Moment, um wahrzunehmen, was geschehen ist.",
   "erpWindowCompleteTitle": "ERP-Übungszeit beendet",
   "erpWindowCompleteBody": "Nehmen Sie sich einen Moment, um über das Geschehene nachzudenken.",
-  "navToday": "Heute", "navHome": "Start", "navJournal": "Tagebuch", "navTrack": "Erfassen", "navTracker": "Tracker", "navRecovery": "Genesung", "navInsights": "Einblicke", "navSettings": "Einstellungen",
-  "exportReportTitle": "Bericht exportieren", "exportReportDescription": "Speichern Sie ein gemeinsames PDF aus Tagebuch, OCD-Protokoll und Einblicken. Sie entscheiden, wo Sie es speichern und ob Sie es teilen.", "exportTimeWindow": "Zeitraum", "exportStart": "Start", "exportEnd": "Ende", "exportIncludeSections": "Abschnitte einschließen", "exportAnalyticsSummary": "Analyseübersicht", "exportJournalEntries": "Tagebucheinträge", "exportOcdEvents": "OCD-Ereignisse", "exportYbocsSelfChecks": "Y-BOCS-Selbstchecks",
-  "exportEntrySummary": "{total, plural, =0{Keine Einträge} =1{1 Eintrag} other{{total} Einträge}} in diesem Zeitraum ({journal} Tagebuch, {ocd} OCD, {selfChecks} Selbstchecks)", "@exportEntrySummary": {"placeholders": {"total": {"type": "int"}, "journal": {"type": "int"}, "ocd": {"type": "int"}, "selfChecks": {"type": "int"}}},
-  "exportLargeReport": "Dieser Bericht ist groß und die Erstellung kann einen Moment dauern.", "exportPrivacyWarning": "Dadurch entsteht ein unverschlüsseltes PDF. Speichern Sie es an einem privaten Ort.", "exportSavePdf": "PDF speichern", "exportSelectSectionError": "Wählen Sie mindestens einen Abschnitt für den Export.", "exportNoEntriesError": "Keine Einträge entsprechen diesem Zeitraum und dieser Auswahl.", "exportReportSaved": "Bericht gespeichert", "exportReportFailed": "Bericht konnte nicht erstellt werden",
-  "rangeSevenDays": "7 T", "rangeThirtyDays": "30 T", "rangeNinetyDays": "90 T", "rangeYear": "Jahr", "rangeAll": "Alle", "rangeCustom": "Benutzerdefiniert", "rangeLastSevenDays": "Letzte 7 Tage", "rangeLastThirtyDays": "Letzte 30 Tage", "rangeLastNinetyDays": "Letzte 90 Tage", "rangeLastYear": "Letztes Jahr", "rangeAllTime": "Gesamter Zeitraum",
-  "pdfPersonalReport": "Persönlicher Bericht", "pdfGenerated": "Erstellt am {date}", "@pdfGenerated": {"placeholders": {"date": {"type": "String"}}}, "pdfDisclaimer": "Dieser Bericht enthält persönliche Notizen, die in Patterns zur Selbstreflexion erstellt wurden. Er ist keine medizinische Beratung und ersetzt keine Behandlung durch qualifiziertes Fachpersonal.", "pdfJournalCount": "Tagebucheinträge", "pdfOcdCount": "OCD-Ereignisse", "pdfAverageDistress": "Durchschnittliche Belastung", "pdfObsessions": "Obsessionen", "pdfCompulsions": "Zwänge", "pdfNoJournalEntries": "Keine Tagebucheinträge in diesem Zeitraum.", "pdfNoOcdEvents": "Keine OCD-Ereignisse in diesem Zeitraum.", "pdfObsession": "Obsession", "pdfCompulsion": "Zwang", "pdfDistressScore": "Belastung {score}/10", "@pdfDistressScore": {"placeholders": {"score": {"type": "int"}}}, "pdfThought": "Gedanke", "pdfUrge": "Drang", "pdfResponse": "Reaktion: {text}", "@pdfResponse": {"placeholders": {"text": {"type": "String"}}}, "pdfActionTaken": "Ergriffene Handlung: {text}", "@pdfActionTaken": {"placeholders": {"text": {"type": "String"}}},
-  "pdfYbocsDescription": "Yale-Brown Obsessive Compulsive Scale, in der App selbst eingeschätzt. Die Gesamtpunktzahl beträgt 40; Obsessionen und Zwänge jeweils 20.", "pdfMostRecentTotal": "Neueste Gesamtpunktzahl", "pdfTakenOn": "Erfasst am", "pdfObsessionsSubtotal": "Zwischensumme Obsessionen", "pdfCompulsionsSubtotal": "Zwischensumme Zwänge", "pdfChangeAcrossRange": "Veränderung im Zeitraum", "pdfSelfChecksInRange": "Selbstchecks im Zeitraum", "pdfThemesFlagged": "Markierte Themen", "pdfSingleSelfCheck": "Ein Selbstcheck in diesem Zeitraum", "pdfChangeSince": "{change} seit {date}", "@pdfChangeSince": {"placeholders": {"change": {"type": "String"}, "date": {"type": "String"}}}, "pdfDate": "Datum", "pdfTotal": "Gesamt", "pdfBand": "Bereich", "severitySubclinical": "Subklinisch", "severityMild": "Leicht", "severityModerate": "Mittelgradig", "severitySevere": "Schwer", "severityExtreme": "Extrem",
-  "backAction": "Zurück", "onboardingSafetyFootnote": "Datenschutz ist eingebaut. Keine Diagnose und kein Ersatz für professionelle Hilfe.", "onboardingHeadline": "Ein ruhiger Ort zum Üben mit OCD.", "onboardingIntroduction": "Halten Sie den aufdringlichen Gedanken fest, verzögern Sie den Zwang und üben Sie Schritt für Schritt eine andere Reaktion.", "onboardingPrivacy": "Ihre OCD-Daten bleiben auf diesem Gerät. Kein Konto. Keine Cloud-Synchronisierung.", "getStartedAction": "Loslegen", "importExistingDataAction": "Vorhandene Daten importieren", "onboardingQuestion": "Was würde Ihnen gerade helfen?", "onboardingPickOne": "Wählen Sie eine Option. Alles andere können Sie später ausprobieren.", "onboardingUrgeTitle": "Ich kämpfe gerade mit einem Drang", "onboardingUrgeSubtitle": "Schaffen Sie etwas Abstand zwischen Drang und Ritual.", "onboardingJournalTitle": "Ich möchte etwas aufschreiben", "onboardingJournalSubtitle": "Bringen Sie den Gedanken aus dem Kopf aufs Papier.", "onboardingErpTitle": "Ich möchte üben, einen Zwang nicht auszuführen", "onboardingErpSubtitle": "Eine kurze, geführte Exposition.", "onboardingSelfCheckTitle": "Ich möchte sehen, wo mein OCD gerade steht", "onboardingSelfCheckSubtitle": "Der Y-BOCS-Selbstcheck. Etwa 10 Minuten.", "onboardingExploreTitle": "Ich sehe mich nur um", "onboardingExploreSubtitle": "Schauen Sie sich zunächst in Ruhe um.",
-  "whatsNewTitle": "Üben ohne Druck", "whatsNewBody": "Patterns 1.10 bietet ruhigere Einblicke, sanftere Abschlüsse, bessere Barrierefreiheit und eine optionale Sprachauswahl.", "whatsNewLanguagesTitle": "Ruhige Einblicke", "whatsNewLanguagesBody": "Wählen Sie sachliche Aktivitätsübersichten statt berechneter Punktzahlen, Serien und Konsistenzwerte.", "whatsNewPrivateTitle": "Ein klarer Abschluss", "whatsNewPrivateBody": "Tagebuch-, Tracking-, Aufschub- und ERP-Sitzungen enden jetzt mit einer sachlichen Bestätigung und „Für jetzt fertig“.", "whatsNewReportsTitle": "Barriereärmer, in Ihrer Sprache", "whatsNewReportsBody": "Verbesserte Beschriftungen und weniger Bewegung ergänzen Englisch, brasilianisches Portugiesisch, Deutsch, Japanisch, Spanisch und Französisch.", "whatsNewExploreAction": "Patterns 1.10 entdecken", "continueToPatternsAction": "Weiter zu Patterns", "whatsNewNotificationNote": "Ihre Einträge bleiben unverändert. Sprache und Ruhige Einblicke bleiben auf diesem Gerät und werden weder in Analysen noch in Backups aufgenommen.",
-  "formatBold": "Fett", "formatItalic": "Kursiv", "formatBulletedList": "Aufzählung", "formatToggleHint": "Doppeltippen, um diese Formatierung ein- oder auszuschalten.", "journalEditorLabel": "Tagebuch-Editor", "journalEditorHint": "Geben Sie Ihren Tagebuchtext ein. Die Formatierungssteuerung folgt auf den Editor.", "timerRemaining": "Verbleibende Zeit: {time}", "recoveryScoreSemantics": "Recovery-Punktzahl: {score} von 100.",
-  "privacySafetyTitle": "Datenschutz & Sicherheit", "privacyLocalContent": "Tagebucheinträge, OCD-Ereignisse, Belastungswerte, Reflexionen und App-Einstellungen werden lokal auf diesem Gerät gespeichert.", "privacyPurchases": "Patterns Pro und Trinkgelder werden vom App Store verarbeitet. Patterns erhält keine Daten Ihrer Zahlungskarte.", "privacyExports": "Ein manueller Export erstellt nur dort eine unverschlüsselte JSON-Sicherung oder einen PDF-Bericht, wo Sie ihn speichern oder teilen.", "privacyAnalytics": "Anonyme Nutzungsanalysen sind aus, bis Sie sie aktivieren. Wenn aktiviert, sendet Patterns benannte Funktionsereignisse, eine zufällige Installations-ID, Plattform, App-Version und Ereigniszeit an den eigenen Dienst. Tagebucheinträge, OCD-Daten, erstellte Zusammenfassungen, Region und Sprachauswahl werden nie einbezogen. Beim Ausschalten werden ausstehende Ereignisse und die lokale Analyse-ID gelöscht.", "privacyClinicalBoundary": "Patterns ist ein Selbsthilfetool für persönliche Reflexion und ERP-Übungen. Es diagnostiziert oder behandelt OCD nicht, ersetzt keine qualifizierte fachliche Betreuung und bietet keine Notfallhilfe.", "viewPrivacyPolicyAction": "Vollständige Datenschutzerklärung", "closeAction": "Schließen",
-  "@formatBold": {}, "@formatItalic": {}, "@formatBulletedList": {}, "@formatToggleHint": {}, "@journalEditorLabel": {}, "@journalEditorHint": {}, "@timerRemaining": {"placeholders": {"time": {"type": "String"}}}, "@recoveryScoreSemantics": {"placeholders": {"score": {"type": "int"}}}, "@privacySafetyTitle": {}, "@privacyLocalContent": {}, "@privacyPurchases": {}, "@privacyExports": {}, "@privacyAnalytics": {}, "@privacyClinicalBoundary": {}, "@viewPrivacyPolicyAction": {}, "@closeAction": {}, "@recoveryMetricsTitle": {}, "@recoveryMetricsTeaserTitle": {}, "@recoveryMetricsCalmTeaserBody": {}, "@recoveryMetricsDetailedTeaserBody": {}, "@recoveryMetricsUnlockPro": {}, "@recoveryMetricsEmptyTitle": {}, "@recoveryMetricsCalmEmptyBody": {}, "@recoveryMetricsDetailedEmptyBody": {}, "@recoveryMetricsExposuresDone": {}, "@recoveryMetricsSessionsPracticed": {}, "@recoveryMetricsAverageUrgeDrop": {}, "@recoveryMetricsThisWeek": {}
+  "navToday": "Heute",
+  "navHome": "Start",
+  "navJournal": "Tagebuch",
+  "navTrack": "Erfassen",
+  "navTracker": "Tracker",
+  "navRecovery": "Genesung",
+  "navInsights": "Einblicke",
+  "navSettings": "Einstellungen",
+  "exportReportTitle": "Bericht exportieren",
+  "exportReportDescription": "Speichern Sie ein gemeinsames PDF aus Tagebuch, OCD-Protokoll und Einblicken. Sie entscheiden, wo Sie es speichern und ob Sie es teilen.",
+  "exportTimeWindow": "Zeitraum",
+  "exportStart": "Start",
+  "exportEnd": "Ende",
+  "exportIncludeSections": "Abschnitte einschließen",
+  "exportAnalyticsSummary": "Analyseübersicht",
+  "exportJournalEntries": "Tagebucheinträge",
+  "exportOcdEvents": "OCD-Ereignisse",
+  "exportYbocsSelfChecks": "Y-BOCS-Selbstchecks",
+  "exportEntrySummary": "{total, plural, =0{Keine Einträge} =1{1 Eintrag} other{{total} Einträge}} in diesem Zeitraum ({journal} Tagebuch, {ocd} OCD, {selfChecks} Selbstchecks)",
+  "@exportEntrySummary": {
+    "placeholders": {
+      "total": {
+        "type": "int"
+      },
+      "journal": {
+        "type": "int"
+      },
+      "ocd": {
+        "type": "int"
+      },
+      "selfChecks": {
+        "type": "int"
+      }
+    }
+  },
+  "exportLargeReport": "Dieser Bericht ist groß und die Erstellung kann einen Moment dauern.",
+  "exportPrivacyWarning": "Dadurch entsteht ein unverschlüsseltes PDF. Speichern Sie es an einem privaten Ort.",
+  "exportSavePdf": "PDF speichern",
+  "exportSelectSectionError": "Wählen Sie mindestens einen Abschnitt für den Export.",
+  "exportNoEntriesError": "Keine Einträge entsprechen diesem Zeitraum und dieser Auswahl.",
+  "exportReportSaved": "Bericht gespeichert",
+  "exportReportFailed": "Bericht konnte nicht erstellt werden",
+  "rangeSevenDays": "7 T",
+  "rangeThirtyDays": "30 T",
+  "rangeNinetyDays": "90 T",
+  "rangeYear": "Jahr",
+  "rangeAll": "Alle",
+  "rangeCustom": "Benutzerdefiniert",
+  "rangeLastSevenDays": "Letzte 7 Tage",
+  "rangeLastThirtyDays": "Letzte 30 Tage",
+  "rangeLastNinetyDays": "Letzte 90 Tage",
+  "rangeLastYear": "Letztes Jahr",
+  "rangeAllTime": "Gesamter Zeitraum",
+  "pdfPersonalReport": "Persönlicher Bericht",
+  "pdfGenerated": "Erstellt am {date}",
+  "@pdfGenerated": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "pdfDisclaimer": "Dieser Bericht enthält persönliche Notizen, die in Patterns zur Selbstreflexion erstellt wurden. Er ist keine medizinische Beratung und ersetzt keine Behandlung durch qualifiziertes Fachpersonal.",
+  "pdfJournalCount": "Tagebucheinträge",
+  "pdfOcdCount": "OCD-Ereignisse",
+  "pdfAverageDistress": "Durchschnittliche Belastung",
+  "pdfObsessions": "Obsessionen",
+  "pdfCompulsions": "Zwänge",
+  "pdfNoJournalEntries": "Keine Tagebucheinträge in diesem Zeitraum.",
+  "pdfNoOcdEvents": "Keine OCD-Ereignisse in diesem Zeitraum.",
+  "pdfObsession": "Obsession",
+  "pdfCompulsion": "Zwang",
+  "pdfDistressScore": "Belastung {score}/10",
+  "@pdfDistressScore": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfThought": "Gedanke",
+  "pdfUrge": "Drang",
+  "pdfResponse": "Reaktion: {text}",
+  "@pdfResponse": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "pdfActionTaken": "Ergriffene Handlung: {text}",
+  "@pdfActionTaken": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "pdfYbocsDescription": "Yale-Brown Obsessive Compulsive Scale, in der App selbst eingeschätzt. Die Gesamtpunktzahl beträgt 40; Obsessionen und Zwänge jeweils 20.",
+  "pdfMostRecentTotal": "Neueste Gesamtpunktzahl",
+  "pdfTakenOn": "Erfasst am",
+  "pdfObsessionsSubtotal": "Zwischensumme Obsessionen",
+  "pdfCompulsionsSubtotal": "Zwischensumme Zwänge",
+  "pdfChangeAcrossRange": "Veränderung im Zeitraum",
+  "pdfSelfChecksInRange": "Selbstchecks im Zeitraum",
+  "pdfThemesFlagged": "Markierte Themen",
+  "pdfSingleSelfCheck": "Ein Selbstcheck in diesem Zeitraum",
+  "pdfChangeSince": "{change} seit {date}",
+  "@pdfChangeSince": {
+    "placeholders": {
+      "change": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "pdfDate": "Datum",
+  "pdfTotal": "Gesamt",
+  "pdfBand": "Bereich",
+  "severitySubclinical": "Subklinisch",
+  "severityMild": "Leicht",
+  "severityModerate": "Mittelgradig",
+  "severitySevere": "Schwer",
+  "severityExtreme": "Extrem",
+  "backAction": "Zurück",
+  "onboardingSafetyFootnote": "Datenschutz ist eingebaut. Keine Diagnose und kein Ersatz für professionelle Hilfe.",
+  "onboardingHeadline": "Ein ruhiger Ort zum Üben mit OCD.",
+  "onboardingIntroduction": "Halten Sie den aufdringlichen Gedanken fest, verzögern Sie den Zwang und üben Sie Schritt für Schritt eine andere Reaktion.",
+  "onboardingPrivacy": "Ihre OCD-Daten bleiben auf diesem Gerät. Kein Konto. Keine Cloud-Synchronisierung.",
+  "getStartedAction": "Loslegen",
+  "importExistingDataAction": "Vorhandene Daten importieren",
+  "onboardingQuestion": "Was würde Ihnen gerade helfen?",
+  "onboardingPickOne": "Wählen Sie eine Option. Alles andere können Sie später ausprobieren.",
+  "onboardingUrgeTitle": "Ich kämpfe gerade mit einem Drang",
+  "onboardingUrgeSubtitle": "Schaffen Sie etwas Abstand zwischen Drang und Ritual.",
+  "onboardingJournalTitle": "Ich möchte etwas aufschreiben",
+  "onboardingJournalSubtitle": "Bringen Sie den Gedanken aus dem Kopf aufs Papier.",
+  "onboardingErpTitle": "Ich möchte üben, einen Zwang nicht auszuführen",
+  "onboardingErpSubtitle": "Eine kurze, geführte Exposition.",
+  "onboardingSelfCheckTitle": "Ich möchte sehen, wo mein OCD gerade steht",
+  "onboardingSelfCheckSubtitle": "Der Y-BOCS-Selbstcheck. Etwa 10 Minuten.",
+  "onboardingExploreTitle": "Ich sehe mich nur um",
+  "onboardingExploreSubtitle": "Schauen Sie sich zunächst in Ruhe um.",
+  "whatsNewTitle": "Üben ohne Druck",
+  "whatsNewBody": "Patterns 1.10 bietet ruhigere Einblicke, sanftere Abschlüsse, bessere Barrierefreiheit und eine optionale Sprachauswahl.",
+  "whatsNewLanguagesTitle": "Ruhige Einblicke",
+  "whatsNewLanguagesBody": "Wählen Sie sachliche Aktivitätsübersichten statt berechneter Punktzahlen, Serien und Konsistenzwerte.",
+  "whatsNewPrivateTitle": "Ein klarer Abschluss",
+  "whatsNewPrivateBody": "Tagebuch-, Tracking-, Aufschub- und ERP-Sitzungen enden jetzt mit einer sachlichen Bestätigung und „Für jetzt fertig“.",
+  "whatsNewReportsTitle": "Barriereärmer, in Ihrer Sprache",
+  "whatsNewReportsBody": "Verbesserte Beschriftungen und weniger Bewegung ergänzen Englisch, brasilianisches Portugiesisch, Deutsch, Japanisch, Spanisch und Französisch.",
+  "whatsNewExploreAction": "Patterns 1.10 entdecken",
+  "continueToPatternsAction": "Weiter zu Patterns",
+  "whatsNewNotificationNote": "Ihre Einträge bleiben unverändert. Sprache und Ruhige Einblicke bleiben auf diesem Gerät und werden weder in Analysen noch in Backups aufgenommen.",
+  "formatBold": "Fett",
+  "formatItalic": "Kursiv",
+  "formatBulletedList": "Aufzählung",
+  "formatToggleHint": "Doppeltippen, um diese Formatierung ein- oder auszuschalten.",
+  "journalEditorLabel": "Tagebuch-Editor",
+  "journalEditorHint": "Geben Sie Ihren Tagebuchtext ein. Die Formatierungssteuerung folgt auf den Editor.",
+  "timerRemaining": "Verbleibende Zeit: {time}",
+  "recoveryScoreSemantics": "Recovery-Punktzahl: {score} von 100.",
+  "privacySafetyTitle": "Datenschutz & Sicherheit",
+  "privacyLocalContent": "Tagebucheinträge, OCD-Ereignisse, Belastungswerte, Reflexionen und App-Einstellungen werden lokal auf diesem Gerät gespeichert.",
+  "privacyPurchases": "Patterns Pro und Trinkgelder werden vom App Store verarbeitet. Patterns erhält keine Daten Ihrer Zahlungskarte.",
+  "privacyExports": "Ein manueller Export erstellt nur dort eine unverschlüsselte JSON-Sicherung oder einen PDF-Bericht, wo Sie ihn speichern oder teilen.",
+  "privacyAnalytics": "Anonyme Nutzungsanalysen sind aus, bis Sie sie aktivieren. Wenn aktiviert, sendet Patterns benannte Funktionsereignisse, eine zufällige Installations-ID, Plattform, App-Version und Ereigniszeit an den eigenen Dienst. Tagebucheinträge, OCD-Daten, erstellte Zusammenfassungen, Region und Sprachauswahl werden nie einbezogen. Beim Ausschalten werden ausstehende Ereignisse und die lokale Analyse-ID gelöscht.",
+  "privacyClinicalBoundary": "Patterns ist ein Selbsthilfetool für persönliche Reflexion und ERP-Übungen. Es diagnostiziert oder behandelt OCD nicht, ersetzt keine qualifizierte fachliche Betreuung und bietet keine Notfallhilfe.",
+  "viewPrivacyPolicyAction": "Vollständige Datenschutzerklärung",
+  "closeAction": "Schließen",
+  "@formatBold": {},
+  "@formatItalic": {},
+  "@formatBulletedList": {},
+  "@formatToggleHint": {},
+  "@journalEditorLabel": {},
+  "@journalEditorHint": {},
+  "@timerRemaining": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "@recoveryScoreSemantics": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "@privacySafetyTitle": {},
+  "@privacyLocalContent": {},
+  "@privacyPurchases": {},
+  "@privacyExports": {},
+  "@privacyAnalytics": {},
+  "@privacyClinicalBoundary": {},
+  "@viewPrivacyPolicyAction": {},
+  "@closeAction": {},
+  "@recoveryMetricsTitle": {},
+  "@recoveryMetricsTeaserTitle": {},
+  "@recoveryMetricsCalmTeaserBody": {},
+  "@recoveryMetricsDetailedTeaserBody": {},
+  "@recoveryMetricsUnlockPro": {},
+  "@recoveryMetricsEmptyTitle": {},
+  "@recoveryMetricsCalmEmptyBody": {},
+  "@recoveryMetricsDetailedEmptyBody": {},
+  "@recoveryMetricsExposuresDone": {},
+  "@recoveryMetricsSessionsPracticed": {},
+  "@recoveryMetricsAverageUrgeDrop": {},
+  "@recoveryMetricsThisWeek": {},
+  "@appTitle": {},
+  "@settingsTitle": {},
+  "@appearanceTitle": {},
+  "@appearanceSystem": {},
+  "@appearanceLight": {},
+  "@appearanceDark": {},
+  "@languageTitle": {},
+  "@languageSubtitle": {},
+  "@calmInsightsTitle": {},
+  "@calmInsightsSubtitle": {},
+  "@calmRecentActivityTitle": {},
+  "@calmNoRecentActivity": {},
+  "@systemDefault": {},
+  "@cancelAction": {},
+  "@doneAction": {},
+  "@doneForNowAction": {},
+  "@completionSavedTitle": {},
+  "@completionPracticeTitle": {},
+  "@completionJournalBody": {},
+  "@completionTrackedBody": {},
+  "@completionTrackedUpdatedBody": {},
+  "@completionDelayBody": {},
+  "@completionErpBody": {},
+  "@notificationOpenAction": {},
+  "@dailyReminderChannelName": {},
+  "@dailyReminderChannelDescription": {},
+  "@dailyReminderTitle": {},
+  "@dailyReminderBody": {},
+  "@practiceTimerChannelName": {},
+  "@practiceTimerChannelDescription": {},
+  "@appUpdatesChannelName": {},
+  "@appUpdatesChannelDescription": {},
+  "@updateAnnouncementTitle": {},
+  "@updateAnnouncementBody": {},
+  "@practiceWindowCompleteTitle": {},
+  "@practiceWindowCompleteBody": {},
+  "@erpWindowCompleteTitle": {},
+  "@erpWindowCompleteBody": {},
+  "@navToday": {},
+  "@navHome": {},
+  "@navJournal": {},
+  "@navTrack": {},
+  "@navTracker": {},
+  "@navRecovery": {},
+  "@navInsights": {},
+  "@navSettings": {},
+  "@exportReportTitle": {},
+  "@exportReportDescription": {},
+  "@exportTimeWindow": {},
+  "@exportStart": {},
+  "@exportEnd": {},
+  "@exportIncludeSections": {},
+  "@exportAnalyticsSummary": {},
+  "@exportJournalEntries": {},
+  "@exportOcdEvents": {},
+  "@exportYbocsSelfChecks": {},
+  "@exportLargeReport": {},
+  "@exportPrivacyWarning": {},
+  "@exportSavePdf": {},
+  "@exportSelectSectionError": {},
+  "@exportNoEntriesError": {},
+  "@exportReportSaved": {},
+  "@exportReportFailed": {},
+  "@rangeSevenDays": {},
+  "@rangeThirtyDays": {},
+  "@rangeNinetyDays": {},
+  "@rangeYear": {},
+  "@rangeAll": {},
+  "@rangeCustom": {},
+  "@rangeLastSevenDays": {},
+  "@rangeLastThirtyDays": {},
+  "@rangeLastNinetyDays": {},
+  "@rangeLastYear": {},
+  "@rangeAllTime": {},
+  "@pdfPersonalReport": {},
+  "@pdfDisclaimer": {},
+  "@pdfJournalCount": {},
+  "@pdfOcdCount": {},
+  "@pdfAverageDistress": {},
+  "@pdfObsessions": {},
+  "@pdfCompulsions": {},
+  "@pdfNoJournalEntries": {},
+  "@pdfNoOcdEvents": {},
+  "@pdfObsession": {},
+  "@pdfCompulsion": {},
+  "@pdfThought": {},
+  "@pdfUrge": {},
+  "@pdfYbocsDescription": {},
+  "@pdfMostRecentTotal": {},
+  "@pdfTakenOn": {},
+  "@pdfObsessionsSubtotal": {},
+  "@pdfCompulsionsSubtotal": {},
+  "@pdfChangeAcrossRange": {},
+  "@pdfSelfChecksInRange": {},
+  "@pdfThemesFlagged": {},
+  "@pdfSingleSelfCheck": {},
+  "@pdfDate": {},
+  "@pdfTotal": {},
+  "@pdfBand": {},
+  "@severitySubclinical": {},
+  "@severityMild": {},
+  "@severityModerate": {},
+  "@severitySevere": {},
+  "@severityExtreme": {},
+  "@backAction": {},
+  "@onboardingSafetyFootnote": {},
+  "@onboardingHeadline": {},
+  "@onboardingIntroduction": {},
+  "@onboardingPrivacy": {},
+  "@getStartedAction": {},
+  "@importExistingDataAction": {},
+  "@onboardingQuestion": {},
+  "@onboardingPickOne": {},
+  "@onboardingUrgeTitle": {},
+  "@onboardingUrgeSubtitle": {},
+  "@onboardingJournalTitle": {},
+  "@onboardingJournalSubtitle": {},
+  "@onboardingErpTitle": {},
+  "@onboardingErpSubtitle": {},
+  "@onboardingSelfCheckTitle": {},
+  "@onboardingSelfCheckSubtitle": {},
+  "@onboardingExploreTitle": {},
+  "@onboardingExploreSubtitle": {},
+  "@whatsNewTitle": {},
+  "@whatsNewBody": {},
+  "@whatsNewLanguagesTitle": {},
+  "@whatsNewLanguagesBody": {},
+  "@whatsNewPrivateTitle": {},
+  "@whatsNewPrivateBody": {},
+  "@whatsNewReportsTitle": {},
+  "@whatsNewReportsBody": {},
+  "@whatsNewExploreAction": {},
+  "@continueToPatternsAction": {},
+  "@whatsNewNotificationNote": {}
 }

@@ -13,41 +13,107 @@
   "calmRecentActivityTitle": "Your recent activity",
   "calmNoRecentActivity": "Nothing recorded in the last 7 days. Your space is ready whenever you need it.",
   "calmJournalActivity": "{count, plural, =1{1 journal entry} other{{count} journal entries}}",
-  "@calmJournalActivity": {"placeholders": {"count": {"type": "int"}}},
+  "@calmJournalActivity": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Calm Insights copy for calm journal activity. Keep it factual, neutral, and non-judgmental; do not imply a score, diagnosis, or treatment result."
+  },
   "calmTrackedActivity": "{count, plural, =1{1 tracked moment} other{{count} tracked moments}}",
-  "@calmTrackedActivity": {"placeholders": {"count": {"type": "int"}}},
+  "@calmTrackedActivity": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Calm Insights copy for calm tracked activity. Keep it factual, neutral, and non-judgmental; do not imply a score, diagnosis, or treatment result."
+  },
   "calmDelayActivity": "{count, plural, =1{1 compulsion delay} other{{count} compulsion delays}}",
-  "@calmDelayActivity": {"placeholders": {"count": {"type": "int"}}},
+  "@calmDelayActivity": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Calm Insights copy for calm delay activity. Keep it factual, neutral, and non-judgmental; do not imply a score, diagnosis, or treatment result."
+  },
   "calmErpActivity": "{count, plural, =1{1 ERP practice} other{{count} ERP practices}}",
-  "@calmErpActivity": {"placeholders": {"count": {"type": "int"}}},
+  "@calmErpActivity": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Calm Insights copy for calm erp activity. Keep it factual, neutral, and non-judgmental; do not imply a score, diagnosis, or treatment result."
+  },
   "calmExposureActivity": "{count, plural, =1{1 exposure completed} other{{count} exposures completed}}",
-  "@calmExposureActivity": {"placeholders": {"count": {"type": "int"}}},
+  "@calmExposureActivity": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Calm Insights copy for calm exposure activity. Keep it factual, neutral, and non-judgmental; do not imply a score, diagnosis, or treatment result."
+  },
   "recoveryMetricsTitle": "Recovery metrics",
-  "@recoveryMetricsTitle": {"description": "Title for the recovery activity and metrics screen."},
+  "@recoveryMetricsTitle": {
+    "description": "Title for the recovery activity and metrics screen."
+  },
   "recoveryMetricsTeaserTitle": "See your recovery activity together",
-  "@recoveryMetricsTeaserTitle": {"description": "Heading for the locked Recovery Metrics preview."},
+  "@recoveryMetricsTeaserTitle": {
+    "description": "Heading for the locked Recovery Metrics preview."
+  },
   "recoveryMetricsCalmTeaserBody": "Review exposures, practice sessions, and recorded urge changes across your ERP tools. Unlock with Patterns Pro.",
-  "@recoveryMetricsCalmTeaserBody": {"description": "Calm Insights preview copy; must remain factual and must not mention scores, streaks, progress, or judgments."},
+  "@recoveryMetricsCalmTeaserBody": {
+    "description": "Calm Insights preview copy; must remain factual and must not mention scores, streaks, progress, or judgments."
+  },
   "recoveryMetricsDetailedTeaserBody": "Review practice streaks, completed exposures, and recorded urge changes across your ERP tools. Unlock with Patterns Pro.",
-  "@recoveryMetricsDetailedTeaserBody": {"description": "Recovery Metrics preview copy shown only when Calm Insights is disabled."},
+  "@recoveryMetricsDetailedTeaserBody": {
+    "description": "Recovery Metrics preview copy shown only when Calm Insights is disabled."
+  },
   "recoveryMetricsUnlockPro": "Unlock Patterns Pro",
-  "@recoveryMetricsUnlockPro": {"description": "Button that opens the Patterns Pro purchase screen from Recovery Metrics."},
+  "@recoveryMetricsUnlockPro": {
+    "description": "Button that opens the Patterns Pro purchase screen from Recovery Metrics."
+  },
   "recoveryMetricsEmptyTitle": "Your recovery activity will appear here",
-  "@recoveryMetricsEmptyTitle": {"description": "Heading shown before any recovery-practice data has been recorded."},
+  "@recoveryMetricsEmptyTitle": {
+    "description": "Heading shown before any recovery-practice data has been recorded."
+  },
   "recoveryMetricsCalmEmptyBody": "Practise a delay, an ERP session, or an exposure step to see factual activity counts here.",
-  "@recoveryMetricsCalmEmptyBody": {"description": "Calm Insights empty state; must not imply scoring, progress, consistency, or streaks."},
+  "@recoveryMetricsCalmEmptyBody": {
+    "description": "Calm Insights empty state; must not imply scoring, progress, consistency, or streaks."
+  },
   "recoveryMetricsDetailedEmptyBody": "Practise a delay, an ERP session, or an exposure step to begin building your activity history and practice streak.",
-  "@recoveryMetricsDetailedEmptyBody": {"description": "Recovery Metrics empty state shown only when Calm Insights is disabled."},
+  "@recoveryMetricsDetailedEmptyBody": {
+    "description": "Recovery Metrics empty state shown only when Calm Insights is disabled."
+  },
   "recoveryMetricsExposuresDone": "Exposures done",
-  "@recoveryMetricsExposuresDone": {"description": "Label for the factual count of completed exposure steps."},
+  "@recoveryMetricsExposuresDone": {
+    "description": "Label for the factual count of completed exposure steps."
+  },
   "recoveryMetricsSessionsPracticed": "Sessions practised",
-  "@recoveryMetricsSessionsPracticed": {"description": "Label for the factual count of completed recovery practice sessions."},
+  "@recoveryMetricsSessionsPracticed": {
+    "description": "Label for the factual count of completed recovery practice sessions."
+  },
   "recoveryMetricsAverageUrgeDrop": "Average recorded urge change",
-  "@recoveryMetricsAverageUrgeDrop": {"description": "Label for the calculated average change between deliberately recorded pre- and post-practice urge values."},
+  "@recoveryMetricsAverageUrgeDrop": {
+    "description": "Label for the calculated average change between deliberately recorded pre- and post-practice urge values."
+  },
   "recoveryMetricsThisWeek": "This week",
-  "@recoveryMetricsThisWeek": {"description": "Heading for a seven-day recovery activity strip shown only when Calm Insights is disabled."},
+  "@recoveryMetricsThisWeek": {
+    "description": "Heading for a seven-day recovery activity strip shown only when Calm Insights is disabled."
+  },
   "recoveryMetricsDayStreak": "{days, plural, =1{1 day streak} other{{days} day streak}}",
-  "@recoveryMetricsDayStreak": {"description": "Practice-streak value shown only when Calm Insights is disabled.", "placeholders": {"days": {"type": "int"}}},
+  "@recoveryMetricsDayStreak": {
+    "description": "Practice-streak value shown only when Calm Insights is disabled.",
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
   "systemDefault": "System Default",
   "cancelAction": "Cancel",
   "doneAction": "Done",
@@ -93,7 +159,23 @@
   "exportOcdEvents": "OCD events",
   "exportYbocsSelfChecks": "Y-BOCS self-checks",
   "exportEntrySummary": "{total, plural, =0{No entries} =1{1 entry} other{{total} entries}} in this range ({journal} journal, {ocd} OCD, {selfChecks} self-checks)",
-  "@exportEntrySummary": {"placeholders": {"total": {"type": "int"}, "journal": {"type": "int"}, "ocd": {"type": "int"}, "selfChecks": {"type": "int"}}},
+  "@exportEntrySummary": {
+    "placeholders": {
+      "total": {
+        "type": "int"
+      },
+      "journal": {
+        "type": "int"
+      },
+      "ocd": {
+        "type": "int"
+      },
+      "selfChecks": {
+        "type": "int"
+      }
+    },
+    "description": "Manual export flow copy for export entry summary. Preserve the distinction between local data and an unencrypted file the user chooses to save or share."
+  },
   "exportLargeReport": "This report is large and may take a moment to generate.",
   "exportPrivacyWarning": "This creates an unencrypted PDF. Save it somewhere private.",
   "exportSavePdf": "Save PDF",
@@ -114,7 +196,14 @@
   "rangeAllTime": "All time",
   "pdfPersonalReport": "Personal Report",
   "pdfGenerated": "Generated {date}",
-  "@pdfGenerated": {"placeholders": {"date": {"type": "String"}}},
+  "@pdfGenerated": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    },
+    "description": "Generated personal PDF report copy for pdf generated. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
   "pdfDisclaimer": "This report contains personal notes created in Patterns for self-reflection. It is not medical advice and does not replace care from a qualified clinician.",
   "pdfJournalCount": "Journal entries",
   "pdfOcdCount": "OCD events",
@@ -126,13 +215,34 @@
   "pdfObsession": "Obsession",
   "pdfCompulsion": "Compulsion",
   "pdfDistressScore": "Distress {score}/10",
-  "@pdfDistressScore": {"placeholders": {"score": {"type": "int"}}},
+  "@pdfDistressScore": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    },
+    "description": "Generated personal PDF report copy for pdf distress score. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
   "pdfThought": "Thought",
   "pdfUrge": "Urge",
   "pdfResponse": "Response: {text}",
-  "@pdfResponse": {"placeholders": {"text": {"type": "String"}}},
+  "@pdfResponse": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    },
+    "description": "Generated personal PDF report copy for pdf response. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
   "pdfActionTaken": "Action taken: {text}",
-  "@pdfActionTaken": {"placeholders": {"text": {"type": "String"}}},
+  "@pdfActionTaken": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    },
+    "description": "Generated personal PDF report copy for pdf action taken. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
   "pdfYbocsDescription": "Yale-Brown Obsessive Compulsive Scale, self-rated in the app. Total is out of 40, with obsessions and compulsions each out of 20.",
   "pdfMostRecentTotal": "Most recent total",
   "pdfTakenOn": "Taken on",
@@ -143,7 +253,17 @@
   "pdfThemesFlagged": "Themes flagged",
   "pdfSingleSelfCheck": "Single self-check in this range",
   "pdfChangeSince": "{change} since {date}",
-  "@pdfChangeSince": {"placeholders": {"change": {"type": "String"}, "date": {"type": "String"}}},
+  "@pdfChangeSince": {
+    "placeholders": {
+      "change": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    },
+    "description": "Generated personal PDF report copy for pdf change since. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
   "pdfDate": "Date",
   "pdfTotal": "Total",
   "pdfBand": "Band",
@@ -183,35 +303,479 @@
   "continueToPatternsAction": "Continue to Patterns",
   "whatsNewNotificationNote": "Your entries stay as written. Language and Calm Insights choices stay on this device and are not included in analytics or backups.",
   "formatBold": "Bold",
-  "@formatBold": {"description": "Accessibility label for the journal editor bold formatting toggle."},
+  "@formatBold": {
+    "description": "Accessibility label for the journal editor bold formatting toggle."
+  },
   "formatItalic": "Italic",
-  "@formatItalic": {"description": "Accessibility label for the journal editor italic formatting toggle."},
+  "@formatItalic": {
+    "description": "Accessibility label for the journal editor italic formatting toggle."
+  },
   "formatBulletedList": "Bulleted list",
-  "@formatBulletedList": {"description": "Accessibility label for the journal editor bulleted-list formatting toggle."},
+  "@formatBulletedList": {
+    "description": "Accessibility label for the journal editor bulleted-list formatting toggle."
+  },
   "formatToggleHint": "Double tap to turn this formatting on or off.",
-  "@formatToggleHint": {"description": "VoiceOver hint for a journal editor formatting toggle."},
+  "@formatToggleHint": {
+    "description": "VoiceOver hint for a journal editor formatting toggle."
+  },
   "journalEditorLabel": "Journal editor",
-  "@journalEditorLabel": {"description": "Accessibility label for the editable rich-text journal field."},
+  "@journalEditorLabel": {
+    "description": "Accessibility label for the editable rich-text journal field."
+  },
   "journalEditorHint": "Enter your journal text. Formatting controls follow the editor.",
-  "@journalEditorHint": {"description": "Accessibility hint for the editable rich-text journal field."},
+  "@journalEditorHint": {
+    "description": "Accessibility hint for the editable rich-text journal field."
+  },
   "timerRemaining": "Time remaining: {time}",
-  "@timerRemaining": {"description": "Accessibility value announced for an active practice timer.", "placeholders": {"time": {"type": "String"}}},
+  "@timerRemaining": {
+    "description": "Accessibility value announced for an active practice timer.",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "recoveryScoreSemantics": "Recovery score: {score} out of 100.",
-  "@recoveryScoreSemantics": {"description": "Text alternative for the recovery score ring when Calm Insights is off.", "placeholders": {"score": {"type": "int"}}},
+  "@recoveryScoreSemantics": {
+    "description": "Text alternative for the recovery score ring when Calm Insights is off.",
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
   "privacySafetyTitle": "Privacy & safety",
-  "@privacySafetyTitle": {"description": "Heading for the privacy and clinical-safety explanation."},
+  "@privacySafetyTitle": {
+    "description": "Heading for the privacy and clinical-safety explanation."
+  },
   "privacyLocalContent": "Journal entries, OCD events, distress ratings, reflections, and app preferences are stored locally on this device.",
-  "@privacyLocalContent": {"description": "Explains which personal content and preferences remain local."},
+  "@privacyLocalContent": {
+    "description": "Explains which personal content and preferences remain local."
+  },
   "privacyPurchases": "Patterns Pro and tips are processed by the app store. Patterns does not receive your payment-card details.",
-  "@privacyPurchases": {"description": "Explains the privacy boundary for StoreKit or platform-store purchases."},
+  "@privacyPurchases": {
+    "description": "Explains the privacy boundary for StoreKit or platform-store purchases."
+  },
   "privacyExports": "A manual export creates an unencrypted JSON backup or PDF report only where you choose to save or share it.",
-  "@privacyExports": {"description": "Warns that user-initiated exports are unencrypted and leave local storage only by user action."},
+  "@privacyExports": {
+    "description": "Warns that user-initiated exports are unencrypted and leave local storage only by user action."
+  },
   "privacyAnalytics": "Anonymous usage analytics are off unless you enable them. If enabled, Patterns sends named feature-use events, a random installation ID, platform, app version, and event time to its first-party service. Journal entries, OCD data, generated summaries, locale, and language choices are never included. Turning analytics off clears pending events and the local analytics ID.",
-  "@privacyAnalytics": {"description": "Exact scope and exclusions for optional first-party anonymous analytics."},
+  "@privacyAnalytics": {
+    "description": "Exact scope and exclusions for optional first-party anonymous analytics."
+  },
   "privacyClinicalBoundary": "Patterns is a self-help tool for personal reflection and ERP practice. It does not diagnose or treat OCD, replace care from a qualified clinician, or provide emergency support.",
-  "@privacyClinicalBoundary": {"description": "Clinical and emergency boundary; requires qualified native clinical review."},
+  "@privacyClinicalBoundary": {
+    "description": "Clinical and emergency boundary; requires qualified native clinical review."
+  },
   "viewPrivacyPolicyAction": "View full Privacy Policy",
-  "@viewPrivacyPolicyAction": {"description": "Button that opens the external privacy policy."},
+  "@viewPrivacyPolicyAction": {
+    "description": "Button that opens the external privacy policy."
+  },
   "closeAction": "Close",
-  "@closeAction": {"description": "Closes a dialog or sheet."}
+  "@closeAction": {
+    "description": "Closes a dialog or sheet."
+  },
+  "@appTitle": {
+    "description": "User-facing Patterns interface copy for app title."
+  },
+  "@settingsTitle": {
+    "description": "User-facing Patterns interface copy for settings title."
+  },
+  "@appearanceTitle": {
+    "description": "Appearance-setting interface copy for appearance title."
+  },
+  "@appearanceSystem": {
+    "description": "Appearance-setting interface copy for appearance system."
+  },
+  "@appearanceLight": {
+    "description": "Appearance-setting interface copy for appearance light."
+  },
+  "@appearanceDark": {
+    "description": "Appearance-setting interface copy for appearance dark."
+  },
+  "@languageTitle": {
+    "description": "Language-selection interface copy for language title. Language names themselves are shown in their native form elsewhere."
+  },
+  "@languageSubtitle": {
+    "description": "Language-selection interface copy for language subtitle. Language names themselves are shown in their native form elsewhere."
+  },
+  "@calmInsightsTitle": {
+    "description": "Calm Insights copy for calm insights title. Keep it factual, neutral, and non-judgmental; do not imply a score, diagnosis, or treatment result."
+  },
+  "@calmInsightsSubtitle": {
+    "description": "Calm Insights copy for calm insights subtitle. Keep it factual, neutral, and non-judgmental; do not imply a score, diagnosis, or treatment result."
+  },
+  "@calmRecentActivityTitle": {
+    "description": "Calm Insights copy for calm recent activity title. Keep it factual, neutral, and non-judgmental; do not imply a score, diagnosis, or treatment result."
+  },
+  "@calmNoRecentActivity": {
+    "description": "Calm Insights copy for calm no recent activity. Keep it factual, neutral, and non-judgmental; do not imply a score, diagnosis, or treatment result."
+  },
+  "@systemDefault": {
+    "description": "Language-selection interface copy for system default. Language names themselves are shown in their native form elsewhere."
+  },
+  "@cancelAction": {
+    "description": "Accessible action label for cancel action."
+  },
+  "@doneAction": {
+    "description": "Accessible action label for done action."
+  },
+  "@doneForNowAction": {
+    "description": "Quiet completion copy for done for now action. Confirm only what was saved or recorded; do not praise, score, celebrate, or suggest another task."
+  },
+  "@completionSavedTitle": {
+    "description": "Quiet completion copy for completion saved title. Confirm only what was saved or recorded; do not praise, score, celebrate, or suggest another task."
+  },
+  "@completionPracticeTitle": {
+    "description": "Quiet completion copy for completion practice title. Confirm only what was saved or recorded; do not praise, score, celebrate, or suggest another task."
+  },
+  "@completionJournalBody": {
+    "description": "Quiet completion copy for completion journal body. Confirm only what was saved or recorded; do not praise, score, celebrate, or suggest another task."
+  },
+  "@completionTrackedBody": {
+    "description": "Quiet completion copy for completion tracked body. Confirm only what was saved or recorded; do not praise, score, celebrate, or suggest another task."
+  },
+  "@completionTrackedUpdatedBody": {
+    "description": "Quiet completion copy for completion tracked updated body. Confirm only what was saved or recorded; do not praise, score, celebrate, or suggest another task."
+  },
+  "@completionDelayBody": {
+    "description": "Quiet completion copy for completion delay body. Confirm only what was saved or recorded; do not praise, score, celebrate, or suggest another task."
+  },
+  "@completionErpBody": {
+    "description": "Quiet completion copy for completion erp body. Confirm only what was saved or recorded; do not praise, score, celebrate, or suggest another task."
+  },
+  "@notificationOpenAction": {
+    "description": "Local notification or native notification-channel copy for notification open action. Keep it concise, gentle, and suitable outside the app."
+  },
+  "@dailyReminderChannelName": {
+    "description": "Local notification or native notification-channel copy for daily reminder channel name. Keep it concise, gentle, and suitable outside the app."
+  },
+  "@dailyReminderChannelDescription": {
+    "description": "Local notification or native notification-channel copy for daily reminder channel description. Keep it concise, gentle, and suitable outside the app."
+  },
+  "@dailyReminderTitle": {
+    "description": "Local notification or native notification-channel copy for daily reminder title. Keep it concise, gentle, and suitable outside the app."
+  },
+  "@dailyReminderBody": {
+    "description": "Local notification or native notification-channel copy for daily reminder body. Keep it concise, gentle, and suitable outside the app."
+  },
+  "@practiceTimerChannelName": {
+    "description": "Local notification or native notification-channel copy for practice timer channel name. Keep it concise, gentle, and suitable outside the app."
+  },
+  "@practiceTimerChannelDescription": {
+    "description": "Local notification or native notification-channel copy for practice timer channel description. Keep it concise, gentle, and suitable outside the app."
+  },
+  "@appUpdatesChannelName": {
+    "description": "Local notification or native notification-channel copy for app updates channel name. Keep it concise, gentle, and suitable outside the app."
+  },
+  "@appUpdatesChannelDescription": {
+    "description": "Local notification or native notification-channel copy for app updates channel description. Keep it concise, gentle, and suitable outside the app."
+  },
+  "@updateAnnouncementTitle": {
+    "description": "Local notification or native notification-channel copy for update announcement title. Keep it concise, gentle, and suitable outside the app."
+  },
+  "@updateAnnouncementBody": {
+    "description": "Local notification or native notification-channel copy for update announcement body. Keep it concise, gentle, and suitable outside the app."
+  },
+  "@practiceWindowCompleteTitle": {
+    "description": "Local notification or native notification-channel copy for practice window complete title. Keep it concise, gentle, and suitable outside the app."
+  },
+  "@practiceWindowCompleteBody": {
+    "description": "Local notification or native notification-channel copy for practice window complete body. Keep it concise, gentle, and suitable outside the app."
+  },
+  "@erpWindowCompleteTitle": {
+    "description": "Local notification or native notification-channel copy for erp window complete title. Keep it concise, gentle, and suitable outside the app."
+  },
+  "@erpWindowCompleteBody": {
+    "description": "Local notification or native notification-channel copy for erp window complete body. Keep it concise, gentle, and suitable outside the app."
+  },
+  "@navToday": {
+    "description": "Primary navigation label for the nav today destination."
+  },
+  "@navHome": {
+    "description": "Primary navigation label for the nav home destination."
+  },
+  "@navJournal": {
+    "description": "Primary navigation label for the nav journal destination."
+  },
+  "@navTrack": {
+    "description": "Primary navigation label for the nav track destination."
+  },
+  "@navTracker": {
+    "description": "Primary navigation label for the nav tracker destination."
+  },
+  "@navRecovery": {
+    "description": "Primary navigation label for the nav recovery destination."
+  },
+  "@navInsights": {
+    "description": "Primary navigation label for the nav insights destination."
+  },
+  "@navSettings": {
+    "description": "Primary navigation label for the nav settings destination."
+  },
+  "@exportReportTitle": {
+    "description": "Manual export flow copy for export report title. Preserve the distinction between local data and an unencrypted file the user chooses to save or share."
+  },
+  "@exportReportDescription": {
+    "description": "Manual export flow copy for export report description. Preserve the distinction between local data and an unencrypted file the user chooses to save or share."
+  },
+  "@exportTimeWindow": {
+    "description": "Manual export flow copy for export time window. Preserve the distinction between local data and an unencrypted file the user chooses to save or share."
+  },
+  "@exportStart": {
+    "description": "Manual export flow copy for export start. Preserve the distinction between local data and an unencrypted file the user chooses to save or share."
+  },
+  "@exportEnd": {
+    "description": "Manual export flow copy for export end. Preserve the distinction between local data and an unencrypted file the user chooses to save or share."
+  },
+  "@exportIncludeSections": {
+    "description": "Manual export flow copy for export include sections. Preserve the distinction between local data and an unencrypted file the user chooses to save or share."
+  },
+  "@exportAnalyticsSummary": {
+    "description": "Manual export flow copy for export analytics summary. Preserve the distinction between local data and an unencrypted file the user chooses to save or share."
+  },
+  "@exportJournalEntries": {
+    "description": "Manual export flow copy for export journal entries. Preserve the distinction between local data and an unencrypted file the user chooses to save or share."
+  },
+  "@exportOcdEvents": {
+    "description": "Manual export flow copy for export ocd events. Preserve the distinction between local data and an unencrypted file the user chooses to save or share."
+  },
+  "@exportYbocsSelfChecks": {
+    "description": "Manual export flow copy for export ybocs self checks. Preserve the distinction between local data and an unencrypted file the user chooses to save or share."
+  },
+  "@exportLargeReport": {
+    "description": "Manual export flow copy for export large report. Preserve the distinction between local data and an unencrypted file the user chooses to save or share."
+  },
+  "@exportPrivacyWarning": {
+    "description": "Manual export flow copy for export privacy warning. Preserve the distinction between local data and an unencrypted file the user chooses to save or share."
+  },
+  "@exportSavePdf": {
+    "description": "Manual export flow copy for export save pdf. Preserve the distinction between local data and an unencrypted file the user chooses to save or share."
+  },
+  "@exportSelectSectionError": {
+    "description": "Manual export flow copy for export select section error. Preserve the distinction between local data and an unencrypted file the user chooses to save or share."
+  },
+  "@exportNoEntriesError": {
+    "description": "Manual export flow copy for export no entries error. Preserve the distinction between local data and an unencrypted file the user chooses to save or share."
+  },
+  "@exportReportSaved": {
+    "description": "Manual export flow copy for export report saved. Preserve the distinction between local data and an unencrypted file the user chooses to save or share."
+  },
+  "@exportReportFailed": {
+    "description": "Manual export flow copy for export report failed. Preserve the distinction between local data and an unencrypted file the user chooses to save or share."
+  },
+  "@rangeSevenDays": {
+    "description": "Localized date-range label for range seven days in insights and exported reports."
+  },
+  "@rangeThirtyDays": {
+    "description": "Localized date-range label for range thirty days in insights and exported reports."
+  },
+  "@rangeNinetyDays": {
+    "description": "Localized date-range label for range ninety days in insights and exported reports."
+  },
+  "@rangeYear": {
+    "description": "Localized date-range label for range year in insights and exported reports."
+  },
+  "@rangeAll": {
+    "description": "Localized date-range label for range all in insights and exported reports."
+  },
+  "@rangeCustom": {
+    "description": "Localized date-range label for range custom in insights and exported reports."
+  },
+  "@rangeLastSevenDays": {
+    "description": "Localized date-range label for range last seven days in insights and exported reports."
+  },
+  "@rangeLastThirtyDays": {
+    "description": "Localized date-range label for range last thirty days in insights and exported reports."
+  },
+  "@rangeLastNinetyDays": {
+    "description": "Localized date-range label for range last ninety days in insights and exported reports."
+  },
+  "@rangeLastYear": {
+    "description": "Localized date-range label for range last year in insights and exported reports."
+  },
+  "@rangeAllTime": {
+    "description": "Localized date-range label for range all time in insights and exported reports."
+  },
+  "@pdfPersonalReport": {
+    "description": "Generated personal PDF report copy for pdf personal report. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfDisclaimer": {
+    "description": "Generated personal PDF report copy for pdf disclaimer. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfJournalCount": {
+    "description": "Generated personal PDF report copy for pdf journal count. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfOcdCount": {
+    "description": "Generated personal PDF report copy for pdf ocd count. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfAverageDistress": {
+    "description": "Generated personal PDF report copy for pdf average distress. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfObsessions": {
+    "description": "Generated personal PDF report copy for pdf obsessions. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfCompulsions": {
+    "description": "Generated personal PDF report copy for pdf compulsions. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfNoJournalEntries": {
+    "description": "Generated personal PDF report copy for pdf no journal entries. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfNoOcdEvents": {
+    "description": "Generated personal PDF report copy for pdf no ocd events. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfObsession": {
+    "description": "Generated personal PDF report copy for pdf obsession. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfCompulsion": {
+    "description": "Generated personal PDF report copy for pdf compulsion. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfThought": {
+    "description": "Generated personal PDF report copy for pdf thought. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfUrge": {
+    "description": "Generated personal PDF report copy for pdf urge. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfYbocsDescription": {
+    "description": "Generated personal PDF report copy for pdf ybocs description. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfMostRecentTotal": {
+    "description": "Generated personal PDF report copy for pdf most recent total. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfTakenOn": {
+    "description": "Generated personal PDF report copy for pdf taken on. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfObsessionsSubtotal": {
+    "description": "Generated personal PDF report copy for pdf obsessions subtotal. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfCompulsionsSubtotal": {
+    "description": "Generated personal PDF report copy for pdf compulsions subtotal. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfChangeAcrossRange": {
+    "description": "Generated personal PDF report copy for pdf change across range. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfSelfChecksInRange": {
+    "description": "Generated personal PDF report copy for pdf self checks in range. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfThemesFlagged": {
+    "description": "Generated personal PDF report copy for pdf themes flagged. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfSingleSelfCheck": {
+    "description": "Generated personal PDF report copy for pdf single self check. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfDate": {
+    "description": "Generated personal PDF report copy for pdf date. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfTotal": {
+    "description": "Generated personal PDF report copy for pdf total. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@pdfBand": {
+    "description": "Generated personal PDF report copy for pdf band. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary."
+  },
+  "@severitySubclinical": {
+    "description": "Y-BOCS self-check severity-band label for severity subclinical. This is a standardized score description, not a diagnosis."
+  },
+  "@severityMild": {
+    "description": "Y-BOCS self-check severity-band label for severity mild. This is a standardized score description, not a diagnosis."
+  },
+  "@severityModerate": {
+    "description": "Y-BOCS self-check severity-band label for severity moderate. This is a standardized score description, not a diagnosis."
+  },
+  "@severitySevere": {
+    "description": "Y-BOCS self-check severity-band label for severity severe. This is a standardized score description, not a diagnosis."
+  },
+  "@severityExtreme": {
+    "description": "Y-BOCS self-check severity-band label for severity extreme. This is a standardized score description, not a diagnosis."
+  },
+  "@backAction": {
+    "description": "Accessible action label for back action."
+  },
+  "@onboardingSafetyFootnote": {
+    "description": "Onboarding copy for onboarding safety footnote. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure."
+  },
+  "@onboardingHeadline": {
+    "description": "Onboarding copy for onboarding headline. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure."
+  },
+  "@onboardingIntroduction": {
+    "description": "Onboarding copy for onboarding introduction. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure."
+  },
+  "@onboardingPrivacy": {
+    "description": "Onboarding copy for onboarding privacy. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure."
+  },
+  "@getStartedAction": {
+    "description": "Accessible action label for get started action."
+  },
+  "@importExistingDataAction": {
+    "description": "Accessible action label for import existing data action."
+  },
+  "@onboardingQuestion": {
+    "description": "Onboarding copy for onboarding question. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure."
+  },
+  "@onboardingPickOne": {
+    "description": "Onboarding copy for onboarding pick one. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure."
+  },
+  "@onboardingUrgeTitle": {
+    "description": "Onboarding copy for onboarding urge title. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure."
+  },
+  "@onboardingUrgeSubtitle": {
+    "description": "Onboarding copy for onboarding urge subtitle. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure."
+  },
+  "@onboardingJournalTitle": {
+    "description": "Onboarding copy for onboarding journal title. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure."
+  },
+  "@onboardingJournalSubtitle": {
+    "description": "Onboarding copy for onboarding journal subtitle. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure."
+  },
+  "@onboardingErpTitle": {
+    "description": "Onboarding copy for onboarding erp title. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure."
+  },
+  "@onboardingErpSubtitle": {
+    "description": "Onboarding copy for onboarding erp subtitle. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure."
+  },
+  "@onboardingSelfCheckTitle": {
+    "description": "Onboarding copy for onboarding self check title. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure."
+  },
+  "@onboardingSelfCheckSubtitle": {
+    "description": "Onboarding copy for onboarding self check subtitle. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure."
+  },
+  "@onboardingExploreTitle": {
+    "description": "Onboarding copy for onboarding explore title. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure."
+  },
+  "@onboardingExploreSubtitle": {
+    "description": "Onboarding copy for onboarding explore subtitle. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure."
+  },
+  "@whatsNewTitle": {
+    "description": "Patterns 1.10 in-app announcement copy for whats new title. Mention only implemented behavior and preserve the local-data and review gates."
+  },
+  "@whatsNewBody": {
+    "description": "Patterns 1.10 in-app announcement copy for whats new body. Mention only implemented behavior and preserve the local-data and review gates."
+  },
+  "@whatsNewLanguagesTitle": {
+    "description": "Patterns 1.10 in-app announcement copy for whats new languages title. Mention only implemented behavior and preserve the local-data and review gates."
+  },
+  "@whatsNewLanguagesBody": {
+    "description": "Patterns 1.10 in-app announcement copy for whats new languages body. Mention only implemented behavior and preserve the local-data and review gates."
+  },
+  "@whatsNewPrivateTitle": {
+    "description": "Patterns 1.10 in-app announcement copy for whats new private title. Mention only implemented behavior and preserve the local-data and review gates."
+  },
+  "@whatsNewPrivateBody": {
+    "description": "Patterns 1.10 in-app announcement copy for whats new private body. Mention only implemented behavior and preserve the local-data and review gates."
+  },
+  "@whatsNewReportsTitle": {
+    "description": "Patterns 1.10 in-app announcement copy for whats new reports title. Mention only implemented behavior and preserve the local-data and review gates."
+  },
+  "@whatsNewReportsBody": {
+    "description": "Patterns 1.10 in-app announcement copy for whats new reports body. Mention only implemented behavior and preserve the local-data and review gates."
+  },
+  "@whatsNewExploreAction": {
+    "description": "Patterns 1.10 in-app announcement copy for whats new explore action. Mention only implemented behavior and preserve the local-data and review gates."
+  },
+  "@continueToPatternsAction": {
+    "description": "Patterns 1.10 in-app announcement copy for continue to patterns action. Mention only implemented behavior and preserve the local-data and review gates."
+  },
+  "@whatsNewNotificationNote": {
+    "description": "Patterns 1.10 in-app announcement copy for whats new notification note. Mention only implemented behavior and preserve the local-data and review gates."
+  }
 }

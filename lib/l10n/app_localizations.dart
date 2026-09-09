@@ -107,103 +107,103 @@ abstract class AppLocalizations {
     Locale('pt', 'BR'),
   ];
 
-  /// No description provided for @appTitle.
+  /// User-facing Patterns interface copy for app title.
   ///
   /// In en, this message translates to:
   /// **'Patterns'**
   String get appTitle;
 
-  /// No description provided for @settingsTitle.
+  /// User-facing Patterns interface copy for settings title.
   ///
   /// In en, this message translates to:
   /// **'Settings'**
   String get settingsTitle;
 
-  /// No description provided for @appearanceTitle.
+  /// Appearance-setting interface copy for appearance title.
   ///
   /// In en, this message translates to:
   /// **'Appearance'**
   String get appearanceTitle;
 
-  /// No description provided for @appearanceSystem.
+  /// Appearance-setting interface copy for appearance system.
   ///
   /// In en, this message translates to:
   /// **'System'**
   String get appearanceSystem;
 
-  /// No description provided for @appearanceLight.
+  /// Appearance-setting interface copy for appearance light.
   ///
   /// In en, this message translates to:
   /// **'Light'**
   String get appearanceLight;
 
-  /// No description provided for @appearanceDark.
+  /// Appearance-setting interface copy for appearance dark.
   ///
   /// In en, this message translates to:
   /// **'Dark'**
   String get appearanceDark;
 
-  /// No description provided for @languageTitle.
+  /// Language-selection interface copy for language title. Language names themselves are shown in their native form elsewhere.
   ///
   /// In en, this message translates to:
   /// **'Language'**
   String get languageTitle;
 
-  /// No description provided for @languageSubtitle.
+  /// Language-selection interface copy for language subtitle. Language names themselves are shown in their native form elsewhere.
   ///
   /// In en, this message translates to:
   /// **'Choose the language Patterns uses'**
   String get languageSubtitle;
 
-  /// No description provided for @calmInsightsTitle.
+  /// Calm Insights copy for calm insights title. Keep it factual, neutral, and non-judgmental; do not imply a score, diagnosis, or treatment result.
   ///
   /// In en, this message translates to:
   /// **'Calm Insights'**
   String get calmInsightsTitle;
 
-  /// No description provided for @calmInsightsSubtitle.
+  /// Calm Insights copy for calm insights subtitle. Keep it factual, neutral, and non-judgmental; do not imply a score, diagnosis, or treatment result.
   ///
   /// In en, this message translates to:
   /// **'Hide streaks and calculated scores. Your recorded data stays available.'**
   String get calmInsightsSubtitle;
 
-  /// No description provided for @calmRecentActivityTitle.
+  /// Calm Insights copy for calm recent activity title. Keep it factual, neutral, and non-judgmental; do not imply a score, diagnosis, or treatment result.
   ///
   /// In en, this message translates to:
   /// **'Your recent activity'**
   String get calmRecentActivityTitle;
 
-  /// No description provided for @calmNoRecentActivity.
+  /// Calm Insights copy for calm no recent activity. Keep it factual, neutral, and non-judgmental; do not imply a score, diagnosis, or treatment result.
   ///
   /// In en, this message translates to:
   /// **'Nothing recorded in the last 7 days. Your space is ready whenever you need it.'**
   String get calmNoRecentActivity;
 
-  /// No description provided for @calmJournalActivity.
+  /// Calm Insights copy for calm journal activity. Keep it factual, neutral, and non-judgmental; do not imply a score, diagnosis, or treatment result.
   ///
   /// In en, this message translates to:
   /// **'{count, plural, =1{1 journal entry} other{{count} journal entries}}'**
   String calmJournalActivity(int count);
 
-  /// No description provided for @calmTrackedActivity.
+  /// Calm Insights copy for calm tracked activity. Keep it factual, neutral, and non-judgmental; do not imply a score, diagnosis, or treatment result.
   ///
   /// In en, this message translates to:
   /// **'{count, plural, =1{1 tracked moment} other{{count} tracked moments}}'**
   String calmTrackedActivity(int count);
 
-  /// No description provided for @calmDelayActivity.
+  /// Calm Insights copy for calm delay activity. Keep it factual, neutral, and non-judgmental; do not imply a score, diagnosis, or treatment result.
   ///
   /// In en, this message translates to:
   /// **'{count, plural, =1{1 compulsion delay} other{{count} compulsion delays}}'**
   String calmDelayActivity(int count);
 
-  /// No description provided for @calmErpActivity.
+  /// Calm Insights copy for calm erp activity. Keep it factual, neutral, and non-judgmental; do not imply a score, diagnosis, or treatment result.
   ///
   /// In en, this message translates to:
   /// **'{count, plural, =1{1 ERP practice} other{{count} ERP practices}}'**
   String calmErpActivity(int count);
 
-  /// No description provided for @calmExposureActivity.
+  /// Calm Insights copy for calm exposure activity. Keep it factual, neutral, and non-judgmental; do not imply a score, diagnosis, or treatment result.
   ///
   /// In en, this message translates to:
   /// **'{count, plural, =1{1 exposure completed} other{{count} exposures completed}}'**
@@ -287,769 +287,769 @@ abstract class AppLocalizations {
   /// **'{days, plural, =1{1 day streak} other{{days} day streak}}'**
   String recoveryMetricsDayStreak(int days);
 
-  /// No description provided for @systemDefault.
+  /// Language-selection interface copy for system default. Language names themselves are shown in their native form elsewhere.
   ///
   /// In en, this message translates to:
   /// **'System Default'**
   String get systemDefault;
 
-  /// No description provided for @cancelAction.
+  /// Accessible action label for cancel action.
   ///
   /// In en, this message translates to:
   /// **'Cancel'**
   String get cancelAction;
 
-  /// No description provided for @doneAction.
+  /// Accessible action label for done action.
   ///
   /// In en, this message translates to:
   /// **'Done'**
   String get doneAction;
 
-  /// No description provided for @doneForNowAction.
+  /// Quiet completion copy for done for now action. Confirm only what was saved or recorded; do not praise, score, celebrate, or suggest another task.
   ///
   /// In en, this message translates to:
   /// **'Done for now'**
   String get doneForNowAction;
 
-  /// No description provided for @completionSavedTitle.
+  /// Quiet completion copy for completion saved title. Confirm only what was saved or recorded; do not praise, score, celebrate, or suggest another task.
   ///
   /// In en, this message translates to:
   /// **'Saved'**
   String get completionSavedTitle;
 
-  /// No description provided for @completionPracticeTitle.
+  /// Quiet completion copy for completion practice title. Confirm only what was saved or recorded; do not praise, score, celebrate, or suggest another task.
   ///
   /// In en, this message translates to:
   /// **'Practice recorded'**
   String get completionPracticeTitle;
 
-  /// No description provided for @completionJournalBody.
+  /// Quiet completion copy for completion journal body. Confirm only what was saved or recorded; do not praise, score, celebrate, or suggest another task.
   ///
   /// In en, this message translates to:
   /// **'Your journal entry is saved on this device.'**
   String get completionJournalBody;
 
-  /// No description provided for @completionTrackedBody.
+  /// Quiet completion copy for completion tracked body. Confirm only what was saved or recorded; do not praise, score, celebrate, or suggest another task.
   ///
   /// In en, this message translates to:
   /// **'Your tracked moment is saved on this device.'**
   String get completionTrackedBody;
 
-  /// No description provided for @completionTrackedUpdatedBody.
+  /// Quiet completion copy for completion tracked updated body. Confirm only what was saved or recorded; do not praise, score, celebrate, or suggest another task.
   ///
   /// In en, this message translates to:
   /// **'Your tracked moment has been updated.'**
   String get completionTrackedUpdatedBody;
 
-  /// No description provided for @completionDelayBody.
+  /// Quiet completion copy for completion delay body. Confirm only what was saved or recorded; do not praise, score, celebrate, or suggest another task.
   ///
   /// In en, this message translates to:
   /// **'Your compulsion-delay practice has been recorded.'**
   String get completionDelayBody;
 
-  /// No description provided for @completionErpBody.
+  /// Quiet completion copy for completion erp body. Confirm only what was saved or recorded; do not praise, score, celebrate, or suggest another task.
   ///
   /// In en, this message translates to:
   /// **'Your ERP practice has been recorded.'**
   String get completionErpBody;
 
-  /// No description provided for @notificationOpenAction.
+  /// Local notification or native notification-channel copy for notification open action. Keep it concise, gentle, and suitable outside the app.
   ///
   /// In en, this message translates to:
   /// **'Open notification'**
   String get notificationOpenAction;
 
-  /// No description provided for @dailyReminderChannelName.
+  /// Local notification or native notification-channel copy for daily reminder channel name. Keep it concise, gentle, and suitable outside the app.
   ///
   /// In en, this message translates to:
   /// **'Daily reminder'**
   String get dailyReminderChannelName;
 
-  /// No description provided for @dailyReminderChannelDescription.
+  /// Local notification or native notification-channel copy for daily reminder channel description. Keep it concise, gentle, and suitable outside the app.
   ///
   /// In en, this message translates to:
   /// **'A gentle daily nudge to check in with Patterns.'**
   String get dailyReminderChannelDescription;
 
-  /// No description provided for @dailyReminderTitle.
+  /// Local notification or native notification-channel copy for daily reminder title. Keep it concise, gentle, and suitable outside the app.
   ///
   /// In en, this message translates to:
   /// **'A quiet check-in'**
   String get dailyReminderTitle;
 
-  /// No description provided for @dailyReminderBody.
+  /// Local notification or native notification-channel copy for daily reminder body. Keep it concise, gentle, and suitable outside the app.
   ///
   /// In en, this message translates to:
   /// **'Take a gentle moment with Patterns whenever you’re ready.'**
   String get dailyReminderBody;
 
-  /// No description provided for @practiceTimerChannelName.
+  /// Local notification or native notification-channel copy for practice timer channel name. Keep it concise, gentle, and suitable outside the app.
   ///
   /// In en, this message translates to:
   /// **'Practice timer'**
   String get practiceTimerChannelName;
 
-  /// No description provided for @practiceTimerChannelDescription.
+  /// Local notification or native notification-channel copy for practice timer channel description. Keep it concise, gentle, and suitable outside the app.
   ///
   /// In en, this message translates to:
   /// **'A gentle alert when a timed practice window is complete.'**
   String get practiceTimerChannelDescription;
 
-  /// No description provided for @appUpdatesChannelName.
+  /// Local notification or native notification-channel copy for app updates channel name. Keep it concise, gentle, and suitable outside the app.
   ///
   /// In en, this message translates to:
   /// **'App updates'**
   String get appUpdatesChannelName;
 
-  /// No description provided for @appUpdatesChannelDescription.
+  /// Local notification or native notification-channel copy for app updates channel description. Keep it concise, gentle, and suitable outside the app.
   ///
   /// In en, this message translates to:
   /// **'Occasional notes when Patterns gets meaningful new recovery tools.'**
   String get appUpdatesChannelDescription;
 
-  /// No description provided for @updateAnnouncementTitle.
+  /// Local notification or native notification-channel copy for update announcement title. Keep it concise, gentle, and suitable outside the app.
   ///
   /// In en, this message translates to:
   /// **'Patterns got better'**
   String get updateAnnouncementTitle;
 
-  /// No description provided for @updateAnnouncementBody.
+  /// Local notification or native notification-channel copy for update announcement body. Keep it concise, gentle, and suitable outside the app.
   ///
   /// In en, this message translates to:
   /// **'New recovery tools, progress insights, and a calmer Home are ready.'**
   String get updateAnnouncementBody;
 
-  /// No description provided for @practiceWindowCompleteTitle.
+  /// Local notification or native notification-channel copy for practice window complete title. Keep it concise, gentle, and suitable outside the app.
   ///
   /// In en, this message translates to:
   /// **'Practice window complete'**
   String get practiceWindowCompleteTitle;
 
-  /// No description provided for @practiceWindowCompleteBody.
+  /// Local notification or native notification-channel copy for practice window complete body. Keep it concise, gentle, and suitable outside the app.
   ///
   /// In en, this message translates to:
   /// **'Take a moment to notice what happened.'**
   String get practiceWindowCompleteBody;
 
-  /// No description provided for @erpWindowCompleteTitle.
+  /// Local notification or native notification-channel copy for erp window complete title. Keep it concise, gentle, and suitable outside the app.
   ///
   /// In en, this message translates to:
   /// **'ERP practice window complete'**
   String get erpWindowCompleteTitle;
 
-  /// No description provided for @erpWindowCompleteBody.
+  /// Local notification or native notification-channel copy for erp window complete body. Keep it concise, gentle, and suitable outside the app.
   ///
   /// In en, this message translates to:
   /// **'Take a moment to reflect on what happened.'**
   String get erpWindowCompleteBody;
 
-  /// No description provided for @navToday.
+  /// Primary navigation label for the nav today destination.
   ///
   /// In en, this message translates to:
   /// **'Today'**
   String get navToday;
 
-  /// No description provided for @navHome.
+  /// Primary navigation label for the nav home destination.
   ///
   /// In en, this message translates to:
   /// **'Home'**
   String get navHome;
 
-  /// No description provided for @navJournal.
+  /// Primary navigation label for the nav journal destination.
   ///
   /// In en, this message translates to:
   /// **'Journal'**
   String get navJournal;
 
-  /// No description provided for @navTrack.
+  /// Primary navigation label for the nav track destination.
   ///
   /// In en, this message translates to:
   /// **'Track'**
   String get navTrack;
 
-  /// No description provided for @navTracker.
+  /// Primary navigation label for the nav tracker destination.
   ///
   /// In en, this message translates to:
   /// **'Tracker'**
   String get navTracker;
 
-  /// No description provided for @navRecovery.
+  /// Primary navigation label for the nav recovery destination.
   ///
   /// In en, this message translates to:
   /// **'Recovery'**
   String get navRecovery;
 
-  /// No description provided for @navInsights.
+  /// Primary navigation label for the nav insights destination.
   ///
   /// In en, this message translates to:
   /// **'Insights'**
   String get navInsights;
 
-  /// No description provided for @navSettings.
+  /// Primary navigation label for the nav settings destination.
   ///
   /// In en, this message translates to:
   /// **'Settings'**
   String get navSettings;
 
-  /// No description provided for @exportReportTitle.
+  /// Manual export flow copy for export report title. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
   /// **'Export report'**
   String get exportReportTitle;
 
-  /// No description provided for @exportReportDescription.
+  /// Manual export flow copy for export report description. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
   /// **'Save a combined PDF of your journal, OCD log, and insights. You choose where to save it and whether to share it.'**
   String get exportReportDescription;
 
-  /// No description provided for @exportTimeWindow.
+  /// Manual export flow copy for export time window. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
   /// **'Time window'**
   String get exportTimeWindow;
 
-  /// No description provided for @exportStart.
+  /// Manual export flow copy for export start. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
   /// **'Start'**
   String get exportStart;
 
-  /// No description provided for @exportEnd.
+  /// Manual export flow copy for export end. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
   /// **'End'**
   String get exportEnd;
 
-  /// No description provided for @exportIncludeSections.
+  /// Manual export flow copy for export include sections. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
   /// **'Include sections'**
   String get exportIncludeSections;
 
-  /// No description provided for @exportAnalyticsSummary.
+  /// Manual export flow copy for export analytics summary. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
   /// **'Analytics summary'**
   String get exportAnalyticsSummary;
 
-  /// No description provided for @exportJournalEntries.
+  /// Manual export flow copy for export journal entries. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
   /// **'Journal entries'**
   String get exportJournalEntries;
 
-  /// No description provided for @exportOcdEvents.
+  /// Manual export flow copy for export ocd events. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
   /// **'OCD events'**
   String get exportOcdEvents;
 
-  /// No description provided for @exportYbocsSelfChecks.
+  /// Manual export flow copy for export ybocs self checks. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
   /// **'Y-BOCS self-checks'**
   String get exportYbocsSelfChecks;
 
-  /// No description provided for @exportEntrySummary.
+  /// Manual export flow copy for export entry summary. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
   /// **'{total, plural, =0{No entries} =1{1 entry} other{{total} entries}} in this range ({journal} journal, {ocd} OCD, {selfChecks} self-checks)'**
   String exportEntrySummary(int total, int journal, int ocd, int selfChecks);
 
-  /// No description provided for @exportLargeReport.
+  /// Manual export flow copy for export large report. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
   /// **'This report is large and may take a moment to generate.'**
   String get exportLargeReport;
 
-  /// No description provided for @exportPrivacyWarning.
+  /// Manual export flow copy for export privacy warning. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
   /// **'This creates an unencrypted PDF. Save it somewhere private.'**
   String get exportPrivacyWarning;
 
-  /// No description provided for @exportSavePdf.
+  /// Manual export flow copy for export save pdf. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
   /// **'Save PDF'**
   String get exportSavePdf;
 
-  /// No description provided for @exportSelectSectionError.
+  /// Manual export flow copy for export select section error. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
   /// **'Select at least one section to export.'**
   String get exportSelectSectionError;
 
-  /// No description provided for @exportNoEntriesError.
+  /// Manual export flow copy for export no entries error. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
   /// **'No entries match this range and section selection.'**
   String get exportNoEntriesError;
 
-  /// No description provided for @exportReportSaved.
+  /// Manual export flow copy for export report saved. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
   /// **'Report saved'**
   String get exportReportSaved;
 
-  /// No description provided for @exportReportFailed.
+  /// Manual export flow copy for export report failed. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
   /// **'Could not create report'**
   String get exportReportFailed;
 
-  /// No description provided for @rangeSevenDays.
+  /// Localized date-range label for range seven days in insights and exported reports.
   ///
   /// In en, this message translates to:
   /// **'7D'**
   String get rangeSevenDays;
 
-  /// No description provided for @rangeThirtyDays.
+  /// Localized date-range label for range thirty days in insights and exported reports.
   ///
   /// In en, this message translates to:
   /// **'30D'**
   String get rangeThirtyDays;
 
-  /// No description provided for @rangeNinetyDays.
+  /// Localized date-range label for range ninety days in insights and exported reports.
   ///
   /// In en, this message translates to:
   /// **'90D'**
   String get rangeNinetyDays;
 
-  /// No description provided for @rangeYear.
+  /// Localized date-range label for range year in insights and exported reports.
   ///
   /// In en, this message translates to:
   /// **'Year'**
   String get rangeYear;
 
-  /// No description provided for @rangeAll.
+  /// Localized date-range label for range all in insights and exported reports.
   ///
   /// In en, this message translates to:
   /// **'All'**
   String get rangeAll;
 
-  /// No description provided for @rangeCustom.
+  /// Localized date-range label for range custom in insights and exported reports.
   ///
   /// In en, this message translates to:
   /// **'Custom'**
   String get rangeCustom;
 
-  /// No description provided for @rangeLastSevenDays.
+  /// Localized date-range label for range last seven days in insights and exported reports.
   ///
   /// In en, this message translates to:
   /// **'Last 7 days'**
   String get rangeLastSevenDays;
 
-  /// No description provided for @rangeLastThirtyDays.
+  /// Localized date-range label for range last thirty days in insights and exported reports.
   ///
   /// In en, this message translates to:
   /// **'Last 30 days'**
   String get rangeLastThirtyDays;
 
-  /// No description provided for @rangeLastNinetyDays.
+  /// Localized date-range label for range last ninety days in insights and exported reports.
   ///
   /// In en, this message translates to:
   /// **'Last 90 days'**
   String get rangeLastNinetyDays;
 
-  /// No description provided for @rangeLastYear.
+  /// Localized date-range label for range last year in insights and exported reports.
   ///
   /// In en, this message translates to:
   /// **'Last year'**
   String get rangeLastYear;
 
-  /// No description provided for @rangeAllTime.
+  /// Localized date-range label for range all time in insights and exported reports.
   ///
   /// In en, this message translates to:
   /// **'All time'**
   String get rangeAllTime;
 
-  /// No description provided for @pdfPersonalReport.
+  /// Generated personal PDF report copy for pdf personal report. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Personal Report'**
   String get pdfPersonalReport;
 
-  /// No description provided for @pdfGenerated.
+  /// Generated personal PDF report copy for pdf generated. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Generated {date}'**
   String pdfGenerated(String date);
 
-  /// No description provided for @pdfDisclaimer.
+  /// Generated personal PDF report copy for pdf disclaimer. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'This report contains personal notes created in Patterns for self-reflection. It is not medical advice and does not replace care from a qualified clinician.'**
   String get pdfDisclaimer;
 
-  /// No description provided for @pdfJournalCount.
+  /// Generated personal PDF report copy for pdf journal count. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Journal entries'**
   String get pdfJournalCount;
 
-  /// No description provided for @pdfOcdCount.
+  /// Generated personal PDF report copy for pdf ocd count. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'OCD events'**
   String get pdfOcdCount;
 
-  /// No description provided for @pdfAverageDistress.
+  /// Generated personal PDF report copy for pdf average distress. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Average distress'**
   String get pdfAverageDistress;
 
-  /// No description provided for @pdfObsessions.
+  /// Generated personal PDF report copy for pdf obsessions. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Obsessions'**
   String get pdfObsessions;
 
-  /// No description provided for @pdfCompulsions.
+  /// Generated personal PDF report copy for pdf compulsions. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Compulsions'**
   String get pdfCompulsions;
 
-  /// No description provided for @pdfNoJournalEntries.
+  /// Generated personal PDF report copy for pdf no journal entries. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'No journal entries in this range.'**
   String get pdfNoJournalEntries;
 
-  /// No description provided for @pdfNoOcdEvents.
+  /// Generated personal PDF report copy for pdf no ocd events. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'No OCD events in this range.'**
   String get pdfNoOcdEvents;
 
-  /// No description provided for @pdfObsession.
+  /// Generated personal PDF report copy for pdf obsession. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Obsession'**
   String get pdfObsession;
 
-  /// No description provided for @pdfCompulsion.
+  /// Generated personal PDF report copy for pdf compulsion. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Compulsion'**
   String get pdfCompulsion;
 
-  /// No description provided for @pdfDistressScore.
+  /// Generated personal PDF report copy for pdf distress score. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Distress {score}/10'**
   String pdfDistressScore(int score);
 
-  /// No description provided for @pdfThought.
+  /// Generated personal PDF report copy for pdf thought. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Thought'**
   String get pdfThought;
 
-  /// No description provided for @pdfUrge.
+  /// Generated personal PDF report copy for pdf urge. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Urge'**
   String get pdfUrge;
 
-  /// No description provided for @pdfResponse.
+  /// Generated personal PDF report copy for pdf response. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Response: {text}'**
   String pdfResponse(String text);
 
-  /// No description provided for @pdfActionTaken.
+  /// Generated personal PDF report copy for pdf action taken. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Action taken: {text}'**
   String pdfActionTaken(String text);
 
-  /// No description provided for @pdfYbocsDescription.
+  /// Generated personal PDF report copy for pdf ybocs description. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Yale-Brown Obsessive Compulsive Scale, self-rated in the app. Total is out of 40, with obsessions and compulsions each out of 20.'**
   String get pdfYbocsDescription;
 
-  /// No description provided for @pdfMostRecentTotal.
+  /// Generated personal PDF report copy for pdf most recent total. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Most recent total'**
   String get pdfMostRecentTotal;
 
-  /// No description provided for @pdfTakenOn.
+  /// Generated personal PDF report copy for pdf taken on. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Taken on'**
   String get pdfTakenOn;
 
-  /// No description provided for @pdfObsessionsSubtotal.
+  /// Generated personal PDF report copy for pdf obsessions subtotal. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Obsessions subtotal'**
   String get pdfObsessionsSubtotal;
 
-  /// No description provided for @pdfCompulsionsSubtotal.
+  /// Generated personal PDF report copy for pdf compulsions subtotal. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Compulsions subtotal'**
   String get pdfCompulsionsSubtotal;
 
-  /// No description provided for @pdfChangeAcrossRange.
+  /// Generated personal PDF report copy for pdf change across range. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Change across range'**
   String get pdfChangeAcrossRange;
 
-  /// No description provided for @pdfSelfChecksInRange.
+  /// Generated personal PDF report copy for pdf self checks in range. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Self-checks in range'**
   String get pdfSelfChecksInRange;
 
-  /// No description provided for @pdfThemesFlagged.
+  /// Generated personal PDF report copy for pdf themes flagged. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Themes flagged'**
   String get pdfThemesFlagged;
 
-  /// No description provided for @pdfSingleSelfCheck.
+  /// Generated personal PDF report copy for pdf single self check. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Single self-check in this range'**
   String get pdfSingleSelfCheck;
 
-  /// No description provided for @pdfChangeSince.
+  /// Generated personal PDF report copy for pdf change since. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'{change} since {date}'**
   String pdfChangeSince(String change, String date);
 
-  /// No description provided for @pdfDate.
+  /// Generated personal PDF report copy for pdf date. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Date'**
   String get pdfDate;
 
-  /// No description provided for @pdfTotal.
+  /// Generated personal PDF report copy for pdf total. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Total'**
   String get pdfTotal;
 
-  /// No description provided for @pdfBand.
+  /// Generated personal PDF report copy for pdf band. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
   /// **'Band'**
   String get pdfBand;
 
-  /// No description provided for @severitySubclinical.
+  /// Y-BOCS self-check severity-band label for severity subclinical. This is a standardized score description, not a diagnosis.
   ///
   /// In en, this message translates to:
   /// **'Subclinical'**
   String get severitySubclinical;
 
-  /// No description provided for @severityMild.
+  /// Y-BOCS self-check severity-band label for severity mild. This is a standardized score description, not a diagnosis.
   ///
   /// In en, this message translates to:
   /// **'Mild'**
   String get severityMild;
 
-  /// No description provided for @severityModerate.
+  /// Y-BOCS self-check severity-band label for severity moderate. This is a standardized score description, not a diagnosis.
   ///
   /// In en, this message translates to:
   /// **'Moderate'**
   String get severityModerate;
 
-  /// No description provided for @severitySevere.
+  /// Y-BOCS self-check severity-band label for severity severe. This is a standardized score description, not a diagnosis.
   ///
   /// In en, this message translates to:
   /// **'Severe'**
   String get severitySevere;
 
-  /// No description provided for @severityExtreme.
+  /// Y-BOCS self-check severity-band label for severity extreme. This is a standardized score description, not a diagnosis.
   ///
   /// In en, this message translates to:
   /// **'Extreme'**
   String get severityExtreme;
 
-  /// No description provided for @backAction.
+  /// Accessible action label for back action.
   ///
   /// In en, this message translates to:
   /// **'Back'**
   String get backAction;
 
-  /// No description provided for @onboardingSafetyFootnote.
+  /// Onboarding copy for onboarding safety footnote. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure.
   ///
   /// In en, this message translates to:
   /// **'Private by design. Not a diagnosis or a replacement for professional care.'**
   String get onboardingSafetyFootnote;
 
-  /// No description provided for @onboardingHeadline.
+  /// Onboarding copy for onboarding headline. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure.
   ///
   /// In en, this message translates to:
   /// **'A quiet place to practise with OCD.'**
   String get onboardingHeadline;
 
-  /// No description provided for @onboardingIntroduction.
+  /// Onboarding copy for onboarding introduction. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure.
   ///
   /// In en, this message translates to:
   /// **'Log the intrusive thought, delay the compulsion, and practise responding differently, one small step at a time.'**
   String get onboardingIntroduction;
 
-  /// No description provided for @onboardingPrivacy.
+  /// Onboarding copy for onboarding privacy. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure.
   ///
   /// In en, this message translates to:
   /// **'Your OCD data stays on this device. No account. No cloud sync.'**
   String get onboardingPrivacy;
 
-  /// No description provided for @getStartedAction.
+  /// Accessible action label for get started action.
   ///
   /// In en, this message translates to:
   /// **'Get started'**
   String get getStartedAction;
 
-  /// No description provided for @importExistingDataAction.
+  /// Accessible action label for import existing data action.
   ///
   /// In en, this message translates to:
   /// **'Import existing data'**
   String get importExistingDataAction;
 
-  /// No description provided for @onboardingQuestion.
+  /// Onboarding copy for onboarding question. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure.
   ///
   /// In en, this message translates to:
   /// **'What would help right now?'**
   String get onboardingQuestion;
 
-  /// No description provided for @onboardingPickOne.
+  /// Onboarding copy for onboarding pick one. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure.
   ///
   /// In en, this message translates to:
   /// **'Pick one. You can do the rest whenever you like.'**
   String get onboardingPickOne;
 
-  /// No description provided for @onboardingUrgeTitle.
+  /// Onboarding copy for onboarding urge title. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure.
   ///
   /// In en, this message translates to:
   /// **'I\'m fighting an urge right now'**
   String get onboardingUrgeTitle;
 
-  /// No description provided for @onboardingUrgeSubtitle.
+  /// Onboarding copy for onboarding urge subtitle. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure.
   ///
   /// In en, this message translates to:
   /// **'Put some time between the urge and the ritual.'**
   String get onboardingUrgeSubtitle;
 
-  /// No description provided for @onboardingJournalTitle.
+  /// Onboarding copy for onboarding journal title. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure.
   ///
   /// In en, this message translates to:
   /// **'I want to write something down'**
   String get onboardingJournalTitle;
 
-  /// No description provided for @onboardingJournalSubtitle.
+  /// Onboarding copy for onboarding journal subtitle. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure.
   ///
   /// In en, this message translates to:
   /// **'Get the thought out of your head and onto a page.'**
   String get onboardingJournalSubtitle;
 
-  /// No description provided for @onboardingErpTitle.
+  /// Onboarding copy for onboarding erp title. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure.
   ///
   /// In en, this message translates to:
   /// **'I want to practise leaving a compulsion undone'**
   String get onboardingErpTitle;
 
-  /// No description provided for @onboardingErpSubtitle.
+  /// Onboarding copy for onboarding erp subtitle. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure.
   ///
   /// In en, this message translates to:
   /// **'One short, guided exposure.'**
   String get onboardingErpSubtitle;
 
-  /// No description provided for @onboardingSelfCheckTitle.
+  /// Onboarding copy for onboarding self check title. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure.
   ///
   /// In en, this message translates to:
   /// **'I want to see where my OCD is right now'**
   String get onboardingSelfCheckTitle;
 
-  /// No description provided for @onboardingSelfCheckSubtitle.
+  /// Onboarding copy for onboarding self check subtitle. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure.
   ///
   /// In en, this message translates to:
   /// **'The Y-BOCS self-check. About 10 minutes.'**
   String get onboardingSelfCheckSubtitle;
 
-  /// No description provided for @onboardingExploreTitle.
+  /// Onboarding copy for onboarding explore title. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure.
   ///
   /// In en, this message translates to:
   /// **'I\'m just exploring'**
   String get onboardingExploreTitle;
 
-  /// No description provided for @onboardingExploreSubtitle.
+  /// Onboarding copy for onboarding explore subtitle. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure.
   ///
   /// In en, this message translates to:
   /// **'Have a look around first.'**
   String get onboardingExploreSubtitle;
 
-  /// No description provided for @whatsNewTitle.
+  /// Patterns 1.10 in-app announcement copy for whats new title. Mention only implemented behavior and preserve the local-data and review gates.
   ///
   /// In en, this message translates to:
   /// **'Practice without pressure'**
   String get whatsNewTitle;
 
-  /// No description provided for @whatsNewBody.
+  /// Patterns 1.10 in-app announcement copy for whats new body. Mention only implemented behavior and preserve the local-data and review gates.
   ///
   /// In en, this message translates to:
   /// **'Patterns 1.10 brings calmer insights, quieter session endings, accessibility improvements, and optional language selection.'**
   String get whatsNewBody;
 
-  /// No description provided for @whatsNewLanguagesTitle.
+  /// Patterns 1.10 in-app announcement copy for whats new languages title. Mention only implemented behavior and preserve the local-data and review gates.
   ///
   /// In en, this message translates to:
   /// **'Calm Insights'**
   String get whatsNewLanguagesTitle;
 
-  /// No description provided for @whatsNewLanguagesBody.
+  /// Patterns 1.10 in-app announcement copy for whats new languages body. Mention only implemented behavior and preserve the local-data and review gates.
   ///
   /// In en, this message translates to:
   /// **'Choose factual activity summaries instead of calculated scores, streaks, and consistency percentages.'**
   String get whatsNewLanguagesBody;
 
-  /// No description provided for @whatsNewPrivateTitle.
+  /// Patterns 1.10 in-app announcement copy for whats new private title. Mention only implemented behavior and preserve the local-data and review gates.
   ///
   /// In en, this message translates to:
   /// **'A clear stopping point'**
   String get whatsNewPrivateTitle;
 
-  /// No description provided for @whatsNewPrivateBody.
+  /// Patterns 1.10 in-app announcement copy for whats new private body. Mention only implemented behavior and preserve the local-data and review gates.
   ///
   /// In en, this message translates to:
   /// **'Journal, tracking, compulsion-delay, and ERP sessions now end with a simple factual confirmation and Done for now.'**
   String get whatsNewPrivateBody;
 
-  /// No description provided for @whatsNewReportsTitle.
+  /// Patterns 1.10 in-app announcement copy for whats new reports title. Mention only implemented behavior and preserve the local-data and review gates.
   ///
   /// In en, this message translates to:
   /// **'More accessible, in your language'**
   String get whatsNewReportsTitle;
 
-  /// No description provided for @whatsNewReportsBody.
+  /// Patterns 1.10 in-app announcement copy for whats new reports body. Mention only implemented behavior and preserve the local-data and review gates.
   ///
   /// In en, this message translates to:
   /// **'Improved labels and reduced-motion behavior join English, Brazilian Portuguese, German, Japanese, Spanish, and French.'**
   String get whatsNewReportsBody;
 
-  /// No description provided for @whatsNewExploreAction.
+  /// Patterns 1.10 in-app announcement copy for whats new explore action. Mention only implemented behavior and preserve the local-data and review gates.
   ///
   /// In en, this message translates to:
   /// **'Explore Patterns 1.10'**
   String get whatsNewExploreAction;
 
-  /// No description provided for @continueToPatternsAction.
+  /// Patterns 1.10 in-app announcement copy for continue to patterns action. Mention only implemented behavior and preserve the local-data and review gates.
   ///
   /// In en, this message translates to:
   /// **'Continue to Patterns'**
   String get continueToPatternsAction;
 
-  /// No description provided for @whatsNewNotificationNote.
+  /// Patterns 1.10 in-app announcement copy for whats new notification note. Mention only implemented behavior and preserve the local-data and review gates.
   ///
   /// In en, this message translates to:
   /// **'Your entries stay as written. Language and Calm Insights choices stay on this device and are not included in analytics or backups.'**
