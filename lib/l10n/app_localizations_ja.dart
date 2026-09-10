@@ -2152,4 +2152,134 @@ class AppLocalizationsJa extends AppLocalizations {
   String erpPlanRatingChange(int before, int after) {
     return '$before → $after';
   }
+
+  @override
+  String get erpFirstRunPrediction => '反応しなければ不快感は変わらない、とOCDは言っています。';
+
+  @override
+  String erpTemplateTitle(String template) {
+    String _temp0 = intl.Intl.selectLogic(template, {
+      'delayChecking': '確認を遅らせる',
+      'delayReassurance': '安心を求めるのを遅らせる',
+      'delayGoogling': '検索を遅らせる',
+      'delayRumination': '反すうを遅らせる',
+      'delayWashing': '洗うのを遅らせる',
+      'other': 'ガイド付きERP',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpTemplateSubtitle(String template) {
+    String _temp0 = intl.Intl.selectLogic(template, {
+      'delayChecking': '短い時間、確認せずにおく練習をします。',
+      'delayReassurance': '誰かに確かさを求める前に待ちます。',
+      'delayGoogling': '確かさや証拠を探すのを先延ばしにします。',
+      'delayRumination': '頭の中の問題解決に従わず、気づきます。',
+      'delayWashing': 'もう一度洗ったり、掃除や消毒をしたりする前に待ちます。',
+      'other': '反応を遅らせる練習をします。',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpTemplateIntro(String template) {
+    String _temp0 = intl.Intl.selectLogic(template, {
+      'delayChecking':
+          '鍵、スイッチ、メッセージ、症状、間違いなどをもう一度確認するようOCDが迫る場面のために、再利用できる計画を作ります。',
+      'delayReassurance': '質問、告白、説明をしたり、誰かに大丈夫だと確認してもらったりしたい衝動のために計画を作ります。',
+      'delayGoogling': '確かになるまで症状、意味、危険、規則、体験談を検索するようOCDが迫る場面のために計画を作ります。',
+      'delayRumination': '思い返す、証明する、見直す、解決するといった心の強迫行為のために計画を作ります。',
+      'delayWashing': '何かが汚染されたように感じて、洗う、掃除する、消毒する、やり直す衝動のために計画を作ります。',
+      'other': '繰り返し使えるERP練習の計画を作ります。',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpTemplateWhy(String template) {
+    String _temp0 = intl.Intl.selectLogic(template, {
+      'delayChecking': 'ERPでは、すぐに儀式的行為をせず、不確かさがある状態を練習します。',
+      'delayReassurance': '安心を得ることはその場では役立つように感じられますが、遅らせることで、分からない状態を練習できます。',
+      'delayGoogling': '検索を先延ばしにすると、確かさを求める循環を中断し、問いを未回答のままにする練習ができます。',
+      'delayRumination': '反すうは考えることのように見えますが、ERPでは結論を出さずに循環から離れる練習をします。',
+      'delayWashing': '待つことで、すぐに儀式的行為をせず、汚染された感じがある状態を練習できます。',
+      'other': 'ERPでは、すぐに儀式的行為をせず、不確かさのための余地を作ります。',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpTemplatePrompt(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'delayCheckingExposure': '確認せずにおくもの、または一度だけ確認するものは？',
+      'delayCheckingPrediction': '再確認しなければ何が起きるとOCDは予測していますか？',
+      'delayCheckingCommitment': 'どの確認行為をしない練習をしますか？',
+      'delayReassuranceExposure': 'どのような安心を求めたいですか？',
+      'delayReassurancePrediction': '尋ねなければ何が起きるとOCDは言っていますか？',
+      'delayReassuranceCommitment': 'どのメッセージ、告白、質問を控えますか？',
+      'delayGooglingExposure': 'どの検索や問いを未回答のままにしますか？',
+      'delayGooglingPrediction': '今すぐ何を知る必要があるとOCDは言っていますか？',
+      'delayGooglingCommitment': 'どの検索、記事、掲示板を避けますか？',
+      'delayRuminationExposure': 'どの思考の循環を終わらせずにおきますか？',
+      'delayRuminationPrediction': '何を解決または証明する必要があるとOCDは言っていますか？',
+      'delayRuminationCommitment': 'どの心の見直しや議論を控えますか？',
+      'delayWashingExposure': 'どの通常の衛生上の範囲に従いますか？',
+      'delayWashingPrediction': 'もう一度洗わなければ何が起きるとOCDは予測していますか？',
+      'delayWashingCommitment': 'どの追加の洗浄、掃除、消毒を控えますか？',
+      'other': 'どの反応をしない練習をしますか？',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpTemplateInstruction(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'delayChecking1': '始める前に確認のルールを一つ決めます。',
+      'delayChecking2': '通常の安全確認に含まれる場合は、計画した確認を一度だけ行います。',
+      'delayChecking3': 'タイマー中は再確認を控えます。',
+      'delayChecking4': '衝動と交渉せず、そこにあることに気づきます。',
+      'delayReassurance1': '始める前に、求めたい安心の内容を決めます。',
+      'delayReassurance2': 'タイマー中はメッセージを送らず、質問もしません。',
+      'delayReassurance3': '確かさを求めず、不快感がある状態にします。',
+      'delayReassurance4': 'できる範囲で穏やかに元の行動に戻ります。',
+      'delayGoogling1': 'ほかのものを開く前に、検索したい内容を決めます。',
+      'delayGoogling2': '検索欄またはブラウザーのタブを閉じます。',
+      'delayGoogling3': 'ほかを読む前にタイマーを始めます。',
+      'delayGoogling4': '今は問いを未回答のままにします。',
+      'delayRumination1': '見直す、解決する、証明する、確認するなど、循環に名前を付けます。',
+      'delayRumination2': '考えを終わらせずにおきます。',
+      'delayRumination3': '日常の一つの作業や感覚に注意を戻します。',
+      'delayRumination4': '循環に引き戻されるたびに、穏やかにやり直します。',
+      'delayWashing1': '始める前に通常の衛生上の範囲を決めます。',
+      'delayWashing2': '難しくても可能に感じる待ち時間から始めます。',
+      'delayWashing3': 'タイマー中は手を洗面台や消毒剤から離します。',
+      'delayWashing4': '完璧にしようとせず、不快感がある状態にします。',
+      'other': '選んだ計画に従います。',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpTemplateCue(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'delayChecking1': '一度だけ確認',
+      'delayChecking2': '再確認しない',
+      'delayChecking3': '衝動に気づく',
+      'delayReassurance1': '質問を控える',
+      'delayReassurance2': '不確かさを残す',
+      'delayReassurance3': '穏やかに戻る',
+      'delayGoogling1': '検索を閉じる',
+      'delayGoogling2': 'タイマー開始',
+      'delayGoogling3': '未回答のままにする',
+      'delayRumination1': '循環に名前を付ける',
+      'delayRumination2': '終わらせずにおく',
+      'delayRumination3': '作業に戻る',
+      'delayWashing1': '範囲を決める',
+      'delayWashing2': '洗うのを遅らせる',
+      'delayWashing3': '不快感を許す',
+      'other': '計画に従う',
+    });
+    return '$_temp0';
+  }
 }

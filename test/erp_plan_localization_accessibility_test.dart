@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:patterns/l10n/app_localizations.dart';
+import 'package:patterns/l10n/app_localizations_ja.dart';
 import 'package:patterns/mobile/screens/erp_exercises_screen.dart';
 import 'package:patterns/models/models.dart';
 import 'package:patterns/providers/providers.dart';
@@ -61,6 +62,23 @@ void _usePhoneViewport(WidgetTester tester) {
 }
 
 void main() {
+  test('ERP templates keep stable IDs while presentation is localized', () {
+    final strings = AppLocalizationsJa();
+    expect(erpExerciseTemplates.map((template) => template.id), [
+      'delay_checking',
+      'delay_reassurance',
+      'delay_googling',
+      'delay_rumination',
+      'delay_washing',
+    ]);
+
+    final checking = erpExerciseTemplates.first;
+    expect(checking.canonicalTitle, 'Delay Checking');
+    expect(checking.localizedTitle(strings), '確認を遅らせる');
+    expect(checking.localizedInstructions(strings), hasLength(4));
+    expect(checking.localizedQuickCues(strings), hasLength(3));
+  });
+
   testWidgets('ERP plan shell is localized and reflows at 200 percent', (
     tester,
   ) async {
@@ -88,8 +106,10 @@ void main() {
     expect(find.text('ERP-Plan erstellen'), findsOneWidget);
 
     await tester.enterText(find.byType(TextField).at(0), 'Eine Situation');
+    await tester.drag(find.byType(ListView).first, const Offset(0, -520));
+    await tester.pump();
     await tester.enterText(find.byType(TextField).at(2), 'Nicht nachfragen');
-    await tester.drag(find.byType(ListView).first, const Offset(0, -1100));
+    await tester.drag(find.byType(ListView).first, const Offset(0, -700));
     await tester.pump();
     await tester.tap(find.text('Plan erstellen').hitTestable());
     await tester.pump();

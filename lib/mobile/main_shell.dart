@@ -790,10 +790,12 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
     final now = DateTime.now();
     return ErpExercisePlan(
       exerciseId: template.id,
-      exerciseTitle: template.title,
-      triggerOrExposure: template.subtitle,
-      fearPrediction: 'OCD says the discomfort won’t pass unless you respond.',
-      preventionCommitment: template.quickCues.join(' · '),
+      exerciseTitle: template.canonicalTitle,
+      triggerOrExposure: template.localizedSubtitle(context.l10n),
+      fearPrediction: context.l10n.erpFirstRunPrediction,
+      preventionCommitment: template
+          .localizedQuickCues(context.l10n)
+          .join(' · '),
       defaultSeconds: 2 * 60,
       createdAt: now,
       updatedAt: now,

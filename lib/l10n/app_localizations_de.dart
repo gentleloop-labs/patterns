@@ -2414,4 +2414,170 @@ class AppLocalizationsDe extends AppLocalizations {
   String erpPlanRatingChange(int before, int after) {
     return '$before → $after';
   }
+
+  @override
+  String get erpFirstRunPrediction =>
+      'OCD sagt, dass sich das Unbehagen nur ändert, wenn du reagierst.';
+
+  @override
+  String erpTemplateTitle(String template) {
+    String _temp0 = intl.Intl.selectLogic(template, {
+      'delayChecking': 'Kontrollieren aufschieben',
+      'delayReassurance': 'Rückversicherung aufschieben',
+      'delayGoogling': 'Googeln aufschieben',
+      'delayRumination': 'Grübeln aufschieben',
+      'delayWashing': 'Waschen aufschieben',
+      'other': 'Geführte ERP',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpTemplateSubtitle(String template) {
+    String _temp0 = intl.Intl.selectLogic(template, {
+      'delayChecking': 'Übe für kurze Zeit, etwas ungeprüft zu lassen.',
+      'delayReassurance': 'Warte, bevor du jemanden um Gewissheit bittest.',
+      'delayGoogling': 'Schiebe die Suche nach Gewissheit oder Beweisen auf.',
+      'delayRumination': 'Bemerke mentales Problemlösen, ohne ihm zu folgen.',
+      'delayWashing':
+          'Warte, bevor du erneut wäschst, reinigst oder desinfizierst.',
+      'other': 'Übe, eine Reaktion aufzuschieben.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpTemplateIntro(String template) {
+    String _temp0 = intl.Intl.selectLogic(template, {
+      'delayChecking':
+          'Erstelle einen wiederverwendbaren Plan für Momente, in denen OCD dich drängt, Schlösser, Schalter, Nachrichten, Symptome oder Fehler erneut zu prüfen.',
+      'delayReassurance':
+          'Erstelle einen Plan für den Drang, zu fragen, zu gestehen, zu erklären oder dir bestätigen zu lassen, dass alles in Ordnung ist.',
+      'delayGoogling':
+          'Erstelle einen Plan für Momente, in denen OCD dich nach Symptomen, Bedeutungen, Risiken, Regeln oder Geschichten suchen lässt, bis du dich sicher fühlst.',
+      'delayRumination':
+          'Erstelle einen Plan für mentale Zwänge wie Wiederholen, Beweisen, Überprüfen oder Lösen.',
+      'delayWashing':
+          'Erstelle einen Plan für den Drang zu waschen, zu reinigen, zu desinfizieren oder neu anzufangen, weil sich etwas verunreinigt anfühlt.',
+      'other': 'Erstelle einen wiederverwendbaren ERP-Übungsplan.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpTemplateWhy(String template) {
+    String _temp0 = intl.Intl.selectLogic(template, {
+      'delayChecking':
+          'Mit ERP kannst du üben, Unsicherheit da sein zu lassen, ohne sofort ein Ritual auszuführen.',
+      'delayReassurance':
+          'Rückversicherung kann sich im Moment hilfreich anfühlen; wenn du sie aufschiebst, kannst du üben, etwas nicht zu wissen.',
+      'delayGoogling':
+          'Das Aufschieben der Suche unterbricht die Gewissheitsschleife und lässt dich üben, eine Frage unbeantwortet zu lassen.',
+      'delayRumination':
+          'Grübeln kann wie Denken wirken; ERP lässt dich üben, die Schleife zu verlassen, ohne das Argument zu Ende zu führen.',
+      'delayWashing':
+          'Durch Warten kannst du üben, ein Verunreinigungsgefühl da sein zu lassen, ohne sofort ein Ritual auszuführen.',
+      'other':
+          'Bei ERP übst du, Unsicherheit ohne ein sofortiges Ritual zuzulassen.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpTemplatePrompt(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'delayCheckingExposure':
+          'Was lässt du ungeprüft oder prüfst du nur einmal?',
+      'delayCheckingPrediction':
+          'Was sagt OCD voraus, wenn du nicht erneut prüfst?',
+      'delayCheckingCommitment':
+          'Welches Kontrollritual möchtest du nicht ausführen?',
+      'delayReassuranceExposure':
+          'Welche Rückversicherung möchtest du erfragen?',
+      'delayReassurancePrediction':
+          'Was sagt OCD voraus, wenn du nicht fragst?',
+      'delayReassuranceCommitment':
+          'Welche Nachricht, welches Geständnis oder welche Frage wirst du zurückhalten?',
+      'delayGooglingExposure':
+          'Welche Suche oder Frage lässt du unbeantwortet?',
+      'delayGooglingPrediction': 'Was musst du laut OCD jetzt wissen?',
+      'delayGooglingCommitment':
+          'Welche Suche, welchen Artikel oder welches Forum wirst du meiden?',
+      'delayRuminationExposure':
+          'Welche Gedankenschleife lässt du unvollendet?',
+      'delayRuminationPrediction': 'Was musst du laut OCD lösen oder beweisen?',
+      'delayRuminationCommitment':
+          'Welche mentale Prüfung oder Argumentation wirst du nicht fortsetzen?',
+      'delayWashingExposure':
+          'Welche normale Hygienegrenze wirst du einhalten?',
+      'delayWashingPrediction':
+          'Was sagt OCD voraus, wenn du nicht erneut wäschst?',
+      'delayWashingCommitment':
+          'Welches zusätzliche Waschen, Reinigen oder Desinfizieren wirst du nicht ausführen?',
+      'other': 'Welche Reaktion möchtest du nicht ausführen?',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpTemplateInstruction(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'delayChecking1': 'Lege vor Beginn eine Kontrollregel fest.',
+      'delayChecking2':
+          'Prüfe einmal wie geplant, wenn dies zur normalen Sicherheit gehört.',
+      'delayChecking3': 'Prüfe während des Timers nicht erneut.',
+      'delayChecking4': 'Bemerke den Drang, ohne mit ihm zu verhandeln.',
+      'delayReassurance1':
+          'Lege die Bitte um Rückversicherung vor Beginn fest.',
+      'delayReassurance2':
+          'Sende während des Timers keine Nachricht und stelle die Frage nicht.',
+      'delayReassurance3':
+          'Lass das Unbehagen da sein, ohne Gewissheit zu suchen.',
+      'delayReassurance4':
+          'Kehre so sanft wie möglich zu deiner vorherigen Tätigkeit zurück.',
+      'delayGoogling1': 'Lege die Suche fest, bevor du etwas anderes öffnest.',
+      'delayGoogling2': 'Schließe das Suchfeld oder den Browser-Tab.',
+      'delayGoogling3': 'Starte den Timer, bevor du etwas anderes liest.',
+      'delayGoogling4': 'Lass die Frage vorerst unbeantwortet.',
+      'delayRumination1':
+          'Benenne die Schleife: überprüfen, lösen, beweisen oder kontrollieren.',
+      'delayRumination2': 'Lass den Gedanken unvollendet.',
+      'delayRumination3':
+          'Lenke die Aufmerksamkeit auf eine gewöhnliche Aufgabe oder Empfindung zurück.',
+      'delayRumination4':
+          'Beginne jedes Mal sanft neu, wenn die Schleife dich zurückzieht.',
+      'delayWashing1': 'Lege vor Beginn die normale Hygienegrenze fest.',
+      'delayWashing2':
+          'Beginne mit einer Verzögerung, die herausfordernd, aber möglich wirkt.',
+      'delayWashing3':
+          'Halte deine Hände während des Timers von Waschbecken und Desinfektionsmittel fern.',
+      'delayWashing4':
+          'Lass das Unbehagen da sein, ohne es perfekt machen zu wollen.',
+      'other': 'Folge deinem gewählten Plan.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpTemplateCue(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'delayChecking1': 'Einmal prüfen',
+      'delayChecking2': 'Nicht erneut prüfen',
+      'delayChecking3': 'Drang bemerken',
+      'delayReassurance1': 'Frage zurückhalten',
+      'delayReassurance2': 'Unsicherheit zulassen',
+      'delayReassurance3': 'Sanft zurückkehren',
+      'delayGoogling1': 'Suche schließen',
+      'delayGoogling2': 'Timer starten',
+      'delayGoogling3': 'Unbeantwortet lassen',
+      'delayRumination1': 'Schleife benennen',
+      'delayRumination2': 'Unvollendet lassen',
+      'delayRumination3': 'Zur Aufgabe zurückkehren',
+      'delayWashing1': 'Grenze festlegen',
+      'delayWashing2': 'Waschen aufschieben',
+      'delayWashing3': 'Unbehagen zulassen',
+      'other': 'Plan folgen',
+    });
+    return '$_temp0';
+  }
 }
