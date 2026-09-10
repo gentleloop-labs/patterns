@@ -2345,4 +2345,60 @@ class AppLocalizationsEs extends AppLocalizations {
   String erpIntensityValue(int value) {
     return 'Intensidad $value de 10';
   }
+
+  @override
+  String erpPlanText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'ERP guiada',
+      'subtitle': 'Reutiliza un plan, practica y registra lo que ocurrió.',
+      'myPlans': 'Mis planes de ERP',
+      'newAction': 'Nuevo',
+      'plansError': 'Los planes de ERP no están disponibles ahora.',
+      'recentPractice': 'Práctica reciente',
+      'historyError': 'El historial de prácticas no está disponible ahora.',
+      'archiveTitle': '¿Archivar este plan?',
+      'archiveBody':
+          'Saldrá de tus planes activos, pero las prácticas anteriores seguirán en tu historial.',
+      'keepAction': 'Conservar',
+      'archiveAction': 'Archivar',
+      'exposureValidation':
+          'Cuando quieras, describe la situación con la que quieres practicar.',
+      'commitmentValidation':
+          'Elige la respuesta que quieres practicar sin realizar para poder guardar el plan.',
+      'saveError': 'No se pudo guardar tu plan de ERP. Inténtalo de nuevo.',
+      'updated': 'Plan de ERP actualizado.',
+      'created': 'Plan de ERP creado.',
+      'editTitle': 'Editar plan de ERP',
+      'createTitle': 'Crear plan de ERP',
+      'exerciseType': 'Tipo de ejercicio',
+      'exposureTarget': 'Objetivo de exposición',
+      'ocdPrediction': 'Predicción del TOC',
+      'preventionCommitment': 'Compromiso de prevención de respuesta',
+      'defaultDuration': 'Duración predeterminada',
+      'saving': 'Guardando…',
+      'saveAction': 'Guardar plan',
+      'createAction': 'Crear plan',
+      'emptyTitle': 'Crea tu primer plan de ERP',
+      'emptyBody':
+          'Escribe una vez la exposición, la predicción y la respuesta que quieres practicar sin realizar. Después podrás reutilizar el plan.',
+      'moreActions': 'Más acciones del plan',
+      'editAction': 'Editar plan',
+      'archivePlanAction': 'Archivar plan',
+      'practiceGuide': 'Guía de práctica',
+      'historyEmpty': 'Las prácticas completadas aparecerán aquí.',
+      'customDuration': 'Duración personalizada',
+      'other': 'Plan de ERP',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpPlanResist(String response) {
+    return 'Evitar: $response';
+  }
+
+  @override
+  String erpPlanRatingChange(int before, int after) {
+    return '$before → $after';
+  }
 }

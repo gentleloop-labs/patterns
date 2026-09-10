@@ -3754,6 +3754,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Intensity {value} out of 10'**
   String erpIntensityValue(int value);
+
+  /// Localized Guided ERP plan and editor interface text selected from a stable UI key. Preserve OCD and ERP terminology; avoid reassurance, praise, scores, and treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'{key, select, title{Guided ERP} subtitle{Reuse a plan, practise, and learn from the result.} myPlans{My ERP plans} newAction{New} plansError{ERP plans are unavailable right now.} recentPractice{Recent practice} historyError{Practice history is unavailable right now.} archiveTitle{Archive this plan?} archiveBody{It will leave your active plans, but past practice stays in your history.} keepAction{Keep it} archiveAction{Archive} exposureValidation{Name the situation you want to practise with, whenever you are ready.} commitmentValidation{Choose the response you want to practise resisting, and this will save.} saveError{Your ERP plan could not be saved. Please try again.} updated{ERP plan updated.} created{ERP plan created.} editTitle{Edit ERP plan} createTitle{Create ERP plan} exerciseType{Exercise type} exposureTarget{Exposure target} ocdPrediction{OCD prediction} preventionCommitment{Response-prevention commitment} defaultDuration{Default duration} saving{Saving…} saveAction{Save plan} createAction{Create plan} emptyTitle{Create your first ERP plan} emptyBody{Write the exposure, prediction, and response you want to practise once. Then reuse it whenever you need.} moreActions{More plan actions} editAction{Edit plan} archivePlanAction{Archive plan} practiceGuide{Practice guide} historyEmpty{Completed practices will appear here.} customDuration{Custom duration} other{ERP plan}}'**
+  String erpPlanText(String key);
+
+  /// Factual summary of the user-written response-prevention commitment on an ERP plan card. Preserve the user text exactly.
+  ///
+  /// In en, this message translates to:
+  /// **'Resist: {response}'**
+  String erpPlanResist(String response);
+
+  /// Visible, non-colour representation of the user's deliberately recorded before and after ERP intensity values.
+  ///
+  /// In en, this message translates to:
+  /// **'{before} → {after}'**
+  String erpPlanRatingChange(int before, int after);
 }
 
 class _AppLocalizationsDelegate
