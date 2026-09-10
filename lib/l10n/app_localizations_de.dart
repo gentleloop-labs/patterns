@@ -2580,4 +2580,274 @@ class AppLocalizationsDe extends AppLocalizations {
     });
     return '$_temp0';
   }
+
+  @override
+  String structuredProgramText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Strukturierte Programme',
+      'subtitle':
+          'Folge in deinem eigenen Tempo einem Plan von Woche zu Woche.',
+      'themeGroup': 'Nach OCD-Thema',
+      'themeGroupEmpty':
+          'Wähle ein Thema, wenn es zu deiner gewünschten Übung passt.',
+      'themeGroupMatched':
+          'Themen aus deinem letzten Selbstcheck sind unten gekennzeichnet.',
+      'generalGroup': 'Allgemeine Übungen',
+      'generalCaption':
+          'Fertigkeiten, die bei verschiedenen Themen genutzt werden können.',
+      'enrollError':
+          'Dieses Programm konnte nicht geöffnet werden. Bitte versuche es erneut.',
+      'started': 'Begonnen',
+      'notStarted': 'Nicht begonnen',
+      'openHint': 'Programmdetails öffnen',
+      'selfCheckMatch': 'Passt zu deinem Selbstcheck',
+      'tapToStart': 'Zum Starten tippen',
+      'progressLoadError':
+          'Die Programmaktivität konnte nicht geladen werden. Bitte versuche es erneut.',
+      'activityRecorded': 'Deine Aufgabenauswahl wird lokal gespeichert.',
+      'taskSaveError':
+          'Diese Aufgabenänderung konnte nicht gespeichert werden. Bitte versuche es erneut.',
+      'weekComplete': 'Alle Aufgaben als abgeschlossen markiert',
+      'weekNotComplete': 'Aufgaben verbleiben',
+      'weekToggleHint': 'Diese Woche ein- oder ausklappen',
+      'taskToggleHint': 'Diese Aufgabe markieren oder Markierung entfernen',
+      'other': 'Programm',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramProgress(int done, int total, int percent) {
+    return '$done von $total Aufgaben, $percent Prozent';
+  }
+
+  @override
+  String structuredProgramSummary(int count, String subtitle) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Wochen · $subtitle',
+      one: '1 Woche · $subtitle',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramComplete(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Aufgaben sind',
+      one: '1 Aufgabe ist',
+    );
+    return 'Alle $_temp0 als abgeschlossen markiert.';
+  }
+
+  @override
+  String structuredProgramTaskProgress(int done, int total) {
+    return '$done von $total Aufgaben als abgeschlossen markiert';
+  }
+
+  @override
+  String structuredProgramCompactProgress(int done, int total) {
+    return '$done/$total';
+  }
+
+  @override
+  String structuredProgramTaskChanged(String status) {
+    String _temp0 = intl.Intl.selectLogic(status, {
+      'completed': 'Aufgabe als abgeschlossen markiert.',
+      'notCompleted': 'Aufgabe als nicht abgeschlossen markiert.',
+      'other': 'Aufgabe aktualisiert.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramTitle(String program) {
+    String _temp0 = intl.Intl.selectLogic(program, {
+      'delay4wk': '4 Wochen: Zwänge aufschieben',
+      'uncertainty3wk': 'Unsicherheitstoleranz',
+      'other': 'Strukturiertes Programm',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramSubtitle(String program) {
+    String _temp0 = intl.Intl.selectLogic(program, {
+      'delay4wk': 'Übe Woche für Woche, Zwänge aufzuschieben',
+      'uncertainty3wk': 'Übe, mit dem Nichtwissen zu leben',
+      'other': 'Ein geführter Übungsplan',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramWeek(String week) {
+    String _temp0 = intl.Intl.selectLogic(week, {
+      'delayW1': 'Woche 1 · Bemerken und benennen',
+      'delayW2': 'Woche 2 · Den Abstand vergrößern',
+      'delayW3': 'Woche 3 · Länger dabeibleiben',
+      'delayW4': 'Woche 4 · Tägliche Übung',
+      'uncertaintyW1': 'Woche 1 · Offenlassen',
+      'uncertaintyW2': 'Woche 2 · Vielleicht, vielleicht nicht',
+      'uncertaintyW3': 'Woche 3 · Sein lassen',
+      'other': 'Programmwoche',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramTask(String task) {
+    String _temp0 = intl.Intl.selectLogic(task, {
+      'w1a': '3 Dränge festhalten, ohne sofort zu handeln',
+      'w1b': 'Einen Zwang dreimal um 1 Minute aufschieben',
+      'w2a': 'Zwänge um 5 Minuten aufschieben',
+      'w2b': 'Einmal Urge Surfing ausprobieren',
+      'w3a': 'Um 15 Minuten aufschieben',
+      'w3b': 'Einem Drang nach Rückversicherung widerstehen',
+      'w4a': 'Jeden Tag eine Exposition durchführen',
+      'w4b': 'Festhalten, was dir aufgefallen ist',
+      'u1a': 'Eine Frage unbeantwortet lassen',
+      'u1b': 'Einmaligem Kontrollieren widerstehen',
+      'u2a': 'Dreimal mit „vielleicht, vielleicht nicht“ antworten',
+      'u2b': 'Die Online-Suche zu einer Sorge aufschieben',
+      'u3a': 'Einen Tag lang keine Gewissheit suchen',
+      'u3b': 'Festhalten, was dir aufgefallen ist',
+      'other': 'Programmaufgabe',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackTitle(String track) {
+    String _temp0 = intl.Intl.selectLogic(track, {
+      'contamination': 'Verunreinigung und Waschen',
+      'checking': 'Kontrollieren und Zweifel',
+      'harm': 'Schadens- und Tabugedanken',
+      'relationship': 'Beziehungszweifel',
+      'justRight': 'Genau-richtig-Gefühl und Symmetrie',
+      'other': 'OCD-Thema',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackBlurb(String track) {
+    String _temp0 = intl.Intl.selectLogic(track, {
+      'contamination':
+          'Für Ängste, dass etwas schmutzig, ansteckend oder unsicher zu berühren ist, und das folgende Waschen oder Reinigen.',
+      'checking':
+          'Für Schlösser, Herdplatten, Schalter, Nachrichten und anderes, zu dem du zurückkehrst, weil es sich nicht sicher genug anfühlt.',
+      'harm':
+          'Für aufdringliche Gedanken über Schaden oder Themen, die gewalttätig, sexuell oder blasphemisch wirken, sowie folgende Zwänge oder Vermeidung.',
+      'relationship':
+          'Für wiederkehrende Zweifel daran, ob eine Beziehung richtig ist, ob du genug fühlst oder was der Zweifel bedeutet.',
+      'justRight':
+          'Für Dinge, die gleichmäßig, geordnet oder wiederholt sein müssen, bis sie sich richtig anfühlen.',
+      'other': 'Ein nach einem OCD-Thema geordneter Übungspfad.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackTheme(String track) {
+    String _temp0 = intl.Intl.selectLogic(track, {
+      'contamination': 'Verunreinigung',
+      'checking': 'Kontrollieren',
+      'harm': 'Schadens- und Tabugedanken',
+      'relationship': 'Beziehungszweifel',
+      'justRight': 'Genau richtig',
+      'other': 'OCD-Thema',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackChecklistNote(String track) {
+    String _temp0 = intl.Intl.selectLogic(track, {
+      'relationship':
+          'Die Y-BOCS-Checkliste entstand vor der Forschung zu Beziehungs-OCD, daher ist dieses Thema keine ihrer Kategorien. Du kannst diesen Übungspfad trotzdem nutzen.',
+      'other':
+          'Dieses Thema ist nicht als Kategorie der Y-BOCS-Checkliste vertreten.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackWeek(String week) {
+    String _temp0 = intl.Intl.selectLogic(week, {
+      'ct1': 'Woche 1 · Berühren, dann warten',
+      'ct2': 'Woche 2 · Einmal waschen, nicht dreimal',
+      'ct3': 'Woche 3 · Mit nach Hause nehmen',
+      'ck1': 'Woche 1 · Einmal schauen',
+      'ck2': 'Woche 2 · Kein mentales Wiederholen',
+      'ck3': 'Woche 3 · Ungeklärt lassen',
+      'hm1': 'Woche 1 · Da sein lassen',
+      'hm2': 'Woche 2 · Nicht mehr fragen',
+      'hm3': 'Woche 3 · Kein innerer Gerichtsprozess',
+      'rl1': 'Woche 1 · Nicht mehr testen',
+      'rl2': 'Woche 2 · Keine Rückversicherung',
+      'rl3': 'Woche 3 · Mit Vielleicht leben',
+      'jr1': 'Woche 1 · Schief lassen',
+      'jr2': 'Woche 2 · Nicht wiederholen',
+      'jr3': 'Woche 3 · Gut genug',
+      'other': 'Themenwoche',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackTask(String task) {
+    String _temp0 = intl.Intl.selectLogic(task, {
+      'ct1a':
+          'Etwas leicht unsauber Wirkendes berühren und die Hände fünf Minuten nicht waschen',
+      'ct1b': 'Den Drang davor und danach festhalten, ohne zu waschen',
+      'ct2a':
+          'Einmal normal waschen und nicht zu einer zweiten Runde zurückkehren',
+      'ct2b': 'Eine Oberfläche zu Hause eine Woche lang ungereinigt lassen',
+      'ct3a':
+          'An einen Ort gehen, der danach meist zum Waschen anregt, und zu Hause nicht waschen',
+      'ct3b': 'OCDs Vorhersage neben dem tatsächlichen Geschehen notieren',
+      'ck1a': 'Eine Sache einmal prüfen und ohne zweiten Blick weggehen',
+      'ck1b': 'Einmal das Haus ohne abschließenden Rundgang verlassen',
+      'ck2a':
+          'Wenn der Drang zum mentalen Wiederholen kommt, den Zweifel ungeklärt lassen',
+      'ck2b':
+          'Eine Nachricht senden, ohne sie davor oder danach erneut zu lesen',
+      'ck3a': 'Einen Tag lang nichts ein zweites Mal prüfen',
+      'ck3b': 'Festhalten, was geschah und was OCD vorhersagte',
+      'hm1a':
+          'Einen aufdringlichen Gedanken eine Minute da sein lassen, ohne mit ihm zu streiten oder ihn wegzudrängen',
+      'hm1b':
+          'Die mentale Prüfung bemerken, bevor sie beginnt, und sie sein lassen',
+      'hm2a':
+          'Nicht fragen, ob du ein guter Mensch bist, und auch nicht nach einer Antwort suchen',
+      'hm2b':
+          'In einer Situation bleiben, die du wegen des Gedankens gemieden hast',
+      'hm3a': 'Einen Tag lang Gefühle nicht als Beweis über dich prüfen',
+      'hm3b': 'Festhalten, wie die Woche war, ohne dich zu bewerten',
+      'rl1a': 'Einen Verträglichkeitstest bemerken und einmal auslassen',
+      'rl1b': 'Einen Beziehungszweifel zehn Minuten unbeantwortet lassen',
+      'rl2a':
+          'Einen Tag lang weder Partner, Freunde noch das Internet fragen, ob die Beziehung richtig ist',
+      'rl2b': 'Etwas zusammen tun, ohne dabei deine Gefühle zu überwachen',
+      'rl3a':
+          'Mit „vielleicht, vielleicht nicht“ antworten, wenn die Frage kommt',
+      'rl3b':
+          'Über die Woche nachdenken, ohne eine Zukunftsentscheidung zu treffen',
+      'jr1a':
+          'Einen Gegenstand leicht versetzt lassen und das Gefühl da sein lassen',
+      'jr1b': 'Etwas einmal tun, obwohl es sich nicht abgeschlossen anfühlt',
+      'jr2a':
+          'Eine Handlung nicht wiederholen, um sie richtig wirken zu lassen',
+      'jr2b': 'Etwas schreiben, ohne den Wortlaut nachträglich auszugleichen',
+      'jr3a': 'Einen Tag lang mehrere Dinge absichtlich unvollendet lassen',
+      'jr3b':
+          'Festhalten, was mit dem Nicht-richtig-Gefühl geschah, ohne es zu verändern',
+      'other': 'Themenaufgabe',
+    });
+    return '$_temp0';
+  }
 }

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/semantics.dart';
 
+import '../../app_preferences.dart';
 import '../../content/ocd_tracks.dart';
+import '../../l10n/app_localizations.dart';
+import '../../l10n/l10n.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/animations.dart';
+import '../../widgets/app_snack_bar.dart';
 import '../widgets/recovery_ui.dart';
 import '../widgets/section_intro.dart';
 
@@ -15,92 +20,89 @@ import '../widgets/section_intro.dart';
 
 class ErpProgramTask {
   final String id;
-  final String label;
-  const ErpProgramTask(this.id, this.label);
+  final bool fromTrack;
+  const ErpProgramTask(this.id, {this.fromTrack = false});
+
+  String localizedLabel(AppLocalizations strings) =>
+      fromTrack ? strings.ocdTrackTask(id) : strings.structuredProgramTask(id);
 }
 
 class ErpProgramWeek {
-  final String title;
+  final String id;
+  final bool fromTrack;
   final List<ErpProgramTask> tasks;
-  const ErpProgramWeek({required this.title, required this.tasks});
+  const ErpProgramWeek({
+    required this.id,
+    required this.tasks,
+    this.fromTrack = false,
+  });
+
+  String localizedTitle(AppLocalizations strings) =>
+      fromTrack ? strings.ocdTrackWeek(id) : strings.structuredProgramWeek(id);
 }
 
 class ErpProgram {
   final String id;
-  final String title;
-  final String subtitle;
+  final String? trackId;
   final List<ErpProgramWeek> weeks;
-  const ErpProgram({
-    required this.id,
-    required this.title,
-    required this.subtitle,
-    required this.weeks,
-  });
+  const ErpProgram({required this.id, required this.weeks, this.trackId});
 
   int get totalTasks => weeks.fold(0, (sum, w) => sum + w.tasks.length);
+
+  String get _localizationKey => switch (id) {
+    'delay-4wk' => 'delay4wk',
+    'uncertainty-3wk' => 'uncertainty3wk',
+    _ => id,
+  };
+
+  String get _trackLocalizationKey =>
+      trackId == 'just-right' ? 'justRight' : trackId!;
+
+  String localizedTitle(AppLocalizations strings) => trackId == null
+      ? strings.structuredProgramTitle(_localizationKey)
+      : strings.ocdTrackTitle(_trackLocalizationKey);
+
+  String localizedSubtitle(AppLocalizations strings) => trackId == null
+      ? strings.structuredProgramSubtitle(_localizationKey)
+      : strings.ocdTrackBlurb(_trackLocalizationKey);
 }
 
 const erpPrograms = <ErpProgram>[
   ErpProgram(
     id: 'delay-4wk',
-    title: '4-Week Compulsion Delay',
-    subtitle: 'Build delay tolerance, one week at a time',
     weeks: [
       ErpProgramWeek(
-        title: 'Week 1 · Notice & name',
-        tasks: [
-          ErpProgramTask('w1a', 'Log 3 urges without acting immediately'),
-          ErpProgramTask('w1b', 'Delay one compulsion by 1 minute, 3 times'),
-        ],
+        id: 'delayW1',
+        tasks: [ErpProgramTask('w1a'), ErpProgramTask('w1b')],
       ),
       ErpProgramWeek(
-        title: 'Week 2 · Stretch the gap',
-        tasks: [
-          ErpProgramTask('w2a', 'Delay compulsions by 5 minutes'),
-          ErpProgramTask('w2b', 'Try urge surfing once'),
-        ],
+        id: 'delayW2',
+        tasks: [ErpProgramTask('w2a'), ErpProgramTask('w2b')],
       ),
       ErpProgramWeek(
-        title: 'Week 3 · Sit longer',
-        tasks: [
-          ErpProgramTask('w3a', 'Delay by 15 minutes'),
-          ErpProgramTask('w3b', 'Resist one reassurance-seeking urge'),
-        ],
+        id: 'delayW3',
+        tasks: [ErpProgramTask('w3a'), ErpProgramTask('w3b')],
       ),
       ErpProgramWeek(
-        title: 'Week 4 · Daily practice',
-        tasks: [
-          ErpProgramTask('w4a', 'Complete one exposure each day'),
-          ErpProgramTask('w4b', 'Reflect on what has changed'),
-        ],
+        id: 'delayW4',
+        tasks: [ErpProgramTask('w4a'), ErpProgramTask('w4b')],
       ),
     ],
   ),
   ErpProgram(
     id: 'uncertainty-3wk',
-    title: 'Uncertainty Tolerance',
-    subtitle: 'Practise living with not knowing',
     weeks: [
       ErpProgramWeek(
-        title: 'Week 1 · Leave it open',
-        tasks: [
-          ErpProgramTask('u1a', 'Leave one question unanswered'),
-          ErpProgramTask('u1b', 'Resist checking once'),
-        ],
+        id: 'uncertaintyW1',
+        tasks: [ErpProgramTask('u1a'), ErpProgramTask('u1b')],
       ),
       ErpProgramWeek(
-        title: 'Week 2 · Maybe, maybe not',
-        tasks: [
-          ErpProgramTask('u2a', 'Use a "maybe, maybe not" response 3 times'),
-          ErpProgramTask('u2b', 'Delay googling a worry'),
-        ],
+        id: 'uncertaintyW2',
+        tasks: [ErpProgramTask('u2a'), ErpProgramTask('u2b')],
       ),
       ErpProgramWeek(
-        title: 'Week 3 · Let it be',
-        tasks: [
-          ErpProgramTask('u3a', 'Go a day without seeking certainty'),
-          ErpProgramTask('u3b', 'Reflect on your progress'),
-        ],
+        id: 'uncertaintyW3',
+        tasks: [ErpProgramTask('u3a'), ErpProgramTask('u3b')],
       ),
     ],
   ),
@@ -115,14 +117,15 @@ const erpPrograms = <ErpProgram>[
 ErpProgram programForTrack(OcdTrack track) {
   return ErpProgram(
     id: track.programId,
-    title: track.title,
-    subtitle: track.blurb,
+    trackId: track.id,
     weeks: [
       for (final week in track.weeks)
         ErpProgramWeek(
-          title: week.title,
+          id: week.id,
+          fromTrack: true,
           tasks: [
-            for (final task in week.tasks) ErpProgramTask(task.id, task.label),
+            for (final task in week.tasks)
+              ErpProgramTask(task.id, fromTrack: true),
           ],
         ),
     ],
@@ -152,6 +155,7 @@ class StructuredProgramsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final calmInsightsEnabled = ref.watch(calmInsightsProvider);
     final enrollments =
         ref.watch(programEnrollmentProvider).asData?.value ?? const [];
     final progress =
@@ -173,10 +177,13 @@ class StructuredProgramsScreen extends ConsumerWidget {
                 CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    'Structured Programs',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      context.l10n.structuredProgramText('title'),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
@@ -184,7 +191,7 @@ class StructuredProgramsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 6),
             Text(
-              'Follow a guided, week-by-week plan at your own pace.',
+              context.l10n.structuredProgramText('subtitle'),
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.4,
@@ -193,10 +200,10 @@ class StructuredProgramsScreen extends ConsumerWidget {
             const SizedBox(height: 18),
             const SectionIntro(id: 'structuredPrograms'),
             _GroupLabel(
-              label: 'By OCD theme',
+              label: context.l10n.structuredProgramText('themeGroup'),
               caption: suggestedThemes.isEmpty
-                  ? 'Pick the one that sounds most like your OCD.'
-                  : 'Your last self-check points at the ones marked below.',
+                  ? context.l10n.structuredProgramText('themeGroupEmpty')
+                  : context.l10n.structuredProgramText('themeGroupMatched'),
             ),
             for (final track in ocdTracks) ...[
               _ProgramCard(
@@ -207,14 +214,15 @@ class StructuredProgramsScreen extends ConsumerWidget {
                   _enrollmentIdFor(enrollments, track.programId),
                 ),
                 suggested: track.matchesThemes(suggestedThemes),
+                calmInsightsEnabled: calmInsightsEnabled,
                 onTap: () => _open(context, ref, programForTrack(track)),
               ),
               const SizedBox(height: 10),
             ],
             const SizedBox(height: 12),
-            const _GroupLabel(
-              label: 'General practice',
-              caption: 'Skills that apply whatever the theme is.',
+            _GroupLabel(
+              label: context.l10n.structuredProgramText('generalGroup'),
+              caption: context.l10n.structuredProgramText('generalCaption'),
             ),
             for (final program in erpPrograms) ...[
               _ProgramCard(
@@ -224,6 +232,7 @@ class StructuredProgramsScreen extends ConsumerWidget {
                   progress,
                   _enrollmentIdFor(enrollments, program.id),
                 ),
+                calmInsightsEnabled: calmInsightsEnabled,
                 onTap: () => _open(context, ref, program),
               ),
               const SizedBox(height: 10),
@@ -263,9 +272,21 @@ class StructuredProgramsScreen extends ConsumerWidget {
     WidgetRef ref,
     ErpProgram program,
   ) async {
-    final enrollmentId = await ref
-        .read(programEnrollmentProvider.notifier)
-        .enroll(program.id);
+    late final int enrollmentId;
+    try {
+      enrollmentId = await ref
+          .read(programEnrollmentProvider.notifier)
+          .enroll(program.id);
+    } catch (_) {
+      if (context.mounted) {
+        showAppSnackBar(
+          context,
+          context.l10n.structuredProgramText('enrollError'),
+          type: ToastType.error,
+        );
+      }
+      return;
+    }
     if (!context.mounted) return;
     Navigator.of(context).push(
       MaterialPageRoute<void>(
@@ -319,6 +340,7 @@ class _ProgramCard extends StatelessWidget {
   final int? enrollmentId;
   final int completedTasks;
   final VoidCallback onTap;
+  final bool calmInsightsEnabled;
 
   /// Marks a track that matches the newest self-check. A hint, not a
   /// prescription: every track stays visible and openable.
@@ -329,6 +351,7 @@ class _ProgramCard extends StatelessWidget {
     required this.enrollmentId,
     required this.completedTasks,
     required this.onTap,
+    required this.calmInsightsEnabled,
     this.suggested = false,
   });
 
@@ -339,83 +362,109 @@ class _ProgramCard extends StatelessWidget {
     final pct = total == 0 ? 0.0 : completedTasks / total;
     final started = enrollmentId != null;
 
-    return PressScale(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(18),
-        decoration: recoverySoftDecoration(theme),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    program.title,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w800,
+    final title = program.localizedTitle(context.l10n);
+    final subtitle = program.localizedSubtitle(context.l10n);
+    final semanticsValue = started
+        ? (calmInsightsEnabled
+              ? context.l10n.structuredProgramText('started')
+              : context.l10n.structuredProgramProgress(
+                  completedTasks,
+                  total,
+                  (pct * 100).round(),
+                ))
+        : context.l10n.structuredProgramText('notStarted');
+
+    return Semantics(
+      button: true,
+      label: title,
+      value: semanticsValue,
+      hint: context.l10n.structuredProgramText('openHint'),
+      excludeSemantics: true,
+      child: PressScale(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.all(18),
+          decoration: recoverySoftDecoration(theme),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
-                ),
-                if (suggested && !started)
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 3,
+                  if (suggested && !started)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 3,
+                      ),
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.primary.withValues(
+                          alpha: 0.14,
+                        ),
+                        borderRadius: BorderRadius.circular(999),
+                      ),
+                      child: Text(
+                        context.l10n.structuredProgramText('selfCheckMatch'),
+                        style: theme.textTheme.labelSmall?.copyWith(
+                          fontWeight: FontWeight.w800,
+                          color: theme.colorScheme.primary,
+                        ),
+                      ),
                     ),
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.primary.withValues(alpha: 0.14),
-                      borderRadius: BorderRadius.circular(999),
-                    ),
-                    child: Text(
-                      'From your self-check',
-                      style: theme.textTheme.labelSmall?.copyWith(
+                  if (started && !calmInsightsEnabled)
+                    Text(
+                      context.formatWholePercent((pct * 100).round()),
+                      style: theme.textTheme.labelLarge?.copyWith(
                         fontWeight: FontWeight.w800,
                         color: theme.colorScheme.primary,
                       ),
                     ),
-                  ),
-                if (started)
-                  Text(
-                    '${(pct * 100).round()}%',
-                    style: theme.textTheme.labelLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
-                      color: theme.colorScheme.primary,
+                ],
+              ),
+              const SizedBox(height: 4),
+              Text(
+                context.l10n.structuredProgramSummary(
+                  program.weeks.length,
+                  subtitle,
+                ),
+                style: TextStyle(
+                  color: context.appColors.textSecondary,
+                  fontSize: 13,
+                  height: 1.3,
+                ),
+              ),
+              if (started && !calmInsightsEnabled) ...[
+                const SizedBox(height: 14),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(999),
+                  child: LinearProgressIndicator(
+                    value: pct,
+                    minHeight: 6,
+                    backgroundColor: theme.dividerColor,
+                    valueColor: AlwaysStoppedAnimation(
+                      theme.colorScheme.primary,
                     ),
                   ),
+                ),
+              ] else if (!started) ...[
+                const SizedBox(height: 14),
+                Text(
+                  context.l10n.structuredProgramText('tapToStart'),
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    color: theme.colorScheme.primary,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ],
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${program.weeks.length} weeks · ${program.subtitle}',
-              style: TextStyle(
-                color: context.appColors.textSecondary,
-                fontSize: 13,
-                height: 1.3,
-              ),
-            ),
-            if (started) ...[
-              const SizedBox(height: 14),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(999),
-                child: LinearProgressIndicator(
-                  value: pct,
-                  minHeight: 6,
-                  backgroundColor: theme.dividerColor,
-                  valueColor: AlwaysStoppedAnimation(theme.colorScheme.primary),
-                ),
-              ),
-            ] else ...[
-              const SizedBox(height: 14),
-              Text(
-                'Tap to start',
-                style: theme.textTheme.labelLarge?.copyWith(
-                  color: theme.colorScheme.primary,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
             ],
-          ],
+          ),
         ),
       ),
     );
@@ -469,8 +518,9 @@ class _ProgramDetailScreenState extends ConsumerState<ProgramDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final progress =
-        ref.watch(programTaskProgressProvider).asData?.value ?? const [];
+    final calmInsightsEnabled = ref.watch(calmInsightsProvider);
+    final progressState = ref.watch(programTaskProgressProvider);
+    final progress = progressState.asData?.value ?? const [];
     final program = widget.program;
     final total = program.totalTasks;
     final done = progress
@@ -481,7 +531,9 @@ class _ProgramDetailScreenState extends ConsumerState<ProgramDetailScreen> {
     final activeExpanded = _expandedWeek ?? currentWeek;
     // Only themed tracks carry a note, and only when the theme is absent from
     // the Y-BOCS checklist.
-    final checklistNote = trackForProgramId(program.id)?.checklistNote;
+    final track = trackForProgramId(program.id);
+    final checklistNote = track?.localizedChecklistNote(context.l10n);
+    final title = program.localizedTitle(context.l10n);
 
     return Scaffold(
       body: SafeArea(
@@ -493,10 +545,13 @@ class _ProgramDetailScreenState extends ConsumerState<ProgramDetailScreen> {
                 CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    program.title,
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      title,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
@@ -513,6 +568,13 @@ class _ProgramDetailScreenState extends ConsumerState<ProgramDetailScreen> {
                 ),
               ),
             ],
+            if (progressState.hasError) ...[
+              const SizedBox(height: 14),
+              Text(
+                context.l10n.structuredProgramText('progressLoadError'),
+                style: TextStyle(color: context.appColors.textSecondary),
+              ),
+            ],
             const SizedBox(height: 16),
             Container(
               padding: const EdgeInsets.all(16),
@@ -521,21 +583,29 @@ class _ProgramDetailScreenState extends ConsumerState<ProgramDetailScreen> {
                 children: [
                   Expanded(
                     child: Text(
-                      done == total
-                          ? 'Program complete. Wonderful work.'
-                          : '$done of $total tasks done',
+                      calmInsightsEnabled
+                          ? context.l10n.structuredProgramText(
+                              'activityRecorded',
+                            )
+                          : done == total
+                          ? context.l10n.structuredProgramComplete(total)
+                          : context.l10n.structuredProgramTaskProgress(
+                              done,
+                              total,
+                            ),
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
-                  Text(
-                    '${(pct * 100).round()}%',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w900,
-                      color: theme.colorScheme.primary,
+                  if (!calmInsightsEnabled)
+                    Text(
+                      context.formatWholePercent((pct * 100).round()),
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w900,
+                        color: theme.colorScheme.primary,
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),
@@ -545,13 +615,13 @@ class _ProgramDetailScreenState extends ConsumerState<ProgramDetailScreen> {
                 week: program.weeks[i],
                 weekIndex: i,
                 expanded: activeExpanded == i,
-                isFuture: i > currentWeek,
+                calmInsightsEnabled: calmInsightsEnabled,
                 isDone: (taskId) => _isDone(progress, i, taskId),
                 onToggleExpand: () => setState(
                   () => _expandedWeek = activeExpanded == i ? -1 : i,
                 ),
-                onToggleTask: (taskId, completed) {
-                  ref
+                onToggleTask: (taskId, completed) async {
+                  final saved = await ref
                       .read(programTaskProgressProvider.notifier)
                       .toggleTask(
                         enrollmentId: widget.enrollmentId,
@@ -559,6 +629,20 @@ class _ProgramDetailScreenState extends ConsumerState<ProgramDetailScreen> {
                         taskId: taskId,
                         completed: completed,
                       );
+                  if (!context.mounted) return;
+                  final message = saved
+                      ? context.l10n.structuredProgramTaskChanged(
+                          completed ? 'completed' : 'notCompleted',
+                        )
+                      : context.l10n.structuredProgramText('taskSaveError');
+                  if (!saved) {
+                    showAppSnackBar(context, message, type: ToastType.error);
+                  }
+                  await SemanticsService.sendAnnouncement(
+                    View.of(context),
+                    message,
+                    Directionality.of(context),
+                  );
                 },
               ),
               const SizedBox(height: 10),
@@ -574,16 +658,16 @@ class _WeekSection extends StatelessWidget {
   final ErpProgramWeek week;
   final int weekIndex;
   final bool expanded;
-  final bool isFuture;
+  final bool calmInsightsEnabled;
   final bool Function(String taskId) isDone;
   final VoidCallback onToggleExpand;
-  final void Function(String taskId, bool completed) onToggleTask;
+  final Future<void> Function(String taskId, bool completed) onToggleTask;
 
   const _WeekSection({
     required this.week,
     required this.weekIndex,
     required this.expanded,
-    required this.isFuture,
+    required this.calmInsightsEnabled,
     required this.isDone,
     required this.onToggleExpand,
     required this.onToggleTask,
@@ -595,71 +679,87 @@ class _WeekSection extends StatelessWidget {
     final doneCount = week.tasks.where((t) => isDone(t.id)).length;
     final allDone = doneCount == week.tasks.length;
 
-    return Opacity(
-      opacity: isFuture ? 0.55 : 1.0,
-      child: Container(
-        decoration: recoverySoftDecoration(theme),
-        child: Column(
-          children: [
-            InkWell(
+    final title = week.localizedTitle(context.l10n);
+    final state = allDone
+        ? context.l10n.structuredProgramText('weekComplete')
+        : context.l10n.structuredProgramText('weekNotComplete');
+    return Container(
+      decoration: recoverySoftDecoration(theme),
+      child: Column(
+        children: [
+          Semantics(
+            button: true,
+            expanded: expanded,
+            label: title,
+            value: state,
+            hint: context.l10n.structuredProgramText('weekToggleHint'),
+            excludeSemantics: true,
+            child: InkWell(
               borderRadius: BorderRadius.circular(22),
               onTap: onToggleExpand,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  children: [
-                    Icon(
-                      allDone
-                          ? Icons.check_circle_rounded
-                          : Icons.circle_outlined,
-                      color: allDone
-                          ? theme.colorScheme.primary
-                          : context.appColors.textSecondary,
-                      size: 20,
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        week.title,
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w800,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(minHeight: 44),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      Icon(
+                        allDone
+                            ? Icons.check_circle_rounded
+                            : Icons.circle_outlined,
+                        color: allDone
+                            ? theme.colorScheme.primary
+                            : context.appColors.textSecondary,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          title,
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w800,
+                          ),
                         ),
                       ),
-                    ),
-                    Text(
-                      '$doneCount/${week.tasks.length}',
-                      style: TextStyle(
+                      if (!calmInsightsEnabled)
+                        Text(
+                          context.l10n.structuredProgramCompactProgress(
+                            doneCount,
+                            week.tasks.length,
+                          ),
+                          style: TextStyle(
+                            color: context.appColors.textSecondary,
+                            fontSize: 13,
+                          ),
+                        ),
+                      const SizedBox(width: 6),
+                      Icon(
+                        expanded
+                            ? Icons.keyboard_arrow_up_rounded
+                            : Icons.keyboard_arrow_down_rounded,
                         color: context.appColors.textSecondary,
-                        fontSize: 13,
                       ),
-                    ),
-                    const SizedBox(width: 6),
-                    Icon(
-                      expanded
-                          ? Icons.keyboard_arrow_up_rounded
-                          : Icons.keyboard_arrow_down_rounded,
-                      color: context.appColors.textSecondary,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-            if (expanded)
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-                child: Column(
-                  children: [
-                    for (final task in week.tasks)
-                      _TaskRow(
-                        label: task.label,
-                        done: isDone(task.id),
-                        onChanged: (v) => onToggleTask(task.id, v),
-                      ),
-                  ],
-                ),
+          ),
+          if (expanded)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+              child: Column(
+                children: [
+                  for (final task in week.tasks)
+                    _TaskRow(
+                      label: task.localizedLabel(context.l10n),
+                      done: isDone(task.id),
+                      onChanged: (v) => onToggleTask(task.id, v),
+                    ),
+                ],
               ),
-          ],
-        ),
+            ),
+        ],
       ),
     );
   }
@@ -668,7 +768,7 @@ class _WeekSection extends StatelessWidget {
 class _TaskRow extends StatelessWidget {
   final String label;
   final bool done;
-  final ValueChanged<bool> onChanged;
+  final Future<void> Function(bool) onChanged;
 
   const _TaskRow({
     required this.label,
@@ -679,35 +779,47 @@ class _TaskRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return InkWell(
-      borderRadius: BorderRadius.circular(12),
-      onTap: () => onChanged(!done),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(
-              done ? Icons.check_box_rounded : Icons.check_box_outline_blank,
-              color: done
-                  ? theme.colorScheme.primary
-                  : context.appColors.textSecondary,
-              size: 22,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                label,
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  height: 1.35,
+    return Semantics(
+      button: true,
+      checked: done,
+      label: label,
+      hint: context.l10n.structuredProgramText('taskToggleHint'),
+      excludeSemantics: true,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12),
+        onTap: () => onChanged(!done),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 44),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  done
+                      ? Icons.check_box_rounded
+                      : Icons.check_box_outline_blank,
                   color: done
-                      ? context.appColors.textSecondary
-                      : theme.colorScheme.onSurface,
-                  decoration: done ? TextDecoration.lineThrough : null,
+                      ? theme.colorScheme.primary
+                      : context.appColors.textSecondary,
+                  size: 22,
                 ),
-              ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    label,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      height: 1.35,
+                      color: done
+                          ? context.appColors.textSecondary
+                          : theme.colorScheme.onSurface,
+                      decoration: done ? TextDecoration.lineThrough : null,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

@@ -2542,4 +2542,263 @@ class AppLocalizationsEn extends AppLocalizations {
     });
     return '$_temp0';
   }
+
+  @override
+  String structuredProgramText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Structured Programs',
+      'subtitle': 'Follow a guided, week-by-week plan at your own pace.',
+      'themeGroup': 'By OCD theme',
+      'themeGroupEmpty': 'Choose a theme if it fits what you want to practise.',
+      'themeGroupMatched':
+          'Themes recorded in your last self-check are labelled below.',
+      'generalGroup': 'General practice',
+      'generalCaption': 'Skills that can be used across themes.',
+      'enrollError': 'This program could not be opened. Please try again.',
+      'started': 'Started',
+      'notStarted': 'Not started',
+      'openHint': 'Open program details',
+      'selfCheckMatch': 'Matches your self-check',
+      'tapToStart': 'Tap to start',
+      'progressLoadError':
+          'Program activity could not be loaded. Please try again.',
+      'activityRecorded': 'Your task choices are recorded locally.',
+      'taskSaveError': 'This task change could not be saved. Please try again.',
+      'weekComplete': 'All tasks marked complete',
+      'weekNotComplete': 'Tasks remain',
+      'weekToggleHint': 'Expand or collapse this week',
+      'taskToggleHint': 'Mark or unmark this task',
+      'other': 'Program',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramProgress(int done, int total, int percent) {
+    return '$done of $total tasks, $percent percent';
+  }
+
+  @override
+  String structuredProgramSummary(int count, String subtitle) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count weeks · $subtitle',
+      one: '1 week · $subtitle',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramComplete(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tasks are',
+      one: '1 task is',
+    );
+    return 'All $_temp0 marked complete.';
+  }
+
+  @override
+  String structuredProgramTaskProgress(int done, int total) {
+    return '$done of $total tasks marked complete';
+  }
+
+  @override
+  String structuredProgramCompactProgress(int done, int total) {
+    return '$done/$total';
+  }
+
+  @override
+  String structuredProgramTaskChanged(String status) {
+    String _temp0 = intl.Intl.selectLogic(status, {
+      'completed': 'Task marked complete.',
+      'notCompleted': 'Task marked incomplete.',
+      'other': 'Task updated.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramTitle(String program) {
+    String _temp0 = intl.Intl.selectLogic(program, {
+      'delay4wk': '4-Week Compulsion Delay',
+      'uncertainty3wk': 'Uncertainty Tolerance',
+      'other': 'Structured Program',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramSubtitle(String program) {
+    String _temp0 = intl.Intl.selectLogic(program, {
+      'delay4wk': 'Practise delaying compulsions, one week at a time',
+      'uncertainty3wk': 'Practise living with not knowing',
+      'other': 'A guided practice plan',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramWeek(String week) {
+    String _temp0 = intl.Intl.selectLogic(week, {
+      'delayW1': 'Week 1 · Notice and name',
+      'delayW2': 'Week 2 · Stretch the gap',
+      'delayW3': 'Week 3 · Sit longer',
+      'delayW4': 'Week 4 · Daily practice',
+      'uncertaintyW1': 'Week 1 · Leave it open',
+      'uncertaintyW2': 'Week 2 · Maybe, maybe not',
+      'uncertaintyW3': 'Week 3 · Let it be',
+      'other': 'Program week',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramTask(String task) {
+    String _temp0 = intl.Intl.selectLogic(task, {
+      'w1a': 'Record 3 urges without acting immediately',
+      'w1b': 'Delay one compulsion by 1 minute, 3 times',
+      'w2a': 'Delay compulsions by 5 minutes',
+      'w2b': 'Try urge surfing once',
+      'w3a': 'Delay by 15 minutes',
+      'w3b': 'Resist one reassurance-seeking urge',
+      'w4a': 'Complete one exposure each day',
+      'w4b': 'Reflect on what you noticed',
+      'u1a': 'Leave one question unanswered',
+      'u1b': 'Resist checking once',
+      'u2a': 'Use a “maybe, maybe not” response 3 times',
+      'u2b': 'Delay searching online about a worry',
+      'u3a': 'Go a day without seeking certainty',
+      'u3b': 'Reflect on what you noticed',
+      'other': 'Program task',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackTitle(String track) {
+    String _temp0 = intl.Intl.selectLogic(track, {
+      'contamination': 'Contamination and washing',
+      'checking': 'Checking and doubt',
+      'harm': 'Harm and taboo thoughts',
+      'relationship': 'Relationship doubt',
+      'justRight': 'Just right and symmetry',
+      'other': 'OCD theme',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackBlurb(String track) {
+    String _temp0 = intl.Intl.selectLogic(track, {
+      'contamination':
+          'For fears that something is dirty, contagious, or unsafe to touch, and the washing or cleaning that follows.',
+      'checking':
+          'For locks, hobs, switches, messages, and other things you return to because doing them does not feel certain enough.',
+      'harm':
+          'For intrusive thoughts about harm or themes that feel violent, sexual, or blasphemous, and the compulsions or avoidance that follow.',
+      'relationship':
+          'For recurring doubts about whether a relationship is right, whether you feel enough, or what the doubt means.',
+      'justRight':
+          'For things that feel as though they must be even, ordered, or repeated until they feel right.',
+      'other': 'A practice track organised around an OCD theme.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackTheme(String track) {
+    String _temp0 = intl.Intl.selectLogic(track, {
+      'contamination': 'Contamination',
+      'checking': 'Checking',
+      'harm': 'Harm and taboo thoughts',
+      'relationship': 'Relationship doubt',
+      'justRight': 'Just right',
+      'other': 'OCD theme',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackChecklistNote(String track) {
+    String _temp0 = intl.Intl.selectLogic(track, {
+      'relationship':
+          'The Y-BOCS checklist predates research on relationship OCD, so this theme is not one of its categories. You can still use this practice track.',
+      'other': 'This theme is not represented as a Y-BOCS checklist category.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackWeek(String week) {
+    String _temp0 = intl.Intl.selectLogic(week, {
+      'ct1': 'Week 1 · Touch, then wait',
+      'ct2': 'Week 2 · One wash, not three',
+      'ct3': 'Week 3 · Carry it home',
+      'ck1': 'Week 1 · Look once',
+      'ck2': 'Week 2 · No mental replay',
+      'ck3': 'Week 3 · Leave it unresolved',
+      'hm1': 'Week 1 · Let it be there',
+      'hm2': 'Week 2 · Stop asking',
+      'hm3': 'Week 3 · No inner court case',
+      'rl1': 'Week 1 · Stop testing',
+      'rl2': 'Week 2 · No reassurance',
+      'rl3': 'Week 3 · Live with maybe',
+      'jr1': 'Week 1 · Leave it crooked',
+      'jr2': 'Week 2 · No repeating',
+      'jr3': 'Week 3 · Good enough',
+      'other': 'Track week',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackTask(String task) {
+    String _temp0 = intl.Intl.selectLogic(task, {
+      'ct1a':
+          'Touch something that feels slightly unclean and leave your hands unwashed for five minutes',
+      'ct1b': 'Record the urge before and after without washing',
+      'ct2a': 'Wash once, normally, and do not return for a second round',
+      'ct2b': 'Leave one surface at home uncleaned for the week',
+      'ct3a':
+          'Go somewhere that usually prompts washing afterwards and do not wash when you get in',
+      'ct3b': 'Write down what OCD predicted next to what happened',
+      'ck1a': 'Check one thing once, then walk away without a second look',
+      'ck1b': 'Leave the house once without a final sweep of the rooms',
+      'ck2a':
+          'When the urge to replay the memory arrives, leave the doubt unresolved',
+      'ck2b': 'Send one message without rereading it before or after',
+      'ck3a': 'Go a day without returning to check anything twice',
+      'ck3b': 'Note what happened and what OCD predicted',
+      'hm1a':
+          'Let one intrusive thought stay for a minute without arguing with it or pushing it away',
+      'hm1b': 'Notice the mental review before it starts and leave it alone',
+      'hm2a':
+          'Resist asking whether you are a good person and do not search for an answer either',
+      'hm2b':
+          'Stay in a situation you have been avoiding because of the thought',
+      'hm3a':
+          'Go a day without checking your feelings for evidence about yourself',
+      'hm3b': 'Write down what the week was like without grading yourself',
+      'rl1a': 'Notice one compatibility test you use and skip it once',
+      'rl1b': 'Leave a relationship doubt unanswered for ten minutes',
+      'rl2a':
+          'Go a day without asking your partner, a friend, or the internet whether the relationship is right',
+      'rl2b': 'Do something together without monitoring how you feel during it',
+      'rl3a': 'Use a “maybe, maybe not” response when the question arrives',
+      'rl3b': 'Reflect on the week without making a decision about the future',
+      'jr1a':
+          'Leave one object slightly out of place and let the feeling be present',
+      'jr1b': 'Do one thing once even though it did not feel finished',
+      'jr2a': 'Resist repeating an action to make it feel right',
+      'jr2b': 'Write something without returning to make the wording feel even',
+      'jr3a': 'Go through a day leaving several things deliberately unfinished',
+      'jr3b':
+          'Record what happened to the not-right feeling without changing it',
+      'other': 'Track task',
+    });
+    return '$_temp0';
+  }
 }

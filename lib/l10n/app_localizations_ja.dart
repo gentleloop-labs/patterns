@@ -2282,4 +2282,234 @@ class AppLocalizationsJa extends AppLocalizations {
     });
     return '$_temp0';
   }
+
+  @override
+  String structuredProgramText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': '構造化プログラム',
+      'subtitle': '自分のペースで、週ごとのガイド付き計画に取り組みます。',
+      'themeGroup': 'OCDのテーマ別',
+      'themeGroupEmpty': '練習したい内容に合う場合はテーマを選んでください。',
+      'themeGroupMatched': '前回のセルフチェックで記録したテーマには印が付いています。',
+      'generalGroup': '一般的な練習',
+      'generalCaption': '複数のテーマで使えるスキルです。',
+      'enrollError': 'このプログラムを開けませんでした。もう一度お試しください。',
+      'started': '開始済み',
+      'notStarted': '未開始',
+      'openHint': 'プログラムの詳細を開く',
+      'selfCheckMatch': 'セルフチェックと一致',
+      'tapToStart': 'タップして開始',
+      'progressLoadError': 'プログラムの記録を読み込めませんでした。もう一度お試しください。',
+      'activityRecorded': 'タスクの選択は端末内に記録されます。',
+      'taskSaveError': 'タスクの変更を保存できませんでした。もう一度お試しください。',
+      'weekComplete': 'すべてのタスクが完了として記録されています',
+      'weekNotComplete': '残っているタスクがあります',
+      'weekToggleHint': 'この週を展開または折りたたむ',
+      'taskToggleHint': 'このタスクの記録を付ける、または外す',
+      'other': 'プログラム',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramProgress(int done, int total, int percent) {
+    return '$total件中$done件、$percentパーセント';
+  }
+
+  @override
+  String structuredProgramSummary(int count, String subtitle) {
+    return '$count週間・$subtitle';
+  }
+
+  @override
+  String structuredProgramComplete(int count) {
+    return '$count件のタスクがすべて完了として記録されています。';
+  }
+
+  @override
+  String structuredProgramTaskProgress(int done, int total) {
+    return '$total件中$done件を完了として記録';
+  }
+
+  @override
+  String structuredProgramCompactProgress(int done, int total) {
+    return '$done/$total';
+  }
+
+  @override
+  String structuredProgramTaskChanged(String status) {
+    String _temp0 = intl.Intl.selectLogic(status, {
+      'completed': 'タスクを完了として記録しました。',
+      'notCompleted': 'タスクの完了記録を外しました。',
+      'other': 'タスクを更新しました。',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramTitle(String program) {
+    String _temp0 = intl.Intl.selectLogic(program, {
+      'delay4wk': '4週間の強迫行為延期',
+      'uncertainty3wk': '不確かさへの耐性',
+      'other': '構造化プログラム',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramSubtitle(String program) {
+    String _temp0 = intl.Intl.selectLogic(program, {
+      'delay4wk': '週ごとに強迫行為を遅らせる練習',
+      'uncertainty3wk': '分からないまま過ごす練習',
+      'other': 'ガイド付き練習計画',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramWeek(String week) {
+    String _temp0 = intl.Intl.selectLogic(week, {
+      'delayW1': '第1週・気づいて名前を付ける',
+      'delayW2': '第2週・間隔を延ばす',
+      'delayW3': '第3週・長く待つ',
+      'delayW4': '第4週・毎日の練習',
+      'uncertaintyW1': '第1週・答えを開いたままにする',
+      'uncertaintyW2': '第2週・そうかもしれないし、違うかもしれない',
+      'uncertaintyW3': '第3週・そのままにする',
+      'other': 'プログラムの週',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramTask(String task) {
+    String _temp0 = intl.Intl.selectLogic(task, {
+      'w1a': 'すぐに行動せず、3回の衝動を記録する',
+      'w1b': '1分間の強迫行為延期を3回行う',
+      'w2a': '強迫行為を5分間遅らせる',
+      'w2b': '衝動サーフィンを1回試す',
+      'w3a': '15分間遅らせる',
+      'w3b': '安心を求める衝動を1回控える',
+      'w4a': '毎日1回の曝露を行う',
+      'w4b': '気づいたことを振り返る',
+      'u1a': '一つの問いを未回答のままにする',
+      'u1b': '確認を1回控える',
+      'u2a': '「そうかもしれないし、違うかもしれない」と3回答える',
+      'u2b': '心配についてのオンライン検索を遅らせる',
+      'u3a': '確かさを求めずに1日過ごす',
+      'u3b': '気づいたことを振り返る',
+      'other': 'プログラムのタスク',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackTitle(String track) {
+    String _temp0 = intl.Intl.selectLogic(track, {
+      'contamination': '汚染と洗浄',
+      'checking': '確認と疑い',
+      'harm': '加害・タブー思考',
+      'relationship': '関係への疑い',
+      'justRight': 'ぴったり感と対称性',
+      'other': 'OCDのテーマ',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackBlurb(String track) {
+    String _temp0 = intl.Intl.selectLogic(track, {
+      'contamination': '何かが汚い、感染性がある、触れるのが危険だという恐れと、その後の洗浄や掃除のための練習です。',
+      'checking': '鍵、コンロ、スイッチ、メッセージなど、十分に確かに感じられず戻ってしまうもののための練習です。',
+      'harm': '加害や、暴力的・性的・冒とく的に感じるテーマの侵入思考と、その後の強迫行為や回避のための練習です。',
+      'relationship': '関係が正しいか、十分に感じているか、疑いにどんな意味があるかという繰り返す疑いのための練習です。',
+      'justRight': 'ぴったり感じるまで、均等、整列、反復が必要に感じられることのための練習です。',
+      'other': 'OCDのテーマに沿った練習トラックです。',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackTheme(String track) {
+    String _temp0 = intl.Intl.selectLogic(track, {
+      'contamination': '汚染',
+      'checking': '確認',
+      'harm': '加害・タブー思考',
+      'relationship': '関係への疑い',
+      'justRight': 'ぴったり感',
+      'other': 'OCDのテーマ',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackChecklistNote(String track) {
+    String _temp0 = intl.Intl.selectLogic(track, {
+      'relationship':
+          'Y-BOCSチェックリストは関係性OCDの研究より前に作られたため、このテーマはカテゴリーに含まれていません。この練習トラックは利用できます。',
+      'other': 'このテーマはY-BOCSチェックリストのカテゴリーには含まれていません。',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackWeek(String week) {
+    String _temp0 = intl.Intl.selectLogic(week, {
+      'ct1': '第1週・触れてから待つ',
+      'ct2': '第2週・3回ではなく1回洗う',
+      'ct3': '第3週・家まで持ち帰る',
+      'ck1': '第1週・一度だけ見る',
+      'ck2': '第2週・頭の中で再生しない',
+      'ck3': '第3週・未解決のままにする',
+      'hm1': '第1週・そこにあるままにする',
+      'hm2': '第2週・尋ねるのをやめる',
+      'hm3': '第3週・心の中で裁判をしない',
+      'rl1': '第1週・試すのをやめる',
+      'rl2': '第2週・安心を求めない',
+      'rl3': '第3週・「かもしれない」と過ごす',
+      'jr1': '第1週・ずれたままにする',
+      'jr2': '第2週・繰り返さない',
+      'jr3': '第3週・十分とする',
+      'other': 'トラックの週',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackTask(String task) {
+    String _temp0 = intl.Intl.selectLogic(task, {
+      'ct1a': '少し汚く感じるものに触れ、5分間手を洗わずにおく',
+      'ct1b': '洗わずに、前後の衝動を記録する',
+      'ct2a': '通常どおり一度洗い、2回目に戻らない',
+      'ct2b': '家の一つの表面を1週間掃除せずにおく',
+      'ct3a': '普段なら後で洗いたくなる場所に行き、帰宅時に洗わない',
+      'ct3b': 'OCDの予測と実際に起きたことを並べて書く',
+      'ck1a': '一つのものを一度だけ確認し、二度目を見ずに離れる',
+      'ck1b': '部屋を最後に見回さずに一度外出する',
+      'ck2a': '記憶を再生したい衝動が来たら、疑いを未解決のままにする',
+      'ck2b': '送信前後に読み直さず、一つのメッセージを送る',
+      'ck3a': '一日、何も二度確認しに戻らずに過ごす',
+      'ck3b': '実際に起きたこととOCDの予測を記録する',
+      'hm1a': '一つの侵入思考を、反論したり押しのけたりせず1分間そこに置く',
+      'hm1b': '心の見直しが始まる前に気づき、そのままにする',
+      'hm2a': '自分が良い人か尋ねず、答えの検索もしない',
+      'hm2b': 'その思考のために避けていた状況にとどまる',
+      'hm3a': '自分についての証拠として感情を確認せずに1日過ごす',
+      'hm3b': '自分を採点せず、その週がどうだったかを書く',
+      'rl1a': '自分が行う相性テストに一つ気づき、一度省く',
+      'rl1b': '関係への疑いを10分間未回答のままにする',
+      'rl2a': '関係が正しいか、パートナー、友人、インターネットに1日尋ねない',
+      'rl2b': '一緒に何かをし、その間の感情を監視しない',
+      'rl3a': '問いが来たら「そうかもしれないし、違うかもしれない」と答える',
+      'rl3b': '将来を決めずに、その週を振り返る',
+      'jr1a': '一つの物を少しずらしたままにし、その感覚を置いておく',
+      'jr1b': '終わった感じがしなくても、一度だけ行う',
+      'jr2a': 'ぴったり感じさせるために行動を繰り返さない',
+      'jr2b': '表現をそろえるために戻らず、文章を書く',
+      'jr3a': 'いくつかのことを意図的に未完了のままにして1日過ごす',
+      'jr3b': 'ぴったりしない感覚を変えずに、起きたことを記録する',
+      'other': 'トラックのタスク',
+    });
+    return '$_temp0';
+  }
 }

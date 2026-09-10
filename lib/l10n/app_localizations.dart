@@ -3820,6 +3820,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{key, select, delayChecking1{Check once} delayChecking2{No rechecking} delayChecking3{Notice the urge} delayReassurance1{Hold the ask} delayReassurance2{Let uncertainty stay} delayReassurance3{Return gently} delayGoogling1{Close search} delayGoogling2{Start timer} delayGoogling3{Leave it unanswered} delayRumination1{Name the loop} delayRumination2{Leave unfinished} delayRumination3{Return to task} delayWashing1{Set a boundary} delayWashing2{Delay washing} delayWashing3{Allow discomfort} other{Follow the plan}}'**
   String erpTemplateCue(String key);
+
+  /// Structured Programs interface copy selected from a stable UI key. Avoid praise, streak language, treatment claims, or recommendations.
+  ///
+  /// In en, this message translates to:
+  /// **'{key, select, title{Structured Programs} subtitle{Follow a guided, week-by-week plan at your own pace.} themeGroup{By OCD theme} themeGroupEmpty{Choose a theme if it fits what you want to practise.} themeGroupMatched{Themes recorded in your last self-check are labelled below.} generalGroup{General practice} generalCaption{Skills that can be used across themes.} enrollError{This program could not be opened. Please try again.} started{Started} notStarted{Not started} openHint{Open program details} selfCheckMatch{Matches your self-check} tapToStart{Tap to start} progressLoadError{Program activity could not be loaded. Please try again.} activityRecorded{Your task choices are recorded locally.} taskSaveError{This task change could not be saved. Please try again.} weekComplete{All tasks marked complete} weekNotComplete{Tasks remain} weekToggleHint{Expand or collapse this week} taskToggleHint{Mark or unmark this task} other{Program}}'**
+  String structuredProgramText(String key);
+
+  /// Accessible calculated program progress shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} tasks, {percent} percent'**
+  String structuredProgramProgress(int done, int total, int percent);
+
+  /// Factual number of weeks followed by a localized program subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 week · {subtitle}} other{{count} weeks · {subtitle}}}'**
+  String structuredProgramSummary(int count, String subtitle);
+
+  /// Factual program completion state. Do not praise, celebrate, score, or imply treatment progress.
+  ///
+  /// In en, this message translates to:
+  /// **'All {count, plural, =1{1 task is} other{{count} tasks are}} marked complete.'**
+  String structuredProgramComplete(int count);
+
+  /// Calculated task progress shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} tasks marked complete'**
+  String structuredProgramTaskProgress(int done, int total);
+
+  /// Compact calculated week progress shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'{done}/{total}'**
+  String structuredProgramCompactProgress(int done, int total);
+
+  /// Factual accessibility announcement after a program task change is saved.
+  ///
+  /// In en, this message translates to:
+  /// **'{status, select, completed{Task marked complete.} notCompleted{Task marked incomplete.} other{Task updated.}}'**
+  String structuredProgramTaskChanged(String status);
+
+  /// Localized program title selected from a stable program ID.
+  ///
+  /// In en, this message translates to:
+  /// **'{program, select, delay4wk{4-Week Compulsion Delay} uncertainty3wk{Uncertainty Tolerance} other{Structured Program}}'**
+  String structuredProgramTitle(String program);
+
+  /// Non-promissory program subtitle selected from a stable program ID.
+  ///
+  /// In en, this message translates to:
+  /// **'{program, select, delay4wk{Practise delaying compulsions, one week at a time} uncertainty3wk{Practise living with not knowing} other{A guided practice plan}}'**
+  String structuredProgramSubtitle(String program);
+
+  /// Localized week title selected from a stable general-program week ID.
+  ///
+  /// In en, this message translates to:
+  /// **'{week, select, delayW1{Week 1 · Notice and name} delayW2{Week 2 · Stretch the gap} delayW3{Week 3 · Sit longer} delayW4{Week 4 · Daily practice} uncertaintyW1{Week 1 · Leave it open} uncertaintyW2{Week 2 · Maybe, maybe not} uncertaintyW3{Week 3 · Let it be} other{Program week}}'**
+  String structuredProgramWeek(String week);
+
+  /// Localized task selected from a stable general-program task ID. Do not promise symptom change or treatment outcomes.
+  ///
+  /// In en, this message translates to:
+  /// **'{task, select, w1a{Record 3 urges without acting immediately} w1b{Delay one compulsion by 1 minute, 3 times} w2a{Delay compulsions by 5 minutes} w2b{Try urge surfing once} w3a{Delay by 15 minutes} w3b{Resist one reassurance-seeking urge} w4a{Complete one exposure each day} w4b{Reflect on what you noticed} u1a{Leave one question unanswered} u1b{Resist checking once} u2a{Use a “maybe, maybe not” response 3 times} u2b{Delay searching online about a worry} u3a{Go a day without seeking certainty} u3b{Reflect on what you noticed} other{Program task}}'**
+  String structuredProgramTask(String task);
+
+  /// Localized OCD track title selected from a stable track ID. Requires clinical terminology review.
+  ///
+  /// In en, this message translates to:
+  /// **'{track, select, contamination{Contamination and washing} checking{Checking and doubt} harm{Harm and taboo thoughts} relationship{Relationship doubt} justRight{Just right and symmetry} other{OCD theme}}'**
+  String ocdTrackTitle(String track);
+
+  /// Neutral OCD track explanation selected from a stable track ID. Do not reassure, diagnose, or imply intent from intrusive thoughts.
+  ///
+  /// In en, this message translates to:
+  /// **'{track, select, contamination{For fears that something is dirty, contagious, or unsafe to touch, and the washing or cleaning that follows.} checking{For locks, hobs, switches, messages, and other things you return to because doing them does not feel certain enough.} harm{For intrusive thoughts about harm or themes that feel violent, sexual, or blasphemous, and the compulsions or avoidance that follow.} relationship{For recurring doubts about whether a relationship is right, whether you feel enough, or what the doubt means.} justRight{For things that feel as though they must be even, ordered, or repeated until they feel right.} other{A practice track organised around an OCD theme.}}'**
+  String ocdTrackBlurb(String track);
+
+  /// Localized theme label selected from a stable track ID and used to prefill a new user-editable hierarchy.
+  ///
+  /// In en, this message translates to:
+  /// **'{track, select, contamination{Contamination} checking{Checking} harm{Harm and taboo thoughts} relationship{Relationship doubt} justRight{Just right} other{OCD theme}}'**
+  String ocdTrackTheme(String track);
+
+  /// Factual explanation for a track without a corresponding Y-BOCS checklist category. Do not claim clinical validation.
+  ///
+  /// In en, this message translates to:
+  /// **'{track, select, relationship{The Y-BOCS checklist predates research on relationship OCD, so this theme is not one of its categories. You can still use this practice track.} other{This theme is not represented as a Y-BOCS checklist category.}}'**
+  String ocdTrackChecklistNote(String track);
+
+  /// Localized week title selected from a stable OCD-track week ID.
+  ///
+  /// In en, this message translates to:
+  /// **'{week, select, ct1{Week 1 · Touch, then wait} ct2{Week 2 · One wash, not three} ct3{Week 3 · Carry it home} ck1{Week 1 · Look once} ck2{Week 2 · No mental replay} ck3{Week 3 · Leave it unresolved} hm1{Week 1 · Let it be there} hm2{Week 2 · Stop asking} hm3{Week 3 · No inner court case} rl1{Week 1 · Stop testing} rl2{Week 2 · No reassurance} rl3{Week 3 · Live with maybe} jr1{Week 1 · Leave it crooked} jr2{Week 2 · No repeating} jr3{Week 3 · Good enough} other{Track week}}'**
+  String ocdTrackWeek(String week);
+
+  /// Localized ERP task selected from a stable OCD-track task ID. Do not promise discomfort reduction, override normal safety/hygiene, reassure, or imply treatment outcomes.
+  ///
+  /// In en, this message translates to:
+  /// **'{task, select, ct1a{Touch something that feels slightly unclean and leave your hands unwashed for five minutes} ct1b{Record the urge before and after without washing} ct2a{Wash once, normally, and do not return for a second round} ct2b{Leave one surface at home uncleaned for the week} ct3a{Go somewhere that usually prompts washing afterwards and do not wash when you get in} ct3b{Write down what OCD predicted next to what happened} ck1a{Check one thing once, then walk away without a second look} ck1b{Leave the house once without a final sweep of the rooms} ck2a{When the urge to replay the memory arrives, leave the doubt unresolved} ck2b{Send one message without rereading it before or after} ck3a{Go a day without returning to check anything twice} ck3b{Note what happened and what OCD predicted} hm1a{Let one intrusive thought stay for a minute without arguing with it or pushing it away} hm1b{Notice the mental review before it starts and leave it alone} hm2a{Resist asking whether you are a good person and do not search for an answer either} hm2b{Stay in a situation you have been avoiding because of the thought} hm3a{Go a day without checking your feelings for evidence about yourself} hm3b{Write down what the week was like without grading yourself} rl1a{Notice one compatibility test you use and skip it once} rl1b{Leave a relationship doubt unanswered for ten minutes} rl2a{Go a day without asking your partner, a friend, or the internet whether the relationship is right} rl2b{Do something together without monitoring how you feel during it} rl3a{Use a “maybe, maybe not” response when the question arrives} rl3b{Reflect on the week without making a decision about the future} jr1a{Leave one object slightly out of place and let the feeling be present} jr1b{Do one thing once even though it did not feel finished} jr2a{Resist repeating an action to make it feel right} jr2b{Write something without returning to make the wording feel even} jr3a{Go through a day leaving several things deliberately unfinished} jr3b{Record what happened to the not-right feeling without changing it} other{Track task}}'**
+  String ocdTrackTask(String task);
 }
 
 class _AppLocalizationsDelegate

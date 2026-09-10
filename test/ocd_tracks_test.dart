@@ -1,6 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:patterns/content/ocd_tracks.dart';
 import 'package:patterns/content/ybocs_content.dart';
+import 'package:patterns/l10n/app_localizations_en.dart';
+import 'package:patterns/l10n/app_localizations_ja.dart';
 import 'package:patterns/mobile/screens/structured_programs_screen.dart';
 
 void main() {
@@ -47,28 +49,45 @@ void main() {
     });
 
     test('every track has weeks, tasks, and a theme label', () {
+      final strings = AppLocalizationsEn();
       expect(ocdTracks, isNotEmpty);
       for (final track in ocdTracks) {
         expect(track.weeks, isNotEmpty, reason: track.id);
-        expect(track.hierarchyThemeLabel, isNotEmpty, reason: track.id);
+        expect(
+          track.localizedHierarchyTheme(strings),
+          isNotEmpty,
+          reason: track.id,
+        );
         for (final week in track.weeks) {
-          expect(week.tasks, isNotEmpty, reason: '${track.id}/${week.title}');
+          expect(week.tasks, isNotEmpty, reason: '${track.id}/${week.id}');
         }
       }
     });
 
     test('a track with no checklist category explains why', () {
+      final strings = AppLocalizationsEn();
       // Relationship OCD is the case: it is absent from the Y-BOCS because the
       // instrument predates that literature. Silence would read as an omission.
       for (final track in ocdTracks) {
         if (track.ybocsCategoryIds.isEmpty) {
           expect(
-            track.checklistNote,
+            track.localizedChecklistNote(strings),
             isNotNull,
             reason: 'track "${track.id}" has no categories and no explanation',
           );
         }
       }
+    });
+
+    test('stable ids resolve to localized presentation at render time', () {
+      final track = ocdTracks.firstWhere((track) => track.id == 'checking');
+      final task = track.weeks.first.tasks.first;
+
+      expect(track.localizedTitle(AppLocalizationsEn()), 'Checking and doubt');
+      expect(track.localizedTitle(AppLocalizationsJa()), '確認と疑い');
+      expect(task.localizedLabel(AppLocalizationsJa()), isNot(task.id));
+      expect(track.programId, 'track_checking');
+      expect(task.id, 'ck1a');
     });
   });
 
@@ -114,6 +133,18 @@ void main() {
 
       expect(trackForProgramId(track.programId)?.id, track.id);
       expect(trackForProgramId('delay-4wk'), isNull);
+    });
+
+    test('preserves dashed ids while resolving ICU-safe selector keys', () {
+      final track = ocdTracks.firstWhere((track) => track.id == 'just-right');
+      final program = programForTrack(track);
+
+      expect(program.id, 'track_just-right');
+      expect(
+        program.localizedTitle(AppLocalizationsEn()),
+        'Just right and symmetry',
+      );
+      expect(program.localizedTitle(AppLocalizationsJa()), 'ぴったり感と対称性');
     });
   });
 }
