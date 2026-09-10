@@ -1046,5 +1046,15 @@
   "insightsThemeMoral": "Moral", "@insightsThemeMoral": {},
   "insightsThemeRumination": "Grübeln", "@insightsThemeRumination": {},
   "insightsThemeUncertainty": "Unsicherheit", "@insightsThemeUncertainty": {},
-  "insightsThemeOther": "Sonstiges", "@insightsThemeOther": {}
+  "insightsThemeOther": "Sonstiges", "@insightsThemeOther": {},
+  "recoveryTitle": "Recovery", "@recoveryTitle": {},
+  "recoverySubtitle": "Hilfen und Übungen, passend zu deinem aktuellen Schritt.", "@recoverySubtitle": {},
+  "recoveryImmediateHelpTitle": "Unterstützung in einem schwierigen Moment", "@recoveryImmediateHelpTitle": {},
+  "recoveryToolTitle": "{tool, select, emergencyToolkit{Notfall-Toolkit} copingLibrary{Hilfen zum Bewältigen} compulsionDelay{Zwangshandlung aufschieben} ybocsSelfCheck{OCD-Selbstcheck} recoveryMetrics{Recovery-Aktivität} exposureHierarchy{Expositionshierarchie} exposureMaterials{Expositionsmaterialien} structuredPrograms{Strukturierte Programme} actionPlanner{Handlungsplan} implementationIntentions{Wenn-dann-Pläne} guidedErp{Begleitete ERP} urgeSurfing{Drang surfen} responsePrevention{Reaktionsverhinderung} uncertaintyTraining{Unsicherheit üben} behavioralExperiments{Verhaltensexperimente} reflectionJournal{Reflexionstagebuch} other{Recovery-Hilfe}}", "@recoveryToolTitle": {"placeholders": {"tool": {"type": "String"}}},
+  "recoveryToolSubtitle": "{tool, select, emergencyToolkit{Schnelle Hilfe zum Stabilisieren.} copingLibrary{Ankommen und neu orientieren.} compulsionDelay{Vor dem Reagieren Raum schaffen.} ybocsSelfCheck{Ein Y-BOCS-Check-in.} recoveryMetrics{Aufgezeichnete Aktivität ansehen.} exposureHierarchy{Deine Stufenleiter aufbauen.} exposureMaterials{Skripte und Links sammeln.} structuredPrograms{Begleitete Wochen durchgehen.} actionPlanner{Reaktionen vorausplanen.} implementationIntentions{Wenn-dann-Pläne erstellen.} guidedErp{Einen Plan üben.} urgeSurfing{Auf der Welle bleiben.} responsePrevention{Festhalten, was du stattdessen getan hast.} uncertaintyTraining{Dem Vielleicht Raum geben.} behavioralExperiments{Die Vorhersage von OCD prüfen.} reflectionJournal{Festhalten, was dir aufgefallen ist.} other{Eine Recovery-Hilfe öffnen.}}", "@recoveryToolSubtitle": {"placeholders": {"tool": {"type": "String"}}},
+  "recoveryStageTitle": "{stage, select, assess{Einschätzen} plan{Planen} practice{Üben} review{Rückblick} other{Hilfen}}", "@recoveryStageTitle": {"placeholders": {"stage": {"type": "String"}}},
+  "recoveryStageSubtitle": "{stage, select, assess{Sieh, wo du gerade stehst.} plan{Bereite deine Übung vor.} practice{Mach eine Übung.} review{Reflektiere und lerne.} other{Wähle, was hilfreich ist.}}", "@recoveryStageSubtitle": {"placeholders": {"stage": {"type": "String"}}},
+  "recoveryProBadge": "Patterns Pro", "@recoveryProBadge": {},
+  "recoveryOpenToolHint": "{title} öffnen", "@recoveryOpenToolHint": {"placeholders": {"title": {"type": "String"}}},
+  "recoveryLockedToolHint": "{title} erfordert Patterns Pro", "@recoveryLockedToolHint": {"placeholders": {"title": {"type": "String"}}}
 }

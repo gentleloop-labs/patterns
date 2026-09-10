@@ -2033,4 +2033,99 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get insightsThemeOther => 'Other';
+
+  @override
+  String get recoveryTitle => 'Recovery';
+
+  @override
+  String get recoverySubtitle =>
+      'Tools and practices, grouped by where you are in your work.';
+
+  @override
+  String get recoveryImmediateHelpTitle => 'Support for a hard moment';
+
+  @override
+  String recoveryToolTitle(String tool) {
+    String _temp0 = intl.Intl.selectLogic(tool, {
+      'emergencyToolkit': 'Emergency Toolkit',
+      'copingLibrary': 'Coping Library',
+      'compulsionDelay': 'Compulsion Delay',
+      'ybocsSelfCheck': 'OCD Self-Check',
+      'recoveryMetrics': 'Recovery Metrics',
+      'exposureHierarchy': 'Exposure Hierarchy',
+      'exposureMaterials': 'Exposure Materials',
+      'structuredPrograms': 'Structured Programs',
+      'actionPlanner': 'Action Planner',
+      'implementationIntentions': 'Implementation Intentions',
+      'guidedErp': 'Guided ERP',
+      'urgeSurfing': 'Urge Surfing',
+      'responsePrevention': 'Response Prevention',
+      'uncertaintyTraining': 'Uncertainty Training',
+      'behavioralExperiments': 'Behavioral Experiments',
+      'reflectionJournal': 'Reflection Journal',
+      'other': 'Recovery tool',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String recoveryToolSubtitle(String tool) {
+    String _temp0 = intl.Intl.selectLogic(tool, {
+      'emergencyToolkit': 'Fast grounding support.',
+      'copingLibrary': 'Ground and reset.',
+      'compulsionDelay': 'Create space before responding.',
+      'ybocsSelfCheck': 'A Y-BOCS check-in.',
+      'recoveryMetrics': 'Review recorded activity.',
+      'exposureHierarchy': 'Build your ladder.',
+      'exposureMaterials': 'Keep scripts and links.',
+      'structuredPrograms': 'Follow guided weeks.',
+      'actionPlanner': 'Plan responses.',
+      'implementationIntentions': 'Make if-then plans.',
+      'guidedErp': 'Practise a plan.',
+      'urgeSurfing': 'Ride the wave.',
+      'responsePrevention': 'Record what you did instead.',
+      'uncertaintyTraining': 'Practise making room for maybe.',
+      'behavioralExperiments': 'Test OCD’s prediction.',
+      'reflectionJournal': 'Capture what you noticed.',
+      'other': 'Open a recovery tool.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String recoveryStageTitle(String stage) {
+    String _temp0 = intl.Intl.selectLogic(stage, {
+      'assess': 'Assess',
+      'plan': 'Plan',
+      'practice': 'Practise',
+      'review': 'Review',
+      'other': 'Tools',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String recoveryStageSubtitle(String stage) {
+    String _temp0 = intl.Intl.selectLogic(stage, {
+      'assess': 'See where you are.',
+      'plan': 'Set up your practice.',
+      'practice': 'Do one practice.',
+      'review': 'Reflect and learn.',
+      'other': 'Choose what is useful.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get recoveryProBadge => 'Patterns Pro';
+
+  @override
+  String recoveryOpenToolHint(String title) {
+    return 'Open $title';
+  }
+
+  @override
+  String recoveryLockedToolHint(String title) {
+    return '$title requires Patterns Pro';
+  }
 }

@@ -1046,5 +1046,15 @@
   "insightsThemeMoral": "Moralidade", "@insightsThemeMoral": {},
   "insightsThemeRumination": "Ruminação", "@insightsThemeRumination": {},
   "insightsThemeUncertainty": "Incerteza", "@insightsThemeUncertainty": {},
-  "insightsThemeOther": "Outro", "@insightsThemeOther": {}
+  "insightsThemeOther": "Outro", "@insightsThemeOther": {},
+  "recoveryTitle": "Recuperação", "@recoveryTitle": {},
+  "recoverySubtitle": "Ferramentas e práticas agrupadas conforme o ponto em que você está.", "@recoverySubtitle": {},
+  "recoveryImmediateHelpTitle": "Apoio para um momento difícil", "@recoveryImmediateHelpTitle": {},
+  "recoveryToolTitle": "{tool, select, emergencyToolkit{Kit para momentos difíceis} copingLibrary{Biblioteca de enfrentamento} compulsionDelay{Adiar a compulsão} ybocsSelfCheck{Autoavaliação de OCD} recoveryMetrics{Atividade de recuperação} exposureHierarchy{Hierarquia de exposição} exposureMaterials{Materiais de exposição} structuredPrograms{Programas estruturados} actionPlanner{Plano de ação} implementationIntentions{Planos se-então} guidedErp{ERP guiada} urgeSurfing{Surfar o impulso} responsePrevention{Prevenção de resposta} uncertaintyTraining{Prática da incerteza} behavioralExperiments{Experimentos comportamentais} reflectionJournal{Diário de reflexão} other{Ferramenta de recuperação}}", "@recoveryToolTitle": {"placeholders": {"tool": {"type": "String"}}},
+  "recoveryToolSubtitle": "{tool, select, emergencyToolkit{Apoio rápido para voltar ao presente.} copingLibrary{Volte ao presente e recomece.} compulsionDelay{Crie espaço antes de responder.} ybocsSelfCheck{Um registro Y-BOCS.} recoveryMetrics{Veja a atividade registrada.} exposureHierarchy{Monte sua escada.} exposureMaterials{Guarde roteiros e links.} structuredPrograms{Siga semanas guiadas.} actionPlanner{Planeje suas respostas.} implementationIntentions{Crie planos se-então.} guidedErp{Pratique um plano.} urgeSurfing{Acompanhe a onda.} responsePrevention{Registre o que você fez no lugar.} uncertaintyTraining{Pratique dar espaço ao talvez.} behavioralExperiments{Teste a previsão do OCD.} reflectionJournal{Registre o que você percebeu.} other{Abra uma ferramenta de recuperação.}}", "@recoveryToolSubtitle": {"placeholders": {"tool": {"type": "String"}}},
+  "recoveryStageTitle": "{stage, select, assess{Avaliar} plan{Planejar} practice{Praticar} review{Revisar} other{Ferramentas}}", "@recoveryStageTitle": {"placeholders": {"stage": {"type": "String"}}},
+  "recoveryStageSubtitle": "{stage, select, assess{Veja onde você está.} plan{Prepare sua prática.} practice{Faça uma prática.} review{Reflita e aprenda.} other{Escolha o que for útil.}}", "@recoveryStageSubtitle": {"placeholders": {"stage": {"type": "String"}}},
+  "recoveryProBadge": "Patterns Pro", "@recoveryProBadge": {},
+  "recoveryOpenToolHint": "Abrir {title}", "@recoveryOpenToolHint": {"placeholders": {"title": {"type": "String"}}},
+  "recoveryLockedToolHint": "{title} requer Patterns Pro", "@recoveryLockedToolHint": {"placeholders": {"title": {"type": "String"}}}
 }
