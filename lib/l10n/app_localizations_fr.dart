@@ -2156,4 +2156,142 @@ class AppLocalizationsFr extends AppLocalizations {
   String recoveryLockedToolHint(String title) {
     return '$title nécessite Patterns Pro';
   }
+
+  @override
+  String get delayNameUrgeValidation =>
+      'Quand vous êtes prêt, nommez l’envie avec laquelle vous voulez rester.';
+
+  @override
+  String get delayOutcomeValidation =>
+      'Quand vous êtes prêt, choisissez ce que vous avez finalement fait.';
+
+  @override
+  String get delaySaveError =>
+      'Votre exercice n’a pas pu être enregistré. Réessayez.';
+
+  @override
+  String get delayStopEarlyTitle => 'Arrêter plus tôt ?';
+
+  @override
+  String get delayStopEarlyBody =>
+      'Vous pouvez vous arrêter. Le temps d’attente peut tout de même être enregistré.';
+
+  @override
+  String get delayKeepGoingAction => 'Continuer';
+
+  @override
+  String get delayStopAction => 'J’ai besoin d’arrêter';
+
+  @override
+  String get delaySetupTitle => 'Mettre l’envie en pause';
+
+  @override
+  String get delayUrgeQuestion => 'Avec quelle envie restez-vous ?';
+
+  @override
+  String get delayUrgeHint =>
+      'Par exemple : vérifier la serrure, se laver ou chercher en ligne';
+
+  @override
+  String get delayUrgeBeforeLabel =>
+      'Quelle est l’intensité de l’envie maintenant ?';
+
+  @override
+  String get delayDurationQuestion => 'Combien de temps allez-vous attendre ?';
+
+  @override
+  String get delayDurationGroupLabel => 'Durée du report';
+
+  @override
+  String get delayBeginAction => 'Commencer';
+
+  @override
+  String get delayCountdownTitle => 'Vous laissez de la place à l’envie';
+
+  @override
+  String get delayCountdownBody =>
+      'Observez l’envie sans agir. Vous pouvez choisir la suite.';
+
+  @override
+  String get delayReflectionTitle => 'Que s’est-il passé ?';
+
+  @override
+  String delayReflectionStatus(String status) {
+    String _temp0 = intl.Intl.selectLogic(status, {
+      'completed':
+          'Le temps prévu est terminé. Les détails ci-dessous sont facultatifs.',
+      'early':
+          'Vous avez arrêté le minuteur plus tôt. Les détails ci-dessous sont facultatifs.',
+      'other':
+          'Le minuteur est terminé. Les détails ci-dessous sont facultatifs.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get delayUrgeAfterLabel =>
+      'Quelle est l’intensité de l’envie maintenant ?';
+
+  @override
+  String get delayOutcomeQuestion => 'Qu’avez-vous fait avec l’envie ?';
+
+  @override
+  String get delayOutcomeGroupLabel => 'Résultat enregistré';
+
+  @override
+  String get delayNoteLabel =>
+      'Avez-vous remarqué quelque chose ? (facultatif)';
+
+  @override
+  String get delayNoteHint => 'Une courte note suffit.';
+
+  @override
+  String get delaySavingAction => 'Enregistrement…';
+
+  @override
+  String get delaySaveAction => 'Enregistrer l’exercice';
+
+  @override
+  String delayMinutes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count min',
+      one: '1 min',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get delayCustomAction => 'Personnaliser';
+
+  @override
+  String get delayCustomTitle => 'Report personnalisé';
+
+  @override
+  String delayOutcome(String outcome) {
+    String _temp0 = intl.Intl.selectLogic(outcome, {
+      'resisted': 'Je ne l’ai pas fait',
+      'delayed': 'Je l’ai reporté',
+      'performed': 'Je l’ai fait',
+      'other': 'Non sélectionné',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String delayUrgeValue(int value) {
+    return 'Envie $value sur 10';
+  }
+
+  @override
+  String delayCustomMinutesValue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count minutes',
+      one: '1 minute',
+    );
+    return 'Report personnalisé : $_temp0';
+  }
 }

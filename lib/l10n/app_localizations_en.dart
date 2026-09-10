@@ -2128,4 +2128,136 @@ class AppLocalizationsEn extends AppLocalizations {
   String recoveryLockedToolHint(String title) {
     return '$title requires Patterns Pro';
   }
+
+  @override
+  String get delayNameUrgeValidation =>
+      'Whenever you’re ready, name the urge you want to sit with.';
+
+  @override
+  String get delayOutcomeValidation =>
+      'When you’re ready, choose what you ended up doing.';
+
+  @override
+  String get delaySaveError =>
+      'Your practice could not be saved. Please try again.';
+
+  @override
+  String get delayStopEarlyTitle => 'Stop early?';
+
+  @override
+  String get delayStopEarlyBody =>
+      'It’s okay to stop. The time you waited can still be recorded.';
+
+  @override
+  String get delayKeepGoingAction => 'Keep going';
+
+  @override
+  String get delayStopAction => 'I need to stop';
+
+  @override
+  String get delaySetupTitle => 'Pause the urge';
+
+  @override
+  String get delayUrgeQuestion => 'Which urge are you sitting with?';
+
+  @override
+  String get delayUrgeHint =>
+      'For example: checking the lock, washing, or searching online';
+
+  @override
+  String get delayUrgeBeforeLabel => 'How strong is the urge right now?';
+
+  @override
+  String get delayDurationQuestion => 'How long will you wait?';
+
+  @override
+  String get delayDurationGroupLabel => 'Delay duration';
+
+  @override
+  String get delayBeginAction => 'Begin';
+
+  @override
+  String get delayCountdownTitle => 'You’re sitting with it';
+
+  @override
+  String get delayCountdownBody =>
+      'Notice the urge without acting. You can choose what happens next.';
+
+  @override
+  String get delayReflectionTitle => 'What happened?';
+
+  @override
+  String delayReflectionStatus(String status) {
+    String _temp0 = intl.Intl.selectLogic(status, {
+      'completed': 'The planned time ended. The details below are optional.',
+      'early': 'You ended the timer early. The details below are optional.',
+      'other': 'The timer ended. The details below are optional.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get delayUrgeAfterLabel => 'How strong is the urge now?';
+
+  @override
+  String get delayOutcomeQuestion => 'What did you do with the urge?';
+
+  @override
+  String get delayOutcomeGroupLabel => 'Recorded outcome';
+
+  @override
+  String get delayNoteLabel => 'Anything you noticed? (optional)';
+
+  @override
+  String get delayNoteHint => 'A short note is enough.';
+
+  @override
+  String get delaySavingAction => 'Saving…';
+
+  @override
+  String get delaySaveAction => 'Save practice';
+
+  @override
+  String delayMinutes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count min',
+      one: '1 min',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get delayCustomAction => 'Custom';
+
+  @override
+  String get delayCustomTitle => 'Custom delay';
+
+  @override
+  String delayOutcome(String outcome) {
+    String _temp0 = intl.Intl.selectLogic(outcome, {
+      'resisted': 'Did not do it',
+      'delayed': 'Delayed it',
+      'performed': 'Did it',
+      'other': 'Not selected',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String delayUrgeValue(int value) {
+    return 'Urge $value out of 10';
+  }
+
+  @override
+  String delayCustomMinutesValue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count minutes',
+      one: '1 minute',
+    );
+    return 'Custom delay: $_temp0';
+  }
 }

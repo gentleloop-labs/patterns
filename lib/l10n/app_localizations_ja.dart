@@ -1926,4 +1926,118 @@ class AppLocalizationsJa extends AppLocalizations {
   String recoveryLockedToolHint(String title) {
     return '$titleにはPatterns Proが必要です';
   }
+
+  @override
+  String get delayNameUrgeValidation => '準備ができたら、向き合う衝動を入力してください。';
+
+  @override
+  String get delayOutcomeValidation => '準備ができたら、最終的にどうしたかを選んでください。';
+
+  @override
+  String get delaySaveError => '練習を保存できませんでした。もう一度お試しください。';
+
+  @override
+  String get delayStopEarlyTitle => '早めに終了しますか？';
+
+  @override
+  String get delayStopEarlyBody => '終了しても大丈夫です。待った時間はそのまま記録できます。';
+
+  @override
+  String get delayKeepGoingAction => '続ける';
+
+  @override
+  String get delayStopAction => '終了する';
+
+  @override
+  String get delaySetupTitle => '衝動をいったん止める';
+
+  @override
+  String get delayUrgeQuestion => 'どの衝動と向き合っていますか？';
+
+  @override
+  String get delayUrgeHint => '例：鍵の確認、手洗い、オンライン検索';
+
+  @override
+  String get delayUrgeBeforeLabel => '今の衝動の強さは？';
+
+  @override
+  String get delayDurationQuestion => 'どのくらい待ちますか？';
+
+  @override
+  String get delayDurationGroupLabel => '待つ時間';
+
+  @override
+  String get delayBeginAction => '始める';
+
+  @override
+  String get delayCountdownTitle => '衝動と一緒にいます';
+
+  @override
+  String get delayCountdownBody => '行動せずに衝動に気づきます。次にどうするかは自分で選べます。';
+
+  @override
+  String get delayReflectionTitle => '何が起きましたか？';
+
+  @override
+  String delayReflectionStatus(String status) {
+    String _temp0 = intl.Intl.selectLogic(status, {
+      'completed': '予定した時間が終わりました。以下の記録は任意です。',
+      'early': 'タイマーを早めに終了しました。以下の記録は任意です。',
+      'other': 'タイマーが終わりました。以下の記録は任意です。',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get delayUrgeAfterLabel => '今の衝動の強さは？';
+
+  @override
+  String get delayOutcomeQuestion => '衝動に対してどうしましたか？';
+
+  @override
+  String get delayOutcomeGroupLabel => '記録する結果';
+
+  @override
+  String get delayNoteLabel => '気づいたことはありますか？（任意）';
+
+  @override
+  String get delayNoteHint => '短いメモで十分です。';
+
+  @override
+  String get delaySavingAction => '保存中…';
+
+  @override
+  String get delaySaveAction => '練習を保存';
+
+  @override
+  String delayMinutes(int count) {
+    return '$count分';
+  }
+
+  @override
+  String get delayCustomAction => 'カスタム';
+
+  @override
+  String get delayCustomTitle => '待つ時間を指定';
+
+  @override
+  String delayOutcome(String outcome) {
+    String _temp0 = intl.Intl.selectLogic(outcome, {
+      'resisted': 'しなかった',
+      'delayed': '先延ばしにした',
+      'performed': '行った',
+      'other': '未選択',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String delayUrgeValue(int value) {
+    return '衝動の強さ 10段階中$value';
+  }
+
+  @override
+  String delayCustomMinutesValue(int count) {
+    return '待つ時間：$count分';
+  }
 }

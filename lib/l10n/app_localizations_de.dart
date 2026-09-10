@@ -2155,4 +2155,138 @@ class AppLocalizationsDe extends AppLocalizations {
   String recoveryLockedToolHint(String title) {
     return '$title erfordert Patterns Pro';
   }
+
+  @override
+  String get delayNameUrgeValidation =>
+      'Wenn du bereit bist, benenne den Drang, mit dem du sitzen möchtest.';
+
+  @override
+  String get delayOutcomeValidation =>
+      'Wenn du bereit bist, wähle aus, was du am Ende getan hast.';
+
+  @override
+  String get delaySaveError =>
+      'Deine Übung konnte nicht gespeichert werden. Bitte versuche es erneut.';
+
+  @override
+  String get delayStopEarlyTitle => 'Früher aufhören?';
+
+  @override
+  String get delayStopEarlyBody =>
+      'Es ist in Ordnung aufzuhören. Die gewartete Zeit kann trotzdem gespeichert werden.';
+
+  @override
+  String get delayKeepGoingAction => 'Weitermachen';
+
+  @override
+  String get delayStopAction => 'Ich muss aufhören';
+
+  @override
+  String get delaySetupTitle => 'Den Drang pausieren';
+
+  @override
+  String get delayUrgeQuestion => 'Mit welchem Drang sitzt du gerade?';
+
+  @override
+  String get delayUrgeHint =>
+      'Zum Beispiel: das Schloss prüfen, waschen oder online suchen';
+
+  @override
+  String get delayUrgeBeforeLabel => 'Wie stark ist der Drang gerade?';
+
+  @override
+  String get delayDurationQuestion => 'Wie lange möchtest du warten?';
+
+  @override
+  String get delayDurationGroupLabel => 'Dauer des Aufschubs';
+
+  @override
+  String get delayBeginAction => 'Beginnen';
+
+  @override
+  String get delayCountdownTitle => 'Du bleibst bei dem Gefühl';
+
+  @override
+  String get delayCountdownBody =>
+      'Nimm den Drang wahr, ohne zu handeln. Du kannst entscheiden, was als Nächstes passiert.';
+
+  @override
+  String get delayReflectionTitle => 'Was ist passiert?';
+
+  @override
+  String delayReflectionStatus(String status) {
+    String _temp0 = intl.Intl.selectLogic(status, {
+      'completed':
+          'Die geplante Zeit ist beendet. Die Angaben unten sind freiwillig.',
+      'early':
+          'Du hast den Timer früher beendet. Die Angaben unten sind freiwillig.',
+      'other': 'Der Timer ist beendet. Die Angaben unten sind freiwillig.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get delayUrgeAfterLabel => 'Wie stark ist der Drang jetzt?';
+
+  @override
+  String get delayOutcomeQuestion => 'Was hast du mit dem Drang gemacht?';
+
+  @override
+  String get delayOutcomeGroupLabel => 'Aufgezeichnetes Ergebnis';
+
+  @override
+  String get delayNoteLabel => 'Ist dir etwas aufgefallen? (optional)';
+
+  @override
+  String get delayNoteHint => 'Eine kurze Notiz reicht.';
+
+  @override
+  String get delaySavingAction => 'Wird gespeichert…';
+
+  @override
+  String get delaySaveAction => 'Übung speichern';
+
+  @override
+  String delayMinutes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Min.',
+      one: '1 Min.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get delayCustomAction => 'Eigene Dauer';
+
+  @override
+  String get delayCustomTitle => 'Eigener Aufschub';
+
+  @override
+  String delayOutcome(String outcome) {
+    String _temp0 = intl.Intl.selectLogic(outcome, {
+      'resisted': 'Nicht ausgeführt',
+      'delayed': 'Aufgeschoben',
+      'performed': 'Ausgeführt',
+      'other': 'Nicht ausgewählt',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String delayUrgeValue(int value) {
+    return 'Drang $value von 10';
+  }
+
+  @override
+  String delayCustomMinutesValue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Minuten',
+      one: '1 Minute',
+    );
+    return 'Eigener Aufschub: $_temp0';
+  }
 }
