@@ -1814,6 +1814,244 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get trackerEmptyAction => 'Registrar evento de TOC';
+
+  @override
+  String get insightsTitle => 'Insights';
+
+  @override
+  String get insightsExportReport => 'Exportar relatório';
+
+  @override
+  String get insightsObsessionsLogged => 'Obsessões registradas';
+
+  @override
+  String get insightsThemesFound => 'Temas encontrados';
+
+  @override
+  String get insightsCompulsions => 'Compulsões';
+
+  @override
+  String get insightsAverageIntensityShort => 'Intensidade média';
+
+  @override
+  String get insightsOutOfTenShort => '/10';
+
+  @override
+  String get insightsPracticeProgress => 'Progresso da prática';
+
+  @override
+  String get insightsScoreNeedsMoreActivity =>
+      'Uma pontuação aparece depois de algumas práticas em dias diferentes, para mostrar uma tendência em vez de um único momento. As sessões abaixo já estão sendo contadas.';
+
+  @override
+  String get insightsScoreEmpty =>
+      'Uma pontuação aparecerá aqui depois de algumas práticas. Ainda não há nada para medir.';
+
+  @override
+  String insightsComparedPreviousDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'os $count dias anteriores',
+      one: 'o dia anterior',
+    );
+    return 'em comparação com $_temp0';
+  }
+
+  @override
+  String get insightsComparedPreviousRange =>
+      'em comparação com o período anterior';
+
+  @override
+  String get insightsPracticeProgressBoundary =>
+      'Reflete a frequência da prática, não um diagnóstico nem como você está clinicamente. Um número menor em uma semana difícil pode acontecer.';
+
+  @override
+  String get insightsMoodOverTime => 'Humor ao longo do tempo';
+
+  @override
+  String get insightsMoodGood => 'Bem';
+
+  @override
+  String get insightsMoodOkay => 'Razoável';
+
+  @override
+  String get insightsMoodLow => 'Baixo';
+
+  @override
+  String get insightsYbocsOverTime => 'Y-BOCS ao longo do tempo';
+
+  @override
+  String get insightsYbocsEmpty =>
+      'Faça a autoavaliação e o total registrado iniciará uma linha aqui.';
+
+  @override
+  String get insightsOutOfFortyShort => '/40';
+
+  @override
+  String insightsYbocsSingleResult(String severity) {
+    return 'Faixa $severity. Faça a autoavaliação novamente em algumas semanas para adicionar outro ponto registrado.';
+  }
+
+  @override
+  String insightsYbocsSeverityRange(String severity, String range) {
+    return '$severity ($range)';
+  }
+
+  @override
+  String insightsAcrossSelfChecks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count autoavaliações',
+      one: '1 autoavaliação',
+    );
+    return 'em $_temp0';
+  }
+
+  @override
+  String get insightsYbocsBoundary =>
+      'É um retrato do momento, não um diagnóstico. Os totais registrados podem variar, e um total mais alto não define seu progresso.';
+
+  @override
+  String get insightsAverageUrgeIntensity => 'Intensidade média do impulso';
+
+  @override
+  String get insightsErpPractice => 'Prática de ERP';
+
+  @override
+  String insightsSessions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'sessões',
+      one: 'sessão',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get insightsConsistency => 'Consistência';
+
+  @override
+  String insightsActiveDays(int active, int total) {
+    return '$active de $total dias';
+  }
+
+  @override
+  String insightsActivityMapSummary(int active, int total) {
+    return 'Atividade registrada em $active de $total dias';
+  }
+
+  @override
+  String get insightsTopThemes => 'Principais temas';
+
+  @override
+  String get insightsThemesEmpty =>
+      'Os temas aparecerão conforme você registrar o foco do TOC.';
+
+  @override
+  String insightsThemeShare(String theme, int percent) {
+    return '$theme, $percent por cento dos temas registrados';
+  }
+
+  @override
+  String get insightsChangeRange => 'Alterar período';
+
+  @override
+  String get insightsOverviewTab => 'Visão geral';
+
+  @override
+  String get insightsObsessionsTab => 'Obsessões';
+
+  @override
+  String get insightsCompulsionsTab => 'Compulsões';
+
+  @override
+  String get insightsErpTab => 'ERP';
+
+  @override
+  String insightsDeltaIncrease(String value, String comparison) {
+    return '↑ aumento de $value, $comparison';
+  }
+
+  @override
+  String insightsDeltaDecrease(String value, String comparison) {
+    return '↓ redução de $value, $comparison';
+  }
+
+  @override
+  String insightsDeltaUnchanged(String comparison) {
+    return '→ Sem mudança, $comparison';
+  }
+
+  @override
+  String get insightsNoData => 'Ainda não há dados';
+
+  @override
+  String get insightsLoading => 'Carregando insights';
+
+  @override
+  String get insightsLoadError =>
+      'Não foi possível carregar seus insights. Tente novamente.';
+
+  @override
+  String insightsChartPoint(String date, String value) {
+    return '$date: $value';
+  }
+
+  @override
+  String insightsChartSummary(String title, String values) {
+    return '$title. Pontos registrados: $values';
+  }
+
+  @override
+  String get ybocsSeveritySubclinical => 'Subclínica';
+
+  @override
+  String get ybocsSeverityMild => 'Leve';
+
+  @override
+  String get ybocsSeverityModerate => 'Moderada';
+
+  @override
+  String get ybocsSeveritySevere => 'Grave';
+
+  @override
+  String get ybocsSeverityExtreme => 'Extrema';
+
+  @override
+  String get insightsThemeContamination => 'Contaminação';
+
+  @override
+  String get insightsThemeHarm => 'Dano';
+
+  @override
+  String get insightsThemeChecking => 'Verificação';
+
+  @override
+  String get insightsThemeReassurance => 'Busca de confirmação';
+
+  @override
+  String get insightsThemeHealth => 'Saúde';
+
+  @override
+  String get insightsThemeRelationship => 'Relacionamento';
+
+  @override
+  String get insightsThemeSymmetry => 'Simetria';
+
+  @override
+  String get insightsThemeMoral => 'Moralidade';
+
+  @override
+  String get insightsThemeRumination => 'Ruminação';
+
+  @override
+  String get insightsThemeUncertainty => 'Incerteza';
+
+  @override
+  String get insightsThemeOther => 'Outro';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -3626,4 +3864,242 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get trackerEmptyAction => 'Registrar evento de TOC';
+
+  @override
+  String get insightsTitle => 'Insights';
+
+  @override
+  String get insightsExportReport => 'Exportar relatório';
+
+  @override
+  String get insightsObsessionsLogged => 'Obsessões registradas';
+
+  @override
+  String get insightsThemesFound => 'Temas encontrados';
+
+  @override
+  String get insightsCompulsions => 'Compulsões';
+
+  @override
+  String get insightsAverageIntensityShort => 'Intensidade média';
+
+  @override
+  String get insightsOutOfTenShort => '/10';
+
+  @override
+  String get insightsPracticeProgress => 'Progresso da prática';
+
+  @override
+  String get insightsScoreNeedsMoreActivity =>
+      'Uma pontuação aparece depois de algumas práticas em dias diferentes, para mostrar uma tendência em vez de um único momento. As sessões abaixo já estão sendo contadas.';
+
+  @override
+  String get insightsScoreEmpty =>
+      'Uma pontuação aparecerá aqui depois de algumas práticas. Ainda não há nada para medir.';
+
+  @override
+  String insightsComparedPreviousDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'os $count dias anteriores',
+      one: 'o dia anterior',
+    );
+    return 'em comparação com $_temp0';
+  }
+
+  @override
+  String get insightsComparedPreviousRange =>
+      'em comparação com o período anterior';
+
+  @override
+  String get insightsPracticeProgressBoundary =>
+      'Reflete a frequência da prática, não um diagnóstico nem como você está clinicamente. Um número menor em uma semana difícil pode acontecer.';
+
+  @override
+  String get insightsMoodOverTime => 'Humor ao longo do tempo';
+
+  @override
+  String get insightsMoodGood => 'Bem';
+
+  @override
+  String get insightsMoodOkay => 'Razoável';
+
+  @override
+  String get insightsMoodLow => 'Baixo';
+
+  @override
+  String get insightsYbocsOverTime => 'Y-BOCS ao longo do tempo';
+
+  @override
+  String get insightsYbocsEmpty =>
+      'Faça a autoavaliação e o total registrado iniciará uma linha aqui.';
+
+  @override
+  String get insightsOutOfFortyShort => '/40';
+
+  @override
+  String insightsYbocsSingleResult(String severity) {
+    return 'Faixa $severity. Faça a autoavaliação novamente em algumas semanas para adicionar outro ponto registrado.';
+  }
+
+  @override
+  String insightsYbocsSeverityRange(String severity, String range) {
+    return '$severity ($range)';
+  }
+
+  @override
+  String insightsAcrossSelfChecks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count autoavaliações',
+      one: '1 autoavaliação',
+    );
+    return 'em $_temp0';
+  }
+
+  @override
+  String get insightsYbocsBoundary =>
+      'É um retrato do momento, não um diagnóstico. Os totais registrados podem variar, e um total mais alto não define seu progresso.';
+
+  @override
+  String get insightsAverageUrgeIntensity => 'Intensidade média do impulso';
+
+  @override
+  String get insightsErpPractice => 'Prática de ERP';
+
+  @override
+  String insightsSessions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'sessões',
+      one: 'sessão',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get insightsConsistency => 'Consistência';
+
+  @override
+  String insightsActiveDays(int active, int total) {
+    return '$active de $total dias';
+  }
+
+  @override
+  String insightsActivityMapSummary(int active, int total) {
+    return 'Atividade registrada em $active de $total dias';
+  }
+
+  @override
+  String get insightsTopThemes => 'Principais temas';
+
+  @override
+  String get insightsThemesEmpty =>
+      'Os temas aparecerão conforme você registrar o foco do TOC.';
+
+  @override
+  String insightsThemeShare(String theme, int percent) {
+    return '$theme, $percent por cento dos temas registrados';
+  }
+
+  @override
+  String get insightsChangeRange => 'Alterar período';
+
+  @override
+  String get insightsOverviewTab => 'Visão geral';
+
+  @override
+  String get insightsObsessionsTab => 'Obsessões';
+
+  @override
+  String get insightsCompulsionsTab => 'Compulsões';
+
+  @override
+  String get insightsErpTab => 'ERP';
+
+  @override
+  String insightsDeltaIncrease(String value, String comparison) {
+    return '↑ aumento de $value, $comparison';
+  }
+
+  @override
+  String insightsDeltaDecrease(String value, String comparison) {
+    return '↓ redução de $value, $comparison';
+  }
+
+  @override
+  String insightsDeltaUnchanged(String comparison) {
+    return '→ Sem mudança, $comparison';
+  }
+
+  @override
+  String get insightsNoData => 'Ainda não há dados';
+
+  @override
+  String get insightsLoading => 'Carregando insights';
+
+  @override
+  String get insightsLoadError =>
+      'Não foi possível carregar seus insights. Tente novamente.';
+
+  @override
+  String insightsChartPoint(String date, String value) {
+    return '$date: $value';
+  }
+
+  @override
+  String insightsChartSummary(String title, String values) {
+    return '$title. Pontos registrados: $values';
+  }
+
+  @override
+  String get ybocsSeveritySubclinical => 'Subclínica';
+
+  @override
+  String get ybocsSeverityMild => 'Leve';
+
+  @override
+  String get ybocsSeverityModerate => 'Moderada';
+
+  @override
+  String get ybocsSeveritySevere => 'Grave';
+
+  @override
+  String get ybocsSeverityExtreme => 'Extrema';
+
+  @override
+  String get insightsThemeContamination => 'Contaminação';
+
+  @override
+  String get insightsThemeHarm => 'Dano';
+
+  @override
+  String get insightsThemeChecking => 'Verificação';
+
+  @override
+  String get insightsThemeReassurance => 'Busca de confirmação';
+
+  @override
+  String get insightsThemeHealth => 'Saúde';
+
+  @override
+  String get insightsThemeRelationship => 'Relacionamento';
+
+  @override
+  String get insightsThemeSymmetry => 'Simetria';
+
+  @override
+  String get insightsThemeMoral => 'Moralidade';
+
+  @override
+  String get insightsThemeRumination => 'Ruminação';
+
+  @override
+  String get insightsThemeUncertainty => 'Incerteza';
+
+  @override
+  String get insightsThemeOther => 'Outro';
 }

@@ -25,4 +25,15 @@ extension AppLocalizationsContext on BuildContext {
 
   String formatMonthDayTime(DateTime date) =>
       DateFormat.MMMd(effectiveLocaleName).add_jm().format(date);
+
+  String formatInteger(num value) =>
+      NumberFormat.decimalPattern(effectiveLocaleName).format(value);
+
+  String formatOneDecimal(num value) => NumberFormat.decimalPatternDigits(
+    locale: effectiveLocaleName,
+    decimalDigits: 1,
+  ).format(value);
+
+  String formatWholePercent(num value) =>
+      NumberFormat.percentPattern(effectiveLocaleName).format(value / 100);
 }

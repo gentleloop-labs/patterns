@@ -1617,4 +1617,219 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get trackerEmptyAction => 'OCDの出来事を記録';
+
+  @override
+  String get insightsTitle => 'インサイト';
+
+  @override
+  String get insightsExportReport => 'レポートを書き出す';
+
+  @override
+  String get insightsObsessionsLogged => '記録した強迫観念';
+
+  @override
+  String get insightsThemesFound => '見つかったテーマ';
+
+  @override
+  String get insightsCompulsions => '強迫行為';
+
+  @override
+  String get insightsAverageIntensityShort => '平均強度';
+
+  @override
+  String get insightsOutOfTenShort => '/10';
+
+  @override
+  String get insightsPracticeProgress => '練習の経過';
+
+  @override
+  String get insightsScoreNeedsMoreActivity =>
+      '単一の出来事ではなく経過を示すため、複数の日に数回練習するとスコアが表示されます。下のセッションはすでに数えられています。';
+
+  @override
+  String get insightsScoreEmpty => '数回練習すると、ここにスコアが表示されます。今はまだ測るものがありません。';
+
+  @override
+  String insightsComparedPreviousDays(int count) {
+    return '直前の$count日間との比較';
+  }
+
+  @override
+  String get insightsComparedPreviousRange => '前の期間との比較';
+
+  @override
+  String get insightsPracticeProgressBoundary =>
+      '練習の頻度を表すもので、診断や臨床的な状態を示すものではありません。つらい週に数値が低くなることもあります。';
+
+  @override
+  String get insightsMoodOverTime => '気分の推移';
+
+  @override
+  String get insightsMoodGood => '良い';
+
+  @override
+  String get insightsMoodOkay => '普通';
+
+  @override
+  String get insightsMoodLow => '低い';
+
+  @override
+  String get insightsYbocsOverTime => 'Y-BOCSの推移';
+
+  @override
+  String get insightsYbocsEmpty => 'セルフチェックを行うと、記録した合計点がここから線になります。';
+
+  @override
+  String get insightsOutOfFortyShort => '/40';
+
+  @override
+  String insightsYbocsSingleResult(String severity) {
+    return '$severityの範囲です。数週間後にもう一度セルフチェックを行うと、記録点が追加されます。';
+  }
+
+  @override
+  String insightsYbocsSeverityRange(String severity, String range) {
+    return '$severity（$range）';
+  }
+
+  @override
+  String insightsAcrossSelfChecks(int count) {
+    return '$count回のセルフチェックでの比較';
+  }
+
+  @override
+  String get insightsYbocsBoundary =>
+      'これは一時点の記録であり、診断ではありません。合計点は変動することがあり、1回高くても経過全体を決めるものではありません。';
+
+  @override
+  String get insightsAverageUrgeIntensity => '衝動の平均強度';
+
+  @override
+  String get insightsErpPractice => 'ERP練習';
+
+  @override
+  String insightsSessions(int count) {
+    return 'セッション';
+  }
+
+  @override
+  String get insightsConsistency => '継続性';
+
+  @override
+  String insightsActiveDays(int active, int total) {
+    return '$total日中$active日';
+  }
+
+  @override
+  String insightsActivityMapSummary(int active, int total) {
+    return '$total日中$active日に活動を記録';
+  }
+
+  @override
+  String get insightsTopThemes => '主なテーマ';
+
+  @override
+  String get insightsThemesEmpty => 'OCDが何に集中しているかを記録すると、テーマが表示されます。';
+
+  @override
+  String insightsThemeShare(String theme, int percent) {
+    return '$theme、記録したテーマの$percentパーセント';
+  }
+
+  @override
+  String get insightsChangeRange => '期間を変更';
+
+  @override
+  String get insightsOverviewTab => '概要';
+
+  @override
+  String get insightsObsessionsTab => '強迫観念';
+
+  @override
+  String get insightsCompulsionsTab => '強迫行為';
+
+  @override
+  String get insightsErpTab => 'ERP';
+
+  @override
+  String insightsDeltaIncrease(String value, String comparison) {
+    return '↑ $value増加、$comparison';
+  }
+
+  @override
+  String insightsDeltaDecrease(String value, String comparison) {
+    return '↓ $value減少、$comparison';
+  }
+
+  @override
+  String insightsDeltaUnchanged(String comparison) {
+    return '→ 変化なし、$comparison';
+  }
+
+  @override
+  String get insightsNoData => 'まだデータはありません';
+
+  @override
+  String get insightsLoading => 'インサイトを読み込んでいます';
+
+  @override
+  String get insightsLoadError => 'インサイトを読み込めませんでした。もう一度お試しください。';
+
+  @override
+  String insightsChartPoint(String date, String value) {
+    return '$date：$value';
+  }
+
+  @override
+  String insightsChartSummary(String title, String values) {
+    return '$title。記録点：$values';
+  }
+
+  @override
+  String get ybocsSeveritySubclinical => '臨床閾値未満';
+
+  @override
+  String get ybocsSeverityMild => '軽度';
+
+  @override
+  String get ybocsSeverityModerate => '中等度';
+
+  @override
+  String get ybocsSeveritySevere => '重度';
+
+  @override
+  String get ybocsSeverityExtreme => '極めて重度';
+
+  @override
+  String get insightsThemeContamination => '汚染';
+
+  @override
+  String get insightsThemeHarm => '加害';
+
+  @override
+  String get insightsThemeChecking => '確認';
+
+  @override
+  String get insightsThemeReassurance => '安心の確認';
+
+  @override
+  String get insightsThemeHealth => '健康';
+
+  @override
+  String get insightsThemeRelationship => '人間関係';
+
+  @override
+  String get insightsThemeSymmetry => '対称性';
+
+  @override
+  String get insightsThemeMoral => '道徳';
+
+  @override
+  String get insightsThemeRumination => '反すう';
+
+  @override
+  String get insightsThemeUncertainty => '不確かさ';
+
+  @override
+  String get insightsThemeOther => 'その他';
 }

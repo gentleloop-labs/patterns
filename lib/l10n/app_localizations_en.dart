@@ -1795,4 +1795,242 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get trackerEmptyAction => 'Track OCD event';
+
+  @override
+  String get insightsTitle => 'Insights';
+
+  @override
+  String get insightsExportReport => 'Export report';
+
+  @override
+  String get insightsObsessionsLogged => 'Obsessions logged';
+
+  @override
+  String get insightsThemesFound => 'Themes found';
+
+  @override
+  String get insightsCompulsions => 'Compulsions';
+
+  @override
+  String get insightsAverageIntensityShort => 'Average intensity';
+
+  @override
+  String get insightsOutOfTenShort => '/10';
+
+  @override
+  String get insightsPracticeProgress => 'Practice progress';
+
+  @override
+  String get insightsScoreNeedsMoreActivity =>
+      'A score appears once you’ve practised a few times across a couple of days, so it shows a trend rather than a single moment. Your sessions below are already counted.';
+
+  @override
+  String get insightsScoreEmpty =>
+      'A score will appear here once you’ve practised a few times. Nothing to measure just yet.';
+
+  @override
+  String insightsComparedPreviousDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count days',
+      one: 'day',
+    );
+    return 'compared with the previous $_temp0';
+  }
+
+  @override
+  String get insightsComparedPreviousRange =>
+      'compared with the previous range';
+
+  @override
+  String get insightsPracticeProgressBoundary =>
+      'Reflects how often you practise, not a diagnosis or how you’re doing clinically. A lower number during a hard week can happen.';
+
+  @override
+  String get insightsMoodOverTime => 'Mood over time';
+
+  @override
+  String get insightsMoodGood => 'Good';
+
+  @override
+  String get insightsMoodOkay => 'Okay';
+
+  @override
+  String get insightsMoodLow => 'Low';
+
+  @override
+  String get insightsYbocsOverTime => 'Y-BOCS over time';
+
+  @override
+  String get insightsYbocsEmpty =>
+      'Take the self-check and your recorded total will start a line here.';
+
+  @override
+  String get insightsOutOfFortyShort => '/40';
+
+  @override
+  String insightsYbocsSingleResult(String severity) {
+    return '$severity range. Take the self-check again in a few weeks to add another recorded point.';
+  }
+
+  @override
+  String insightsYbocsSeverityRange(String severity, String range) {
+    return '$severity ($range)';
+  }
+
+  @override
+  String insightsAcrossSelfChecks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count self-checks',
+      one: '1 self-check',
+    );
+    return 'across $_temp0';
+  }
+
+  @override
+  String get insightsYbocsBoundary =>
+      'A snapshot, not a diagnosis. Recorded totals can move around, and one higher total does not define your progress.';
+
+  @override
+  String get insightsAverageUrgeIntensity => 'Average urge intensity';
+
+  @override
+  String get insightsErpPractice => 'ERP practice';
+
+  @override
+  String insightsSessions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'sessions',
+      one: 'session',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get insightsConsistency => 'Consistency';
+
+  @override
+  String insightsActiveDays(int active, int total) {
+    return '$active of $total days';
+  }
+
+  @override
+  String insightsActivityMapSummary(int active, int total) {
+    return 'Activity recorded on $active of $total days';
+  }
+
+  @override
+  String get insightsTopThemes => 'Top themes';
+
+  @override
+  String get insightsThemesEmpty =>
+      'Themes will appear as you record what OCD focuses on.';
+
+  @override
+  String insightsThemeShare(String theme, int percent) {
+    return '$theme, $percent percent of recorded themes';
+  }
+
+  @override
+  String get insightsChangeRange => 'Change date range';
+
+  @override
+  String get insightsOverviewTab => 'Overview';
+
+  @override
+  String get insightsObsessionsTab => 'Obsessions';
+
+  @override
+  String get insightsCompulsionsTab => 'Compulsions';
+
+  @override
+  String get insightsErpTab => 'ERP';
+
+  @override
+  String insightsDeltaIncrease(String value, String comparison) {
+    return '↑ $value increase, $comparison';
+  }
+
+  @override
+  String insightsDeltaDecrease(String value, String comparison) {
+    return '↓ $value decrease, $comparison';
+  }
+
+  @override
+  String insightsDeltaUnchanged(String comparison) {
+    return '→ No change, $comparison';
+  }
+
+  @override
+  String get insightsNoData => 'No data yet';
+
+  @override
+  String get insightsLoading => 'Loading insights';
+
+  @override
+  String get insightsLoadError =>
+      'Your insights could not be loaded. Please try again.';
+
+  @override
+  String insightsChartPoint(String date, String value) {
+    return '$date: $value';
+  }
+
+  @override
+  String insightsChartSummary(String title, String values) {
+    return '$title. Recorded points: $values';
+  }
+
+  @override
+  String get ybocsSeveritySubclinical => 'Subclinical';
+
+  @override
+  String get ybocsSeverityMild => 'Mild';
+
+  @override
+  String get ybocsSeverityModerate => 'Moderate';
+
+  @override
+  String get ybocsSeveritySevere => 'Severe';
+
+  @override
+  String get ybocsSeverityExtreme => 'Extreme';
+
+  @override
+  String get insightsThemeContamination => 'Contamination';
+
+  @override
+  String get insightsThemeHarm => 'Harm';
+
+  @override
+  String get insightsThemeChecking => 'Checking';
+
+  @override
+  String get insightsThemeReassurance => 'Reassurance';
+
+  @override
+  String get insightsThemeHealth => 'Health';
+
+  @override
+  String get insightsThemeRelationship => 'Relationship';
+
+  @override
+  String get insightsThemeSymmetry => 'Symmetry';
+
+  @override
+  String get insightsThemeMoral => 'Moral';
+
+  @override
+  String get insightsThemeRumination => 'Rumination';
+
+  @override
+  String get insightsThemeUncertainty => 'Uncertainty';
+
+  @override
+  String get insightsThemeOther => 'Other';
 }
