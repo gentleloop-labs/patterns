@@ -20,8 +20,8 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 | COMPLETE-01 | Quiet completion contract for journal, tracking, delay, and ERP | code complete | `test/activity_completion_test.dart` plus flow-specific tests |
 | JOURNAL-01 | Mobile journal list/editor localization and accessibility | code complete | Six-locale copy, localized dates, safe errors, editor semantics, large-text/reduced-motion tests |
 | JOURNAL-02 | Shared desktop journal localization and accessibility | code complete | Six-locale copy, localized dates/times, safe errors, keyboard-accessible entries, selectable reader, 200% text test |
-| TODAY-01 | Today first-run and established-state localization | pending | — |
-| TODAY-02 | Today semantics, large text, Reduced Motion, and non-colour cues | pending | — |
+| TODAY-01 | Today first-run and established-state localization | code complete | Six-locale first-run, established, Calm Insights, recommendation, and desktop coverage; locale widget tests |
+| TODAY-02 | Today semantics, large text, Reduced Motion, and non-colour cues | in progress | Mobile and desktop Today surfaces under active implementation |
 | TRACK-01 | OCD tracker localization, validation, and accessibility | pending | — |
 | INSIGHTS-01 | Insights localization and accessible chart alternatives | pending | — |
 | RECOVERY-01 | Recovery Hub and ERP tools localization/accessibility | pending | — |
@@ -50,5 +50,5 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 - Version: `1.10.0+32` (final build number must still be reconciled remotely).
 - Release announcement: `patterns_1_10`.
 - Full Flutter suite after JOURNAL-02: 224 passing tests.
-- Literal audit: 631 candidates after JOURNAL-02, down from 652.
+- Literal audit: 598 candidates after TODAY-01, down from 652.
 - Store drafts: field, locale, and character-limit validation passing; not approved or uploaded.

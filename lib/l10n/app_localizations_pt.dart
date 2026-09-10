@@ -1300,6 +1300,374 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get journalThemeHealth => 'Saúde';
+
+  @override
+  String get todayGreetingMorning => 'Bom dia';
+
+  @override
+  String get todayGreetingAfternoon => 'Boa tarde';
+
+  @override
+  String get todayGreetingEvening => 'Boa noite';
+
+  @override
+  String get todayEncouragement => 'Você consegue. Uma escolha de cada vez.';
+
+  @override
+  String get todayContinuePractice => 'Continue sua prática';
+
+  @override
+  String get todaySeeAllAction => 'Ver tudo';
+
+  @override
+  String get todayQuickActions => 'Ações rápidas';
+
+  @override
+  String get todayChooseActivity => 'O que você gostaria de fazer?';
+
+  @override
+  String get todayWriteSomethingTitle => 'Anotar algo';
+
+  @override
+  String get todayWriteSomethingBody =>
+      'Tire um pensamento da cabeça e coloque no papel.';
+
+  @override
+  String get todayDelayUrgeTitle => 'Adiar um impulso';
+
+  @override
+  String get todayDelayUrgeBody => 'Crie um espaço antes de responder.';
+
+  @override
+  String get todayPracticeErpTitle => 'Praticar (ERP)';
+
+  @override
+  String get todayPracticeErpBody => 'Um exercício curto e guiado.';
+
+  @override
+  String get todayFirstJournalTitle => 'Anote outro momento';
+
+  @override
+  String get todayFirstJournalBody =>
+      'Dar nome a um pensamento pode facilitar observá-lo.';
+
+  @override
+  String get todayFirstErpTitle => 'Pratique novamente';
+
+  @override
+  String get todayFirstErpBody =>
+      'Experimente outra prática curta e guiada de ERP.';
+
+  @override
+  String get todayFirstDelayTitle => 'Experimente adiar por dois minutos';
+
+  @override
+  String get todayFirstDelayBody =>
+      'Quando o impulso estiver forte, crie um pequeno espaço antes de agir.';
+
+  @override
+  String get todayStartPracticeAction => 'Iniciar prática';
+
+  @override
+  String get todayStartDelayAction => 'Iniciar adiamento';
+
+  @override
+  String get todayProTitle => 'Continue com o Patterns Pro';
+
+  @override
+  String get todayProBody =>
+      'Crie um plano, pratique e reveja sua atividade ao longo do tempo.';
+
+  @override
+  String get todayHideSevenDays => 'Ocultar por 7 dias';
+
+  @override
+  String get todayPracticeProgress => 'Progresso da prática';
+
+  @override
+  String get todaySteadyPractice => 'Prática constante';
+
+  @override
+  String get todayStartGently => 'Comece com calma';
+
+  @override
+  String get todayPracticeActiveBody =>
+      'Suas atividades registradas estão formando uma visão de longo prazo.';
+
+  @override
+  String get todayPracticeEmptyBody =>
+      'Isso muda conforme você escreve, registra e pratica.';
+
+  @override
+  String get todayProgressDisclaimer =>
+      'Isso reflete a frequência das práticas registradas, não um diagnóstico ou avaliação clínica. Um número menor pode ocorrer durante uma semana difícil.';
+
+  @override
+  String get todayProgressStartedTitle => 'Sua atividade está tomando forma';
+
+  @override
+  String get todayProgressPendingBody =>
+      'Um número de progresso aparecerá depois que houver atividades registradas em mais de um dia.';
+
+  @override
+  String get todayScoreNew => 'Novo';
+
+  @override
+  String get todayScoreStrong => 'Forte';
+
+  @override
+  String get todayScoreSteady => 'Constante';
+
+  @override
+  String get todayScoreBuilding => 'Em construção';
+
+  @override
+  String get todayScoreStarting => 'Começando';
+
+  @override
+  String get todayBeginCheckIn => 'Comece com um pequeno check-in';
+
+  @override
+  String get todayNoChange => 'Sem mudança em relação ao período anterior';
+
+  @override
+  String todayPointsUp(int points) {
+    String _temp0 = intl.Intl.pluralLogic(
+      points,
+      locale: localeName,
+      other: '$points pontos acima',
+      one: '1 ponto acima',
+    );
+    return '$_temp0 do período anterior';
+  }
+
+  @override
+  String todayPointsDown(int points) {
+    String _temp0 = intl.Intl.pluralLogic(
+      points,
+      locale: localeName,
+      other: '$points pontos abaixo',
+      one: '1 ponto abaixo',
+    );
+    return '$_temp0 do período anterior';
+  }
+
+  @override
+  String get todayNextStep => 'Seu próximo passo';
+
+  @override
+  String get todayNextSelfCheckTitle => 'Veja como você está';
+
+  @override
+  String get todayNextSelfCheckBody =>
+      'Uma autoavaliação pode registrar uma referência para comparação futura.';
+
+  @override
+  String get todayNextSelfCheckAction => 'Fazer autoavaliação';
+
+  @override
+  String get todayNextHierarchyTitle => 'Prepare sua prática';
+
+  @override
+  String get todayNextHierarchyBody =>
+      'Monte uma escada de exposição, dos passos mais fáceis aos mais difíceis.';
+
+  @override
+  String get todayNextHierarchyAction => 'Montar escada';
+
+  @override
+  String get todayNextPracticeTitle => 'Escolha a prática de hoje';
+
+  @override
+  String get todayNextPracticeBody =>
+      'Escolha um exercício de ERP possível para hoje.';
+
+  @override
+  String get todayNextPracticeAction => 'Iniciar prática';
+
+  @override
+  String get todayNextReflectTitle => 'Reflita sobre a prática';
+
+  @override
+  String get todayNextReflectBody =>
+      'Registre o que você percebeu durante a prática de hoje.';
+
+  @override
+  String get todayNextReflectAction => 'Refletir';
+
+  @override
+  String get todayNextJournalTitle => 'Reflita sobre hoje';
+
+  @override
+  String get todayNextJournalBody =>
+      'Escreva uma linha sobre o que percebeu na sua prática.';
+
+  @override
+  String get todayNextJournalAction => 'Abrir diário';
+
+  @override
+  String get todayCompulsionDelay => 'Adiamento de compulsão';
+
+  @override
+  String get todayStartErp => 'Iniciar prática de ERP';
+
+  @override
+  String get todayResistUrgeBody =>
+      'Fique com o impulso antes de decidir o que fazer.';
+
+  @override
+  String get todayBuildToleranceBody =>
+      'Pratique um passo possível no seu ritmo.';
+
+  @override
+  String get todayResumeAction => 'Retomar';
+
+  @override
+  String get todayStartAction => 'Iniciar';
+
+  @override
+  String get todayJournalBody => 'Escreva e reflita no seu diário privado.';
+
+  @override
+  String get todayExposureTools => 'Ferramentas de exposição';
+
+  @override
+  String get todayExposureToolsBody =>
+      'Hierarquia, materiais e prática de incerteza.';
+
+  @override
+  String get todayInsightsBody => 'Reveja sua atividade registrada.';
+
+  @override
+  String get todaySelfCheckTitle => 'Entenda seus padrões';
+
+  @override
+  String get todaySelfCheckDuration => 'Opcional · cerca de 10 min';
+
+  @override
+  String get todayInsightsPlaceholder =>
+      'Seus insights aparecerão aqui conforme você registrar atividades.';
+
+  @override
+  String get todayDailyCheckInComplete => 'Check-in diário registrado';
+
+  @override
+  String get todayDailyCheckIn => 'Check-in diário';
+
+  @override
+  String get todayDailyCompleteBody =>
+      'Há uma entrada no diário registrada para hoje.';
+
+  @override
+  String get todayDailyBody =>
+      'Escreva uma entrada curta quando estiver pronto.';
+
+  @override
+  String get todayOpenAction => 'Abrir';
+
+  @override
+  String get todayCheckInAction => 'Fazer check-in';
+
+  @override
+  String get todayRecoveryScore => 'Pontuação de recuperação';
+
+  @override
+  String todayActivitiesLastSevenDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count atividades nos últimos 7 dias',
+      one: '1 atividade nos últimos 7 dias',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get todayActivityRecorded =>
+      'Calculado a partir da atividade registrada';
+
+  @override
+  String get todayPracticesRecorded => 'Práticas registradas';
+
+  @override
+  String get todayPracticeStreak => 'Sequência de prática';
+
+  @override
+  String todaySessionsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count sessões',
+      one: '1 sessão',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String todayDaysCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dias',
+      one: '1 dia',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get todayPickUpBody =>
+      'Continue a partir do tempo registrado anteriormente.';
+
+  @override
+  String get todayPracticeUrgesBody =>
+      'Pratique esperar antes de responder a um impulso.';
+
+  @override
+  String get todayReadCheckIn => 'Ler o check-in de hoje';
+
+  @override
+  String get todayOpenJournalMore => 'Abra o Diário para ler ou adicionar mais';
+
+  @override
+  String get todayShortJournal => 'Escreva uma entrada curta no diário';
+
+  @override
+  String get todayExplore => 'Explorar';
+
+  @override
+  String get todayReflectProcess => 'Reflita e processe';
+
+  @override
+  String get todayRecoveryTools => 'Ferramentas de recuperação';
+
+  @override
+  String get todaySupportPractice => 'Apoie sua prática';
+
+  @override
+  String get todayTrackBody => 'Registre pensamentos e impulsos';
+
+  @override
+  String get todaySeePatterns => 'Reveja seus padrões registrados';
+
+  @override
+  String todayScoreA11y(int score, String label) {
+    return 'Progresso da prática: $score de 100, $label';
+  }
+
+  @override
+  String todayTimerA11y(String elapsed, String planned) {
+    return 'Temporizador da prática: $elapsed decorridos de $planned';
+  }
+
+  @override
+  String todayDayActiveA11y(String day) {
+    return '$day: atividade registrada';
+  }
+
+  @override
+  String todayDayInactiveA11y(String day) {
+    return '$day: nenhuma atividade registrada';
+  }
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -2598,4 +2966,372 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get journalThemeHealth => 'Saúde';
+
+  @override
+  String get todayGreetingMorning => 'Bom dia';
+
+  @override
+  String get todayGreetingAfternoon => 'Boa tarde';
+
+  @override
+  String get todayGreetingEvening => 'Boa noite';
+
+  @override
+  String get todayEncouragement => 'Você consegue. Uma escolha de cada vez.';
+
+  @override
+  String get todayContinuePractice => 'Continue sua prática';
+
+  @override
+  String get todaySeeAllAction => 'Ver tudo';
+
+  @override
+  String get todayQuickActions => 'Ações rápidas';
+
+  @override
+  String get todayChooseActivity => 'O que você gostaria de fazer?';
+
+  @override
+  String get todayWriteSomethingTitle => 'Anotar algo';
+
+  @override
+  String get todayWriteSomethingBody =>
+      'Tire um pensamento da cabeça e coloque no papel.';
+
+  @override
+  String get todayDelayUrgeTitle => 'Adiar um impulso';
+
+  @override
+  String get todayDelayUrgeBody => 'Crie um espaço antes de responder.';
+
+  @override
+  String get todayPracticeErpTitle => 'Praticar (ERP)';
+
+  @override
+  String get todayPracticeErpBody => 'Um exercício curto e guiado.';
+
+  @override
+  String get todayFirstJournalTitle => 'Anote outro momento';
+
+  @override
+  String get todayFirstJournalBody =>
+      'Dar nome a um pensamento pode facilitar observá-lo.';
+
+  @override
+  String get todayFirstErpTitle => 'Pratique novamente';
+
+  @override
+  String get todayFirstErpBody =>
+      'Experimente outra prática curta e guiada de ERP.';
+
+  @override
+  String get todayFirstDelayTitle => 'Experimente adiar por dois minutos';
+
+  @override
+  String get todayFirstDelayBody =>
+      'Quando o impulso estiver forte, crie um pequeno espaço antes de agir.';
+
+  @override
+  String get todayStartPracticeAction => 'Iniciar prática';
+
+  @override
+  String get todayStartDelayAction => 'Iniciar adiamento';
+
+  @override
+  String get todayProTitle => 'Continue com o Patterns Pro';
+
+  @override
+  String get todayProBody =>
+      'Crie um plano, pratique e reveja sua atividade ao longo do tempo.';
+
+  @override
+  String get todayHideSevenDays => 'Ocultar por 7 dias';
+
+  @override
+  String get todayPracticeProgress => 'Progresso da prática';
+
+  @override
+  String get todaySteadyPractice => 'Prática constante';
+
+  @override
+  String get todayStartGently => 'Comece com calma';
+
+  @override
+  String get todayPracticeActiveBody =>
+      'Suas atividades registradas estão formando uma visão de longo prazo.';
+
+  @override
+  String get todayPracticeEmptyBody =>
+      'Isso muda conforme você escreve, registra e pratica.';
+
+  @override
+  String get todayProgressDisclaimer =>
+      'Isso reflete a frequência das práticas registradas, não um diagnóstico ou avaliação clínica. Um número menor pode ocorrer durante uma semana difícil.';
+
+  @override
+  String get todayProgressStartedTitle => 'Sua atividade está tomando forma';
+
+  @override
+  String get todayProgressPendingBody =>
+      'Um número de progresso aparecerá depois que houver atividades registradas em mais de um dia.';
+
+  @override
+  String get todayScoreNew => 'Novo';
+
+  @override
+  String get todayScoreStrong => 'Forte';
+
+  @override
+  String get todayScoreSteady => 'Constante';
+
+  @override
+  String get todayScoreBuilding => 'Em construção';
+
+  @override
+  String get todayScoreStarting => 'Começando';
+
+  @override
+  String get todayBeginCheckIn => 'Comece com um pequeno check-in';
+
+  @override
+  String get todayNoChange => 'Sem mudança em relação ao período anterior';
+
+  @override
+  String todayPointsUp(int points) {
+    String _temp0 = intl.Intl.pluralLogic(
+      points,
+      locale: localeName,
+      other: '$points pontos acima',
+      one: '1 ponto acima',
+    );
+    return '$_temp0 do período anterior';
+  }
+
+  @override
+  String todayPointsDown(int points) {
+    String _temp0 = intl.Intl.pluralLogic(
+      points,
+      locale: localeName,
+      other: '$points pontos abaixo',
+      one: '1 ponto abaixo',
+    );
+    return '$_temp0 do período anterior';
+  }
+
+  @override
+  String get todayNextStep => 'Seu próximo passo';
+
+  @override
+  String get todayNextSelfCheckTitle => 'Veja como você está';
+
+  @override
+  String get todayNextSelfCheckBody =>
+      'Uma autoavaliação pode registrar uma referência para comparação futura.';
+
+  @override
+  String get todayNextSelfCheckAction => 'Fazer autoavaliação';
+
+  @override
+  String get todayNextHierarchyTitle => 'Prepare sua prática';
+
+  @override
+  String get todayNextHierarchyBody =>
+      'Monte uma escada de exposição, dos passos mais fáceis aos mais difíceis.';
+
+  @override
+  String get todayNextHierarchyAction => 'Montar escada';
+
+  @override
+  String get todayNextPracticeTitle => 'Escolha a prática de hoje';
+
+  @override
+  String get todayNextPracticeBody =>
+      'Escolha um exercício de ERP possível para hoje.';
+
+  @override
+  String get todayNextPracticeAction => 'Iniciar prática';
+
+  @override
+  String get todayNextReflectTitle => 'Reflita sobre a prática';
+
+  @override
+  String get todayNextReflectBody =>
+      'Registre o que você percebeu durante a prática de hoje.';
+
+  @override
+  String get todayNextReflectAction => 'Refletir';
+
+  @override
+  String get todayNextJournalTitle => 'Reflita sobre hoje';
+
+  @override
+  String get todayNextJournalBody =>
+      'Escreva uma linha sobre o que percebeu na sua prática.';
+
+  @override
+  String get todayNextJournalAction => 'Abrir diário';
+
+  @override
+  String get todayCompulsionDelay => 'Adiamento de compulsão';
+
+  @override
+  String get todayStartErp => 'Iniciar prática de ERP';
+
+  @override
+  String get todayResistUrgeBody =>
+      'Fique com o impulso antes de decidir o que fazer.';
+
+  @override
+  String get todayBuildToleranceBody =>
+      'Pratique um passo possível no seu ritmo.';
+
+  @override
+  String get todayResumeAction => 'Retomar';
+
+  @override
+  String get todayStartAction => 'Iniciar';
+
+  @override
+  String get todayJournalBody => 'Escreva e reflita no seu diário privado.';
+
+  @override
+  String get todayExposureTools => 'Ferramentas de exposição';
+
+  @override
+  String get todayExposureToolsBody =>
+      'Hierarquia, materiais e prática de incerteza.';
+
+  @override
+  String get todayInsightsBody => 'Reveja sua atividade registrada.';
+
+  @override
+  String get todaySelfCheckTitle => 'Entenda seus padrões';
+
+  @override
+  String get todaySelfCheckDuration => 'Opcional · cerca de 10 min';
+
+  @override
+  String get todayInsightsPlaceholder =>
+      'Seus insights aparecerão aqui conforme você registrar atividades.';
+
+  @override
+  String get todayDailyCheckInComplete => 'Check-in diário registrado';
+
+  @override
+  String get todayDailyCheckIn => 'Check-in diário';
+
+  @override
+  String get todayDailyCompleteBody =>
+      'Há uma entrada no diário registrada para hoje.';
+
+  @override
+  String get todayDailyBody =>
+      'Escreva uma entrada curta quando estiver pronto.';
+
+  @override
+  String get todayOpenAction => 'Abrir';
+
+  @override
+  String get todayCheckInAction => 'Fazer check-in';
+
+  @override
+  String get todayRecoveryScore => 'Pontuação de recuperação';
+
+  @override
+  String todayActivitiesLastSevenDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count atividades nos últimos 7 dias',
+      one: '1 atividade nos últimos 7 dias',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get todayActivityRecorded =>
+      'Calculado a partir da atividade registrada';
+
+  @override
+  String get todayPracticesRecorded => 'Práticas registradas';
+
+  @override
+  String get todayPracticeStreak => 'Sequência de prática';
+
+  @override
+  String todaySessionsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count sessões',
+      one: '1 sessão',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String todayDaysCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dias',
+      one: '1 dia',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get todayPickUpBody =>
+      'Continue a partir do tempo registrado anteriormente.';
+
+  @override
+  String get todayPracticeUrgesBody =>
+      'Pratique esperar antes de responder a um impulso.';
+
+  @override
+  String get todayReadCheckIn => 'Ler o check-in de hoje';
+
+  @override
+  String get todayOpenJournalMore => 'Abra o Diário para ler ou adicionar mais';
+
+  @override
+  String get todayShortJournal => 'Escreva uma entrada curta no diário';
+
+  @override
+  String get todayExplore => 'Explorar';
+
+  @override
+  String get todayReflectProcess => 'Reflita e processe';
+
+  @override
+  String get todayRecoveryTools => 'Ferramentas de recuperação';
+
+  @override
+  String get todaySupportPractice => 'Apoie sua prática';
+
+  @override
+  String get todayTrackBody => 'Registre pensamentos e impulsos';
+
+  @override
+  String get todaySeePatterns => 'Reveja seus padrões registrados';
+
+  @override
+  String todayScoreA11y(int score, String label) {
+    return 'Progresso da prática: $score de 100, $label';
+  }
+
+  @override
+  String todayTimerA11y(String elapsed, String planned) {
+    return 'Temporizador da prática: $elapsed decorridos de $planned';
+  }
+
+  @override
+  String todayDayActiveA11y(String day) {
+    return '$day: atividade registrada';
+  }
+
+  @override
+  String todayDayInactiveA11y(String day) {
+    return '$day: nenhuma atividade registrada';
+  }
 }
