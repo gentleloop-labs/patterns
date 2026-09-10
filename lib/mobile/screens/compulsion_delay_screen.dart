@@ -125,7 +125,7 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
     if (_compulsionController.text.trim().isEmpty) {
       showAppSnackBar(
         context,
-        'Whenever you’re ready, name the urge you want to sit with.',
+        context.l10n.delayNameUrgeValidation,
         type: ToastType.info,
       );
       return;
@@ -233,39 +233,28 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Stop early?',
+              context.l10n.delayStopEarlyTitle,
               style: Theme.of(
                 sheetContext,
               ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
             ),
             const SizedBox(height: 10),
             Text(
-              'It’s okay to stop. Every moment you waited still counts as practice.',
+              context.l10n.delayStopEarlyBody,
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.45,
               ),
             ),
             const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: () => Navigator.pop(sheetContext),
-                    child: const Text('Keep going'),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(sheetContext);
-                      _finishTimer(completed: false);
-                    },
-                    child: const Text('I need to stop'),
-                  ),
-                ),
-              ],
+            _StopActions(
+              keepGoing: context.l10n.delayKeepGoingAction,
+              stop: context.l10n.delayStopAction,
+              onKeepGoing: () => Navigator.pop(sheetContext),
+              onStop: () {
+                Navigator.pop(sheetContext);
+                _finishTimer(completed: false);
+              },
             ),
           ],
         ),
@@ -277,7 +266,7 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
     if (_outcome == null) {
       showAppSnackBar(
         context,
-        'When you’re ready, choose what you ended up doing.',
+        context.l10n.delayOutcomeValidation,
         type: ToastType.info,
       );
       return;
@@ -296,7 +285,19 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
           : _noteController.text.trim(),
       createdAt: DateTime.now(),
     );
-    await ref.read(delaySessionProvider.notifier).addSession(session);
+    final saved = await ref
+        .read(delaySessionProvider.notifier)
+        .addSession(session);
+    if (!mounted) return;
+    if (!saved) {
+      setState(() => _saving = false);
+      showAppSnackBar(
+        context,
+        context.l10n.delaySaveError,
+        type: ToastType.error,
+      );
+      return;
+    }
     AppEvents.logFirstCompulsionDelayCompleted(ranToCompletion: _completed);
     await ReviewPromptService.recordUrgePracticeCompleted();
     if (!mounted) return;
@@ -371,14 +372,17 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
 
     return Column(
       children: [
-        _Header(title: 'Pause the urge', onBack: () => Navigator.pop(context)),
+        _Header(
+          title: context.l10n.delaySetupTitle,
+          onBack: () => Navigator.pop(context),
+        ),
         Expanded(
           child: ListView(
             padding: const EdgeInsets.fromLTRB(20, 6, 20, 28),
             children: staggered([
               const SectionIntro(id: 'compulsionDelay'),
               Text(
-                'Which urge are you sitting with?',
+                context.l10n.delayUrgeQuestion,
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w800,
                 ),
@@ -389,8 +393,8 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
                 minLines: 1,
                 maxLines: 3,
                 onChanged: (_) => setState(() {}),
-                decoration: const InputDecoration(
-                  hintText: 'e.g. checking the lock, washing, googling…',
+                decoration: InputDecoration(
+                  hintText: context.l10n.delayUrgeHint,
                 ),
               ),
               if (suggestions.isNotEmpty) ...[
@@ -414,13 +418,13 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
               ],
               const SizedBox(height: 24),
               _UrgeCard(
-                label: 'How strong is the urge right now?',
+                label: context.l10n.delayUrgeBeforeLabel,
                 value: _urgeBefore,
                 onChanged: (v) => setState(() => _urgeBefore = v),
               ),
               const SizedBox(height: 24),
               Text(
-                'How long will you wait?',
+                context.l10n.delayDurationQuestion,
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w800,
                 ),
@@ -447,7 +451,7 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: _begin,
-                  child: const Text('Begin'),
+                  child: Text(context.l10n.delayBeginAction),
                 ),
               ),
             ]),
@@ -465,14 +469,14 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
         children: [
           const SizedBox(height: 12),
           Text(
-            'You’re sitting with it',
+            context.l10n.delayCountdownTitle,
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.w800,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            'Notice the urge without acting. It will rise, then fall on its own.',
+            context.l10n.delayCountdownBody,
             textAlign: TextAlign.center,
             style: TextStyle(
               color: context.appColors.textSecondary,
@@ -522,7 +526,7 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
             width: double.infinity,
             child: OutlinedButton(
               onPressed: _confirmStop,
-              child: const Text('I need to stop'),
+              child: Text(context.l10n.delayStopAction),
             ),
           ),
         ],
@@ -534,26 +538,26 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
     final theme = Theme.of(context);
     return Column(
       children: [
-        _Header(title: 'How did that go?', onBack: null),
+        _Header(title: context.l10n.delayReflectionTitle, onBack: null),
         Expanded(
           child: ListView(
             padding: const EdgeInsets.fromLTRB(20, 6, 20, 28),
             children: staggered([
               Text(
-                _completed
-                    ? 'You waited the whole time. That’s the skill, right there.'
-                    : 'You created space before acting. That still counts.',
+                context.l10n.delayReflectionStatus(
+                  _completed ? 'completed' : 'early',
+                ),
                 style: theme.textTheme.titleMedium?.copyWith(height: 1.4),
               ),
               const SizedBox(height: 24),
               _UrgeCard(
-                label: 'How strong is the urge now?',
+                label: context.l10n.delayUrgeAfterLabel,
                 value: _urgeAfter,
                 onChanged: (v) => setState(() => _urgeAfter = v),
               ),
               const SizedBox(height: 24),
               Text(
-                'What did you do with the urge?',
+                context.l10n.delayOutcomeQuestion,
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w800,
                 ),
@@ -565,7 +569,7 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
               ),
               const SizedBox(height: 24),
               Text(
-                'Anything you noticed? (optional)',
+                context.l10n.delayNoteLabel,
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w800,
                 ),
@@ -575,8 +579,8 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
                 controller: _noteController,
                 minLines: 3,
                 maxLines: 5,
-                decoration: const InputDecoration(
-                  hintText: 'A short note is enough.',
+                decoration: InputDecoration(
+                  hintText: context.l10n.delayNoteHint,
                 ),
               ),
               const SizedBox(height: 28),
@@ -585,9 +589,13 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
                 child: ElevatedButton(
                   onPressed: _saving ? null : _save,
                   child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 220),
+                    duration: motionDisabled(context)
+                        ? Duration.zero
+                        : const Duration(milliseconds: 220),
                     child: Text(
-                      _saving ? 'Saving...' : 'Save practice',
+                      _saving
+                          ? context.l10n.delaySavingAction
+                          : context.l10n.delaySaveAction,
                       key: ValueKey(_saving),
                     ),
                   ),
@@ -622,14 +630,21 @@ class _Header extends StatelessWidget {
       child: Row(
         children: [
           if (onBack != null)
-            IconButton(onPressed: onBack, icon: const Icon(LineIcons.angleLeft))
+            IconButton(
+              tooltip: context.l10n.backAction,
+              onPressed: onBack,
+              icon: const Icon(LineIcons.angleLeft),
+            )
           else
             const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              title,
-              style: theme.textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w800,
+            child: Semantics(
+              header: true,
+              child: Text(
+                title,
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
           ),
@@ -659,44 +674,63 @@ class _UrgeCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 12,
+            runSpacing: 8,
             children: [
-              Expanded(
-                child: Text(
-                  label,
-                  style: theme.textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.w800,
-                  ),
+              Text(
+                label,
+                style: theme.textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w800,
                 ),
               ),
-              const SizedBox(width: 12),
               TweenAnimationBuilder<double>(
                 tween: Tween<double>(begin: value, end: value),
-                duration: const Duration(milliseconds: 220),
+                duration: motionDisabled(context)
+                    ? Duration.zero
+                    : const Duration(milliseconds: 220),
                 curve: Curves.easeOutCubic,
                 builder: (context, v, _) {
                   final rounded = v.round();
                   return AnimatedDefaultTextStyle(
-                    duration: const Duration(milliseconds: 220),
+                    duration: motionDisabled(context)
+                        ? Duration.zero
+                        : const Duration(milliseconds: 220),
                     curve: Curves.easeOutCubic,
                     style: TextStyle(
                       color: _urgeColor(theme, rounded),
                       fontSize: 22,
                       fontWeight: FontWeight.w900,
                     ),
-                    child: Text('$rounded/10'),
+                    child: Text(
+                      context.l10n.trackerDistressShortValue(rounded),
+                    ),
                   );
                 },
               ),
             ],
           ),
           const SizedBox(height: 14),
-          Slider(
-            value: value,
-            min: 0,
-            max: 10,
-            divisions: 10,
-            onChanged: onChanged,
+          Semantics(
+            label: label,
+            value: context.l10n.delayUrgeValue(value.round()),
+            increasedValue: context.l10n.delayUrgeValue(
+              math.min(10, value.round() + 1),
+            ),
+            decreasedValue: context.l10n.delayUrgeValue(
+              math.max(0, value.round() - 1),
+            ),
+            child: Slider(
+              value: value,
+              min: 0,
+              max: 10,
+              divisions: 10,
+              semanticFormatterCallback: (next) =>
+                  context.l10n.delayUrgeValue(next.round()),
+              onChanged: onChanged,
+            ),
           ),
         ],
       ),
@@ -717,27 +751,38 @@ class _DurationPicker extends StatelessWidget {
     required this.onCustom,
   });
 
-  static const _presets = <int, String>{
-    60: '1 min',
-    300: '5 min',
-    900: '15 min',
-  };
+  static const _presets = <int>[60, 300, 900];
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(5),
-      decoration: _softDecoration(Theme.of(context), radius: 24),
-      child: Row(
-        children: [
-          for (final entry in _presets.entries)
-            _SegmentChip(
-              label: entry.value,
-              selected: !custom && seconds == entry.key,
-              onTap: () => onPreset(entry.key),
-            ),
-          _SegmentChip(label: 'Custom', selected: custom, onTap: onCustom),
-        ],
+    final chips = <Widget>[
+      for (final preset in _presets)
+        _SegmentChip(
+          label: context.l10n.delayMinutes(preset ~/ 60),
+          selected: !custom && seconds == preset,
+          onTap: () => onPreset(preset),
+        ),
+      _SegmentChip(
+        label: context.l10n.delayCustomAction,
+        selected: custom,
+        onTap: onCustom,
+      ),
+    ];
+    final stacked = MediaQuery.textScalerOf(context).scale(1) > 1.3;
+    return Semantics(
+      container: true,
+      label: context.l10n.delayDurationGroupLabel,
+      child: Container(
+        padding: const EdgeInsets.all(5),
+        decoration: _softDecoration(Theme.of(context), radius: 24),
+        child: stacked
+            ? Column(
+                children: [
+                  for (final chip in chips)
+                    SizedBox(width: double.infinity, child: chip),
+                ],
+              )
+            : Row(children: [for (final chip in chips) Expanded(child: chip)]),
       ),
     );
   }
@@ -758,17 +803,20 @@ class _CustomMinutes extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 12,
+            runSpacing: 8,
             children: [
               Text(
-                'Custom delay',
+                context.l10n.delayCustomTitle,
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w800,
                 ),
               ),
-              const Spacer(),
               Text(
-                '${minutes.round()} min',
+                context.l10n.delayMinutes(minutes.round()),
                 style: TextStyle(
                   color: theme.colorScheme.primary,
                   fontSize: 18,
@@ -778,12 +826,18 @@ class _CustomMinutes extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          Slider(
-            value: minutes,
-            min: 1,
-            max: 60,
-            divisions: 59,
-            onChanged: onChanged,
+          Semantics(
+            label: context.l10n.delayCustomTitle,
+            value: context.l10n.delayCustomMinutesValue(minutes.round()),
+            child: Slider(
+              value: minutes,
+              min: 1,
+              max: 60,
+              divisions: 59,
+              semanticFormatterCallback: (next) =>
+                  context.l10n.delayCustomMinutesValue(next.round()),
+              onChanged: onChanged,
+            ),
           ),
         ],
       ),
@@ -797,26 +851,31 @@ class _OutcomePicker extends StatelessWidget {
 
   const _OutcomePicker({required this.selected, required this.onChanged});
 
-  static const _labels = <DelayOutcome, String>{
-    DelayOutcome.resisted: 'Resisted',
-    DelayOutcome.delayed: 'Delayed it',
-    DelayOutcome.performed: 'Did it',
-  };
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(5),
-      decoration: _softDecoration(Theme.of(context), radius: 24),
-      child: Row(
-        children: [
-          for (final entry in _labels.entries)
-            _SegmentChip(
-              label: entry.value,
-              selected: selected == entry.key,
-              onTap: () => onChanged(entry.key),
-            ),
-        ],
+    final chips = <Widget>[
+      for (final outcome in DelayOutcome.values)
+        _SegmentChip(
+          label: context.l10n.delayOutcome(outcome.name),
+          selected: selected == outcome,
+          onTap: () => onChanged(outcome),
+        ),
+    ];
+    final stacked = MediaQuery.textScalerOf(context).scale(1) > 1.3;
+    return Semantics(
+      container: true,
+      label: context.l10n.delayOutcomeGroupLabel,
+      child: Container(
+        padding: const EdgeInsets.all(5),
+        decoration: _softDecoration(Theme.of(context), radius: 24),
+        child: stacked
+            ? Column(
+                children: [
+                  for (final chip in chips)
+                    SizedBox(width: double.infinity, child: chip),
+                ],
+              )
+            : Row(children: [for (final chip in chips) Expanded(child: chip)]),
       ),
     );
   }
@@ -836,27 +895,37 @@ class _SegmentChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Expanded(
+    return Semantics(
+      button: true,
+      selected: selected,
+      label: label,
+      onTap: onTap,
+      excludeSemantics: true,
       child: InkWell(
         borderRadius: BorderRadius.circular(18),
         onTap: onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 180),
-          alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 4),
-          decoration: BoxDecoration(
-            color: selected ? theme.colorScheme.primary : Colors.transparent,
-            borderRadius: BorderRadius.circular(18),
-          ),
-          child: Text(
-            label,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: selected
-                  ? theme.colorScheme.onPrimary
-                  : context.appColors.textSecondary,
-              fontWeight: FontWeight.w800,
-              fontSize: 13,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 44),
+          child: AnimatedContainer(
+            duration: motionDisabled(context)
+                ? Duration.zero
+                : const Duration(milliseconds: 180),
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 4),
+            decoration: BoxDecoration(
+              color: selected ? theme.colorScheme.primary : Colors.transparent,
+              borderRadius: BorderRadius.circular(18),
+            ),
+            child: Text(
+              label,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: selected
+                    ? theme.colorScheme.onPrimary
+                    : context.appColors.textSecondary,
+                fontWeight: FontWeight.w800,
+                fontSize: 13,
+              ),
             ),
           ),
         ),
@@ -882,30 +951,69 @@ class _SuggestionChip extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(999),
       onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
-        decoration: BoxDecoration(
-          color: selected
-              ? theme.colorScheme.primary.withValues(alpha: 0.16)
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(999),
-          border: Border.all(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: 44),
+        child: Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
+          decoration: BoxDecoration(
             color: selected
-                ? theme.colorScheme.primary.withValues(alpha: 0.5)
-                : theme.dividerColor,
+                ? theme.colorScheme.primary.withValues(alpha: 0.16)
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(999),
+            border: Border.all(
+              color: selected
+                  ? theme.colorScheme.primary.withValues(alpha: 0.5)
+                  : theme.dividerColor,
+            ),
           ),
-        ),
-        child: Text(
-          label,
-          style: TextStyle(
-            color: selected
-                ? theme.colorScheme.primary
-                : context.appColors.textSecondary,
-            fontSize: 13,
-            fontWeight: FontWeight.w700,
+          child: Text(
+            label,
+            style: TextStyle(
+              color: selected
+                  ? theme.colorScheme.primary
+                  : context.appColors.textSecondary,
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _StopActions extends StatelessWidget {
+  final String keepGoing;
+  final String stop;
+  final VoidCallback onKeepGoing;
+  final VoidCallback onStop;
+
+  const _StopActions({
+    required this.keepGoing,
+    required this.stop,
+    required this.onKeepGoing,
+    required this.onStop,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final buttons = <Widget>[
+      OutlinedButton(onPressed: onKeepGoing, child: Text(keepGoing)),
+      ElevatedButton(onPressed: onStop, child: Text(stop)),
+    ];
+    if (MediaQuery.textScalerOf(context).scale(1) > 1.3) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [buttons.first, const SizedBox(height: 12), buttons.last],
+      );
+    }
+    return Row(
+      children: [
+        Expanded(child: buttons.first),
+        const SizedBox(width: 12),
+        Expanded(child: buttons.last),
+      ],
     );
   }
 }

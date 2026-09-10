@@ -7,7 +7,6 @@ import 'package:patterns/app_preferences.dart';
 import 'package:patterns/l10n/app_localizations.dart';
 import 'package:patterns/mobile/screens/recovery_hub_screen.dart';
 import 'package:patterns/theme/app_theme.dart';
-import 'package:patterns/widgets/animations.dart';
 
 class _Pro extends ProNotifier {
   _Pro(this.enabled);

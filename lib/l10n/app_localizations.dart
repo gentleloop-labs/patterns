@@ -3544,6 +3544,192 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{title} requires Patterns Pro'**
   String recoveryLockedToolHint(String title);
+
+  /// Warm validation when the compulsion-delay urge field is empty.
+  ///
+  /// In en, this message translates to:
+  /// **'Whenever you’re ready, name the urge you want to sit with.'**
+  String get delayNameUrgeValidation;
+
+  /// Warm validation when no factual compulsion-delay outcome is selected.
+  ///
+  /// In en, this message translates to:
+  /// **'When you’re ready, choose what you ended up doing.'**
+  String get delayOutcomeValidation;
+
+  /// Privacy-safe error when a compulsion-delay record cannot be stored.
+  ///
+  /// In en, this message translates to:
+  /// **'Your practice could not be saved. Please try again.'**
+  String get delaySaveError;
+
+  /// Title of the confirmation shown before ending a compulsion-delay timer early.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop early?'**
+  String get delayStopEarlyTitle;
+
+  /// Non-judgmental explanation for ending a compulsion-delay timer early. Do not score or praise.
+  ///
+  /// In en, this message translates to:
+  /// **'It’s okay to stop. The time you waited can still be recorded.'**
+  String get delayStopEarlyBody;
+
+  /// Action that closes the stop confirmation and continues the timer.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep going'**
+  String get delayKeepGoingAction;
+
+  /// Action that ends a compulsion-delay timer early without judgment.
+  ///
+  /// In en, this message translates to:
+  /// **'I need to stop'**
+  String get delayStopAction;
+
+  /// Heading for setting up a compulsion-delay practice.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause the urge'**
+  String get delaySetupTitle;
+
+  /// Prompt for naming the urge or compulsion being delayed.
+  ///
+  /// In en, this message translates to:
+  /// **'Which urge are you sitting with?'**
+  String get delayUrgeQuestion;
+
+  /// Examples for the compulsion-delay urge field. Do not include an ellipsis-only instruction.
+  ///
+  /// In en, this message translates to:
+  /// **'For example: checking the lock, washing, or searching online'**
+  String get delayUrgeHint;
+
+  /// Label for a deliberately recorded pre-practice urge value.
+  ///
+  /// In en, this message translates to:
+  /// **'How strong is the urge right now?'**
+  String get delayUrgeBeforeLabel;
+
+  /// Prompt for selecting a compulsion-delay timer length.
+  ///
+  /// In en, this message translates to:
+  /// **'How long will you wait?'**
+  String get delayDurationQuestion;
+
+  /// Accessibility label for the compulsion-delay duration selector.
+  ///
+  /// In en, this message translates to:
+  /// **'Delay duration'**
+  String get delayDurationGroupLabel;
+
+  /// Action that starts the compulsion-delay timer.
+  ///
+  /// In en, this message translates to:
+  /// **'Begin'**
+  String get delayBeginAction;
+
+  /// Neutral heading while a compulsion-delay timer is running.
+  ///
+  /// In en, this message translates to:
+  /// **'You’re sitting with it'**
+  String get delayCountdownTitle;
+
+  /// Non-reassuring instruction while a compulsion-delay timer runs. Do not promise that an urge will pass.
+  ///
+  /// In en, this message translates to:
+  /// **'Notice the urge without acting. You can choose what happens next.'**
+  String get delayCountdownBody;
+
+  /// Neutral heading for the optional compulsion-delay reflection.
+  ///
+  /// In en, this message translates to:
+  /// **'What happened?'**
+  String get delayReflectionTitle;
+
+  /// Factual timer status selected from a stable completion state. Do not praise, score, or imply success.
+  ///
+  /// In en, this message translates to:
+  /// **'{status, select, completed{The planned time ended. The details below are optional.} early{You ended the timer early. The details below are optional.} other{The timer ended. The details below are optional.}}'**
+  String delayReflectionStatus(String status);
+
+  /// Label for a deliberately recorded post-practice urge value.
+  ///
+  /// In en, this message translates to:
+  /// **'How strong is the urge now?'**
+  String get delayUrgeAfterLabel;
+
+  /// Prompt for the user’s factual compulsion-delay outcome.
+  ///
+  /// In en, this message translates to:
+  /// **'What did you do with the urge?'**
+  String get delayOutcomeQuestion;
+
+  /// Accessibility label for the compulsion-delay outcome selector.
+  ///
+  /// In en, this message translates to:
+  /// **'Recorded outcome'**
+  String get delayOutcomeGroupLabel;
+
+  /// Label for an optional user-written compulsion-delay reflection.
+  ///
+  /// In en, this message translates to:
+  /// **'Anything you noticed? (optional)'**
+  String get delayNoteLabel;
+
+  /// Gentle hint for an optional compulsion-delay note.
+  ///
+  /// In en, this message translates to:
+  /// **'A short note is enough.'**
+  String get delayNoteHint;
+
+  /// Disabled action label while a compulsion-delay record is being saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving…'**
+  String get delaySavingAction;
+
+  /// Action that stores the compulsion-delay record before quiet completion.
+  ///
+  /// In en, this message translates to:
+  /// **'Save practice'**
+  String get delaySaveAction;
+
+  /// Compact locale-aware minute count for a compulsion-delay duration.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 min} other{{count} min}}'**
+  String delayMinutes(int count);
+
+  /// Option for choosing a custom compulsion-delay duration.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get delayCustomAction;
+
+  /// Heading for the custom compulsion-delay duration slider.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom delay'**
+  String get delayCustomTitle;
+
+  /// Factual display label selected from the stable compulsion-delay outcome wire value. Avoid praise or judgment.
+  ///
+  /// In en, this message translates to:
+  /// **'{outcome, select, resisted{Did not do it} delayed{Delayed it} performed{Did it} other{Not selected}}'**
+  String delayOutcome(String outcome);
+
+  /// Accessible value for a deliberately recorded urge slider.
+  ///
+  /// In en, this message translates to:
+  /// **'Urge {value} out of 10'**
+  String delayUrgeValue(int value);
+
+  /// Accessible value for the custom compulsion-delay duration slider.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom delay: {count, plural, =1{1 minute} other{{count} minutes}}'**
+  String delayCustomMinutesValue(int count);
 }
 
 class _AppLocalizationsDelegate

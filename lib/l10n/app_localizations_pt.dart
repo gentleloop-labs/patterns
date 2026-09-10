@@ -2147,6 +2147,140 @@ class AppLocalizationsPt extends AppLocalizations {
   String recoveryLockedToolHint(String title) {
     return '$title requer Patterns Pro';
   }
+
+  @override
+  String get delayNameUrgeValidation =>
+      'Quando quiser, dê um nome ao impulso com o qual você quer ficar.';
+
+  @override
+  String get delayOutcomeValidation =>
+      'Quando quiser, escolha o que você acabou fazendo.';
+
+  @override
+  String get delaySaveError =>
+      'Não foi possível salvar sua prática. Tente novamente.';
+
+  @override
+  String get delayStopEarlyTitle => 'Parar antes?';
+
+  @override
+  String get delayStopEarlyBody =>
+      'Tudo bem parar. O tempo que você esperou ainda pode ser registrado.';
+
+  @override
+  String get delayKeepGoingAction => 'Continuar';
+
+  @override
+  String get delayStopAction => 'Preciso parar';
+
+  @override
+  String get delaySetupTitle => 'Pausar o impulso';
+
+  @override
+  String get delayUrgeQuestion => 'Com qual impulso você está ficando?';
+
+  @override
+  String get delayUrgeHint =>
+      'Por exemplo: verificar a fechadura, lavar ou pesquisar online';
+
+  @override
+  String get delayUrgeBeforeLabel => 'Qual é a intensidade do impulso agora?';
+
+  @override
+  String get delayDurationQuestion => 'Quanto tempo você vai esperar?';
+
+  @override
+  String get delayDurationGroupLabel => 'Duração da espera';
+
+  @override
+  String get delayBeginAction => 'Começar';
+
+  @override
+  String get delayCountdownTitle => 'Você está dando espaço ao impulso';
+
+  @override
+  String get delayCountdownBody =>
+      'Perceba o impulso sem agir. Você pode escolher o que acontece depois.';
+
+  @override
+  String get delayReflectionTitle => 'O que aconteceu?';
+
+  @override
+  String delayReflectionStatus(String status) {
+    String _temp0 = intl.Intl.selectLogic(status, {
+      'completed':
+          'O tempo planejado terminou. Os detalhes abaixo são opcionais.',
+      'early':
+          'Você encerrou o cronômetro antes. Os detalhes abaixo são opcionais.',
+      'other': 'O cronômetro terminou. Os detalhes abaixo são opcionais.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get delayUrgeAfterLabel => 'Qual é a intensidade do impulso agora?';
+
+  @override
+  String get delayOutcomeQuestion => 'O que você fez com o impulso?';
+
+  @override
+  String get delayOutcomeGroupLabel => 'Resultado registrado';
+
+  @override
+  String get delayNoteLabel => 'Percebeu alguma coisa? (opcional)';
+
+  @override
+  String get delayNoteHint => 'Uma nota curta é suficiente.';
+
+  @override
+  String get delaySavingAction => 'Salvando…';
+
+  @override
+  String get delaySaveAction => 'Salvar prática';
+
+  @override
+  String delayMinutes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count min',
+      one: '1 min',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get delayCustomAction => 'Personalizar';
+
+  @override
+  String get delayCustomTitle => 'Espera personalizada';
+
+  @override
+  String delayOutcome(String outcome) {
+    String _temp0 = intl.Intl.selectLogic(outcome, {
+      'resisted': 'Não fiz',
+      'delayed': 'Adiei',
+      'performed': 'Fiz',
+      'other': 'Não selecionado',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String delayUrgeValue(int value) {
+    return 'Impulso $value de 10';
+  }
+
+  @override
+  String delayCustomMinutesValue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count minutos',
+      one: '1 minuto',
+    );
+    return 'Espera personalizada: $_temp0';
+  }
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -4291,5 +4425,139 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String recoveryLockedToolHint(String title) {
     return '$title requer Patterns Pro';
+  }
+
+  @override
+  String get delayNameUrgeValidation =>
+      'Quando quiser, dê um nome ao impulso com o qual você quer ficar.';
+
+  @override
+  String get delayOutcomeValidation =>
+      'Quando quiser, escolha o que você acabou fazendo.';
+
+  @override
+  String get delaySaveError =>
+      'Não foi possível salvar sua prática. Tente novamente.';
+
+  @override
+  String get delayStopEarlyTitle => 'Parar antes?';
+
+  @override
+  String get delayStopEarlyBody =>
+      'Tudo bem parar. O tempo que você esperou ainda pode ser registrado.';
+
+  @override
+  String get delayKeepGoingAction => 'Continuar';
+
+  @override
+  String get delayStopAction => 'Preciso parar';
+
+  @override
+  String get delaySetupTitle => 'Pausar o impulso';
+
+  @override
+  String get delayUrgeQuestion => 'Com qual impulso você está ficando?';
+
+  @override
+  String get delayUrgeHint =>
+      'Por exemplo: verificar a fechadura, lavar ou pesquisar online';
+
+  @override
+  String get delayUrgeBeforeLabel => 'Qual é a intensidade do impulso agora?';
+
+  @override
+  String get delayDurationQuestion => 'Quanto tempo você vai esperar?';
+
+  @override
+  String get delayDurationGroupLabel => 'Duração da espera';
+
+  @override
+  String get delayBeginAction => 'Começar';
+
+  @override
+  String get delayCountdownTitle => 'Você está dando espaço ao impulso';
+
+  @override
+  String get delayCountdownBody =>
+      'Perceba o impulso sem agir. Você pode escolher o que acontece depois.';
+
+  @override
+  String get delayReflectionTitle => 'O que aconteceu?';
+
+  @override
+  String delayReflectionStatus(String status) {
+    String _temp0 = intl.Intl.selectLogic(status, {
+      'completed':
+          'O tempo planejado terminou. Os detalhes abaixo são opcionais.',
+      'early':
+          'Você encerrou o cronômetro antes. Os detalhes abaixo são opcionais.',
+      'other': 'O cronômetro terminou. Os detalhes abaixo são opcionais.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get delayUrgeAfterLabel => 'Qual é a intensidade do impulso agora?';
+
+  @override
+  String get delayOutcomeQuestion => 'O que você fez com o impulso?';
+
+  @override
+  String get delayOutcomeGroupLabel => 'Resultado registrado';
+
+  @override
+  String get delayNoteLabel => 'Percebeu alguma coisa? (opcional)';
+
+  @override
+  String get delayNoteHint => 'Uma nota curta é suficiente.';
+
+  @override
+  String get delaySavingAction => 'Salvando…';
+
+  @override
+  String get delaySaveAction => 'Salvar prática';
+
+  @override
+  String delayMinutes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count min',
+      one: '1 min',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get delayCustomAction => 'Personalizar';
+
+  @override
+  String get delayCustomTitle => 'Espera personalizada';
+
+  @override
+  String delayOutcome(String outcome) {
+    String _temp0 = intl.Intl.selectLogic(outcome, {
+      'resisted': 'Não fiz',
+      'delayed': 'Adiei',
+      'performed': 'Fiz',
+      'other': 'Não selecionado',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String delayUrgeValue(int value) {
+    return 'Impulso $value de 10';
+  }
+
+  @override
+  String delayCustomMinutesValue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count minutos',
+      one: '1 minuto',
+    );
+    return 'Espera personalizada: $_temp0';
   }
 }

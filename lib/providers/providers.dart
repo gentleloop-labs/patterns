@@ -145,7 +145,7 @@ class DelaySessionNotifier extends AsyncNotifier<List<DelaySession>> {
     return await DbHelper.instance.getDelaySessions();
   }
 
-  Future<void> addSession(DelaySession session) async {
+  Future<bool> addSession(DelaySession session) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await DbHelper.instance.insertDelaySession(session);
@@ -156,6 +156,7 @@ class DelaySessionNotifier extends AsyncNotifier<List<DelaySession>> {
           .read(meaningfulActionCountProvider.notifier)
           .record(MeaningfulAction.compulsionDelay);
     }
+    return !state.hasError;
   }
 }
 
@@ -207,7 +208,7 @@ class ErpExerciseSessionNotifier
     return await DbHelper.instance.getErpExerciseSessions();
   }
 
-  Future<void> addSession(ErpExerciseSession session) async {
+  Future<bool> addSession(ErpExerciseSession session) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await DbHelper.instance.insertErpExerciseSession(session);
@@ -218,6 +219,7 @@ class ErpExerciseSessionNotifier
           .read(meaningfulActionCountProvider.notifier)
           .record(MeaningfulAction.guidedErp);
     }
+    return !state.hasError;
   }
 }
 
