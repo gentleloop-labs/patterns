@@ -2854,6 +2854,264 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{day}: no activity recorded'**
   String todayDayInactiveA11y(String day);
+
+  /// Heading for the OCD tracking history screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Track'**
+  String get trackerTitle;
+
+  /// Action that opens the compulsion-delay tool from the tracker.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause an urge'**
+  String get trackerPauseUrgeAction;
+
+  /// Accessibility label for the tracker filter control group.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter tracked moments'**
+  String get trackerFilterGroupLabel;
+
+  /// Tracker filter that includes obsessions and compulsions.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get trackerFilterAll;
+
+  /// Tracker filter that includes only recorded obsessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Obsessions'**
+  String get trackerFilterObsessions;
+
+  /// Tracker filter that includes only recorded compulsions.
+  ///
+  /// In en, this message translates to:
+  /// **'Compulsions'**
+  String get trackerFilterCompulsions;
+
+  /// Accessible live-region label while tracker history loads.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading tracked moments'**
+  String get trackerLoadingLabel;
+
+  /// Privacy-safe error shown when tracker history cannot load. Do not expose technical details.
+  ///
+  /// In en, this message translates to:
+  /// **'Your tracked moments could not be loaded. Please try again.'**
+  String get trackerLoadError;
+
+  /// Heading for editing a recorded OCD event.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit event'**
+  String get trackerEditTitle;
+
+  /// Heading for recording an OCD event.
+  ///
+  /// In en, this message translates to:
+  /// **'Track event'**
+  String get trackerAddTitle;
+
+  /// Accessibility label for the obsession or compulsion selector.
+  ///
+  /// In en, this message translates to:
+  /// **'Event type'**
+  String get trackerTypeGroupLabel;
+
+  /// Clinical label for an obsession event. Keep terminology consistent with the glossary.
+  ///
+  /// In en, this message translates to:
+  /// **'Obsession'**
+  String get trackerTypeObsession;
+
+  /// Clinical label for a compulsion event. Keep terminology consistent with the glossary.
+  ///
+  /// In en, this message translates to:
+  /// **'Compulsion'**
+  String get trackerTypeCompulsion;
+
+  /// Label asking the user to record the content of an obsession.
+  ///
+  /// In en, this message translates to:
+  /// **'What did the thought say?'**
+  String get trackerThoughtLabel;
+
+  /// Label asking the user to record a compulsive urge.
+  ///
+  /// In en, this message translates to:
+  /// **'What was the urge?'**
+  String get trackerUrgeLabel;
+
+  /// Short, non-judgmental hint for recording an obsession.
+  ///
+  /// In en, this message translates to:
+  /// **'Name the thought or image.'**
+  String get trackerThoughtHint;
+
+  /// Short, non-judgmental hint for recording a compulsive urge.
+  ///
+  /// In en, this message translates to:
+  /// **'Name the urge or compulsion.'**
+  String get trackerUrgeHint;
+
+  /// Optional field asking what action followed the recorded OCD event.
+  ///
+  /// In en, this message translates to:
+  /// **'What did OCD get you to do?'**
+  String get trackerActionLabel;
+
+  /// Gentle hint that a brief tracker response is acceptable.
+  ///
+  /// In en, this message translates to:
+  /// **'A short note is enough.'**
+  String get trackerActionHint;
+
+  /// Optional field for the response the user chose instead of a compulsion.
+  ///
+  /// In en, this message translates to:
+  /// **'What you did instead'**
+  String get trackerResponseLabel;
+
+  /// Non-scoring hint for recording any chosen response without implying success or treatment outcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Record any response you chose, including a partial delay.'**
+  String get trackerResponseHint;
+
+  /// Disabled tracker save-button label while the event is being stored.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving…'**
+  String get trackerSavingAction;
+
+  /// Action that saves edits to a tracked event.
+  ///
+  /// In en, this message translates to:
+  /// **'Update event'**
+  String get trackerUpdateAction;
+
+  /// Action that stores a new tracked event.
+  ///
+  /// In en, this message translates to:
+  /// **'Save event'**
+  String get trackerSaveAction;
+
+  /// Warm validation shown when the main tracker field is empty.
+  ///
+  /// In en, this message translates to:
+  /// **'Whenever you’re ready, add a few words about what happened.'**
+  String get trackerContentRequired;
+
+  /// Privacy-safe error shown when a new tracker event cannot be stored.
+  ///
+  /// In en, this message translates to:
+  /// **'Your event could not be saved. Please try again.'**
+  String get trackerSaveError;
+
+  /// Privacy-safe error shown when tracker edits cannot be stored.
+  ///
+  /// In en, this message translates to:
+  /// **'Your event could not be updated. Please try again.'**
+  String get trackerUpdateError;
+
+  /// Tooltip and accessibility label for editing a tracker event.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit event'**
+  String get trackerEditTooltip;
+
+  /// Tooltip and accessibility label for deleting a tracker event.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete event'**
+  String get trackerDeleteTooltip;
+
+  /// Accessible and visible description of a deliberately recorded distress value.
+  ///
+  /// In en, this message translates to:
+  /// **'Distress {value} out of 10'**
+  String trackerDistressValue(int value);
+
+  /// Compact visible form of a deliberately recorded distress value.
+  ///
+  /// In en, this message translates to:
+  /// **'{value}/10'**
+  String trackerDistressShortValue(int value);
+
+  /// Factual placeholder when no optional response was recorded for an OCD event.
+  ///
+  /// In en, this message translates to:
+  /// **'No response noted'**
+  String get trackerNoStrategy;
+
+  /// Screen-reader summary of a tracker history card. User-entered content and response must remain unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{type}. {date}. Distress {distress} out of 10. {content}. Response: {response}'**
+  String trackerEventSummary(
+    String type,
+    String date,
+    int distress,
+    String content,
+    String response,
+  );
+
+  /// Confirmation title before permanently deleting a local tracker event.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete event?'**
+  String get trackerDeleteTitle;
+
+  /// Local-first privacy explanation for deleting a tracker event.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes the event from your local history on this device.'**
+  String get trackerDeleteBody;
+
+  /// Destructive action that confirms tracker event deletion.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get trackerDeleteAction;
+
+  /// Accessible factual confirmation after a tracker event is deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Event deleted'**
+  String get trackerDeletedMessage;
+
+  /// Privacy-safe error shown when tracker deletion fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Your event could not be deleted. Please try again.'**
+  String get trackerDeleteError;
+
+  /// Visible label for the deliberately recorded distress slider.
+  ///
+  /// In en, this message translates to:
+  /// **'Distress, 0 to 10'**
+  String get trackerDistressLabel;
+
+  /// Factual heading when tracker history is empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No events yet'**
+  String get trackerEmptyTitle;
+
+  /// Gentle empty-state explanation without pressure or engagement language.
+  ///
+  /// In en, this message translates to:
+  /// **'Log only what feels useful. A short note is enough.'**
+  String get trackerEmptyBody;
+
+  /// Action that opens the form to record an OCD event.
+  ///
+  /// In en, this message translates to:
+  /// **'Track OCD event'**
+  String get trackerEmptyAction;
 }
 
 class _AppLocalizationsDelegate

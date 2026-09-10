@@ -1668,6 +1668,152 @@ class AppLocalizationsPt extends AppLocalizations {
   String todayDayInactiveA11y(String day) {
     return '$day: nenhuma atividade registrada';
   }
+
+  @override
+  String get trackerTitle => 'Registrar';
+
+  @override
+  String get trackerPauseUrgeAction => 'Pausar antes de responder';
+
+  @override
+  String get trackerFilterGroupLabel => 'Filtrar momentos registrados';
+
+  @override
+  String get trackerFilterAll => 'Todos';
+
+  @override
+  String get trackerFilterObsessions => 'Obsessões';
+
+  @override
+  String get trackerFilterCompulsions => 'Compulsões';
+
+  @override
+  String get trackerLoadingLabel => 'Carregando momentos registrados';
+
+  @override
+  String get trackerLoadError =>
+      'Não foi possível carregar seus momentos registrados. Tente novamente.';
+
+  @override
+  String get trackerEditTitle => 'Editar evento';
+
+  @override
+  String get trackerAddTitle => 'Registrar evento';
+
+  @override
+  String get trackerTypeGroupLabel => 'Tipo de evento';
+
+  @override
+  String get trackerTypeObsession => 'Obsessão';
+
+  @override
+  String get trackerTypeCompulsion => 'Compulsão';
+
+  @override
+  String get trackerThoughtLabel => 'O que o pensamento dizia?';
+
+  @override
+  String get trackerUrgeLabel => 'Qual era o impulso?';
+
+  @override
+  String get trackerThoughtHint => 'Descreva o pensamento ou a imagem.';
+
+  @override
+  String get trackerUrgeHint => 'Descreva o impulso ou a compulsão.';
+
+  @override
+  String get trackerActionLabel => 'O que o TOC levou você a fazer?';
+
+  @override
+  String get trackerActionHint => 'Uma anotação breve é suficiente.';
+
+  @override
+  String get trackerResponseLabel => 'O que você fez em vez disso';
+
+  @override
+  String get trackerResponseHint =>
+      'Registre qualquer resposta que escolheu, inclusive um adiamento parcial.';
+
+  @override
+  String get trackerSavingAction => 'Salvando…';
+
+  @override
+  String get trackerUpdateAction => 'Atualizar evento';
+
+  @override
+  String get trackerSaveAction => 'Salvar evento';
+
+  @override
+  String get trackerContentRequired =>
+      'Quando você se sentir pronto, escreva algumas palavras sobre o que aconteceu.';
+
+  @override
+  String get trackerSaveError =>
+      'Não foi possível salvar seu evento. Tente novamente.';
+
+  @override
+  String get trackerUpdateError =>
+      'Não foi possível atualizar seu evento. Tente novamente.';
+
+  @override
+  String get trackerEditTooltip => 'Editar evento';
+
+  @override
+  String get trackerDeleteTooltip => 'Excluir evento';
+
+  @override
+  String trackerDistressValue(int value) {
+    return 'Desconforto $value de 10';
+  }
+
+  @override
+  String trackerDistressShortValue(int value) {
+    return '$value/10';
+  }
+
+  @override
+  String get trackerNoStrategy => 'Nenhuma resposta registrada';
+
+  @override
+  String trackerEventSummary(
+    String type,
+    String date,
+    int distress,
+    String content,
+    String response,
+  ) {
+    return '$type. $date. Desconforto $distress de 10. $content. Resposta: $response';
+  }
+
+  @override
+  String get trackerDeleteTitle => 'Excluir evento?';
+
+  @override
+  String get trackerDeleteBody =>
+      'Isso remove o evento do histórico local neste dispositivo.';
+
+  @override
+  String get trackerDeleteAction => 'Excluir';
+
+  @override
+  String get trackerDeletedMessage => 'Evento excluído';
+
+  @override
+  String get trackerDeleteError =>
+      'Não foi possível excluir seu evento. Tente novamente.';
+
+  @override
+  String get trackerDistressLabel => 'Desconforto, de 0 a 10';
+
+  @override
+  String get trackerEmptyTitle => 'Ainda não há eventos';
+
+  @override
+  String get trackerEmptyBody =>
+      'Registre apenas o que parecer útil. Uma anotação breve é suficiente.';
+
+  @override
+  String get trackerEmptyAction => 'Registrar evento de TOC';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -3334,4 +3480,150 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String todayDayInactiveA11y(String day) {
     return '$day: nenhuma atividade registrada';
   }
+
+  @override
+  String get trackerTitle => 'Registrar';
+
+  @override
+  String get trackerPauseUrgeAction => 'Pausar antes de responder';
+
+  @override
+  String get trackerFilterGroupLabel => 'Filtrar momentos registrados';
+
+  @override
+  String get trackerFilterAll => 'Todos';
+
+  @override
+  String get trackerFilterObsessions => 'Obsessões';
+
+  @override
+  String get trackerFilterCompulsions => 'Compulsões';
+
+  @override
+  String get trackerLoadingLabel => 'Carregando momentos registrados';
+
+  @override
+  String get trackerLoadError =>
+      'Não foi possível carregar seus momentos registrados. Tente novamente.';
+
+  @override
+  String get trackerEditTitle => 'Editar evento';
+
+  @override
+  String get trackerAddTitle => 'Registrar evento';
+
+  @override
+  String get trackerTypeGroupLabel => 'Tipo de evento';
+
+  @override
+  String get trackerTypeObsession => 'Obsessão';
+
+  @override
+  String get trackerTypeCompulsion => 'Compulsão';
+
+  @override
+  String get trackerThoughtLabel => 'O que o pensamento dizia?';
+
+  @override
+  String get trackerUrgeLabel => 'Qual era o impulso?';
+
+  @override
+  String get trackerThoughtHint => 'Descreva o pensamento ou a imagem.';
+
+  @override
+  String get trackerUrgeHint => 'Descreva o impulso ou a compulsão.';
+
+  @override
+  String get trackerActionLabel => 'O que o TOC levou você a fazer?';
+
+  @override
+  String get trackerActionHint => 'Uma anotação breve é suficiente.';
+
+  @override
+  String get trackerResponseLabel => 'O que você fez em vez disso';
+
+  @override
+  String get trackerResponseHint =>
+      'Registre qualquer resposta que escolheu, inclusive um adiamento parcial.';
+
+  @override
+  String get trackerSavingAction => 'Salvando…';
+
+  @override
+  String get trackerUpdateAction => 'Atualizar evento';
+
+  @override
+  String get trackerSaveAction => 'Salvar evento';
+
+  @override
+  String get trackerContentRequired =>
+      'Quando você se sentir pronto, escreva algumas palavras sobre o que aconteceu.';
+
+  @override
+  String get trackerSaveError =>
+      'Não foi possível salvar seu evento. Tente novamente.';
+
+  @override
+  String get trackerUpdateError =>
+      'Não foi possível atualizar seu evento. Tente novamente.';
+
+  @override
+  String get trackerEditTooltip => 'Editar evento';
+
+  @override
+  String get trackerDeleteTooltip => 'Excluir evento';
+
+  @override
+  String trackerDistressValue(int value) {
+    return 'Desconforto $value de 10';
+  }
+
+  @override
+  String trackerDistressShortValue(int value) {
+    return '$value/10';
+  }
+
+  @override
+  String get trackerNoStrategy => 'Nenhuma resposta registrada';
+
+  @override
+  String trackerEventSummary(
+    String type,
+    String date,
+    int distress,
+    String content,
+    String response,
+  ) {
+    return '$type. $date. Desconforto $distress de 10. $content. Resposta: $response';
+  }
+
+  @override
+  String get trackerDeleteTitle => 'Excluir evento?';
+
+  @override
+  String get trackerDeleteBody =>
+      'Isso remove o evento do histórico local neste dispositivo.';
+
+  @override
+  String get trackerDeleteAction => 'Excluir';
+
+  @override
+  String get trackerDeletedMessage => 'Evento excluído';
+
+  @override
+  String get trackerDeleteError =>
+      'Não foi possível excluir seu evento. Tente novamente.';
+
+  @override
+  String get trackerDistressLabel => 'Desconforto, de 0 a 10';
+
+  @override
+  String get trackerEmptyTitle => 'Ainda não há eventos';
+
+  @override
+  String get trackerEmptyBody =>
+      'Registre apenas o que parecer útil. Uma anotação breve é suficiente.';
+
+  @override
+  String get trackerEmptyAction => 'Registrar evento de TOC';
 }

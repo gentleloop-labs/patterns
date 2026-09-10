@@ -1479,4 +1479,142 @@ class AppLocalizationsJa extends AppLocalizations {
   String todayDayInactiveA11y(String day) {
     return '$day：活動の記録なし';
   }
+
+  @override
+  String get trackerTitle => '記録';
+
+  @override
+  String get trackerPauseUrgeAction => '反応する前に少し待つ';
+
+  @override
+  String get trackerFilterGroupLabel => '記録した出来事を絞り込む';
+
+  @override
+  String get trackerFilterAll => 'すべて';
+
+  @override
+  String get trackerFilterObsessions => '強迫観念';
+
+  @override
+  String get trackerFilterCompulsions => '強迫行為';
+
+  @override
+  String get trackerLoadingLabel => '記録した出来事を読み込んでいます';
+
+  @override
+  String get trackerLoadError => '記録した出来事を読み込めませんでした。もう一度お試しください。';
+
+  @override
+  String get trackerEditTitle => '出来事を編集';
+
+  @override
+  String get trackerAddTitle => '出来事を記録';
+
+  @override
+  String get trackerTypeGroupLabel => '出来事の種類';
+
+  @override
+  String get trackerTypeObsession => '強迫観念';
+
+  @override
+  String get trackerTypeCompulsion => '強迫行為';
+
+  @override
+  String get trackerThoughtLabel => 'その考えは何と言っていましたか？';
+
+  @override
+  String get trackerUrgeLabel => 'どのような衝動でしたか？';
+
+  @override
+  String get trackerThoughtHint => '考えやイメージを書いてください。';
+
+  @override
+  String get trackerUrgeHint => '衝動や強迫行為を書いてください。';
+
+  @override
+  String get trackerActionLabel => 'OCDによって何をしたくなりましたか？';
+
+  @override
+  String get trackerActionHint => '短いメモで十分です。';
+
+  @override
+  String get trackerResponseLabel => '代わりに行ったこと';
+
+  @override
+  String get trackerResponseHint => '一部だけ待てた場合も含め、選んだ対応を記録してください。';
+
+  @override
+  String get trackerSavingAction => '保存中…';
+
+  @override
+  String get trackerUpdateAction => '出来事を更新';
+
+  @override
+  String get trackerSaveAction => '出来事を保存';
+
+  @override
+  String get trackerContentRequired => '準備ができたら、何があったかを少し書いてください。';
+
+  @override
+  String get trackerSaveError => '出来事を保存できませんでした。もう一度お試しください。';
+
+  @override
+  String get trackerUpdateError => '出来事を更新できませんでした。もう一度お試しください。';
+
+  @override
+  String get trackerEditTooltip => '出来事を編集';
+
+  @override
+  String get trackerDeleteTooltip => '出来事を削除';
+
+  @override
+  String trackerDistressValue(int value) {
+    return '苦痛度$value/10';
+  }
+
+  @override
+  String trackerDistressShortValue(int value) {
+    return '$value/10';
+  }
+
+  @override
+  String get trackerNoStrategy => '対応の記録なし';
+
+  @override
+  String trackerEventSummary(
+    String type,
+    String date,
+    int distress,
+    String content,
+    String response,
+  ) {
+    return '$type。$date。苦痛度$distress/10。$content。対応：$response';
+  }
+
+  @override
+  String get trackerDeleteTitle => '出来事を削除しますか？';
+
+  @override
+  String get trackerDeleteBody => 'この端末のローカル履歴から出来事が削除されます。';
+
+  @override
+  String get trackerDeleteAction => '削除';
+
+  @override
+  String get trackerDeletedMessage => '出来事を削除しました';
+
+  @override
+  String get trackerDeleteError => '出来事を削除できませんでした。もう一度お試しください。';
+
+  @override
+  String get trackerDistressLabel => '苦痛度、0から10';
+
+  @override
+  String get trackerEmptyTitle => 'まだ出来事はありません';
+
+  @override
+  String get trackerEmptyBody => '役立つと感じることだけを記録してください。短いメモで十分です。';
+
+  @override
+  String get trackerEmptyAction => 'OCDの出来事を記録';
 }

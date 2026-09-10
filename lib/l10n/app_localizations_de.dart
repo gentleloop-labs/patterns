@@ -1673,4 +1673,151 @@ class AppLocalizationsDe extends AppLocalizations {
   String todayDayInactiveA11y(String day) {
     return '$day: keine Aktivität erfasst';
   }
+
+  @override
+  String get trackerTitle => 'Erfassen';
+
+  @override
+  String get trackerPauseUrgeAction => 'Vor einer Reaktion warten';
+
+  @override
+  String get trackerFilterGroupLabel => 'Erfasste Momente filtern';
+
+  @override
+  String get trackerFilterAll => 'Alle';
+
+  @override
+  String get trackerFilterObsessions => 'Zwangsgedanken';
+
+  @override
+  String get trackerFilterCompulsions => 'Zwangshandlungen';
+
+  @override
+  String get trackerLoadingLabel => 'Erfasste Momente werden geladen';
+
+  @override
+  String get trackerLoadError =>
+      'Ihre erfassten Momente konnten nicht geladen werden. Bitte versuchen Sie es erneut.';
+
+  @override
+  String get trackerEditTitle => 'Ereignis bearbeiten';
+
+  @override
+  String get trackerAddTitle => 'Ereignis erfassen';
+
+  @override
+  String get trackerTypeGroupLabel => 'Ereignistyp';
+
+  @override
+  String get trackerTypeObsession => 'Zwangsgedanke';
+
+  @override
+  String get trackerTypeCompulsion => 'Zwangshandlung';
+
+  @override
+  String get trackerThoughtLabel => 'Was sagte der Gedanke?';
+
+  @override
+  String get trackerUrgeLabel => 'Wie lautete der Drang?';
+
+  @override
+  String get trackerThoughtHint => 'Benennen Sie den Gedanken oder das Bild.';
+
+  @override
+  String get trackerUrgeHint =>
+      'Benennen Sie den Drang oder die Zwangshandlung.';
+
+  @override
+  String get trackerActionLabel => 'Wozu hat die Zwangsstörung Sie gedrängt?';
+
+  @override
+  String get trackerActionHint => 'Eine kurze Notiz genügt.';
+
+  @override
+  String get trackerResponseLabel => 'Was Sie stattdessen getan haben';
+
+  @override
+  String get trackerResponseHint =>
+      'Halten Sie jede gewählte Reaktion fest, auch ein teilweises Aufschieben.';
+
+  @override
+  String get trackerSavingAction => 'Speichern…';
+
+  @override
+  String get trackerUpdateAction => 'Ereignis aktualisieren';
+
+  @override
+  String get trackerSaveAction => 'Ereignis speichern';
+
+  @override
+  String get trackerContentRequired =>
+      'Wenn Sie bereit sind, schreiben Sie ein paar Worte dazu, was passiert ist.';
+
+  @override
+  String get trackerSaveError =>
+      'Ihr Ereignis konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.';
+
+  @override
+  String get trackerUpdateError =>
+      'Ihr Ereignis konnte nicht aktualisiert werden. Bitte versuchen Sie es erneut.';
+
+  @override
+  String get trackerEditTooltip => 'Ereignis bearbeiten';
+
+  @override
+  String get trackerDeleteTooltip => 'Ereignis löschen';
+
+  @override
+  String trackerDistressValue(int value) {
+    return 'Belastung $value von 10';
+  }
+
+  @override
+  String trackerDistressShortValue(int value) {
+    return '$value/10';
+  }
+
+  @override
+  String get trackerNoStrategy => 'Keine Reaktion notiert';
+
+  @override
+  String trackerEventSummary(
+    String type,
+    String date,
+    int distress,
+    String content,
+    String response,
+  ) {
+    return '$type. $date. Belastung $distress von 10. $content. Reaktion: $response';
+  }
+
+  @override
+  String get trackerDeleteTitle => 'Ereignis löschen?';
+
+  @override
+  String get trackerDeleteBody =>
+      'Dadurch wird das Ereignis aus Ihrem lokalen Verlauf auf diesem Gerät entfernt.';
+
+  @override
+  String get trackerDeleteAction => 'Löschen';
+
+  @override
+  String get trackerDeletedMessage => 'Ereignis gelöscht';
+
+  @override
+  String get trackerDeleteError =>
+      'Ihr Ereignis konnte nicht gelöscht werden. Bitte versuchen Sie es erneut.';
+
+  @override
+  String get trackerDistressLabel => 'Belastung, 0 bis 10';
+
+  @override
+  String get trackerEmptyTitle => 'Noch keine Ereignisse';
+
+  @override
+  String get trackerEmptyBody =>
+      'Erfassen Sie nur, was hilfreich erscheint. Eine kurze Notiz genügt.';
+
+  @override
+  String get trackerEmptyAction => 'OCD-Ereignis erfassen';
 }

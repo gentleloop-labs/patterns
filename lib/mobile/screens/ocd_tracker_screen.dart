@@ -1,9 +1,9 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../../l10n/l10n.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../services/review_prompt.dart';
@@ -35,7 +35,9 @@ class _OcdTrackerScreenState extends ConsumerState<OcdTrackerScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final entriesAsync = ref.watch(filteredOcdProvider);
+    final useStackedHeader = MediaQuery.textScalerOf(context).scale(1) > 1.3;
 
     return Scaffold(
       body: SafeArea(
@@ -45,9 +47,29 @@ class _OcdTrackerScreenState extends ConsumerState<OcdTrackerScreen> {
             FadeSlideIn(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
-                child: Row(
+                child: Flex(
+                  direction: useStackedHeader ? Axis.vertical : Axis.horizontal,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(child: Text('Track', style: _screenTitle(theme))),
+                    if (useStackedHeader)
+                      Semantics(
+                        header: true,
+                        child: Text(
+                          strings.trackerTitle,
+                          style: _screenTitle(theme),
+                        ),
+                      )
+                    else
+                      Expanded(
+                        child: Semantics(
+                          header: true,
+                          child: Text(
+                            strings.trackerTitle,
+                            style: _screenTitle(theme),
+                          ),
+                        ),
+                      ),
+                    if (useStackedHeader) const SizedBox(height: 12),
                     _PauseUrgePill(onTap: widget.onDelay),
                   ],
                 ),
@@ -119,8 +141,25 @@ class _OcdTrackerScreenState extends ConsumerState<OcdTrackerScreen> {
                     child: body,
                   );
                 },
-                loading: () => const Center(child: CircularProgressIndicator()),
-                error: (error, _) => Center(child: Text('Error: $error')),
+                loading: () => Center(
+                  child: Semantics(
+                    liveRegion: true,
+                    label: strings.trackerLoadingLabel,
+                    child: const CircularProgressIndicator(),
+                  ),
+                ),
+                error: (error, _) => Center(
+                  child: Semantics(
+                    liveRegion: true,
+                    child: Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Text(
+                        strings.trackerLoadError,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
@@ -182,6 +221,7 @@ class _OcdEventFlowState extends ConsumerState<OcdEventFlow> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
 
     return Scaffold(
       body: SafeArea(
@@ -192,12 +232,19 @@ class _OcdEventFlowState extends ConsumerState<OcdEventFlow> {
               child: Row(
                 children: [
                   IconButton(
+                    tooltip: strings.backAction,
+                    constraints: const BoxConstraints(
+                      minWidth: 44,
+                      minHeight: 44,
+                    ),
                     onPressed: () => Navigator.pop(context),
                     icon: const Icon(LineIcons.angleLeft),
                   ),
                   Expanded(
                     child: Text(
-                      _isEditing ? 'Edit event' : 'Track event',
+                      _isEditing
+                          ? strings.trackerEditTitle
+                          : strings.trackerAddTitle,
                       style: theme.textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.w800,
                       ),
@@ -218,25 +265,25 @@ class _OcdEventFlowState extends ConsumerState<OcdEventFlow> {
                   _FlowField(
                     controller: _contentController,
                     label: _type == OcdType.obsession
-                        ? 'What did the thought say?'
-                        : 'What was the urge?',
+                        ? strings.trackerThoughtLabel
+                        : strings.trackerUrgeLabel,
                     hint: _type == OcdType.obsession
-                        ? 'Name the thought or image.'
-                        : 'Name the urge or compulsion.',
+                        ? strings.trackerThoughtHint
+                        : strings.trackerUrgeHint,
                     minLines: 4,
                   ),
                   const SizedBox(height: 16),
                   _FlowField(
                     controller: _actionController,
-                    label: 'What did OCD get you to do?',
-                    hint: 'A short note is enough.',
+                    label: strings.trackerActionLabel,
+                    hint: strings.trackerActionHint,
                     minLines: 3,
                   ),
                   const SizedBox(height: 16),
                   _FlowField(
                     controller: _responseController,
-                    label: 'What you did instead',
-                    hint: 'Even a partial delay counts.',
+                    label: strings.trackerResponseLabel,
+                    hint: strings.trackerResponseHint,
                     minLines: 3,
                   ),
                   const SizedBox(height: 22),
@@ -248,15 +295,18 @@ class _OcdEventFlowState extends ConsumerState<OcdEventFlow> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
+                      key: const ValueKey('ocd-save-event'),
                       onPressed: _saving ? null : _save,
                       child: AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 220),
+                        duration: motionDisabled(context)
+                            ? Duration.zero
+                            : AppMotion.fast,
                         child: Text(
                           _saving
-                              ? 'Saving...'
+                              ? strings.trackerSavingAction
                               : _isEditing
-                              ? 'Update event'
-                              : 'Save event',
+                              ? strings.trackerUpdateAction
+                              : strings.trackerSaveAction,
                           key: ValueKey(_saving),
                         ),
                       ),
@@ -275,7 +325,7 @@ class _OcdEventFlowState extends ConsumerState<OcdEventFlow> {
     if (_contentController.text.trim().isEmpty) {
       showAppSnackBar(
         context,
-        'Whenever you’re ready, add a few words about what happened.',
+        context.l10n.trackerContentRequired,
         type: ToastType.info,
       );
       return;
@@ -295,12 +345,29 @@ class _OcdEventFlowState extends ConsumerState<OcdEventFlow> {
           : _actionController.text.trim(),
       createdAt: existing?.createdAt ?? now,
     );
-    if (_isEditing) {
-      await ref.read(ocdProvider.notifier).updateEntry(entry);
-    } else {
-      await ref.read(ocdProvider.notifier).addEntry(entry);
+    final saved = _isEditing
+        ? await ref.read(ocdProvider.notifier).updateEntry(entry)
+        : await ref.read(ocdProvider.notifier).addEntry(entry);
+    if (!saved) {
+      if (mounted) {
+        setState(() => _saving = false);
+        showAppSnackBar(
+          context,
+          _isEditing
+              ? context.l10n.trackerUpdateError
+              : context.l10n.trackerSaveError,
+          type: ToastType.error,
+        );
+      }
+      return;
     }
-    await ReviewPromptService.recordOcdSaved(entry.distressLevel);
+    try {
+      await ReviewPromptService.recordOcdSaved(entry.distressLevel);
+    } on Object {
+      // The event is already safely stored. Review eligibility must never turn
+      // a successful save into a failed completion.
+    }
+    if (mounted) setState(() => _saving = false);
     if (widget.firstRun && mounted) {
       Navigator.pop(context, const FirstRunActivityResult());
       return;
@@ -326,27 +393,37 @@ class _FilterBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(4),
-      decoration: _softDecoration(Theme.of(context), radius: 22),
-      child: Row(
-        children: [
-          _FilterChip(
-            label: 'All',
-            selected: selectedType == null,
-            onTap: () => onChanged(null),
-          ),
-          _FilterChip(
-            label: 'Obsessions',
-            selected: selectedType == OcdType.obsession,
-            onTap: () => onChanged(OcdType.obsession),
-          ),
-          _FilterChip(
-            label: 'Compulsions',
-            selected: selectedType == OcdType.compulsion,
-            onTap: () => onChanged(OcdType.compulsion),
-          ),
-        ],
+    final strings = context.l10n;
+    final stacked = MediaQuery.textScalerOf(context).scale(1) > 1.3;
+    final chips = [
+      _FilterChip(
+        label: strings.trackerFilterAll,
+        selected: selectedType == null,
+        onTap: () => onChanged(null),
+      ),
+      _FilterChip(
+        label: strings.trackerFilterObsessions,
+        selected: selectedType == OcdType.obsession,
+        onTap: () => onChanged(OcdType.obsession),
+      ),
+      _FilterChip(
+        label: strings.trackerFilterCompulsions,
+        selected: selectedType == OcdType.compulsion,
+        onTap: () => onChanged(OcdType.compulsion),
+      ),
+    ];
+    return Semantics(
+      container: true,
+      label: strings.trackerFilterGroupLabel,
+      child: Container(
+        padding: const EdgeInsets.all(4),
+        decoration: _softDecoration(Theme.of(context), radius: 22),
+        child: stacked
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [for (final chip in chips) chip],
+              )
+            : Row(children: [for (final chip in chips) Expanded(child: chip)]),
       ),
     );
   }
@@ -367,26 +444,39 @@ class _FilterChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Expanded(
-      child: InkWell(
-        borderRadius: BorderRadius.circular(18),
-        onTap: onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 180),
-          alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(vertical: 11),
-          decoration: BoxDecoration(
-            color: selected ? theme.colorScheme.primary : Colors.transparent,
-            borderRadius: BorderRadius.circular(18),
-          ),
-          child: Text(
-            label,
-            style: TextStyle(
-              color: selected
-                  ? theme.colorScheme.onPrimary
-                  : context.appColors.textSecondary,
-              fontWeight: FontWeight.w800,
-              fontSize: 13,
+    return Semantics(
+      button: true,
+      selected: selected,
+      label: label,
+      child: ExcludeSemantics(
+        child: InkWell(
+          borderRadius: BorderRadius.circular(18),
+          onTap: onTap,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 44),
+            child: AnimatedContainer(
+              duration: motionDisabled(context)
+                  ? Duration.zero
+                  : AppMotion.fast,
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(vertical: 11),
+              decoration: BoxDecoration(
+                color: selected
+                    ? theme.colorScheme.primary
+                    : Colors.transparent,
+                borderRadius: BorderRadius.circular(18),
+              ),
+              child: Text(
+                label,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: selected
+                      ? theme.colorScheme.onPrimary
+                      : context.appColors.textSecondary,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 13,
+                ),
+              ),
             ),
           ),
         ),
@@ -403,82 +493,107 @@ class _OcdEventCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
+    final date = context.formatMonthDayTime(entry.datetime);
+    final type = entry.type == OcdType.obsession
+        ? strings.trackerTypeObsession
+        : strings.trackerTypeCompulsion;
+    final response = entry.response.isEmpty
+        ? strings.trackerNoStrategy
+        : entry.response;
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(18),
-      decoration: _softDecoration(theme, radius: 22),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              _TypeChip(type: entry.type),
-              const Spacer(),
-              Text(
-                DateFormat('MMM d, h:mm a').format(entry.datetime),
-                style: _muted(theme, 12),
-              ),
-              const SizedBox(width: 4),
-              IconButton(
-                tooltip: 'Edit event',
-                visualDensity: VisualDensity.compact,
-                iconSize: 18,
-                color: context.appColors.textSecondary,
-                onPressed: entry.id == null
-                    ? null
-                    : () => _openEditor(context, entry),
-                icon: const Icon(LineIcons.edit),
-              ),
-              IconButton(
-                tooltip: 'Delete event',
-                visualDensity: VisualDensity.compact,
-                iconSize: 18,
-                color: context.appColors.textSecondary,
-                onPressed: entry.id == null
-                    ? null
-                    : () => _confirmDelete(context, ref, entry),
-                icon: const Icon(LineIcons.trash),
-              ),
-            ],
-          ),
-          const SizedBox(height: 14),
-          Text(
-            entry.content,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontFamily: AppTheme.sansFamily,
-              color: theme.colorScheme.onSurface,
-              fontSize: 16,
-              height: 1.38,
-              fontWeight: FontWeight.w700,
-              letterSpacing: -0.2,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              Text(
-                'Distress ${entry.distressLevel}/10',
-                style: TextStyle(
-                  color: _distressColor(theme, entry.distressLevel),
-                  fontWeight: FontWeight.w800,
-                  fontSize: 13,
+    return Semantics(
+      container: true,
+      explicitChildNodes: true,
+      label: strings.trackerEventSummary(
+        type,
+        date,
+        entry.distressLevel,
+        entry.content,
+        response,
+      ),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.all(18),
+        decoration: _softDecoration(theme, radius: 22),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Wrap(
+              spacing: 6,
+              runSpacing: 6,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                _TypeChip(type: entry.type),
+                Text(date, style: _muted(theme, 12)),
+                const SizedBox(width: 4),
+                IconButton(
+                  tooltip: strings.trackerEditTooltip,
+                  visualDensity: VisualDensity.compact,
+                  constraints: const BoxConstraints(
+                    minWidth: 44,
+                    minHeight: 44,
+                  ),
+                  iconSize: 18,
+                  color: context.appColors.textSecondary,
+                  onPressed: entry.id == null
+                      ? null
+                      : () => _openEditor(context, entry),
+                  icon: const Icon(LineIcons.edit),
                 ),
+                IconButton(
+                  tooltip: strings.trackerDeleteTooltip,
+                  visualDensity: VisualDensity.compact,
+                  constraints: const BoxConstraints(
+                    minWidth: 44,
+                    minHeight: 44,
+                  ),
+                  iconSize: 18,
+                  color: context.appColors.textSecondary,
+                  onPressed: entry.id == null
+                      ? null
+                      : () => _confirmDelete(context, ref, entry),
+                  icon: const Icon(LineIcons.trash),
+                ),
+              ],
+            ),
+            const SizedBox(height: 14),
+            Text(
+              entry.content,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontFamily: AppTheme.sansFamily,
+                color: theme.colorScheme.onSurface,
+                fontSize: 16,
+                height: 1.38,
+                fontWeight: FontWeight.w700,
+                letterSpacing: -0.2,
               ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  entry.response.isEmpty ? 'No strategy noted' : entry.response,
+            ),
+            const SizedBox(height: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  strings.trackerDistressValue(entry.distressLevel),
+                  style: TextStyle(
+                    color: _distressColor(theme, entry.distressLevel),
+                    fontWeight: FontWeight.w800,
+                    fontSize: 13,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  response,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: _muted(theme, 13),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -496,20 +611,20 @@ class _OcdEventCard extends ConsumerWidget {
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (context) => _BottomPanel(
+      builder: (sheetContext) => _BottomPanel(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Delete event?',
+              context.l10n.trackerDeleteTitle,
               style: Theme.of(
                 context,
               ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
             ),
             const SizedBox(height: 10),
             Text(
-              'This removes the event from your local history.',
+              context.l10n.trackerDeleteBody,
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.45,
@@ -520,27 +635,29 @@ class _OcdEventCard extends ConsumerWidget {
               children: [
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Cancel'),
+                    onPressed: () => Navigator.pop(sheetContext),
+                    child: Text(context.l10n.cancelAction),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () async {
-                      Navigator.pop(context);
-                      await ref
+                      Navigator.pop(sheetContext);
+                      final deleted = await ref
                           .read(ocdProvider.notifier)
                           .deleteEntry(entry.id!);
                       if (context.mounted) {
                         showAppSnackBar(
                           context,
-                          'Event deleted',
-                          type: ToastType.success,
+                          deleted
+                              ? context.l10n.trackerDeletedMessage
+                              : context.l10n.trackerDeleteError,
+                          type: deleted ? ToastType.success : ToastType.error,
                         );
                       }
                     },
-                    child: const Text('Delete'),
+                    child: Text(context.l10n.trackerDeleteAction),
                   ),
                 ),
               ],
@@ -560,22 +677,32 @@ class _TypeToggle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(5),
-      decoration: _softDecoration(Theme.of(context), radius: 24),
-      child: Row(
-        children: [
-          _FilterChip(
-            label: 'Obsession',
-            selected: selected == OcdType.obsession,
-            onTap: () => onChanged(OcdType.obsession),
-          ),
-          _FilterChip(
-            label: 'Compulsion',
-            selected: selected == OcdType.compulsion,
-            onTap: () => onChanged(OcdType.compulsion),
-          ),
-        ],
+    final strings = context.l10n;
+    final stacked = MediaQuery.textScalerOf(context).scale(1) > 1.3;
+    final chips = [
+      _FilterChip(
+        label: strings.trackerTypeObsession,
+        selected: selected == OcdType.obsession,
+        onTap: () => onChanged(OcdType.obsession),
+      ),
+      _FilterChip(
+        label: strings.trackerTypeCompulsion,
+        selected: selected == OcdType.compulsion,
+        onTap: () => onChanged(OcdType.compulsion),
+      ),
+    ];
+    return Semantics(
+      container: true,
+      label: strings.trackerTypeGroupLabel,
+      child: Container(
+        padding: const EdgeInsets.all(5),
+        decoration: _softDecoration(Theme.of(context), radius: 24),
+        child: stacked
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [for (final chip in chips) chip],
+              )
+            : Row(children: [for (final chip in chips) Expanded(child: chip)]),
       ),
     );
   }
@@ -601,18 +728,24 @@ class _FlowField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: theme.textTheme.titleSmall?.copyWith(
-            fontWeight: FontWeight.w800,
+        ExcludeSemantics(
+          child: Text(
+            label,
+            style: theme.textTheme.titleSmall?.copyWith(
+              fontWeight: FontWeight.w800,
+            ),
           ),
         ),
         const SizedBox(height: 9),
-        TextField(
-          controller: controller,
-          minLines: minLines,
-          maxLines: minLines + 2,
-          decoration: InputDecoration(hintText: hint),
+        Semantics(
+          textField: true,
+          label: label,
+          child: TextField(
+            controller: controller,
+            minLines: minLines,
+            maxLines: minLines + 2,
+            decoration: InputDecoration(hintText: hint),
+          ),
         ),
       ],
     );
@@ -628,6 +761,8 @@ class _DistressCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
+    final rounded = value.round();
 
     return Container(
       padding: const EdgeInsets.all(18),
@@ -635,42 +770,52 @@ class _DistressCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          Wrap(
+            spacing: 12,
+            runSpacing: 8,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               Text(
-                'Distress, 0 to 10',
+                strings.trackerDistressLabel,
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w800,
                 ),
               ),
-              const Spacer(),
-              TweenAnimationBuilder<double>(
-                tween: Tween<double>(begin: value, end: value),
-                duration: const Duration(milliseconds: 220),
-                curve: Curves.easeOutCubic,
-                builder: (context, v, _) {
-                  final rounded = v.round();
-                  return AnimatedDefaultTextStyle(
-                    duration: const Duration(milliseconds: 220),
-                    curve: Curves.easeOutCubic,
-                    style: TextStyle(
-                      color: _distressColor(theme, rounded),
-                      fontSize: 22,
-                      fontWeight: FontWeight.w900,
-                    ),
-                    child: Text('$rounded/10'),
-                  );
-                },
+              Text(
+                strings.trackerDistressShortValue(rounded),
+                style: TextStyle(
+                  color: _distressColor(theme, rounded),
+                  fontSize: 22,
+                  fontWeight: FontWeight.w900,
+                ),
               ),
             ],
           ),
           const SizedBox(height: 14),
-          Slider(
-            value: value,
-            min: 0,
-            max: 10,
-            divisions: 10,
-            onChanged: onChanged,
+          Semantics(
+            label: strings.trackerDistressLabel,
+            value: strings.trackerDistressValue(rounded),
+            increasedValue: rounded < 10
+                ? strings.trackerDistressValue(rounded + 1)
+                : null,
+            decreasedValue: rounded > 0
+                ? strings.trackerDistressValue(rounded - 1)
+                : null,
+            onIncrease: rounded < 10
+                ? () => onChanged((rounded + 1).toDouble())
+                : null,
+            onDecrease: rounded > 0
+                ? () => onChanged((rounded - 1).toDouble())
+                : null,
+            child: ExcludeSemantics(
+              child: Slider(
+                value: value,
+                min: 0,
+                max: 10,
+                divisions: 10,
+                onChanged: onChanged,
+              ),
+            ),
           ),
         ],
       ),
@@ -686,37 +831,47 @@ class _PauseUrgePill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final label = context.l10n.trackerPauseUrgeAction;
 
-    return InkWell(
-      borderRadius: BorderRadius.circular(999),
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
-        decoration: BoxDecoration(
-          color: theme.colorScheme.primary.withValues(alpha: 0.12),
+    return Semantics(
+      button: true,
+      label: label,
+      child: ExcludeSemantics(
+        child: InkWell(
           borderRadius: BorderRadius.circular(999),
-          border: Border.all(
-            color: theme.colorScheme.primary.withValues(alpha: 0.24),
-          ),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              LineIcons.hourglassHalf,
-              color: theme.colorScheme.primary,
-              size: 16,
-            ),
-            const SizedBox(width: 7),
-            Text(
-              'Pause an urge',
-              style: TextStyle(
-                color: theme.colorScheme.primary,
-                fontSize: 13,
-                fontWeight: FontWeight.w800,
+          onTap: onTap,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 44),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.primary.withValues(alpha: 0.12),
+                borderRadius: BorderRadius.circular(999),
+                border: Border.all(
+                  color: theme.colorScheme.primary.withValues(alpha: 0.24),
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    LineIcons.hourglassHalf,
+                    color: theme.colorScheme.primary,
+                    size: 16,
+                  ),
+                  const SizedBox(width: 7),
+                  Text(
+                    label,
+                    style: TextStyle(
+                      color: theme.colorScheme.primary,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -742,7 +897,9 @@ class _TypeChip extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
-        isObsession ? 'Obsession' : 'Compulsion',
+        isObsession
+            ? context.l10n.trackerTypeObsession
+            : context.l10n.trackerTypeCompulsion,
         style: const TextStyle(
           color: Colors.white,
           fontSize: 13,
@@ -774,14 +931,14 @@ class _EmptyTrackState extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'No events yet',
+            context.l10n.trackerEmptyTitle,
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.w800,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            'Log only what feels useful. A short note is enough.',
+            context.l10n.trackerEmptyBody,
             textAlign: TextAlign.center,
             style: TextStyle(
               color: context.appColors.textSecondary,
@@ -791,7 +948,7 @@ class _EmptyTrackState extends StatelessWidget {
           const SizedBox(height: 22),
           ElevatedButton(
             onPressed: onAdd,
-            child: const Text('Track OCD Event'),
+            child: Text(context.l10n.trackerEmptyAction),
           ),
         ],
       ),

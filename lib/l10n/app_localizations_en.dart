@@ -1649,4 +1649,150 @@ class AppLocalizationsEn extends AppLocalizations {
   String todayDayInactiveA11y(String day) {
     return '$day: no activity recorded';
   }
+
+  @override
+  String get trackerTitle => 'Track';
+
+  @override
+  String get trackerPauseUrgeAction => 'Pause an urge';
+
+  @override
+  String get trackerFilterGroupLabel => 'Filter tracked moments';
+
+  @override
+  String get trackerFilterAll => 'All';
+
+  @override
+  String get trackerFilterObsessions => 'Obsessions';
+
+  @override
+  String get trackerFilterCompulsions => 'Compulsions';
+
+  @override
+  String get trackerLoadingLabel => 'Loading tracked moments';
+
+  @override
+  String get trackerLoadError =>
+      'Your tracked moments could not be loaded. Please try again.';
+
+  @override
+  String get trackerEditTitle => 'Edit event';
+
+  @override
+  String get trackerAddTitle => 'Track event';
+
+  @override
+  String get trackerTypeGroupLabel => 'Event type';
+
+  @override
+  String get trackerTypeObsession => 'Obsession';
+
+  @override
+  String get trackerTypeCompulsion => 'Compulsion';
+
+  @override
+  String get trackerThoughtLabel => 'What did the thought say?';
+
+  @override
+  String get trackerUrgeLabel => 'What was the urge?';
+
+  @override
+  String get trackerThoughtHint => 'Name the thought or image.';
+
+  @override
+  String get trackerUrgeHint => 'Name the urge or compulsion.';
+
+  @override
+  String get trackerActionLabel => 'What did OCD get you to do?';
+
+  @override
+  String get trackerActionHint => 'A short note is enough.';
+
+  @override
+  String get trackerResponseLabel => 'What you did instead';
+
+  @override
+  String get trackerResponseHint =>
+      'Record any response you chose, including a partial delay.';
+
+  @override
+  String get trackerSavingAction => 'Saving…';
+
+  @override
+  String get trackerUpdateAction => 'Update event';
+
+  @override
+  String get trackerSaveAction => 'Save event';
+
+  @override
+  String get trackerContentRequired =>
+      'Whenever you’re ready, add a few words about what happened.';
+
+  @override
+  String get trackerSaveError =>
+      'Your event could not be saved. Please try again.';
+
+  @override
+  String get trackerUpdateError =>
+      'Your event could not be updated. Please try again.';
+
+  @override
+  String get trackerEditTooltip => 'Edit event';
+
+  @override
+  String get trackerDeleteTooltip => 'Delete event';
+
+  @override
+  String trackerDistressValue(int value) {
+    return 'Distress $value out of 10';
+  }
+
+  @override
+  String trackerDistressShortValue(int value) {
+    return '$value/10';
+  }
+
+  @override
+  String get trackerNoStrategy => 'No response noted';
+
+  @override
+  String trackerEventSummary(
+    String type,
+    String date,
+    int distress,
+    String content,
+    String response,
+  ) {
+    return '$type. $date. Distress $distress out of 10. $content. Response: $response';
+  }
+
+  @override
+  String get trackerDeleteTitle => 'Delete event?';
+
+  @override
+  String get trackerDeleteBody =>
+      'This removes the event from your local history on this device.';
+
+  @override
+  String get trackerDeleteAction => 'Delete';
+
+  @override
+  String get trackerDeletedMessage => 'Event deleted';
+
+  @override
+  String get trackerDeleteError =>
+      'Your event could not be deleted. Please try again.';
+
+  @override
+  String get trackerDistressLabel => 'Distress, 0 to 10';
+
+  @override
+  String get trackerEmptyTitle => 'No events yet';
+
+  @override
+  String get trackerEmptyBody =>
+      'Log only what feels useful. A short note is enough.';
+
+  @override
+  String get trackerEmptyAction => 'Track OCD event';
 }
