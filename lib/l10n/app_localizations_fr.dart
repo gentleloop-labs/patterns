@@ -15,6 +15,133 @@ class AppLocalizationsFr extends AppLocalizations {
   String get settingsTitle => 'Réglages';
 
   @override
+  String get settingsDataSection => 'Données';
+
+  @override
+  String get settingsExportDataTitle => 'Exporter les données';
+
+  @override
+  String get settingsExportDataSubtitle =>
+      'Enregistrez vos données dans une sauvegarde JSON locale';
+
+  @override
+  String get settingsImportDataTitle => 'Importer des données';
+
+  @override
+  String get settingsImportDataSubtitle =>
+      'Restaurez des entrées depuis une sauvegarde ZIP ou JSON';
+
+  @override
+  String get settingsRemindersSection => 'Rappels';
+
+  @override
+  String get settingsDailyReminderTitle => 'Rappel quotidien';
+
+  @override
+  String settingsDailyReminderAt(String time) {
+    return 'Un rappel bienveillant à $time';
+  }
+
+  @override
+  String get settingsDailyReminderOff =>
+      'Un rappel bienveillant pour faire le point chaque jour';
+
+  @override
+  String get settingsReminderTimeTitle => 'Heure du rappel';
+
+  @override
+  String get settingsPrivacySection => 'Confidentialité';
+
+  @override
+  String get settingsPrivacySafetySubtitle =>
+      'Comment vos données locales sont traitées';
+
+  @override
+  String get settingsAnalyticsTitle =>
+      'Partager des données d’utilisation anonymes';
+
+  @override
+  String get settingsAnalyticsSubtitle =>
+      'Partage uniquement l’utilisation des fonctionnalités. Les données personnelles liées à l’OCD ne sont jamais incluses.';
+
+  @override
+  String get settingsAppLockTitle => 'Verrouillage de l’application';
+
+  @override
+  String get settingsAppLockSubtitle =>
+      'Exiger le déverrouillage de l’appareil à la réouverture de Patterns';
+
+  @override
+  String get settingsWipeTitle => 'Effacer toutes les données';
+
+  @override
+  String get settingsWipeSubtitle =>
+      'Supprimer les entrées locales et réinitialiser les réglages';
+
+  @override
+  String get settingsProSection => 'Patterns Pro';
+
+  @override
+  String get settingsProActiveTitle => 'Patterns Pro est actif';
+
+  @override
+  String get settingsProActiveSubtitle =>
+      'Tous les outils de rétablissement sont déverrouillés. Merci.';
+
+  @override
+  String get settingsUnlockProTitle => 'Déverrouiller Patterns Pro';
+
+  @override
+  String get settingsUnlockProSubtitle =>
+      'Achat unique pour tous les outils de rétablissement';
+
+  @override
+  String get settingsRestorePurchasesTitle => 'Restaurer les achats';
+
+  @override
+  String get settingsRestorePurchasesSubtitle =>
+      'Restaurer un déverrouillage antérieur de Patterns Pro';
+
+  @override
+  String get settingsHelpSection => 'Aide';
+
+  @override
+  String get settingsReplayTourTitle => 'Revoir la visite de l’application';
+
+  @override
+  String get settingsReplayTourSubtitle => 'Revoir le rôle de chaque onglet';
+
+  @override
+  String get settingsShowWelcomeTitle => 'Afficher les écrans de bienvenue';
+
+  @override
+  String get settingsShowWelcomeSubtitle =>
+      'Afficher l’introduction à la prochaine ouverture de Patterns';
+
+  @override
+  String get settingsFeedbackSection => 'Commentaires';
+
+  @override
+  String get settingsRateTitle => 'Évaluer Patterns';
+
+  @override
+  String get settingsRateSubtitle => 'Donnez votre avis dans l’App Store';
+
+  @override
+  String get settingsSendFeedbackTitle => 'Envoyer des commentaires';
+
+  @override
+  String get settingsSendFeedbackSubtitle =>
+      'Partagez une idée ou signalez un problème';
+
+  @override
+  String get settingsSupportTitle => 'Soutenir Patterns';
+
+  @override
+  String get settingsSupportSubtitle =>
+      'Laissez un pourboire facultatif pour soutenir le développement';
+
+  @override
   String get appearanceTitle => 'Apparence';
 
   @override

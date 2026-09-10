@@ -15,6 +15,119 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settingsTitle => '設定';
 
   @override
+  String get settingsDataSection => 'データ';
+
+  @override
+  String get settingsExportDataTitle => 'データを書き出す';
+
+  @override
+  String get settingsExportDataSubtitle => '記録を端末内のJSONバックアップに保存します';
+
+  @override
+  String get settingsImportDataTitle => 'データを読み込む';
+
+  @override
+  String get settingsImportDataSubtitle => 'ZIPまたはJSONバックアップから記録を復元します';
+
+  @override
+  String get settingsRemindersSection => 'リマインダー';
+
+  @override
+  String get settingsDailyReminderTitle => '毎日のリマインダー';
+
+  @override
+  String settingsDailyReminderAt(String time) {
+    return '$timeに穏やかにお知らせします';
+  }
+
+  @override
+  String get settingsDailyReminderOff => '毎日の振り返りを穏やかにお知らせします';
+
+  @override
+  String get settingsReminderTimeTitle => 'リマインダーの時刻';
+
+  @override
+  String get settingsPrivacySection => 'プライバシー';
+
+  @override
+  String get settingsPrivacySafetySubtitle => '端末内のデータの取り扱いについて';
+
+  @override
+  String get settingsAnalyticsTitle => '匿名の利用状況を共有';
+
+  @override
+  String get settingsAnalyticsSubtitle => '機能の利用イベントのみを共有します。個人のOCDデータは含まれません。';
+
+  @override
+  String get settingsAppLockTitle => 'アプリロック';
+
+  @override
+  String get settingsAppLockSubtitle => 'Patternsを再度開くときに端末のロック解除を求めます';
+
+  @override
+  String get settingsWipeTitle => 'すべてのデータを消去';
+
+  @override
+  String get settingsWipeSubtitle => '端末内の記録を削除してアプリ設定をリセットします';
+
+  @override
+  String get settingsProSection => 'Patterns Pro';
+
+  @override
+  String get settingsProActiveTitle => 'Patterns Proは有効です';
+
+  @override
+  String get settingsProActiveSubtitle => 'すべての回復ツールを利用できます。ありがとうございます。';
+
+  @override
+  String get settingsUnlockProTitle => 'Patterns Proを利用する';
+
+  @override
+  String get settingsUnlockProSubtitle => '一度の購入ですべての回復ツールを利用できます';
+
+  @override
+  String get settingsRestorePurchasesTitle => '購入を復元';
+
+  @override
+  String get settingsRestorePurchasesSubtitle => '以前購入したPatterns Proを復元します';
+
+  @override
+  String get settingsHelpSection => 'ヘルプ';
+
+  @override
+  String get settingsReplayTourTitle => 'アプリツアーをもう一度見る';
+
+  @override
+  String get settingsReplayTourSubtitle => '各タブの役割をもう一度確認します';
+
+  @override
+  String get settingsShowWelcomeTitle => 'ようこそ画面を表示';
+
+  @override
+  String get settingsShowWelcomeSubtitle => '次にPatternsを開いたときに紹介画面を表示します';
+
+  @override
+  String get settingsFeedbackSection => 'フィードバック';
+
+  @override
+  String get settingsRateTitle => 'Patternsを評価';
+
+  @override
+  String get settingsRateSubtitle => 'App Storeで感想を共有してください';
+
+  @override
+  String get settingsSendFeedbackTitle => 'フィードバックを送信';
+
+  @override
+  String get settingsSendFeedbackSubtitle => 'アイデアや問題をお知らせください';
+
+  @override
+  String get settingsSupportTitle => 'Patternsを支援';
+
+  @override
+  String get settingsSupportSubtitle => '任意のチップで開発を支援できます';
+
+  @override
   String get appearanceTitle => '外観';
 
   @override

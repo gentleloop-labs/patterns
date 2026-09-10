@@ -2,6 +2,51 @@
   "@@locale": "en",
   "appTitle": "Patterns",
   "settingsTitle": "Settings",
+  "settingsDataSection": "Data",
+  "settingsExportDataTitle": "Export data",
+  "settingsExportDataSubtitle": "Save your records to a local JSON backup",
+  "settingsImportDataTitle": "Import data",
+  "settingsImportDataSubtitle": "Restore entries from a ZIP or JSON backup",
+  "settingsRemindersSection": "Reminders",
+  "settingsDailyReminderTitle": "Daily reminder",
+  "settingsDailyReminderAt": "A gentle reminder at {time}",
+  "@settingsDailyReminderAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    },
+    "description": "User-facing Patterns interface copy for settings daily reminder at."
+  },
+  "settingsDailyReminderOff": "A gentle reminder to check in each day",
+  "settingsReminderTimeTitle": "Reminder time",
+  "settingsPrivacySection": "Privacy",
+  "settingsPrivacySafetySubtitle": "How your local data is handled",
+  "settingsAnalyticsTitle": "Share anonymous usage analytics",
+  "settingsAnalyticsSubtitle": "Share feature-use events only. Personal OCD data is never included.",
+  "settingsAppLockTitle": "App lock",
+  "settingsAppLockSubtitle": "Require device unlock when Patterns reopens",
+  "settingsWipeTitle": "Wipe all data",
+  "settingsWipeSubtitle": "Delete local entries and reset app preferences",
+  "settingsProSection": "Patterns Pro",
+  "settingsProActiveTitle": "Patterns Pro is active",
+  "settingsProActiveSubtitle": "Every recovery tool is unlocked. Thank you.",
+  "settingsUnlockProTitle": "Unlock Patterns Pro",
+  "settingsUnlockProSubtitle": "One-time unlock for all recovery tools",
+  "settingsRestorePurchasesTitle": "Restore purchases",
+  "settingsRestorePurchasesSubtitle": "Restore a previous Patterns Pro unlock",
+  "settingsHelpSection": "Help",
+  "settingsReplayTourTitle": "Replay the app tour",
+  "settingsReplayTourSubtitle": "Walk through what each tab does again",
+  "settingsShowWelcomeTitle": "Show the welcome screens",
+  "settingsShowWelcomeSubtitle": "See the introduction next time Patterns opens",
+  "settingsFeedbackSection": "Feedback",
+  "settingsRateTitle": "Rate Patterns",
+  "settingsRateSubtitle": "Tell the store what you think",
+  "settingsSendFeedbackTitle": "Send feedback",
+  "settingsSendFeedbackSubtitle": "Share an idea or tell us what went wrong",
+  "settingsSupportTitle": "Support Patterns",
+  "settingsSupportSubtitle": "Leave an optional tip to support development",
   "appearanceTitle": "Appearance",
   "appearanceSystem": "System",
   "appearanceLight": "Light",
@@ -777,5 +822,113 @@
   },
   "@whatsNewNotificationNote": {
     "description": "Patterns 1.10 in-app announcement copy for whats new notification note. Mention only implemented behavior and preserve the local-data and review gates."
+  },
+  "@settingsDataSection": {
+    "description": "User-facing Patterns interface copy for settings data section."
+  },
+  "@settingsExportDataTitle": {
+    "description": "User-facing Patterns interface copy for settings export data title."
+  },
+  "@settingsExportDataSubtitle": {
+    "description": "User-facing Patterns interface copy for settings export data subtitle."
+  },
+  "@settingsImportDataTitle": {
+    "description": "User-facing Patterns interface copy for settings import data title."
+  },
+  "@settingsImportDataSubtitle": {
+    "description": "User-facing Patterns interface copy for settings import data subtitle."
+  },
+  "@settingsRemindersSection": {
+    "description": "User-facing Patterns interface copy for settings reminders section."
+  },
+  "@settingsDailyReminderTitle": {
+    "description": "User-facing Patterns interface copy for settings daily reminder title."
+  },
+  "@settingsDailyReminderOff": {
+    "description": "User-facing Patterns interface copy for settings daily reminder off."
+  },
+  "@settingsReminderTimeTitle": {
+    "description": "User-facing Patterns interface copy for settings reminder time title."
+  },
+  "@settingsPrivacySection": {
+    "description": "User-facing Patterns interface copy for settings privacy section."
+  },
+  "@settingsPrivacySafetySubtitle": {
+    "description": "User-facing Patterns interface copy for settings privacy safety subtitle."
+  },
+  "@settingsAnalyticsTitle": {
+    "description": "User-facing Patterns interface copy for settings analytics title."
+  },
+  "@settingsAnalyticsSubtitle": {
+    "description": "User-facing Patterns interface copy for settings analytics subtitle."
+  },
+  "@settingsAppLockTitle": {
+    "description": "User-facing Patterns interface copy for settings app lock title."
+  },
+  "@settingsAppLockSubtitle": {
+    "description": "User-facing Patterns interface copy for settings app lock subtitle."
+  },
+  "@settingsWipeTitle": {
+    "description": "User-facing Patterns interface copy for settings wipe title."
+  },
+  "@settingsWipeSubtitle": {
+    "description": "User-facing Patterns interface copy for settings wipe subtitle."
+  },
+  "@settingsProSection": {
+    "description": "User-facing Patterns interface copy for settings pro section."
+  },
+  "@settingsProActiveTitle": {
+    "description": "User-facing Patterns interface copy for settings pro active title."
+  },
+  "@settingsProActiveSubtitle": {
+    "description": "User-facing Patterns interface copy for settings pro active subtitle."
+  },
+  "@settingsUnlockProTitle": {
+    "description": "User-facing Patterns interface copy for settings unlock pro title."
+  },
+  "@settingsUnlockProSubtitle": {
+    "description": "User-facing Patterns interface copy for settings unlock pro subtitle."
+  },
+  "@settingsRestorePurchasesTitle": {
+    "description": "User-facing Patterns interface copy for settings restore purchases title."
+  },
+  "@settingsRestorePurchasesSubtitle": {
+    "description": "User-facing Patterns interface copy for settings restore purchases subtitle."
+  },
+  "@settingsHelpSection": {
+    "description": "User-facing Patterns interface copy for settings help section."
+  },
+  "@settingsReplayTourTitle": {
+    "description": "User-facing Patterns interface copy for settings replay tour title."
+  },
+  "@settingsReplayTourSubtitle": {
+    "description": "User-facing Patterns interface copy for settings replay tour subtitle."
+  },
+  "@settingsShowWelcomeTitle": {
+    "description": "User-facing Patterns interface copy for settings show welcome title."
+  },
+  "@settingsShowWelcomeSubtitle": {
+    "description": "User-facing Patterns interface copy for settings show welcome subtitle."
+  },
+  "@settingsFeedbackSection": {
+    "description": "User-facing Patterns interface copy for settings feedback section."
+  },
+  "@settingsRateTitle": {
+    "description": "User-facing Patterns interface copy for settings rate title."
+  },
+  "@settingsRateSubtitle": {
+    "description": "User-facing Patterns interface copy for settings rate subtitle."
+  },
+  "@settingsSendFeedbackTitle": {
+    "description": "User-facing Patterns interface copy for settings send feedback title."
+  },
+  "@settingsSendFeedbackSubtitle": {
+    "description": "User-facing Patterns interface copy for settings send feedback subtitle."
+  },
+  "@settingsSupportTitle": {
+    "description": "User-facing Patterns interface copy for settings support title."
+  },
+  "@settingsSupportSubtitle": {
+    "description": "User-facing Patterns interface copy for settings support subtitle."
   }
 }
