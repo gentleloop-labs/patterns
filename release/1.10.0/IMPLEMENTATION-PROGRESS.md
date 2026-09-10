@@ -24,12 +24,12 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 | TODAY-02 | Today semantics, large text, Reduced Motion, and non-colour cues | code complete | Localized control/chart semantics, 44-point actions, 200% mobile/desktop reflow, Reduced Motion and explicit day-state tests |
 | TRACK-01 | OCD tracker localization, validation, and accessibility | code complete | Six-locale copy, locale-aware dates, safe CRUD failures, explicit adjustable distress semantics, 44-point controls, large-text and Reduced Motion coverage; 6 focused tests |
 | INSIGHTS-01 | Insights localization and accessible chart alternatives | code complete | Six-locale copy, factual Calm Insights, pressure-metric suppression, localized number/date formatting, chart and heatmap text alternatives, non-colour trend cues, safe errors, 200% reflow, Reduced Motion, and 36 focused/regression tests |
-| RECOVERY-01 | Recovery Hub and ERP tools localization/accessibility | in progress | Recovery Hub complete. Compulsion Delay complete with six-locale setup/timer/reflection copy, non-reassuring language, semantic values/states, large-text reflow, Reduced Motion, save-before-confirmation, safe failure handling, and 34 related passing tests. Guided ERP and remaining tools remain |
+| RECOVERY-01 | Recovery Hub and ERP tools localization/accessibility | in progress | Recovery Hub and Compulsion Delay complete. Guided ERP completion slice now has six-locale neutral timer/reflection copy, semantic intensity/outcome controls, large-text coverage, save-before-confirmation, safe failure handling, and 23 combined completion tests. ERP plan/editor content and remaining tools remain |
 | CONTENT-01 | Stable-ID localized OCD tracks, programs, and Y-BOCS content | pending | — |
 | SETTINGS-01 | Remaining shared settings, privacy, backup, reminders, dialogs, and errors | pending | — |
 | SHELL-01 | Onboarding, What’s New, navigation, spotlight, and shared shell copy | pending | — |
 | COMMERCE-01 | Mobile Pro, tips, macOS StoreKit, and verified Windows/Linux licensing | code complete | Commerce widget/service tests; live desktop release configuration remains pending |
-| AUDIT-01 | Zero reviewed mobile/shared user-facing literal candidates | in progress | Mobile-only scope excludes preserved desktop code; 308 candidates after Compulsion Delay |
+| AUDIT-01 | Zero reviewed mobile/shared user-facing literal candidates | in progress | Mobile-only scope excludes preserved desktop code; 293 candidates after the Guided ERP completion slice |
 
 ## Verification and release gates
 
@@ -50,5 +50,5 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 - Version: `1.10.0+32` (final build number must still be reconciled remotely).
 - Release announcement: `patterns_1_10`.
 - Full Flutter suite after TODAY-02: 229 passing tests; TRACK-01 adds 6 focused tests and the INSIGHTS-01 regression set passes 36 tests pending the next full-suite run.
-- Mobile/shared literal audit: 308 candidates after Compulsion Delay. Preserved desktop code is outside the 1.10 gate.
+- Mobile/shared literal audit: 293 candidates after the Guided ERP completion slice. Preserved desktop code is outside the 1.10 gate.
 - Store drafts: field, locale, and character-limit validation passing; not approved or uploaded.

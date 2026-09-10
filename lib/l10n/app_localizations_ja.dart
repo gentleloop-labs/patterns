@@ -2040,4 +2040,64 @@ class AppLocalizationsJa extends AppLocalizations {
   String delayCustomMinutesValue(int count) {
     return '待つ時間：$count分';
   }
+
+  @override
+  String erpFlowText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'outcomeValidation': '準備ができたら、練習中に何が起きたかを選んでください。',
+      'saveError': 'ERP練習を保存できませんでした。もう一度お試しください。',
+      'stopTitle': '早めに終了しますか？',
+      'stopBody': '終了しても大丈夫です。練習した時間はそのまま記録できます。',
+      'keepGoing': '続ける',
+      'stop': '終了する',
+      'anxietyBefore': '今の衝動や不安の強さは？',
+      'duration': '時間',
+      'start': '練習を始める',
+      'countdownCue': 'しない練習',
+      'resisting': '行わない反応',
+      'countdownBody': 'タイマーが終わる前に、予測が間違いだと証明する必要はありません。',
+      'stopEarly': '早めに終了',
+      'reflectionTitle': '振り返る',
+      'reflectionBody': '以下の記録は任意です。役立つと感じることだけを記録してください。',
+      'anxietyAfter': '今の強さは？',
+      'outcomeQuestion': 'どうしましたか？',
+      'whatHappened': '実際には何が起きましたか？',
+      'whatHappenedHint': '練習中や練習後に気づいたことは？',
+      'learning': '次回のための気づき',
+      'learningHint': '次にOCDが求めてきた時、何を覚えておきたいですか？',
+      'exposure': '曝露',
+      'prediction': '予測',
+      'commitment': '取り組むこと',
+      'saving': '保存中…',
+      'save': '練習を保存',
+      'other': 'ERP練習',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpReflectionStatus(String status) {
+    String _temp0 = intl.Intl.selectLogic(status, {
+      'completed': '予定した時間が終わりました。',
+      'early': 'タイマーを早めに終了しました。',
+      'other': 'タイマーが終わりました。',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpOutcome(String outcome) {
+    String _temp0 = intl.Intl.selectLogic(outcome, {
+      'resisted': '反応をしなかった',
+      'delayed': '反応を先延ばしにした',
+      'performed': '反応をした',
+      'other': '未選択',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpIntensityValue(int value) {
+    return '強さ 10段階中$value';
+  }
 }

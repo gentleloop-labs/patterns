@@ -747,39 +747,28 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Stop early?',
+              context.l10n.erpFlowText('stopTitle'),
               style: Theme.of(
                 sheetContext,
               ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
             ),
             const SizedBox(height: 10),
             Text(
-              'Stopping early is okay. The time you practiced still counts.',
+              context.l10n.erpFlowText('stopBody'),
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.45,
               ),
             ),
             const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: () => Navigator.pop(sheetContext),
-                    child: const Text('Keep going'),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(sheetContext);
-                      _finishTimer(completed: false);
-                    },
-                    child: const Text('Stop'),
-                  ),
-                ),
-              ],
+            _ErpStopActions(
+              keepGoing: context.l10n.erpFlowText('keepGoing'),
+              stop: context.l10n.erpFlowText('stop'),
+              onKeepGoing: () => Navigator.pop(sheetContext),
+              onStop: () {
+                Navigator.pop(sheetContext);
+                _finishTimer(completed: false);
+              },
             ),
           ],
         ),
@@ -791,7 +780,7 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
     if (_outcome == null) {
       showAppSnackBar(
         context,
-        'When you are ready, choose what happened during practice.',
+        context.l10n.erpFlowText('outcomeValidation'),
         type: ToastType.info,
       );
       return;
@@ -815,7 +804,19 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
       learning: _learningController.text.trim(),
       createdAt: DateTime.now(),
     );
-    await ref.read(erpExerciseSessionProvider.notifier).addSession(session);
+    final saved = await ref
+        .read(erpExerciseSessionProvider.notifier)
+        .addSession(session);
+    if (!mounted) return;
+    if (!saved) {
+      setState(() => _saving = false);
+      showAppSnackBar(
+        context,
+        context.l10n.erpFlowText('saveError'),
+        type: ToastType.error,
+      );
+      return;
+    }
     // Milestone only: the exposure text, predictions and reflections stay local.
     AppEvents.logFirstExposureCompleted(ranToCompletion: _completed);
     await ReviewPromptService.recordErpPracticeCompleted();
@@ -887,13 +888,13 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
               ),
               const SizedBox(height: 18),
               _RatingCard(
-                label: 'How strong is the urge or anxiety right now?',
+                label: context.l10n.erpFlowText('anxietyBefore'),
                 value: _anxietyBefore,
                 onChanged: (value) => setState(() => _anxietyBefore = value),
               ),
               const SizedBox(height: 16),
               _CommitmentCard(
-                label: 'Duration',
+                label: context.l10n.erpFlowText('duration'),
                 text: _formatDuration(
                   Duration(seconds: widget.plan.defaultSeconds),
                 ),
@@ -901,7 +902,7 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: _begin,
-                child: const Text('Start practice'),
+                child: Text(context.l10n.erpFlowText('start')),
               ),
             ]),
           ),
@@ -952,7 +953,7 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                'Practice without',
+                                context.l10n.erpFlowText('countdownCue'),
                                 style: TextStyle(
                                   color: context.appColors.textSecondary,
                                 ),
@@ -966,12 +967,12 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
                 ),
                 const SizedBox(height: 26),
                 _CommitmentCard(
-                  label: 'Resisting',
+                  label: context.l10n.erpFlowText('resisting'),
                   text: widget.plan.preventionCommitment,
                 ),
                 const SizedBox(height: 18),
                 Text(
-                  'You do not need to prove the prediction wrong before the timer ends.',
+                  context.l10n.erpFlowText('countdownBody'),
                   textAlign: TextAlign.center,
                   style: _bodyText(theme),
                 ),
@@ -982,7 +983,7 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
             width: double.infinity,
             child: OutlinedButton(
               onPressed: _confirmStop,
-              child: const Text('Stop early'),
+              child: Text(context.l10n.erpFlowText('stopEarly')),
             ),
           ),
         ],
@@ -995,7 +996,7 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
     return Column(
       children: [
         _SimpleHeader(
-          title: 'Reflect',
+          title: context.l10n.erpFlowText('reflectionTitle'),
           onBack: () => setState(() => _phase = _PracticePhase.setup),
         ),
         Expanded(
@@ -1003,7 +1004,9 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
             padding: const EdgeInsets.fromLTRB(20, 6, 20, 28),
             children: staggered([
               Text(
-                _completed ? 'You stayed with it.' : 'You practiced.',
+                context.l10n.erpReflectionStatus(
+                  _completed ? 'completed' : 'early',
+                ),
                 style: theme.textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.w900,
                   height: 1.12,
@@ -1011,7 +1014,7 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
               ),
               const SizedBox(height: 10),
               Text(
-                'Now capture what happened without judging the result.',
+                context.l10n.erpFlowText('reflectionBody'),
                 style: _bodyText(theme),
               ),
               const SizedBox(height: 18),
@@ -1022,13 +1025,13 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
               ),
               const SizedBox(height: 18),
               _RatingCard(
-                label: 'How strong is it now?',
+                label: context.l10n.erpFlowText('anxietyAfter'),
                 value: _anxietyAfter,
                 onChanged: (value) => setState(() => _anxietyAfter = value),
               ),
               const SizedBox(height: 16),
               Text(
-                'What did you do?',
+                context.l10n.erpFlowText('outcomeQuestion'),
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w800,
                 ),
@@ -1041,21 +1044,23 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
               const SizedBox(height: 16),
               _LabeledTextField(
                 controller: _whatHappenedController,
-                label: 'What actually happened?',
-                hint: 'What did you notice during or after the practice?',
+                label: context.l10n.erpFlowText('whatHappened'),
+                hint: context.l10n.erpFlowText('whatHappenedHint'),
                 minLines: 3,
               ),
               const SizedBox(height: 14),
               _LabeledTextField(
                 controller: _learningController,
-                label: 'Learning for next time',
-                hint: 'What do you want to remember the next time OCD asks?',
+                label: context.l10n.erpFlowText('learning'),
+                hint: context.l10n.erpFlowText('learningHint'),
                 minLines: 3,
               ),
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: _saving ? null : _save,
-                child: Text(_saving ? 'Saving...' : 'Save practice'),
+                child: Text(
+                  context.l10n.erpFlowText(_saving ? 'saving' : 'save'),
+                ),
               ),
             ]),
           ),
@@ -1113,14 +1118,17 @@ class _SimpleHeader extends StatelessWidget {
           _RoundIconButton(
             icon: LineIcons.angleLeft,
             onTap: onBack,
-            semanticLabel: 'Back',
+            semanticLabel: context.l10n.backAction,
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              title,
-              style: theme.textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w800,
+            child: Semantics(
+              header: true,
+              child: Text(
+                title,
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
           ),
@@ -1673,13 +1681,22 @@ class _PlanReviewCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _ReviewLine(label: 'Exposure', value: exposure),
+          _ReviewLine(
+            label: context.l10n.erpFlowText('exposure'),
+            value: exposure,
+          ),
           if (prediction.isNotEmpty) ...[
             const SizedBox(height: 10),
-            _ReviewLine(label: 'Prediction', value: prediction),
+            _ReviewLine(
+              label: context.l10n.erpFlowText('prediction'),
+              value: prediction,
+            ),
           ],
           const SizedBox(height: 10),
-          _ReviewLine(label: 'Commitment', value: commitment),
+          _ReviewLine(
+            label: context.l10n.erpFlowText('commitment'),
+            value: commitment,
+          ),
         ],
       ),
     );
@@ -1742,7 +1759,7 @@ class _RatingCard extends StatelessWidget {
           ),
           const SizedBox(height: 6),
           Text(
-            '${value.round()}/10',
+            context.l10n.trackerDistressShortValue(value.round()),
             style: TextStyle(
               color: theme.colorScheme.primary,
               fontSize: 28,
@@ -1757,12 +1774,18 @@ class _RatingCard extends StatelessWidget {
               thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 13),
               overlayShape: const RoundSliderOverlayShape(overlayRadius: 22),
             ),
-            child: Slider(
-              value: value,
-              min: 0,
-              max: 10,
-              divisions: 10,
-              onChanged: onChanged,
+            child: Semantics(
+              label: label,
+              value: context.l10n.erpIntensityValue(value.round()),
+              child: Slider(
+                value: value,
+                min: 0,
+                max: 10,
+                divisions: 10,
+                semanticFormatterCallback: (next) =>
+                    context.l10n.erpIntensityValue(next.round()),
+                onChanged: onChanged,
+              ),
             ),
           ),
         ],
@@ -1864,27 +1887,28 @@ class _OutcomePicker extends StatelessWidget {
 
   const _OutcomePicker({required this.selected, required this.onChanged});
 
-  static const _labels = <DelayOutcome, String>{
-    DelayOutcome.resisted: 'Resisted',
-    DelayOutcome.delayed: 'Delayed',
-    DelayOutcome.performed: 'Did ritual',
-  };
-
   @override
   Widget build(BuildContext context) {
+    final chips = <Widget>[
+      for (final outcome in DelayOutcome.values)
+        _SegmentChip(
+          label: context.l10n.erpOutcome(outcome.name),
+          selected: selected == outcome,
+          onTap: () => onChanged(outcome),
+        ),
+    ];
+    final stacked = MediaQuery.textScalerOf(context).scale(1) > 1.3;
     return Container(
       padding: const EdgeInsets.all(5),
       decoration: _softDecoration(Theme.of(context), radius: 24),
-      child: Row(
-        children: [
-          for (final entry in _labels.entries)
-            _SegmentChip(
-              label: entry.value,
-              selected: selected == entry.key,
-              onTap: () => onChanged(entry.key),
-            ),
-        ],
-      ),
+      child: stacked
+          ? Column(
+              children: [
+                for (final chip in chips)
+                  SizedBox(width: double.infinity, child: chip),
+              ],
+            )
+          : Row(children: [for (final chip in chips) Expanded(child: chip)]),
     );
   }
 }
@@ -1903,27 +1927,37 @@ class _SegmentChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Expanded(
+    return Semantics(
+      button: true,
+      selected: selected,
+      label: label,
+      onTap: onTap,
+      excludeSemantics: true,
       child: InkWell(
         borderRadius: BorderRadius.circular(18),
         onTap: onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 180),
-          alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 4),
-          decoration: BoxDecoration(
-            color: selected ? theme.colorScheme.primary : Colors.transparent,
-            borderRadius: BorderRadius.circular(18),
-          ),
-          child: Text(
-            label,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: selected
-                  ? theme.colorScheme.onPrimary
-                  : context.appColors.textSecondary,
-              fontWeight: FontWeight.w800,
-              fontSize: 12,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 44),
+          child: AnimatedContainer(
+            duration: motionDisabled(context)
+                ? Duration.zero
+                : const Duration(milliseconds: 180),
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 4),
+            decoration: BoxDecoration(
+              color: selected ? theme.colorScheme.primary : Colors.transparent,
+              borderRadius: BorderRadius.circular(18),
+            ),
+            child: Text(
+              label,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: selected
+                    ? theme.colorScheme.onPrimary
+                    : context.appColors.textSecondary,
+                fontWeight: FontWeight.w800,
+                fontSize: 12,
+              ),
             ),
           ),
         ),
@@ -1988,6 +2022,41 @@ class _RoundIconButton extends StatelessWidget {
           child: Icon(icon, size: 18, color: theme.colorScheme.onSurface),
         ),
       ),
+    );
+  }
+}
+
+class _ErpStopActions extends StatelessWidget {
+  final String keepGoing;
+  final String stop;
+  final VoidCallback onKeepGoing;
+  final VoidCallback onStop;
+
+  const _ErpStopActions({
+    required this.keepGoing,
+    required this.stop,
+    required this.onKeepGoing,
+    required this.onStop,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final buttons = <Widget>[
+      OutlinedButton(onPressed: onKeepGoing, child: Text(keepGoing)),
+      ElevatedButton(onPressed: onStop, child: Text(stop)),
+    ];
+    if (MediaQuery.textScalerOf(context).scale(1) > 1.3) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [buttons.first, const SizedBox(height: 12), buttons.last],
+      );
+    }
+    return Row(
+      children: [
+        Expanded(child: buttons.first),
+        const SizedBox(width: 12),
+        Expanded(child: buttons.last),
+      ],
     );
   }
 }

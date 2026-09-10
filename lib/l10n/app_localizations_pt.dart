@@ -2281,6 +2281,71 @@ class AppLocalizationsPt extends AppLocalizations {
     );
     return 'Espera personalizada: $_temp0';
   }
+
+  @override
+  String erpFlowText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'outcomeValidation':
+          'Quando quiser, escolha o que aconteceu durante a prática.',
+      'saveError':
+          'Não foi possível salvar sua prática de ERP. Tente novamente.',
+      'stopTitle': 'Parar antes?',
+      'stopBody':
+          'Tudo bem parar. O tempo que você praticou ainda pode ser registrado.',
+      'keepGoing': 'Continuar',
+      'stop': 'Parar',
+      'anxietyBefore': 'Qual é a intensidade do impulso ou da ansiedade agora?',
+      'duration': 'Duração',
+      'start': 'Começar prática',
+      'countdownCue': 'Pratique sem',
+      'resisting': 'Resposta que você não está fazendo',
+      'countdownBody':
+          'Você não precisa provar que a previsão está errada antes de o cronômetro terminar.',
+      'stopEarly': 'Parar antes',
+      'reflectionTitle': 'Refletir',
+      'reflectionBody':
+          'Os detalhes abaixo são opcionais. Registre apenas o que parecer útil.',
+      'anxietyAfter': 'Qual é a intensidade agora?',
+      'outcomeQuestion': 'O que você fez?',
+      'whatHappened': 'O que realmente aconteceu?',
+      'whatHappenedHint': 'O que você percebeu durante ou depois da prática?',
+      'learning': 'Para a próxima vez',
+      'learningHint': 'O que você quer lembrar na próxima vez que o OCD pedir?',
+      'exposure': 'Exposição',
+      'prediction': 'Previsão',
+      'commitment': 'Compromisso',
+      'saving': 'Salvando…',
+      'save': 'Salvar prática',
+      'other': 'Prática de ERP',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpReflectionStatus(String status) {
+    String _temp0 = intl.Intl.selectLogic(status, {
+      'completed': 'O tempo planejado terminou.',
+      'early': 'Você encerrou o cronômetro antes.',
+      'other': 'O cronômetro terminou.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpOutcome(String outcome) {
+    String _temp0 = intl.Intl.selectLogic(outcome, {
+      'resisted': 'Não fiz a resposta',
+      'delayed': 'Adiei a resposta',
+      'performed': 'Fiz a resposta',
+      'other': 'Não selecionado',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpIntensityValue(int value) {
+    return 'Intensidade $value de 10';
+  }
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -4559,5 +4624,70 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       one: '1 minuto',
     );
     return 'Espera personalizada: $_temp0';
+  }
+
+  @override
+  String erpFlowText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'outcomeValidation':
+          'Quando quiser, escolha o que aconteceu durante a prática.',
+      'saveError':
+          'Não foi possível salvar sua prática de ERP. Tente novamente.',
+      'stopTitle': 'Parar antes?',
+      'stopBody':
+          'Tudo bem parar. O tempo que você praticou ainda pode ser registrado.',
+      'keepGoing': 'Continuar',
+      'stop': 'Parar',
+      'anxietyBefore': 'Qual é a intensidade do impulso ou da ansiedade agora?',
+      'duration': 'Duração',
+      'start': 'Começar prática',
+      'countdownCue': 'Pratique sem',
+      'resisting': 'Resposta que você não está fazendo',
+      'countdownBody':
+          'Você não precisa provar que a previsão está errada antes de o cronômetro terminar.',
+      'stopEarly': 'Parar antes',
+      'reflectionTitle': 'Refletir',
+      'reflectionBody':
+          'Os detalhes abaixo são opcionais. Registre apenas o que parecer útil.',
+      'anxietyAfter': 'Qual é a intensidade agora?',
+      'outcomeQuestion': 'O que você fez?',
+      'whatHappened': 'O que realmente aconteceu?',
+      'whatHappenedHint': 'O que você percebeu durante ou depois da prática?',
+      'learning': 'Para a próxima vez',
+      'learningHint': 'O que você quer lembrar na próxima vez que o OCD pedir?',
+      'exposure': 'Exposição',
+      'prediction': 'Previsão',
+      'commitment': 'Compromisso',
+      'saving': 'Salvando…',
+      'save': 'Salvar prática',
+      'other': 'Prática de ERP',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpReflectionStatus(String status) {
+    String _temp0 = intl.Intl.selectLogic(status, {
+      'completed': 'O tempo planejado terminou.',
+      'early': 'Você encerrou o cronômetro antes.',
+      'other': 'O cronômetro terminou.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpOutcome(String outcome) {
+    String _temp0 = intl.Intl.selectLogic(outcome, {
+      'resisted': 'Não fiz a resposta',
+      'delayed': 'Adiei a resposta',
+      'performed': 'Fiz a resposta',
+      'other': 'Não selecionado',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpIntensityValue(int value) {
+    return 'Intensidade $value de 10';
   }
 }

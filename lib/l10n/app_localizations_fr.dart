@@ -2294,4 +2294,71 @@ class AppLocalizationsFr extends AppLocalizations {
     );
     return 'Report personnalisé : $_temp0';
   }
+
+  @override
+  String erpFlowText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'outcomeValidation':
+          'Quand vous êtes prêt, choisissez ce qui s’est passé pendant l’exercice.',
+      'saveError':
+          'Votre exercice d’ERP n’a pas pu être enregistré. Réessayez.',
+      'stopTitle': 'Arrêter plus tôt ?',
+      'stopBody':
+          'Vous pouvez vous arrêter. Le temps d’exercice peut tout de même être enregistré.',
+      'keepGoing': 'Continuer',
+      'stop': 'Arrêter',
+      'anxietyBefore':
+          'Quelle est l’intensité de l’envie ou de l’anxiété maintenant ?',
+      'duration': 'Durée',
+      'start': 'Commencer l’exercice',
+      'countdownCue': 'S’exercer sans',
+      'resisting': 'Réponse que vous ne faites pas',
+      'countdownBody':
+          'Vous n’avez pas besoin de prouver que la prédiction est fausse avant la fin du minuteur.',
+      'stopEarly': 'Arrêter plus tôt',
+      'reflectionTitle': 'Réfléchir',
+      'reflectionBody':
+          'Les détails ci-dessous sont facultatifs. Notez uniquement ce qui vous est utile.',
+      'anxietyAfter': 'Quelle est son intensité maintenant ?',
+      'outcomeQuestion': 'Qu’avez-vous fait ?',
+      'whatHappened': 'Que s’est-il réellement passé ?',
+      'whatHappenedHint': 'Qu’avez-vous remarqué pendant ou après l’exercice ?',
+      'learning': 'Pour la prochaine fois',
+      'learningHint':
+          'Que voulez-vous garder en tête la prochaine fois que l’OCD demande ?',
+      'exposure': 'Exposition',
+      'prediction': 'Prédiction',
+      'commitment': 'Engagement',
+      'saving': 'Enregistrement…',
+      'save': 'Enregistrer l’exercice',
+      'other': 'Exercice d’ERP',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpReflectionStatus(String status) {
+    String _temp0 = intl.Intl.selectLogic(status, {
+      'completed': 'Le temps prévu est terminé.',
+      'early': 'Vous avez arrêté le minuteur plus tôt.',
+      'other': 'Le minuteur est terminé.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpOutcome(String outcome) {
+    String _temp0 = intl.Intl.selectLogic(outcome, {
+      'resisted': 'Je n’ai pas fait la réponse',
+      'delayed': 'J’ai reporté la réponse',
+      'performed': 'J’ai fait la réponse',
+      'other': 'Non sélectionné',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpIntensityValue(int value) {
+    return 'Intensité $value sur 10';
+  }
 }
