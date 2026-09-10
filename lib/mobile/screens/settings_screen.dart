@@ -589,7 +589,11 @@ class SettingsScreen extends ConsumerWidget {
   Future<void> _restorePurchases(BuildContext context, WidgetRef ref) async {
     AppEvents.logRestoreStarted(ProEntryPoint.settings);
     final messenger = ScaffoldMessenger.of(context);
-    showAppSnackBar(context, 'Checking your purchases…', type: ToastType.info);
+    showAppSnackBar(
+      context,
+      context.l10n.proRestoreChecking,
+      type: ToastType.info,
+    );
 
     final completer = Completer<ProEvent?>();
     final sub = ProService.events.listen((event) {
@@ -613,18 +617,21 @@ class SettingsScreen extends ConsumerWidget {
         ref.read(proProvider.notifier).refresh();
         showAppSnackBar(
           context,
-          'Patterns Pro restored. Every recovery tool is unlocked again.',
+          context.l10n.proRestoreSucceeded,
           type: ToastType.success,
         );
       } else if (event is ProError) {
         AppEvents.logRestoreFailed(ProEntryPoint.settings);
-        showAppSnackBar(context, event.message, type: ToastType.error);
+        showAppSnackBar(
+          context,
+          context.l10n.proPaywallRestoreFailed,
+          type: ToastType.error,
+        );
       } else {
         AppEvents.logRestoreNotFound(ProEntryPoint.settings);
         showAppSnackBar(
           context,
-          'No previous purchase found on this account. If you bought Pro with '
-          'a different account, sign in with that one and try again.',
+          context.l10n.proPaywallRestoreNotFound,
           type: ToastType.info,
         );
       }
@@ -634,7 +641,7 @@ class SettingsScreen extends ConsumerWidget {
       messenger.hideCurrentSnackBar();
       showAppSnackBar(
         context,
-        'Could not reach the store. Please try again.',
+        context.l10n.proPaywallRestoreFailed,
         type: ToastType.error,
       );
     } finally {

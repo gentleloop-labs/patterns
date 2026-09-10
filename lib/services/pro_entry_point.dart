@@ -1,3 +1,5 @@
+import '../l10n/app_localizations.dart';
+
 enum ProEntryPoint {
   settings,
   todayNextStep,
@@ -31,62 +33,61 @@ extension ProEntryPointCopy on ProEntryPoint {
     ProEntryPoint.reflectionJournal => 'reflection_journal',
   };
 
-  String get headline => switch (this) {
-    ProEntryPoint.todayNextStep => 'Keep building on today’s progress',
-    ProEntryPoint.recoveryMetrics => 'See how your practice is changing',
-    ProEntryPoint.exposureHierarchy => 'Build a clear exposure ladder',
-    ProEntryPoint.exposureMaterials => 'Keep practice materials together',
-    ProEntryPoint.structuredPrograms => 'Turn recovery into a routine',
-    ProEntryPoint.actionPlanner => 'Plan your response before OCD arrives',
-    ProEntryPoint.implementationIntentions => 'Make your next choice easier',
-    ProEntryPoint.urgeSurfing => 'Practice riding out the urge',
-    ProEntryPoint.responsePrevention => 'Track the response you chose',
-    ProEntryPoint.uncertaintyTraining => 'Practice making room for maybe',
-    ProEntryPoint.behavioralExperiments => 'Test OCD’s predictions',
-    ProEntryPoint.reflectionJournal => 'Capture what each practice taught you',
-    ProEntryPoint.settings => 'Move beyond tracking and practise recovery',
+  String headline(AppLocalizations strings) => switch (this) {
+    ProEntryPoint.todayNextStep => strings.proHeadlineTodayNextStep,
+    ProEntryPoint.recoveryMetrics => strings.proHeadlineRecoveryMetrics,
+    ProEntryPoint.exposureHierarchy => strings.proHeadlineExposureHierarchy,
+    ProEntryPoint.exposureMaterials => strings.proHeadlineExposureMaterials,
+    ProEntryPoint.structuredPrograms => strings.proHeadlineStructuredPrograms,
+    ProEntryPoint.actionPlanner => strings.proHeadlineActionPlanner,
+    ProEntryPoint.implementationIntentions =>
+      strings.proHeadlineImplementationIntentions,
+    ProEntryPoint.urgeSurfing => strings.proHeadlineUrgeSurfing,
+    ProEntryPoint.responsePrevention => strings.proHeadlineResponsePrevention,
+    ProEntryPoint.uncertaintyTraining => strings.proHeadlineUncertaintyTraining,
+    ProEntryPoint.behavioralExperiments =>
+      strings.proHeadlineBehavioralExperiments,
+    ProEntryPoint.reflectionJournal => strings.proHeadlineReflectionJournal,
+    ProEntryPoint.settings => strings.proHeadlineSettings,
   };
 
-  List<String> get benefits => switch (this) {
-    ProEntryPoint.recoveryMetrics => const [
-      'Follow practice consistency over time',
-      'Notice change without judging individual days',
-      'Review deeper recovery patterns',
+  List<String> benefits(AppLocalizations strings) => switch (this) {
+    ProEntryPoint.recoveryMetrics => [
+      strings.proBenefitMetricsActivity,
+      strings.proBenefitMetricsNonjudgmental,
+      strings.proBenefitMetricsPatterns,
     ],
-    ProEntryPoint.exposureHierarchy ||
-    ProEntryPoint.exposureMaterials => const [
-      'Organize steps from gentler to harder',
-      'Keep scripts, loop tapes, images, and links nearby',
-      'Turn a plan into repeatable practice',
+    ProEntryPoint.exposureHierarchy || ProEntryPoint.exposureMaterials => [
+      strings.proBenefitExposureLadder,
+      strings.proBenefitExposureMaterials,
+      strings.proBenefitExposureRepeatable,
     ],
-    ProEntryPoint.structuredPrograms => const [
-      'Follow a calm week-by-week structure',
-      'Keep practice tasks in one place',
-      'Review what helped as you progress',
+    ProEntryPoint.structuredPrograms => [
+      strings.proBenefitProgramsStructure,
+      strings.proBenefitProgramsTasks,
+      strings.proBenefitProgramsReview,
     ],
-    ProEntryPoint.actionPlanner ||
-    ProEntryPoint.implementationIntentions => const [
-      'Choose a response before the hard moment',
-      'Create practical if-then plans',
-      'Return to the plan when uncertainty rises',
+    ProEntryPoint.actionPlanner || ProEntryPoint.implementationIntentions => [
+      strings.proBenefitPlanningAhead,
+      strings.proBenefitPlanningIfThen,
+      strings.proBenefitPlanningReturn,
     ],
     ProEntryPoint.urgeSurfing ||
     ProEntryPoint.responsePrevention ||
-    ProEntryPoint.uncertaintyTraining => const [
-      'Use focused practice tools in the moment',
-      'Record choices without writing sensitive details',
-      'Build tolerance through repeatable reps',
+    ProEntryPoint.uncertaintyTraining => [
+      strings.proBenefitInMomentTools,
+      strings.proBenefitInMomentPrivacy,
+      strings.proBenefitInMomentRepetition,
     ],
-    ProEntryPoint.behavioralExperiments ||
-    ProEntryPoint.reflectionJournal => const [
-      'Compare predictions with what happened',
-      'Capture learning after practice',
-      'Spot useful patterns over time',
+    ProEntryPoint.behavioralExperiments || ProEntryPoint.reflectionJournal => [
+      strings.proBenefitReflectionCompare,
+      strings.proBenefitReflectionCapture,
+      strings.proBenefitReflectionPatterns,
     ],
-    ProEntryPoint.settings || ProEntryPoint.todayNextStep => const [
-      'Build exposure ladders and practice plans',
-      'Use focused response-prevention tools',
-      'Review recovery metrics and reflections',
+    ProEntryPoint.settings || ProEntryPoint.todayNextStep => [
+      strings.proBenefitGeneralPlans,
+      strings.proBenefitGeneralResponsePrevention,
+      strings.proBenefitGeneralReview,
     ],
   };
 }

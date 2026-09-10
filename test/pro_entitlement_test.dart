@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:patterns/app_preferences.dart';
+import 'package:patterns/l10n/app_localizations.dart';
+import 'package:patterns/services/pro_entry_point.dart';
 import 'package:patterns/services/pro_service.dart';
 import 'package:patterns/theme/app_theme.dart';
 import 'package:patterns/widgets/paywall_sheet.dart';
@@ -196,7 +199,16 @@ void main() {
 
       await tester.pumpWidget(
         const ProviderScope(
-          child: MaterialApp(home: Scaffold(body: PaywallSheet())),
+          child: MaterialApp(
+            supportedLocales: AppLocalizations.supportedLocales,
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            home: Scaffold(body: PaywallSheet()),
+          ),
         ),
       );
       await tester.pump();
@@ -206,6 +218,67 @@ void main() {
       // something they already paid for.
       expect(find.textContaining('Already bought Pro'), findsOneWidget);
       expect(find.text('Restore'), findsOneWidget);
+    });
+
+    testWidgets('the mobile paywall follows the active locale', (tester) async {
+      await tester.binding.setSurfaceSize(const Size(1200, 2400));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+
+      await tester.pumpWidget(
+        const ProviderScope(
+          child: MaterialApp(
+            locale: Locale('ja'),
+            supportedLocales: AppLocalizations.supportedLocales,
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            home: Scaffold(
+              body: PaywallSheet(entryPoint: ProEntryPoint.recoveryMetrics),
+            ),
+          ),
+        ),
+      );
+      await tester.pump();
+
+      expect(find.text('リカバリー活動を確認する'), findsOneWidget);
+      expect(find.text('すでにProを購入済みですか？再度請求されることはありません。'), findsOneWidget);
+      expect(find.text('復元'), findsOneWidget);
+    });
+
+    testWidgets('long localized paywall copy reflows at 200% text size', (
+      tester,
+    ) async {
+      await tester.binding.setSurfaceSize(const Size(390, 844));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+
+      await tester.pumpWidget(
+        const ProviderScope(
+          child: MaterialApp(
+            locale: Locale('de'),
+            supportedLocales: AppLocalizations.supportedLocales,
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            home: MediaQuery(
+              data: MediaQueryData(textScaler: TextScaler.linear(2)),
+              child: Scaffold(
+                body: PaywallSheet(entryPoint: ProEntryPoint.recoveryMetrics),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pump();
+
+      expect(find.byType(SingleChildScrollView), findsOneWidget);
+      expect(find.text('Ihre Recovery-Aktivitäten ansehen'), findsOneWidget);
+      expect(tester.takeException(), isNull);
     });
   });
 }

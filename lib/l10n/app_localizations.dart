@@ -1372,6 +1372,348 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Close'**
   String get closeAction;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Patterns Pro'**
+  String get proPaywallTitle;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Also includes every Pro planning, practice, metrics, and reflection tool.'**
+  String get proPaywallIncludedTools;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Already bought Pro? You will not be charged again.'**
+  String get proPaywallAlreadyPurchased;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get proPaywallTryAgainAction;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchases'**
+  String get proPaywallRestorePurchasesAction;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get proPaywallRestoreShortAction;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock Pro'**
+  String get proPaywallUnlockAction;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock Pro · {price}'**
+  String proPaywallUnlockWithPrice(String price);
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'In-app purchases are unavailable on this device.'**
+  String get proPaywallPurchasesUnavailable;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Patterns Pro is not available right now. Please try again later.'**
+  String get proPaywallProductUnavailable;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load Patterns Pro. Please try again later.'**
+  String get proPaywallProductLoadFailed;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not start the purchase.'**
+  String get proPaywallPurchaseStartFailed;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'The purchase could not be completed. Please try again.'**
+  String get proPaywallPurchaseFailed;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'No previous purchase was found on this account. If you bought Pro with a different account, sign in with that account and try again.'**
+  String get proPaywallRestoreNotFound;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchases could not be restored. Please try again.'**
+  String get proPaywallRestoreFailed;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back'**
+  String get proPaywallWelcomeBack;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re all set'**
+  String get proPaywallAllSet;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Patterns Pro has been restored on this device.'**
+  String get proPaywallRestoredBody;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Patterns Pro is unlocked. Every recovery tool is now available.'**
+  String get proPaywallUnlockedBody;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get proPaywallContinueAction;
+
+  /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Patterns Pro'**
+  String get proPaywallLoadingLabel;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Move beyond tracking and practise recovery'**
+  String get proHeadlineSettings;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Build on today’s practice'**
+  String get proHeadlineTodayNextStep;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Review your recovery activity'**
+  String get proHeadlineRecoveryMetrics;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Build a clear exposure ladder'**
+  String get proHeadlineExposureHierarchy;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep practice materials together'**
+  String get proHeadlineExposureMaterials;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn recovery into a routine'**
+  String get proHeadlineStructuredPrograms;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan your response before OCD arrives'**
+  String get proHeadlineActionPlanner;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Make your next choice easier'**
+  String get proHeadlineImplementationIntentions;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise riding out the urge'**
+  String get proHeadlineUrgeSurfing;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Record the response you chose'**
+  String get proHeadlineResponsePrevention;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise making room for maybe'**
+  String get proHeadlineUncertaintyTraining;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Test OCD’s predictions'**
+  String get proHeadlineBehavioralExperiments;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Capture what each practice taught you'**
+  String get proHeadlineReflectionJournal;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Build exposure ladders and practice plans'**
+  String get proBenefitGeneralPlans;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Use focused response-prevention tools'**
+  String get proBenefitGeneralResponsePrevention;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Review recovery activity and reflections'**
+  String get proBenefitGeneralReview;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Review practice activity over time'**
+  String get proBenefitMetricsActivity;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'See recorded activity without judging individual days'**
+  String get proBenefitMetricsNonjudgmental;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore factual recovery patterns'**
+  String get proBenefitMetricsPatterns;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Organize steps from gentler to harder'**
+  String get proBenefitExposureLadder;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep scripts, loop tapes, images, and links nearby'**
+  String get proBenefitExposureMaterials;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn a plan into repeatable practice'**
+  String get proBenefitExposureRepeatable;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow a calm week-by-week structure'**
+  String get proBenefitProgramsStructure;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep practice tasks in one place'**
+  String get proBenefitProgramsTasks;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Review what helped as you continue'**
+  String get proBenefitProgramsReview;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a response before the hard moment'**
+  String get proBenefitPlanningAhead;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Create practical if-then plans'**
+  String get proBenefitPlanningIfThen;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Return to the plan when uncertainty rises'**
+  String get proBenefitPlanningReturn;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Use focused practice tools in the moment'**
+  String get proBenefitInMomentTools;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Record choices without writing sensitive details'**
+  String get proBenefitInMomentPrivacy;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Build tolerance through repeatable practice'**
+  String get proBenefitInMomentRepetition;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Compare predictions with what happened'**
+  String get proBenefitReflectionCompare;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Capture learning after practice'**
+  String get proBenefitReflectionCapture;
+
+  /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Notice useful patterns over time'**
+  String get proBenefitReflectionPatterns;
+
+  /// Patterns Pro restore status shown while the store checks the current account.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking your purchases…'**
+  String get proRestoreChecking;
+
+  /// Patterns Pro restore success confirmation. Do not imply a new charge or treatment outcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Patterns Pro restored. Every recovery tool is unlocked again.'**
+  String get proRestoreSucceeded;
 }
 
 class _AppLocalizationsDelegate
