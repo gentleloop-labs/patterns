@@ -2,40 +2,22 @@
   "release": "1.10.0",
   "sourceLocale": "en",
   "requiredInAppLocales": ["en", "pt-BR", "de", "ja", "es", "fr"],
-  "requiredStorefrontLocales": [
-    "en-US",
-    "en-GB",
-    "en-CA",
-    "en-AU",
-    "pt-BR",
-    "de-DE",
-    "ja",
-    "es-MX",
-    "es-ES",
-    "fr-FR",
-    "fr-CA"
-  ],
+  "requiredStorefrontLocales": {
+    "appStore": ["en-US", "en-GB", "en-CA", "en-AU", "pt-BR", "de-DE", "ja", "es-MX", "es-ES", "fr-FR", "fr-CA"],
+    "googlePlay": ["en-US", "en-GB", "en-CA", "en-AU", "pt-BR", "de-DE", "ja-JP", "es-419", "es-ES", "fr-FR", "fr-CA"]
+  },
   "reviews": {
-    "en": {"copyFrozen": false, "clinical": false, "privacy": false, "accessibility": false},
-    "pt-BR": {"copyFrozen": false, "clinical": false, "privacy": false, "accessibility": false},
-    "de": {"copyFrozen": false, "clinical": false, "privacy": false, "accessibility": false},
-    "ja": {"copyFrozen": false, "clinical": false, "privacy": false, "accessibility": false},
-    "es": {"copyFrozen": false, "clinical": false, "privacy": false, "accessibility": false},
-    "fr": {"copyFrozen": false, "clinical": false, "privacy": false, "accessibility": false}
+    "en": {"reviewMethod": "ai_assisted", "passes": {"copyFrozen": false, "contextAwareTranslation": false, "linguisticConsistencyAndBackTranslation": false, "clinicalCrisisPrivacyPaymentAccessibility": false, "placeholdersPluralsFormattingTerminology": false, "renderedMobileLayout": false}, "identifiedRevisions": [], "unresolvedRisks": ["English mobile copy is not frozen."], "physicalDeviceQa": {"ios": false, "android": false}, "releaseOwnerApproved": false},
+    "pt-BR": {"reviewMethod": "ai_assisted", "passes": {"copyFrozen": false, "contextAwareTranslation": false, "linguisticConsistencyAndBackTranslation": false, "clinicalCrisisPrivacyPaymentAccessibility": false, "placeholdersPluralsFormattingTerminology": false, "renderedMobileLayout": false}, "identifiedRevisions": [], "unresolvedRisks": ["Full mobile translation and guarded review are incomplete."], "physicalDeviceQa": {"ios": false, "android": false}, "releaseOwnerApproved": false},
+    "de": {"reviewMethod": "ai_assisted", "passes": {"copyFrozen": false, "contextAwareTranslation": false, "linguisticConsistencyAndBackTranslation": false, "clinicalCrisisPrivacyPaymentAccessibility": false, "placeholdersPluralsFormattingTerminology": false, "renderedMobileLayout": false}, "identifiedRevisions": [], "unresolvedRisks": ["Full mobile translation and guarded review are incomplete."], "physicalDeviceQa": {"ios": false, "android": false}, "releaseOwnerApproved": false},
+    "ja": {"reviewMethod": "ai_assisted", "passes": {"copyFrozen": false, "contextAwareTranslation": false, "linguisticConsistencyAndBackTranslation": false, "clinicalCrisisPrivacyPaymentAccessibility": false, "placeholdersPluralsFormattingTerminology": false, "renderedMobileLayout": false}, "identifiedRevisions": [], "unresolvedRisks": ["Full mobile translation and guarded review are incomplete."], "physicalDeviceQa": {"ios": false, "android": false}, "releaseOwnerApproved": false},
+    "es": {"reviewMethod": "ai_assisted", "passes": {"copyFrozen": false, "contextAwareTranslation": false, "linguisticConsistencyAndBackTranslation": false, "clinicalCrisisPrivacyPaymentAccessibility": false, "placeholdersPluralsFormattingTerminology": false, "renderedMobileLayout": false}, "identifiedRevisions": [], "unresolvedRisks": ["Full mobile translation and guarded review are incomplete."], "physicalDeviceQa": {"ios": false, "android": false}, "releaseOwnerApproved": false},
+    "fr": {"reviewMethod": "ai_assisted", "passes": {"copyFrozen": false, "contextAwareTranslation": false, "linguisticConsistencyAndBackTranslation": false, "clinicalCrisisPrivacyPaymentAccessibility": false, "placeholdersPluralsFormattingTerminology": false, "renderedMobileLayout": false}, "identifiedRevisions": [], "unresolvedRisks": ["Full mobile translation and guarded review are incomplete."], "physicalDeviceQa": {"ios": false, "android": false}, "releaseOwnerApproved": false}
   },
-  "storefrontReviews": {
-    "en-US": false,
-    "en-GB": false,
-    "en-CA": false,
-    "en-AU": false,
-    "pt-BR": false,
-    "de-DE": false,
-    "ja": false,
-    "es-MX": false,
-    "es-ES": false,
-    "fr-FR": false,
-    "fr-CA": false
+  "storefrontReviews": {"appStore": {}, "googlePlay": {}},
+  "physicalDeviceQa": {
+    "ios": {"voiceOver": false, "maximumTextAndDisplayScale": false, "reducedMotion": false, "nonColour": false, "lightDarkPortraitLandscape": false, "purchasesAndRestore": false},
+    "android": {"talkBack": false, "maximumFontAndDisplayScale": false, "reducedMotion": false, "nonColour": false, "lightDarkPortraitLandscape": false, "purchasesAndRestore": false}
   },
-  "physicalIphoneAccessibilityVerified": false,
-  "approvedByReleaseOwner": false
+  "releaseOwnerApproval": false
 }

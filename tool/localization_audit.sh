@@ -1,9 +1,31 @@
 #!/bin/sh
 set -eu
 
-mode=${1:-check}
-if [ "$mode" != "check" ] && [ "$mode" != "--report" ]; then
-  echo "usage: $0 [check|--report]" >&2
+mode=check
+scope=mobile
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    check|--report)
+      mode=$1
+      ;;
+    --scope)
+      shift
+      if [ "$#" -eq 0 ]; then
+        echo "localization audit: --scope requires mobile or all" >&2
+        exit 2
+      fi
+      scope=$1
+      ;;
+    *)
+      echo "usage: $0 [check|--report] [--scope mobile|all]" >&2
+      exit 2
+      ;;
+  esac
+  shift
+done
+
+if [ "$scope" != "mobile" ] && [ "$scope" != "all" ]; then
+  echo "localization audit: scope must be mobile or all" >&2
   exit 2
 fi
 
@@ -18,11 +40,27 @@ cd "$workspace"
 # This is intentionally a conservative heuristic. It covers common Flutter
 # presentation sites and all built-in clinical/content definitions. False
 # positives must be documented in the allowlist with a narrow path/text rule.
-rg -n \
-  --glob '!lib/l10n/**' \
-  --glob '*.dart' \
-  "(?:Text|SelectableText|Tooltip|Semantics)\\(\\s*(?:const\\s*)?['\"]|(?:labelText|hintText|helperText|tooltip|semanticLabel|title|subtitle|content|message|label):\\s*(?:const\\s*)?['\"]" \
-  lib >"$candidates" || true
+pattern="(?:Text|SelectableText|Tooltip|Semantics)\\(\\s*(?:const\\s*)?['\"]|(?:labelText|hintText|helperText|tooltip|semanticLabel|title|subtitle|content|message|label):\\s*(?:const\\s*)?['\"]"
+
+if [ "$scope" = "mobile" ]; then
+  # `lib/screens/**` is the legacy desktop shell's shared screen set. The
+  # dedicated mobile shell imports `lib/mobile/screens/**` instead.
+  rg -n \
+    --glob '!lib/l10n/**' \
+    --glob '!lib/desktop/**' \
+    --glob '!lib/screens/**' \
+    --glob '!lib/services/desktop_license_service.dart' \
+    --glob '!lib/services/desktop_purchase_service.dart' \
+    --glob '*.dart' \
+    "$pattern" \
+    lib >"$candidates" || true
+else
+  rg -n \
+    --glob '!lib/l10n/**' \
+    --glob '*.dart' \
+    "$pattern" \
+    lib >"$candidates" || true
+fi
 
 awk '
   FNR == NR {
@@ -44,8 +82,8 @@ awk '
 count=$(wc -l <"$unreviewed" | tr -d ' ')
 if [ "$count" -gt 0 ]; then
   cat "$unreviewed"
-  echo "Localization audit: $count unreviewed user-facing literal candidate(s)." >&2
+  echo "Localization audit ($scope scope): $count unreviewed user-facing literal candidate(s)." >&2
   if [ "$mode" = "check" ]; then exit 1; fi
 else
-  echo "Localization audit: zero unreviewed user-facing literals."
+  echo "Localization audit ($scope scope): zero unreviewed user-facing literals."
 fi
