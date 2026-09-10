@@ -30,7 +30,7 @@ Every current English ARB message has translator context, and ARB message,
 metadata, placeholder, and selector parity passes across the six languages.
 Full-product copy is not frozen: the main mobile Settings surface is now
 localized and covered by a Japanese widget test, while the conservative
-literal audit still reports 598 candidates that must be localized or narrowly
+literal audit still reports 597 candidates that must be localized or narrowly
 reviewed before production.
 
 ## IAP resource plan

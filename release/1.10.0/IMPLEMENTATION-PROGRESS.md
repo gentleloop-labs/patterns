@@ -21,7 +21,7 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 | JOURNAL-01 | Mobile journal list/editor localization and accessibility | code complete | Six-locale copy, localized dates, safe errors, editor semantics, large-text/reduced-motion tests |
 | JOURNAL-02 | Shared desktop journal localization and accessibility | code complete | Six-locale copy, localized dates/times, safe errors, keyboard-accessible entries, selectable reader, 200% text test |
 | TODAY-01 | Today first-run and established-state localization | code complete | Six-locale first-run, established, Calm Insights, recommendation, and desktop coverage; locale widget tests |
-| TODAY-02 | Today semantics, large text, Reduced Motion, and non-colour cues | in progress | Mobile and desktop Today surfaces under active implementation |
+| TODAY-02 | Today semantics, large text, Reduced Motion, and non-colour cues | code complete | Localized control/chart semantics, 44-point actions, 200% mobile/desktop reflow, Reduced Motion and explicit day-state tests |
 | TRACK-01 | OCD tracker localization, validation, and accessibility | pending | — |
 | INSIGHTS-01 | Insights localization and accessible chart alternatives | pending | — |
 | RECOVERY-01 | Recovery Hub and ERP tools localization/accessibility | pending | — |
@@ -49,6 +49,6 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 
 - Version: `1.10.0+32` (final build number must still be reconciled remotely).
 - Release announcement: `patterns_1_10`.
-- Full Flutter suite after JOURNAL-02: 224 passing tests.
-- Literal audit: 598 candidates after TODAY-01, down from 652.
+- Full Flutter suite after TODAY-02: 229 passing tests.
+- Literal audit: 597 candidates after TODAY-02, down from 652.
 - Store drafts: field, locale, and character-limit validation passing; not approved or uploaded.

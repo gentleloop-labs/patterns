@@ -150,23 +150,28 @@ class DesktopHomeScreen extends ConsumerWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.wb_sunny_outlined,
-                    size: 38,
-                    color: theme.colorScheme.primary,
+                  ExcludeSemantics(
+                    child: Icon(
+                      Icons.wb_sunny_outlined,
+                      size: 38,
+                      color: theme.colorScheme.primary,
+                    ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          greeting,
-                          style: TextStyle(
-                            fontFamily: AppTheme.displayFamily,
-                            fontSize: 32,
-                            fontWeight: FontWeight.w700,
-                            color: theme.colorScheme.onSurface,
+                        Semantics(
+                          header: true,
+                          child: Text(
+                            greeting,
+                            style: TextStyle(
+                              fontFamily: AppTheme.displayFamily,
+                              fontSize: 32,
+                              fontWeight: FontWeight.w700,
+                              color: theme.colorScheme.onSurface,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 2),
@@ -182,307 +187,353 @@ class DesktopHomeScreen extends ConsumerWidget {
                       ],
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.light_mode_outlined,
-                      size: 20,
-                      color: theme.colorScheme.onSurface.withOpacity(0.5),
-                    ),
-                  ),
                 ],
               ),
               const SizedBox(height: 32),
 
-              // Mockup Dashboard Grid Layout
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Left Column: Recovery Score & Quick Actions
-                  Expanded(
-                    child: Column(
-                      children: [
-                        // Recovery Score Card
-                        _DashboardCard(
-                          onTap: onOpenInsights,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    calmInsightsEnabled
-                                        ? strings.calmRecentActivityTitle
-                                        : strings.todayRecoveryScore,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                      color: theme.colorScheme.onSurface
-                                          .withOpacity(0.6),
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  final stackColumns =
+                      MediaQuery.textScalerOf(context).scale(1) >= 1.5 ||
+                      constraints.maxWidth < 820;
+                  final columnWidth = stackColumns
+                      ? constraints.maxWidth
+                      : (constraints.maxWidth - 20) / 2;
+                  return Wrap(
+                    spacing: 20,
+                    runSpacing: 20,
+                    crossAxisAlignment: WrapCrossAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: columnWidth,
+                        child: Column(
+                          children: [
+                            // Recovery Score Card
+                            _DashboardCard(
+                              onTap: onOpenInsights,
+                              semanticLabel: calmInsightsEnabled
+                                  ? strings.todayActivitiesLastSevenDays(
+                                      calmSummary.totalCount,
+                                    )
+                                  : strings.todayScoreA11y(
+                                      dashboard.recoveryScore,
+                                      strings.todayActivityRecorded,
                                     ),
-                                  ),
-                                  const Spacer(),
-                                  Icon(
-                                    LineIcons.angleRight,
-                                    size: 16,
-                                    color: theme.colorScheme.onSurface
-                                        .withOpacity(0.3),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 12),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          calmInsightsEnabled
-                                              ? '${calmSummary.totalCount}'
-                                              : '${dashboard.recoveryScore}',
-                                          style: TextStyle(
-                                            fontFamily: 'Manrope',
-                                            fontSize: 54,
-                                            fontWeight: FontWeight.w800,
-                                            color: theme.colorScheme.onSurface,
-                                          ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        calmInsightsEnabled
+                                            ? strings.calmRecentActivityTitle
+                                            : strings.todayRecoveryScore,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                          color: theme.colorScheme.onSurface
+                                              .withOpacity(0.6),
                                         ),
-                                        const SizedBox(height: 8),
-                                        Text(
-                                          calmInsightsEnabled
-                                              ? strings
-                                                    .todayActivitiesLastSevenDays(
-                                                      calmSummary.totalCount,
-                                                    )
-                                              : strings.todayActivityRecorded,
-                                          style: TextStyle(
-                                            color: calmInsightsEnabled
-                                                ? theme.colorScheme.onSurface
-                                                      .withOpacity(0.55)
-                                                : const Color(0xFF34C759),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 13,
+                                      ),
+                                      const Spacer(),
+                                      Icon(
+                                        LineIcons.angleRight,
+                                        size: 16,
+                                        color: theme.colorScheme.onSurface
+                                            .withOpacity(0.3),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 12),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              calmInsightsEnabled
+                                                  ? '${calmSummary.totalCount}'
+                                                  : '${dashboard.recoveryScore}',
+                                              style: TextStyle(
+                                                fontFamily: 'Manrope',
+                                                fontSize: 54,
+                                                fontWeight: FontWeight.w800,
+                                                color:
+                                                    theme.colorScheme.onSurface,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 8),
+                                            Text(
+                                              calmInsightsEnabled
+                                                  ? strings
+                                                        .todayActivitiesLastSevenDays(
+                                                          calmSummary
+                                                              .totalCount,
+                                                        )
+                                                  : strings
+                                                        .todayActivityRecorded,
+                                              style: TextStyle(
+                                                color: calmInsightsEnabled
+                                                    ? theme
+                                                          .colorScheme
+                                                          .onSurface
+                                                          .withOpacity(0.55)
+                                                    : const Color(0xFF34C759),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 13,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      if (!calmInsightsEnabled) ...[
+                                        const SizedBox(width: 24),
+                                        Expanded(
+                                          child: Align(
+                                            alignment: Alignment.bottomRight,
+                                            child: ExcludeSemantics(
+                                              child: CustomPaint(
+                                                size: const Size(160, 60),
+                                                painter: _WavyLinePainter(
+                                                  color:
+                                                      theme.colorScheme.primary,
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ],
-                                    ),
+                                    ],
                                   ),
-                                  if (!calmInsightsEnabled) ...[
-                                    const SizedBox(width: 24),
-                                    Expanded(
-                                      child: Align(
-                                        alignment: Alignment.bottomRight,
-                                        child: CustomPaint(
-                                          size: const Size(160, 60),
-                                          painter: _WavyLinePainter(
-                                            color: theme.colorScheme.primary,
-                                          ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+
+                            // Quick Actions Card
+                            _DashboardCard(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    strings.todayQuickActions,
+                                    style: theme.textTheme.titleMedium
+                                        ?.copyWith(fontWeight: FontWeight.w800),
+                                  ),
+                                  const SizedBox(height: 14),
+                                  _ActionItem(
+                                    icon: Icons.hourglass_empty_rounded,
+                                    title: strings.todayCompulsionDelay,
+                                    subtitle: recentDelay != null
+                                        ? strings.todayPickUpBody
+                                        : strings.todayPracticeUrgesBody,
+                                    onTap: onOpenRecovery,
+                                  ),
+                                  const SizedBox(height: 12),
+                                  _ActionItem(
+                                    icon: LineIcons.penNib,
+                                    title: hasCheckedIn
+                                        ? strings.todayReadCheckIn
+                                        : strings.todayDailyCheckIn,
+                                    subtitle: hasCheckedIn
+                                        ? strings.todayOpenJournalMore
+                                        : strings.todayShortJournal,
+                                    onTap: onOpenJournal,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(
+                        width: columnWidth,
+                        child: Column(
+                          children: [
+                            // Practice Streak Card
+                            _DashboardCard(
+                              onTap: onOpenInsights,
+                              semanticLabel: calmInsightsEnabled
+                                  ? strings.todaySessionsCount(
+                                      calmSummary.delayCount +
+                                          calmSummary.erpPracticeCount +
+                                          calmSummary.exposureCount,
+                                    )
+                                  : strings.recoveryMetricsDayStreak(
+                                      metrics.practiceStreakDays,
+                                    ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        calmInsightsEnabled
+                                            ? strings.todayPracticesRecorded
+                                            : strings.todayPracticeStreak,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                          color: theme.colorScheme.onSurface
+                                              .withOpacity(0.6),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-
-                        // Quick Actions Card
-                        _DashboardCard(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                strings.todayQuickActions,
-                                style: theme.textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                              const SizedBox(height: 14),
-                              _ActionItem(
-                                icon: Icons.hourglass_empty_rounded,
-                                title: strings.todayCompulsionDelay,
-                                subtitle: recentDelay != null
-                                    ? strings.todayPickUpBody
-                                    : strings.todayPracticeUrgesBody,
-                                onTap: onOpenRecovery,
-                              ),
-                              const SizedBox(height: 12),
-                              _ActionItem(
-                                icon: LineIcons.penNib,
-                                title: hasCheckedIn
-                                    ? strings.todayReadCheckIn
-                                    : strings.todayDailyCheckIn,
-                                subtitle: hasCheckedIn
-                                    ? strings.todayOpenJournalMore
-                                    : strings.todayShortJournal,
-                                onTap: onOpenJournal,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 20),
-
-                  // Right Column: Practice Streak & Explore
-                  Expanded(
-                    child: Column(
-                      children: [
-                        // Practice Streak Card
-                        _DashboardCard(
-                          onTap: onOpenInsights,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    calmInsightsEnabled
-                                        ? strings.todayPracticesRecorded
-                                        : strings.todayPracticeStreak,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                      color: theme.colorScheme.onSurface
-                                          .withOpacity(0.6),
-                                    ),
+                                      const Spacer(),
+                                      Icon(
+                                        LineIcons.angleRight,
+                                        size: 16,
+                                        color: theme.colorScheme.onSurface
+                                            .withOpacity(0.3),
+                                      ),
+                                    ],
                                   ),
-                                  const Spacer(),
-                                  Icon(
-                                    LineIcons.angleRight,
-                                    size: 16,
-                                    color: theme.colorScheme.onSurface
-                                        .withOpacity(0.3),
+                                  const SizedBox(height: 12),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.baseline,
+                                    textBaseline: TextBaseline.alphabetic,
+                                    children: [
+                                      Text(
+                                        calmInsightsEnabled
+                                            ? strings.todaySessionsCount(
+                                                calmSummary.delayCount +
+                                                    calmSummary
+                                                        .erpPracticeCount +
+                                                    calmSummary.exposureCount,
+                                              )
+                                            : strings.todayDaysCount(
+                                                metrics.practiceStreakDays,
+                                              ),
+                                        style: TextStyle(
+                                          fontFamily: 'Manrope',
+                                          fontSize: 54,
+                                          fontWeight: FontWeight.w800,
+                                          color: theme.colorScheme.onSurface,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                              const SizedBox(height: 12),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.baseline,
-                                textBaseline: TextBaseline.alphabetic,
-                                children: [
-                                  Text(
-                                    calmInsightsEnabled
-                                        ? strings.todaySessionsCount(
-                                            calmSummary.delayCount +
-                                                calmSummary.erpPracticeCount +
-                                                calmSummary.exposureCount,
-                                          )
-                                        : strings.todayDaysCount(
-                                            metrics.practiceStreakDays,
-                                          ),
-                                    style: TextStyle(
-                                      fontFamily: 'Manrope',
-                                      fontSize: 54,
-                                      fontWeight: FontWeight.w800,
-                                      color: theme.colorScheme.onSurface,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              if (!calmInsightsEnabled)
-                                const SizedBox(height: 16),
+                                  if (!calmInsightsEnabled)
+                                    const SizedBox(height: 16),
 
-                              // Weekday Check-in Row
-                              if (!calmInsightsEnabled)
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    for (final (dayLabel, active) in last7Days)
-                                      Column(
-                                        children: [
-                                          Container(
-                                            width: 32,
-                                            height: 32,
-                                            decoration: BoxDecoration(
-                                              color: active
-                                                  ? theme.colorScheme.primary
-                                                  : Colors.transparent,
-                                              shape: BoxShape.circle,
-                                              border: active
-                                                  ? null
-                                                  : Border.all(
-                                                      color: theme.dividerColor,
+                                  // Weekday Check-in Row
+                                  if (!calmInsightsEnabled)
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        for (final (dayLabel, active)
+                                            in last7Days)
+                                          Semantics(
+                                            label: active
+                                                ? strings.todayDayActiveA11y(
+                                                    dayLabel,
+                                                  )
+                                                : strings.todayDayInactiveA11y(
+                                                    dayLabel,
+                                                  ),
+                                            excludeSemantics: true,
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  width: 32,
+                                                  height: 32,
+                                                  decoration: BoxDecoration(
+                                                    color: active
+                                                        ? theme
+                                                              .colorScheme
+                                                              .primary
+                                                        : Colors.transparent,
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                      color: active
+                                                          ? theme
+                                                                .colorScheme
+                                                                .primary
+                                                          : theme.dividerColor,
                                                       width: 1.5,
                                                     ),
-                                            ),
-                                            child: Icon(
-                                              Icons.check,
-                                              size: 16,
-                                              color: active
-                                                  ? Colors.black
-                                                  : theme.dividerColor,
+                                                  ),
+                                                  child: Icon(
+                                                    active
+                                                        ? Icons.check
+                                                        : Icons.remove,
+                                                    size: 16,
+                                                    color: active
+                                                        ? Colors.black
+                                                        : theme.dividerColor,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 6),
+                                                Text(
+                                                  dayLabel,
+                                                  style: TextStyle(
+                                                    fontSize: 11,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: theme
+                                                        .colorScheme
+                                                        .onSurface
+                                                        .withOpacity(0.55),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          const SizedBox(height: 6),
-                                          Text(
-                                            dayLabel,
-                                            style: TextStyle(
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.bold,
-                                              color: theme.colorScheme.onSurface
-                                                  .withOpacity(0.55),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                  ],
-                                ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 20),
+                                      ],
+                                    ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 20),
 
-                        // Explore Card
-                        _DashboardCard(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                strings.todayExplore,
-                                style: theme.textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.w800,
-                                ),
+                            // Explore Card
+                            _DashboardCard(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    strings.todayExplore,
+                                    style: theme.textTheme.titleMedium
+                                        ?.copyWith(fontWeight: FontWeight.w800),
+                                  ),
+                                  const SizedBox(height: 14),
+                                  _ExploreTile(
+                                    icon: LineIcons.penNib,
+                                    label: strings.navJournal,
+                                    subtitle: strings.todayReflectProcess,
+                                    onTap: onOpenJournal,
+                                  ),
+                                  _ExploreTile(
+                                    icon: Icons.self_improvement_rounded,
+                                    label: strings.todayRecoveryTools,
+                                    subtitle: strings.todaySupportPractice,
+                                    onTap: onOpenRecovery,
+                                  ),
+                                  _ExploreTile(
+                                    icon: LineIcons.list,
+                                    label: strings.navTrack,
+                                    subtitle: strings.todayTrackBody,
+                                    onTap: onOpenTrack,
+                                  ),
+                                  _ExploreTile(
+                                    icon: LineIcons.barChart,
+                                    label: strings.navInsights,
+                                    subtitle: strings.todaySeePatterns,
+                                    onTap: onOpenInsights,
+                                  ),
+                                ],
                               ),
-                              const SizedBox(height: 14),
-                              _ExploreTile(
-                                icon: LineIcons.penNib,
-                                label: strings.navJournal,
-                                subtitle: strings.todayReflectProcess,
-                                onTap: onOpenJournal,
-                              ),
-                              _ExploreTile(
-                                icon: Icons.self_improvement_rounded,
-                                label: strings.todayRecoveryTools,
-                                subtitle: strings.todaySupportPractice,
-                                onTap: onOpenRecovery,
-                              ),
-                              _ExploreTile(
-                                icon: LineIcons.list,
-                                label: strings.navTrack,
-                                subtitle: strings.todayTrackBody,
-                                onTap: onOpenTrack,
-                              ),
-                              _ExploreTile(
-                                icon: LineIcons.barChart,
-                                label: strings.navInsights,
-                                subtitle: strings.todaySeePatterns,
-                                onTap: onOpenInsights,
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                ],
+                      ),
+                    ],
+                  );
+                },
               ),
             ],
           ),
@@ -506,13 +557,14 @@ class DesktopHomeScreen extends ConsumerWidget {
 class _DashboardCard extends StatelessWidget {
   final Widget child;
   final VoidCallback? onTap;
+  final String? semanticLabel;
 
-  const _DashboardCard({required this.child, this.onTap});
+  const _DashboardCard({required this.child, this.onTap, this.semanticLabel});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Material(
+    final card = Material(
       color: theme.cardTheme.color,
       borderRadius: BorderRadius.circular(16),
       child: InkWell(
@@ -529,6 +581,8 @@ class _DashboardCard extends StatelessWidget {
         ),
       ),
     );
+    if (onTap == null) return card;
+    return Semantics(button: true, label: semanticLabel, child: card);
   }
 }
 
@@ -549,45 +603,52 @@ class _ActionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Material(
-      color: theme.scaffoldBackgroundColor,
-      borderRadius: BorderRadius.circular(12),
-      child: InkWell(
-        onTap: onTap,
+    return Semantics(
+      button: true,
+      label: title,
+      hint: subtitle,
+      excludeSemantics: true,
+      child: Material(
+        color: theme.scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(12),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: theme.dividerColor.withOpacity(0.3)),
-          ),
-          child: Row(
-            children: [
-              Icon(icon, color: theme.colorScheme.primary, size: 24),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(12),
+          child: Container(
+            constraints: const BoxConstraints(minHeight: 44),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: theme.dividerColor.withOpacity(0.3)),
+            ),
+            child: Row(
+              children: [
+                Icon(icon, color: theme.colorScheme.primary, size: 24),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      subtitle,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: theme.colorScheme.onSurface.withOpacity(0.55),
+                      const SizedBox(height: 2),
+                      Text(
+                        subtitle,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: theme.colorScheme.onSurface.withOpacity(0.55),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -612,59 +673,71 @@ class _ExploreTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Material(
-        color: theme.scaffoldBackgroundColor,
-        borderRadius: BorderRadius.circular(12),
-        child: InkWell(
-          onTap: onTap,
+    return Semantics(
+      button: true,
+      label: label,
+      hint: subtitle,
+      excludeSemantics: true,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: Material(
+          color: theme.scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(12),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: theme.dividerColor.withOpacity(0.3)),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: theme.cardTheme.color,
-                    borderRadius: BorderRadius.circular(8),
+          child: InkWell(
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(12),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: theme.dividerColor.withOpacity(0.3)),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: theme.cardTheme.color,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Icon(
+                      icon,
+                      color: theme.colorScheme.primary,
+                      size: 18,
+                    ),
                   ),
-                  child: Icon(icon, color: theme.colorScheme.primary, size: 18),
-                ),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        label,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13,
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          label,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        subtitle,
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: theme.colorScheme.onSurface.withOpacity(0.55),
+                        const SizedBox(height: 2),
+                        Text(
+                          subtitle,
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: theme.colorScheme.onSurface.withOpacity(
+                              0.55,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Icon(
-                  LineIcons.angleRight,
-                  size: 14,
-                  color: theme.colorScheme.onSurface.withOpacity(0.3),
-                ),
-              ],
+                  Icon(
+                    LineIcons.angleRight,
+                    size: 14,
+                    color: theme.colorScheme.onSurface.withOpacity(0.3),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
