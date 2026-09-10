@@ -1474,5 +1474,85 @@
       }
     },
     "description": "Accessibility hint for a journal-entry card. The date is already formatted for the active locale."
-  }
+  },
+  "journalWorkspaceTitle": "Journal workspace",
+  "@journalWorkspaceTitle": {
+    "description": "Window title for the desktop journal workspace."
+  },
+  "journalSubtitle": "Your space to reflect and let things out.",
+  "@journalSubtitle": {
+    "description": "Desktop journal subtitle. Keep it calm and avoid implying treatment or a guaranteed emotional result."
+  },
+  "journalNewEntryAction": "New entry",
+  "@journalNewEntryAction": {
+    "description": "Action that starts a new journal entry."
+  },
+  "journalEarlierSection": "Earlier",
+  "@journalEarlierSection": {
+    "description": "Heading for journal entries before today."
+  },
+  "journalNoEntryForDate": "No entry for this date.",
+  "@journalNoEntryForDate": {
+    "description": "Desktop journal empty state for the currently selected date."
+  },
+  "journalCreateEntryAction": "Create entry",
+  "@journalCreateEntryAction": {
+    "description": "Action that creates a journal entry for the selected date."
+  },
+  "journalEntryTimestamp": "{date} at {time}",
+  "@journalEntryTimestamp": {
+    "placeholders": {
+      "date": {"type": "String"},
+      "time": {"type": "String"}
+    },
+    "description": "Date and time shown above a desktop journal entry. Both placeholders are already formatted for the active locale."
+  },
+  "journalDeleteEntryAction": "Delete entry",
+  "@journalDeleteEntryAction": {
+    "description": "Destructive action that deletes one journal entry."
+  },
+  "journalDeleteEntryTitle": "Delete entry?",
+  "@journalDeleteEntryTitle": {
+    "description": "Confirmation title before permanently deleting one journal entry."
+  },
+  "journalDeleteEntryBody": "This journal entry will be permanently deleted.",
+  "@journalDeleteEntryBody": {
+    "description": "Confirmation body before permanently deleting one journal entry."
+  },
+  "journalDeletedMessage": "The journal entry was deleted.",
+  "@journalDeletedMessage": {
+    "description": "Factual confirmation after a journal entry is deleted."
+  },
+  "journalEditAction": "Edit",
+  "@journalEditAction": {
+    "description": "Action that opens an existing journal entry for editing."
+  },
+  "journalEditingDate": "Editing: {date}",
+  "@journalEditingDate": {
+    "placeholders": {"date": {"type": "String"}},
+    "description": "Desktop journal editor heading. The date is already formatted for the active locale."
+  },
+  "journalUnsavedChangesStatus": "Unsaved changes",
+  "@journalUnsavedChangesStatus": {
+    "description": "Desktop journal editor status when the document differs from the saved entry."
+  },
+  "journalEntrySavedMessage": "Journal entry saved",
+  "@journalEntrySavedMessage": {
+    "description": "Factual confirmation after saving a desktop journal entry."
+  },
+  "journalReadOnlyLabel": "Read-only journal entry for {date}",
+  "@journalReadOnlyLabel": {
+    "placeholders": {"date": {"type": "String"}},
+    "description": "Accessibility label for a read-only journal entry. The date is already formatted for the active locale."
+  },
+  "journalThemeContamination": "Contamination",
+  "@journalThemeContamination": {"description": "Locally detected journal theme label. This is descriptive only, not a diagnosis."},
+  "journalThemeUncertainty": "Uncertainty",
+  "@journalThemeUncertainty": {"description": "Locally detected journal theme label. This is descriptive only, not a diagnosis."},
+  "journalThemeChecking": "Checking",
+  "@journalThemeChecking": {"description": "Locally detected journal theme label. This is descriptive only, not a diagnosis."},
+  "journalThemeRelationship": "Relationship",
+  "@journalThemeRelationship": {"description": "Locally detected journal theme label. This is descriptive only, not a diagnosis."},
+  "journalThemeHealth": "Health",
+  "@journalThemeHealth": {"description": "Locally detected journal theme label. This is descriptive only, not a diagnosis."}
 }

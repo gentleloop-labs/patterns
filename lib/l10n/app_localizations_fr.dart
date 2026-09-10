@@ -1235,4 +1235,75 @@ class AppLocalizationsFr extends AppLocalizations {
   String journalOpenEntryHint(String date) {
     return 'Ouvre l’entrée de journal du $date.';
   }
+
+  @override
+  String get journalWorkspaceTitle => 'Espace journal';
+
+  @override
+  String get journalSubtitle =>
+      'Votre espace pour réfléchir et déposer ce qui pèse.';
+
+  @override
+  String get journalNewEntryAction => 'Nouvelle entrée';
+
+  @override
+  String get journalEarlierSection => 'Plus tôt';
+
+  @override
+  String get journalNoEntryForDate => 'Aucune entrée pour cette date.';
+
+  @override
+  String get journalCreateEntryAction => 'Créer une entrée';
+
+  @override
+  String journalEntryTimestamp(String date, String time) {
+    return '$date à $time';
+  }
+
+  @override
+  String get journalDeleteEntryAction => 'Supprimer l’entrée';
+
+  @override
+  String get journalDeleteEntryTitle => 'Supprimer l’entrée ?';
+
+  @override
+  String get journalDeleteEntryBody =>
+      'Cette entrée du journal sera supprimée définitivement.';
+
+  @override
+  String get journalDeletedMessage => 'L’entrée du journal a été supprimée.';
+
+  @override
+  String get journalEditAction => 'Modifier';
+
+  @override
+  String journalEditingDate(String date) {
+    return 'Modification : $date';
+  }
+
+  @override
+  String get journalUnsavedChangesStatus => 'Modifications non enregistrées';
+
+  @override
+  String get journalEntrySavedMessage => 'Entrée du journal enregistrée';
+
+  @override
+  String journalReadOnlyLabel(String date) {
+    return 'Entrée du journal en lecture seule pour le $date';
+  }
+
+  @override
+  String get journalThemeContamination => 'Contamination';
+
+  @override
+  String get journalThemeUncertainty => 'Incertitude';
+
+  @override
+  String get journalThemeChecking => 'Vérification';
+
+  @override
+  String get journalThemeRelationship => 'Relation';
+
+  @override
+  String get journalThemeHealth => 'Santé';
 }

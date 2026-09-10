@@ -19,7 +19,7 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 | CALM-01 | Calm Insights preference, migration, factual summaries, hidden calculated scores | code complete | `test/calm_insights_test.dart`, preference migration tests |
 | COMPLETE-01 | Quiet completion contract for journal, tracking, delay, and ERP | code complete | `test/activity_completion_test.dart` plus flow-specific tests |
 | JOURNAL-01 | Mobile journal list/editor localization and accessibility | code complete | Six-locale copy, localized dates, safe errors, editor semantics, large-text/reduced-motion tests |
-| JOURNAL-02 | Shared desktop journal localization and accessibility | pending | — |
+| JOURNAL-02 | Shared desktop journal localization and accessibility | code complete | Six-locale copy, localized dates/times, safe errors, keyboard-accessible entries, selectable reader, 200% text test |
 | TODAY-01 | Today first-run and established-state localization | pending | — |
 | TODAY-02 | Today semantics, large text, Reduced Motion, and non-colour cues | pending | — |
 | TRACK-01 | OCD tracker localization, validation, and accessibility | pending | — |
@@ -49,6 +49,6 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 
 - Version: `1.10.0+32` (final build number must still be reconciled remotely).
 - Release announcement: `patterns_1_10`.
-- Full Flutter suite after JOURNAL-01: 220 passing tests.
-- Literal audit: 640 candidates after JOURNAL-01, down from 652.
+- Full Flutter suite after JOURNAL-02: 224 passing tests.
+- Literal audit: 631 candidates after JOURNAL-02, down from 652.
 - Store drafts: field, locale, and character-limit validation passing; not approved or uploaded.

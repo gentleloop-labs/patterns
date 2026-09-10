@@ -1094,4 +1094,73 @@ class AppLocalizationsJa extends AppLocalizations {
   String journalOpenEntryHint(String date) {
     return '$dateのジャーナルエントリーを開きます。';
   }
+
+  @override
+  String get journalWorkspaceTitle => 'ジャーナルワークスペース';
+
+  @override
+  String get journalSubtitle => '振り返り、気持ちを書き出すための場所です。';
+
+  @override
+  String get journalNewEntryAction => '新しいエントリー';
+
+  @override
+  String get journalEarlierSection => '以前';
+
+  @override
+  String get journalNoEntryForDate => 'この日付のエントリーはありません。';
+
+  @override
+  String get journalCreateEntryAction => 'エントリーを作成';
+
+  @override
+  String journalEntryTimestamp(String date, String time) {
+    return '$date $time';
+  }
+
+  @override
+  String get journalDeleteEntryAction => 'エントリーを削除';
+
+  @override
+  String get journalDeleteEntryTitle => 'エントリーを削除しますか？';
+
+  @override
+  String get journalDeleteEntryBody => 'このジャーナルエントリーは完全に削除されます。';
+
+  @override
+  String get journalDeletedMessage => 'ジャーナルエントリーを削除しました。';
+
+  @override
+  String get journalEditAction => '編集';
+
+  @override
+  String journalEditingDate(String date) {
+    return '編集中：$date';
+  }
+
+  @override
+  String get journalUnsavedChangesStatus => '未保存の変更';
+
+  @override
+  String get journalEntrySavedMessage => 'ジャーナルエントリーを保存しました';
+
+  @override
+  String journalReadOnlyLabel(String date) {
+    return '$dateの読み取り専用ジャーナルエントリー';
+  }
+
+  @override
+  String get journalThemeContamination => '汚染';
+
+  @override
+  String get journalThemeUncertainty => '不確かさ';
+
+  @override
+  String get journalThemeChecking => '確認';
+
+  @override
+  String get journalThemeRelationship => '人間関係';
+
+  @override
+  String get journalThemeHealth => '健康';
 }

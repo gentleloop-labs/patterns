@@ -1217,4 +1217,74 @@ class AppLocalizationsEn extends AppLocalizations {
   String journalOpenEntryHint(String date) {
     return 'Opens the journal entry for $date.';
   }
+
+  @override
+  String get journalWorkspaceTitle => 'Journal workspace';
+
+  @override
+  String get journalSubtitle => 'Your space to reflect and let things out.';
+
+  @override
+  String get journalNewEntryAction => 'New entry';
+
+  @override
+  String get journalEarlierSection => 'Earlier';
+
+  @override
+  String get journalNoEntryForDate => 'No entry for this date.';
+
+  @override
+  String get journalCreateEntryAction => 'Create entry';
+
+  @override
+  String journalEntryTimestamp(String date, String time) {
+    return '$date at $time';
+  }
+
+  @override
+  String get journalDeleteEntryAction => 'Delete entry';
+
+  @override
+  String get journalDeleteEntryTitle => 'Delete entry?';
+
+  @override
+  String get journalDeleteEntryBody =>
+      'This journal entry will be permanently deleted.';
+
+  @override
+  String get journalDeletedMessage => 'The journal entry was deleted.';
+
+  @override
+  String get journalEditAction => 'Edit';
+
+  @override
+  String journalEditingDate(String date) {
+    return 'Editing: $date';
+  }
+
+  @override
+  String get journalUnsavedChangesStatus => 'Unsaved changes';
+
+  @override
+  String get journalEntrySavedMessage => 'Journal entry saved';
+
+  @override
+  String journalReadOnlyLabel(String date) {
+    return 'Read-only journal entry for $date';
+  }
+
+  @override
+  String get journalThemeContamination => 'Contamination';
+
+  @override
+  String get journalThemeUncertainty => 'Uncertainty';
+
+  @override
+  String get journalThemeChecking => 'Checking';
+
+  @override
+  String get journalThemeRelationship => 'Relationship';
+
+  @override
+  String get journalThemeHealth => 'Health';
 }
