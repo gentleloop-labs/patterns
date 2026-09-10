@@ -2051,4 +2051,99 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get insightsThemeOther => 'Otro';
+
+  @override
+  String get recoveryTitle => 'Recuperación';
+
+  @override
+  String get recoverySubtitle =>
+      'Herramientas y prácticas agrupadas según el punto en el que estés.';
+
+  @override
+  String get recoveryImmediateHelpTitle => 'Apoyo para un momento difícil';
+
+  @override
+  String recoveryToolTitle(String tool) {
+    String _temp0 = intl.Intl.selectLogic(tool, {
+      'emergencyToolkit': 'Kit para momentos difíciles',
+      'copingLibrary': 'Biblioteca de afrontamiento',
+      'compulsionDelay': 'Pausar la compulsión',
+      'ybocsSelfCheck': 'Autoevaluación de OCD',
+      'recoveryMetrics': 'Actividad de recuperación',
+      'exposureHierarchy': 'Jerarquía de exposición',
+      'exposureMaterials': 'Materiales de exposición',
+      'structuredPrograms': 'Programas estructurados',
+      'actionPlanner': 'Plan de acción',
+      'implementationIntentions': 'Planes si-entonces',
+      'guidedErp': 'ERP guiada',
+      'urgeSurfing': 'Surfear el impulso',
+      'responsePrevention': 'Prevención de respuesta',
+      'uncertaintyTraining': 'Práctica de incertidumbre',
+      'behavioralExperiments': 'Experimentos conductuales',
+      'reflectionJournal': 'Diario de reflexión',
+      'other': 'Herramienta de recuperación',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String recoveryToolSubtitle(String tool) {
+    String _temp0 = intl.Intl.selectLogic(tool, {
+      'emergencyToolkit': 'Apoyo rápido para volver al presente.',
+      'copingLibrary': 'Conecta con el presente y vuelve a empezar.',
+      'compulsionDelay': 'Crea espacio antes de responder.',
+      'ybocsSelfCheck': 'Un registro Y-BOCS.',
+      'recoveryMetrics': 'Revisa la actividad registrada.',
+      'exposureHierarchy': 'Crea tu escalera.',
+      'exposureMaterials': 'Guarda guiones y enlaces.',
+      'structuredPrograms': 'Sigue semanas guiadas.',
+      'actionPlanner': 'Planifica tus respuestas.',
+      'implementationIntentions': 'Crea planes si-entonces.',
+      'guidedErp': 'Practica un plan.',
+      'urgeSurfing': 'Acompaña la ola.',
+      'responsePrevention': 'Registra lo que hiciste en su lugar.',
+      'uncertaintyTraining': 'Practica dar espacio al quizá.',
+      'behavioralExperiments': 'Pon a prueba la predicción de OCD.',
+      'reflectionJournal': 'Anota lo que observaste.',
+      'other': 'Abre una herramienta de recuperación.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String recoveryStageTitle(String stage) {
+    String _temp0 = intl.Intl.selectLogic(stage, {
+      'assess': 'Evaluar',
+      'plan': 'Planificar',
+      'practice': 'Practicar',
+      'review': 'Revisar',
+      'other': 'Herramientas',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String recoveryStageSubtitle(String stage) {
+    String _temp0 = intl.Intl.selectLogic(stage, {
+      'assess': 'Observa dónde estás.',
+      'plan': 'Prepara tu práctica.',
+      'practice': 'Haz una práctica.',
+      'review': 'Reflexiona y aprende.',
+      'other': 'Elige lo que te resulte útil.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get recoveryProBadge => 'Patterns Pro';
+
+  @override
+  String recoveryOpenToolHint(String title) {
+    return 'Abrir $title';
+  }
+
+  @override
+  String recoveryLockedToolHint(String title) {
+    return '$title requiere Patterns Pro';
+  }
 }

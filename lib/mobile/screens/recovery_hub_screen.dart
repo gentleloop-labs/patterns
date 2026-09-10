@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../../l10n/l10n.dart';
 import '../../theme/app_colors.dart';
 import '../../services/app_events.dart';
 import '../../services/pro_entry_point.dart';
@@ -35,22 +36,16 @@ class RecoveryHubScreen extends ConsumerWidget {
   static const _sosTools = <_RecoveryTool>[
     _RecoveryTool(
       icon: Icons.health_and_safety_rounded,
-      title: 'Emergency Toolkit',
-      subtitle: 'Fast support.',
       destination: _RecoveryDestination.emergencyToolkit,
       stage: _Stage.practice,
     ),
     _RecoveryTool(
       icon: Icons.spa_rounded,
-      title: 'Coping Library',
-      subtitle: 'Ground and reset.',
       destination: _RecoveryDestination.copingLibrary,
       stage: _Stage.practice,
     ),
     _RecoveryTool(
       icon: Icons.hourglass_bottom_rounded,
-      title: 'Compulsion Delay',
-      subtitle: 'Create space.',
       destination: _RecoveryDestination.compulsionDelay,
       stage: _Stage.practice,
       fullscreen: true,
@@ -64,16 +59,12 @@ class RecoveryHubScreen extends ConsumerWidget {
     // Assess — see where you are.
     _RecoveryTool(
       icon: Icons.fact_check_rounded,
-      title: 'OCD Self-Check',
-      subtitle: 'Y-BOCS check-in.',
       destination: _RecoveryDestination.ybocsSelfCheck,
       stage: _Stage.assess,
       fullscreen: true,
     ),
     _RecoveryTool(
       icon: Icons.local_fire_department_rounded,
-      title: 'Recovery Metrics',
-      subtitle: 'Track progress.',
       destination: _RecoveryDestination.recoveryMetrics,
       stage: _Stage.assess,
       pro: true,
@@ -81,40 +72,30 @@ class RecoveryHubScreen extends ConsumerWidget {
     // Plan — set up your practice.
     _RecoveryTool(
       icon: Icons.stairs_rounded,
-      title: 'Exposure Hierarchy',
-      subtitle: 'Build your ladder.',
       destination: _RecoveryDestination.exposureHierarchy,
       stage: _Stage.plan,
       pro: true,
     ),
     _RecoveryTool(
       icon: Icons.folder_special_rounded,
-      title: 'Exposure Materials',
-      subtitle: 'Scripts and links.',
       destination: _RecoveryDestination.exposureMaterials,
       stage: _Stage.plan,
       pro: true,
     ),
     _RecoveryTool(
       icon: Icons.calendar_month_rounded,
-      title: 'Structured Programs',
-      subtitle: 'Guided weeks.',
       destination: _RecoveryDestination.structuredPrograms,
       stage: _Stage.plan,
       pro: true,
     ),
     _RecoveryTool(
       icon: Icons.checklist_rounded,
-      title: 'Action Planner',
-      subtitle: 'Plan responses.',
       destination: _RecoveryDestination.actionPlanner,
       stage: _Stage.plan,
       pro: true,
     ),
     _RecoveryTool(
       icon: Icons.lightbulb_outline_rounded,
-      title: 'Implementation Intentions',
-      subtitle: 'If-then plans.',
       destination: _RecoveryDestination.implementationIntentions,
       stage: _Stage.plan,
       pro: true,
@@ -122,39 +103,29 @@ class RecoveryHubScreen extends ConsumerWidget {
     // Practice — do the reps.
     _RecoveryTool(
       icon: Icons.self_improvement_rounded,
-      title: 'Guided ERP',
-      subtitle: 'Practice a plan.',
       destination: _RecoveryDestination.guidedErp,
       stage: _Stage.practice,
     ),
     _RecoveryTool(
       icon: Icons.hourglass_bottom_rounded,
-      title: 'Compulsion Delay',
-      subtitle: 'Create space.',
       destination: _RecoveryDestination.compulsionDelay,
       stage: _Stage.practice,
       fullscreen: true,
     ),
     _RecoveryTool(
       icon: Icons.waves_rounded,
-      title: 'Urge Surfing',
-      subtitle: 'Ride the wave.',
       destination: _RecoveryDestination.urgeSurfing,
       stage: _Stage.practice,
       pro: true,
     ),
     _RecoveryTool(
       icon: Icons.shield_rounded,
-      title: 'Response Prevention',
-      subtitle: 'Stay on track.',
       destination: _RecoveryDestination.responsePrevention,
       stage: _Stage.practice,
       pro: true,
     ),
     _RecoveryTool(
       icon: Icons.help_outline_rounded,
-      title: 'Uncertainty Training',
-      subtitle: 'Practice maybe.',
       destination: _RecoveryDestination.uncertaintyTraining,
       stage: _Stage.practice,
       pro: true,
@@ -162,16 +133,12 @@ class RecoveryHubScreen extends ConsumerWidget {
     // Review — reflect and learn.
     _RecoveryTool(
       icon: Icons.science_rounded,
-      title: 'Behavioral Experiments',
-      subtitle: 'Test OCD.',
       destination: _RecoveryDestination.behavioralExperiments,
       stage: _Stage.review,
       pro: true,
     ),
     _RecoveryTool(
       icon: Icons.menu_book_rounded,
-      title: 'Reflection Journal',
-      subtitle: 'Capture learning.',
       destination: _RecoveryDestination.reflectionJournal,
       stage: _Stage.review,
       pro: true,
@@ -208,8 +175,8 @@ class RecoveryHubScreen extends ConsumerWidget {
               const SizedBox(height: 18),
               for (final stage in _Stage.values) ...[
                 _ToolSection(
-                  title: stage.title,
-                  subtitle: stage.subtitle,
+                  title: context.l10n.recoveryStageTitle(stage.name),
+                  subtitle: context.l10n.recoveryStageSubtitle(stage.name),
                   child: _ToolList(
                     tools: _tools.where((t) => t.stage == stage).toList(),
                     isPro: isPro,
@@ -340,22 +307,10 @@ extension on _RecoveryDestination {
 
 /// The ERP journey stages the library is grouped into, ordered as a user
 /// progresses. Plain-language titles/subtitles keep the framing calm.
-enum _Stage {
-  assess('Assess', 'See where you are.'),
-  plan('Plan', 'Set up your practice.'),
-  practice('Practice', 'Do the reps.'),
-  review('Review', 'Reflect and learn.');
-
-  const _Stage(this.title, this.subtitle);
-
-  final String title;
-  final String subtitle;
-}
+enum _Stage { assess, plan, practice, review }
 
 class _RecoveryTool {
   final IconData icon;
-  final String title;
-  final String subtitle;
   final _RecoveryDestination destination;
   final _Stage stage;
   final bool pro;
@@ -363,13 +318,17 @@ class _RecoveryTool {
 
   const _RecoveryTool({
     required this.icon,
-    required this.title,
-    required this.subtitle,
     required this.destination,
     required this.stage,
     this.pro = false,
     this.fullscreen = false,
   });
+
+  String title(BuildContext context) =>
+      context.l10n.recoveryToolTitle(destination.name);
+
+  String subtitle(BuildContext context) =>
+      context.l10n.recoveryToolSubtitle(destination.name);
 }
 
 class _RecoveryHeader extends StatelessWidget {
@@ -381,16 +340,19 @@ class _RecoveryHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Recovery',
-          style: theme.textTheme.headlineMedium?.copyWith(
-            fontWeight: FontWeight.w900,
-            height: 1.05,
+        Semantics(
+          header: true,
+          child: Text(
+            context.l10n.recoveryTitle,
+            style: theme.textTheme.headlineMedium?.copyWith(
+              fontWeight: FontWeight.w900,
+              height: 1.05,
+            ),
           ),
         ),
         const SizedBox(height: 5),
         Text(
-          'Tools and practices, grouped by where you are in your work.',
+          context.l10n.recoverySubtitle,
           style: TextStyle(
             color: context.appColors.textSecondary,
             fontSize: 14,
@@ -417,7 +379,8 @@ class _SosStrip extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               Icon(
                 Icons.favorite_rounded,
@@ -425,25 +388,37 @@ class _SosStrip extends StatelessWidget {
                 size: 16,
               ),
               SizedBox(width: 7),
-              Text(
-                'Need help right now?',
-                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 14),
+              Semantics(
+                header: true,
+                child: Text(
+                  context.l10n.recoveryImmediateHelpTitle,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 14,
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 12),
-          Row(
-            children: [
-              for (var i = 0; i < tools.length; i++) ...[
-                if (i != 0) const SizedBox(width: 8),
-                Expanded(
-                  child: _SosButton(
-                    tool: tools[i],
-                    onTap: () => onTap(tools[i]),
-                  ),
-                ),
-              ],
-            ],
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final stack = MediaQuery.textScalerOf(context).scale(1) > 1.3;
+              final width = stack
+                  ? constraints.maxWidth
+                  : (constraints.maxWidth - 16) / 3;
+              return Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  for (final tool in tools)
+                    SizedBox(
+                      width: width,
+                      child: _SosButton(tool: tool, onTap: () => onTap(tool)),
+                    ),
+                ],
+              );
+            },
           ),
         ],
       ),
@@ -459,31 +434,43 @@ class _SosButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PressScale(
+    final title = tool.title(context);
+    final subtitle = tool.subtitle(context);
+    return Semantics(
+      button: true,
+      label: title,
+      value: subtitle,
+      hint: context.l10n.recoveryOpenToolHint(title),
       onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-        decoration: BoxDecoration(
-          color: context.appColors.card,
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: context.appColors.border),
-        ),
-        child: Column(
-          children: [
-            Icon(tool.icon, color: context.appColors.accent, size: 22),
-            const SizedBox(height: 7),
-            Text(
-              tool.title,
-              maxLines: 2,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-                fontSize: 11,
-                height: 1.1,
-              ),
+      excludeSemantics: true,
+      child: PressScale(
+        onTap: onTap,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 72),
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+            decoration: BoxDecoration(
+              color: context.appColors.card,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: context.appColors.border),
             ),
-          ],
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(tool.icon, color: context.appColors.accent, size: 22),
+                const SizedBox(height: 7),
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 11,
+                    height: 1.2,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -509,21 +496,22 @@ class _ToolSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
+          Wrap(
+            spacing: 8,
+            runSpacing: 4,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              Text(
-                title,
-                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
+              Semantics(
+                header: true,
                 child: Text(
-                  subtitle,
-                  style: _mutedStyle(theme).copyWith(fontSize: 12),
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 16,
+                  ),
                 ),
               ),
+              Text(subtitle, style: _mutedStyle(theme).copyWith(fontSize: 12)),
             ],
           ),
           const SizedBox(height: 12),
@@ -580,46 +568,92 @@ class _ToolRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return PressScale(
+    final title = tool.title(context);
+    final subtitle = tool.subtitle(context);
+    final hint = locked
+        ? context.l10n.recoveryLockedToolHint(title)
+        : context.l10n.recoveryOpenToolHint(title);
+    return Semantics(
+      button: true,
+      label: title,
+      value: subtitle,
+      hint: hint,
       onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Row(
-          children: [
-            Container(
-              width: 40,
-              height: 40,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: context.appColors.accent.withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(tool.icon, color: context.appColors.accent, size: 21),
-            ),
-            const SizedBox(width: 13),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tool.title,
-                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14),
+      excludeSemantics: true,
+      child: PressScale(
+        onTap: onTap,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 60),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Row(
+              children: [
+                Container(
+                  width: 44,
+                  height: 44,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: context.appColors.accent.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  const SizedBox(height: 2),
-                  Text(
-                    tool.subtitle,
-                    style: _mutedStyle(theme).copyWith(fontSize: 11.5),
+                  child: Icon(
+                    tool.icon,
+                    color: context.appColors.accent,
+                    size: 21,
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(width: 13),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 14,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        subtitle,
+                        style: _mutedStyle(theme).copyWith(fontSize: 11.5),
+                      ),
+                      if (locked) ...[
+                        const SizedBox(height: 5),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              LineIcons.lock,
+                              color: context.appColors.textSecondary,
+                              size: 13,
+                            ),
+                            const SizedBox(width: 4),
+                            Flexible(
+                              child: Text(
+                                context.l10n.recoveryProBadge,
+                                style: _mutedStyle(theme).copyWith(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Icon(
+                  LineIcons.angleRight,
+                  color: context.appColors.textSecondary,
+                  size: 18,
+                ),
+              ],
             ),
-            const SizedBox(width: 10),
-            Icon(
-              locked ? LineIcons.lock : LineIcons.angleRight,
-              color: context.appColors.textSecondary,
-              size: locked ? 15 : 18,
-            ),
-          ],
+          ),
         ),
       ),
     );

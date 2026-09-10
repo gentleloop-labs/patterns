@@ -3484,6 +3484,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Other'**
   String get insightsThemeOther;
+
+  /// Heading for the mobile Recovery Hub.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery'**
+  String get recoveryTitle;
+
+  /// Non-clinical explanation beneath the Recovery Hub heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Tools and practices, grouped by where you are in your work.'**
+  String get recoverySubtitle;
+
+  /// Heading above quick-access grounding and delay tools. Do not imply emergency medical care.
+  ///
+  /// In en, this message translates to:
+  /// **'Support for a hard moment'**
+  String get recoveryImmediateHelpTitle;
+
+  /// Localized display title selected from a stable recovery-tool ID. OCD, ERP, and Y-BOCS terminology follows the release glossary.
+  ///
+  /// In en, this message translates to:
+  /// **'{tool, select, emergencyToolkit{Emergency Toolkit} copingLibrary{Coping Library} compulsionDelay{Compulsion Delay} ybocsSelfCheck{OCD Self-Check} recoveryMetrics{Recovery Metrics} exposureHierarchy{Exposure Hierarchy} exposureMaterials{Exposure Materials} structuredPrograms{Structured Programs} actionPlanner{Action Planner} implementationIntentions{Implementation Intentions} guidedErp{Guided ERP} urgeSurfing{Urge Surfing} responsePrevention{Response Prevention} uncertaintyTraining{Uncertainty Training} behavioralExperiments{Behavioral Experiments} reflectionJournal{Reflection Journal} other{Recovery tool}}'**
+  String recoveryToolTitle(String tool);
+
+  /// Short, non-judgmental explanation selected from a stable recovery-tool ID. Avoid outcome or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'{tool, select, emergencyToolkit{Fast grounding support.} copingLibrary{Ground and reset.} compulsionDelay{Create space before responding.} ybocsSelfCheck{A Y-BOCS check-in.} recoveryMetrics{Review recorded activity.} exposureHierarchy{Build your ladder.} exposureMaterials{Keep scripts and links.} structuredPrograms{Follow guided weeks.} actionPlanner{Plan responses.} implementationIntentions{Make if-then plans.} guidedErp{Practise a plan.} urgeSurfing{Ride the wave.} responsePrevention{Record what you did instead.} uncertaintyTraining{Practise making room for maybe.} behavioralExperiments{Test OCD’s prediction.} reflectionJournal{Capture what you noticed.} other{Open a recovery tool.}}'**
+  String recoveryToolSubtitle(String tool);
+
+  /// Recovery Hub section title selected from a stable journey-stage ID.
+  ///
+  /// In en, this message translates to:
+  /// **'{stage, select, assess{Assess} plan{Plan} practice{Practise} review{Review} other{Tools}}'**
+  String recoveryStageTitle(String stage);
+
+  /// Calm Recovery Hub section explanation selected from a stable journey-stage ID.
+  ///
+  /// In en, this message translates to:
+  /// **'{stage, select, assess{See where you are.} plan{Set up your practice.} practice{Do one practice.} review{Reflect and learn.} other{Choose what is useful.}}'**
+  String recoveryStageSubtitle(String stage);
+
+  /// Visible non-colour badge on a locked Recovery Hub tool.
+  ///
+  /// In en, this message translates to:
+  /// **'Patterns Pro'**
+  String get recoveryProBadge;
+
+  /// Screen-reader hint for an available Recovery Hub tool. Title is localized.
+  ///
+  /// In en, this message translates to:
+  /// **'Open {title}'**
+  String recoveryOpenToolHint(String title);
+
+  /// Screen-reader hint for a locked Recovery Hub tool. Title is localized.
+  ///
+  /// In en, this message translates to:
+  /// **'{title} requires Patterns Pro'**
+  String recoveryLockedToolHint(String title);
 }
 
 class _AppLocalizationsDelegate

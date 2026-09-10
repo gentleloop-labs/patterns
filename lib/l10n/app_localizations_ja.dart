@@ -1832,4 +1832,98 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get insightsThemeOther => 'その他';
+
+  @override
+  String get recoveryTitle => '回復';
+
+  @override
+  String get recoverySubtitle => '今取り組んでいる段階に合わせて、ツールと練習をまとめています。';
+
+  @override
+  String get recoveryImmediateHelpTitle => 'つらい時のサポート';
+
+  @override
+  String recoveryToolTitle(String tool) {
+    String _temp0 = intl.Intl.selectLogic(tool, {
+      'emergencyToolkit': 'つらい時のツールキット',
+      'copingLibrary': '対処法ライブラリ',
+      'compulsionDelay': '強迫行為を待つ',
+      'ybocsSelfCheck': 'OCDセルフチェック',
+      'recoveryMetrics': '回復の記録',
+      'exposureHierarchy': '曝露の段階表',
+      'exposureMaterials': '曝露の素材',
+      'structuredPrograms': '構造化プログラム',
+      'actionPlanner': '行動プラン',
+      'implementationIntentions': 'もし〜ならプラン',
+      'guidedErp': 'ガイド付きERP',
+      'urgeSurfing': '衝動の波に乗る',
+      'responsePrevention': '反応妨害',
+      'uncertaintyTraining': '不確かさの練習',
+      'behavioralExperiments': '行動実験',
+      'reflectionJournal': '振り返り日記',
+      'other': '回復ツール',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String recoveryToolSubtitle(String tool) {
+    String _temp0 = intl.Intl.selectLogic(tool, {
+      'emergencyToolkit': '今ここに戻るための短いサポート。',
+      'copingLibrary': '落ち着いて、いったん整える。',
+      'compulsionDelay': '反応する前に間をつくる。',
+      'ybocsSelfCheck': 'Y-BOCSのチェックイン。',
+      'recoveryMetrics': '記録した活動を確認する。',
+      'exposureHierarchy': '段階表をつくる。',
+      'exposureMaterials': 'スクリプトやリンクをまとめる。',
+      'structuredPrograms': '週ごとのガイドに沿う。',
+      'actionPlanner': '対応を先に決める。',
+      'implementationIntentions': 'もし〜ならプランをつくる。',
+      'guidedErp': 'プランを練習する。',
+      'urgeSurfing': '波が過ぎるのを見守る。',
+      'responsePrevention': '代わりにしたことを記録する。',
+      'uncertaintyTraining': '「たぶん」に居場所をつくる。',
+      'behavioralExperiments': 'OCDの予測を確かめる。',
+      'reflectionJournal': '気づいたことを記録する。',
+      'other': '回復ツールを開く。',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String recoveryStageTitle(String stage) {
+    String _temp0 = intl.Intl.selectLogic(stage, {
+      'assess': '確認する',
+      'plan': '計画する',
+      'practice': '練習する',
+      'review': '振り返る',
+      'other': 'ツール',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String recoveryStageSubtitle(String stage) {
+    String _temp0 = intl.Intl.selectLogic(stage, {
+      'assess': '今の状態を確認します。',
+      'plan': '練習の準備をします。',
+      'practice': '一つ練習します。',
+      'review': '振り返って学びます。',
+      'other': '役立ちそうなものを選びます。',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get recoveryProBadge => 'Patterns Pro';
+
+  @override
+  String recoveryOpenToolHint(String title) {
+    return '$titleを開く';
+  }
+
+  @override
+  String recoveryLockedToolHint(String title) {
+    return '$titleにはPatterns Proが必要です';
+  }
 }
