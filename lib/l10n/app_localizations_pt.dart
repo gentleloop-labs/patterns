@@ -987,6 +987,163 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get proRestoreSucceeded =>
       'O Patterns Pro foi restaurado. Todas as ferramentas de recuperação estão desbloqueadas novamente.';
+
+  @override
+  String get tipJarTitle => 'Apoiar o Patterns';
+
+  @override
+  String get tipJarBody =>
+      'O Patterns é independente e não tem anúncios. Se ele ajudou você, uma pequena gorjeta significa muito. As gorjetas são opcionais e não desbloqueiam nada.';
+
+  @override
+  String get tipJarLoadingLabel => 'Carregando opções de gorjeta';
+
+  @override
+  String get tipJarPurchasesUnavailable =>
+      'As compras no app não estão disponíveis neste dispositivo.';
+
+  @override
+  String get tipJarOptionsUnavailable =>
+      'Nenhuma opção de gorjeta foi encontrada. Tente novamente mais tarde.';
+
+  @override
+  String get tipJarLoadFailed =>
+      'Não foi possível carregar as opções de gorjeta. Tente novamente mais tarde.';
+
+  @override
+  String get tipJarPurchaseFailed =>
+      'Não foi possível concluir a gorjeta. Tente novamente.';
+
+  @override
+  String get tipJarTryAgainAction => 'Tentar novamente';
+
+  @override
+  String get tipSmallTitle => 'Gorjeta pequena';
+
+  @override
+  String get tipSmallDescription =>
+      'Uma gorjeta pequena e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos.';
+
+  @override
+  String get tipMediumTitle => 'Gorjeta média';
+
+  @override
+  String get tipMediumDescription =>
+      'Uma gorjeta média e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos.';
+
+  @override
+  String get tipLargeTitle => 'Gorjeta grande';
+
+  @override
+  String get tipLargeDescription =>
+      'Uma gorjeta grande e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos.';
+
+  @override
+  String tipChoiceSemantics(String title, String price, String description) {
+    return '$title, $price. $description';
+  }
+
+  @override
+  String get tipChoiceHint => 'Envia esta gorjeta opcional';
+
+  @override
+  String get tipThanksTitle => 'Obrigado';
+
+  @override
+  String get tipThanksBody =>
+      'Seu apoio significa muito. Graças a pessoas como você, o Patterns continua independente e sem anúncios.';
+
+  @override
+  String get tipThanksAction => 'Foi um prazer';
+
+  @override
+  String get desktopProTitle => 'Desbloquear o Patterns Desktop Pro';
+
+  @override
+  String get desktopProSubtitle =>
+      'Uma licença de compra única para ferramentas de recuperação offline otimizadas para computador.';
+
+  @override
+  String get desktopFeatureHierarchyTitle => 'Criador de hierarquias';
+
+  @override
+  String get desktopFeatureHierarchyDescription =>
+      'Criar e registrar etapas e hierarquias de exposição.';
+
+  @override
+  String get desktopFeatureErpTitle => 'Registros de exercícios ERP';
+
+  @override
+  String get desktopFeatureErpDescription =>
+      'Registrar prevenção de resposta e exercícios cronometrados.';
+
+  @override
+  String get desktopFeatureUrgeTitle => 'Urge Surfing';
+
+  @override
+  String get desktopFeatureUrgeDescription =>
+      'Registrar mudanças no impulso com um cronômetro ao vivo.';
+
+  @override
+  String get desktopFeatureActivityTitle => 'Atividade de recuperação';
+
+  @override
+  String get desktopFeatureActivityDescription =>
+      'Revisar atividades objetivas e padrões semanais.';
+
+  @override
+  String get desktopOneTimeLicense => 'Licença de compra única';
+
+  @override
+  String desktopOneTimePrice(String price) {
+    return '$price, compra única';
+  }
+
+  @override
+  String get desktopPurchaseLicenseAction => 'Comprar licença';
+
+  @override
+  String get desktopCheckoutUnavailable =>
+      'A página de compra não está disponível nesta versão.';
+
+  @override
+  String get desktopAlreadyPurchased =>
+      'Já comprou? Digite sua chave de licença';
+
+  @override
+  String get desktopLicensePrompt =>
+      'Digite sua chave de licença do Lemon Squeezy:';
+
+  @override
+  String get desktopLicenseLabel => 'Chave de licença';
+
+  @override
+  String get desktopLicenseHint => 'Cole a chave de licença do seu recibo';
+
+  @override
+  String get desktopLicenseActivating => 'Ativando a licença…';
+
+  @override
+  String get desktopActivateLicenseAction => 'Ativar licença';
+
+  @override
+  String get desktopLicenseBackAction => 'Voltar';
+
+  @override
+  String get desktopLicenseInvalid =>
+      'Digite a chave de licença completa que está no seu recibo.';
+
+  @override
+  String get desktopLicenseRejected =>
+      'Não foi possível verificar esta licença para o Patterns Desktop Pro. Confira a chave e tente novamente.';
+
+  @override
+  String get desktopLicenseUnavailable =>
+      'Não foi possível acessar o serviço de licenças. Confira sua conexão e tente novamente.';
+
+  @override
+  String get desktopLicenseNotConfigured =>
+      'A ativação da licença não está disponível nesta versão.';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -1972,4 +2129,161 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String get proRestoreSucceeded =>
       'O Patterns Pro foi restaurado. Todas as ferramentas de recuperação estão desbloqueadas novamente.';
+
+  @override
+  String get tipJarTitle => 'Apoiar o Patterns';
+
+  @override
+  String get tipJarBody =>
+      'O Patterns é independente e não tem anúncios. Se ele ajudou você, uma pequena gorjeta significa muito. As gorjetas são opcionais e não desbloqueiam nada.';
+
+  @override
+  String get tipJarLoadingLabel => 'Carregando opções de gorjeta';
+
+  @override
+  String get tipJarPurchasesUnavailable =>
+      'As compras no app não estão disponíveis neste dispositivo.';
+
+  @override
+  String get tipJarOptionsUnavailable =>
+      'Nenhuma opção de gorjeta foi encontrada. Tente novamente mais tarde.';
+
+  @override
+  String get tipJarLoadFailed =>
+      'Não foi possível carregar as opções de gorjeta. Tente novamente mais tarde.';
+
+  @override
+  String get tipJarPurchaseFailed =>
+      'Não foi possível concluir a gorjeta. Tente novamente.';
+
+  @override
+  String get tipJarTryAgainAction => 'Tentar novamente';
+
+  @override
+  String get tipSmallTitle => 'Gorjeta pequena';
+
+  @override
+  String get tipSmallDescription =>
+      'Uma gorjeta pequena e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos.';
+
+  @override
+  String get tipMediumTitle => 'Gorjeta média';
+
+  @override
+  String get tipMediumDescription =>
+      'Uma gorjeta média e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos.';
+
+  @override
+  String get tipLargeTitle => 'Gorjeta grande';
+
+  @override
+  String get tipLargeDescription =>
+      'Uma gorjeta grande e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos.';
+
+  @override
+  String tipChoiceSemantics(String title, String price, String description) {
+    return '$title, $price. $description';
+  }
+
+  @override
+  String get tipChoiceHint => 'Envia esta gorjeta opcional';
+
+  @override
+  String get tipThanksTitle => 'Obrigado';
+
+  @override
+  String get tipThanksBody =>
+      'Seu apoio significa muito. Graças a pessoas como você, o Patterns continua independente e sem anúncios.';
+
+  @override
+  String get tipThanksAction => 'Foi um prazer';
+
+  @override
+  String get desktopProTitle => 'Desbloquear o Patterns Desktop Pro';
+
+  @override
+  String get desktopProSubtitle =>
+      'Uma licença de compra única para ferramentas de recuperação offline otimizadas para computador.';
+
+  @override
+  String get desktopFeatureHierarchyTitle => 'Criador de hierarquias';
+
+  @override
+  String get desktopFeatureHierarchyDescription =>
+      'Criar e registrar etapas e hierarquias de exposição.';
+
+  @override
+  String get desktopFeatureErpTitle => 'Registros de exercícios ERP';
+
+  @override
+  String get desktopFeatureErpDescription =>
+      'Registrar prevenção de resposta e exercícios cronometrados.';
+
+  @override
+  String get desktopFeatureUrgeTitle => 'Urge Surfing';
+
+  @override
+  String get desktopFeatureUrgeDescription =>
+      'Registrar mudanças no impulso com um cronômetro ao vivo.';
+
+  @override
+  String get desktopFeatureActivityTitle => 'Atividade de recuperação';
+
+  @override
+  String get desktopFeatureActivityDescription =>
+      'Revisar atividades objetivas e padrões semanais.';
+
+  @override
+  String get desktopOneTimeLicense => 'Licença de compra única';
+
+  @override
+  String desktopOneTimePrice(String price) {
+    return '$price, compra única';
+  }
+
+  @override
+  String get desktopPurchaseLicenseAction => 'Comprar licença';
+
+  @override
+  String get desktopCheckoutUnavailable =>
+      'A página de compra não está disponível nesta versão.';
+
+  @override
+  String get desktopAlreadyPurchased =>
+      'Já comprou? Digite sua chave de licença';
+
+  @override
+  String get desktopLicensePrompt =>
+      'Digite sua chave de licença do Lemon Squeezy:';
+
+  @override
+  String get desktopLicenseLabel => 'Chave de licença';
+
+  @override
+  String get desktopLicenseHint => 'Cole a chave de licença do seu recibo';
+
+  @override
+  String get desktopLicenseActivating => 'Ativando a licença…';
+
+  @override
+  String get desktopActivateLicenseAction => 'Ativar licença';
+
+  @override
+  String get desktopLicenseBackAction => 'Voltar';
+
+  @override
+  String get desktopLicenseInvalid =>
+      'Digite a chave de licença completa que está no seu recibo.';
+
+  @override
+  String get desktopLicenseRejected =>
+      'Não foi possível verificar esta licença para o Patterns Desktop Pro. Confira a chave e tente novamente.';
+
+  @override
+  String get desktopLicenseUnavailable =>
+      'Não foi possível acessar o serviço de licenças. Confira sua conexão e tente novamente.';
+
+  @override
+  String get desktopLicenseNotConfigured =>
+      'A ativação da licença não está disponível nesta versão.';
 }

@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../l10n/l10n.dart';
 import '../services/tip_jar.dart';
 import '../theme/app_colors.dart';
 import 'app_snack_bar.dart';
 import 'platform.dart';
 import 'tip_thanks_dialog.dart';
+
+enum _TipLoadError { purchasesUnavailable, noOptions, failed }
 
 class TipJarSheet extends StatefulWidget {
   const TipJarSheet({super.key});
@@ -45,7 +48,7 @@ class TipJarSheet extends StatefulWidget {
 
 class _TipJarSheetState extends State<TipJarSheet> {
   List<ProductDetails>? _products;
-  String? _loadError;
+  _TipLoadError? _loadError;
   bool _loading = true;
   bool _purchaseInFlight = false;
   StreamSubscription<TipJarEvent>? _eventSub;
@@ -71,24 +74,13 @@ class _TipJarSheetState extends State<TipJarSheet> {
     try {
       final available = await TipJarService.isAvailable();
       if (!available) {
-        _applyProducts(
-          null,
-          unavailableMessage:
-              'In-app purchases are unavailable on this device.',
-        );
+        _applyProducts(null, error: _TipLoadError.purchasesUnavailable);
         return;
       }
       final products = await _fetchProductsWithRetry();
-      _applyProducts(
-        products,
-        unavailableMessage: 'No tip options found. Please try again later.',
-      );
+      _applyProducts(products, error: _TipLoadError.noOptions);
     } catch (_) {
-      _applyProducts(
-        null,
-        unavailableMessage:
-            'Could not load tip options. Please try again later.',
-      );
+      _applyProducts(null, error: _TipLoadError.failed);
     }
   }
 
@@ -113,7 +105,7 @@ class _TipJarSheetState extends State<TipJarSheet> {
   /// transient failure still shows usable options instead of an error.
   void _applyProducts(
     List<ProductDetails>? products, {
-    required String unavailableMessage,
+    required _TipLoadError error,
   }) {
     if (!mounted) return;
     final resolved = (products != null && products.isNotEmpty)
@@ -126,7 +118,7 @@ class _TipJarSheetState extends State<TipJarSheet> {
         _loadError = null;
       } else {
         _products = const [];
-        _loadError = unavailableMessage;
+        _loadError = error;
       }
     });
   }
@@ -136,11 +128,16 @@ class _TipJarSheetState extends State<TipJarSheet> {
     switch (event) {
       case TipJarSuccess():
         setState(() => _purchaseInFlight = false);
-        Navigator.of(context).pop();
-        TipThanksDialog.show(context);
-      case TipJarError(:final message):
+        final navigator = Navigator.of(context);
+        navigator.pop();
+        TipThanksDialog.show(navigator.context);
+      case TipJarError():
         setState(() => _purchaseInFlight = false);
-        showAppSnackBar(context, message, type: ToastType.error);
+        showAppSnackBar(
+          context,
+          context.l10n.tipJarPurchaseFailed,
+          type: ToastType.error,
+        );
       case TipJarCanceled():
         setState(() => _purchaseInFlight = false);
     }
@@ -153,13 +150,18 @@ class _TipJarSheetState extends State<TipJarSheet> {
       final launched = await TipJarService.buyTip(product);
       if (!launched && mounted) {
         setState(() => _purchaseInFlight = false);
+        showAppSnackBar(
+          context,
+          context.l10n.tipJarPurchaseFailed,
+          type: ToastType.error,
+        );
       }
-    } catch (error) {
+    } catch (_) {
       if (!mounted) return;
       setState(() => _purchaseInFlight = false);
       showAppSnackBar(
         context,
-        'Could not start the purchase. Please try again.',
+        context.l10n.tipJarPurchaseFailed,
         type: ToastType.error,
       );
     }
@@ -168,78 +170,96 @@ class _TipJarSheetState extends State<TipJarSheet> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
 
     return SafeArea(
-      child: Container(
-        margin: const EdgeInsets.all(14),
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(28),
-          border: Border.all(color: theme.dividerColor),
+      child: SingleChildScrollView(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.viewInsetsOf(context).bottom,
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: theme.colorScheme.primary.withValues(alpha: 0.14),
-                  ),
-                  alignment: Alignment.center,
-                  child: Icon(
-                    LineIcons.heart,
-                    color: theme.colorScheme.primary,
-                    size: 22,
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    'Support Patterns',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+        child: Container(
+          margin: const EdgeInsets.all(14),
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.surface,
+            borderRadius: BorderRadius.circular(28),
+            border: Border.all(color: theme.dividerColor),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 44,
+                    height: 44,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: theme.colorScheme.primary.withValues(alpha: 0.14),
+                    ),
+                    alignment: Alignment.center,
+                    child: Icon(
+                      LineIcons.heart,
+                      color: theme.colorScheme.primary,
+                      size: 22,
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Text(
-              'Patterns is independent and ad-free. If it has helped you, '
-              'a small tip means a lot. Tips are optional and do not unlock anything.',
-              style: TextStyle(
-                color: context.appColors.textSecondary,
-                height: 1.45,
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      strings.tipJarTitle,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 20),
-            _buildBody(theme),
-          ],
+              const SizedBox(height: 12),
+              Text(
+                strings.tipJarBody,
+                style: TextStyle(
+                  color: context.appColors.textSecondary,
+                  height: 1.45,
+                ),
+              ),
+              const SizedBox(height: 20),
+              _buildBody(theme),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _buildBody(ThemeData theme) {
+    final strings = context.l10n;
     if (_loading) {
-      return const Padding(
-        padding: EdgeInsets.symmetric(vertical: 32),
-        child: Center(child: CircularProgressIndicator()),
+      return Semantics(
+        label: strings.tipJarLoadingLabel,
+        liveRegion: true,
+        child: const ExcludeSemantics(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 32),
+            child: Center(child: CircularProgressIndicator()),
+          ),
+        ),
       );
     }
     final error = _loadError;
     if (error != null) {
+      final errorMessage = switch (error) {
+        _TipLoadError.purchasesUnavailable =>
+          strings.tipJarPurchasesUnavailable,
+        _TipLoadError.noOptions => strings.tipJarOptionsUnavailable,
+        _TipLoadError.failed => strings.tipJarLoadFailed,
+      };
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            error,
+            errorMessage,
             style: TextStyle(
               color: context.appColors.textSecondary,
               height: 1.45,
@@ -248,7 +268,7 @@ class _TipJarSheetState extends State<TipJarSheet> {
           const SizedBox(height: 16),
           OutlinedButton(
             onPressed: _loadProducts,
-            child: const Text('Try again'),
+            child: Text(strings.tipJarTryAgainAction),
           ),
         ],
       );
@@ -284,37 +304,47 @@ class _TipChoice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final title = product.title.isNotEmpty ? product.title : product.id;
-    final subtitle = product.description;
+    final strings = context.l10n;
+    final copy = TipJarService.localizedCopy(strings, product.id);
 
-    return Opacity(
-      opacity: disabled ? 0.5 : 1.0,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(18),
-        onTap: disabled ? null : onTap,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          decoration: BoxDecoration(
-            color: theme.colorScheme.surface,
-            borderRadius: BorderRadius.circular(18),
-            border: Border.all(color: theme.dividerColor),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
+    return Semantics(
+      button: true,
+      enabled: !disabled,
+      label: strings.tipChoiceSemantics(
+        copy.title,
+        product.price,
+        copy.description,
+      ),
+      hint: strings.tipChoiceHint,
+      excludeSemantics: true,
+      child: Opacity(
+        opacity: disabled ? 0.5 : 1.0,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(18),
+          onTap: disabled ? null : onTap,
+          child: Container(
+            constraints: const BoxConstraints(minHeight: 44),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.surface,
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(color: theme.dividerColor),
+            ),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final details = Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      _cleanTitle(title),
+                      copy.title,
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w800,
                       ),
                     ),
-                    if (subtitle.isNotEmpty) ...[
+                    if (copy.description.isNotEmpty) ...[
                       const SizedBox(height: 4),
                       Text(
-                        subtitle,
+                        copy.description,
                         style: TextStyle(
                           color: context.appColors.textSecondary,
                           fontSize: 13,
@@ -322,27 +352,38 @@ class _TipChoice extends StatelessWidget {
                       ),
                     ],
                   ],
-                ),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                product.price,
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w800,
-                  color: theme.colorScheme.primary,
-                ),
-              ),
-            ],
+                );
+                final price = Text(
+                  product.price,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w800,
+                    color: theme.colorScheme.primary,
+                  ),
+                );
+                final usesAccessibilityText =
+                    MediaQuery.textScalerOf(context).scale(1) > 1.3;
+                if (usesAccessibilityText || constraints.maxWidth < 300) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      details,
+                      const SizedBox(height: 10),
+                      Align(alignment: Alignment.centerRight, child: price),
+                    ],
+                  );
+                }
+                return Row(
+                  children: [
+                    Expanded(child: details),
+                    const SizedBox(width: 12),
+                    price,
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),
     );
-  }
-
-  /// Strip the trailing " (Patterns: Journal & OCD Tracker)" that the App Store
-  /// appends to localized titles when fetched via StoreKit.
-  static String _cleanTitle(String raw) {
-    final idx = raw.indexOf(' (');
-    return idx > 0 ? raw.substring(0, idx) : raw;
   }
 }

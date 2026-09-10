@@ -989,4 +989,162 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get proRestoreSucceeded =>
       'Patterns Pro a été restauré. Tous les outils de rétablissement sont de nouveau débloqués.';
+
+  @override
+  String get tipJarTitle => 'Soutenir Patterns';
+
+  @override
+  String get tipJarBody =>
+      'Patterns est indépendant et sans publicité. Si l’app vous a aidé, un petit pourboire compte beaucoup. Les pourboires sont facultatifs et ne débloquent rien.';
+
+  @override
+  String get tipJarLoadingLabel => 'Chargement des options de pourboire';
+
+  @override
+  String get tipJarPurchasesUnavailable =>
+      'Les achats intégrés ne sont pas disponibles sur cet appareil.';
+
+  @override
+  String get tipJarOptionsUnavailable =>
+      'Aucune option de pourboire n’a été trouvée. Veuillez réessayer plus tard.';
+
+  @override
+  String get tipJarLoadFailed =>
+      'Impossible de charger les options de pourboire. Veuillez réessayer plus tard.';
+
+  @override
+  String get tipJarPurchaseFailed =>
+      'Impossible d’envoyer le pourboire. Veuillez réessayer.';
+
+  @override
+  String get tipJarTryAgainAction => 'Réessayer';
+
+  @override
+  String get tipSmallTitle => 'Petit pourboire';
+
+  @override
+  String get tipSmallDescription =>
+      'Un petit pourboire facultatif pour soutenir le développement de Patterns. Ne débloque aucune fonction.';
+
+  @override
+  String get tipMediumTitle => 'Pourboire moyen';
+
+  @override
+  String get tipMediumDescription =>
+      'Un pourboire moyen et facultatif pour soutenir le développement de Patterns. Ne débloque aucune fonction.';
+
+  @override
+  String get tipLargeTitle => 'Grand pourboire';
+
+  @override
+  String get tipLargeDescription =>
+      'Un grand pourboire facultatif pour soutenir le développement de Patterns. Ne débloque aucune fonction.';
+
+  @override
+  String tipChoiceSemantics(String title, String price, String description) {
+    return '$title, $price. $description';
+  }
+
+  @override
+  String get tipChoiceHint => 'Envoie ce pourboire facultatif';
+
+  @override
+  String get tipThanksTitle => 'Merci';
+
+  @override
+  String get tipThanksBody =>
+      'Votre soutien compte beaucoup. Grâce à des personnes comme vous, Patterns reste sans publicité et indépendant.';
+
+  @override
+  String get tipThanksAction => 'Avec plaisir';
+
+  @override
+  String get desktopProTitle => 'Débloquer Patterns Desktop Pro';
+
+  @override
+  String get desktopProSubtitle =>
+      'Une licence à paiement unique pour des outils de rétablissement hors ligne optimisés pour ordinateur.';
+
+  @override
+  String get desktopFeatureHierarchyTitle => 'Créateur de hiérarchies';
+
+  @override
+  String get desktopFeatureHierarchyDescription =>
+      'Créer et consigner des étapes et hiérarchies d’exposition.';
+
+  @override
+  String get desktopFeatureErpTitle => 'Journaux d’exercices ERP';
+
+  @override
+  String get desktopFeatureErpDescription =>
+      'Consigner la prévention de la réponse et les exercices chronométrés.';
+
+  @override
+  String get desktopFeatureUrgeTitle => 'Urge Surfing';
+
+  @override
+  String get desktopFeatureUrgeDescription =>
+      'Suivre les changements de l’envie avec un chronomètre en direct.';
+
+  @override
+  String get desktopFeatureActivityTitle => 'Activité de rétablissement';
+
+  @override
+  String get desktopFeatureActivityDescription =>
+      'Consulter l’activité factuelle et les tendances hebdomadaires.';
+
+  @override
+  String get desktopOneTimeLicense => 'Licence à paiement unique';
+
+  @override
+  String desktopOneTimePrice(String price) {
+    return '$price, achat unique';
+  }
+
+  @override
+  String get desktopPurchaseLicenseAction => 'Acheter la licence';
+
+  @override
+  String get desktopCheckoutUnavailable =>
+      'La page d’achat n’est pas disponible dans cette version.';
+
+  @override
+  String get desktopAlreadyPurchased =>
+      'Déjà achetée? Saisissez votre clé de licence';
+
+  @override
+  String get desktopLicensePrompt =>
+      'Saisissez votre clé de licence Lemon Squeezy :';
+
+  @override
+  String get desktopLicenseLabel => 'Clé de licence';
+
+  @override
+  String get desktopLicenseHint =>
+      'Collez la clé de licence indiquée sur votre reçu';
+
+  @override
+  String get desktopLicenseActivating => 'Activation de la licence…';
+
+  @override
+  String get desktopActivateLicenseAction => 'Activer la licence';
+
+  @override
+  String get desktopLicenseBackAction => 'Retour';
+
+  @override
+  String get desktopLicenseInvalid =>
+      'Saisissez la clé de licence complète indiquée sur votre reçu.';
+
+  @override
+  String get desktopLicenseRejected =>
+      'Cette licence n’a pas pu être vérifiée pour Patterns Desktop Pro. Vérifiez la clé et réessayez.';
+
+  @override
+  String get desktopLicenseUnavailable =>
+      'Le service de licences est inaccessible. Vérifiez votre connexion et réessayez.';
+
+  @override
+  String get desktopLicenseNotConfigured =>
+      'L’activation de licence n’est pas disponible dans cette version.';
 }

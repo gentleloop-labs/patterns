@@ -1163,5 +1163,197 @@
   "proRestoreSucceeded": "Patterns Pro restored. Every recovery tool is unlocked again.",
   "@proRestoreSucceeded": {
     "description": "Patterns Pro restore success confirmation. Do not imply a new charge or treatment outcome."
+  },
+  "tipJarTitle": "Support Patterns",
+  "@tipJarTitle": {
+    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
+  },
+  "tipJarBody": "Patterns is independent and ad-free. If it has helped you, a small tip means a lot. Tips are optional and do not unlock anything.",
+  "@tipJarBody": {
+    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
+  },
+  "tipJarLoadingLabel": "Loading tip options",
+  "@tipJarLoadingLabel": {
+    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
+  },
+  "tipJarPurchasesUnavailable": "In-app purchases are unavailable on this device.",
+  "@tipJarPurchasesUnavailable": {
+    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
+  },
+  "tipJarOptionsUnavailable": "No tip options were found. Please try again later.",
+  "@tipJarOptionsUnavailable": {
+    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
+  },
+  "tipJarLoadFailed": "Tip options could not be loaded. Please try again later.",
+  "@tipJarLoadFailed": {
+    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
+  },
+  "tipJarPurchaseFailed": "The tip could not be completed. Please try again.",
+  "@tipJarPurchaseFailed": {
+    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
+  },
+  "tipJarTryAgainAction": "Try again",
+  "@tipJarTryAgainAction": {
+    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
+  },
+  "tipSmallTitle": "Small tip",
+  "@tipSmallTitle": {
+    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
+  },
+  "tipSmallDescription": "An optional small tip to support Patterns development. Unlocks no features.",
+  "@tipSmallDescription": {
+    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
+  },
+  "tipMediumTitle": "Medium tip",
+  "@tipMediumTitle": {
+    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
+  },
+  "tipMediumDescription": "An optional medium tip to support Patterns development. Unlocks no features.",
+  "@tipMediumDescription": {
+    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
+  },
+  "tipLargeTitle": "Large tip",
+  "@tipLargeTitle": {
+    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
+  },
+  "tipLargeDescription": "An optional large tip to support Patterns development. Unlocks no features.",
+  "@tipLargeDescription": {
+    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
+  },
+  "tipChoiceSemantics": "{title}, {price}. {description}",
+  "@tipChoiceSemantics": {
+    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "price": {
+        "type": "String"
+      },
+      "description": {
+        "type": "String"
+      }
+    }
+  },
+  "tipChoiceHint": "Sends this optional tip",
+  "@tipChoiceHint": {
+    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
+  },
+  "tipThanksTitle": "Thank you",
+  "@tipThanksTitle": {
+    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
+  },
+  "tipThanksBody": "Your support means a lot. Patterns stays ad-free and independent because of people like you.",
+  "@tipThanksBody": {
+    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
+  },
+  "tipThanksAction": "Glad to help",
+  "@tipThanksAction": {
+    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
+  },
+  "desktopProTitle": "Unlock Patterns Desktop Pro",
+  "@desktopProTitle": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopProSubtitle": "A one-time license for offline, desktop-optimized recovery tools.",
+  "@desktopProSubtitle": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopFeatureHierarchyTitle": "Hierarchy Builder",
+  "@desktopFeatureHierarchyTitle": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopFeatureHierarchyDescription": "Construct and track exposure steps and ladders.",
+  "@desktopFeatureHierarchyDescription": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopFeatureErpTitle": "ERP Exercise Logs",
+  "@desktopFeatureErpTitle": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopFeatureErpDescription": "Record response prevention and timed exercises.",
+  "@desktopFeatureErpDescription": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopFeatureUrgeTitle": "Urge Surfing",
+  "@desktopFeatureUrgeTitle": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopFeatureUrgeDescription": "Follow urge changes with live timed logging.",
+  "@desktopFeatureUrgeDescription": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopFeatureActivityTitle": "Recovery Activity",
+  "@desktopFeatureActivityTitle": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopFeatureActivityDescription": "Review factual activity and weekly patterns.",
+  "@desktopFeatureActivityDescription": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopOneTimeLicense": "One-time license",
+  "@desktopOneTimeLicense": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopOneTimePrice": "{price} one-time purchase",
+  "@desktopOneTimePrice": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.",
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "desktopPurchaseLicenseAction": "Buy license",
+  "@desktopPurchaseLicenseAction": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopCheckoutUnavailable": "The purchase page is unavailable in this build.",
+  "@desktopCheckoutUnavailable": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopAlreadyPurchased": "Already purchased? Enter your license key",
+  "@desktopAlreadyPurchased": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopLicensePrompt": "Enter your Lemon Squeezy license key:",
+  "@desktopLicensePrompt": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopLicenseLabel": "License key",
+  "@desktopLicenseLabel": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopLicenseHint": "Paste the license key from your receipt",
+  "@desktopLicenseHint": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopLicenseActivating": "Activating license…",
+  "@desktopLicenseActivating": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopActivateLicenseAction": "Activate license",
+  "@desktopActivateLicenseAction": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopLicenseBackAction": "Back",
+  "@desktopLicenseBackAction": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopLicenseInvalid": "Enter the complete license key from your receipt.",
+  "@desktopLicenseInvalid": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopLicenseRejected": "This license could not be verified for Patterns Desktop Pro. Check the key and try again.",
+  "@desktopLicenseRejected": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopLicenseUnavailable": "The license service could not be reached. Check your connection and try again.",
+  "@desktopLicenseUnavailable": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "desktopLicenseNotConfigured": "License activation is unavailable in this build.",
+  "@desktopLicenseNotConfigured": {
+    "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
   }
 }

@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../l10n/l10n.dart';
 import '../services/app_events.dart';
+import '../services/desktop_license_service.dart';
 import '../services/pro_service.dart';
 import '../services/pro_entry_point.dart';
 import '../services/usage_analytics.dart';
@@ -19,8 +20,8 @@ import 'platform.dart';
 
 enum _ProductLoadError { purchasesUnavailable, productUnavailable, failed }
 
-/// Bottom sheet that sells the one-time "Patterns Pro" unlock.
-/// On desktop, it automatically shows the high-fidelity [DesktopPaywallView].
+/// Store-backed sheet that sells the one-time "Patterns Pro" unlock.
+/// macOS shares this StoreKit path; Windows/Linux use [DesktopPaywallView].
 class PaywallSheet extends StatefulWidget {
   final ProEntryPoint entryPoint;
 
@@ -33,7 +34,7 @@ class PaywallSheet extends StatefulWidget {
     Telemetry.log('paywall.shown', {'source': entryPoint.wireName});
     AppEvents.logProFeatureTapped(entryPoint);
     AppEvents.logSupporterScreenViewed(source: entryPoint);
-    if (kIsDesktop) {
+    if (kIsDesktop && !kIsMacOS) {
       return showDialog<void>(
         context: context,
         useRootNavigator: true,
@@ -44,8 +45,35 @@ class PaywallSheet extends StatefulWidget {
             vertical: 24,
           ),
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 680),
-            child: DesktopPaywallView(onUnlocked: () => Navigator.pop(context)),
+            constraints: BoxConstraints(
+              maxWidth: 680,
+              maxHeight: MediaQuery.sizeOf(context).height - 48,
+            ),
+            child: SingleChildScrollView(
+              child: DesktopPaywallView(
+                onUnlocked: () => Navigator.pop(context),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+    if (kIsMacOS) {
+      return showDialog<void>(
+        context: context,
+        useRootNavigator: true,
+        builder: (_) => Dialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: const EdgeInsets.symmetric(
+            horizontal: 48,
+            vertical: 24,
+          ),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: 520,
+              maxHeight: MediaQuery.sizeOf(context).height - 48,
+            ),
+            child: PaywallSheet(entryPoint: entryPoint),
           ),
         ),
       );
@@ -515,17 +543,19 @@ class _ProPoint extends StatelessWidget {
 }
 
 /// A high-fidelity, premium paywall view for Desktop (reused dialog / inline).
-class DesktopPaywallView extends StatefulWidget {
+class DesktopPaywallView extends ConsumerStatefulWidget {
   final VoidCallback? onUnlocked;
   const DesktopPaywallView({super.key, this.onUnlocked});
 
   @override
-  State<DesktopPaywallView> createState() => _DesktopPaywallViewState();
+  ConsumerState<DesktopPaywallView> createState() => _DesktopPaywallViewState();
 }
 
-class _DesktopPaywallViewState extends State<DesktopPaywallView> {
+class _DesktopPaywallViewState extends ConsumerState<DesktopPaywallView> {
   final _licenseController = TextEditingController();
+  final _licenseService = const DesktopLicenseService();
   bool _isEnteringLicense = false;
+  bool _activationInFlight = false;
 
   @override
   void dispose() {
@@ -533,31 +563,75 @@ class _DesktopPaywallViewState extends State<DesktopPaywallView> {
     super.dispose();
   }
 
+  Future<void> _activateLicense() async {
+    final key = _licenseController.text.trim();
+    if (key.isEmpty) {
+      showAppSnackBar(
+        context,
+        context.l10n.desktopLicenseInvalid,
+        type: ToastType.error,
+      );
+      return;
+    }
+    setState(() => _activationInFlight = true);
+    final result = await _licenseService.activate(key);
+    if (!mounted) return;
+    setState(() => _activationInFlight = false);
+
+    if (result == DesktopLicenseActivationStatus.activated) {
+      await appPreferences?.setBool(proUnlockedKey, true);
+      ref.read(proProvider.notifier).refresh();
+      if (!mounted) return;
+      if (widget.onUnlocked != null) {
+        widget.onUnlocked!();
+      } else {
+        _showUnlockedDialog(context, restored: false);
+      }
+      return;
+    }
+
+    final message = switch (result) {
+      DesktopLicenseActivationStatus.invalid =>
+        context.l10n.desktopLicenseInvalid,
+      DesktopLicenseActivationStatus.rejected =>
+        context.l10n.desktopLicenseRejected,
+      DesktopLicenseActivationStatus.unavailable =>
+        context.l10n.desktopLicenseUnavailable,
+      DesktopLicenseActivationStatus.notConfigured =>
+        context.l10n.desktopLicenseNotConfigured,
+      DesktopLicenseActivationStatus.activated =>
+        context.l10n.desktopLicenseRejected,
+    };
+    showAppSnackBar(context, message, type: ToastType.error);
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
+    final checkoutUri = DesktopCommerceConfiguration.checkoutUri;
 
     // List of premium features optimized for desktop
     final features = [
       (
         icon: Icons.linear_scale_rounded,
-        title: 'Hierarchy Builder',
-        desc: 'Construct and track exposure steps and ladders.',
+        title: strings.desktopFeatureHierarchyTitle,
+        desc: strings.desktopFeatureHierarchyDescription,
       ),
       (
         icon: Icons.assignment_turned_in_rounded,
-        title: 'ERP Exercise Logs',
-        desc: 'Log response prevention and timed exercises.',
+        title: strings.desktopFeatureErpTitle,
+        desc: strings.desktopFeatureErpDescription,
       ),
       (
         icon: Icons.hourglass_empty_rounded,
-        title: 'Urge Surfing Waves',
-        desc: 'Ride urge spikes with live timed logging.',
+        title: strings.desktopFeatureUrgeTitle,
+        desc: strings.desktopFeatureUrgeDescription,
       ),
       (
         icon: Icons.analytics_rounded,
-        title: 'Advanced Insights',
-        desc: 'View interactive trend charts and weekly metrics.',
+        title: strings.desktopFeatureActivityTitle,
+        desc: strings.desktopFeatureActivityDescription,
       ),
     ];
 
@@ -646,7 +720,7 @@ class _DesktopPaywallViewState extends State<DesktopPaywallView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Unlock Patterns Desktop Pro',
+                      strings.desktopProTitle,
                       style: TextStyle(
                         fontFamily: AppTheme.displayFamily,
                         fontSize: 22,
@@ -656,7 +730,7 @@ class _DesktopPaywallViewState extends State<DesktopPaywallView> {
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      'A cheaper, one-time payment for offline desktop-optimized recovery tools.',
+                      strings.desktopProSubtitle,
                       style: TextStyle(
                         fontSize: 12.5,
                         color: theme.colorScheme.onSurface.withOpacity(0.55),
@@ -771,9 +845,9 @@ class _DesktopPaywallViewState extends State<DesktopPaywallView> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Text(
-                            'One-Time License',
-                            style: TextStyle(
+                          Text(
+                            strings.desktopOneTimeLicense,
+                            style: const TextStyle(
                               fontSize: 12.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.grey,
@@ -781,7 +855,9 @@ class _DesktopPaywallViewState extends State<DesktopPaywallView> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '\$9.99 (one-time purchase)',
+                            strings.desktopOneTimePrice(
+                              DesktopCommerceConfiguration.priceLabel,
+                            ),
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -792,40 +868,61 @@ class _DesktopPaywallViewState extends State<DesktopPaywallView> {
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
-                              onPressed: () => launchUrl(
-                                Uri.parse(
-                                  'https://maskedsyntax.lemonsqueezy.com/buy/patterns-desktop-pro',
-                                ),
-                                mode: LaunchMode.externalApplication,
-                              ),
+                              onPressed: checkoutUri == null
+                                  ? null
+                                  : () async {
+                                      final launched = await launchUrl(
+                                        checkoutUri,
+                                        mode: LaunchMode.externalApplication,
+                                      );
+                                      if (!launched && context.mounted) {
+                                        showAppSnackBar(
+                                          context,
+                                          strings.desktopCheckoutUnavailable,
+                                          type: ToastType.error,
+                                        );
+                                      }
+                                    },
                               style: ElevatedButton.styleFrom(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 14,
                                 ),
                               ),
-                              child: const Text('Purchase License Key'),
+                              child: Text(strings.desktopPurchaseLicenseAction),
                             ),
                           ),
+                          if (checkoutUri == null) ...[
+                            const SizedBox(height: 8),
+                            Text(
+                              strings.desktopCheckoutUnavailable,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: context.appColors.textSecondary,
+                              ),
+                            ),
+                          ],
                         ],
                       ),
                       const Divider(height: 24, color: Colors.white10),
-                      GestureDetector(
-                        onTap: () => setState(() => _isEnteringLicense = true),
-                        child: Center(
+                      Center(
+                        child: TextButton(
+                          onPressed: () =>
+                              setState(() => _isEnteringLicense = true),
                           child: Text(
-                            'Already purchased? Enter your License Key',
+                            strings.desktopAlreadyPurchased,
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 12.5,
                               fontWeight: FontWeight.bold,
                               color: theme.colorScheme.primary,
-                              decoration: TextDecoration.underline,
                             ),
                           ),
                         ),
                       ),
                     ] else ...[
                       Text(
-                        'Enter your Lemon Squeezy license key:',
+                        strings.desktopLicensePrompt,
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
@@ -840,8 +937,8 @@ class _DesktopPaywallViewState extends State<DesktopPaywallView> {
                           color: theme.colorScheme.onSurface,
                         ),
                         decoration: InputDecoration(
-                          labelText: 'License Key',
-                          hintText: 'e.g. DESKTOP-XXXX-XXXX-XXXX',
+                          labelText: strings.desktopLicenseLabel,
+                          hintText: strings.desktopLicenseHint,
                           hintStyle: TextStyle(
                             color: theme.colorScheme.onSurface.withOpacity(0.3),
                           ),
@@ -854,51 +951,38 @@ class _DesktopPaywallViewState extends State<DesktopPaywallView> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'For testing, enter any 8+ character key (e.g. DESKTOP-TEST-KEY).',
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontStyle: FontStyle.italic,
-                          color: theme.colorScheme.onSurface.withOpacity(0.4),
-                        ),
-                      ),
                       const SizedBox(height: 16),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           SizedBox(
                             width: double.infinity,
-                            child: Consumer(
-                              builder: (context, ref, _) {
-                                return ElevatedButton(
-                                  onPressed: () async {
-                                    final key = _licenseController.text.trim();
-                                    if (key.length >= 8) {
-                                      await appPreferences?.setBool(
-                                        proUnlockedKey,
-                                        true,
-                                      );
-                                      ref.read(proProvider.notifier).refresh();
-                                      if (widget.onUnlocked != null) {
-                                        widget.onUnlocked!();
-                                      } else {
-                                        _showUnlockedDialog(
-                                          context,
-                                          restored: false,
-                                        );
-                                      }
-                                    } else {
-                                      showAppSnackBar(
-                                        context,
-                                        'Please enter a valid license key (at least 8 characters).',
-                                        type: ToastType.error,
-                                      );
-                                    }
-                                  },
-                                  child: const Text('Activate License'),
-                                );
-                              },
+                            child: ElevatedButton(
+                              onPressed: _activationInFlight
+                                  ? null
+                                  : _activateLicense,
+                              child: _activationInFlight
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const SizedBox(
+                                          width: 18,
+                                          height: 18,
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Flexible(
+                                          child: Text(
+                                            strings.desktopLicenseActivating,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Text(strings.desktopActivateLicenseAction),
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -909,7 +993,7 @@ class _DesktopPaywallViewState extends State<DesktopPaywallView> {
                                 _isEnteringLicense = false;
                                 _licenseController.clear();
                               }),
-                              child: const Text('Back'),
+                              child: Text(strings.desktopLicenseBackAction),
                             ),
                           ),
                         ],

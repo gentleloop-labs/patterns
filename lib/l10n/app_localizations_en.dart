@@ -975,4 +975,160 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get proRestoreSucceeded =>
       'Patterns Pro restored. Every recovery tool is unlocked again.';
+
+  @override
+  String get tipJarTitle => 'Support Patterns';
+
+  @override
+  String get tipJarBody =>
+      'Patterns is independent and ad-free. If it has helped you, a small tip means a lot. Tips are optional and do not unlock anything.';
+
+  @override
+  String get tipJarLoadingLabel => 'Loading tip options';
+
+  @override
+  String get tipJarPurchasesUnavailable =>
+      'In-app purchases are unavailable on this device.';
+
+  @override
+  String get tipJarOptionsUnavailable =>
+      'No tip options were found. Please try again later.';
+
+  @override
+  String get tipJarLoadFailed =>
+      'Tip options could not be loaded. Please try again later.';
+
+  @override
+  String get tipJarPurchaseFailed =>
+      'The tip could not be completed. Please try again.';
+
+  @override
+  String get tipJarTryAgainAction => 'Try again';
+
+  @override
+  String get tipSmallTitle => 'Small tip';
+
+  @override
+  String get tipSmallDescription =>
+      'An optional small tip to support Patterns development. Unlocks no features.';
+
+  @override
+  String get tipMediumTitle => 'Medium tip';
+
+  @override
+  String get tipMediumDescription =>
+      'An optional medium tip to support Patterns development. Unlocks no features.';
+
+  @override
+  String get tipLargeTitle => 'Large tip';
+
+  @override
+  String get tipLargeDescription =>
+      'An optional large tip to support Patterns development. Unlocks no features.';
+
+  @override
+  String tipChoiceSemantics(String title, String price, String description) {
+    return '$title, $price. $description';
+  }
+
+  @override
+  String get tipChoiceHint => 'Sends this optional tip';
+
+  @override
+  String get tipThanksTitle => 'Thank you';
+
+  @override
+  String get tipThanksBody =>
+      'Your support means a lot. Patterns stays ad-free and independent because of people like you.';
+
+  @override
+  String get tipThanksAction => 'Glad to help';
+
+  @override
+  String get desktopProTitle => 'Unlock Patterns Desktop Pro';
+
+  @override
+  String get desktopProSubtitle =>
+      'A one-time license for offline, desktop-optimized recovery tools.';
+
+  @override
+  String get desktopFeatureHierarchyTitle => 'Hierarchy Builder';
+
+  @override
+  String get desktopFeatureHierarchyDescription =>
+      'Construct and track exposure steps and ladders.';
+
+  @override
+  String get desktopFeatureErpTitle => 'ERP Exercise Logs';
+
+  @override
+  String get desktopFeatureErpDescription =>
+      'Record response prevention and timed exercises.';
+
+  @override
+  String get desktopFeatureUrgeTitle => 'Urge Surfing';
+
+  @override
+  String get desktopFeatureUrgeDescription =>
+      'Follow urge changes with live timed logging.';
+
+  @override
+  String get desktopFeatureActivityTitle => 'Recovery Activity';
+
+  @override
+  String get desktopFeatureActivityDescription =>
+      'Review factual activity and weekly patterns.';
+
+  @override
+  String get desktopOneTimeLicense => 'One-time license';
+
+  @override
+  String desktopOneTimePrice(String price) {
+    return '$price one-time purchase';
+  }
+
+  @override
+  String get desktopPurchaseLicenseAction => 'Buy license';
+
+  @override
+  String get desktopCheckoutUnavailable =>
+      'The purchase page is unavailable in this build.';
+
+  @override
+  String get desktopAlreadyPurchased =>
+      'Already purchased? Enter your license key';
+
+  @override
+  String get desktopLicensePrompt => 'Enter your Lemon Squeezy license key:';
+
+  @override
+  String get desktopLicenseLabel => 'License key';
+
+  @override
+  String get desktopLicenseHint => 'Paste the license key from your receipt';
+
+  @override
+  String get desktopLicenseActivating => 'Activating license…';
+
+  @override
+  String get desktopActivateLicenseAction => 'Activate license';
+
+  @override
+  String get desktopLicenseBackAction => 'Back';
+
+  @override
+  String get desktopLicenseInvalid =>
+      'Enter the complete license key from your receipt.';
+
+  @override
+  String get desktopLicenseRejected =>
+      'This license could not be verified for Patterns Desktop Pro. Check the key and try again.';
+
+  @override
+  String get desktopLicenseUnavailable =>
+      'The license service could not be reached. Check your connection and try again.';
+
+  @override
+  String get desktopLicenseNotConfigured =>
+      'License activation is unavailable in this build.';
 }

@@ -6,6 +6,8 @@ bool get kIsDesktop {
   return Platform.isMacOS || Platform.isWindows || Platform.isLinux;
 }
 
+bool get kIsMacOS => !kIsWeb && Platform.isMacOS;
+
 bool get isPdfExportSupported {
   if (kIsWeb) return false;
   return kIsDesktop || Platform.isIOS || Platform.isAndroid;
