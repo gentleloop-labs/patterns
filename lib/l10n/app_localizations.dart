@@ -2260,6 +2260,600 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Health'**
   String get journalThemeHealth;
+
+  /// Today greeting shown before noon.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning'**
+  String get todayGreetingMorning;
+
+  /// Today greeting shown during the afternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Good afternoon'**
+  String get todayGreetingAfternoon;
+
+  /// Today greeting shown during the evening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good evening'**
+  String get todayGreetingEvening;
+
+  /// Gentle Today heading copy. Avoid reassurance, pressure, or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'You’ve got this. One choice at a time.'**
+  String get todayEncouragement;
+
+  /// Today section heading for resuming a recovery activity.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue your practice'**
+  String get todayContinuePractice;
+
+  /// Action that opens the full list of recovery activities.
+  ///
+  /// In en, this message translates to:
+  /// **'See all'**
+  String get todaySeeAllAction;
+
+  /// Today section heading for frequently used actions.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick actions'**
+  String get todayQuickActions;
+
+  /// Optional first-run Today activity heading. Keep it non-directive.
+  ///
+  /// In en, this message translates to:
+  /// **'What would you like to do?'**
+  String get todayChooseActivity;
+
+  /// First-run action for recording a thought or moment.
+  ///
+  /// In en, this message translates to:
+  /// **'Write something down'**
+  String get todayWriteSomethingTitle;
+
+  /// First-run journal action explanation. Do not promise a clinical outcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Get a thought out of your head.'**
+  String get todayWriteSomethingBody;
+
+  /// First-run action for starting a compulsion delay.
+  ///
+  /// In en, this message translates to:
+  /// **'Delay an urge'**
+  String get todayDelayUrgeTitle;
+
+  /// First-run compulsion-delay explanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Create space before you respond.'**
+  String get todayDelayUrgeBody;
+
+  /// First-run action for starting an ERP exercise. Preserve ERP terminology.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise (ERP)'**
+  String get todayPracticeErpTitle;
+
+  /// First-run ERP action explanation.
+  ///
+  /// In en, this message translates to:
+  /// **'A short, guided exercise.'**
+  String get todayPracticeErpBody;
+
+  /// Recommended Today action after a first journal path.
+  ///
+  /// In en, this message translates to:
+  /// **'Write down another moment'**
+  String get todayFirstJournalTitle;
+
+  /// Recommended journal explanation. Avoid guaranteed emotional or treatment outcomes.
+  ///
+  /// In en, this message translates to:
+  /// **'Naming a thought can make it easier to observe.'**
+  String get todayFirstJournalBody;
+
+  /// Recommended Today action after a first ERP path.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise again'**
+  String get todayFirstErpTitle;
+
+  /// Recommended ERP explanation. Avoid streak or momentum pressure.
+  ///
+  /// In en, this message translates to:
+  /// **'Try another short, guided ERP practice.'**
+  String get todayFirstErpBody;
+
+  /// Recommended Today action for a brief compulsion delay.
+  ///
+  /// In en, this message translates to:
+  /// **'Try a two-minute delay'**
+  String get todayFirstDelayTitle;
+
+  /// Recommended compulsion-delay explanation.
+  ///
+  /// In en, this message translates to:
+  /// **'When an urge feels strong, put a little space before it.'**
+  String get todayFirstDelayBody;
+
+  /// Action that starts an ERP practice.
+  ///
+  /// In en, this message translates to:
+  /// **'Start practice'**
+  String get todayStartPracticeAction;
+
+  /// Action that starts a compulsion delay.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a delay'**
+  String get todayStartDelayAction;
+
+  /// Today card title that opens the Patterns Pro purchase screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Patterns Pro'**
+  String get todayProTitle;
+
+  /// Patterns Pro Today card copy. Do not promise recovery or clinical outcomes.
+  ///
+  /// In en, this message translates to:
+  /// **'Build a plan, practise it, and review your activity over time.'**
+  String get todayProBody;
+
+  /// Action that temporarily hides the Today Patterns Pro card.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide for 7 days'**
+  String get todayHideSevenDays;
+
+  /// Heading for calculated practice information shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice progress'**
+  String get todayPracticeProgress;
+
+  /// Practice summary shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Steady practice'**
+  String get todaySteadyPractice;
+
+  /// Empty calculated-progress heading shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Start gently'**
+  String get todayStartGently;
+
+  /// Calculated-progress explanation shown only when Calm Insights is disabled. Avoid judgment or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Your recorded activities are building a longer-term picture.'**
+  String get todayPracticeActiveBody;
+
+  /// Calculated-progress empty explanation shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'This changes as you journal, track, and practise.'**
+  String get todayPracticeEmptyBody;
+
+  /// Safety boundary for a calculated practice score. Preserve the non-diagnostic qualification.
+  ///
+  /// In en, this message translates to:
+  /// **'This reflects recorded practice frequency, not a diagnosis or clinical assessment. A lower number can occur during a difficult week.'**
+  String get todayProgressDisclaimer;
+
+  /// Heading before enough data exists to calculate practice progress. Avoid praise or judgment.
+  ///
+  /// In en, this message translates to:
+  /// **'Your activity is taking shape'**
+  String get todayProgressStartedTitle;
+
+  /// Factual explanation of when calculated practice progress becomes available.
+  ///
+  /// In en, this message translates to:
+  /// **'A progress number will appear after activities have been recorded across more than one day.'**
+  String get todayProgressPendingBody;
+
+  /// Calculated practice-score band shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get todayScoreNew;
+
+  /// Calculated practice-score band shown only when Calm Insights is disabled; it is not a clinical assessment.
+  ///
+  /// In en, this message translates to:
+  /// **'Strong'**
+  String get todayScoreStrong;
+
+  /// Calculated practice-score band shown only when Calm Insights is disabled; it is not a clinical assessment.
+  ///
+  /// In en, this message translates to:
+  /// **'Steady'**
+  String get todayScoreSteady;
+
+  /// Calculated practice-score band shown only when Calm Insights is disabled; it is not a clinical assessment.
+  ///
+  /// In en, this message translates to:
+  /// **'Building'**
+  String get todayScoreBuilding;
+
+  /// Calculated practice-score band shown only when Calm Insights is disabled; it is not a clinical assessment.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting'**
+  String get todayScoreStarting;
+
+  /// Calculated-progress starting copy shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Begin with one small check-in'**
+  String get todayBeginCheckIn;
+
+  /// Calculated-progress delta shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'No change from the previous period'**
+  String get todayNoChange;
+
+  /// Positive calculated-progress delta shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'{points, plural, =1{1 point up} other{{points} points up}} from the previous period'**
+  String todayPointsUp(int points);
+
+  /// Negative calculated-progress delta shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'{points, plural, =1{1 point down} other{{points} points down}} from the previous period'**
+  String todayPointsDown(int points);
+
+  /// Heading for one optional recommended recovery activity.
+  ///
+  /// In en, this message translates to:
+  /// **'Your next step'**
+  String get todayNextStep;
+
+  /// Recommended action title for the optional Y-BOCS self-check.
+  ///
+  /// In en, this message translates to:
+  /// **'See where you are'**
+  String get todayNextSelfCheckTitle;
+
+  /// Y-BOCS recommendation copy. Keep it optional and non-diagnostic.
+  ///
+  /// In en, this message translates to:
+  /// **'A self-check can record a baseline for later comparison.'**
+  String get todayNextSelfCheckBody;
+
+  /// Action that opens the optional Y-BOCS self-check.
+  ///
+  /// In en, this message translates to:
+  /// **'Take self-check'**
+  String get todayNextSelfCheckAction;
+
+  /// Recommended action title for building an exposure hierarchy.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up your practice'**
+  String get todayNextHierarchyTitle;
+
+  /// Exposure-hierarchy recommendation. Preserve the gradual ordering.
+  ///
+  /// In en, this message translates to:
+  /// **'Build an exposure ladder from easier to harder steps.'**
+  String get todayNextHierarchyBody;
+
+  /// Action that opens the exposure hierarchy builder.
+  ///
+  /// In en, this message translates to:
+  /// **'Build ladder'**
+  String get todayNextHierarchyAction;
+
+  /// Recommended action title for an ERP practice. Avoid momentum or streak pressure.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose today’s practice'**
+  String get todayNextPracticeTitle;
+
+  /// ERP recommendation copy. Preserve ERP terminology and avoid treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose one manageable ERP exercise for today.'**
+  String get todayNextPracticeBody;
+
+  /// Action that starts the recommended ERP practice.
+  ///
+  /// In en, this message translates to:
+  /// **'Start practice'**
+  String get todayNextPracticeAction;
+
+  /// Recommended action title for an optional post-practice reflection.
+  ///
+  /// In en, this message translates to:
+  /// **'Reflect on the practice'**
+  String get todayNextReflectTitle;
+
+  /// Optional reflection copy; do not judge the result of the practice.
+  ///
+  /// In en, this message translates to:
+  /// **'Record what you noticed during today’s practice.'**
+  String get todayNextReflectBody;
+
+  /// Action that opens a post-practice reflection.
+  ///
+  /// In en, this message translates to:
+  /// **'Reflect'**
+  String get todayNextReflectAction;
+
+  /// Recommended action title for an optional journal reflection.
+  ///
+  /// In en, this message translates to:
+  /// **'Reflect on today'**
+  String get todayNextJournalTitle;
+
+  /// Optional journal recommendation; do not judge the result of the practice.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a line about what you noticed in your practice.'**
+  String get todayNextJournalBody;
+
+  /// Action that opens the journal from Today.
+  ///
+  /// In en, this message translates to:
+  /// **'Open journal'**
+  String get todayNextJournalAction;
+
+  /// Today title for a current or available compulsion-delay activity.
+  ///
+  /// In en, this message translates to:
+  /// **'Compulsion delay'**
+  String get todayCompulsionDelay;
+
+  /// Today title for starting an ERP practice. Preserve ERP terminology.
+  ///
+  /// In en, this message translates to:
+  /// **'Start ERP practice'**
+  String get todayStartErp;
+
+  /// Compulsion-delay explanation. Avoid promising that an urge will disappear.
+  ///
+  /// In en, this message translates to:
+  /// **'Sit with the urge before deciding what to do.'**
+  String get todayResistUrgeBody;
+
+  /// ERP practice explanation. Avoid guaranteed treatment outcomes.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise a manageable step at your own pace.'**
+  String get todayBuildToleranceBody;
+
+  /// Action that resumes a saved practice session.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume'**
+  String get todayResumeAction;
+
+  /// Action that starts an available practice session.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get todayStartAction;
+
+  /// Today quick-action explanation for the local journal.
+  ///
+  /// In en, this message translates to:
+  /// **'Write and reflect in your private journal.'**
+  String get todayJournalBody;
+
+  /// Today quick-action title for exposure hierarchy and related ERP tools.
+  ///
+  /// In en, this message translates to:
+  /// **'Exposure tools'**
+  String get todayExposureTools;
+
+  /// Today quick-action explanation for exposure tools.
+  ///
+  /// In en, this message translates to:
+  /// **'Hierarchy, materials, and uncertainty practice.'**
+  String get todayExposureToolsBody;
+
+  /// Today quick-action explanation for Insights. Do not imply judgment or treatment outcomes.
+  ///
+  /// In en, this message translates to:
+  /// **'Review your recorded activity.'**
+  String get todayInsightsBody;
+
+  /// Optional first-run Y-BOCS self-check entry. Keep it non-diagnostic.
+  ///
+  /// In en, this message translates to:
+  /// **'Understand your patterns'**
+  String get todaySelfCheckTitle;
+
+  /// Duration and optional status of the first-run self-check.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional · about 10 min'**
+  String get todaySelfCheckDuration;
+
+  /// Factual first-run Insights empty state.
+  ///
+  /// In en, this message translates to:
+  /// **'Your insights will appear here as you record activities.'**
+  String get todayInsightsPlaceholder;
+
+  /// Factual Today status after a journal check-in exists for the current day.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily check-in recorded'**
+  String get todayDailyCheckInComplete;
+
+  /// Today title for creating a journal check-in.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily check-in'**
+  String get todayDailyCheckIn;
+
+  /// Factual Today status for a completed daily journal check-in.
+  ///
+  /// In en, this message translates to:
+  /// **'A journal entry is recorded for today.'**
+  String get todayDailyCompleteBody;
+
+  /// Optional daily journal check-in explanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a short journal entry when you’re ready.'**
+  String get todayDailyBody;
+
+  /// Action that opens today’s existing journal entry.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get todayOpenAction;
+
+  /// Action that opens a new daily journal entry.
+  ///
+  /// In en, this message translates to:
+  /// **'Check in'**
+  String get todayCheckInAction;
+
+  /// Calculated score heading shown only when Calm Insights is disabled; it is not a clinical assessment.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery score'**
+  String get todayRecoveryScore;
+
+  /// Factual desktop Calm Insights summary for recorded activity.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 activity in the last 7 days} other{{count} activities in the last 7 days}}'**
+  String todayActivitiesLastSevenDays(int count);
+
+  /// Neutral desktop caption for the calculated score shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculated from recorded activity'**
+  String get todayActivityRecorded;
+
+  /// Factual desktop heading used when Calm Insights is enabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Practices recorded'**
+  String get todayPracticesRecorded;
+
+  /// Desktop streak heading shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice streak'**
+  String get todayPracticeStreak;
+
+  /// Factual count of recovery practice sessions.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 session} other{{count} sessions}}'**
+  String todaySessionsCount(int count);
+
+  /// Count used in the practice streak shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 day} other{{count} days}}'**
+  String todayDaysCount(int count);
+
+  /// Today explanation for resuming a compulsion delay.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue from the previously recorded time.'**
+  String get todayPickUpBody;
+
+  /// Today explanation for starting a compulsion delay.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise waiting before responding to an urge.'**
+  String get todayPracticeUrgesBody;
+
+  /// Desktop action title when today already has a journal entry.
+  ///
+  /// In en, this message translates to:
+  /// **'Read today’s check-in'**
+  String get todayReadCheckIn;
+
+  /// Desktop explanation when today already has a journal entry.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Journal to read or add more'**
+  String get todayOpenJournalMore;
+
+  /// Desktop daily journal check-in explanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a short journal entry'**
+  String get todayShortJournal;
+
+  /// Desktop Today section heading for app destinations.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore'**
+  String get todayExplore;
+
+  /// Desktop Journal destination explanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Reflect and process'**
+  String get todayReflectProcess;
+
+  /// Desktop Recovery destination title.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery tools'**
+  String get todayRecoveryTools;
+
+  /// Desktop Recovery destination explanation. Avoid treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Support your practice'**
+  String get todaySupportPractice;
+
+  /// Desktop Track destination explanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Log thoughts and urges'**
+  String get todayTrackBody;
+
+  /// Desktop Insights destination explanation. Avoid judgment or treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Review your recorded patterns'**
+  String get todaySeePatterns;
+
+  /// Text alternative for the calculated practice-progress ring shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice progress: {score} out of 100, {label}'**
+  String todayScoreA11y(int score, String label);
+
+  /// Text alternative for the circular and linear practice timer graphics.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice timer: {elapsed} elapsed of {planned}'**
+  String todayTimerA11y(String elapsed, String planned);
+
+  /// Accessible status for a day with recorded activity in the seven-day strip.
+  ///
+  /// In en, this message translates to:
+  /// **'{day}: activity recorded'**
+  String todayDayActiveA11y(String day);
+
+  /// Accessible status for a day without recorded activity in the seven-day strip.
+  ///
+  /// In en, this message translates to:
+  /// **'{day}: no activity recorded'**
+  String todayDayInactiveA11y(String day);
 }
 
 class _AppLocalizationsDelegate

@@ -31,6 +31,7 @@ class DesktopHomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final journals = ref.watch(journalProvider).asData?.value ?? const [];
     final ocds = ref.watch(ocdProvider).asData?.value ?? const [];
     final delays = ref.watch(delaySessionProvider).asData?.value ?? const [];
@@ -71,10 +72,10 @@ class DesktopHomeScreen extends ConsumerWidget {
     final recentDelay = _latestDelay(delays);
     final hour = DateTime.now().hour;
     final greeting = hour < 12
-        ? 'Good morning'
+        ? strings.todayGreetingMorning
         : hour < 17
-        ? 'Good afternoon'
-        : 'Good evening';
+        ? strings.todayGreetingAfternoon
+        : strings.todayGreetingEvening;
 
     // Calculate dynamic check-in status for the last 7 days
     final today = DateTime.now();
@@ -101,7 +102,7 @@ class DesktopHomeScreen extends ConsumerWidget {
 
       final active =
           hasJournal || hasOcd || hasDelay || hasErp || hasResponse || hasSurf;
-      final weekdayStr = DateFormat('E').format(date).substring(0, 1);
+      final weekdayStr = context.formatShortWeekday(date);
       return (weekdayStr, active);
     });
 
@@ -121,7 +122,7 @@ class DesktopHomeScreen extends ConsumerWidget {
             backgroundColor: Colors.transparent,
             elevation: 0,
             title: Text(
-              'Home',
+              strings.navHome,
               style: TextStyle(
                 color: theme.colorScheme.onSurface,
                 fontWeight: FontWeight.bold,
@@ -130,7 +131,7 @@ class DesktopHomeScreen extends ConsumerWidget {
             ),
             actions: [
               IconButton(
-                tooltip: 'Settings',
+                tooltip: strings.settingsTitle,
                 onPressed: onOpenSettings,
                 icon: const Icon(LineIcons.cog, size: 18),
               ),
@@ -170,7 +171,7 @@ class DesktopHomeScreen extends ConsumerWidget {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          "You've got this. One step at a time.",
+                          strings.todayEncouragement,
                           style: TextStyle(
                             color: theme.colorScheme.onSurface.withOpacity(
                               0.55,
@@ -211,8 +212,8 @@ class DesktopHomeScreen extends ConsumerWidget {
                                 children: [
                                   Text(
                                     calmInsightsEnabled
-                                        ? context.l10n.calmRecentActivityTitle
-                                        : 'Recovery score',
+                                        ? strings.calmRecentActivityTitle
+                                        : strings.todayRecoveryScore,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,
@@ -233,36 +234,41 @@ class DesktopHomeScreen extends ConsumerWidget {
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        calmInsightsEnabled
-                                            ? '${calmSummary.totalCount}'
-                                            : '${dashboard.recoveryScore}',
-                                        style: TextStyle(
-                                          fontFamily: 'Manrope',
-                                          fontSize: 54,
-                                          fontWeight: FontWeight.w800,
-                                          color: theme.colorScheme.onSurface,
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          calmInsightsEnabled
+                                              ? '${calmSummary.totalCount}'
+                                              : '${dashboard.recoveryScore}',
+                                          style: TextStyle(
+                                            fontFamily: 'Manrope',
+                                            fontSize: 54,
+                                            fontWeight: FontWeight.w800,
+                                            color: theme.colorScheme.onSurface,
+                                          ),
                                         ),
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Text(
-                                        calmInsightsEnabled
-                                            ? 'activities in the last 7 days'
-                                            : 'Great progress',
-                                        style: TextStyle(
-                                          color: calmInsightsEnabled
-                                              ? theme.colorScheme.onSurface
-                                                    .withOpacity(0.55)
-                                              : const Color(0xFF34C759),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13,
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          calmInsightsEnabled
+                                              ? strings
+                                                    .todayActivitiesLastSevenDays(
+                                                      calmSummary.totalCount,
+                                                    )
+                                              : strings.todayActivityRecorded,
+                                          style: TextStyle(
+                                            color: calmInsightsEnabled
+                                                ? theme.colorScheme.onSurface
+                                                      .withOpacity(0.55)
+                                                : const Color(0xFF34C759),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 13,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                   if (!calmInsightsEnabled) ...[
                                     const SizedBox(width: 24),
@@ -291,7 +297,7 @@ class DesktopHomeScreen extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Quick actions',
+                                strings.todayQuickActions,
                                 style: theme.textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.w800,
                                 ),
@@ -299,23 +305,21 @@ class DesktopHomeScreen extends ConsumerWidget {
                               const SizedBox(height: 14),
                               _ActionItem(
                                 icon: Icons.hourglass_empty_rounded,
-                                title: recentDelay != null
-                                    ? 'Resume compulsion delay'
-                                    : 'Start compulsion delay',
+                                title: strings.todayCompulsionDelay,
                                 subtitle: recentDelay != null
-                                    ? 'Pick up where you left off'
-                                    : 'Practice sitting with urges',
+                                    ? strings.todayPickUpBody
+                                    : strings.todayPracticeUrgesBody,
                                 onTap: onOpenRecovery,
                               ),
                               const SizedBox(height: 12),
                               _ActionItem(
                                 icon: LineIcons.penNib,
                                 title: hasCheckedIn
-                                    ? 'Read today\'s check-in'
-                                    : 'Daily check-in',
+                                    ? strings.todayReadCheckIn
+                                    : strings.todayDailyCheckIn,
                                 subtitle: hasCheckedIn
-                                    ? 'Open Journal to read or add more'
-                                    : 'Write a short journal entry',
+                                    ? strings.todayOpenJournalMore
+                                    : strings.todayShortJournal,
                                 onTap: onOpenJournal,
                               ),
                             ],
@@ -340,8 +344,8 @@ class DesktopHomeScreen extends ConsumerWidget {
                                 children: [
                                   Text(
                                     calmInsightsEnabled
-                                        ? 'Practices recorded'
-                                        : 'Practice streak',
+                                        ? strings.todayPracticesRecorded
+                                        : strings.todayPracticeStreak,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,
@@ -365,22 +369,19 @@ class DesktopHomeScreen extends ConsumerWidget {
                                 children: [
                                   Text(
                                     calmInsightsEnabled
-                                        ? '${calmSummary.delayCount + calmSummary.erpPracticeCount + calmSummary.exposureCount}'
-                                        : '${metrics.practiceStreakDays}',
+                                        ? strings.todaySessionsCount(
+                                            calmSummary.delayCount +
+                                                calmSummary.erpPracticeCount +
+                                                calmSummary.exposureCount,
+                                          )
+                                        : strings.todayDaysCount(
+                                            metrics.practiceStreakDays,
+                                          ),
                                     style: TextStyle(
                                       fontFamily: 'Manrope',
                                       fontSize: 54,
                                       fontWeight: FontWeight.w800,
                                       color: theme.colorScheme.onSurface,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 6),
-                                  Text(
-                                    calmInsightsEnabled ? 'sessions' : 'days',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: theme.colorScheme.onSurface
-                                          .withOpacity(0.55),
                                     ),
                                   ),
                                 ],
@@ -445,7 +446,7 @@ class DesktopHomeScreen extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Explore',
+                                strings.todayExplore,
                                 style: theme.textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.w800,
                                 ),
@@ -453,26 +454,26 @@ class DesktopHomeScreen extends ConsumerWidget {
                               const SizedBox(height: 14),
                               _ExploreTile(
                                 icon: LineIcons.penNib,
-                                label: 'Journal',
-                                subtitle: 'Reflect and process',
+                                label: strings.navJournal,
+                                subtitle: strings.todayReflectProcess,
                                 onTap: onOpenJournal,
                               ),
                               _ExploreTile(
                                 icon: Icons.self_improvement_rounded,
-                                label: 'Recovery tools',
-                                subtitle: 'Support your practice',
+                                label: strings.todayRecoveryTools,
+                                subtitle: strings.todaySupportPractice,
                                 onTap: onOpenRecovery,
                               ),
                               _ExploreTile(
                                 icon: LineIcons.list,
-                                label: 'Track',
-                                subtitle: 'Log thoughts and urges',
+                                label: strings.navTrack,
+                                subtitle: strings.todayTrackBody,
                                 onTap: onOpenTrack,
                               ),
                               _ExploreTile(
                                 icon: LineIcons.barChart,
-                                label: 'Insights',
-                                subtitle: 'See your patterns',
+                                label: strings.navInsights,
+                                subtitle: strings.todaySeePatterns,
                                 onTap: onOpenInsights,
                               ),
                             ],

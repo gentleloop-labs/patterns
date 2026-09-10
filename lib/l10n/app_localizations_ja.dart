@@ -1163,4 +1163,320 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get journalThemeHealth => '健康';
+
+  @override
+  String get todayGreetingMorning => 'おはようございます';
+
+  @override
+  String get todayGreetingAfternoon => 'こんにちは';
+
+  @override
+  String get todayGreetingEvening => 'こんばんは';
+
+  @override
+  String get todayEncouragement => '一度にひとつ、選んでいきましょう。';
+
+  @override
+  String get todayContinuePractice => '練習を続ける';
+
+  @override
+  String get todaySeeAllAction => 'すべて見る';
+
+  @override
+  String get todayQuickActions => 'クイックアクション';
+
+  @override
+  String get todayChooseActivity => '何をしますか？';
+
+  @override
+  String get todayWriteSomethingTitle => '書き留める';
+
+  @override
+  String get todayWriteSomethingBody => '頭に浮かんだことを文字にしてみましょう。';
+
+  @override
+  String get todayDelayUrgeTitle => '衝動への反応を遅らせる';
+
+  @override
+  String get todayDelayUrgeBody => '反応する前に少し間を置きます。';
+
+  @override
+  String get todayPracticeErpTitle => '練習する（ERP）';
+
+  @override
+  String get todayPracticeErpBody => '短いガイド付きエクササイズです。';
+
+  @override
+  String get todayFirstJournalTitle => '別の場面を書き留める';
+
+  @override
+  String get todayFirstJournalBody => '考えに名前を付けると、観察しやすくなることがあります。';
+
+  @override
+  String get todayFirstErpTitle => 'もう一度練習する';
+
+  @override
+  String get todayFirstErpBody => '別の短いガイド付きERP練習を試します。';
+
+  @override
+  String get todayFirstDelayTitle => '2分間遅らせてみる';
+
+  @override
+  String get todayFirstDelayBody => '衝動が強いとき、行動する前に少し間を置きます。';
+
+  @override
+  String get todayStartPracticeAction => '練習を始める';
+
+  @override
+  String get todayStartDelayAction => '遅延を始める';
+
+  @override
+  String get todayProTitle => 'Patterns Proで続ける';
+
+  @override
+  String get todayProBody => '計画を立て、練習し、時間の経過とともに活動を振り返ります。';
+
+  @override
+  String get todayHideSevenDays => '7日間非表示';
+
+  @override
+  String get todayPracticeProgress => '練習の推移';
+
+  @override
+  String get todaySteadyPractice => '継続した練習';
+
+  @override
+  String get todayStartGently => 'ゆっくり始める';
+
+  @override
+  String get todayPracticeActiveBody => '記録した活動から、長期的な様子が少しずつ見えてきます。';
+
+  @override
+  String get todayPracticeEmptyBody => 'ジャーナル、記録、練習に応じて変化します。';
+
+  @override
+  String get todayProgressDisclaimer =>
+      'これは記録された練習頻度を示すもので、診断や臨床評価ではありません。困難な週には数値が低くなることがあります。';
+
+  @override
+  String get todayProgressStartedTitle => '活動の記録がまとまり始めています';
+
+  @override
+  String get todayProgressPendingBody => '複数の日に活動が記録されると、推移の数値が表示されます。';
+
+  @override
+  String get todayScoreNew => '新規';
+
+  @override
+  String get todayScoreStrong => '多い';
+
+  @override
+  String get todayScoreSteady => '安定';
+
+  @override
+  String get todayScoreBuilding => '蓄積中';
+
+  @override
+  String get todayScoreStarting => '開始';
+
+  @override
+  String get todayBeginCheckIn => '短いチェックインから始める';
+
+  @override
+  String get todayNoChange => '前の期間から変化はありません';
+
+  @override
+  String todayPointsUp(int points) {
+    return '前の期間より$pointsポイント増加';
+  }
+
+  @override
+  String todayPointsDown(int points) {
+    return '前の期間より$pointsポイント減少';
+  }
+
+  @override
+  String get todayNextStep => '次のステップ';
+
+  @override
+  String get todayNextSelfCheckTitle => '現在の状態を記録する';
+
+  @override
+  String get todayNextSelfCheckBody => 'セルフチェックで、後から比較するための基準を記録できます。';
+
+  @override
+  String get todayNextSelfCheckAction => 'セルフチェックを行う';
+
+  @override
+  String get todayNextHierarchyTitle => '練習を準備する';
+
+  @override
+  String get todayNextHierarchyBody => '取り組みやすい段階から難しい段階へ、曝露の階層を作ります。';
+
+  @override
+  String get todayNextHierarchyAction => '階層を作る';
+
+  @override
+  String get todayNextPracticeTitle => '今日の練習を選ぶ';
+
+  @override
+  String get todayNextPracticeBody => '今日取り組めるERPエクササイズをひとつ選びます。';
+
+  @override
+  String get todayNextPracticeAction => '練習を始める';
+
+  @override
+  String get todayNextReflectTitle => '練習を振り返る';
+
+  @override
+  String get todayNextReflectBody => '今日の練習中に気づいたことを記録します。';
+
+  @override
+  String get todayNextReflectAction => '振り返る';
+
+  @override
+  String get todayNextJournalTitle => '今日を振り返る';
+
+  @override
+  String get todayNextJournalBody => '練習で気づいたことを一行書きます。';
+
+  @override
+  String get todayNextJournalAction => 'ジャーナルを開く';
+
+  @override
+  String get todayCompulsionDelay => '強迫行為の遅延';
+
+  @override
+  String get todayStartErp => 'ERP練習を始める';
+
+  @override
+  String get todayResistUrgeBody => '何をするか決める前に、衝動とともに少し待ちます。';
+
+  @override
+  String get todayBuildToleranceBody => '自分のペースで取り組める段階を練習します。';
+
+  @override
+  String get todayResumeAction => '再開';
+
+  @override
+  String get todayStartAction => '開始';
+
+  @override
+  String get todayJournalBody => 'プライベートなジャーナルに書いて振り返ります。';
+
+  @override
+  String get todayExposureTools => '曝露ツール';
+
+  @override
+  String get todayExposureToolsBody => '階層、素材、不確かさの練習。';
+
+  @override
+  String get todayInsightsBody => '記録した活動を振り返ります。';
+
+  @override
+  String get todaySelfCheckTitle => '自分のパターンを理解する';
+
+  @override
+  String get todaySelfCheckDuration => '任意 · 約10分';
+
+  @override
+  String get todayInsightsPlaceholder => '活動を記録すると、ここにインサイトが表示されます。';
+
+  @override
+  String get todayDailyCheckInComplete => '今日のチェックインを記録済み';
+
+  @override
+  String get todayDailyCheckIn => '今日のチェックイン';
+
+  @override
+  String get todayDailyCompleteBody => '今日のジャーナルエントリーが記録されています。';
+
+  @override
+  String get todayDailyBody => '準備ができたら、短いジャーナルを書きます。';
+
+  @override
+  String get todayOpenAction => '開く';
+
+  @override
+  String get todayCheckInAction => '記録する';
+
+  @override
+  String get todayRecoveryScore => '回復スコア';
+
+  @override
+  String todayActivitiesLastSevenDays(int count) {
+    return '過去7日間の活動：$count件';
+  }
+
+  @override
+  String get todayActivityRecorded => '記録した活動から算出';
+
+  @override
+  String get todayPracticesRecorded => '記録した練習';
+
+  @override
+  String get todayPracticeStreak => '連続練習';
+
+  @override
+  String todaySessionsCount(int count) {
+    return '$countセッション';
+  }
+
+  @override
+  String todayDaysCount(int count) {
+    return '$count日';
+  }
+
+  @override
+  String get todayPickUpBody => '以前に記録した時間から続けます。';
+
+  @override
+  String get todayPracticeUrgesBody => '衝動に反応する前に待つ練習をします。';
+
+  @override
+  String get todayReadCheckIn => '今日のチェックインを読む';
+
+  @override
+  String get todayOpenJournalMore => 'ジャーナルを開いて読む、または追記する';
+
+  @override
+  String get todayShortJournal => '短いジャーナルエントリーを書く';
+
+  @override
+  String get todayExplore => '見る';
+
+  @override
+  String get todayReflectProcess => '書いて振り返る';
+
+  @override
+  String get todayRecoveryTools => '回復ツール';
+
+  @override
+  String get todaySupportPractice => '練習を支える';
+
+  @override
+  String get todayTrackBody => '考えや衝動を記録する';
+
+  @override
+  String get todaySeePatterns => '記録したパターンを見る';
+
+  @override
+  String todayScoreA11y(int score, String label) {
+    return '練習の推移：100点中$score、$label';
+  }
+
+  @override
+  String todayTimerA11y(String elapsed, String planned) {
+    return '練習タイマー：$plannedのうち$elapsed経過';
+  }
+
+  @override
+  String todayDayActiveA11y(String day) {
+    return '$day：活動を記録済み';
+  }
+
+  @override
+  String todayDayInactiveA11y(String day) {
+    return '$day：活動の記録なし';
+  }
 }

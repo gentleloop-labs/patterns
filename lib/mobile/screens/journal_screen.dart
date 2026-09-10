@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../../models/models.dart';
+import '../../l10n/app_localizations.dart';
 import '../../l10n/l10n.dart';
 import '../../providers/providers.dart';
 import '../../services/analytics_service.dart';
@@ -109,6 +110,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
       hasHierarchy: hierarchySteps.isNotEmpty,
       practicedToday: practicedToday,
     );
+    final localizedNextStep = _localizedNextStep(context, nextStep.step);
     final dismissedUntilMillis =
         mobilePreferences?.getInt(proCardDismissedUntilKey) ?? 0;
     final showProCard =
@@ -139,7 +141,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
         ? _establishedChildren(
             metrics: metrics,
             dashboard: dashboard,
-            nextStep: nextStep,
+            nextStep: localizedNextStep,
             recentDelay: recentDelay,
             hasCheckedIn: hasCheckedIn,
             enoughForScore: enoughForScore,
@@ -182,6 +184,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
     required bool calmInsightsEnabled,
     required CalmInsightsSummary calmSummary,
   }) {
+    final strings = context.l10n;
     return [
       _HomeHeader(
         streak: metrics.practiceStreakDays,
@@ -220,8 +223,8 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
       ],
       const SizedBox(height: 20),
       _HomeSectionHeader(
-        title: 'Continue your practice',
-        actionLabel: 'See all',
+        title: strings.todayContinuePractice,
+        actionLabel: strings.todaySeeAllAction,
         onAction: widget.onErp,
       ),
       const SizedBox(height: 10),
@@ -230,7 +233,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
         onResume: recentDelay == null ? widget.onErp : widget.onDelay,
       ),
       const SizedBox(height: 22),
-      const _HomeSectionHeader(title: 'Quick actions'),
+      _HomeSectionHeader(title: strings.todayQuickActions),
       const SizedBox(height: 10),
       _QuickActionGrid(
         onJournal: widget.onJournal,
@@ -248,32 +251,33 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
   /// row, and a calm placeholder where analytics will grow — no score, no
   /// streak, no dense cockpit until there's real data.
   List<Widget> _firstRunChildren({required bool hasYbocs}) {
+    final strings = context.l10n;
     final primary = _firstRunPrimary(readFirstRunPath());
     return [
       _HomeHeader(streak: 0, showStreak: false, onSettings: widget.onSettings),
       const SizedBox(height: 18),
       _NextStepCard(step: primary.step, onTap: primary.onTap),
       const SizedBox(height: 22),
-      const _HomeSectionHeader(title: 'What would you like to do?'),
+      _HomeSectionHeader(title: strings.todayChooseActivity),
       const SizedBox(height: 10),
       _QuickActionTile(
         icon: LineIcons.edit,
-        title: 'Write something down',
-        subtitle: 'Get a thought out of your head.',
+        title: strings.todayWriteSomethingTitle,
+        subtitle: strings.todayWriteSomethingBody,
         onTap: widget.onTrack,
       ),
       const SizedBox(height: 10),
       _QuickActionTile(
         icon: LineIcons.hourglassHalf,
-        title: 'Delay an urge',
-        subtitle: 'Create space before you respond.',
+        title: strings.todayDelayUrgeTitle,
+        subtitle: strings.todayDelayUrgeBody,
         onTap: widget.onDelay,
       ),
       const SizedBox(height: 10),
       _QuickActionTile(
         icon: LineIcons.seedling,
-        title: 'Practise (ERP)',
-        subtitle: 'A short, guided exercise.',
+        title: strings.todayPracticeErpTitle,
+        subtitle: strings.todayPracticeErpBody,
         onTap: widget.onErp,
       ),
       if (!hasYbocs) ...[
@@ -288,24 +292,25 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
   ({RecoveryNextStep step, VoidCallback onTap}) _firstRunPrimary(
     FirstRunPath? path,
   ) {
+    final strings = context.l10n;
     switch (path) {
       case FirstRunPath.journal:
         return (
-          step: const RecoveryNextStep(
+          step: RecoveryNextStep(
             step: RecoveryStep.journal,
-            title: 'Write down another moment',
-            subtitle: 'Naming a thought takes some of its power away.',
-            ctaLabel: 'New entry',
+            title: strings.todayFirstJournalTitle,
+            subtitle: strings.todayFirstJournalBody,
+            ctaLabel: strings.journalNewEntryAction,
           ),
           onTap: widget.onTrack,
         );
       case FirstRunPath.erp:
         return (
-          step: const RecoveryNextStep(
+          step: RecoveryNextStep(
             step: RecoveryStep.dailyPractice,
-            title: 'Practise again',
-            subtitle: 'A short guided ERP rep keeps the learning going.',
-            ctaLabel: 'Start practice',
+            title: strings.todayFirstErpTitle,
+            subtitle: strings.todayFirstErpBody,
+            ctaLabel: strings.todayStartPracticeAction,
           ),
           onTap: widget.onErp,
         );
@@ -314,16 +319,51 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
       case FirstRunPath.explore:
       case null:
         return (
-          step: const RecoveryNextStep(
+          step: RecoveryNextStep(
             step: RecoveryStep.dailyPractice,
-            title: 'Try a two-minute delay',
-            subtitle:
-                'When an urge feels strong, put a little space before it.',
-            ctaLabel: 'Start a delay',
+            title: strings.todayFirstDelayTitle,
+            subtitle: strings.todayFirstDelayBody,
+            ctaLabel: strings.todayStartDelayAction,
           ),
           onTap: widget.onDelay,
         );
     }
+  }
+
+  RecoveryNextStep _localizedNextStep(BuildContext context, RecoveryStep step) {
+    final strings = context.l10n;
+    return switch (step) {
+      RecoveryStep.selfCheck => RecoveryNextStep(
+        step: step,
+        title: strings.todayNextSelfCheckTitle,
+        subtitle: strings.todayNextSelfCheckBody,
+        ctaLabel: strings.todayNextSelfCheckAction,
+      ),
+      RecoveryStep.buildHierarchy => RecoveryNextStep(
+        step: step,
+        title: strings.todayNextHierarchyTitle,
+        subtitle: strings.todayNextHierarchyBody,
+        ctaLabel: strings.todayNextHierarchyAction,
+      ),
+      RecoveryStep.dailyPractice => RecoveryNextStep(
+        step: step,
+        title: strings.todayNextPracticeTitle,
+        subtitle: strings.todayNextPracticeBody,
+        ctaLabel: strings.todayNextPracticeAction,
+      ),
+      RecoveryStep.reflect => RecoveryNextStep(
+        step: step,
+        title: strings.todayNextReflectTitle,
+        subtitle: strings.todayNextReflectBody,
+        ctaLabel: strings.todayNextReflectAction,
+      ),
+      RecoveryStep.journal => RecoveryNextStep(
+        step: step,
+        title: strings.todayNextJournalTitle,
+        subtitle: strings.todayNextJournalBody,
+        ctaLabel: strings.todayNextJournalAction,
+      ),
+    };
   }
 
   DelaySession? _latestDelay(List<DelaySession> sessions) {
@@ -345,6 +385,7 @@ class _ProProgressionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = context.l10n;
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 14, 8, 14),
       decoration: _homeCardDecoration(Theme.of(context), radius: 18).copyWith(
@@ -375,14 +416,14 @@ class _ProProgressionCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Continue with Patterns Pro',
+                    strings.todayProTitle,
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.w800,
                     ),
                   ),
                   const SizedBox(height: 3),
                   Text(
-                    'Build a plan, practise it, and see progress over time.',
+                    strings.todayProBody,
                     style: TextStyle(
                       color: context.appColors.textSecondary,
                       fontSize: 12.5,
@@ -394,7 +435,7 @@ class _ProProgressionCard extends StatelessWidget {
             ),
           ),
           IconButton(
-            tooltip: 'Hide for 7 days',
+            tooltip: strings.todayHideSevenDays,
             onPressed: onDismiss,
             icon: const Icon(Icons.close_rounded, size: 18),
           ),
@@ -417,7 +458,7 @@ class _HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final greeting = _greetingFor(DateTime.now());
+    final greeting = _greetingFor(context, DateTime.now());
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -438,7 +479,7 @@ class _HomeHeader extends StatelessWidget {
               ),
               const SizedBox(height: 6),
               Text(
-                "You've got this. One choice at a time.",
+                context.l10n.todayEncouragement,
                 style: TextStyle(
                   color: context.appColors.textSecondary,
                   fontSize: 14,
@@ -479,7 +520,7 @@ class _HomeHeader extends StatelessWidget {
           onTap: onSettings,
           child: Semantics(
             button: true,
-            label: 'Settings',
+            label: context.l10n.settingsTitle,
             child: Container(
               padding: const EdgeInsets.all(10),
               decoration: _homeCardDecoration(Theme.of(context), radius: 16),
@@ -495,13 +536,11 @@ class _HomeHeader extends StatelessWidget {
     );
   }
 
-  String _greetingFor(DateTime now) {
-    final part = now.hour < 12
-        ? 'morning'
-        : now.hour < 17
-        ? 'afternoon'
-        : 'evening';
-    return 'Good $part';
+  String _greetingFor(BuildContext context, DateTime now) {
+    final strings = context.l10n;
+    if (now.hour < 12) return strings.todayGreetingMorning;
+    if (now.hour < 17) return strings.todayGreetingAfternoon;
+    return strings.todayGreetingEvening;
   }
 }
 
@@ -597,10 +636,11 @@ class _HomeScoreCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = context.l10n;
     if (!enoughData) return _buildPlaceholder(context);
     Telemetry.logOnce('score.first_shown');
     final score = summary.recoveryScore;
-    final label = _scoreLabel(score, summary.hasAnyData);
+    final label = _scoreLabel(strings, score, summary.hasAnyData);
     return PressScale(
       onTap: onTap,
       child: Container(
@@ -618,7 +658,7 @@ class _HomeScoreCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'PRACTICE PROGRESS',
+                        strings.todayPracticeProgress.toUpperCase(),
                         style: TextStyle(
                           color: context.appColors.accent,
                           fontSize: 11,
@@ -628,7 +668,9 @@ class _HomeScoreCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 18),
                       Text(
-                        summary.hasAnyData ? 'Steady practice' : 'Start gently',
+                        summary.hasAnyData
+                            ? strings.todaySteadyPractice
+                            : strings.todayStartGently,
                         style: TextStyle(
                           color: context.appColors.textPrimary,
                           fontSize: 18,
@@ -639,8 +681,8 @@ class _HomeScoreCard extends StatelessWidget {
                       const SizedBox(height: 6),
                       Text(
                         summary.hasAnyData
-                            ? "You're showing up and building new patterns."
-                            : 'This grows as you journal, track, and practise.',
+                            ? strings.todayPracticeActiveBody
+                            : strings.todayPracticeEmptyBody,
                         style: TextStyle(
                           color: context.appColors.textSecondary,
                           fontSize: 13,
@@ -650,6 +692,7 @@ class _HomeScoreCard extends StatelessWidget {
                       const SizedBox(height: 14),
                       Text(
                         _deltaText(
+                          strings,
                           summary.scoreDelta.value,
                           summary.hasAnyData,
                         ),
@@ -671,8 +714,7 @@ class _HomeScoreCard extends StatelessWidget {
             ),
             const SizedBox(height: 14),
             Text(
-              'Reflects how often you practise, not a diagnosis or how you’re '
-              'doing clinically. A lower number on a hard week is normal.',
+              strings.todayProgressDisclaimer,
               style: TextStyle(
                 color: context.appColors.textSecondary.withValues(alpha: 0.8),
                 fontSize: 11,
@@ -686,6 +728,7 @@ class _HomeScoreCard extends StatelessWidget {
   }
 
   Widget _buildPlaceholder(BuildContext context) {
+    final strings = context.l10n;
     return PressScale(
       onTap: onTap,
       child: Container(
@@ -695,7 +738,7 @@ class _HomeScoreCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'PRACTICE PROGRESS',
+              strings.todayPracticeProgress.toUpperCase(),
               style: TextStyle(
                 color: context.appColors.accent,
                 fontSize: 11,
@@ -705,7 +748,7 @@ class _HomeScoreCard extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              'You’ve started. Nice.',
+              strings.todayProgressStartedTitle,
               style: TextStyle(
                 color: context.appColors.textPrimary,
                 fontSize: 18,
@@ -715,8 +758,7 @@ class _HomeScoreCard extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             Text(
-              'A progress number will appear here once you’ve practised a few '
-              'times, enough for it to actually mean something.',
+              strings.todayProgressPendingBody,
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 fontSize: 13,
@@ -729,20 +771,21 @@ class _HomeScoreCard extends StatelessWidget {
     );
   }
 
-  String _scoreLabel(int score, bool hasData) {
-    if (!hasData) return 'New';
-    if (score >= 80) return 'Strong';
-    if (score >= 60) return 'Steady';
-    if (score >= 40) return 'Building';
-    return 'Starting';
+  String _scoreLabel(AppLocalizations strings, int score, bool hasData) {
+    if (!hasData) return strings.todayScoreNew;
+    if (score >= 80) return strings.todayScoreStrong;
+    if (score >= 60) return strings.todayScoreSteady;
+    if (score >= 40) return strings.todayScoreBuilding;
+    return strings.todayScoreStarting;
   }
 
-  String _deltaText(double delta, bool hasData) {
-    if (!hasData) return 'Begin with one small check-in';
+  String _deltaText(AppLocalizations strings, double delta, bool hasData) {
+    if (!hasData) return strings.todayBeginCheckIn;
     final rounded = delta.round();
-    if (rounded == 0) return 'No change from last period';
-    final direction = rounded > 0 ? 'up' : 'down';
-    return '${rounded.abs()} pts $direction from last period';
+    if (rounded == 0) return strings.todayNoChange;
+    return rounded > 0
+        ? strings.todayPointsUp(rounded.abs())
+        : strings.todayPointsDown(rounded.abs());
   }
 }
 
@@ -868,7 +911,7 @@ class _NextStepCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'YOUR NEXT STEP',
+              context.l10n.todayNextStep.toUpperCase(),
               style: TextStyle(
                 color: context.appColors.accent,
                 fontSize: 11,
@@ -980,6 +1023,7 @@ class _ContinuePracticeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = context.l10n;
     final session = recentDelay;
     final hasSession = session != null;
     final progress = hasSession && session.plannedSeconds > 0
@@ -1019,7 +1063,9 @@ class _ContinuePracticeCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  hasSession ? 'Compulsion Delay' : 'Start ERP Practice',
+                  hasSession
+                      ? strings.todayCompulsionDelay
+                      : strings.todayStartErp,
                   style: TextStyle(
                     color: context.appColors.textPrimary,
                     fontSize: 16,
@@ -1029,8 +1075,8 @@ class _ContinuePracticeCard extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   hasSession
-                      ? 'Resist the urge, ride the wave.'
-                      : 'Build tolerance step by step.',
+                      ? strings.todayResistUrgeBody
+                      : strings.todayBuildToleranceBody,
                   style: TextStyle(
                     color: context.appColors.textSecondary,
                     fontSize: 12,
@@ -1077,7 +1123,9 @@ class _ContinuePracticeCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(14),
               ),
             ),
-            child: Text(hasSession ? 'Resume' : 'Start'),
+            child: Text(
+              hasSession ? strings.todayResumeAction : strings.todayStartAction,
+            ),
           ),
         ],
       ),
@@ -1149,6 +1197,7 @@ class _QuickActionGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = context.l10n;
     return Column(
       children: [
         Row(
@@ -1156,8 +1205,8 @@ class _QuickActionGrid extends StatelessWidget {
             Expanded(
               child: _QuickActionTile(
                 icon: LineIcons.edit,
-                title: 'Journal',
-                subtitle: 'Write it out, get it clear.',
+                title: strings.navJournal,
+                subtitle: strings.todayJournalBody,
                 onTap: onJournal,
               ),
             ),
@@ -1165,8 +1214,8 @@ class _QuickActionGrid extends StatelessWidget {
             Expanded(
               child: _QuickActionTile(
                 icon: LineIcons.bullseye,
-                title: 'Start ERP Practice',
-                subtitle: 'Build tolerance step by step.',
+                title: strings.todayStartErp,
+                subtitle: strings.todayBuildToleranceBody,
                 onTap: onErp,
               ),
             ),
@@ -1178,8 +1227,8 @@ class _QuickActionGrid extends StatelessWidget {
             Expanded(
               child: _QuickActionTile(
                 icon: LineIcons.layerGroup,
-                title: 'Exposure Tools',
-                subtitle: 'Hierarchy, materials, uncertainty.',
+                title: strings.todayExposureTools,
+                subtitle: strings.todayExposureToolsBody,
                 onTap: onExposureTools,
               ),
             ),
@@ -1187,8 +1236,8 @@ class _QuickActionGrid extends StatelessWidget {
             Expanded(
               child: _QuickActionTile(
                 icon: LineIcons.barChart,
-                title: 'Insights',
-                subtitle: 'See your patterns and progress.',
+                title: strings.navInsights,
+                subtitle: strings.todayInsightsBody,
                 onTap: onInsights,
               ),
             ),
@@ -1275,6 +1324,7 @@ class _SelfCheckRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = context.l10n;
     return PressScale(
       onTap: onTap,
       child: Container(
@@ -1293,7 +1343,7 @@ class _SelfCheckRow extends StatelessWidget {
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: 'Understand your patterns',
+                      text: strings.todaySelfCheckTitle,
                       style: TextStyle(
                         color: context.appColors.textPrimary,
                         fontSize: 14,
@@ -1301,7 +1351,7 @@ class _SelfCheckRow extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: '   ·   optional, ~10 min',
+                      text: '   ·   ${strings.todaySelfCheckDuration}',
                       style: TextStyle(
                         color: context.appColors.textSecondary,
                         fontSize: 12,
@@ -1344,7 +1394,7 @@ class _InsightsPlaceholder extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              'Your insights will appear here as you practise.',
+              context.l10n.todayInsightsPlaceholder,
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 fontSize: 13,
@@ -1366,6 +1416,7 @@ class _DailyCheckInCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = context.l10n;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: _homeCardDecoration(Theme.of(context), radius: 18),
@@ -1387,7 +1438,9 @@ class _DailyCheckInCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  checkedIn ? 'Daily check-in complete' : 'Daily check-in',
+                  checkedIn
+                      ? strings.todayDailyCheckInComplete
+                      : strings.todayDailyCheckIn,
                   style: TextStyle(
                     color: context.appColors.textPrimary,
                     fontSize: 16,
@@ -1397,8 +1450,8 @@ class _DailyCheckInCard extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   checkedIn
-                      ? 'You showed up today. Let that count.'
-                      : 'Small steps today create lasting change.',
+                      ? strings.todayDailyCompleteBody
+                      : strings.todayDailyBody,
                   style: TextStyle(
                     color: context.appColors.textSecondary,
                     fontSize: 12,
@@ -1418,7 +1471,9 @@ class _DailyCheckInCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(14),
               ),
             ),
-            child: Text(checkedIn ? 'Open' : 'Check in'),
+            child: Text(
+              checkedIn ? strings.todayOpenAction : strings.todayCheckInAction,
+            ),
           ),
         ],
       ),
