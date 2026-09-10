@@ -70,7 +70,10 @@ class RecoveryMetricsSection extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             Text(
               context.l10n.recoveryMetricsTitle,
@@ -78,7 +81,6 @@ class RecoveryMetricsSection extends ConsumerWidget {
                 fontWeight: FontWeight.w800,
               ),
             ),
-            const SizedBox(width: 8),
             if (!isPro) const ProLockBadge(),
           ],
         ),

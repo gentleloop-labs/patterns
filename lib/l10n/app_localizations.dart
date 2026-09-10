@@ -3112,6 +3112,378 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Track OCD event'**
   String get trackerEmptyAction;
+
+  /// Heading for the mobile Insights screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Insights'**
+  String get insightsTitle;
+
+  /// Accessible action for opening the manual PDF report export flow.
+  ///
+  /// In en, this message translates to:
+  /// **'Export report'**
+  String get insightsExportReport;
+
+  /// Factual count label for recorded obsessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Obsessions logged'**
+  String get insightsObsessionsLogged;
+
+  /// Factual count label for locally derived OCD themes.
+  ///
+  /// In en, this message translates to:
+  /// **'Themes found'**
+  String get insightsThemesFound;
+
+  /// Factual count label for recorded compulsions.
+  ///
+  /// In en, this message translates to:
+  /// **'Compulsions'**
+  String get insightsCompulsions;
+
+  /// Compact label for average user-recorded urge intensity.
+  ///
+  /// In en, this message translates to:
+  /// **'Average intensity'**
+  String get insightsAverageIntensityShort;
+
+  /// Compact denominator for a user-recorded value on a zero-to-ten scale.
+  ///
+  /// In en, this message translates to:
+  /// **'/10'**
+  String get insightsOutOfTenShort;
+
+  /// Calculated practice-progress heading shown only when Calm Insights is disabled. Not a clinical outcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice progress'**
+  String get insightsPracticeProgress;
+
+  /// Explanation shown before enough data exists for the optional calculated practice score.
+  ///
+  /// In en, this message translates to:
+  /// **'A score appears once you’ve practised a few times across a couple of days, so it shows a trend rather than a single moment. Your sessions below are already counted.'**
+  String get insightsScoreNeedsMoreActivity;
+
+  /// Neutral empty explanation for the optional calculated practice score.
+  ///
+  /// In en, this message translates to:
+  /// **'A score will appear here once you’ve practised a few times. Nothing to measure just yet.'**
+  String get insightsScoreEmpty;
+
+  /// Comparison period appended to a calculated Insights delta.
+  ///
+  /// In en, this message translates to:
+  /// **'compared with the previous {count, plural, =1{day} other{{count} days}}'**
+  String insightsComparedPreviousDays(int count);
+
+  /// Generic comparison period appended to a calculated Insights delta.
+  ///
+  /// In en, this message translates to:
+  /// **'compared with the previous range'**
+  String get insightsComparedPreviousRange;
+
+  /// Non-diagnostic boundary for the optional calculated practice score.
+  ///
+  /// In en, this message translates to:
+  /// **'Reflects how often you practise, not a diagnosis or how you’re doing clinically. A lower number during a hard week can happen.'**
+  String get insightsPracticeProgressBoundary;
+
+  /// Heading and chart alternative for user-recorded mood values.
+  ///
+  /// In en, this message translates to:
+  /// **'Mood over time'**
+  String get insightsMoodOverTime;
+
+  /// Legend label for the high end of the user-recorded mood chart.
+  ///
+  /// In en, this message translates to:
+  /// **'Good'**
+  String get insightsMoodGood;
+
+  /// Legend label for the middle of the user-recorded mood chart.
+  ///
+  /// In en, this message translates to:
+  /// **'Okay'**
+  String get insightsMoodOkay;
+
+  /// Legend label for the low end of the user-recorded mood chart.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get insightsMoodLow;
+
+  /// Heading and chart alternative for deliberately recorded Y-BOCS self-check totals.
+  ///
+  /// In en, this message translates to:
+  /// **'Y-BOCS over time'**
+  String get insightsYbocsOverTime;
+
+  /// Neutral empty state for the Y-BOCS history chart. Do not imply diagnosis.
+  ///
+  /// In en, this message translates to:
+  /// **'Take the self-check and your recorded total will start a line here.'**
+  String get insightsYbocsEmpty;
+
+  /// Compact denominator for a recorded Y-BOCS total.
+  ///
+  /// In en, this message translates to:
+  /// **'/40'**
+  String get insightsOutOfFortyShort;
+
+  /// Factual explanation when only one Y-BOCS self-check exists. Severity is localized.
+  ///
+  /// In en, this message translates to:
+  /// **'{severity} range. Take the self-check again in a few weeks to add another recorded point.'**
+  String insightsYbocsSingleResult(String severity);
+
+  /// Visible Y-BOCS severity band and stable numeric range.
+  ///
+  /// In en, this message translates to:
+  /// **'{severity} ({range})'**
+  String insightsYbocsSeverityRange(String severity, String range);
+
+  /// Comparison scope for a calculated Y-BOCS delta, hidden in Calm Insights.
+  ///
+  /// In en, this message translates to:
+  /// **'across {count, plural, =1{1 self-check} other{{count} self-checks}}'**
+  String insightsAcrossSelfChecks(int count);
+
+  /// Clinical boundary beneath Y-BOCS history. Must not reassure, diagnose, or claim treatment outcome.
+  ///
+  /// In en, this message translates to:
+  /// **'A snapshot, not a diagnosis. Recorded totals can move around, and one higher total does not define your progress.'**
+  String get insightsYbocsBoundary;
+
+  /// Heading and chart alternative for average user-recorded urge intensity.
+  ///
+  /// In en, this message translates to:
+  /// **'Average urge intensity'**
+  String get insightsAverageUrgeIntensity;
+
+  /// Heading and chart alternative for factual ERP practice counts.
+  ///
+  /// In en, this message translates to:
+  /// **'ERP practice'**
+  String get insightsErpPractice;
+
+  /// Unit displayed after the factual ERP practice count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{session} other{sessions}}'**
+  String insightsSessions(int count);
+
+  /// Calculated activity consistency heading shown only when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Consistency'**
+  String get insightsConsistency;
+
+  /// Factual active-day count beneath the optional consistency percentage.
+  ///
+  /// In en, this message translates to:
+  /// **'{active} of {total} days'**
+  String insightsActiveDays(int active, int total);
+
+  /// Text alternative for the Insights activity heatmap.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity recorded on {active} of {total} days'**
+  String insightsActivityMapSummary(int active, int total);
+
+  /// Heading for locally derived themes in recorded OCD events.
+  ///
+  /// In en, this message translates to:
+  /// **'Top themes'**
+  String get insightsTopThemes;
+
+  /// Neutral empty state for locally derived OCD themes.
+  ///
+  /// In en, this message translates to:
+  /// **'Themes will appear as you record what OCD focuses on.'**
+  String get insightsThemesEmpty;
+
+  /// Text alternative for one theme progress bar.
+  ///
+  /// In en, this message translates to:
+  /// **'{theme}, {percent} percent of recorded themes'**
+  String insightsThemeShare(String theme, int percent);
+
+  /// Tooltip and accessibility label for the Insights date-range menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Change date range'**
+  String get insightsChangeRange;
+
+  /// Insights tab showing a general overview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get insightsOverviewTab;
+
+  /// Insights tab focused on recorded obsessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Obsessions'**
+  String get insightsObsessionsTab;
+
+  /// Insights tab focused on recorded compulsions.
+  ///
+  /// In en, this message translates to:
+  /// **'Compulsions'**
+  String get insightsCompulsionsTab;
+
+  /// Insights tab focused on ERP practice.
+  ///
+  /// In en, this message translates to:
+  /// **'ERP'**
+  String get insightsErpTab;
+
+  /// Visible, non-colour cue for a calculated metric increase. No judgment is implied.
+  ///
+  /// In en, this message translates to:
+  /// **'↑ {value} increase, {comparison}'**
+  String insightsDeltaIncrease(String value, String comparison);
+
+  /// Visible, non-colour cue for a calculated metric decrease. No judgment is implied.
+  ///
+  /// In en, this message translates to:
+  /// **'↓ {value} decrease, {comparison}'**
+  String insightsDeltaDecrease(String value, String comparison);
+
+  /// Visible, non-colour cue for an unchanged calculated metric.
+  ///
+  /// In en, this message translates to:
+  /// **'→ No change, {comparison}'**
+  String insightsDeltaUnchanged(String comparison);
+
+  /// Neutral chart empty state.
+  ///
+  /// In en, this message translates to:
+  /// **'No data yet'**
+  String get insightsNoData;
+
+  /// Accessible live-region label while Insights data loads.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading insights'**
+  String get insightsLoading;
+
+  /// Privacy-safe Insights load error. Do not expose technical details.
+  ///
+  /// In en, this message translates to:
+  /// **'Your insights could not be loaded. Please try again.'**
+  String get insightsLoadError;
+
+  /// One locale-formatted date and value in an accessible chart alternative.
+  ///
+  /// In en, this message translates to:
+  /// **'{date}: {value}'**
+  String insightsChartPoint(String date, String value);
+
+  /// Text alternative for a chart. Values contains localized point descriptions.
+  ///
+  /// In en, this message translates to:
+  /// **'{title}. Recorded points: {values}'**
+  String insightsChartSummary(String title, String values);
+
+  /// Y-BOCS severity-band label for totals 0 to 7. Requires clinical terminology review.
+  ///
+  /// In en, this message translates to:
+  /// **'Subclinical'**
+  String get ybocsSeveritySubclinical;
+
+  /// Y-BOCS severity-band label for totals 8 to 15. Requires clinical terminology review.
+  ///
+  /// In en, this message translates to:
+  /// **'Mild'**
+  String get ybocsSeverityMild;
+
+  /// Y-BOCS severity-band label for totals 16 to 23. Requires clinical terminology review.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate'**
+  String get ybocsSeverityModerate;
+
+  /// Y-BOCS severity-band label for totals 24 to 31. Requires clinical terminology review.
+  ///
+  /// In en, this message translates to:
+  /// **'Severe'**
+  String get ybocsSeveritySevere;
+
+  /// Y-BOCS severity-band label for totals 32 to 40. Requires clinical terminology review.
+  ///
+  /// In en, this message translates to:
+  /// **'Extreme'**
+  String get ybocsSeverityExtreme;
+
+  /// Localized display label for the stable contamination theme ID.
+  ///
+  /// In en, this message translates to:
+  /// **'Contamination'**
+  String get insightsThemeContamination;
+
+  /// Localized display label for the stable harm theme ID.
+  ///
+  /// In en, this message translates to:
+  /// **'Harm'**
+  String get insightsThemeHarm;
+
+  /// Localized display label for the stable checking theme ID.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking'**
+  String get insightsThemeChecking;
+
+  /// Localized display label for the stable reassurance theme ID.
+  ///
+  /// In en, this message translates to:
+  /// **'Reassurance'**
+  String get insightsThemeReassurance;
+
+  /// Localized display label for the stable health theme ID.
+  ///
+  /// In en, this message translates to:
+  /// **'Health'**
+  String get insightsThemeHealth;
+
+  /// Localized display label for the stable relationship theme ID.
+  ///
+  /// In en, this message translates to:
+  /// **'Relationship'**
+  String get insightsThemeRelationship;
+
+  /// Localized display label for the stable symmetry theme ID.
+  ///
+  /// In en, this message translates to:
+  /// **'Symmetry'**
+  String get insightsThemeSymmetry;
+
+  /// Localized display label for the stable moral theme ID.
+  ///
+  /// In en, this message translates to:
+  /// **'Moral'**
+  String get insightsThemeMoral;
+
+  /// Localized display label for the stable rumination theme ID.
+  ///
+  /// In en, this message translates to:
+  /// **'Rumination'**
+  String get insightsThemeRumination;
+
+  /// Localized display label for the stable uncertainty theme ID.
+  ///
+  /// In en, this message translates to:
+  /// **'Uncertainty'**
+  String get insightsThemeUncertainty;
+
+  /// Fallback localized display label for an unknown stable theme ID.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get insightsThemeOther;
 }
 
 class _AppLocalizationsDelegate
