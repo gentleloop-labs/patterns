@@ -2568,4 +2568,275 @@ class AppLocalizationsEs extends AppLocalizations {
     });
     return '$_temp0';
   }
+
+  @override
+  String structuredProgramText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Programas estructurados',
+      'subtitle': 'Sigue un plan guiado semana a semana, a tu propio ritmo.',
+      'themeGroup': 'Por tema del TOC',
+      'themeGroupEmpty':
+          'Elige un tema si encaja con lo que quieres practicar.',
+      'themeGroupMatched':
+          'Los temas registrados en tu última autoevaluación aparecen señalados abajo.',
+      'generalGroup': 'Práctica general',
+      'generalCaption': 'Habilidades que pueden usarse con distintos temas.',
+      'enrollError': 'No se pudo abrir este programa. Inténtalo de nuevo.',
+      'started': 'Iniciado',
+      'notStarted': 'No iniciado',
+      'openHint': 'Abrir los detalles del programa',
+      'selfCheckMatch': 'Coincide con tu autoevaluación',
+      'tapToStart': 'Toca para empezar',
+      'progressLoadError':
+          'No se pudo cargar la actividad del programa. Inténtalo de nuevo.',
+      'activityRecorded':
+          'Tus selecciones de tareas se guardan de forma local.',
+      'taskSaveError':
+          'No se pudo guardar este cambio en la tarea. Inténtalo de nuevo.',
+      'weekComplete': 'Todas las tareas están marcadas como completadas',
+      'weekNotComplete': 'Quedan tareas',
+      'weekToggleHint': 'Expandir o contraer esta semana',
+      'taskToggleHint': 'Marcar o desmarcar esta tarea',
+      'other': 'Programa',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramProgress(int done, int total, int percent) {
+    return '$done de $total tareas, $percent por ciento';
+  }
+
+  @override
+  String structuredProgramSummary(int count, String subtitle) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count semanas · $subtitle',
+      one: '1 semana · $subtitle',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramComplete(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Las $count tareas están marcadas como completadas.',
+      one: 'La tarea está marcada como completada.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramTaskProgress(int done, int total) {
+    return '$done de $total tareas marcadas como completadas';
+  }
+
+  @override
+  String structuredProgramCompactProgress(int done, int total) {
+    return '$done/$total';
+  }
+
+  @override
+  String structuredProgramTaskChanged(String status) {
+    String _temp0 = intl.Intl.selectLogic(status, {
+      'completed': 'Tarea marcada como completada.',
+      'notCompleted': 'Tarea marcada como no completada.',
+      'other': 'Tarea actualizada.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramTitle(String program) {
+    String _temp0 = intl.Intl.selectLogic(program, {
+      'delay4wk': 'Retraso de compulsiones en 4 semanas',
+      'uncertainty3wk': 'Tolerancia a la incertidumbre',
+      'other': 'Programa estructurado',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramSubtitle(String program) {
+    String _temp0 = intl.Intl.selectLogic(program, {
+      'delay4wk': 'Practica retrasar las compulsiones, semana a semana',
+      'uncertainty3wk': 'Practica vivir sin saber con certeza',
+      'other': 'Un plan de práctica guiado',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramWeek(String week) {
+    String _temp0 = intl.Intl.selectLogic(week, {
+      'delayW1': 'Semana 1 · Observar y nombrar',
+      'delayW2': 'Semana 2 · Ampliar el intervalo',
+      'delayW3': 'Semana 3 · Esperar más',
+      'delayW4': 'Semana 4 · Práctica diaria',
+      'uncertaintyW1': 'Semana 1 · Dejarlo abierto',
+      'uncertaintyW2': 'Semana 2 · Quizá sí, quizá no',
+      'uncertaintyW3': 'Semana 3 · Dejarlo estar',
+      'other': 'Semana del programa',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String structuredProgramTask(String task) {
+    String _temp0 = intl.Intl.selectLogic(task, {
+      'w1a': 'Registra 3 impulsos sin actuar de inmediato',
+      'w1b': 'Retrasa una compulsión 1 minuto, 3 veces',
+      'w2a': 'Retrasa las compulsiones 5 minutos',
+      'w2b': 'Prueba una vez a observar el impulso como una ola',
+      'w3a': 'Retrasa la respuesta 15 minutos',
+      'w3b': 'No respondas una vez a un impulso de buscar tranquilidad',
+      'w4a': 'Completa una exposición cada día',
+      'w4b': 'Reflexiona sobre lo que observaste',
+      'u1a': 'Deja una pregunta sin responder',
+      'u1b': 'No compruebes una vez',
+      'u2a': 'Usa una respuesta de «quizá sí, quizá no» 3 veces',
+      'u2b': 'Retrasa la búsqueda en internet sobre una preocupación',
+      'u3a': 'Pasa un día sin buscar certeza',
+      'u3b': 'Reflexiona sobre lo que observaste',
+      'other': 'Tarea del programa',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackTitle(String track) {
+    String _temp0 = intl.Intl.selectLogic(track, {
+      'contamination': 'Contaminación y lavado',
+      'checking': 'Comprobación y duda',
+      'harm': 'Daño y pensamientos tabú',
+      'relationship': 'Dudas sobre la relación',
+      'justRight': 'Sensación de exactitud y simetría',
+      'other': 'Tema del TOC',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackBlurb(String track) {
+    String _temp0 = intl.Intl.selectLogic(track, {
+      'contamination':
+          'Para temores de que algo esté sucio, sea contagioso o no sea seguro tocarlo, y para el lavado o la limpieza que siguen.',
+      'checking':
+          'Para cerraduras, fogones, interruptores, mensajes y otras cosas que vuelves a revisar porque no parecen lo bastante seguras.',
+      'harm':
+          'Para pensamientos intrusivos sobre daño o temas que se sienten violentos, sexuales o blasfemos, y para las compulsiones o la evitación que siguen.',
+      'relationship':
+          'Para dudas recurrentes sobre si una relación es la adecuada, si sientes lo suficiente o qué significa la duda.',
+      'justRight':
+          'Para cosas que parecen tener que estar uniformes, ordenadas o repetirse hasta sentirse correctas.',
+      'other':
+          'Un itinerario de práctica organizado en torno a un tema del TOC.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackTheme(String track) {
+    String _temp0 = intl.Intl.selectLogic(track, {
+      'contamination': 'Contaminación',
+      'checking': 'Comprobación',
+      'harm': 'Daño y pensamientos tabú',
+      'relationship': 'Dudas sobre la relación',
+      'justRight': 'Sensación de exactitud',
+      'other': 'Tema del TOC',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackChecklistNote(String track) {
+    String _temp0 = intl.Intl.selectLogic(track, {
+      'relationship':
+          'La lista Y-BOCS es anterior a la investigación sobre el TOC de relaciones, por lo que este tema no figura entre sus categorías. Aun así, puedes usar este itinerario de práctica.',
+      'other': 'Este tema no aparece como categoría en la lista Y-BOCS.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackWeek(String week) {
+    String _temp0 = intl.Intl.selectLogic(week, {
+      'ct1': 'Semana 1 · Tocar y esperar',
+      'ct2': 'Semana 2 · Un lavado, no tres',
+      'ct3': 'Semana 3 · Llevarlo a casa',
+      'ck1': 'Semana 1 · Mirar una vez',
+      'ck2': 'Semana 2 · Sin repaso mental',
+      'ck3': 'Semana 3 · Dejarlo sin resolver',
+      'hm1': 'Semana 1 · Dejarlo estar',
+      'hm2': 'Semana 2 · Dejar de preguntar',
+      'hm3': 'Semana 3 · Sin juicio interior',
+      'rl1': 'Semana 1 · Dejar de poner a prueba',
+      'rl2': 'Semana 2 · Sin buscar tranquilidad',
+      'rl3': 'Semana 3 · Vivir con el quizá',
+      'jr1': 'Semana 1 · Dejarlo torcido',
+      'jr2': 'Semana 2 · Sin repetir',
+      'jr3': 'Semana 3 · Suficientemente bien',
+      'other': 'Semana del itinerario',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ocdTrackTask(String task) {
+    String _temp0 = intl.Intl.selectLogic(task, {
+      'ct1a':
+          'Toca algo que parezca un poco sucio y espera cinco minutos antes de lavarte las manos',
+      'ct1b': 'Registra el impulso antes y después sin lavarte',
+      'ct2a':
+          'Lávate una vez, de forma normal, y no vuelvas para una segunda ronda',
+      'ct2b': 'Deja una superficie de casa sin limpiar durante la semana',
+      'ct3a':
+          'Ve a un lugar que suele llevarte a lavarte después y no te laves al llegar a casa',
+      'ct3b': 'Anota lo que predijo el TOC junto a lo que ocurrió',
+      'ck1a': 'Comprueba algo una vez y aléjate sin volver a mirar',
+      'ck1b':
+          'Sal de casa una vez sin hacer una revisión final de las habitaciones',
+      'ck2a':
+          'Cuando aparezca el impulso de repasar el recuerdo, deja la duda sin resolver',
+      'ck2b': 'Envía un mensaje sin releerlo antes ni después',
+      'ck3a': 'Pasa un día sin volver a comprobar nada dos veces',
+      'ck3b': 'Anota lo que ocurrió y lo que predijo el TOC',
+      'hm1a':
+          'Deja que un pensamiento intrusivo permanezca un minuto sin discutir con él ni apartarlo',
+      'hm1b': 'Observa el repaso mental antes de que empiece y déjalo estar',
+      'hm2a':
+          'Evita preguntar si eres una buena persona y tampoco busques una respuesta',
+      'hm2b':
+          'Permanece en una situación que has estado evitando por el pensamiento',
+      'hm3a':
+          'Pasa un día sin comprobar tus sentimientos para buscar pruebas sobre ti',
+      'hm3b': 'Anota cómo fue la semana sin calificarte',
+      'rl1a':
+          'Observa una prueba de compatibilidad que utilices y sáltatela una vez',
+      'rl1b':
+          'Deja una duda sobre la relación sin responder durante diez minutos',
+      'rl2a':
+          'Pasa un día sin preguntar a tu pareja, a una amistad o en internet si la relación es la adecuada',
+      'rl2b': 'Haced algo juntos sin vigilar cómo te sientes mientras ocurre',
+      'rl3a':
+          'Usa una respuesta de «quizá sí, quizá no» cuando aparezca la pregunta',
+      'rl3b':
+          'Reflexiona sobre la semana sin tomar una decisión sobre el futuro',
+      'jr1a':
+          'Deja un objeto ligeramente fuera de lugar y permite que la sensación esté presente',
+      'jr1b': 'Haz algo una sola vez aunque no parezca terminado',
+      'jr2a': 'Evita repetir una acción para que se sienta correcta',
+      'jr2b':
+          'Escribe algo sin volver para que la redacción se sienta uniforme',
+      'jr3a':
+          'Pasa un día dejando varias cosas sin terminar de forma deliberada',
+      'jr3b':
+          'Registra qué ocurrió con la sensación de que algo no estaba bien sin cambiarlo',
+      'other': 'Tarea del itinerario',
+    });
+    return '$_temp0';
+  }
 }

@@ -385,7 +385,7 @@ class ProgramTaskProgressNotifier
     return await DbHelper.instance.getProgramTaskProgress();
   }
 
-  Future<void> toggleTask({
+  Future<bool> toggleTask({
     required int enrollmentId,
     required int weekIndex,
     required String taskId,
@@ -411,6 +411,7 @@ class ProgramTaskProgressNotifier
       }
       return await DbHelper.instance.getProgramTaskProgress();
     });
+    return !state.hasError;
   }
 }
 

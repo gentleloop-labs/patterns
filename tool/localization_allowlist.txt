@@ -14,3 +14,7 @@
 # values select ARB copy and are never presented to the user or persisted.
 ^lib/mobile/screens/erp_exercises_screen\.dart:.*context\.l10n\.erpFlowText\('[a-zA-Z]+'
 ^lib/mobile/screens/erp_exercises_screen\.dart:.*\.l10n\.erpPlanText\('[a-zA-Z]+'
+
+# Stable ICU selector keys for Structured Programs. These select localized UI
+# messages and never appear to users or enter storage.
+^lib/mobile/screens/structured_programs_screen\.dart:.*\.l10n\.structuredProgramText\('[a-zA-Z]+'

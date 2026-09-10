@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../../content/ocd_tracks.dart';
+import '../../l10n/l10n.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../services/app_events.dart';
@@ -473,9 +474,11 @@ class _ExposureHierarchyBuilderScreenState
               children: [
                 for (final track in ocdTracks)
                   _ThemeChip(
-                    label: track.hierarchyThemeLabel,
+                    label: track.localizedHierarchyTheme(context.l10n),
                     onTap: () => setState(() {
-                      _themeController.text = track.hierarchyThemeLabel;
+                      _themeController.text = track.localizedHierarchyTheme(
+                        context.l10n,
+                      );
                     }),
                   ),
               ],
