@@ -1714,6 +1714,270 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Patterns Pro restored. Every recovery tool is unlocked again.'**
   String get proRestoreSucceeded;
+
+  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
+  ///
+  /// In en, this message translates to:
+  /// **'Support Patterns'**
+  String get tipJarTitle;
+
+  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
+  ///
+  /// In en, this message translates to:
+  /// **'Patterns is independent and ad-free. If it has helped you, a small tip means a lot. Tips are optional and do not unlock anything.'**
+  String get tipJarBody;
+
+  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading tip options'**
+  String get tipJarLoadingLabel;
+
+  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
+  ///
+  /// In en, this message translates to:
+  /// **'In-app purchases are unavailable on this device.'**
+  String get tipJarPurchasesUnavailable;
+
+  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
+  ///
+  /// In en, this message translates to:
+  /// **'No tip options were found. Please try again later.'**
+  String get tipJarOptionsUnavailable;
+
+  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
+  ///
+  /// In en, this message translates to:
+  /// **'Tip options could not be loaded. Please try again later.'**
+  String get tipJarLoadFailed;
+
+  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
+  ///
+  /// In en, this message translates to:
+  /// **'The tip could not be completed. Please try again.'**
+  String get tipJarPurchaseFailed;
+
+  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get tipJarTryAgainAction;
+
+  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
+  ///
+  /// In en, this message translates to:
+  /// **'Small tip'**
+  String get tipSmallTitle;
+
+  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
+  ///
+  /// In en, this message translates to:
+  /// **'An optional small tip to support Patterns development. Unlocks no features.'**
+  String get tipSmallDescription;
+
+  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium tip'**
+  String get tipMediumTitle;
+
+  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
+  ///
+  /// In en, this message translates to:
+  /// **'An optional medium tip to support Patterns development. Unlocks no features.'**
+  String get tipMediumDescription;
+
+  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
+  ///
+  /// In en, this message translates to:
+  /// **'Large tip'**
+  String get tipLargeTitle;
+
+  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
+  ///
+  /// In en, this message translates to:
+  /// **'An optional large tip to support Patterns development. Unlocks no features.'**
+  String get tipLargeDescription;
+
+  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
+  ///
+  /// In en, this message translates to:
+  /// **'{title}, {price}. {description}'**
+  String tipChoiceSemantics(String title, String price, String description);
+
+  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
+  ///
+  /// In en, this message translates to:
+  /// **'Sends this optional tip'**
+  String get tipChoiceHint;
+
+  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you'**
+  String get tipThanksTitle;
+
+  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
+  ///
+  /// In en, this message translates to:
+  /// **'Your support means a lot. Patterns stays ad-free and independent because of people like you.'**
+  String get tipThanksBody;
+
+  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
+  ///
+  /// In en, this message translates to:
+  /// **'Glad to help'**
+  String get tipThanksAction;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock Patterns Desktop Pro'**
+  String get desktopProTitle;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'A one-time license for offline, desktop-optimized recovery tools.'**
+  String get desktopProSubtitle;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Hierarchy Builder'**
+  String get desktopFeatureHierarchyTitle;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Construct and track exposure steps and ladders.'**
+  String get desktopFeatureHierarchyDescription;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'ERP Exercise Logs'**
+  String get desktopFeatureErpTitle;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Record response prevention and timed exercises.'**
+  String get desktopFeatureErpDescription;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Urge Surfing'**
+  String get desktopFeatureUrgeTitle;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow urge changes with live timed logging.'**
+  String get desktopFeatureUrgeDescription;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery Activity'**
+  String get desktopFeatureActivityTitle;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Review factual activity and weekly patterns.'**
+  String get desktopFeatureActivityDescription;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'One-time license'**
+  String get desktopOneTimeLicense;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'{price} one-time purchase'**
+  String desktopOneTimePrice(String price);
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy license'**
+  String get desktopPurchaseLicenseAction;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'The purchase page is unavailable in this build.'**
+  String get desktopCheckoutUnavailable;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Already purchased? Enter your license key'**
+  String get desktopAlreadyPurchased;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your Lemon Squeezy license key:'**
+  String get desktopLicensePrompt;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'License key'**
+  String get desktopLicenseLabel;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste the license key from your receipt'**
+  String get desktopLicenseHint;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Activating license…'**
+  String get desktopLicenseActivating;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Activate license'**
+  String get desktopActivateLicenseAction;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get desktopLicenseBackAction;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the complete license key from your receipt.'**
+  String get desktopLicenseInvalid;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'This license could not be verified for Patterns Desktop Pro. Check the key and try again.'**
+  String get desktopLicenseRejected;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'The license service could not be reached. Check your connection and try again.'**
+  String get desktopLicenseUnavailable;
+
+  /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
+  ///
+  /// In en, this message translates to:
+  /// **'License activation is unavailable in this build.'**
+  String get desktopLicenseNotConfigured;
 }
 
 class _AppLocalizationsDelegate

@@ -15,8 +15,25 @@ set `PATTERNS_ENABLE_MULTILINGUAL=true` in another release workflow.
 Release CI must also run `tool/localization_audit.sh` and
 `dart run tool/check_arb_translator_context.dart`. Translator context is now
 complete and that gate passes. The literal audit remains intentionally red
-with 662 candidates as of September 10, 2026; its report is the working
+with 652 candidates as of September 10, 2026; its report is the working
 full-product localization backlog and must reach zero before copy freeze.
+
+## Desktop commerce boundary
+
+- macOS must use the same App Store non-consumable and StoreKit restore path as
+  iOS. It must never open an external checkout for a digital Pro unlock.
+- Windows/Linux desktop licensing is a separate distribution path. A release
+  build must provide `PATTERNS_DESKTOP_CHECKOUT_URL`,
+  `PATTERNS_DESKTOP_LICENSE_PRODUCT_ID`, and, if the displayed price changes,
+  `PATTERNS_DESKTOP_PRICE_LABEL` as compile-time definitions.
+- Missing or invalid desktop commerce configuration fails closed: checkout is
+  disabled and a license cannot set the local Pro entitlement.
+- License activation uses Lemon Squeezy's HTTPS License API and accepts a
+  response only when it is active and its `meta.product_id` matches the product
+  ID compiled into the build. Raw keys, service errors, customer details, and
+  device names must not enter analytics or logs.
+- The former hard-coded checkout URL returned HTTP 404 during the September 10
+  verification and must not be reused without a successful live checkout test.
 
 ## Product story
 

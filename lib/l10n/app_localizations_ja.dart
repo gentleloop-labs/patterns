@@ -868,4 +868,145 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get proRestoreSucceeded =>
       'Patterns Proを復元しました。すべてのリカバリーツールを再び利用できます。';
+
+  @override
+  String get tipJarTitle => 'Patternsを支援';
+
+  @override
+  String get tipJarBody =>
+      'Patternsは独立して運営され、広告はありません。役に立ったと感じた場合は、少額のチップで支援できます。チップは任意で、機能が追加されることはありません。';
+
+  @override
+  String get tipJarLoadingLabel => 'チップの選択肢を読み込み中';
+
+  @override
+  String get tipJarPurchasesUnavailable => 'このデバイスではアプリ内購入を利用できません。';
+
+  @override
+  String get tipJarOptionsUnavailable =>
+      'チップの選択肢が見つかりませんでした。しばらくしてからもう一度お試しください。';
+
+  @override
+  String get tipJarLoadFailed => 'チップの選択肢を読み込めませんでした。しばらくしてからもう一度お試しください。';
+
+  @override
+  String get tipJarPurchaseFailed => 'チップを完了できませんでした。もう一度お試しください。';
+
+  @override
+  String get tipJarTryAgainAction => 'もう一度試す';
+
+  @override
+  String get tipSmallTitle => '小さなチップ';
+
+  @override
+  String get tipSmallDescription => 'Patternsの開発を支援する任意の小さなチップです。機能は追加されません。';
+
+  @override
+  String get tipMediumTitle => '中くらいのチップ';
+
+  @override
+  String get tipMediumDescription => 'Patternsの開発を支援する任意のチップです。機能は追加されません。';
+
+  @override
+  String get tipLargeTitle => '大きなチップ';
+
+  @override
+  String get tipLargeDescription => 'Patternsの開発を支援する任意の大きなチップです。機能は追加されません。';
+
+  @override
+  String tipChoiceSemantics(String title, String price, String description) {
+    return '$title、$price。$description';
+  }
+
+  @override
+  String get tipChoiceHint => 'この任意のチップを送ります';
+
+  @override
+  String get tipThanksTitle => 'ありがとうございます';
+
+  @override
+  String get tipThanksBody =>
+      'ご支援に感謝します。皆さまの支援により、Patternsは広告なしで独立した運営を続けられます。';
+
+  @override
+  String get tipThanksAction => 'どういたしまして';
+
+  @override
+  String get desktopProTitle => 'Patterns Desktop Proをアンロック';
+
+  @override
+  String get desktopProSubtitle => 'オフラインで使えるデスクトップ向けリカバリーツールの買い切りライセンスです。';
+
+  @override
+  String get desktopFeatureHierarchyTitle => '階層ビルダー';
+
+  @override
+  String get desktopFeatureHierarchyDescription => 'エクスポージャーの段階と階層を作成して記録します。';
+
+  @override
+  String get desktopFeatureErpTitle => 'ERP練習ログ';
+
+  @override
+  String get desktopFeatureErpDescription => '反応妨害と時間を決めた練習を記録します。';
+
+  @override
+  String get desktopFeatureUrgeTitle => 'Urge Surfing';
+
+  @override
+  String get desktopFeatureUrgeDescription => 'ライブタイマーで衝動の変化を記録します。';
+
+  @override
+  String get desktopFeatureActivityTitle => 'リカバリー活動';
+
+  @override
+  String get desktopFeatureActivityDescription => '事実に基づく活動と週ごとの傾向を確認します。';
+
+  @override
+  String get desktopOneTimeLicense => '買い切りライセンス';
+
+  @override
+  String desktopOneTimePrice(String price) {
+    return '$price、買い切り';
+  }
+
+  @override
+  String get desktopPurchaseLicenseAction => 'ライセンスを購入';
+
+  @override
+  String get desktopCheckoutUnavailable => 'このビルドでは購入ページを利用できません。';
+
+  @override
+  String get desktopAlreadyPurchased => '購入済みですか？ライセンスキーを入力してください';
+
+  @override
+  String get desktopLicensePrompt => 'Lemon Squeezyのライセンスキーを入力：';
+
+  @override
+  String get desktopLicenseLabel => 'ライセンスキー';
+
+  @override
+  String get desktopLicenseHint => '領収書に記載されたライセンスキーを貼り付ける';
+
+  @override
+  String get desktopLicenseActivating => 'ライセンスを有効化しています…';
+
+  @override
+  String get desktopActivateLicenseAction => 'ライセンスを有効化';
+
+  @override
+  String get desktopLicenseBackAction => '戻る';
+
+  @override
+  String get desktopLicenseInvalid => '領収書に記載された完全なライセンスキーを入力してください。';
+
+  @override
+  String get desktopLicenseRejected =>
+      'Patterns Desktop Proのライセンスとして確認できませんでした。キーを確認してもう一度お試しください。';
+
+  @override
+  String get desktopLicenseUnavailable =>
+      'ライセンスサービスに接続できませんでした。接続を確認してもう一度お試しください。';
+
+  @override
+  String get desktopLicenseNotConfigured => 'このビルドではライセンスを有効化できません。';
 }

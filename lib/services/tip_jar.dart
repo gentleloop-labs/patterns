@@ -4,6 +4,8 @@ import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:in_app_purchase/in_app_purchase.dart';
 
+import '../l10n/app_localizations.dart';
+
 /// Optional one-shot tips from the user to support development.
 ///
 /// Wraps `InAppPurchase` for the three consumable products configured in
@@ -74,8 +76,11 @@ class TipJarService {
     if (response.error != null) {
       throw TipJarException(response.error!.message);
     }
-    final products = List<ProductDetails>.from(response.productDetails)
-      ..sort((a, b) => a.rawPrice.compareTo(b.rawPrice));
+    final products =
+        response.productDetails
+            .where((product) => _productIds.contains(product.id))
+            .toList()
+          ..sort((a, b) => a.rawPrice.compareTo(b.rawPrice));
     _cachedProducts = products;
     return products;
   }
@@ -88,6 +93,27 @@ class TipJarService {
     final param = PurchaseParam(productDetails: product);
     return _iap.buyConsumable(purchaseParam: param);
   }
+
+  /// Resolves the in-app title and no-entitlement explanation independently
+  /// of remote store metadata. StoreKit/Play remains the source of the price.
+  static ({String title, String description}) localizedCopy(
+    AppLocalizations strings,
+    String productId,
+  ) => switch (productId) {
+    productIdSmall => (
+      title: strings.tipSmallTitle,
+      description: strings.tipSmallDescription,
+    ),
+    productIdMedium => (
+      title: strings.tipMediumTitle,
+      description: strings.tipMediumDescription,
+    ),
+    productIdLarge => (
+      title: strings.tipLargeTitle,
+      description: strings.tipLargeDescription,
+    ),
+    _ => throw ArgumentError.value(productId, 'productId'),
+  };
 
   static Future<void> _onPurchaseUpdates(
     List<PurchaseDetails> purchases,

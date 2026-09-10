@@ -30,7 +30,7 @@ Every current English ARB message has translator context, and ARB message,
 metadata, placeholder, and selector parity passes across the six languages.
 Full-product copy is not frozen: the main mobile Settings surface is now
 localized and covered by a Japanese widget test, while the conservative
-literal audit still reports 662 candidates that must be localized or narrowly
+literal audit still reports 652 candidates that must be localized or narrowly
 reviewed before production.
 
 ## IAP resource plan
@@ -44,6 +44,9 @@ reviewed before production.
 
 All four products have non-empty copy drafted for all 11 storefront locales.
 Tip descriptions explicitly say that tips are optional and unlock no features.
+The macOS build uses StoreKit for Pro and tips; the external desktop license
+flow is limited to the separately distributed Windows/Linux build and fails
+closed unless its checkout URL and Lemon Squeezy product ID are compiled in.
 
 ## Screenshot campaign
 

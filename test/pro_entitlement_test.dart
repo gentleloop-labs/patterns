@@ -130,6 +130,13 @@ void main() {
         ProviderScope(
           child: MaterialApp(
             theme: AppTheme.mobileDarkTheme,
+            supportedLocales: AppLocalizations.supportedLocales,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
             home: Consumer(
               builder: (context, ref, _) => Scaffold(
                 body: Center(
@@ -145,16 +152,17 @@ void main() {
       );
 
       await tester.tap(find.text('open'));
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
 
       expect(allowed, isTrue);
       expect(find.text('Patterns Pro'), findsNothing);
     });
 
     testWidgets('blocks a free user and opens a paywall', (tester) async {
-      // The host VM reports as macOS, so `PaywallSheet.show` takes its desktop
-      // branch here. This asserts the gate's contract (blocked, and something
-      // was presented), not which paywall a given platform renders.
+      // The host VM reports as macOS, so `PaywallSheet.show` takes its native
+      // StoreKit dialog branch. This asserts the gate's contract (blocked, and
+      // something was presented), not the live store response.
       await tester.binding.setSurfaceSize(const Size(1200, 2400));
       addTearDown(() => tester.binding.setSurfaceSize(null));
 
@@ -163,6 +171,13 @@ void main() {
         ProviderScope(
           child: MaterialApp(
             theme: AppTheme.mobileDarkTheme,
+            supportedLocales: AppLocalizations.supportedLocales,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
             home: Consumer(
               builder: (context, ref, _) => Scaffold(
                 body: Center(
@@ -178,7 +193,8 @@ void main() {
       );
 
       await tester.tap(find.text('open'));
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
 
       expect(allowed, isFalse);
       expect(find.byType(ElevatedButton), findsWidgets);
@@ -187,6 +203,8 @@ void main() {
         findsWidgets,
         reason: 'no paywall was presented to a free user',
       );
+      expect(find.text('Unlock Patterns Desktop Pro'), findsNothing);
+      expect(find.text('Patterns Pro'), findsOneWidget);
     });
 
     testWidgets('the mobile paywall tells a returning purchaser to restore', (
