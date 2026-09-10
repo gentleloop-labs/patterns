@@ -11,6 +11,7 @@ import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../services/app_events.dart';
 import '../../services/notification_service.dart';
+import '../../l10n/app_localizations.dart';
 import '../../l10n/l10n.dart';
 import '../../services/review_prompt.dart';
 import '../../theme/app_colors.dart';
@@ -25,138 +26,90 @@ enum _PracticePhase { setup, countdown, reflection }
 
 class ErpExerciseTemplate {
   final String id;
-  final String title;
-  final String subtitle;
-  final String intro;
-  final String why;
-  final List<String> instructions;
-  final List<String> quickCues;
-  final String exposurePrompt;
-  final String predictionPrompt;
-  final String commitmentPrompt;
   final int defaultSeconds;
   final IconData icon;
 
   const ErpExerciseTemplate({
     required this.id,
-    required this.title,
-    required this.subtitle,
-    required this.intro,
-    required this.why,
-    required this.instructions,
-    required this.quickCues,
-    required this.exposurePrompt,
-    required this.predictionPrompt,
-    required this.commitmentPrompt,
     required this.defaultSeconds,
     required this.icon,
   });
+
+  String get _localizationKey => switch (id) {
+    'delay_checking' => 'delayChecking',
+    'delay_reassurance' => 'delayReassurance',
+    'delay_googling' => 'delayGoogling',
+    'delay_rumination' => 'delayRumination',
+    'delay_washing' => 'delayWashing',
+    _ => 'other',
+  };
+
+  /// Canonical storage value retained for existing backups and records. The UI
+  /// always resolves a localized title from [id].
+  String get canonicalTitle => switch (id) {
+    'delay_checking' => 'Delay Checking',
+    'delay_reassurance' => 'Delay Reassurance Seeking',
+    'delay_googling' => 'Delay Googling',
+    'delay_rumination' => 'Delay Rumination',
+    'delay_washing' => 'Delay Washing',
+    _ => 'Guided ERP',
+  };
+
+  String localizedTitle(AppLocalizations strings) =>
+      strings.erpTemplateTitle(_localizationKey);
+
+  String localizedSubtitle(AppLocalizations strings) =>
+      strings.erpTemplateSubtitle(_localizationKey);
+
+  String localizedIntro(AppLocalizations strings) =>
+      strings.erpTemplateIntro(_localizationKey);
+
+  String localizedWhy(AppLocalizations strings) =>
+      strings.erpTemplateWhy(_localizationKey);
+
+  String localizedExposurePrompt(AppLocalizations strings) =>
+      strings.erpTemplatePrompt('${_localizationKey}Exposure');
+
+  String localizedPredictionPrompt(AppLocalizations strings) =>
+      strings.erpTemplatePrompt('${_localizationKey}Prediction');
+
+  String localizedCommitmentPrompt(AppLocalizations strings) =>
+      strings.erpTemplatePrompt('${_localizationKey}Commitment');
+
+  List<String> localizedInstructions(AppLocalizations strings) => [
+    for (var index = 1; index <= 4; index += 1)
+      strings.erpTemplateInstruction('$_localizationKey$index'),
+  ];
+
+  List<String> localizedQuickCues(AppLocalizations strings) => [
+    for (var index = 1; index <= 3; index += 1)
+      strings.erpTemplateCue('$_localizationKey$index'),
+  ];
 }
 
 const erpExerciseTemplates = <ErpExerciseTemplate>[
   ErpExerciseTemplate(
     id: 'delay_checking',
-    title: 'Delay Checking',
-    subtitle: 'Practise leaving something unchecked for a short window.',
-    intro:
-        'Create a repeatable plan for moments when OCD pushes you to check locks, switches, messages, symptoms, or mistakes again.',
-    why:
-        'ERP works by letting your brain learn that uncertainty can be present without needing a ritual right away.',
-    instructions: [
-      'Define one checking rule before you begin.',
-      'Do the planned check once if it is part of normal safety.',
-      'Resist rechecking while the timer runs.',
-      'Notice the urge without negotiating with it.',
-    ],
-    quickCues: ['Check once', 'No rechecking', 'Notice the urge'],
-    exposurePrompt: 'What will you leave unchecked or checked only once?',
-    predictionPrompt: 'What does OCD predict if you do not recheck?',
-    commitmentPrompt: 'What checking ritual will you practise resisting?',
     defaultSeconds: 5 * 60,
     icon: Icons.fact_check_rounded,
   ),
   ErpExerciseTemplate(
     id: 'delay_reassurance',
-    title: 'Delay Reassurance Seeking',
-    subtitle: 'Wait before asking someone to make the fear feel certain.',
-    intro:
-        'Create a plan for urges to ask, confess, explain, or get someone to confirm that things are okay.',
-    why:
-        'Reassurance can feel helpful in the moment, but delaying it helps you build tolerance for not knowing.',
-    instructions: [
-      'Define the reassurance request before you begin.',
-      'Do not send the message or ask the question during the timer.',
-      'Let the discomfort rise and fall on its own.',
-      'Return to what you were doing as gently as you can.',
-    ],
-    quickCues: ['Hold the ask', 'Let uncertainty stay', 'Return gently'],
-    exposurePrompt: 'What reassurance do you want to ask for?',
-    predictionPrompt: 'What does OCD say will happen if you do not ask?',
-    commitmentPrompt: 'What message, confession, or question will you resist?',
     defaultSeconds: 10 * 60,
     icon: Icons.chat_bubble_outline_rounded,
   ),
   ErpExerciseTemplate(
     id: 'delay_googling',
-    title: 'Delay Googling',
-    subtitle: 'Postpone searching for certainty or proof.',
-    intro:
-        'Create a plan for moments when OCD wants you to search symptoms, meanings, risks, rules, or stories until you feel sure.',
-    why:
-        'Postponing research interrupts the certainty loop and gives your nervous system a chance to settle without a search.',
-    instructions: [
-      'Define the search before opening anything else.',
-      'Close the search box or browser tab.',
-      'Start the timer before reading anything else.',
-      'Let the question stay unanswered for now.',
-    ],
-    quickCues: ['Close search', 'Start timer', 'Leave it unanswered'],
-    exposurePrompt: 'What search or question will you leave unanswered?',
-    predictionPrompt: 'What does OCD say you need to know right now?',
-    commitmentPrompt: 'What search, article, or forum will you avoid?',
     defaultSeconds: 10 * 60,
     icon: Icons.search_off_rounded,
   ),
   ErpExerciseTemplate(
     id: 'delay_rumination',
-    title: 'Delay Rumination',
-    subtitle: 'Notice mental problem-solving without following it.',
-    intro:
-        'Create a plan for mental compulsions like replaying, proving, reviewing, or solving.',
-    why:
-        'Rumination can look like thinking, but ERP practice helps you step out of the loop without finishing the argument.',
-    instructions: [
-      'Name the loop: reviewing, solving, proving, or checking.',
-      'Let the thought be unfinished.',
-      'Bring attention back to one ordinary task or sensation.',
-      'Restart gently each time the loop pulls you back.',
-    ],
-    quickCues: ['Name the loop', 'Leave unfinished', 'Return to task'],
-    exposurePrompt: 'What thought loop will you leave unfinished?',
-    predictionPrompt: 'What does OCD say you must solve or prove?',
-    commitmentPrompt: 'What mental review or argument will you resist?',
     defaultSeconds: 5 * 60,
     icon: Icons.psychology_alt_rounded,
   ),
   ErpExerciseTemplate(
     id: 'delay_washing',
-    title: 'Delay Washing',
-    subtitle: 'Wait before washing, cleaning, or sanitizing again.',
-    intro:
-        'Create a plan for urges to wash, clean, sanitize, or reset because something feels contaminated.',
-    why:
-        'Waiting gives your brain practice learning that the feeling of contamination can be tolerated without an immediate ritual.',
-    instructions: [
-      'Define the normal hygiene boundary before starting.',
-      'Start with a delay that feels challenging but possible.',
-      'Keep your hands away from the sink or sanitizer during the timer.',
-      'Let the discomfort be there without trying to make it perfect.',
-    ],
-    quickCues: ['Set boundary', 'Delay washing', 'Allow discomfort'],
-    exposurePrompt: 'What normal hygiene boundary will you practice?',
-    predictionPrompt: 'What does OCD predict if you do not wash again?',
-    commitmentPrompt:
-        'What extra washing, cleaning, or sanitizing will you resist?',
     defaultSeconds: 3 * 60,
     icon: Icons.water_drop_outlined,
   ),
@@ -167,6 +120,22 @@ ErpExerciseTemplate _templateForId(String id) {
     (template) => template.id == id,
     orElse: () => erpExerciseTemplates.first,
   );
+}
+
+ErpExerciseTemplate? _knownTemplateForId(String id) {
+  for (final template in erpExerciseTemplates) {
+    if (template.id == id) return template;
+  }
+  return null;
+}
+
+String _localizedExerciseTitle(
+  AppLocalizations strings,
+  String exerciseId,
+  String storedTitle,
+) {
+  return _knownTemplateForId(exerciseId)?.localizedTitle(strings) ??
+      storedTitle;
 }
 
 class ErpExercisesScreen extends ConsumerWidget {
@@ -439,7 +408,7 @@ class _ErpPlanEditorScreenState extends ConsumerState<ErpPlanEditorScreen> {
     final plan = ErpExercisePlan(
       id: existing?.id,
       exerciseId: _template.id,
-      exerciseTitle: _template.title,
+      exerciseTitle: _template.canonicalTitle,
       triggerOrExposure: _exposureController.text.trim(),
       fearPrediction: _predictionController.text.trim(),
       preventionCommitment: _commitmentController.text.trim(),
@@ -506,21 +475,21 @@ class _ErpPlanEditorScreenState extends ConsumerState<ErpPlanEditorScreen> {
                   _LabeledTextField(
                     controller: _exposureController,
                     label: context.l10n.erpPlanText('exposureTarget'),
-                    hint: _template.exposurePrompt,
+                    hint: _template.localizedExposurePrompt(context.l10n),
                     minLines: 2,
                   ),
                   const SizedBox(height: 14),
                   _LabeledTextField(
                     controller: _predictionController,
                     label: context.l10n.erpPlanText('ocdPrediction'),
-                    hint: _template.predictionPrompt,
+                    hint: _template.localizedPredictionPrompt(context.l10n),
                     minLines: 2,
                   ),
                   const SizedBox(height: 14),
                   _LabeledTextField(
                     controller: _commitmentController,
                     label: context.l10n.erpPlanText('preventionCommitment'),
-                    hint: _template.commitmentPrompt,
+                    hint: _template.localizedCommitmentPrompt(context.l10n),
                     minLines: 2,
                   ),
                   const SizedBox(height: 18),
@@ -882,7 +851,11 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
     return Column(
       children: [
         _SimpleHeader(
-          title: widget.plan.exerciseTitle,
+          title: _localizedExerciseTitle(
+            context.l10n,
+            widget.plan.exerciseId,
+            widget.plan.exerciseTitle,
+          ),
           onBack: () => Navigator.pop(context),
         ),
         Expanded(
@@ -927,7 +900,14 @@ class _ErpPlanPracticeFlowState extends ConsumerState<ErpPlanPracticeFlow>
       padding: const EdgeInsets.fromLTRB(24, 16, 24, 28),
       child: Column(
         children: [
-          _SimpleHeader(title: widget.plan.exerciseTitle, onBack: _confirmStop),
+          _SimpleHeader(
+            title: _localizedExerciseTitle(
+              context.l10n,
+              widget.plan.exerciseId,
+              widget.plan.exerciseTitle,
+            ),
+            onBack: _confirmStop,
+          ),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(vertical: 24),
@@ -1223,7 +1203,11 @@ class _PlanCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        plan.exerciseTitle,
+                        _localizedExerciseTitle(
+                          context.l10n,
+                          plan.exerciseId,
+                          plan.exerciseTitle,
+                        ),
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.w800,
                         ),
@@ -1362,7 +1346,7 @@ class _TemplatePill extends StatelessWidget {
             ),
             const SizedBox(width: 7),
             Text(
-              _shortTemplateTitle(template.title),
+              template.localizedTitle(context.l10n),
               style: theme.textTheme.labelLarge?.copyWith(
                 color: selected ? primary : theme.colorScheme.onSurface,
                 fontWeight: selected ? FontWeight.w900 : FontWeight.w700,
@@ -1395,14 +1379,14 @@ class _SelectedTemplatePanel extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  template.title,
+                  template.localizedTitle(context.l10n),
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w900,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  template.subtitle,
+                  template.localizedSubtitle(context.l10n),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: _muted(theme, 13).copyWith(height: 1.3),
@@ -1450,7 +1434,7 @@ class _PracticeGuidePanel extends StatelessWidget {
           ),
           const SizedBox(height: 9),
           Text(
-            template.why,
+            template.localizedWhy(context.l10n),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: _muted(theme, 13).copyWith(height: 1.35),
@@ -1460,7 +1444,8 @@ class _PracticeGuidePanel extends StatelessWidget {
             spacing: 8,
             runSpacing: 8,
             children: [
-              for (final cue in template.quickCues) _CueChip(label: cue),
+              for (final cue in template.localizedQuickCues(context.l10n))
+                _CueChip(label: cue),
             ],
           ),
         ],
@@ -1550,7 +1535,11 @@ class _RecentPracticeRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  session.exerciseTitle,
+                  _localizedExerciseTitle(
+                    context.l10n,
+                    session.exerciseId,
+                    session.exerciseTitle,
+                  ),
                   style: theme.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.w800,
                   ),
@@ -2219,8 +2208,4 @@ String _formatDuration(Duration duration) {
   final minutes = total ~/ 60;
   final seconds = total % 60;
   return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
-}
-
-String _shortTemplateTitle(String title) {
-  return title.replaceFirst('Delay ', '').replaceFirst(' Seeking', '');
 }

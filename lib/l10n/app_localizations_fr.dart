@@ -2419,4 +2419,180 @@ class AppLocalizationsFr extends AppLocalizations {
   String erpPlanRatingChange(int before, int after) {
     return '$before → $after';
   }
+
+  @override
+  String get erpFirstRunPrediction =>
+      'Le TOC dit que l’inconfort ne changera pas si vous ne réagissez pas.';
+
+  @override
+  String erpTemplateTitle(String template) {
+    String _temp0 = intl.Intl.selectLogic(template, {
+      'delayChecking': 'Retarder la vérification',
+      'delayReassurance': 'Retarder la recherche de réassurance',
+      'delayGoogling': 'Retarder la recherche en ligne',
+      'delayRumination': 'Retarder la rumination',
+      'delayWashing': 'Retarder le lavage',
+      'other': 'ERP guidée',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpTemplateSubtitle(String template) {
+    String _temp0 = intl.Intl.selectLogic(template, {
+      'delayChecking':
+          'Exercez-vous à laisser quelque chose sans vérification pendant un court moment.',
+      'delayReassurance':
+          'Attendez avant de demander à quelqu’un de rendre la peur certaine.',
+      'delayGoogling':
+          'Remettez à plus tard la recherche de certitude ou de preuve.',
+      'delayRumination':
+          'Remarquez la résolution mentale de problèmes sans la suivre.',
+      'delayWashing':
+          'Attendez avant de vous laver, nettoyer ou désinfecter à nouveau.',
+      'other': 'Exercez-vous à retarder une réponse.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpTemplateIntro(String template) {
+    String _temp0 = intl.Intl.selectLogic(template, {
+      'delayChecking':
+          'Créez un plan réutilisable pour les moments où le TOC vous pousse à revérifier serrures, interrupteurs, messages, symptômes ou erreurs.',
+      'delayReassurance':
+          'Créez un plan pour les envies de demander, avouer, expliquer ou faire confirmer par quelqu’un que tout va bien.',
+      'delayGoogling':
+          'Créez un plan pour les moments où le TOC veut vous faire rechercher symptômes, significations, risques, règles ou récits jusqu’à obtenir une certitude.',
+      'delayRumination':
+          'Créez un plan pour les compulsions mentales comme repasser, prouver, vérifier ou résoudre.',
+      'delayWashing':
+          'Créez un plan pour les envies de laver, nettoyer, désinfecter ou recommencer parce que quelque chose semble contaminé.',
+      'other': 'Créez un plan d’exercice d’ERP réutilisable.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpTemplateWhy(String template) {
+    String _temp0 = intl.Intl.selectLogic(template, {
+      'delayChecking':
+          'L’ERP vous permet de vous exercer à laisser l’incertitude présente sans accomplir immédiatement un rituel.',
+      'delayReassurance':
+          'La réassurance peut sembler utile sur le moment ; la retarder vous permet de vous exercer à ne pas savoir.',
+      'delayGoogling':
+          'Reporter la recherche interrompt la boucle de certitude et vous permet de laisser une question sans réponse.',
+      'delayRumination':
+          'La rumination peut ressembler à de la réflexion ; l’ERP vous permet de quitter la boucle sans terminer l’argument.',
+      'delayWashing':
+          'Attendre vous permet de laisser la sensation de contamination présente sans accomplir immédiatement un rituel.',
+      'other':
+          'L’ERP permet de laisser une place à l’incertitude sans rituel immédiat.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpTemplatePrompt(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'delayCheckingExposure':
+          'Que laisserez-vous sans vérifier ou ne vérifierez-vous qu’une fois ?',
+      'delayCheckingPrediction':
+          'Que prédit le TOC si vous ne vérifiez pas à nouveau ?',
+      'delayCheckingCommitment':
+          'À quel rituel de vérification allez-vous vous exercer à résister ?',
+      'delayReassuranceExposure':
+          'Quelle réassurance souhaitez-vous demander ?',
+      'delayReassurancePrediction':
+          'D’après le TOC, que se passera-t-il si vous ne demandez pas ?',
+      'delayReassuranceCommitment':
+          'À quel message, aveu ou question allez-vous résister ?',
+      'delayGooglingExposure':
+          'Quelle recherche ou question laisserez-vous sans réponse ?',
+      'delayGooglingPrediction':
+          'D’après le TOC, que devez-vous savoir maintenant ?',
+      'delayGooglingCommitment':
+          'Quelle recherche, quel article ou quel forum éviterez-vous ?',
+      'delayRuminationExposure':
+          'Quelle boucle de pensée laisserez-vous inachevée ?',
+      'delayRuminationPrediction':
+          'D’après le TOC, que devez-vous résoudre ou prouver ?',
+      'delayRuminationCommitment':
+          'À quelle vérification mentale ou argumentation allez-vous résister ?',
+      'delayWashingExposure':
+          'Quelle limite d’hygiène normale respecterez-vous ?',
+      'delayWashingPrediction':
+          'Que prédit le TOC si vous ne vous lavez pas à nouveau ?',
+      'delayWashingCommitment':
+          'À quel lavage, nettoyage ou désinfection supplémentaire allez-vous résister ?',
+      'other': 'À quelle réponse allez-vous vous exercer à résister ?',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpTemplateInstruction(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'delayChecking1':
+          'Définissez une règle de vérification avant de commencer.',
+      'delayChecking2':
+          'Effectuez une fois la vérification prévue si elle relève de la sécurité normale.',
+      'delayChecking3':
+          'Résistez à une nouvelle vérification pendant le minuteur.',
+      'delayChecking4': 'Remarquez l’envie sans négocier avec elle.',
+      'delayReassurance1':
+          'Définissez la demande de réassurance avant de commencer.',
+      'delayReassurance2':
+          'N’envoyez pas le message et ne posez pas la question pendant le minuteur.',
+      'delayReassurance3':
+          'Laissez l’inconfort présent sans chercher de certitude.',
+      'delayReassurance4':
+          'Revenez aussi doucement que possible à ce que vous faisiez.',
+      'delayGoogling1': 'Définissez la recherche avant d’ouvrir autre chose.',
+      'delayGoogling2':
+          'Fermez le champ de recherche ou l’onglet du navigateur.',
+      'delayGoogling3': 'Lancez le minuteur avant de lire autre chose.',
+      'delayGoogling4': 'Laissez la question sans réponse pour le moment.',
+      'delayRumination1':
+          'Nommez la boucle : repasser, résoudre, prouver ou vérifier.',
+      'delayRumination2': 'Laissez la pensée inachevée.',
+      'delayRumination3':
+          'Ramenez votre attention vers une tâche ou une sensation ordinaire.',
+      'delayRumination4':
+          'Recommencez doucement chaque fois que la boucle vous ramène.',
+      'delayWashing1':
+          'Définissez la limite d’hygiène normale avant de commencer.',
+      'delayWashing2':
+          'Commencez par un délai qui semble difficile mais possible.',
+      'delayWashing3':
+          'Gardez les mains loin du lavabo ou du désinfectant pendant le minuteur.',
+      'delayWashing4':
+          'Laissez l’inconfort présent sans chercher à le rendre parfait.',
+      'other': 'Suivez le plan que vous avez choisi.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpTemplateCue(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'delayChecking1': 'Vérifier une fois',
+      'delayChecking2': 'Ne pas revérifier',
+      'delayChecking3': 'Remarquer l’envie',
+      'delayReassurance1': 'Retenir la demande',
+      'delayReassurance2': 'Laisser l’incertitude',
+      'delayReassurance3': 'Revenir doucement',
+      'delayGoogling1': 'Fermer la recherche',
+      'delayGoogling2': 'Lancer le minuteur',
+      'delayGoogling3': 'Laisser sans réponse',
+      'delayRumination1': 'Nommer la boucle',
+      'delayRumination2': 'Laisser inachevé',
+      'delayRumination3': 'Revenir à la tâche',
+      'delayWashing1': 'Définir la limite',
+      'delayWashing2': 'Retarder le lavage',
+      'delayWashing3': 'Laisser l’inconfort',
+      'other': 'Suivre le plan',
+    });
+    return '$_temp0';
+  }
 }
