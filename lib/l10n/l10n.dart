@@ -19,4 +19,7 @@ extension AppLocalizationsContext on BuildContext {
 
   String formatShortWeekday(DateTime date) =>
       DateFormat.E(effectiveLocaleName).format(date);
+
+  String formatTime(DateTime date) =>
+      DateFormat.jm(effectiveLocaleName).format(date);
 }

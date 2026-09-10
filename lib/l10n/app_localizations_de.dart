@@ -1234,4 +1234,75 @@ class AppLocalizationsDe extends AppLocalizations {
   String journalOpenEntryHint(String date) {
     return 'Öffnet den Tagebucheintrag für $date.';
   }
+
+  @override
+  String get journalWorkspaceTitle => 'Tagebuch-Arbeitsbereich';
+
+  @override
+  String get journalSubtitle => 'Ihr Raum zum Nachdenken und Loslassen.';
+
+  @override
+  String get journalNewEntryAction => 'Neuer Eintrag';
+
+  @override
+  String get journalEarlierSection => 'Früher';
+
+  @override
+  String get journalNoEntryForDate =>
+      'Für dieses Datum gibt es keinen Eintrag.';
+
+  @override
+  String get journalCreateEntryAction => 'Eintrag erstellen';
+
+  @override
+  String journalEntryTimestamp(String date, String time) {
+    return '$date um $time';
+  }
+
+  @override
+  String get journalDeleteEntryAction => 'Eintrag löschen';
+
+  @override
+  String get journalDeleteEntryTitle => 'Eintrag löschen?';
+
+  @override
+  String get journalDeleteEntryBody =>
+      'Dieser Tagebucheintrag wird dauerhaft gelöscht.';
+
+  @override
+  String get journalDeletedMessage => 'Der Tagebucheintrag wurde gelöscht.';
+
+  @override
+  String get journalEditAction => 'Bearbeiten';
+
+  @override
+  String journalEditingDate(String date) {
+    return 'Bearbeitung: $date';
+  }
+
+  @override
+  String get journalUnsavedChangesStatus => 'Ungespeicherte Änderungen';
+
+  @override
+  String get journalEntrySavedMessage => 'Tagebucheintrag gespeichert';
+
+  @override
+  String journalReadOnlyLabel(String date) {
+    return 'Schreibgeschützter Tagebucheintrag für $date';
+  }
+
+  @override
+  String get journalThemeContamination => 'Kontamination';
+
+  @override
+  String get journalThemeUncertainty => 'Unsicherheit';
+
+  @override
+  String get journalThemeChecking => 'Kontrollieren';
+
+  @override
+  String get journalThemeRelationship => 'Beziehung';
+
+  @override
+  String get journalThemeHealth => 'Gesundheit';
 }

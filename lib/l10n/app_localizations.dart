@@ -2134,6 +2134,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Opens the journal entry for {date}.'**
   String journalOpenEntryHint(String date);
+
+  /// Window title for the desktop journal workspace.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal workspace'**
+  String get journalWorkspaceTitle;
+
+  /// Desktop journal subtitle. Keep it calm and avoid implying treatment or a guaranteed emotional result.
+  ///
+  /// In en, this message translates to:
+  /// **'Your space to reflect and let things out.'**
+  String get journalSubtitle;
+
+  /// Action that starts a new journal entry.
+  ///
+  /// In en, this message translates to:
+  /// **'New entry'**
+  String get journalNewEntryAction;
+
+  /// Heading for journal entries before today.
+  ///
+  /// In en, this message translates to:
+  /// **'Earlier'**
+  String get journalEarlierSection;
+
+  /// Desktop journal empty state for the currently selected date.
+  ///
+  /// In en, this message translates to:
+  /// **'No entry for this date.'**
+  String get journalNoEntryForDate;
+
+  /// Action that creates a journal entry for the selected date.
+  ///
+  /// In en, this message translates to:
+  /// **'Create entry'**
+  String get journalCreateEntryAction;
+
+  /// Date and time shown above a desktop journal entry. Both placeholders are already formatted for the active locale.
+  ///
+  /// In en, this message translates to:
+  /// **'{date} at {time}'**
+  String journalEntryTimestamp(String date, String time);
+
+  /// Destructive action that deletes one journal entry.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete entry'**
+  String get journalDeleteEntryAction;
+
+  /// Confirmation title before permanently deleting one journal entry.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete entry?'**
+  String get journalDeleteEntryTitle;
+
+  /// Confirmation body before permanently deleting one journal entry.
+  ///
+  /// In en, this message translates to:
+  /// **'This journal entry will be permanently deleted.'**
+  String get journalDeleteEntryBody;
+
+  /// Factual confirmation after a journal entry is deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'The journal entry was deleted.'**
+  String get journalDeletedMessage;
+
+  /// Action that opens an existing journal entry for editing.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get journalEditAction;
+
+  /// Desktop journal editor heading. The date is already formatted for the active locale.
+  ///
+  /// In en, this message translates to:
+  /// **'Editing: {date}'**
+  String journalEditingDate(String date);
+
+  /// Desktop journal editor status when the document differs from the saved entry.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsaved changes'**
+  String get journalUnsavedChangesStatus;
+
+  /// Factual confirmation after saving a desktop journal entry.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal entry saved'**
+  String get journalEntrySavedMessage;
+
+  /// Accessibility label for a read-only journal entry. The date is already formatted for the active locale.
+  ///
+  /// In en, this message translates to:
+  /// **'Read-only journal entry for {date}'**
+  String journalReadOnlyLabel(String date);
+
+  /// Locally detected journal theme label. This is descriptive only, not a diagnosis.
+  ///
+  /// In en, this message translates to:
+  /// **'Contamination'**
+  String get journalThemeContamination;
+
+  /// Locally detected journal theme label. This is descriptive only, not a diagnosis.
+  ///
+  /// In en, this message translates to:
+  /// **'Uncertainty'**
+  String get journalThemeUncertainty;
+
+  /// Locally detected journal theme label. This is descriptive only, not a diagnosis.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking'**
+  String get journalThemeChecking;
+
+  /// Locally detected journal theme label. This is descriptive only, not a diagnosis.
+  ///
+  /// In en, this message translates to:
+  /// **'Relationship'**
+  String get journalThemeRelationship;
+
+  /// Locally detected journal theme label. This is descriptive only, not a diagnosis.
+  ///
+  /// In en, this message translates to:
+  /// **'Health'**
+  String get journalThemeHealth;
 }
 
 class _AppLocalizationsDelegate

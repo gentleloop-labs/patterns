@@ -1230,6 +1230,76 @@ class AppLocalizationsPt extends AppLocalizations {
   String journalOpenEntryHint(String date) {
     return 'Abre o registro do diário de $date.';
   }
+
+  @override
+  String get journalWorkspaceTitle => 'Espaço do diário';
+
+  @override
+  String get journalSubtitle => 'Seu espaço para refletir e colocar para fora.';
+
+  @override
+  String get journalNewEntryAction => 'Novo registro';
+
+  @override
+  String get journalEarlierSection => 'Anteriores';
+
+  @override
+  String get journalNoEntryForDate => 'Não há registro para esta data.';
+
+  @override
+  String get journalCreateEntryAction => 'Criar registro';
+
+  @override
+  String journalEntryTimestamp(String date, String time) {
+    return '$date às $time';
+  }
+
+  @override
+  String get journalDeleteEntryAction => 'Excluir registro';
+
+  @override
+  String get journalDeleteEntryTitle => 'Excluir registro?';
+
+  @override
+  String get journalDeleteEntryBody =>
+      'Este registro do diário será excluído permanentemente.';
+
+  @override
+  String get journalDeletedMessage => 'O registro do diário foi excluído.';
+
+  @override
+  String get journalEditAction => 'Editar';
+
+  @override
+  String journalEditingDate(String date) {
+    return 'Editando: $date';
+  }
+
+  @override
+  String get journalUnsavedChangesStatus => 'Alterações não salvas';
+
+  @override
+  String get journalEntrySavedMessage => 'Registro do diário salvo';
+
+  @override
+  String journalReadOnlyLabel(String date) {
+    return 'Registro do diário de $date, somente leitura';
+  }
+
+  @override
+  String get journalThemeContamination => 'Contaminação';
+
+  @override
+  String get journalThemeUncertainty => 'Incerteza';
+
+  @override
+  String get journalThemeChecking => 'Verificação';
+
+  @override
+  String get journalThemeRelationship => 'Relacionamento';
+
+  @override
+  String get journalThemeHealth => 'Saúde';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -2458,4 +2528,74 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String journalOpenEntryHint(String date) {
     return 'Abre o registro do diário de $date.';
   }
+
+  @override
+  String get journalWorkspaceTitle => 'Espaço do diário';
+
+  @override
+  String get journalSubtitle => 'Seu espaço para refletir e colocar para fora.';
+
+  @override
+  String get journalNewEntryAction => 'Novo registro';
+
+  @override
+  String get journalEarlierSection => 'Anteriores';
+
+  @override
+  String get journalNoEntryForDate => 'Não há registro para esta data.';
+
+  @override
+  String get journalCreateEntryAction => 'Criar registro';
+
+  @override
+  String journalEntryTimestamp(String date, String time) {
+    return '$date às $time';
+  }
+
+  @override
+  String get journalDeleteEntryAction => 'Excluir registro';
+
+  @override
+  String get journalDeleteEntryTitle => 'Excluir registro?';
+
+  @override
+  String get journalDeleteEntryBody =>
+      'Este registro do diário será excluído permanentemente.';
+
+  @override
+  String get journalDeletedMessage => 'O registro do diário foi excluído.';
+
+  @override
+  String get journalEditAction => 'Editar';
+
+  @override
+  String journalEditingDate(String date) {
+    return 'Editando: $date';
+  }
+
+  @override
+  String get journalUnsavedChangesStatus => 'Alterações não salvas';
+
+  @override
+  String get journalEntrySavedMessage => 'Registro do diário salvo';
+
+  @override
+  String journalReadOnlyLabel(String date) {
+    return 'Registro do diário de $date, somente leitura';
+  }
+
+  @override
+  String get journalThemeContamination => 'Contaminação';
+
+  @override
+  String get journalThemeUncertainty => 'Incerteza';
+
+  @override
+  String get journalThemeChecking => 'Verificação';
+
+  @override
+  String get journalThemeRelationship => 'Relacionamento';
+
+  @override
+  String get journalThemeHealth => 'Saúde';
 }
