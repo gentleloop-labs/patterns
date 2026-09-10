@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:patterns/mobile/screens/journal_screen.dart';
+import 'package:patterns/l10n/app_localizations.dart';
 import 'package:patterns/models/models.dart';
 import 'package:patterns/providers/providers.dart';
 import 'package:patterns/theme/app_theme.dart';
@@ -43,6 +44,8 @@ void main() {
       overrides: [journalProvider.overrideWith(() => fake)],
       child: MaterialApp(
         theme: AppTheme.mobileDarkTheme,
+        supportedLocales: AppLocalizations.supportedLocales,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
         home: Consumer(
           builder: (context, ref, _) => Scaffold(
             body: Center(
@@ -75,7 +78,7 @@ void main() {
     expect(find.text('Clear this day?'), findsOneWidget);
     expect(find.textContaining('March 10, 2026'), findsOneWidget);
 
-    await tester.tap(find.text('Clear the day'));
+    await tester.tap(find.text('Clear this day'));
     await tester.pumpAndSettle();
 
     expect(fake.deleted, ['2026-03-10']);

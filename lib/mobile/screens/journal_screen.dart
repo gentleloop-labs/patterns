@@ -1488,7 +1488,10 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final entriesAsync = ref.watch(filteredJournalProvider);
+    final reduceMotion = motionDisabled(context);
+    final textScale = MediaQuery.textScalerOf(context).scale(1);
 
     return Scaffold(
       body: SafeArea(
@@ -1497,7 +1500,7 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 18, 20, 10),
               child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 220),
+                duration: reduceMotion ? Duration.zero : AppMotion.fast,
                 switchInCurve: Curves.easeOutCubic,
                 switchOutCurve: Curves.easeInCubic,
                 transitionBuilder: (child, animation) =>
@@ -1518,17 +1521,20 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                         key: const ValueKey('header'),
                         children: [
                           Expanded(
-                            child: Text('Journal', style: _screenTitle(theme)),
+                            child: Text(
+                              strings.journalTitle,
+                              style: _screenTitle(theme),
+                            ),
                           ),
                           _RoundIconButton(
                             icon: LineIcons.search,
-                            semanticLabel: 'Search journal',
+                            semanticLabel: strings.journalSearchAction,
                             onTap: _enterSearch,
                           ),
                           const SizedBox(width: 10),
                           _RoundIconButton(
                             icon: LineIcons.calendar,
-                            semanticLabel: 'Choose date',
+                            semanticLabel: strings.journalChooseDateAction,
                             onTap: () => _pickDate(context),
                           ),
                         ],
@@ -1536,12 +1542,12 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
               ),
             ),
             AnimatedSize(
-              duration: const Duration(milliseconds: 220),
+              duration: reduceMotion ? Duration.zero : AppMotion.fast,
               curve: Curves.easeOutCubic,
               child: _isSearching
                   ? const SizedBox.shrink()
                   : SizedBox(
-                      height: 52,
+                      height: 64 + ((textScale - 1).clamp(0, 1) * 32),
                       child: ListView.separated(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         scrollDirection: Axis.horizontal,
@@ -1597,11 +1603,11 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                             ? LineIcons.search
                             : LineIcons.penNib,
                         title: _isSearching && query.isNotEmpty
-                            ? 'No matches'
-                            : 'No journal entries yet',
+                            ? strings.journalNoMatchesTitle
+                            : strings.journalEmptyTitle,
                         body: _isSearching && query.isNotEmpty
-                            ? 'Nothing matches "$query".'
-                            : 'A few quiet lines are enough to begin.',
+                            ? strings.journalNoMatchesBody(query)
+                            : strings.journalEmptyBody,
                       )
                     else
                       ...sorted.map((entry) => _JournalListCard(entry: entry)),
@@ -1611,8 +1617,19 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                     children: staggered(children),
                   );
                 },
-                loading: () => const Center(child: CircularProgressIndicator()),
-                error: (error, _) => Center(child: Text('Error: $error')),
+                loading: () => Center(
+                  child: Semantics(
+                    liveRegion: true,
+                    label: strings.journalLoadingLabel,
+                    child: const CircularProgressIndicator(),
+                  ),
+                ),
+                error: (error, _) => Center(
+                  child: Semantics(
+                    liveRegion: true,
+                    child: Text(strings.journalLoadError),
+                  ),
+                ),
               ),
             ),
           ],
@@ -1676,9 +1693,9 @@ class _InlineSearchBarState extends State<_InlineSearchBar> {
       children: [
         Expanded(
           child: Container(
-            height: 44,
+            constraints: const BoxConstraints(minHeight: 44),
             decoration: _softDecoration(theme, radius: 18),
-            padding: const EdgeInsets.symmetric(horizontal: 14),
+            padding: const EdgeInsets.only(left: 14),
             child: Row(
               children: [
                 Icon(
@@ -1695,8 +1712,7 @@ class _InlineSearchBarState extends State<_InlineSearchBar> {
                     textInputAction: TextInputAction.search,
                     style: theme.textTheme.bodyLarge,
                     decoration: InputDecoration(
-                      isCollapsed: true,
-                      hintText: 'Search entries',
+                      hintText: context.l10n.journalSearchHint,
                       hintStyle: TextStyle(
                         color: context.appColors.textSecondary.withValues(
                           alpha: 0.7,
@@ -1706,22 +1722,20 @@ class _InlineSearchBarState extends State<_InlineSearchBar> {
                       enabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none,
                       filled: false,
-                      contentPadding: EdgeInsets.zero,
+                      contentPadding: const EdgeInsets.symmetric(vertical: 12),
                     ),
                   ),
                 ),
                 if (widget.controller.text.isNotEmpty)
-                  GestureDetector(
-                    onTap: () {
+                  IconButton(
+                    tooltip: context.l10n.journalClearSearchAction,
+                    onPressed: () {
                       widget.controller.clear();
                       widget.onChanged('');
                     },
-                    child: Icon(
-                      Icons.cancel,
-                      size: 18,
-                      color: context.appColors.textSecondary.withValues(
-                        alpha: 0.8,
-                      ),
+                    icon: Icon(
+                      Icons.cancel_outlined,
+                      color: context.appColors.textSecondary,
                     ),
                   ),
               ],
@@ -1732,12 +1746,14 @@ class _InlineSearchBarState extends State<_InlineSearchBar> {
         TextButton(
           onPressed: widget.onCancel,
           style: TextButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            minimumSize: Size.zero,
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            minimumSize: const Size(44, 44),
             foregroundColor: theme.colorScheme.primary,
           ),
-          child: Text('Cancel', style: TextStyle(fontWeight: FontWeight.w600)),
+          child: Text(
+            context.l10n.cancelAction,
+            style: const TextStyle(fontWeight: FontWeight.w600),
+          ),
         ),
       ],
     );
@@ -1787,6 +1803,8 @@ class _JournalEntryEditorState extends ConsumerState<JournalEntryEditor> {
   Widget build(BuildContext context) {
     final entriesAsync = ref.watch(journalProvider);
     final theme = Theme.of(context);
+    final strings = context.l10n;
+    final reduceMotion = motionDisabled(context);
     final dateKey = DateFormat('yyyy-MM-dd').format(widget.date);
     final hasExistingEntry =
         entriesAsync.asData?.value.any((entry) => entry.date == dateKey) ??
@@ -1815,73 +1833,110 @@ class _JournalEntryEditorState extends ConsumerState<JournalEntryEditor> {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(12, 12, 16, 8),
-              child: Row(
-                children: [
-                  IconButton(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final largeText =
+                      MediaQuery.textScalerOf(context).scale(1) > 1.3;
+                  final backButton = IconButton(
+                    tooltip: strings.backAction,
                     onPressed: () => Navigator.pop(context),
-                    icon: Icon(LineIcons.angleLeft),
-                  ),
-                  Expanded(
+                    icon: const Icon(LineIcons.angleLeft),
+                  );
+                  final title = Expanded(
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          DateFormat('MMMM d, yyyy').format(widget.date),
+                          context.formatFullDate(widget.date),
                           style: theme.textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.w800,
                           ),
                         ),
-                        AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 240),
-                          transitionBuilder: (child, animation) =>
-                              FadeTransition(
-                                opacity: animation,
-                                child: SizeTransition(
-                                  sizeFactor: animation,
-                                  axisAlignment: -1,
-                                  child: child,
+                        Semantics(
+                          liveRegion: true,
+                          child: AnimatedSwitcher(
+                            duration: reduceMotion
+                                ? Duration.zero
+                                : AppMotion.fast,
+                            transitionBuilder: (child, animation) =>
+                                FadeTransition(
+                                  opacity: animation,
+                                  child: SizeTransition(
+                                    sizeFactor: animation,
+                                    axisAlignment: -1,
+                                    child: child,
+                                  ),
                                 ),
-                              ),
-                          child: Text(
-                            _saving
-                                ? 'Saving...'
-                                : (_saved ? 'Saved' : 'Unsaved'),
-                            key: ValueKey(
+                            child: Text(
                               _saving
-                                  ? 'saving'
-                                  : (_saved ? 'saved' : 'unsaved'),
+                                  ? strings.journalSavingStatus
+                                  : (_saved
+                                        ? strings.journalSavedStatus
+                                        : strings.journalUnsavedStatus),
+                              key: ValueKey(
+                                _saving
+                                    ? 'saving'
+                                    : (_saved ? 'saved' : 'unsaved'),
+                              ),
+                              style: _muted(theme, 12),
                             ),
-                            style: _muted(theme, 12),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  if (hasExistingEntry)
-                    IconButton(
-                      tooltip: 'Clear this day',
-                      onPressed: _saving ? null : () => _confirmReset(dateKey),
-                      icon: Icon(LineIcons.trash),
-                      color: context.appColors.textSecondary,
+                  );
+                  final actions = <Widget>[
+                    if (hasExistingEntry)
+                      IconButton(
+                        tooltip: strings.journalClearDayAction,
+                        onPressed: _saving ? null : _confirmReset,
+                        icon: const Icon(LineIcons.trash),
+                        color: context.appColors.textSecondary,
+                      ),
+                    TextButton(
+                      onPressed: (_saving || _saved) ? null : _save,
+                      child: Text(strings.journalSaveAction),
                     ),
-                  TextButton(
-                    onPressed: (_saving || _saved) ? null : _save,
-                    child: Text('Save'),
-                  ),
-                ],
+                  ];
+                  if (largeText || constraints.maxWidth < 360) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Row(children: [backButton, title]),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 48),
+                          child: Wrap(
+                            alignment: WrapAlignment.end,
+                            spacing: 8,
+                            runSpacing: 4,
+                            children: actions,
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                  return Row(children: [backButton, title, ...actions]);
+                },
               ),
             ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(22, 18, 22, 22),
-                child: QuillEditor.basic(
-                  controller: _controller,
-                  focusNode: _focusNode,
-                  config: QuillEditorConfig(
-                    autoFocus: true,
-                    expands: true,
-                    placeholder: 'Start writing...',
-                    customStyles: _editorStyles(theme),
+                child: Semantics(
+                  container: true,
+                  textField: true,
+                  label: strings.journalEditorLabel,
+                  hint: strings.journalEditorHint,
+                  child: QuillEditor.basic(
+                    controller: _controller,
+                    focusNode: _focusNode,
+                    config: QuillEditorConfig(
+                      autoFocus: true,
+                      expands: true,
+                      placeholder: strings.journalStartWritingPlaceholder,
+                      customStyles: _editorStyles(theme),
+                    ),
                   ),
                 ),
               ),
@@ -1895,12 +1950,30 @@ class _JournalEntryEditorState extends ConsumerState<JournalEntryEditor> {
                   ),
                 ),
               ),
-              child: Row(
-                children: [
-                  JournalFormatToolbar(controller: _controller),
-                  const Spacer(),
-                  Text('Select text to format', style: _muted(theme, 11)),
-                ],
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final stacked =
+                      MediaQuery.textScalerOf(context).scale(1) > 1.3 ||
+                      constraints.maxWidth < 340;
+                  final toolbar = JournalFormatToolbar(controller: _controller);
+                  final guidance = Text(
+                    strings.journalFormatSelectionHint,
+                    style: _muted(theme, 11),
+                  );
+                  if (stacked) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [toolbar, const SizedBox(height: 4), guidance],
+                    );
+                  }
+                  return Row(
+                    children: [
+                      toolbar,
+                      const Spacer(),
+                      Flexible(child: guidance),
+                    ],
+                  );
+                },
               ),
             ),
           ],
@@ -1937,7 +2010,7 @@ class _JournalEntryEditorState extends ConsumerState<JournalEntryEditor> {
     );
   }
 
-  Future<void> _confirmReset(String dateKey) async {
+  Future<void> _confirmReset() async {
     final cleared = await confirmClearJournalDay(context, ref, widget.date);
     if (!cleared || !mounted) return;
     // The editor is still open on a day that no longer has an entry, so reset
@@ -1945,15 +2018,16 @@ class _JournalEntryEditorState extends ConsumerState<JournalEntryEditor> {
     _controller.document = Document();
     _savedSnapshot = storedFromDocument(_controller.document);
     setState(() => _saved = true);
+    final message = context.l10n.journalClearedMessage;
     Navigator.pop(context);
-    showAppSnackBar(context, 'That day is clear now.', type: ToastType.success);
+    showAppSnackBar(context, message, type: ToastType.success);
   }
 
   Future<void> _save() async {
     if (_controller.document.toPlainText().trim().isEmpty) {
       showAppSnackBar(
         context,
-        'Nothing to save yet. Add a line whenever you feel ready.',
+        context.l10n.journalNothingToSaveMessage,
         type: ToastType.info,
       );
       return;
@@ -1997,6 +2071,7 @@ Future<bool> confirmClearJournalDay(
   WidgetRef ref,
   DateTime date,
 ) async {
+  final formattedDate = context.formatFullDate(date);
   final confirmed =
       await showModalBottomSheet<bool>(
         context: context,
@@ -2007,38 +2082,49 @@ Future<bool> confirmClearJournalDay(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Clear this day?',
+                sheetContext.l10n.journalClearDayTitle,
                 style: Theme.of(
                   sheetContext,
                 ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
               ),
               const SizedBox(height: 10),
               Text(
-                'This clears everything saved for '
-                '${DateFormat('MMMM d, yyyy').format(date)} so the day '
-                'starts fresh. You can write here again anytime.',
+                sheetContext.l10n.journalClearDayBody(formattedDate),
                 style: TextStyle(
                   color: context.appColors.textSecondary,
                   height: 1.45,
                 ),
               ),
               const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () => Navigator.pop(sheetContext, false),
-                      child: Text('Keep it'),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () => Navigator.pop(sheetContext, true),
-                      child: Text('Clear the day'),
-                    ),
-                  ),
-                ],
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  final stacked =
+                      MediaQuery.textScalerOf(context).scale(1) > 1.3 ||
+                      constraints.maxWidth < 320;
+                  final buttonWidth = stacked
+                      ? constraints.maxWidth
+                      : (constraints.maxWidth - 12) / 2;
+                  return Wrap(
+                    spacing: 12,
+                    runSpacing: 12,
+                    children: [
+                      SizedBox(
+                        width: buttonWidth,
+                        child: OutlinedButton(
+                          onPressed: () => Navigator.pop(sheetContext, false),
+                          child: Text(sheetContext.l10n.journalKeepEntryAction),
+                        ),
+                      ),
+                      SizedBox(
+                        width: buttonWidth,
+                        child: ElevatedButton(
+                          onPressed: () => Navigator.pop(sheetContext, true),
+                          child: Text(sheetContext.l10n.journalClearDayAction),
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ],
           ),
@@ -2061,6 +2147,7 @@ class _JournalListCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final date = DateTime.parse(entry.date);
+    final formattedDate = context.formatFullDate(date);
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
@@ -2075,15 +2162,16 @@ class _JournalListCard extends ConsumerWidget {
           if (!cleared || !context.mounted) return;
           showAppSnackBar(
             context,
-            'That day is clear now.',
+            context.l10n.journalClearedMessage,
             type: ToastType.success,
           );
         },
+        semanticHint: context.l10n.journalOpenEntryHint(formattedDate),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              DateFormat('MMMM d').format(date),
+              context.formatMonthDay(date),
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
@@ -2115,13 +2203,16 @@ class _TodayEntryCard extends StatelessWidget {
 
     return _Card(
       onTap: onTap,
+      semanticHint: context.l10n.journalOpenEntryHint(
+        context.formatFullDate(DateTime.now()),
+      ),
       child: Row(
         children: [
           Icon(LineIcons.penNib, color: theme.colorScheme.primary),
           const SizedBox(width: 14),
           Expanded(
             child: Text(
-              'Today entry',
+              context.l10n.journalTodayEntry,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
@@ -2150,9 +2241,10 @@ class _DatePill extends StatelessWidget {
     final theme = Theme.of(context);
     final accent = theme.colorScheme.primary;
 
-    final weekday = DateFormat('EEE').format(date);
-    final day = DateFormat('d').format(date);
-    final month = DateFormat('MMM').format(date);
+    final weekday = context.formatShortWeekday(date);
+    final monthDay = context.formatMonthDay(date);
+    final formattedDate = context.formatFullDate(date);
+    final textScale = MediaQuery.textScalerOf(context).scale(1);
 
     final fillColor = isToday
         ? accent.withValues(alpha: 0.18)
@@ -2165,44 +2257,54 @@ class _DatePill extends StatelessWidget {
         : theme.colorScheme.onSurface.withValues(alpha: 0.55);
     final bottomColor = isToday ? accent : theme.colorScheme.onSurface;
 
-    return PressScale(
-      onTap: onTap,
-      child: Container(
-        width: 64,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: fillColor,
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: borderColor, width: 1),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              isToday ? 'Today' : weekday,
-              style: TextStyle(
-                fontFamily: AppTheme.sansFamily,
-                fontSize: 10,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 0.6,
-                height: 1.1,
-                color: topColor,
+    return Semantics(
+      button: true,
+      label: isToday ? context.l10n.journalTodayEntry : formattedDate,
+      hint: context.l10n.journalOpenEntryHint(formattedDate),
+      excludeSemantics: true,
+      child: PressScale(
+        onTap: onTap,
+        child: Container(
+          width: 88 + ((textScale - 1).clamp(0, 1) * 32),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: fillColor,
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(color: borderColor, width: 1),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                isToday ? context.l10n.navToday : weekday,
+                maxLines: 1,
+                softWrap: false,
+                style: TextStyle(
+                  fontFamily: AppTheme.sansFamily,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.6,
+                  height: 1.1,
+                  color: topColor,
+                ),
               ),
-            ),
-            const SizedBox(height: 2),
-            Text(
-              isToday ? '$month $day' : '$month $day',
-              style: TextStyle(
-                fontFamily: AppTheme.sansFamily,
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                letterSpacing: -0.2,
-                height: 1.1,
-                color: bottomColor,
+              const SizedBox(height: 2),
+              Text(
+                monthDay,
+                maxLines: 1,
+                softWrap: false,
+                style: TextStyle(
+                  fontFamily: AppTheme.sansFamily,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: -0.2,
+                  height: 1.1,
+                  color: bottomColor,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -2234,7 +2336,7 @@ class _DatePickerSheetState extends State<_DatePickerSheet> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Choose date',
+                context.l10n.journalChooseDateAction,
                 style: Theme.of(
                   context,
                 ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
@@ -2251,7 +2353,7 @@ class _DatePickerSheetState extends State<_DatePickerSheet> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () => Navigator.pop(context, _date),
-                  child: Text('Open entry'),
+                  child: Text(context.l10n.journalOpenEntryAction),
                 ),
               ),
             ],
@@ -2280,6 +2382,7 @@ class _RoundIconButton extends StatelessWidget {
     return Semantics(
       button: true,
       label: semanticLabel,
+      excludeSemantics: true,
       child: PressScale(
         onTap: onTap,
         child: Container(
@@ -2297,8 +2400,14 @@ class _Card extends StatelessWidget {
   final Widget child;
   final VoidCallback? onTap;
   final VoidCallback? onLongPress;
+  final String? semanticHint;
 
-  const _Card({required this.child, this.onTap, this.onLongPress});
+  const _Card({
+    required this.child,
+    this.onTap,
+    this.onLongPress,
+    this.semanticHint,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -2309,7 +2418,11 @@ class _Card extends StatelessWidget {
     );
 
     if (onTap == null && onLongPress == null) return content;
-    return PressScale(onTap: onTap, onLongPress: onLongPress, child: content);
+    return Semantics(
+      button: onTap != null,
+      hint: semanticHint,
+      child: PressScale(onTap: onTap, onLongPress: onLongPress, child: content),
+    );
   }
 }
 

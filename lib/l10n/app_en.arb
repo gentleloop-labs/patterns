@@ -1355,5 +1355,124 @@
   "desktopLicenseNotConfigured": "License activation is unavailable in this build.",
   "@desktopLicenseNotConfigured": {
     "description": "Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors."
+  },
+  "journalTitle": "Journal",
+  "@journalTitle": {
+    "description": "Title of the journal list screen."
+  },
+  "journalSearchAction": "Search journal",
+  "@journalSearchAction": {
+    "description": "Accessibility label for opening journal search."
+  },
+  "journalChooseDateAction": "Choose date",
+  "@journalChooseDateAction": {
+    "description": "Button label for choosing a journal-entry date."
+  },
+  "journalSearchHint": "Search entries",
+  "@journalSearchHint": {
+    "description": "Placeholder for the journal search field."
+  },
+  "journalClearSearchAction": "Clear search",
+  "@journalClearSearchAction": {
+    "description": "Accessibility label for clearing the journal search field."
+  },
+  "journalNoMatchesTitle": "No matches",
+  "@journalNoMatchesTitle": {
+    "description": "Journal empty-state title when a search has no matches."
+  },
+  "journalNoMatchesBody": "Nothing matches “{query}”.",
+  "@journalNoMatchesBody": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    },
+    "description": "Journal empty-state body when a search has no matches. Preserve the user's search query exactly."
+  },
+  "journalEmptyTitle": "No journal entries yet",
+  "@journalEmptyTitle": {
+    "description": "Journal empty-state title before the user has written an entry."
+  },
+  "journalEmptyBody": "A few quiet lines are enough to begin.",
+  "@journalEmptyBody": {
+    "description": "Journal empty-state guidance. Keep it optional, calm, and free of pressure."
+  },
+  "journalLoadError": "Journal entries could not be loaded. Try again.",
+  "@journalLoadError": {
+    "description": "Safe journal loading error. Do not expose raw exception or database text."
+  },
+  "journalLoadingLabel": "Loading journal entries",
+  "@journalLoadingLabel": {
+    "description": "Accessibility label for journal loading progress."
+  },
+  "journalSavingStatus": "Saving…",
+  "@journalSavingStatus": {
+    "description": "Live save-status text in the journal editor."
+  },
+  "journalSavedStatus": "Saved",
+  "@journalSavedStatus": {
+    "description": "Saved-status text in the journal editor."
+  },
+  "journalUnsavedStatus": "Not saved",
+  "@journalUnsavedStatus": {
+    "description": "Unsaved-status text in the journal editor. Avoid alarmist wording."
+  },
+  "journalClearDayAction": "Clear this day",
+  "@journalClearDayAction": {
+    "description": "Action that opens confirmation before deleting one journal day."
+  },
+  "journalSaveAction": "Save",
+  "@journalSaveAction": {
+    "description": "Action that saves the current journal entry."
+  },
+  "journalStartWritingPlaceholder": "Start writing…",
+  "@journalStartWritingPlaceholder": {
+    "description": "Placeholder in the rich-text journal editor."
+  },
+  "journalFormatSelectionHint": "Select text to format",
+  "@journalFormatSelectionHint": {
+    "description": "Short guidance shown beside rich-text formatting controls."
+  },
+  "journalClearedMessage": "The entry for that day was cleared.",
+  "@journalClearedMessage": {
+    "description": "Factual confirmation after deleting one journal day."
+  },
+  "journalNothingToSaveMessage": "There is nothing to save yet. Add a line whenever you feel ready.",
+  "@journalNothingToSaveMessage": {
+    "description": "Warm validation when the user tries to save an empty journal entry."
+  },
+  "journalClearDayTitle": "Clear this day?",
+  "@journalClearDayTitle": {
+    "description": "Confirmation title before deleting one journal day."
+  },
+  "journalClearDayBody": "This clears everything saved for {date}. You can write here again anytime.",
+  "@journalClearDayBody": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    },
+    "description": "Confirmation body before deleting one journal day. The date is already formatted for the active locale."
+  },
+  "journalKeepEntryAction": "Keep it",
+  "@journalKeepEntryAction": {
+    "description": "Non-destructive action that cancels deletion of a journal day."
+  },
+  "journalTodayEntry": "Today’s entry",
+  "@journalTodayEntry": {
+    "description": "Shortcut label for opening today's journal entry."
+  },
+  "journalOpenEntryAction": "Open entry",
+  "@journalOpenEntryAction": {
+    "description": "Action that opens the journal editor for a selected date."
+  },
+  "journalOpenEntryHint": "Opens the journal entry for {date}.",
+  "@journalOpenEntryHint": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    },
+    "description": "Accessibility hint for a journal-entry card. The date is already formatted for the active locale."
   }
 }

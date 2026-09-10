@@ -1144,6 +1144,92 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get desktopLicenseNotConfigured =>
       'A ativação da licença não está disponível nesta versão.';
+
+  @override
+  String get journalTitle => 'Diário';
+
+  @override
+  String get journalSearchAction => 'Pesquisar no diário';
+
+  @override
+  String get journalChooseDateAction => 'Escolher data';
+
+  @override
+  String get journalSearchHint => 'Pesquisar registros';
+
+  @override
+  String get journalClearSearchAction => 'Limpar pesquisa';
+
+  @override
+  String get journalNoMatchesTitle => 'Nenhum resultado';
+
+  @override
+  String journalNoMatchesBody(String query) {
+    return 'Nenhum registro corresponde a “$query”.';
+  }
+
+  @override
+  String get journalEmptyTitle => 'Ainda não há registros no diário';
+
+  @override
+  String get journalEmptyBody => 'Algumas linhas tranquilas já são um começo.';
+
+  @override
+  String get journalLoadError =>
+      'Não foi possível carregar os registros do diário. Tente novamente.';
+
+  @override
+  String get journalLoadingLabel => 'Carregando registros do diário';
+
+  @override
+  String get journalSavingStatus => 'Salvando…';
+
+  @override
+  String get journalSavedStatus => 'Salvo';
+
+  @override
+  String get journalUnsavedStatus => 'Não salvo';
+
+  @override
+  String get journalClearDayAction => 'Limpar este dia';
+
+  @override
+  String get journalSaveAction => 'Salvar';
+
+  @override
+  String get journalStartWritingPlaceholder => 'Comece a escrever…';
+
+  @override
+  String get journalFormatSelectionHint => 'Selecione um texto para formatar';
+
+  @override
+  String get journalClearedMessage => 'O registro desse dia foi apagado.';
+
+  @override
+  String get journalNothingToSaveMessage =>
+      'Ainda não há nada para salvar. Escreva uma linha quando se sentir à vontade.';
+
+  @override
+  String get journalClearDayTitle => 'Limpar este dia?';
+
+  @override
+  String journalClearDayBody(String date) {
+    return 'Isso apaga tudo o que foi salvo em $date. Você poderá escrever nesse dia novamente quando quiser.';
+  }
+
+  @override
+  String get journalKeepEntryAction => 'Manter';
+
+  @override
+  String get journalTodayEntry => 'Registro de hoje';
+
+  @override
+  String get journalOpenEntryAction => 'Abrir registro';
+
+  @override
+  String journalOpenEntryHint(String date) {
+    return 'Abre o registro do diário de $date.';
+  }
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -2286,4 +2372,90 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String get desktopLicenseNotConfigured =>
       'A ativação da licença não está disponível nesta versão.';
+
+  @override
+  String get journalTitle => 'Diário';
+
+  @override
+  String get journalSearchAction => 'Pesquisar no diário';
+
+  @override
+  String get journalChooseDateAction => 'Escolher data';
+
+  @override
+  String get journalSearchHint => 'Pesquisar registros';
+
+  @override
+  String get journalClearSearchAction => 'Limpar pesquisa';
+
+  @override
+  String get journalNoMatchesTitle => 'Nenhum resultado';
+
+  @override
+  String journalNoMatchesBody(String query) {
+    return 'Nenhum registro corresponde a “$query”.';
+  }
+
+  @override
+  String get journalEmptyTitle => 'Ainda não há registros no diário';
+
+  @override
+  String get journalEmptyBody => 'Algumas linhas tranquilas já são um começo.';
+
+  @override
+  String get journalLoadError =>
+      'Não foi possível carregar os registros do diário. Tente novamente.';
+
+  @override
+  String get journalLoadingLabel => 'Carregando registros do diário';
+
+  @override
+  String get journalSavingStatus => 'Salvando…';
+
+  @override
+  String get journalSavedStatus => 'Salvo';
+
+  @override
+  String get journalUnsavedStatus => 'Não salvo';
+
+  @override
+  String get journalClearDayAction => 'Limpar este dia';
+
+  @override
+  String get journalSaveAction => 'Salvar';
+
+  @override
+  String get journalStartWritingPlaceholder => 'Comece a escrever…';
+
+  @override
+  String get journalFormatSelectionHint => 'Selecione um texto para formatar';
+
+  @override
+  String get journalClearedMessage => 'O registro desse dia foi apagado.';
+
+  @override
+  String get journalNothingToSaveMessage =>
+      'Ainda não há nada para salvar. Escreva uma linha quando se sentir à vontade.';
+
+  @override
+  String get journalClearDayTitle => 'Limpar este dia?';
+
+  @override
+  String journalClearDayBody(String date) {
+    return 'Isso apaga tudo o que foi salvo em $date. Você poderá escrever nesse dia novamente quando quiser.';
+  }
+
+  @override
+  String get journalKeepEntryAction => 'Manter';
+
+  @override
+  String get journalTodayEntry => 'Registro de hoje';
+
+  @override
+  String get journalOpenEntryAction => 'Abrir registro';
+
+  @override
+  String journalOpenEntryHint(String date) {
+    return 'Abre o registro do diário de $date.';
+  }
 }

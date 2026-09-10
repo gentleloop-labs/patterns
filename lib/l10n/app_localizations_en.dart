@@ -1131,4 +1131,90 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get desktopLicenseNotConfigured =>
       'License activation is unavailable in this build.';
+
+  @override
+  String get journalTitle => 'Journal';
+
+  @override
+  String get journalSearchAction => 'Search journal';
+
+  @override
+  String get journalChooseDateAction => 'Choose date';
+
+  @override
+  String get journalSearchHint => 'Search entries';
+
+  @override
+  String get journalClearSearchAction => 'Clear search';
+
+  @override
+  String get journalNoMatchesTitle => 'No matches';
+
+  @override
+  String journalNoMatchesBody(String query) {
+    return 'Nothing matches “$query”.';
+  }
+
+  @override
+  String get journalEmptyTitle => 'No journal entries yet';
+
+  @override
+  String get journalEmptyBody => 'A few quiet lines are enough to begin.';
+
+  @override
+  String get journalLoadError =>
+      'Journal entries could not be loaded. Try again.';
+
+  @override
+  String get journalLoadingLabel => 'Loading journal entries';
+
+  @override
+  String get journalSavingStatus => 'Saving…';
+
+  @override
+  String get journalSavedStatus => 'Saved';
+
+  @override
+  String get journalUnsavedStatus => 'Not saved';
+
+  @override
+  String get journalClearDayAction => 'Clear this day';
+
+  @override
+  String get journalSaveAction => 'Save';
+
+  @override
+  String get journalStartWritingPlaceholder => 'Start writing…';
+
+  @override
+  String get journalFormatSelectionHint => 'Select text to format';
+
+  @override
+  String get journalClearedMessage => 'The entry for that day was cleared.';
+
+  @override
+  String get journalNothingToSaveMessage =>
+      'There is nothing to save yet. Add a line whenever you feel ready.';
+
+  @override
+  String get journalClearDayTitle => 'Clear this day?';
+
+  @override
+  String journalClearDayBody(String date) {
+    return 'This clears everything saved for $date. You can write here again anytime.';
+  }
+
+  @override
+  String get journalKeepEntryAction => 'Keep it';
+
+  @override
+  String get journalTodayEntry => 'Today’s entry';
+
+  @override
+  String get journalOpenEntryAction => 'Open entry';
+
+  @override
+  String journalOpenEntryHint(String date) {
+    return 'Opens the journal entry for $date.';
+  }
 }
