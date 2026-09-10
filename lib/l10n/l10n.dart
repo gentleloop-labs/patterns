@@ -22,4 +22,7 @@ extension AppLocalizationsContext on BuildContext {
 
   String formatTime(DateTime date) =>
       DateFormat.jm(effectiveLocaleName).format(date);
+
+  String formatMonthDayTime(DateTime date) =>
+      DateFormat.MMMd(effectiveLocaleName).add_jm().format(date);
 }

@@ -86,28 +86,31 @@ class OcdNotifier extends AsyncNotifier<List<OcdEntry>> {
     return await DbHelper.instance.getOcdEntries();
   }
 
-  Future<void> addEntry(OcdEntry entry) async {
+  Future<bool> addEntry(OcdEntry entry) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await DbHelper.instance.insertOcdEntry(entry);
       return await DbHelper.instance.getOcdEntries();
     });
+    return !state.hasError;
   }
 
-  Future<void> updateEntry(OcdEntry entry) async {
+  Future<bool> updateEntry(OcdEntry entry) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await DbHelper.instance.updateOcdEntry(entry);
       return await DbHelper.instance.getOcdEntries();
     });
+    return !state.hasError;
   }
 
-  Future<void> deleteEntry(int id) async {
+  Future<bool> deleteEntry(int id) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await DbHelper.instance.deleteOcdEntry(id);
       return await DbHelper.instance.getOcdEntries();
     });
+    return !state.hasError;
   }
 }
 
