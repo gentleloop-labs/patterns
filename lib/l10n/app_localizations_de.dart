@@ -2289,4 +2289,71 @@ class AppLocalizationsDe extends AppLocalizations {
     );
     return 'Eigener Aufschub: $_temp0';
   }
+
+  @override
+  String erpFlowText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'outcomeValidation':
+          'Wenn du bereit bist, wähle aus, was während der Übung passiert ist.',
+      'saveError':
+          'Deine ERP-Übung konnte nicht gespeichert werden. Bitte versuche es erneut.',
+      'stopTitle': 'Früher aufhören?',
+      'stopBody':
+          'Es ist in Ordnung aufzuhören. Die geübte Zeit kann trotzdem gespeichert werden.',
+      'keepGoing': 'Weitermachen',
+      'stop': 'Aufhören',
+      'anxietyBefore': 'Wie stark ist der Drang oder die Angst gerade?',
+      'duration': 'Dauer',
+      'start': 'Übung starten',
+      'countdownCue': 'Üben ohne',
+      'resisting': 'Reaktion, die du nicht ausführst',
+      'countdownBody':
+          'Du musst die Vorhersage nicht widerlegen, bevor der Timer endet.',
+      'stopEarly': 'Früher aufhören',
+      'reflectionTitle': 'Reflektieren',
+      'reflectionBody':
+          'Die Angaben unten sind freiwillig. Halte nur fest, was für dich hilfreich ist.',
+      'anxietyAfter': 'Wie stark ist es jetzt?',
+      'outcomeQuestion': 'Was hast du getan?',
+      'whatHappened': 'Was ist tatsächlich passiert?',
+      'whatHappenedHint':
+          'Was ist dir während oder nach der Übung aufgefallen?',
+      'learning': 'Für das nächste Mal',
+      'learningHint':
+          'Woran möchtest du dich erinnern, wenn OCD das nächste Mal fragt?',
+      'exposure': 'Exposition',
+      'prediction': 'Vorhersage',
+      'commitment': 'Vorhaben',
+      'saving': 'Wird gespeichert…',
+      'save': 'Übung speichern',
+      'other': 'ERP-Übung',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpReflectionStatus(String status) {
+    String _temp0 = intl.Intl.selectLogic(status, {
+      'completed': 'Die geplante Zeit ist beendet.',
+      'early': 'Du hast den Timer früher beendet.',
+      'other': 'Der Timer ist beendet.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpOutcome(String outcome) {
+    String _temp0 = intl.Intl.selectLogic(outcome, {
+      'resisted': 'Reaktion nicht ausgeführt',
+      'delayed': 'Reaktion aufgeschoben',
+      'performed': 'Reaktion ausgeführt',
+      'other': 'Nicht ausgewählt',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpIntensityValue(int value) {
+    return 'Intensität $value von 10';
+  }
 }

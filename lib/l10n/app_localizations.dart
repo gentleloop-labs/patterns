@@ -3730,6 +3730,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Custom delay: {count, plural, =1{1 minute} other{{count} minutes}}'**
   String delayCustomMinutesValue(int count);
+
+  /// Localized Guided ERP interface text selected from a stable UI key. Preserve OCD and ERP terminology; avoid reassurance, praise, scores, and treatment claims.
+  ///
+  /// In en, this message translates to:
+  /// **'{key, select, outcomeValidation{When you’re ready, choose what happened during practice.} saveError{Your ERP practice could not be saved. Please try again.} stopTitle{Stop early?} stopBody{It’s okay to stop. The time you practised can still be recorded.} keepGoing{Keep going} stop{Stop} anxietyBefore{How strong is the urge or anxiety right now?} duration{Duration} start{Start practice} countdownCue{Practise without} resisting{Response you are not doing} countdownBody{You do not need to prove the prediction wrong before the timer ends.} stopEarly{Stop early} reflectionTitle{Reflect} reflectionBody{The details below are optional. Record only what feels useful.} anxietyAfter{How strong is it now?} outcomeQuestion{What did you do?} whatHappened{What actually happened?} whatHappenedHint{What did you notice during or after the practice?} learning{Learning for next time} learningHint{What do you want to remember the next time OCD asks?} exposure{Exposure} prediction{Prediction} commitment{Commitment} saving{Saving…} save{Save practice} other{ERP practice}}'**
+  String erpFlowText(String key);
+
+  /// Factual Guided ERP timer status selected from a stable completion state. Do not praise or score.
+  ///
+  /// In en, this message translates to:
+  /// **'{status, select, completed{The planned time ended.} early{You ended the timer early.} other{The timer ended.}}'**
+  String erpReflectionStatus(String status);
+
+  /// Factual label selected from the stable ERP outcome wire value. Avoid judgment.
+  ///
+  /// In en, this message translates to:
+  /// **'{outcome, select, resisted{Did not do the response} delayed{Delayed the response} performed{Did the response} other{Not selected}}'**
+  String erpOutcome(String outcome);
+
+  /// Accessible value for a deliberately recorded urge or anxiety slider in Guided ERP.
+  ///
+  /// In en, this message translates to:
+  /// **'Intensity {value} out of 10'**
+  String erpIntensityValue(int value);
 }
 
 class _AppLocalizationsDelegate

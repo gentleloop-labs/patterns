@@ -2260,4 +2260,68 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return 'Custom delay: $_temp0';
   }
+
+  @override
+  String erpFlowText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'outcomeValidation':
+          'When you’re ready, choose what happened during practice.',
+      'saveError': 'Your ERP practice could not be saved. Please try again.',
+      'stopTitle': 'Stop early?',
+      'stopBody':
+          'It’s okay to stop. The time you practised can still be recorded.',
+      'keepGoing': 'Keep going',
+      'stop': 'Stop',
+      'anxietyBefore': 'How strong is the urge or anxiety right now?',
+      'duration': 'Duration',
+      'start': 'Start practice',
+      'countdownCue': 'Practise without',
+      'resisting': 'Response you are not doing',
+      'countdownBody':
+          'You do not need to prove the prediction wrong before the timer ends.',
+      'stopEarly': 'Stop early',
+      'reflectionTitle': 'Reflect',
+      'reflectionBody':
+          'The details below are optional. Record only what feels useful.',
+      'anxietyAfter': 'How strong is it now?',
+      'outcomeQuestion': 'What did you do?',
+      'whatHappened': 'What actually happened?',
+      'whatHappenedHint': 'What did you notice during or after the practice?',
+      'learning': 'Learning for next time',
+      'learningHint': 'What do you want to remember the next time OCD asks?',
+      'exposure': 'Exposure',
+      'prediction': 'Prediction',
+      'commitment': 'Commitment',
+      'saving': 'Saving…',
+      'save': 'Save practice',
+      'other': 'ERP practice',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpReflectionStatus(String status) {
+    String _temp0 = intl.Intl.selectLogic(status, {
+      'completed': 'The planned time ended.',
+      'early': 'You ended the timer early.',
+      'other': 'The timer ended.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpOutcome(String outcome) {
+    String _temp0 = intl.Intl.selectLogic(outcome, {
+      'resisted': 'Did not do the response',
+      'delayed': 'Delayed the response',
+      'performed': 'Did the response',
+      'other': 'Not selected',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpIntensityValue(int value) {
+    return 'Intensity $value out of 10';
+  }
 }
