@@ -690,4 +690,182 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get closeAction => '閉じる';
+
+  @override
+  String get proPaywallTitle => 'Patterns Pro';
+
+  @override
+  String get proPaywallIncludedTools => '計画、練習、指標、振り返りのすべてのProツールも含まれます。';
+
+  @override
+  String get proPaywallAlreadyPurchased => 'すでにProを購入済みですか？再度請求されることはありません。';
+
+  @override
+  String get proPaywallTryAgainAction => 'もう一度試す';
+
+  @override
+  String get proPaywallRestorePurchasesAction => '購入を復元';
+
+  @override
+  String get proPaywallRestoreShortAction => '復元';
+
+  @override
+  String get proPaywallUnlockAction => 'Proをアンロック';
+
+  @override
+  String proPaywallUnlockWithPrice(String price) {
+    return 'Proをアンロック · $price';
+  }
+
+  @override
+  String get proPaywallPurchasesUnavailable => 'このデバイスではアプリ内購入を利用できません。';
+
+  @override
+  String get proPaywallProductUnavailable =>
+      '現在Patterns Proを利用できません。しばらくしてからもう一度お試しください。';
+
+  @override
+  String get proPaywallProductLoadFailed =>
+      'Patterns Proを読み込めませんでした。しばらくしてからもう一度お試しください。';
+
+  @override
+  String get proPaywallPurchaseStartFailed => '購入を開始できませんでした。';
+
+  @override
+  String get proPaywallPurchaseFailed => '購入を完了できませんでした。もう一度お試しください。';
+
+  @override
+  String get proPaywallRestoreNotFound =>
+      'このアカウントでは以前の購入が見つかりませんでした。別のアカウントでProを購入した場合は、そのアカウントでサインインしてもう一度お試しください。';
+
+  @override
+  String get proPaywallRestoreFailed => '購入を復元できませんでした。もう一度お試しください。';
+
+  @override
+  String get proPaywallWelcomeBack => 'おかえりなさい';
+
+  @override
+  String get proPaywallAllSet => '準備ができました';
+
+  @override
+  String get proPaywallRestoredBody => 'このデバイスでPatterns Proを復元しました。';
+
+  @override
+  String get proPaywallUnlockedBody =>
+      'Patterns Proをアンロックしました。すべてのリカバリーツールを利用できます。';
+
+  @override
+  String get proPaywallContinueAction => '続ける';
+
+  @override
+  String get proPaywallLoadingLabel => 'Patterns Proを読み込み中';
+
+  @override
+  String get proHeadlineSettings => '記録から一歩進み、リカバリーを練習する';
+
+  @override
+  String get proHeadlineTodayNextStep => '今日の練習を続ける';
+
+  @override
+  String get proHeadlineRecoveryMetrics => 'リカバリー活動を確認する';
+
+  @override
+  String get proHeadlineExposureHierarchy => '明確なエクスポージャー階層を作る';
+
+  @override
+  String get proHeadlineExposureMaterials => '練習用の資料をまとめておく';
+
+  @override
+  String get proHeadlineStructuredPrograms => 'リカバリーを日課にする';
+
+  @override
+  String get proHeadlineActionPlanner => 'OCDが現れる前に対応を計画する';
+
+  @override
+  String get proHeadlineImplementationIntentions => '次の選択をしやすくする';
+
+  @override
+  String get proHeadlineUrgeSurfing => '衝動の波が過ぎるのを待つ練習をする';
+
+  @override
+  String get proHeadlineResponsePrevention => '選んだ対応を記録する';
+
+  @override
+  String get proHeadlineUncertaintyTraining => '「かもしれない」を受け入れる練習をする';
+
+  @override
+  String get proHeadlineBehavioralExperiments => 'OCDの予測を確かめる';
+
+  @override
+  String get proHeadlineReflectionJournal => '練習で学んだことを記録する';
+
+  @override
+  String get proBenefitGeneralPlans => 'エクスポージャー階層と練習計画を作る';
+
+  @override
+  String get proBenefitGeneralResponsePrevention => '反応妨害に特化したツールを使う';
+
+  @override
+  String get proBenefitGeneralReview => 'リカバリー活動と振り返りを確認する';
+
+  @override
+  String get proBenefitMetricsActivity => '練習活動を時系列で確認する';
+
+  @override
+  String get proBenefitMetricsNonjudgmental => '一日ごとに評価せず、記録された活動を確認する';
+
+  @override
+  String get proBenefitMetricsPatterns => '事実に基づくリカバリーの傾向を確認する';
+
+  @override
+  String get proBenefitExposureLadder => '取り組みやすいものから難しいものへ並べる';
+
+  @override
+  String get proBenefitExposureMaterials => 'スクリプト、ループ音声、画像、リンクをすぐ使えるようにする';
+
+  @override
+  String get proBenefitExposureRepeatable => '計画を繰り返せる練習にする';
+
+  @override
+  String get proBenefitProgramsStructure => '落ち着いた週ごとの流れに沿って進める';
+
+  @override
+  String get proBenefitProgramsTasks => '練習課題を一か所にまとめる';
+
+  @override
+  String get proBenefitProgramsReview => '続ける中で役立ったことを確認する';
+
+  @override
+  String get proBenefitPlanningAhead => '難しい場面の前に対応を選ぶ';
+
+  @override
+  String get proBenefitPlanningIfThen => '実用的な「もし〜なら」計画を作る';
+
+  @override
+  String get proBenefitPlanningReturn => '不確かさが強まったときに計画へ戻る';
+
+  @override
+  String get proBenefitInMomentTools => 'その場で集中して使える練習ツールを使う';
+
+  @override
+  String get proBenefitInMomentPrivacy => 'センシティブな詳細を書かずに選択を記録する';
+
+  @override
+  String get proBenefitInMomentRepetition => '繰り返せる練習で耐える力を育てる';
+
+  @override
+  String get proBenefitReflectionCompare => '予測と実際に起きたことを比べる';
+
+  @override
+  String get proBenefitReflectionCapture => '練習後の学びを記録する';
+
+  @override
+  String get proBenefitReflectionPatterns => '時間の中で役立つ傾向に気づく';
+
+  @override
+  String get proRestoreChecking => '購入を確認しています…';
+
+  @override
+  String get proRestoreSucceeded =>
+      'Patterns Proを復元しました。すべてのリカバリーツールを再び利用できます。';
 }

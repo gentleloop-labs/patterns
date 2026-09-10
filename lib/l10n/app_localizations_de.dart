@@ -777,4 +777,216 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get closeAction => 'Schließen';
+
+  @override
+  String get proPaywallTitle => 'Patterns Pro';
+
+  @override
+  String get proPaywallIncludedTools =>
+      'Enthält außerdem alle Pro-Werkzeuge für Planung, Übungen, Auswertungen und Reflexion.';
+
+  @override
+  String get proPaywallAlreadyPurchased =>
+      'Pro bereits gekauft? Sie werden nicht erneut belastet.';
+
+  @override
+  String get proPaywallTryAgainAction => 'Erneut versuchen';
+
+  @override
+  String get proPaywallRestorePurchasesAction => 'Käufe wiederherstellen';
+
+  @override
+  String get proPaywallRestoreShortAction => 'Wiederherstellen';
+
+  @override
+  String get proPaywallUnlockAction => 'Pro freischalten';
+
+  @override
+  String proPaywallUnlockWithPrice(String price) {
+    return 'Pro freischalten · $price';
+  }
+
+  @override
+  String get proPaywallPurchasesUnavailable =>
+      'In-App-Käufe sind auf diesem Gerät nicht verfügbar.';
+
+  @override
+  String get proPaywallProductUnavailable =>
+      'Patterns Pro ist momentan nicht verfügbar. Bitte versuchen Sie es später erneut.';
+
+  @override
+  String get proPaywallProductLoadFailed =>
+      'Patterns Pro konnte nicht geladen werden. Bitte versuchen Sie es später erneut.';
+
+  @override
+  String get proPaywallPurchaseStartFailed =>
+      'Der Kauf konnte nicht gestartet werden.';
+
+  @override
+  String get proPaywallPurchaseFailed =>
+      'Der Kauf konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut.';
+
+  @override
+  String get proPaywallRestoreNotFound =>
+      'Für dieses Konto wurde kein früherer Kauf gefunden. Wenn Sie Pro mit einem anderen Konto gekauft haben, melden Sie sich damit an und versuchen Sie es erneut.';
+
+  @override
+  String get proPaywallRestoreFailed =>
+      'Käufe konnten nicht wiederhergestellt werden. Bitte versuchen Sie es erneut.';
+
+  @override
+  String get proPaywallWelcomeBack => 'Willkommen zurück';
+
+  @override
+  String get proPaywallAllSet => 'Alles eingerichtet';
+
+  @override
+  String get proPaywallRestoredBody =>
+      'Patterns Pro wurde auf diesem Gerät wiederhergestellt.';
+
+  @override
+  String get proPaywallUnlockedBody =>
+      'Patterns Pro ist freigeschaltet. Alle Recovery-Werkzeuge sind jetzt verfügbar.';
+
+  @override
+  String get proPaywallContinueAction => 'Weiter';
+
+  @override
+  String get proPaywallLoadingLabel => 'Patterns Pro wird geladen';
+
+  @override
+  String get proHeadlineSettings =>
+      'Mehr als protokollieren: Recovery aktiv üben';
+
+  @override
+  String get proHeadlineTodayNextStep => 'Auf der heutigen Übung aufbauen';
+
+  @override
+  String get proHeadlineRecoveryMetrics => 'Ihre Recovery-Aktivitäten ansehen';
+
+  @override
+  String get proHeadlineExposureHierarchy =>
+      'Eine klare Expositionshierarchie erstellen';
+
+  @override
+  String get proHeadlineExposureMaterials =>
+      'Übungsmaterialien beisammenhalten';
+
+  @override
+  String get proHeadlineStructuredPrograms =>
+      'Recovery in eine Routine integrieren';
+
+  @override
+  String get proHeadlineActionPlanner =>
+      'Ihre Reaktion planen, bevor OCD auftaucht';
+
+  @override
+  String get proHeadlineImplementationIntentions =>
+      'Die nächste Entscheidung erleichtern';
+
+  @override
+  String get proHeadlineUrgeSurfing => 'Üben, den Drang auszuhalten';
+
+  @override
+  String get proHeadlineResponsePrevention =>
+      'Die gewählte Reaktion festhalten';
+
+  @override
+  String get proHeadlineUncertaintyTraining =>
+      'Üben, dem Vielleicht Raum zu geben';
+
+  @override
+  String get proHeadlineBehavioralExperiments => 'OCD-Vorhersagen überprüfen';
+
+  @override
+  String get proHeadlineReflectionJournal =>
+      'Festhalten, was jede Übung gezeigt hat';
+
+  @override
+  String get proBenefitGeneralPlans =>
+      'Expositionshierarchien und Übungspläne erstellen';
+
+  @override
+  String get proBenefitGeneralResponsePrevention =>
+      'Gezielte Werkzeuge zur Reaktionsverhinderung nutzen';
+
+  @override
+  String get proBenefitGeneralReview =>
+      'Recovery-Aktivitäten und Reflexionen ansehen';
+
+  @override
+  String get proBenefitMetricsActivity =>
+      'Übungsaktivitäten im Zeitverlauf ansehen';
+
+  @override
+  String get proBenefitMetricsNonjudgmental =>
+      'Aufgezeichnete Aktivitäten ansehen, ohne einzelne Tage zu bewerten';
+
+  @override
+  String get proBenefitMetricsPatterns => 'Sachliche Recovery-Muster erkunden';
+
+  @override
+  String get proBenefitExposureLadder =>
+      'Schritte von leichter bis schwieriger ordnen';
+
+  @override
+  String get proBenefitExposureMaterials =>
+      'Skripte, Loops, Bilder und Links griffbereit halten';
+
+  @override
+  String get proBenefitExposureRepeatable =>
+      'Einen Plan in wiederholbare Übungen umsetzen';
+
+  @override
+  String get proBenefitProgramsStructure =>
+      'Einer ruhigen Wochenstruktur folgen';
+
+  @override
+  String get proBenefitProgramsTasks => 'Übungsaufgaben an einem Ort sammeln';
+
+  @override
+  String get proBenefitProgramsReview =>
+      'Ansehen, was beim Weitermachen geholfen hat';
+
+  @override
+  String get proBenefitPlanningAhead =>
+      'Vor einem schwierigen Moment eine Reaktion wählen';
+
+  @override
+  String get proBenefitPlanningIfThen => 'Praktische Wenn-dann-Pläne erstellen';
+
+  @override
+  String get proBenefitPlanningReturn =>
+      'Bei wachsender Unsicherheit zum Plan zurückkehren';
+
+  @override
+  String get proBenefitInMomentTools =>
+      'Im Moment gezielte Übungswerkzeuge nutzen';
+
+  @override
+  String get proBenefitInMomentPrivacy =>
+      'Entscheidungen ohne sensible Einzelheiten festhalten';
+
+  @override
+  String get proBenefitInMomentRepetition =>
+      'Toleranz durch wiederholbare Übungen aufbauen';
+
+  @override
+  String get proBenefitReflectionCompare =>
+      'Vorhersagen mit dem tatsächlichen Verlauf vergleichen';
+
+  @override
+  String get proBenefitReflectionCapture =>
+      'Erkenntnisse nach einer Übung festhalten';
+
+  @override
+  String get proBenefitReflectionPatterns =>
+      'Hilfreiche Muster im Zeitverlauf erkennen';
+
+  @override
+  String get proRestoreChecking => 'Ihre Käufe werden geprüft…';
+
+  @override
+  String get proRestoreSucceeded =>
+      'Patterns Pro wurde wiederhergestellt. Alle Recovery-Werkzeuge sind wieder freigeschaltet.';
 }

@@ -930,5 +930,238 @@
   },
   "@settingsSupportSubtitle": {
     "description": "User-facing Patterns interface copy for settings support subtitle."
+  },
+  "proPaywallTitle": "Patterns Pro",
+  "@proPaywallTitle": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proPaywallIncludedTools": "Also includes every Pro planning, practice, metrics, and reflection tool.",
+  "@proPaywallIncludedTools": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proPaywallAlreadyPurchased": "Already bought Pro? You will not be charged again.",
+  "@proPaywallAlreadyPurchased": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proPaywallTryAgainAction": "Try again",
+  "@proPaywallTryAgainAction": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proPaywallRestorePurchasesAction": "Restore purchases",
+  "@proPaywallRestorePurchasesAction": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proPaywallRestoreShortAction": "Restore",
+  "@proPaywallRestoreShortAction": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proPaywallUnlockAction": "Unlock Pro",
+  "@proPaywallUnlockAction": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proPaywallUnlockWithPrice": "Unlock Pro · {price}",
+  "@proPaywallUnlockWithPrice": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.",
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "proPaywallPurchasesUnavailable": "In-app purchases are unavailable on this device.",
+  "@proPaywallPurchasesUnavailable": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proPaywallProductUnavailable": "Patterns Pro is not available right now. Please try again later.",
+  "@proPaywallProductUnavailable": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proPaywallProductLoadFailed": "Could not load Patterns Pro. Please try again later.",
+  "@proPaywallProductLoadFailed": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proPaywallPurchaseStartFailed": "Could not start the purchase.",
+  "@proPaywallPurchaseStartFailed": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proPaywallPurchaseFailed": "The purchase could not be completed. Please try again.",
+  "@proPaywallPurchaseFailed": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proPaywallRestoreNotFound": "No previous purchase was found on this account. If you bought Pro with a different account, sign in with that account and try again.",
+  "@proPaywallRestoreNotFound": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proPaywallRestoreFailed": "Purchases could not be restored. Please try again.",
+  "@proPaywallRestoreFailed": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proPaywallWelcomeBack": "Welcome back",
+  "@proPaywallWelcomeBack": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proPaywallAllSet": "You're all set",
+  "@proPaywallAllSet": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proPaywallRestoredBody": "Patterns Pro has been restored on this device.",
+  "@proPaywallRestoredBody": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proPaywallUnlockedBody": "Patterns Pro is unlocked. Every recovery tool is now available.",
+  "@proPaywallUnlockedBody": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proPaywallContinueAction": "Continue",
+  "@proPaywallContinueAction": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proPaywallLoadingLabel": "Loading Patterns Pro",
+  "@proPaywallLoadingLabel": {
+    "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
+  },
+  "proHeadlineSettings": "Move beyond tracking and practise recovery",
+  "@proHeadlineSettings": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proHeadlineTodayNextStep": "Build on today’s practice",
+  "@proHeadlineTodayNextStep": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proHeadlineRecoveryMetrics": "Review your recovery activity",
+  "@proHeadlineRecoveryMetrics": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proHeadlineExposureHierarchy": "Build a clear exposure ladder",
+  "@proHeadlineExposureHierarchy": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proHeadlineExposureMaterials": "Keep practice materials together",
+  "@proHeadlineExposureMaterials": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proHeadlineStructuredPrograms": "Turn recovery into a routine",
+  "@proHeadlineStructuredPrograms": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proHeadlineActionPlanner": "Plan your response before OCD arrives",
+  "@proHeadlineActionPlanner": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proHeadlineImplementationIntentions": "Make your next choice easier",
+  "@proHeadlineImplementationIntentions": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proHeadlineUrgeSurfing": "Practise riding out the urge",
+  "@proHeadlineUrgeSurfing": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proHeadlineResponsePrevention": "Record the response you chose",
+  "@proHeadlineResponsePrevention": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proHeadlineUncertaintyTraining": "Practise making room for maybe",
+  "@proHeadlineUncertaintyTraining": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proHeadlineBehavioralExperiments": "Test OCD’s predictions",
+  "@proHeadlineBehavioralExperiments": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proHeadlineReflectionJournal": "Capture what each practice taught you",
+  "@proHeadlineReflectionJournal": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitGeneralPlans": "Build exposure ladders and practice plans",
+  "@proBenefitGeneralPlans": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitGeneralResponsePrevention": "Use focused response-prevention tools",
+  "@proBenefitGeneralResponsePrevention": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitGeneralReview": "Review recovery activity and reflections",
+  "@proBenefitGeneralReview": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitMetricsActivity": "Review practice activity over time",
+  "@proBenefitMetricsActivity": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitMetricsNonjudgmental": "See recorded activity without judging individual days",
+  "@proBenefitMetricsNonjudgmental": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitMetricsPatterns": "Explore factual recovery patterns",
+  "@proBenefitMetricsPatterns": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitExposureLadder": "Organize steps from gentler to harder",
+  "@proBenefitExposureLadder": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitExposureMaterials": "Keep scripts, loop tapes, images, and links nearby",
+  "@proBenefitExposureMaterials": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitExposureRepeatable": "Turn a plan into repeatable practice",
+  "@proBenefitExposureRepeatable": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitProgramsStructure": "Follow a calm week-by-week structure",
+  "@proBenefitProgramsStructure": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitProgramsTasks": "Keep practice tasks in one place",
+  "@proBenefitProgramsTasks": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitProgramsReview": "Review what helped as you continue",
+  "@proBenefitProgramsReview": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitPlanningAhead": "Choose a response before the hard moment",
+  "@proBenefitPlanningAhead": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitPlanningIfThen": "Create practical if-then plans",
+  "@proBenefitPlanningIfThen": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitPlanningReturn": "Return to the plan when uncertainty rises",
+  "@proBenefitPlanningReturn": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitInMomentTools": "Use focused practice tools in the moment",
+  "@proBenefitInMomentTools": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitInMomentPrivacy": "Record choices without writing sensitive details",
+  "@proBenefitInMomentPrivacy": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitInMomentRepetition": "Build tolerance through repeatable practice",
+  "@proBenefitInMomentRepetition": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitReflectionCompare": "Compare predictions with what happened",
+  "@proBenefitReflectionCompare": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitReflectionCapture": "Capture learning after practice",
+  "@proBenefitReflectionCapture": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proBenefitReflectionPatterns": "Notice useful patterns over time",
+  "@proBenefitReflectionPatterns": {
+    "description": "Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks."
+  },
+  "proRestoreChecking": "Checking your purchases…",
+  "@proRestoreChecking": {
+    "description": "Patterns Pro restore status shown while the store checks the current account."
+  },
+  "proRestoreSucceeded": "Patterns Pro restored. Every recovery tool is unlocked again.",
+  "@proRestoreSucceeded": {
+    "description": "Patterns Pro restore success confirmation. Do not imply a new charge or treatment outcome."
   }
 }

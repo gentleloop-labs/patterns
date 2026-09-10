@@ -5,6 +5,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../l10n/l10n.dart';
 import '../services/app_events.dart';
 import '../services/pro_service.dart';
 import '../services/pro_entry_point.dart';
@@ -15,6 +16,8 @@ import '../theme/app_colors.dart';
 import '../app_preferences.dart';
 import 'app_snack_bar.dart';
 import 'platform.dart';
+
+enum _ProductLoadError { purchasesUnavailable, productUnavailable, failed }
 
 /// Bottom sheet that sells the one-time "Patterns Pro" unlock.
 /// On desktop, it automatically shows the high-fidelity [DesktopPaywallView].
@@ -61,7 +64,7 @@ class PaywallSheet extends StatefulWidget {
 
 class _PaywallSheetState extends State<PaywallSheet> {
   ProductDetails? _product;
-  String? _loadError;
+  _ProductLoadError? _loadError;
   bool _loading = true;
   bool _purchaseInFlight = false;
   bool _restoreInFlight = false;
@@ -86,6 +89,7 @@ class _PaywallSheetState extends State<PaywallSheet> {
     if (!ProService.isPlatformSupported) {
       setState(() {
         _loading = false;
+        _loadError = _ProductLoadError.purchasesUnavailable;
       });
       return;
     }
@@ -99,11 +103,7 @@ class _PaywallSheetState extends State<PaywallSheet> {
         AppEvents.logProductLoadResult(
           result: UsageAnalyticsContext.unavailable,
         );
-        _applyProduct(
-          null,
-          unavailableMessage:
-              'In-app purchases are unavailable on this device.',
-        );
+        _applyProduct(null, error: _ProductLoadError.purchasesUnavailable);
         return;
       }
       final product = await _fetchProductWithRetry();
@@ -112,18 +112,10 @@ class _PaywallSheetState extends State<PaywallSheet> {
             ? UsageAnalyticsContext.unavailable
             : UsageAnalyticsContext.success,
       );
-      _applyProduct(
-        product,
-        unavailableMessage:
-            'Patterns Pro is not available right now. Please try again later.',
-      );
+      _applyProduct(product, error: _ProductLoadError.productUnavailable);
     } catch (_) {
       AppEvents.logProductLoadResult(result: UsageAnalyticsContext.error);
-      _applyProduct(
-        null,
-        unavailableMessage:
-            'Could not load Patterns Pro. Please try again later.',
-      );
+      _applyProduct(null, error: _ProductLoadError.failed);
     }
   }
 
@@ -143,14 +135,14 @@ class _PaywallSheetState extends State<PaywallSheet> {
 
   void _applyProduct(
     ProductDetails? product, {
-    required String unavailableMessage,
+    required _ProductLoadError error,
   }) {
     if (mounted) {
       setState(() {
         _product = product;
         _loading = false;
         if (product == null) {
-          _loadError = unavailableMessage;
+          _loadError = error;
         }
       });
     }
@@ -172,9 +164,13 @@ class _PaywallSheetState extends State<PaywallSheet> {
         _purchaseInFlight = false;
         _restoreInFlight = false;
       });
-      Navigator.pop(context);
-      _showUnlockedDialog(context, restored: event.restored);
+      final navigator = Navigator.of(context);
+      navigator.pop();
+      _showUnlockedDialog(navigator.context, restored: event.restored);
     } else if (event is ProError) {
+      final message = _restoreInFlight
+          ? context.l10n.proPaywallRestoreFailed
+          : context.l10n.proPaywallPurchaseFailed;
       if (_restoreInFlight) {
         AppEvents.logRestoreFailed(widget.entryPoint);
       } else {
@@ -185,7 +181,7 @@ class _PaywallSheetState extends State<PaywallSheet> {
         _purchaseInFlight = false;
         _restoreInFlight = false;
       });
-      showAppSnackBar(context, event.message, type: ToastType.error);
+      showAppSnackBar(context, message, type: ToastType.error);
     } else if (event is ProCanceled) {
       AppEvents.logPurchaseCanceled(widget.entryPoint);
       // Without this the in-flight flag stayed true after the user dismissed
@@ -211,17 +207,23 @@ class _PaywallSheetState extends State<PaywallSheet> {
       final success = await ProService.buyPro(product);
       if (!success) {
         AppEvents.logPurchaseFailed(widget.entryPoint);
+        if (!mounted) return;
         setState(() => _purchaseInFlight = false);
         showAppSnackBar(
           context,
-          'Could not start purchase flow.',
+          context.l10n.proPaywallPurchaseStartFailed,
           type: ToastType.error,
         );
       }
-    } catch (e) {
+    } catch (_) {
       AppEvents.logPurchaseFailed(widget.entryPoint);
+      if (!mounted) return;
       setState(() => _purchaseInFlight = false);
-      showAppSnackBar(context, '$e', type: ToastType.error);
+      showAppSnackBar(
+        context,
+        context.l10n.proPaywallPurchaseFailed,
+        type: ToastType.error,
+      );
     }
   }
 
@@ -243,8 +245,7 @@ class _PaywallSheetState extends State<PaywallSheet> {
       });
       showAppSnackBar(
         context,
-        'No previous purchase found on this account. If you bought Pro with a '
-        'different account, sign in with that one and try again.',
+        context.l10n.proPaywallRestoreNotFound,
         type: ToastType.info,
       );
     });
@@ -260,7 +261,7 @@ class _PaywallSheetState extends State<PaywallSheet> {
       });
       showAppSnackBar(
         context,
-        'Could not restore purchases. Please try again.',
+        context.l10n.proPaywallRestoreFailed,
         type: ToastType.error,
       );
     }
@@ -269,98 +270,118 @@ class _PaywallSheetState extends State<PaywallSheet> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
 
     return SafeArea(
-      child: Container(
-        margin: const EdgeInsets.all(14),
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(28),
-          border: Border.all(color: theme.dividerColor),
+      child: SingleChildScrollView(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.viewInsetsOf(context).bottom,
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: theme.colorScheme.primary.withValues(alpha: 0.14),
-                  ),
-                  alignment: Alignment.center,
-                  child: Icon(
-                    LineIcons.unlock,
-                    color: theme.colorScheme.primary,
-                    size: 22,
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    'Patterns Pro',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+        child: Container(
+          margin: const EdgeInsets.all(14),
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.surface,
+            borderRadius: BorderRadius.circular(28),
+            border: Border.all(color: theme.dividerColor),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 44,
+                    height: 44,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: theme.colorScheme.primary.withValues(alpha: 0.14),
+                    ),
+                    alignment: Alignment.center,
+                    child: Icon(
+                      LineIcons.unlock,
+                      color: theme.colorScheme.primary,
+                      size: 22,
                     ),
                   ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      strings.proPaywallTitle,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Text(
+                widget.entryPoint.headline(strings),
+                style: TextStyle(
+                  color: context.appColors.textSecondary,
+                  height: 1.45,
                 ),
+              ),
+              const SizedBox(height: 12),
+              // Someone who already bought Pro and reinstalled arrives here
+              // looking at a price they have already paid. Say so before the
+              // price, not in a quiet button underneath it.
+              _AlreadyPurchasedRow(
+                onRestore: _purchaseInFlight ? null : _onRestore,
+              ),
+              const SizedBox(height: 18),
+              for (final point in widget.entryPoint.benefits(strings)) ...[
+                _ProPoint(text: point),
+                const SizedBox(height: 10),
               ],
-            ),
-            const SizedBox(height: 12),
-            Text(
-              widget.entryPoint.headline,
-              style: TextStyle(
-                color: context.appColors.textSecondary,
-                height: 1.45,
+              const SizedBox(height: 6),
+              Text(
+                strings.proPaywallIncludedTools,
+                style: TextStyle(
+                  color: context.appColors.textSecondary,
+                  fontSize: 12.5,
+                  height: 1.4,
+                ),
               ),
-            ),
-            const SizedBox(height: 12),
-            // Someone who already bought Pro and reinstalled arrives here
-            // looking at a price they have already paid. Say so before the
-            // price, not in a quiet button underneath it.
-            _AlreadyPurchasedRow(
-              onRestore: _purchaseInFlight ? null : _onRestore,
-            ),
-            const SizedBox(height: 18),
-            for (final point in widget.entryPoint.benefits) ...[
-              _ProPoint(text: point),
               const SizedBox(height: 10),
+              _buildBody(theme),
             ],
-            const SizedBox(height: 6),
-            Text(
-              'Also includes every Pro planning, practice, metrics, and reflection tool.',
-              style: TextStyle(
-                color: context.appColors.textSecondary,
-                fontSize: 12.5,
-                height: 1.4,
-              ),
-            ),
-            const SizedBox(height: 10),
-            _buildBody(theme),
-          ],
+          ),
         ),
       ),
     );
   }
 
   Widget _buildBody(ThemeData theme) {
+    final strings = context.l10n;
     if (_loading) {
-      return const Padding(
-        padding: EdgeInsets.symmetric(vertical: 24),
-        child: Center(child: CircularProgressIndicator()),
+      return Semantics(
+        label: strings.proPaywallLoadingLabel,
+        liveRegion: true,
+        child: const ExcludeSemantics(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 24),
+            child: Center(child: CircularProgressIndicator()),
+          ),
+        ),
       );
     }
     final error = _loadError;
     if (error != null) {
+      final errorMessage = switch (error) {
+        _ProductLoadError.purchasesUnavailable =>
+          strings.proPaywallPurchasesUnavailable,
+        _ProductLoadError.productUnavailable =>
+          strings.proPaywallProductUnavailable,
+        _ProductLoadError.failed => strings.proPaywallProductLoadFailed,
+      };
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            error,
+            errorMessage,
             style: TextStyle(
               color: context.appColors.textSecondary,
               height: 1.45,
@@ -369,20 +390,20 @@ class _PaywallSheetState extends State<PaywallSheet> {
           const SizedBox(height: 16),
           OutlinedButton(
             onPressed: _loadProduct,
-            child: const Text('Try again'),
+            child: Text(strings.proPaywallTryAgainAction),
           ),
           const SizedBox(height: 8),
           TextButton(
             onPressed: _purchaseInFlight ? null : _onRestore,
-            child: const Text('Restore purchases'),
+            child: Text(strings.proPaywallRestorePurchasesAction),
           ),
         ],
       );
     }
     final product = _product;
     final buttonText = product != null
-        ? 'Unlock Pro · ${product.price}'
-        : 'Unlock Pro';
+        ? strings.proPaywallUnlockWithPrice(product.price)
+        : strings.proPaywallUnlockAction;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -403,7 +424,7 @@ class _PaywallSheetState extends State<PaywallSheet> {
         const SizedBox(height: 8),
         TextButton(
           onPressed: _purchaseInFlight ? null : _onRestore,
-          child: const Text('Restore purchases'),
+          child: Text(strings.proPaywallRestorePurchasesAction),
         ),
       ],
     );
@@ -421,35 +442,50 @@ class _AlreadyPurchasedRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final message = Text(
+      context.l10n.proPaywallAlreadyPurchased,
+      style: TextStyle(
+        color: context.appColors.textSecondary,
+        height: 1.4,
+        fontSize: 13,
+      ),
+    );
+    final restoreButton = TextButton(
+      onPressed: onRestore,
+      style: TextButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        minimumSize: const Size(44, 44),
+      ),
+      child: Text(context.l10n.proPaywallRestoreShortAction),
+    );
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: theme.dividerColor),
       ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              'Already bought Pro? You will not be charged again.',
-              style: TextStyle(
-                color: context.appColors.textSecondary,
-                height: 1.4,
-                fontSize: 13,
-              ),
-            ),
-          ),
-          const SizedBox(width: 8),
-          TextButton(
-            onPressed: onRestore,
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              minimumSize: const Size(0, 36),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            child: const Text('Restore'),
-          ),
-        ],
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final usesAccessibilityText =
+              MediaQuery.textScalerOf(context).scale(1) > 1.3;
+          if (usesAccessibilityText || constraints.maxWidth < 300) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                message,
+                const SizedBox(height: 4),
+                Align(alignment: Alignment.centerRight, child: restoreButton),
+              ],
+            );
+          }
+          return Row(
+            children: [
+              Expanded(child: message),
+              const SizedBox(width: 8),
+              restoreButton,
+            ],
+          );
+        },
       ),
     );
   }
@@ -896,7 +932,8 @@ void _showUnlockedDialog(BuildContext context, {required bool restored}) {
     barrierDismissible: true,
     builder: (dialogContext) {
       final theme = Theme.of(dialogContext);
-      final surface = context.appColors.card;
+      final strings = dialogContext.l10n;
+      final surface = dialogContext.appColors.card;
       return Dialog(
         backgroundColor: Colors.transparent,
         insetPadding: const EdgeInsets.symmetric(horizontal: 28, vertical: 24),
@@ -927,7 +964,9 @@ void _showUnlockedDialog(BuildContext context, {required bool restored}) {
               ),
               const SizedBox(height: 16),
               Text(
-                restored ? 'Welcome back' : "You're all set",
+                restored
+                    ? strings.proPaywallWelcomeBack
+                    : strings.proPaywallAllSet,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w800,
                   fontFamily: AppTheme.displayFamily,
@@ -937,10 +976,10 @@ void _showUnlockedDialog(BuildContext context, {required bool restored}) {
               const SizedBox(height: 8),
               Text(
                 restored
-                    ? 'Patterns Desktop Pro has been restored on this device.'
-                    : 'Patterns Desktop Pro is unlocked. Every desktop recovery tool is now yours.',
+                    ? strings.proPaywallRestoredBody
+                    : strings.proPaywallUnlockedBody,
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: context.appColors.textSecondary,
+                  color: dialogContext.appColors.textSecondary,
                   height: 1.5,
                 ),
               ),
@@ -949,7 +988,7 @@ void _showUnlockedDialog(BuildContext context, {required bool restored}) {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () => Navigator.of(dialogContext).pop(),
-                  child: const Text('Start practicing'),
+                  child: Text(strings.proPaywallContinueAction),
                 ),
               ),
             ],
