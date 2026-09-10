@@ -29,7 +29,7 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 | SETTINGS-01 | Remaining shared settings, privacy, backup, reminders, dialogs, and errors | pending | — |
 | SHELL-01 | Onboarding, What’s New, navigation, spotlight, and shared shell copy | pending | — |
 | COMMERCE-01 | Mobile Pro, tips, macOS StoreKit, and verified Windows/Linux licensing | code complete | Commerce widget/service tests; live desktop release configuration remains pending |
-| AUDIT-01 | Zero reviewed mobile/shared user-facing literal candidates | in progress | Mobile-only scope excludes preserved desktop code; 270 candidates after completing Guided ERP built-in content |
+| AUDIT-01 | Zero reviewed mobile/shared user-facing literal candidates | in progress | Mobile-only scope now correctly excludes preserved desktop and legacy desktop-shell paths; 213 true mobile/shared candidates after completing Guided ERP |
 
 ## Verification and release gates
 
@@ -50,5 +50,5 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 - Version: `1.10.0+32` (final build number must still be reconciled remotely).
 - Release announcement: `patterns_1_10`.
 - Full Flutter suite after completing Guided ERP built-in content: 251 passing tests.
-- Mobile/shared literal audit: 270 candidates after completing Guided ERP built-in content. Preserved desktop code is outside the 1.10 gate.
+- Mobile/shared literal audit: 213 candidates after correcting glob precedence so preserved desktop code is genuinely outside the 1.10 gate.
 - Store drafts: field, locale, and character-limit validation passing; not approved or uploaded.

@@ -45,19 +45,21 @@ pattern="(?:Text|SelectableText|Tooltip|Semantics)\\(\\s*(?:const\\s*)?['\"]|(?:
 if [ "$scope" = "mobile" ]; then
   # `lib/screens/**` is the legacy desktop shell's shared screen set. The
   # dedicated mobile shell imports `lib/mobile/screens/**` instead.
+  # Keep the positive Dart glob first: ripgrep applies later matching glob
+  # overrides last, so exclusions must follow it to remain effective.
   rg -n \
+    --glob '*.dart' \
     --glob '!lib/l10n/**' \
     --glob '!lib/desktop/**' \
     --glob '!lib/screens/**' \
     --glob '!lib/services/desktop_license_service.dart' \
     --glob '!lib/services/desktop_purchase_service.dart' \
-    --glob '*.dart' \
     "$pattern" \
     lib >"$candidates" || true
 else
   rg -n \
-    --glob '!lib/l10n/**' \
     --glob '*.dart' \
+    --glob '!lib/l10n/**' \
     "$pattern" \
     lib >"$candidates" || true
 fi
