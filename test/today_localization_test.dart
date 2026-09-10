@@ -56,6 +56,8 @@ Widget _host({
   required Locale locale,
   List<JournalEntry> journals = const [],
   Size size = const Size(390, 844),
+  TextScaler textScaler = TextScaler.noScaling,
+  bool disableAnimations = false,
 }) {
   return ProviderScope(
     overrides: [
@@ -74,7 +76,11 @@ Widget _host({
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       theme: AppTheme.mobileDarkTheme,
       home: MediaQuery(
-        data: MediaQueryData(size: size),
+        data: MediaQueryData(
+          size: size,
+          textScaler: textScaler,
+          disableAnimations: disableAnimations,
+        ),
         child: home,
       ),
     ),
@@ -160,6 +166,85 @@ void main() {
     expect(find.text('Acciones rápidas'), findsOneWidget);
     expect(find.text('Herramientas de recuperación'), findsOneWidget);
     expect(find.text('Recovery tools'), findsNothing);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('mobile Today reflows and disables motion at 200 percent text', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final now = DateTime.now();
+    String key(DateTime date) =>
+        '${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+    final journals = [
+      for (var index = 0; index < 3; index++)
+        JournalEntry(
+          date: key(now.subtract(Duration(days: index))),
+          content: 'Entry $index',
+          createdAt: now.subtract(Duration(days: index)),
+          updatedAt: now.subtract(Duration(days: index)),
+        ),
+    ];
+
+    await tester.pumpWidget(
+      _host(
+        home: _mobileToday(),
+        locale: const Locale('de'),
+        journals: journals,
+        textScaler: const TextScaler.linear(2),
+        disableAnimations: true,
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.byType(AnimatedScale), findsNothing);
+    expect(
+      find.bySemanticsLabel(RegExp(r'Übungsverlauf: \d+ von 100')),
+      findsWidgets,
+    );
+    expect(find.bySemanticsLabel(RegExp('Einstellungen')), findsWidgets);
+    final settings = find.byKey(const ValueKey('today-settings-action'));
+    expect(tester.getSize(settings).width, greaterThanOrEqualTo(44));
+    expect(tester.getSize(settings).height, greaterThanOrEqualTo(44));
+    expect(tester.takeException(), isNull);
+
+    final list = find.byType(ListView).first;
+    for (var index = 0; index < 8; index++) {
+      await tester.drag(list, const Offset(0, -500));
+      await tester.pump();
+      expect(tester.takeException(), isNull, reason: 'after scroll $index');
+    }
+    expect(find.text('Täglicher Check-in erfasst'), findsOneWidget);
+  });
+
+  testWidgets('desktop Today stacks columns and exposes non-color day states', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1200, 900);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(
+      _host(
+        home: _desktopToday(),
+        locale: const Locale('de'),
+        size: const Size(1200, 900),
+        textScaler: const TextScaler.linear(2),
+        disableAnimations: true,
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(
+      find.bySemanticsLabel(RegExp('keine Aktivität erfasst')),
+      findsWidgets,
+    );
+    expect(find.bySemanticsLabel('Zwangsaufschub'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 }

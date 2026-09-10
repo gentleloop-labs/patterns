@@ -459,70 +459,78 @@ class _HomeHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final greeting = _greetingFor(context, DateTime.now());
-    return Row(
+    final heading = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                greeting,
-                style: TextStyle(
-                  fontFamily: AppTheme.sansFamily,
-                  fontSize: 23,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: -0.4,
-                  color: context.appColors.accent,
-                  height: 1.12,
-                ),
-              ),
-              const SizedBox(height: 6),
-              Text(
-                context.l10n.todayEncouragement,
-                style: TextStyle(
-                  color: context.appColors.textSecondary,
-                  fontSize: 14,
-                  height: 1.25,
-                ),
-              ),
-            ],
-          ),
-        ),
-        if (showStreak) ...[
-          const SizedBox(width: 12),
-          Container(
-            padding: const EdgeInsets.fromLTRB(11, 10, 13, 10),
-            decoration: _homeCardDecoration(Theme.of(context), radius: 16),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.local_fire_department_rounded,
-                  color: context.appColors.accent,
-                  size: 18,
-                ),
-                const SizedBox(width: 6),
-                Text(
-                  '$streak',
-                  style: TextStyle(
-                    color: context.appColors.accent,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 14,
-                  ),
-                ),
-              ],
+        Semantics(
+          header: true,
+          child: Text(
+            greeting,
+            style: TextStyle(
+              fontFamily: AppTheme.sansFamily,
+              fontSize: 23,
+              fontWeight: FontWeight.w900,
+              letterSpacing: -0.4,
+              color: context.appColors.accent,
+              height: 1.12,
             ),
           ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          context.l10n.todayEncouragement,
+          style: TextStyle(
+            color: context.appColors.textSecondary,
+            fontSize: 14,
+            height: 1.25,
+          ),
+        ),
+      ],
+    );
+    final actions = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (showStreak) ...[
+          Semantics(
+            label: context.l10n.recoveryMetricsDayStreak(streak),
+            excludeSemantics: true,
+            child: Container(
+              constraints: const BoxConstraints(minHeight: 44),
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              decoration: _homeCardDecoration(Theme.of(context), radius: 16),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.local_fire_department_rounded,
+                    color: context.appColors.accent,
+                    size: 18,
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    '$streak',
+                    style: TextStyle(
+                      color: context.appColors.accent,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
         ],
-        const SizedBox(width: 10),
         PressScale(
           onTap: onSettings,
           child: Semantics(
             button: true,
             label: context.l10n.settingsTitle,
+            excludeSemantics: true,
             child: Container(
-              padding: const EdgeInsets.all(10),
+              key: const ValueKey('today-settings-action'),
+              constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
+              alignment: Alignment.center,
               decoration: _homeCardDecoration(Theme.of(context), radius: 16),
               child: Icon(
                 LineIcons.cog,
@@ -532,6 +540,25 @@ class _HomeHeader extends StatelessWidget {
             ),
           ),
         ),
+      ],
+    );
+
+    if (_usesLargeText(context)) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          heading,
+          const SizedBox(height: 12),
+          Align(alignment: Alignment.centerRight, child: actions),
+        ],
+      );
+    }
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(child: heading),
+        const SizedBox(width: 12),
+        actions,
       ],
     );
   }
@@ -569,6 +596,7 @@ class _CalmActivityCard extends StatelessWidget {
     return Semantics(
       button: true,
       label: strings.calmRecentActivityTitle,
+      value: facts.isEmpty ? strings.calmNoRecentActivity : facts.join(', '),
       child: Material(
         color: context.appColors.card,
         borderRadius: BorderRadius.circular(24),
@@ -609,7 +637,23 @@ class _CalmActivityCard extends StatelessWidget {
                   for (final fact in facts)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 6),
-                      child: Text('• $fact', style: theme.textTheme.bodyMedium),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(top: 7, right: 8),
+                            child: ExcludeSemantics(
+                              child: Icon(Icons.circle, size: 5),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              fact,
+                              style: theme.textTheme.bodyMedium,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
               ],
             ),
@@ -641,87 +685,96 @@ class _HomeScoreCard extends StatelessWidget {
     Telemetry.logOnce('score.first_shown');
     final score = summary.recoveryScore;
     final label = _scoreLabel(strings, score, summary.hasAnyData);
-    return PressScale(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(18),
-        decoration: _homeCardDecoration(Theme.of(context), radius: 22),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                _HomeScoreRing(score: score, label: label),
-                const SizedBox(width: 18),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        strings.todayPracticeProgress.toUpperCase(),
-                        style: TextStyle(
-                          color: context.appColors.accent,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: 0.6,
-                        ),
-                      ),
-                      const SizedBox(height: 18),
-                      Text(
-                        summary.hasAnyData
-                            ? strings.todaySteadyPractice
-                            : strings.todayStartGently,
-                        style: TextStyle(
-                          color: context.appColors.textPrimary,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w800,
-                          height: 1.18,
-                        ),
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        summary.hasAnyData
-                            ? strings.todayPracticeActiveBody
-                            : strings.todayPracticeEmptyBody,
-                        style: TextStyle(
-                          color: context.appColors.textSecondary,
-                          fontSize: 13,
-                          height: 1.34,
-                        ),
-                      ),
-                      const SizedBox(height: 14),
-                      Text(
-                        _deltaText(
-                          strings,
-                          summary.scoreDelta.value,
-                          summary.hasAnyData,
-                        ),
-                        style: TextStyle(
-                          color: context.appColors.accent,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Icon(
+    final details = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          strings.todayPracticeProgress.toUpperCase(),
+          style: TextStyle(
+            color: context.appColors.accent,
+            fontSize: 11,
+            fontWeight: FontWeight.w900,
+            letterSpacing: 0.6,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          summary.hasAnyData
+              ? strings.todaySteadyPractice
+              : strings.todayStartGently,
+          style: TextStyle(
+            color: context.appColors.textPrimary,
+            fontSize: 18,
+            fontWeight: FontWeight.w800,
+            height: 1.18,
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          summary.hasAnyData
+              ? strings.todayPracticeActiveBody
+              : strings.todayPracticeEmptyBody,
+          style: TextStyle(
+            color: context.appColors.textSecondary,
+            fontSize: 13,
+            height: 1.34,
+          ),
+        ),
+        const SizedBox(height: 14),
+        Text(
+          _deltaText(strings, summary.scoreDelta.value, summary.hasAnyData),
+          style: TextStyle(
+            color: context.appColors.accent,
+            fontSize: 12,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+      ],
+    );
+    final ring = _HomeScoreRing(score: score, label: label);
+    final summaryLayout = _usesLargeText(context)
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [ring, const SizedBox(height: 16), details],
+          )
+        : Row(
+            children: [
+              ring,
+              const SizedBox(width: 18),
+              Expanded(child: details),
+              const SizedBox(width: 8),
+              ExcludeSemantics(
+                child: Icon(
                   LineIcons.angleRight,
                   color: context.appColors.textSecondary,
                 ),
-              ],
-            ),
-            const SizedBox(height: 14),
-            Text(
-              strings.todayProgressDisclaimer,
-              style: TextStyle(
-                color: context.appColors.textSecondary.withValues(alpha: 0.8),
-                fontSize: 11,
-                height: 1.3,
               ),
-            ),
-          ],
+            ],
+          );
+    return Semantics(
+      button: true,
+      label: strings.todayScoreA11y(score, label),
+      hint: strings.todayInsightsBody,
+      child: PressScale(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.all(18),
+          decoration: _homeCardDecoration(Theme.of(context), radius: 22),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              summaryLayout,
+              const SizedBox(height: 14),
+              Text(
+                strings.todayProgressDisclaimer,
+                style: TextStyle(
+                  color: context.appColors.textSecondary.withValues(alpha: 0.8),
+                  fontSize: 11,
+                  height: 1.3,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -729,43 +782,48 @@ class _HomeScoreCard extends StatelessWidget {
 
   Widget _buildPlaceholder(BuildContext context) {
     final strings = context.l10n;
-    return PressScale(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(18),
-        decoration: _homeCardDecoration(Theme.of(context), radius: 22),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              strings.todayPracticeProgress.toUpperCase(),
-              style: TextStyle(
-                color: context.appColors.accent,
-                fontSize: 11,
-                fontWeight: FontWeight.w900,
-                letterSpacing: 0.6,
+    return Semantics(
+      button: true,
+      label: strings.todayPracticeProgress,
+      hint: strings.todayInsightsBody,
+      child: PressScale(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.all(18),
+          decoration: _homeCardDecoration(Theme.of(context), radius: 22),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                strings.todayPracticeProgress.toUpperCase(),
+                style: TextStyle(
+                  color: context.appColors.accent,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 0.6,
+                ),
               ),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              strings.todayProgressStartedTitle,
-              style: TextStyle(
-                color: context.appColors.textPrimary,
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
-                height: 1.18,
+              const SizedBox(height: 12),
+              Text(
+                strings.todayProgressStartedTitle,
+                style: TextStyle(
+                  color: context.appColors.textPrimary,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                  height: 1.18,
+                ),
               ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              strings.todayProgressPendingBody,
-              style: TextStyle(
-                color: context.appColors.textSecondary,
-                fontSize: 13,
-                height: 1.34,
+              const SizedBox(height: 6),
+              Text(
+                strings.todayProgressPendingBody,
+                style: TextStyle(
+                  color: context.appColors.textSecondary,
+                  fontSize: 13,
+                  height: 1.34,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -797,38 +855,45 @@ class _HomeScoreRing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 108,
-      height: 108,
-      child: CustomPaint(
-        painter: _HomeScoreRingPainter(
-          score,
-          accent: context.appColors.accent,
-          trackColor: context.appColors.border,
-        ),
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                '$score',
-                style: TextStyle(
-                  color: context.appColors.textPrimary,
-                  fontSize: 31,
-                  fontWeight: FontWeight.w800,
-                  height: 1,
-                ),
+    return Semantics(
+      label: context.l10n.todayScoreA11y(score, label),
+      excludeSemantics: true,
+      child: SizedBox(
+        width: 108,
+        height: 108,
+        child: CustomPaint(
+          painter: _HomeScoreRingPainter(
+            score,
+            accent: context.appColors.accent,
+            trackColor: context.appColors.border,
+          ),
+          child: MediaQuery.withClampedTextScaling(
+            maxScaleFactor: 1.2,
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    '$score',
+                    style: TextStyle(
+                      color: context.appColors.textPrimary,
+                      fontSize: 31,
+                      fontWeight: FontWeight.w800,
+                      height: 1,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    label,
+                    style: TextStyle(
+                      color: context.appColors.accent,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 4),
-              Text(
-                label,
-                style: TextStyle(
-                  color: context.appColors.accent,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
@@ -891,66 +956,87 @@ class _NextStepCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return PressScale(
-      onTap: onTap,
-      child: Container(
-        key: const ValueKey('today-next-step-card'),
-        padding: const EdgeInsets.all(18),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: nextStepCardGradientColors(theme),
+    return Semantics(
+      button: true,
+      label: step.title,
+      hint: step.subtitle,
+      child: PressScale(
+        onTap: onTap,
+        child: Container(
+          key: const ValueKey('today-next-step-card'),
+          padding: const EdgeInsets.all(18),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: nextStepCardGradientColors(theme),
+            ),
+            borderRadius: BorderRadius.circular(22),
+            border: Border.all(
+              color: context.appColors.accent.withValues(alpha: 0.35),
+            ),
           ),
-          borderRadius: BorderRadius.circular(22),
-          border: Border.all(
-            color: context.appColors.accent.withValues(alpha: 0.35),
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              context.l10n.todayNextStep.toUpperCase(),
-              style: TextStyle(
-                color: context.appColors.accent,
-                fontSize: 11,
-                fontWeight: FontWeight.w900,
-                letterSpacing: 0.6,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              step.title,
-              style: TextStyle(
-                color: context.appColors.textPrimary,
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
-                height: 1.15,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              step.subtitle,
-              style: TextStyle(
-                color: context.appColors.textSecondary,
-                fontSize: 13,
-                height: 1.34,
-              ),
-            ),
-            const SizedBox(height: 14),
-            ElevatedButton(
-              onPressed: onTap,
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(0, 42),
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                context.l10n.todayNextStep.toUpperCase(),
+                style: TextStyle(
+                  color: context.appColors.accent,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 0.6,
                 ),
               ),
-              child: Text(step.ctaLabel),
-            ),
-          ],
+              const SizedBox(height: 10),
+              Text(
+                step.title,
+                style: TextStyle(
+                  color: context.appColors.textPrimary,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                  height: 1.15,
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                step.subtitle,
+                style: TextStyle(
+                  color: context.appColors.textSecondary,
+                  fontSize: 13,
+                  height: 1.34,
+                ),
+              ),
+              const SizedBox(height: 14),
+              if (_usesLargeText(context))
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: onTap,
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(44, 44),
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                    child: Text(step.ctaLabel, textAlign: TextAlign.center),
+                  ),
+                )
+              else
+                ElevatedButton(
+                  onPressed: onTap,
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(44, 44),
+                    padding: const EdgeInsets.symmetric(horizontal: 18),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                  child: Text(step.ctaLabel),
+                ),
+            ],
+          ),
         ),
       ),
     );
@@ -996,15 +1082,15 @@ class _HomeSectionHeader extends StatelessWidget {
           ),
         ),
         if (actionLabel != null && onAction != null)
-          GestureDetector(
-            onTap: onAction,
+          TextButton(
+            onPressed: onAction,
+            style: TextButton.styleFrom(
+              minimumSize: const Size(44, 44),
+              foregroundColor: context.appColors.accent,
+            ),
             child: Text(
               actionLabel!,
-              style: TextStyle(
-                color: context.appColors.accent,
-                fontSize: 12,
-                fontWeight: FontWeight.w800,
-              ),
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w800),
             ),
           ),
       ],
@@ -1034,65 +1120,90 @@ class _ContinuePracticeCard extends StatelessWidget {
         ? _formatSeconds(session.plannedSeconds)
         : '5:00';
 
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: _homeCardDecoration(Theme.of(context), radius: 18),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 60,
-            height: 60,
-            child: CustomPaint(
-              painter: _MiniProgressPainter(
-                progress,
-                accent: context.appColors.accent,
-                trackColor: context.appColors.border,
-              ),
-              child: Center(
-                child: Icon(
-                  LineIcons.clock,
-                  color: context.appColors.accent,
-                  size: 22,
-                ),
-              ),
+    final timerLabel = strings.todayTimerA11y(elapsed, planned);
+    final progressGraphic = Semantics(
+      label: timerLabel,
+      excludeSemantics: true,
+      child: SizedBox(
+        width: 60,
+        height: 60,
+        child: CustomPaint(
+          painter: _MiniProgressPainter(
+            progress,
+            accent: context.appColors.accent,
+            trackColor: context.appColors.border,
+          ),
+          child: Center(
+            child: Icon(
+              LineIcons.clock,
+              color: context.appColors.accent,
+              size: 22,
             ),
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  hasSession
-                      ? strings.todayCompulsionDelay
-                      : strings.todayStartErp,
-                  style: TextStyle(
-                    color: context.appColors.textPrimary,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  hasSession
-                      ? strings.todayResistUrgeBody
-                      : strings.todayBuildToleranceBody,
-                  style: TextStyle(
-                    color: context.appColors.textSecondary,
-                    fontSize: 12,
-                    height: 1.25,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Row(
+        ),
+      ),
+    );
+    final details = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          hasSession ? strings.todayCompulsionDelay : strings.todayStartErp,
+          style: TextStyle(
+            color: context.appColors.textPrimary,
+            fontSize: 16,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          hasSession
+              ? strings.todayResistUrgeBody
+              : strings.todayBuildToleranceBody,
+          style: TextStyle(
+            color: context.appColors.textSecondary,
+            fontSize: 12,
+            height: 1.25,
+          ),
+        ),
+        const SizedBox(height: 10),
+        Semantics(
+          label: timerLabel,
+          excludeSemantics: true,
+          child: _usesLargeText(context)
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(999),
+                      child: LinearProgressIndicator(
+                        value: progress,
+                        minHeight: 6,
+                        backgroundColor: context.appColors.border,
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          context.appColors.accent,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      '$elapsed / $planned',
+                      style: TextStyle(
+                        color: context.appColors.textSecondary,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                )
+              : Row(
                   children: [
                     Expanded(
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(999),
                         child: LinearProgressIndicator(
                           value: progress,
-                          minHeight: 4,
-                          backgroundColor: Colors.white.withValues(alpha: 0.13),
+                          minHeight: 6,
+                          backgroundColor: context.appColors.border,
                           valueColor: AlwaysStoppedAnimation<Color>(
                             context.appColors.accent,
                           ),
@@ -1110,25 +1221,49 @@ class _ContinuePracticeCard extends StatelessWidget {
                     ),
                   ],
                 ),
+        ),
+      ],
+    );
+    final action = ElevatedButton(
+      onPressed: onResume,
+      style: ElevatedButton.styleFrom(
+        minimumSize: const Size(44, 44),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      ),
+      child: Text(
+        hasSession ? strings.todayResumeAction : strings.todayStartAction,
+      ),
+    );
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: _homeCardDecoration(Theme.of(context), radius: 18),
+      child: _usesLargeText(context)
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    progressGraphic,
+                    const SizedBox(width: 16),
+                    Expanded(child: details),
+                  ],
+                ),
+                const SizedBox(height: 14),
+                SizedBox(width: double.infinity, child: action),
+              ],
+            )
+          : Row(
+              children: [
+                progressGraphic,
+                const SizedBox(width: 16),
+                Expanded(child: details),
+                const SizedBox(width: 12),
+                action,
               ],
             ),
-          ),
-          const SizedBox(width: 12),
-          ElevatedButton(
-            onPressed: onResume,
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(0, 40),
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
-              ),
-            ),
-            child: Text(
-              hasSession ? strings.todayResumeAction : strings.todayStartAction,
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -1198,49 +1333,58 @@ class _QuickActionGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final strings = context.l10n;
+    final journal = _QuickActionTile(
+      icon: LineIcons.edit,
+      title: strings.navJournal,
+      subtitle: strings.todayJournalBody,
+      onTap: onJournal,
+    );
+    final erp = _QuickActionTile(
+      icon: LineIcons.bullseye,
+      title: strings.todayStartErp,
+      subtitle: strings.todayBuildToleranceBody,
+      onTap: onErp,
+    );
+    final exposure = _QuickActionTile(
+      icon: LineIcons.layerGroup,
+      title: strings.todayExposureTools,
+      subtitle: strings.todayExposureToolsBody,
+      onTap: onExposureTools,
+    );
+    final insights = _QuickActionTile(
+      icon: LineIcons.barChart,
+      title: strings.navInsights,
+      subtitle: strings.todayInsightsBody,
+      onTap: onInsights,
+    );
+    if (_usesLargeText(context)) {
+      return Column(
+        children: [
+          journal,
+          const SizedBox(height: 10),
+          erp,
+          const SizedBox(height: 10),
+          exposure,
+          const SizedBox(height: 10),
+          insights,
+        ],
+      );
+    }
     return Column(
       children: [
         Row(
           children: [
-            Expanded(
-              child: _QuickActionTile(
-                icon: LineIcons.edit,
-                title: strings.navJournal,
-                subtitle: strings.todayJournalBody,
-                onTap: onJournal,
-              ),
-            ),
+            Expanded(child: journal),
             const SizedBox(width: 10),
-            Expanded(
-              child: _QuickActionTile(
-                icon: LineIcons.bullseye,
-                title: strings.todayStartErp,
-                subtitle: strings.todayBuildToleranceBody,
-                onTap: onErp,
-              ),
-            ),
+            Expanded(child: erp),
           ],
         ),
         const SizedBox(height: 10),
         Row(
           children: [
-            Expanded(
-              child: _QuickActionTile(
-                icon: LineIcons.layerGroup,
-                title: strings.todayExposureTools,
-                subtitle: strings.todayExposureToolsBody,
-                onTap: onExposureTools,
-              ),
-            ),
+            Expanded(child: exposure),
             const SizedBox(width: 10),
-            Expanded(
-              child: _QuickActionTile(
-                icon: LineIcons.barChart,
-                title: strings.navInsights,
-                subtitle: strings.todayInsightsBody,
-                onTap: onInsights,
-              ),
-            ),
+            Expanded(child: insights),
           ],
         ),
       ],
@@ -1263,52 +1407,54 @@ class _QuickActionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PressScale(
-      onTap: onTap,
-      child: Container(
-        height: 98,
-        padding: const EdgeInsets.all(14),
-        decoration: _homeCardDecoration(Theme.of(context), radius: 16),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(icon, color: context.appColors.accent, size: 27),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: context.appColors.textPrimary,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w800,
-                      height: 1.05,
+    return Semantics(
+      button: true,
+      label: title,
+      hint: subtitle,
+      excludeSemantics: true,
+      child: PressScale(
+        onTap: onTap,
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 98),
+          padding: const EdgeInsets.all(14),
+          decoration: _homeCardDecoration(Theme.of(context), radius: 16),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(icon, color: context.appColors.accent, size: 27),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: context.appColors.textPrimary,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w800,
+                        height: 1.05,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 7),
-                  Text(
-                    subtitle,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: context.appColors.textSecondary,
-                      fontSize: 11.5,
-                      height: 1.18,
+                    const SizedBox(height: 7),
+                    Text(
+                      subtitle,
+                      style: TextStyle(
+                        color: context.appColors.textSecondary,
+                        fontSize: 11.5,
+                        height: 1.18,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Icon(
-              LineIcons.angleRight,
-              color: context.appColors.textSecondary,
-              size: 17,
-            ),
-          ],
+              Icon(
+                LineIcons.angleRight,
+                color: context.appColors.textSecondary,
+                size: 17,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -1325,33 +1471,39 @@ class _SelfCheckRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final strings = context.l10n;
-    return PressScale(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(14),
-        decoration: _homeCardDecoration(Theme.of(context), radius: 16),
-        child: Row(
-          children: [
-            Icon(
-              LineIcons.clipboardList,
-              color: context.appColors.textSecondary,
-              size: 22,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text.rich(
-                TextSpan(
+    return Semantics(
+      button: true,
+      label: strings.todaySelfCheckTitle,
+      hint: strings.todaySelfCheckDuration,
+      excludeSemantics: true,
+      child: PressScale(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.all(14),
+          decoration: _homeCardDecoration(Theme.of(context), radius: 16),
+          child: Row(
+            children: [
+              Icon(
+                LineIcons.clipboardList,
+                color: context.appColors.textSecondary,
+                size: 22,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextSpan(
-                      text: strings.todaySelfCheckTitle,
+                    Text(
+                      strings.todaySelfCheckTitle,
                       style: TextStyle(
                         color: context.appColors.textPrimary,
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    TextSpan(
-                      text: '   ·   ${strings.todaySelfCheckDuration}',
+                    const SizedBox(height: 4),
+                    Text(
+                      strings.todaySelfCheckDuration,
                       style: TextStyle(
                         color: context.appColors.textSecondary,
                         fontSize: 12,
@@ -1360,13 +1512,13 @@ class _SelfCheckRow extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-            Icon(
-              LineIcons.angleRight,
-              color: context.appColors.textSecondary,
-              size: 17,
-            ),
-          ],
+              Icon(
+                LineIcons.angleRight,
+                color: context.appColors.textSecondary,
+                size: 17,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -1417,66 +1569,76 @@ class _DailyCheckInCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final strings = context.l10n;
+    final details = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          checkedIn
+              ? strings.todayDailyCheckInComplete
+              : strings.todayDailyCheckIn,
+          style: TextStyle(
+            color: context.appColors.textPrimary,
+            fontSize: 16,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          checkedIn ? strings.todayDailyCompleteBody : strings.todayDailyBody,
+          style: TextStyle(
+            color: context.appColors.textSecondary,
+            fontSize: 12,
+            height: 1.25,
+          ),
+        ),
+      ],
+    );
+    final action = ElevatedButton(
+      onPressed: onTap,
+      style: ElevatedButton.styleFrom(
+        minimumSize: const Size(44, 44),
+        padding: const EdgeInsets.symmetric(horizontal: 14),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      ),
+      child: Text(
+        checkedIn ? strings.todayOpenAction : strings.todayCheckInAction,
+      ),
+    );
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: _homeCardDecoration(Theme.of(context), radius: 18),
-      child: Row(
-        children: [
-          Container(
-            width: 52,
-            height: 52,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: context.appColors.positive.withValues(alpha: 0.12),
-            ),
-            child: Icon(Icons.eco_rounded, color: context.appColors.positive),
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
+      child: _usesLargeText(context)
+          ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  checkedIn
-                      ? strings.todayDailyCheckInComplete
-                      : strings.todayDailyCheckIn,
-                  style: TextStyle(
-                    color: context.appColors.textPrimary,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w800,
+                details,
+                const SizedBox(height: 14),
+                SizedBox(width: double.infinity, child: action),
+              ],
+            )
+          : Row(
+              children: [
+                ExcludeSemantics(
+                  child: Container(
+                    width: 52,
+                    height: 52,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: context.appColors.positive.withValues(alpha: 0.12),
+                    ),
+                    child: Icon(
+                      Icons.eco_rounded,
+                      color: context.appColors.positive,
+                    ),
                   ),
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  checkedIn
-                      ? strings.todayDailyCompleteBody
-                      : strings.todayDailyBody,
-                  style: TextStyle(
-                    color: context.appColors.textSecondary,
-                    fontSize: 12,
-                    height: 1.25,
-                  ),
-                ),
+                const SizedBox(width: 14),
+                Expanded(child: details),
+                const SizedBox(width: 12),
+                action,
               ],
             ),
-          ),
-          const SizedBox(width: 12),
-          ElevatedButton(
-            onPressed: onTap,
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(0, 40),
-              padding: const EdgeInsets.symmetric(horizontal: 14),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
-              ),
-            ),
-            child: Text(
-              checkedIn ? strings.todayOpenAction : strings.todayCheckInAction,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
@@ -1499,6 +1661,9 @@ BoxDecoration _homeCardDecoration(ThemeData theme, {double radius = 20}) {
     ],
   );
 }
+
+bool _usesLargeText(BuildContext context) =>
+    MediaQuery.textScalerOf(context).scale(1) >= 1.5;
 
 class JournalScreen extends ConsumerStatefulWidget {
   const JournalScreen({super.key});
