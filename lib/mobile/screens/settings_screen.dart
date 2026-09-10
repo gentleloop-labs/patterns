@@ -103,7 +103,7 @@ class SettingsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 28),
             Text(
-              'Data',
+              strings.settingsDataSection,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
@@ -111,31 +111,30 @@ class SettingsScreen extends ConsumerWidget {
             const SizedBox(height: 12),
             _SettingsItem(
               icon: LineIcons.download,
-              title: 'Export data',
-              subtitle: 'Save your records to a local JSON file',
+              title: strings.settingsExportDataTitle,
+              subtitle: strings.settingsExportDataSubtitle,
               onTap: () => _confirmExport(context),
             ),
             if (isPdfExportSupported) ...[
               const SizedBox(height: 10),
               _SettingsItem(
                 icon: LineIcons.fileExport,
-                title: 'Export report (PDF)',
-                subtitle:
-                    'Save journal, OCD log, and insights for a date range',
+                title: strings.exportReportTitle,
+                subtitle: strings.exportReportDescription,
                 onTap: () => ExportReportSheet.show(context),
               ),
             ],
             const SizedBox(height: 10),
             _SettingsItem(
               icon: LineIcons.upload,
-              title: 'Import data',
-              subtitle: 'Restore entries from a JSON file',
+              title: strings.settingsImportDataTitle,
+              subtitle: strings.settingsImportDataSubtitle,
               onTap: () => _confirmImport(context, ref),
             ),
             if (NotificationService.isSupported) ...[
               const SizedBox(height: 28),
               Text(
-                'Reminders',
+                strings.settingsRemindersSection,
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w800,
                 ),
@@ -143,11 +142,15 @@ class SettingsScreen extends ConsumerWidget {
               const SizedBox(height: 12),
               _SettingsSwitchItem(
                 icon: LineIcons.bell,
-                title: 'Daily reminder',
+                title: strings.settingsDailyReminderTitle,
                 subtitle: reminder.enabled
-                    ? 'A gentle nudge at '
-                          '${TimeOfDay(hour: reminder.hour, minute: reminder.minute).format(context)}'
-                    : 'A gentle nudge to check in each day',
+                    ? strings.settingsDailyReminderAt(
+                        TimeOfDay(
+                          hour: reminder.hour,
+                          minute: reminder.minute,
+                        ).format(context),
+                      )
+                    : strings.settingsDailyReminderOff,
                 value: reminder.enabled,
                 onChanged: (value) => _setReminderEnabled(context, ref, value),
               ),
@@ -155,7 +158,7 @@ class SettingsScreen extends ConsumerWidget {
                 const SizedBox(height: 10),
                 _SettingsItem(
                   icon: LineIcons.clock,
-                  title: 'Reminder time',
+                  title: strings.settingsReminderTimeTitle,
                   subtitle: TimeOfDay(
                     hour: reminder.hour,
                     minute: reminder.minute,
@@ -166,7 +169,7 @@ class SettingsScreen extends ConsumerWidget {
             ],
             const SizedBox(height: 28),
             Text(
-              'Privacy',
+              strings.settingsPrivacySection,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
@@ -174,38 +177,37 @@ class SettingsScreen extends ConsumerWidget {
             const SizedBox(height: 12),
             _SettingsItem(
               icon: LineIcons.lock,
-              title: 'Privacy & safety',
-              subtitle: 'How your local data is handled',
+              title: strings.privacySafetyTitle,
+              subtitle: strings.settingsPrivacySafetySubtitle,
               onTap: () => _showPrivacySheet(context),
             ),
             const SizedBox(height: 10),
             _SettingsSwitchItem(
               icon: LineIcons.barChart,
-              title: 'Share Anonymous Usage Analytics',
-              subtitle:
-                  'Share feature-use events only. Personal OCD data is never included.',
+              title: strings.settingsAnalyticsTitle,
+              subtitle: strings.settingsAnalyticsSubtitle,
               value: usageAnalyticsEnabled,
               onChanged: (value) => _setUsageAnalytics(ref, value),
             ),
             const SizedBox(height: 10),
             _SettingsSwitchItem(
               icon: LineIcons.userLock,
-              title: 'App lock',
-              subtitle: 'Require device unlock when Patterns reopens',
+              title: strings.settingsAppLockTitle,
+              subtitle: strings.settingsAppLockSubtitle,
               value: appLockEnabled,
               onChanged: (value) => _setAppLock(context, ref, value),
             ),
             const SizedBox(height: 10),
             _SettingsItem(
               icon: LineIcons.alternateTrash,
-              title: 'Wipe all data',
-              subtitle: 'Delete local entries and reset app preferences',
+              title: strings.settingsWipeTitle,
+              subtitle: strings.settingsWipeSubtitle,
               onTap: () => _confirmWipeData(context, ref),
             ),
             if (ProService.isPlatformSupported) ...[
               const SizedBox(height: 28),
               Text(
-                'Patterns Pro',
+                strings.settingsProSection,
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w800,
                 ),
@@ -214,8 +216,8 @@ class SettingsScreen extends ConsumerWidget {
               if (ref.watch(proProvider)) ...[
                 _SettingsItem(
                   icon: LineIcons.checkCircle,
-                  title: 'Patterns Pro is active',
-                  subtitle: 'Every recovery tool is unlocked. Thank you',
+                  title: strings.settingsProActiveTitle,
+                  subtitle: strings.settingsProActiveSubtitle,
                   onTap: () => showAppSnackBar(
                     context,
                     'Patterns Pro is active on this device.',
@@ -225,8 +227,8 @@ class SettingsScreen extends ConsumerWidget {
               ] else
                 _SettingsItem(
                   icon: LineIcons.unlock,
-                  title: 'Unlock Patterns Pro',
-                  subtitle: 'One-time unlock for all recovery tools',
+                  title: strings.settingsUnlockProTitle,
+                  subtitle: strings.settingsUnlockProSubtitle,
                   onTap: () => PaywallSheet.show(
                     context,
                     entryPoint: ProEntryPoint.settings,
@@ -235,14 +237,14 @@ class SettingsScreen extends ConsumerWidget {
               const SizedBox(height: 10),
               _SettingsItem(
                 icon: LineIcons.syncIcon,
-                title: 'Restore purchases',
-                subtitle: 'Re-apply a previous Patterns Pro unlock',
+                title: strings.settingsRestorePurchasesTitle,
+                subtitle: strings.settingsRestorePurchasesSubtitle,
                 onTap: () => _restorePurchases(context, ref),
               ),
             ],
             const SizedBox(height: 28),
             Text(
-              'Help',
+              strings.settingsHelpSection,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
@@ -250,8 +252,8 @@ class SettingsScreen extends ConsumerWidget {
             const SizedBox(height: 12),
             _SettingsItem(
               icon: LineIcons.compass,
-              title: 'Replay the app tour',
-              subtitle: 'Walk through what each tab does again',
+              title: strings.settingsReplayTourTitle,
+              subtitle: strings.settingsReplayTourSubtitle,
               onTap: () {
                 mobilePreferences?.setBool(tabTourSeenKey, false);
                 final container = ProviderScope.containerOf(
@@ -267,8 +269,8 @@ class SettingsScreen extends ConsumerWidget {
             const SizedBox(height: 10),
             _SettingsItem(
               icon: LineIcons.lightbulb,
-              title: 'Show the welcome screens',
-              subtitle: 'See the intro again next time you open Patterns',
+              title: strings.settingsShowWelcomeTitle,
+              subtitle: strings.settingsShowWelcomeSubtitle,
               onTap: () {
                 mobilePreferences?.setBool(hasStartedKey, false);
                 showAppSnackBar(
@@ -280,7 +282,7 @@ class SettingsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 28),
             Text(
-              'Feedback',
+              strings.settingsFeedbackSection,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
@@ -288,23 +290,23 @@ class SettingsScreen extends ConsumerWidget {
             const SizedBox(height: 12),
             _SettingsItem(
               icon: LineIcons.star,
-              title: 'Rate Patterns',
-              subtitle: 'Tell the store what you think',
+              title: strings.settingsRateTitle,
+              subtitle: strings.settingsRateSubtitle,
               onTap: () => ReviewPromptService.requestReviewManually(context),
             ),
             const SizedBox(height: 10),
             _SettingsItem(
               icon: LineIcons.envelope,
-              title: 'Send feedback',
-              subtitle: 'Share an idea or tell us what went wrong',
+              title: strings.settingsSendFeedbackTitle,
+              subtitle: strings.settingsSendFeedbackSubtitle,
               onTap: () => ReviewPromptService.sendFeedback(context),
             ),
             if (TipJarService.isPlatformSupported) ...[
               const SizedBox(height: 10),
               _SettingsItem(
                 icon: LineIcons.heart,
-                title: 'Support Patterns',
-                subtitle: 'Leave a small tip to keep development going',
+                title: strings.settingsSupportTitle,
+                subtitle: strings.settingsSupportSubtitle,
                 onTap: () => TipJarSheet.show(context),
               ),
             ],

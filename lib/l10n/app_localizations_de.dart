@@ -15,6 +15,133 @@ class AppLocalizationsDe extends AppLocalizations {
   String get settingsTitle => 'Einstellungen';
 
   @override
+  String get settingsDataSection => 'Daten';
+
+  @override
+  String get settingsExportDataTitle => 'Daten exportieren';
+
+  @override
+  String get settingsExportDataSubtitle =>
+      'Ihre Einträge in einer lokalen JSON-Sicherung speichern';
+
+  @override
+  String get settingsImportDataTitle => 'Daten importieren';
+
+  @override
+  String get settingsImportDataSubtitle =>
+      'Einträge aus einer ZIP- oder JSON-Sicherung wiederherstellen';
+
+  @override
+  String get settingsRemindersSection => 'Erinnerungen';
+
+  @override
+  String get settingsDailyReminderTitle => 'Tägliche Erinnerung';
+
+  @override
+  String settingsDailyReminderAt(String time) {
+    return 'Eine sanfte Erinnerung um $time';
+  }
+
+  @override
+  String get settingsDailyReminderOff =>
+      'Eine sanfte tägliche Erinnerung zum Einchecken';
+
+  @override
+  String get settingsReminderTimeTitle => 'Erinnerungszeit';
+
+  @override
+  String get settingsPrivacySection => 'Datenschutz';
+
+  @override
+  String get settingsPrivacySafetySubtitle =>
+      'Wie Ihre lokalen Daten behandelt werden';
+
+  @override
+  String get settingsAnalyticsTitle => 'Anonyme Nutzungsanalyse teilen';
+
+  @override
+  String get settingsAnalyticsSubtitle =>
+      'Nur Ereignisse zur Funktionsnutzung teilen. Persönliche OCD-Daten werden nie einbezogen.';
+
+  @override
+  String get settingsAppLockTitle => 'App-Sperre';
+
+  @override
+  String get settingsAppLockSubtitle =>
+      'Beim erneuten Öffnen von Patterns die Gerätesperre verlangen';
+
+  @override
+  String get settingsWipeTitle => 'Alle Daten löschen';
+
+  @override
+  String get settingsWipeSubtitle =>
+      'Lokale Einträge löschen und App-Einstellungen zurücksetzen';
+
+  @override
+  String get settingsProSection => 'Patterns Pro';
+
+  @override
+  String get settingsProActiveTitle => 'Patterns Pro ist aktiv';
+
+  @override
+  String get settingsProActiveSubtitle =>
+      'Alle Genesungswerkzeuge sind freigeschaltet. Vielen Dank.';
+
+  @override
+  String get settingsUnlockProTitle => 'Patterns Pro freischalten';
+
+  @override
+  String get settingsUnlockProSubtitle =>
+      'Einmalige Freischaltung aller Genesungswerkzeuge';
+
+  @override
+  String get settingsRestorePurchasesTitle => 'Käufe wiederherstellen';
+
+  @override
+  String get settingsRestorePurchasesSubtitle =>
+      'Eine frühere Patterns-Pro-Freischaltung wiederherstellen';
+
+  @override
+  String get settingsHelpSection => 'Hilfe';
+
+  @override
+  String get settingsReplayTourTitle => 'App-Tour wiederholen';
+
+  @override
+  String get settingsReplayTourSubtitle =>
+      'Noch einmal ansehen, was die einzelnen Tabs tun';
+
+  @override
+  String get settingsShowWelcomeTitle => 'Willkommensseiten anzeigen';
+
+  @override
+  String get settingsShowWelcomeSubtitle =>
+      'Die Einführung beim nächsten Öffnen von Patterns anzeigen';
+
+  @override
+  String get settingsFeedbackSection => 'Feedback';
+
+  @override
+  String get settingsRateTitle => 'Patterns bewerten';
+
+  @override
+  String get settingsRateSubtitle => 'Teilen Sie Ihre Meinung im Store';
+
+  @override
+  String get settingsSendFeedbackTitle => 'Feedback senden';
+
+  @override
+  String get settingsSendFeedbackSubtitle =>
+      'Teilen Sie eine Idee oder melden Sie ein Problem';
+
+  @override
+  String get settingsSupportTitle => 'Patterns unterstützen';
+
+  @override
+  String get settingsSupportSubtitle =>
+      'Mit einem optionalen Trinkgeld die Entwicklung unterstützen';
+
+  @override
   String get appearanceTitle => 'Darstellung';
 
   @override

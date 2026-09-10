@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -44,18 +46,30 @@ class FadeSlideIn extends StatefulWidget {
 
 class _FadeSlideInState extends State<FadeSlideIn>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-    vsync: this,
-    duration: widget.duration,
-  );
+  late final AnimationController _controller;
+  Timer? _delayTimer;
+  bool _started = false;
 
   @override
   void initState() {
     super.initState();
+    _controller = AnimationController(vsync: this, duration: widget.duration);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_started) return;
+    _started = true;
+
+    if (motionDisabled(context)) {
+      _controller.value = 1;
+      return;
+    }
     if (widget.delay == Duration.zero) {
       _controller.forward();
     } else {
-      Future.delayed(widget.delay, () {
+      _delayTimer = Timer(widget.delay, () {
         if (mounted) _controller.forward();
       });
     }
@@ -63,6 +77,7 @@ class _FadeSlideInState extends State<FadeSlideIn>
 
   @override
   void dispose() {
+    _delayTimer?.cancel();
     _controller.dispose();
     super.dispose();
   }

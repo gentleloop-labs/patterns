@@ -119,6 +119,228 @@ abstract class AppLocalizations {
   /// **'Settings'**
   String get settingsTitle;
 
+  /// User-facing Patterns interface copy for settings data section.
+  ///
+  /// In en, this message translates to:
+  /// **'Data'**
+  String get settingsDataSection;
+
+  /// User-facing Patterns interface copy for settings export data title.
+  ///
+  /// In en, this message translates to:
+  /// **'Export data'**
+  String get settingsExportDataTitle;
+
+  /// User-facing Patterns interface copy for settings export data subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Save your records to a local JSON backup'**
+  String get settingsExportDataSubtitle;
+
+  /// User-facing Patterns interface copy for settings import data title.
+  ///
+  /// In en, this message translates to:
+  /// **'Import data'**
+  String get settingsImportDataTitle;
+
+  /// User-facing Patterns interface copy for settings import data subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore entries from a ZIP or JSON backup'**
+  String get settingsImportDataSubtitle;
+
+  /// User-facing Patterns interface copy for settings reminders section.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders'**
+  String get settingsRemindersSection;
+
+  /// User-facing Patterns interface copy for settings daily reminder title.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily reminder'**
+  String get settingsDailyReminderTitle;
+
+  /// User-facing Patterns interface copy for settings daily reminder at.
+  ///
+  /// In en, this message translates to:
+  /// **'A gentle reminder at {time}'**
+  String settingsDailyReminderAt(String time);
+
+  /// User-facing Patterns interface copy for settings daily reminder off.
+  ///
+  /// In en, this message translates to:
+  /// **'A gentle reminder to check in each day'**
+  String get settingsDailyReminderOff;
+
+  /// User-facing Patterns interface copy for settings reminder time title.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder time'**
+  String get settingsReminderTimeTitle;
+
+  /// User-facing Patterns interface copy for settings privacy section.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy'**
+  String get settingsPrivacySection;
+
+  /// User-facing Patterns interface copy for settings privacy safety subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How your local data is handled'**
+  String get settingsPrivacySafetySubtitle;
+
+  /// User-facing Patterns interface copy for settings analytics title.
+  ///
+  /// In en, this message translates to:
+  /// **'Share anonymous usage analytics'**
+  String get settingsAnalyticsTitle;
+
+  /// User-facing Patterns interface copy for settings analytics subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Share feature-use events only. Personal OCD data is never included.'**
+  String get settingsAnalyticsSubtitle;
+
+  /// User-facing Patterns interface copy for settings app lock title.
+  ///
+  /// In en, this message translates to:
+  /// **'App lock'**
+  String get settingsAppLockTitle;
+
+  /// User-facing Patterns interface copy for settings app lock subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Require device unlock when Patterns reopens'**
+  String get settingsAppLockSubtitle;
+
+  /// User-facing Patterns interface copy for settings wipe title.
+  ///
+  /// In en, this message translates to:
+  /// **'Wipe all data'**
+  String get settingsWipeTitle;
+
+  /// User-facing Patterns interface copy for settings wipe subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete local entries and reset app preferences'**
+  String get settingsWipeSubtitle;
+
+  /// User-facing Patterns interface copy for settings pro section.
+  ///
+  /// In en, this message translates to:
+  /// **'Patterns Pro'**
+  String get settingsProSection;
+
+  /// User-facing Patterns interface copy for settings pro active title.
+  ///
+  /// In en, this message translates to:
+  /// **'Patterns Pro is active'**
+  String get settingsProActiveTitle;
+
+  /// User-facing Patterns interface copy for settings pro active subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Every recovery tool is unlocked. Thank you.'**
+  String get settingsProActiveSubtitle;
+
+  /// User-facing Patterns interface copy for settings unlock pro title.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock Patterns Pro'**
+  String get settingsUnlockProTitle;
+
+  /// User-facing Patterns interface copy for settings unlock pro subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'One-time unlock for all recovery tools'**
+  String get settingsUnlockProSubtitle;
+
+  /// User-facing Patterns interface copy for settings restore purchases title.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchases'**
+  String get settingsRestorePurchasesTitle;
+
+  /// User-facing Patterns interface copy for settings restore purchases subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore a previous Patterns Pro unlock'**
+  String get settingsRestorePurchasesSubtitle;
+
+  /// User-facing Patterns interface copy for settings help section.
+  ///
+  /// In en, this message translates to:
+  /// **'Help'**
+  String get settingsHelpSection;
+
+  /// User-facing Patterns interface copy for settings replay tour title.
+  ///
+  /// In en, this message translates to:
+  /// **'Replay the app tour'**
+  String get settingsReplayTourTitle;
+
+  /// User-facing Patterns interface copy for settings replay tour subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Walk through what each tab does again'**
+  String get settingsReplayTourSubtitle;
+
+  /// User-facing Patterns interface copy for settings show welcome title.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the welcome screens'**
+  String get settingsShowWelcomeTitle;
+
+  /// User-facing Patterns interface copy for settings show welcome subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'See the introduction next time Patterns opens'**
+  String get settingsShowWelcomeSubtitle;
+
+  /// User-facing Patterns interface copy for settings feedback section.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback'**
+  String get settingsFeedbackSection;
+
+  /// User-facing Patterns interface copy for settings rate title.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate Patterns'**
+  String get settingsRateTitle;
+
+  /// User-facing Patterns interface copy for settings rate subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell the store what you think'**
+  String get settingsRateSubtitle;
+
+  /// User-facing Patterns interface copy for settings send feedback title.
+  ///
+  /// In en, this message translates to:
+  /// **'Send feedback'**
+  String get settingsSendFeedbackTitle;
+
+  /// User-facing Patterns interface copy for settings send feedback subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Share an idea or tell us what went wrong'**
+  String get settingsSendFeedbackSubtitle;
+
+  /// User-facing Patterns interface copy for settings support title.
+  ///
+  /// In en, this message translates to:
+  /// **'Support Patterns'**
+  String get settingsSupportTitle;
+
+  /// User-facing Patterns interface copy for settings support subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave an optional tip to support development'**
+  String get settingsSupportSubtitle;
+
   /// Appearance-setting interface copy for appearance title.
   ///
   /// In en, this message translates to:

@@ -15,6 +15,133 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsTitle => 'Ajustes';
 
   @override
+  String get settingsDataSection => 'Datos';
+
+  @override
+  String get settingsExportDataTitle => 'Exportar datos';
+
+  @override
+  String get settingsExportDataSubtitle =>
+      'Guarda tus registros en una copia JSON local';
+
+  @override
+  String get settingsImportDataTitle => 'Importar datos';
+
+  @override
+  String get settingsImportDataSubtitle =>
+      'Restaura entradas desde una copia ZIP o JSON';
+
+  @override
+  String get settingsRemindersSection => 'Recordatorios';
+
+  @override
+  String get settingsDailyReminderTitle => 'Recordatorio diario';
+
+  @override
+  String settingsDailyReminderAt(String time) {
+    return 'Un recordatorio amable a las $time';
+  }
+
+  @override
+  String get settingsDailyReminderOff =>
+      'Un recordatorio amable para registrarte cada día';
+
+  @override
+  String get settingsReminderTimeTitle => 'Hora del recordatorio';
+
+  @override
+  String get settingsPrivacySection => 'Privacidad';
+
+  @override
+  String get settingsPrivacySafetySubtitle =>
+      'Cómo se gestionan tus datos locales';
+
+  @override
+  String get settingsAnalyticsTitle => 'Compartir análisis de uso anónimos';
+
+  @override
+  String get settingsAnalyticsSubtitle =>
+      'Comparte solo eventos de uso de funciones. Nunca incluye datos personales sobre el OCD.';
+
+  @override
+  String get settingsAppLockTitle => 'Bloqueo de la aplicación';
+
+  @override
+  String get settingsAppLockSubtitle =>
+      'Solicita desbloquear el dispositivo al volver a abrir Patterns';
+
+  @override
+  String get settingsWipeTitle => 'Borrar todos los datos';
+
+  @override
+  String get settingsWipeSubtitle =>
+      'Elimina entradas locales y restablece las preferencias';
+
+  @override
+  String get settingsProSection => 'Patterns Pro';
+
+  @override
+  String get settingsProActiveTitle => 'Patterns Pro está activo';
+
+  @override
+  String get settingsProActiveSubtitle =>
+      'Todas las herramientas de recuperación están desbloqueadas. Gracias.';
+
+  @override
+  String get settingsUnlockProTitle => 'Desbloquear Patterns Pro';
+
+  @override
+  String get settingsUnlockProSubtitle =>
+      'Pago único para todas las herramientas de recuperación';
+
+  @override
+  String get settingsRestorePurchasesTitle => 'Restaurar compras';
+
+  @override
+  String get settingsRestorePurchasesSubtitle =>
+      'Restaura un desbloqueo anterior de Patterns Pro';
+
+  @override
+  String get settingsHelpSection => 'Ayuda';
+
+  @override
+  String get settingsReplayTourTitle => 'Repetir el recorrido';
+
+  @override
+  String get settingsReplayTourSubtitle =>
+      'Vuelve a ver para qué sirve cada pestaña';
+
+  @override
+  String get settingsShowWelcomeTitle => 'Mostrar las pantallas de bienvenida';
+
+  @override
+  String get settingsShowWelcomeSubtitle =>
+      'Muestra la introducción la próxima vez que abras Patterns';
+
+  @override
+  String get settingsFeedbackSection => 'Comentarios';
+
+  @override
+  String get settingsRateTitle => 'Calificar Patterns';
+
+  @override
+  String get settingsRateSubtitle => 'Comparte tu opinión en la tienda';
+
+  @override
+  String get settingsSendFeedbackTitle => 'Enviar comentarios';
+
+  @override
+  String get settingsSendFeedbackSubtitle =>
+      'Comparte una idea o cuéntanos qué salió mal';
+
+  @override
+  String get settingsSupportTitle => 'Apoyar Patterns';
+
+  @override
+  String get settingsSupportSubtitle =>
+      'Deja una propina opcional para apoyar el desarrollo';
+
+  @override
   String get appearanceTitle => 'Apariencia';
 
   @override
