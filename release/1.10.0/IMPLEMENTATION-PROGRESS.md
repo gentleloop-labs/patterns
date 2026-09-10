@@ -49,6 +49,6 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 
 - Version: `1.10.0+32` (final build number must still be reconciled remotely).
 - Release announcement: `patterns_1_10`.
-- Full Flutter suite after TODAY-02: 229 passing tests; TRACK-01 adds 6 focused tests and the INSIGHTS-01 regression set passes 36 tests pending the next full-suite run.
+- Full Flutter suite after the Guided ERP completion slice: 248 passing tests.
 - Mobile/shared literal audit: 293 candidates after the Guided ERP completion slice. Preserved desktop code is outside the 1.10 gate.
 - Store drafts: field, locale, and character-limit validation passing; not approved or uploaded.
