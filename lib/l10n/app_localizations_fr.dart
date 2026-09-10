@@ -1147,4 +1147,92 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get desktopLicenseNotConfigured =>
       'L’activation de licence n’est pas disponible dans cette version.';
+
+  @override
+  String get journalTitle => 'Journal';
+
+  @override
+  String get journalSearchAction => 'Rechercher dans le journal';
+
+  @override
+  String get journalChooseDateAction => 'Choisir une date';
+
+  @override
+  String get journalSearchHint => 'Rechercher des entrées';
+
+  @override
+  String get journalClearSearchAction => 'Effacer la recherche';
+
+  @override
+  String get journalNoMatchesTitle => 'Aucun résultat';
+
+  @override
+  String journalNoMatchesBody(String query) {
+    return 'Aucune entrée ne correspond à « $query ».';
+  }
+
+  @override
+  String get journalEmptyTitle => 'Aucune entrée pour le moment';
+
+  @override
+  String get journalEmptyBody => 'Quelques lignes suffisent pour commencer.';
+
+  @override
+  String get journalLoadError =>
+      'Impossible de charger les entrées du journal. Réessayez.';
+
+  @override
+  String get journalLoadingLabel => 'Chargement des entrées du journal';
+
+  @override
+  String get journalSavingStatus => 'Enregistrement…';
+
+  @override
+  String get journalSavedStatus => 'Enregistré';
+
+  @override
+  String get journalUnsavedStatus => 'Non enregistré';
+
+  @override
+  String get journalClearDayAction => 'Effacer cette journée';
+
+  @override
+  String get journalSaveAction => 'Enregistrer';
+
+  @override
+  String get journalStartWritingPlaceholder => 'Commencez à écrire…';
+
+  @override
+  String get journalFormatSelectionHint =>
+      'Sélectionnez du texte pour le mettre en forme';
+
+  @override
+  String get journalClearedMessage =>
+      'L’entrée de cette journée a été effacée.';
+
+  @override
+  String get journalNothingToSaveMessage =>
+      'Il n’y a encore rien à enregistrer. Ajoutez une ligne quand vous vous sentez prêt.';
+
+  @override
+  String get journalClearDayTitle => 'Effacer cette journée ?';
+
+  @override
+  String journalClearDayBody(String date) {
+    return 'Cela efface tout ce qui a été enregistré pour le $date. Vous pourrez écrire de nouveau pour cette journée à tout moment.';
+  }
+
+  @override
+  String get journalKeepEntryAction => 'Conserver';
+
+  @override
+  String get journalTodayEntry => 'Entrée du jour';
+
+  @override
+  String get journalOpenEntryAction => 'Ouvrir l’entrée';
+
+  @override
+  String journalOpenEntryHint(String date) {
+    return 'Ouvre l’entrée de journal du $date.';
+  }
 }

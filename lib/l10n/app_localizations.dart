@@ -1978,6 +1978,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'License activation is unavailable in this build.'**
   String get desktopLicenseNotConfigured;
+
+  /// Title of the journal list screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal'**
+  String get journalTitle;
+
+  /// Accessibility label for opening journal search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search journal'**
+  String get journalSearchAction;
+
+  /// Button label for choosing a journal-entry date.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose date'**
+  String get journalChooseDateAction;
+
+  /// Placeholder for the journal search field.
+  ///
+  /// In en, this message translates to:
+  /// **'Search entries'**
+  String get journalSearchHint;
+
+  /// Accessibility label for clearing the journal search field.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear search'**
+  String get journalClearSearchAction;
+
+  /// Journal empty-state title when a search has no matches.
+  ///
+  /// In en, this message translates to:
+  /// **'No matches'**
+  String get journalNoMatchesTitle;
+
+  /// Journal empty-state body when a search has no matches. Preserve the user's search query exactly.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing matches “{query}”.'**
+  String journalNoMatchesBody(String query);
+
+  /// Journal empty-state title before the user has written an entry.
+  ///
+  /// In en, this message translates to:
+  /// **'No journal entries yet'**
+  String get journalEmptyTitle;
+
+  /// Journal empty-state guidance. Keep it optional, calm, and free of pressure.
+  ///
+  /// In en, this message translates to:
+  /// **'A few quiet lines are enough to begin.'**
+  String get journalEmptyBody;
+
+  /// Safe journal loading error. Do not expose raw exception or database text.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal entries could not be loaded. Try again.'**
+  String get journalLoadError;
+
+  /// Accessibility label for journal loading progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading journal entries'**
+  String get journalLoadingLabel;
+
+  /// Live save-status text in the journal editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving…'**
+  String get journalSavingStatus;
+
+  /// Saved-status text in the journal editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get journalSavedStatus;
+
+  /// Unsaved-status text in the journal editor. Avoid alarmist wording.
+  ///
+  /// In en, this message translates to:
+  /// **'Not saved'**
+  String get journalUnsavedStatus;
+
+  /// Action that opens confirmation before deleting one journal day.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear this day'**
+  String get journalClearDayAction;
+
+  /// Action that saves the current journal entry.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get journalSaveAction;
+
+  /// Placeholder in the rich-text journal editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Start writing…'**
+  String get journalStartWritingPlaceholder;
+
+  /// Short guidance shown beside rich-text formatting controls.
+  ///
+  /// In en, this message translates to:
+  /// **'Select text to format'**
+  String get journalFormatSelectionHint;
+
+  /// Factual confirmation after deleting one journal day.
+  ///
+  /// In en, this message translates to:
+  /// **'The entry for that day was cleared.'**
+  String get journalClearedMessage;
+
+  /// Warm validation when the user tries to save an empty journal entry.
+  ///
+  /// In en, this message translates to:
+  /// **'There is nothing to save yet. Add a line whenever you feel ready.'**
+  String get journalNothingToSaveMessage;
+
+  /// Confirmation title before deleting one journal day.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear this day?'**
+  String get journalClearDayTitle;
+
+  /// Confirmation body before deleting one journal day. The date is already formatted for the active locale.
+  ///
+  /// In en, this message translates to:
+  /// **'This clears everything saved for {date}. You can write here again anytime.'**
+  String journalClearDayBody(String date);
+
+  /// Non-destructive action that cancels deletion of a journal day.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep it'**
+  String get journalKeepEntryAction;
+
+  /// Shortcut label for opening today's journal entry.
+  ///
+  /// In en, this message translates to:
+  /// **'Today’s entry'**
+  String get journalTodayEntry;
+
+  /// Action that opens the journal editor for a selected date.
+  ///
+  /// In en, this message translates to:
+  /// **'Open entry'**
+  String get journalOpenEntryAction;
+
+  /// Accessibility hint for a journal-entry card. The date is already formatted for the active locale.
+  ///
+  /// In en, this message translates to:
+  /// **'Opens the journal entry for {date}.'**
+  String journalOpenEntryHint(String date);
 }
 
 class _AppLocalizationsDelegate

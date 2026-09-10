@@ -1144,4 +1144,91 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get desktopLicenseNotConfigured =>
       'La activación de licencias no está disponible en esta compilación.';
+
+  @override
+  String get journalTitle => 'Diario';
+
+  @override
+  String get journalSearchAction => 'Buscar en el diario';
+
+  @override
+  String get journalChooseDateAction => 'Elegir fecha';
+
+  @override
+  String get journalSearchHint => 'Buscar entradas';
+
+  @override
+  String get journalClearSearchAction => 'Borrar búsqueda';
+
+  @override
+  String get journalNoMatchesTitle => 'Sin resultados';
+
+  @override
+  String journalNoMatchesBody(String query) {
+    return 'No hay ninguna entrada que coincida con «$query».';
+  }
+
+  @override
+  String get journalEmptyTitle => 'Aún no hay entradas en el diario';
+
+  @override
+  String get journalEmptyBody => 'Unas pocas líneas bastan para empezar.';
+
+  @override
+  String get journalLoadError =>
+      'No se pudieron cargar las entradas del diario. Inténtalo de nuevo.';
+
+  @override
+  String get journalLoadingLabel => 'Cargando entradas del diario';
+
+  @override
+  String get journalSavingStatus => 'Guardando…';
+
+  @override
+  String get journalSavedStatus => 'Guardado';
+
+  @override
+  String get journalUnsavedStatus => 'Sin guardar';
+
+  @override
+  String get journalClearDayAction => 'Borrar este día';
+
+  @override
+  String get journalSaveAction => 'Guardar';
+
+  @override
+  String get journalStartWritingPlaceholder => 'Empieza a escribir…';
+
+  @override
+  String get journalFormatSelectionHint =>
+      'Selecciona texto para darle formato';
+
+  @override
+  String get journalClearedMessage => 'Se borró la entrada de ese día.';
+
+  @override
+  String get journalNothingToSaveMessage =>
+      'Todavía no hay nada que guardar. Añade una línea cuando te apetezca.';
+
+  @override
+  String get journalClearDayTitle => '¿Borrar este día?';
+
+  @override
+  String journalClearDayBody(String date) {
+    return 'Esto borra todo lo guardado el $date. Podrás volver a escribir para ese día cuando quieras.';
+  }
+
+  @override
+  String get journalKeepEntryAction => 'Conservar';
+
+  @override
+  String get journalTodayEntry => 'Entrada de hoy';
+
+  @override
+  String get journalOpenEntryAction => 'Abrir entrada';
+
+  @override
+  String journalOpenEntryHint(String date) {
+    return 'Abre la entrada del diario del $date.';
+  }
 }

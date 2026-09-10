@@ -1009,4 +1009,89 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get desktopLicenseNotConfigured => 'このビルドではライセンスを有効化できません。';
+
+  @override
+  String get journalTitle => 'ジャーナル';
+
+  @override
+  String get journalSearchAction => 'ジャーナルを検索';
+
+  @override
+  String get journalChooseDateAction => '日付を選択';
+
+  @override
+  String get journalSearchHint => 'エントリーを検索';
+
+  @override
+  String get journalClearSearchAction => '検索を消去';
+
+  @override
+  String get journalNoMatchesTitle => '一致する項目はありません';
+
+  @override
+  String journalNoMatchesBody(String query) {
+    return '「$query」に一致するエントリーはありません。';
+  }
+
+  @override
+  String get journalEmptyTitle => 'ジャーナルのエントリーはまだありません';
+
+  @override
+  String get journalEmptyBody => 'まずは数行、静かに書くことから始められます。';
+
+  @override
+  String get journalLoadError => 'ジャーナルを読み込めませんでした。もう一度お試しください。';
+
+  @override
+  String get journalLoadingLabel => 'ジャーナルのエントリーを読み込み中';
+
+  @override
+  String get journalSavingStatus => '保存中…';
+
+  @override
+  String get journalSavedStatus => '保存済み';
+
+  @override
+  String get journalUnsavedStatus => '未保存';
+
+  @override
+  String get journalClearDayAction => 'この日の記録を消去';
+
+  @override
+  String get journalSaveAction => '保存';
+
+  @override
+  String get journalStartWritingPlaceholder => '書き始める…';
+
+  @override
+  String get journalFormatSelectionHint => '書式を設定するテキストを選択';
+
+  @override
+  String get journalClearedMessage => 'この日の記録を消去しました。';
+
+  @override
+  String get journalNothingToSaveMessage =>
+      'まだ保存する内容がありません。書けそうなときに、一行から始めてください。';
+
+  @override
+  String get journalClearDayTitle => 'この日の記録を消去しますか？';
+
+  @override
+  String journalClearDayBody(String date) {
+    return '$dateに保存された内容をすべて消去します。後からいつでも、この日にもう一度書くことができます。';
+  }
+
+  @override
+  String get journalKeepEntryAction => '残す';
+
+  @override
+  String get journalTodayEntry => '今日のエントリー';
+
+  @override
+  String get journalOpenEntryAction => 'エントリーを開く';
+
+  @override
+  String journalOpenEntryHint(String date) {
+    return '$dateのジャーナルエントリーを開きます。';
+  }
 }

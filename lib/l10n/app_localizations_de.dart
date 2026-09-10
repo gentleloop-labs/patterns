@@ -1146,4 +1146,92 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get desktopLicenseNotConfigured =>
       'Die Lizenzaktivierung ist in diesem Build nicht verfügbar.';
+
+  @override
+  String get journalTitle => 'Tagebuch';
+
+  @override
+  String get journalSearchAction => 'Tagebuch durchsuchen';
+
+  @override
+  String get journalChooseDateAction => 'Datum auswählen';
+
+  @override
+  String get journalSearchHint => 'Einträge durchsuchen';
+
+  @override
+  String get journalClearSearchAction => 'Suche löschen';
+
+  @override
+  String get journalNoMatchesTitle => 'Keine Treffer';
+
+  @override
+  String journalNoMatchesBody(String query) {
+    return 'Kein Eintrag passt zu „$query“.';
+  }
+
+  @override
+  String get journalEmptyTitle => 'Noch keine Tagebucheinträge';
+
+  @override
+  String get journalEmptyBody =>
+      'Ein paar ruhige Zeilen genügen für den Anfang.';
+
+  @override
+  String get journalLoadError =>
+      'Die Tagebucheinträge konnten nicht geladen werden. Versuchen Sie es erneut.';
+
+  @override
+  String get journalLoadingLabel => 'Tagebucheinträge werden geladen';
+
+  @override
+  String get journalSavingStatus => 'Wird gespeichert…';
+
+  @override
+  String get journalSavedStatus => 'Gespeichert';
+
+  @override
+  String get journalUnsavedStatus => 'Nicht gespeichert';
+
+  @override
+  String get journalClearDayAction => 'Diesen Tag löschen';
+
+  @override
+  String get journalSaveAction => 'Speichern';
+
+  @override
+  String get journalStartWritingPlaceholder => 'Schreiben Sie los…';
+
+  @override
+  String get journalFormatSelectionHint => 'Text zum Formatieren auswählen';
+
+  @override
+  String get journalClearedMessage =>
+      'Der Eintrag für diesen Tag wurde gelöscht.';
+
+  @override
+  String get journalNothingToSaveMessage =>
+      'Noch gibt es nichts zu speichern. Schreiben Sie eine Zeile, wenn Sie bereit sind.';
+
+  @override
+  String get journalClearDayTitle => 'Diesen Tag löschen?';
+
+  @override
+  String journalClearDayBody(String date) {
+    return 'Dadurch wird alles gelöscht, was für $date gespeichert ist. Sie können später jederzeit wieder für diesen Tag schreiben.';
+  }
+
+  @override
+  String get journalKeepEntryAction => 'Behalten';
+
+  @override
+  String get journalTodayEntry => 'Heutiger Eintrag';
+
+  @override
+  String get journalOpenEntryAction => 'Eintrag öffnen';
+
+  @override
+  String journalOpenEntryHint(String date) {
+    return 'Öffnet den Tagebucheintrag für $date.';
+  }
 }
