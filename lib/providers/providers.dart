@@ -171,28 +171,31 @@ class ErpExercisePlanNotifier extends AsyncNotifier<List<ErpExercisePlan>> {
     return await DbHelper.instance.getActiveErpExercisePlans();
   }
 
-  Future<void> addPlan(ErpExercisePlan plan) async {
+  Future<bool> addPlan(ErpExercisePlan plan) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await DbHelper.instance.insertErpExercisePlan(plan);
       return await DbHelper.instance.getActiveErpExercisePlans();
     });
+    return !state.hasError;
   }
 
-  Future<void> updatePlan(ErpExercisePlan plan) async {
+  Future<bool> updatePlan(ErpExercisePlan plan) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await DbHelper.instance.updateErpExercisePlan(plan);
       return await DbHelper.instance.getActiveErpExercisePlans();
     });
+    return !state.hasError;
   }
 
-  Future<void> archivePlan(int id) async {
+  Future<bool> archivePlan(int id) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await DbHelper.instance.archiveErpExercisePlan(id);
       return await DbHelper.instance.getActiveErpExercisePlans();
     });
+    return !state.hasError;
   }
 }
 

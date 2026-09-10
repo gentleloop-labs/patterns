@@ -5,7 +5,6 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../../models/models.dart';
@@ -194,14 +193,14 @@ class ErpExercisesScreen extends ConsumerWidget {
                 child: _RoundIconButton(
                   icon: LineIcons.angleLeft,
                   onTap: () => Navigator.of(context).pop(),
-                  semanticLabel: 'Back',
+                  semanticLabel: context.l10n.backAction,
                 ),
               ),
               const SizedBox(height: 12),
             ],
             _Header(
-              title: 'Guided ERP',
-              subtitle: 'Reuse a plan, practice, and learn from the result.',
+              title: context.l10n.erpPlanText('title'),
+              subtitle: context.l10n.erpPlanText('subtitle'),
             ),
             const SizedBox(height: 20),
             const SectionIntro(id: 'guidedErp'),
@@ -209,7 +208,7 @@ class ErpExercisesScreen extends ConsumerWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'My ERP plans',
+                    context.l10n.erpPlanText('myPlans'),
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w800,
                     ),
@@ -218,7 +217,7 @@ class ErpExercisesScreen extends ConsumerWidget {
                 TextButton.icon(
                   onPressed: () => _openPlanEditor(context),
                   icon: const Icon(Icons.add_rounded, size: 18),
-                  label: const Text('New'),
+                  label: Text(context.l10n.erpPlanText('newAction')),
                 ),
               ],
             ),
@@ -251,13 +250,13 @@ class ErpExercisesScreen extends ConsumerWidget {
                 ),
               ),
               error: (error, stackTrace) => Text(
-                'ERP plans are unavailable right now.',
+                context.l10n.erpPlanText('plansError'),
                 style: TextStyle(color: context.appColors.textSecondary),
               ),
             ),
             const SizedBox(height: 22),
             Text(
-              'Recent practice',
+              context.l10n.erpPlanText('recentPractice'),
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
@@ -284,7 +283,7 @@ class ErpExercisesScreen extends ConsumerWidget {
                 ),
               ),
               error: (error, stackTrace) => Text(
-                'Practice history is unavailable right now.',
+                context.l10n.erpPlanText('historyError'),
                 style: TextStyle(color: context.appColors.textSecondary),
               ),
             ),
@@ -328,14 +327,14 @@ class ErpExercisesScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Archive this plan?',
+              sheetContext.l10n.erpPlanText('archiveTitle'),
               style: Theme.of(
                 sheetContext,
               ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
             ),
             const SizedBox(height: 10),
             Text(
-              'It will leave your active plans, but past practice stays in your history.',
+              sheetContext.l10n.erpPlanText('archiveBody'),
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.45,
@@ -347,7 +346,7 @@ class ErpExercisesScreen extends ConsumerWidget {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () => Navigator.pop(sheetContext),
-                    child: const Text('Keep it'),
+                    child: Text(sheetContext.l10n.erpPlanText('keepAction')),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -359,7 +358,7 @@ class ErpExercisesScreen extends ConsumerWidget {
                           .read(erpExercisePlanProvider.notifier)
                           .archivePlan(id);
                     },
-                    child: const Text('Archive'),
+                    child: Text(sheetContext.l10n.erpPlanText('archiveAction')),
                   ),
                 ),
               ],
@@ -420,7 +419,7 @@ class _ErpPlanEditorScreenState extends ConsumerState<ErpPlanEditorScreen> {
     if (_exposureController.text.trim().isEmpty) {
       showAppSnackBar(
         context,
-        'Name the situation you want to practise with, whenever you are ready.',
+        context.l10n.erpPlanText('exposureValidation'),
         type: ToastType.info,
       );
       return;
@@ -428,7 +427,7 @@ class _ErpPlanEditorScreenState extends ConsumerState<ErpPlanEditorScreen> {
     if (_commitmentController.text.trim().isEmpty) {
       showAppSnackBar(
         context,
-        'Choose the response you want to practise resisting, and this will save.',
+        context.l10n.erpPlanText('commitmentValidation'),
         type: ToastType.info,
       );
       return;
@@ -449,16 +448,23 @@ class _ErpPlanEditorScreenState extends ConsumerState<ErpPlanEditorScreen> {
       createdAt: existing?.createdAt ?? now,
       updatedAt: now,
     );
-    if (_isEditing) {
-      await ref.read(erpExercisePlanProvider.notifier).updatePlan(plan);
-    } else {
-      await ref.read(erpExercisePlanProvider.notifier).addPlan(plan);
-    }
+    final saved = _isEditing
+        ? await ref.read(erpExercisePlanProvider.notifier).updatePlan(plan)
+        : await ref.read(erpExercisePlanProvider.notifier).addPlan(plan);
     if (!mounted) return;
+    if (!saved) {
+      setState(() => _saving = false);
+      showAppSnackBar(
+        context,
+        context.l10n.erpPlanText('saveError'),
+        type: ToastType.error,
+      );
+      return;
+    }
     Navigator.pop(context);
     showAppSnackBar(
       context,
-      _isEditing ? 'ERP plan updated.' : 'ERP plan created.',
+      context.l10n.erpPlanText(_isEditing ? 'updated' : 'created'),
       type: ToastType.success,
     );
   }
@@ -472,7 +478,9 @@ class _ErpPlanEditorScreenState extends ConsumerState<ErpPlanEditorScreen> {
         child: Column(
           children: [
             _SimpleHeader(
-              title: _isEditing ? 'Edit ERP plan' : 'Create ERP plan',
+              title: context.l10n.erpPlanText(
+                _isEditing ? 'editTitle' : 'createTitle',
+              ),
               onBack: () => Navigator.pop(context),
             ),
             Expanded(
@@ -480,7 +488,7 @@ class _ErpPlanEditorScreenState extends ConsumerState<ErpPlanEditorScreen> {
                 padding: const EdgeInsets.fromLTRB(20, 6, 20, 28),
                 children: staggered([
                   Text(
-                    'Exercise type',
+                    context.l10n.erpPlanText('exerciseType'),
                     style: theme.textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.w800,
                     ),
@@ -497,27 +505,27 @@ class _ErpPlanEditorScreenState extends ConsumerState<ErpPlanEditorScreen> {
                   const SizedBox(height: 18),
                   _LabeledTextField(
                     controller: _exposureController,
-                    label: 'Exposure target',
+                    label: context.l10n.erpPlanText('exposureTarget'),
                     hint: _template.exposurePrompt,
                     minLines: 2,
                   ),
                   const SizedBox(height: 14),
                   _LabeledTextField(
                     controller: _predictionController,
-                    label: 'OCD prediction',
+                    label: context.l10n.erpPlanText('ocdPrediction'),
                     hint: _template.predictionPrompt,
                     minLines: 2,
                   ),
                   const SizedBox(height: 14),
                   _LabeledTextField(
                     controller: _commitmentController,
-                    label: 'Response-prevention commitment',
+                    label: context.l10n.erpPlanText('preventionCommitment'),
                     hint: _template.commitmentPrompt,
                     minLines: 2,
                   ),
                   const SizedBox(height: 18),
                   Text(
-                    'Default duration',
+                    context.l10n.erpPlanText('defaultDuration'),
                     style: theme.textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.w800,
                     ),
@@ -547,8 +555,10 @@ class _ErpPlanEditorScreenState extends ConsumerState<ErpPlanEditorScreen> {
                     onPressed: _saving ? null : _savePlan,
                     child: Text(
                       _saving
-                          ? 'Saving...'
-                          : (_isEditing ? 'Save plan' : 'Create plan'),
+                          ? context.l10n.erpPlanText('saving')
+                          : context.l10n.erpPlanText(
+                              _isEditing ? 'saveAction' : 'createAction',
+                            ),
                     ),
                   ),
                 ]),
@@ -1086,10 +1096,13 @@ class _Header extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: theme.textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w900,
+              Semantics(
+                header: true,
+                child: Text(
+                  title,
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ),
               const SizedBox(height: 4),
@@ -1158,18 +1171,18 @@ class _EmptyPlansCard extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           Text(
-            'Create your first ERP plan',
+            context.l10n.erpPlanText('emptyTitle'),
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.w800,
             ),
           ),
           const SizedBox(height: 8),
-          Text(
-            'Write the exposure, prediction, and response you want to practise once. Then reuse it whenever you need.',
-            style: _bodyText(theme),
-          ),
+          Text(context.l10n.erpPlanText('emptyBody'), style: _bodyText(theme)),
           const SizedBox(height: 18),
-          ElevatedButton(onPressed: onCreate, child: const Text('Create plan')),
+          ElevatedButton(
+            onPressed: onCreate,
+            child: Text(context.l10n.erpPlanText('createAction')),
+          ),
         ],
       ),
     );
@@ -1217,7 +1230,9 @@ class _PlanCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        _formatDuration(Duration(seconds: plan.defaultSeconds)),
+                        context.l10n.delayMinutes(
+                          (plan.defaultSeconds / 60).ceil(),
+                        ),
                         style: _muted(theme, 12),
                       ),
                     ],
@@ -1236,14 +1251,17 @@ class _PlanCard extends StatelessWidget {
                         onArchive();
                     }
                   },
-                  itemBuilder: (context) => const [
+                  tooltip: context.l10n.erpPlanText('moreActions'),
+                  itemBuilder: (context) => [
                     PopupMenuItem(
                       value: _PlanMenuAction.edit,
-                      child: Text('Edit plan'),
+                      child: Text(context.l10n.erpPlanText('editAction')),
                     ),
                     PopupMenuItem(
                       value: _PlanMenuAction.archive,
-                      child: Text('Archive plan'),
+                      child: Text(
+                        context.l10n.erpPlanText('archivePlanAction'),
+                      ),
                     ),
                   ],
                 ),
@@ -1258,7 +1276,7 @@ class _PlanCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              'Resist: ${plan.preventionCommitment}',
+              context.l10n.erpPlanResist(plan.preventionCommitment),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: _muted(theme, 13).copyWith(height: 1.35),
@@ -1423,7 +1441,7 @@ class _PracticeGuidePanel extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                'Practice guide',
+                context.l10n.erpPlanText('practiceGuide'),
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w900,
                 ),
@@ -1466,7 +1484,7 @@ class _DurationBadge extends StatelessWidget {
         borderRadius: BorderRadius.circular(999),
       ),
       child: Text(
-        _formatDuration(Duration(seconds: seconds)),
+        context.l10n.delayMinutes((seconds / 60).ceil()),
         style: theme.textTheme.labelMedium?.copyWith(
           color: theme.colorScheme.primary,
           fontWeight: FontWeight.w900,
@@ -1512,7 +1530,10 @@ class _RecentPracticeRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final ratingChange = '${session.anxietyBefore} → ${session.anxietyAfter}';
+    final ratingChange = context.l10n.erpPlanRatingChange(
+      session.anxietyBefore,
+      session.anxietyAfter,
+    );
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -1545,7 +1566,7 @@ class _RecentPracticeRow extends StatelessWidget {
                 ),
                 const SizedBox(height: 3),
                 Text(
-                  DateFormat('MMM d, h:mm a').format(session.createdAt),
+                  context.formatMonthDayTime(session.createdAt),
                   style: _muted(theme, 12),
                 ),
               ],
@@ -1576,7 +1597,7 @@ class _EmptyRecentPractice extends StatelessWidget {
       padding: const EdgeInsets.all(18),
       decoration: _softDecoration(theme, radius: 22),
       child: Text(
-        'Completed practices will appear here.',
+        context.l10n.erpPlanText('historyEmpty'),
         style: _muted(theme, 14),
       ),
     );
@@ -1807,26 +1828,28 @@ class _DurationPicker extends StatelessWidget {
     required this.onCustom,
   });
 
-  static const _presets = <int, String>{
-    60: '1 min',
-    300: '5 min',
-    900: '15 min',
-  };
+  static const _presets = <int>[60, 300, 900];
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(5),
       decoration: _softDecoration(Theme.of(context), radius: 24),
-      child: Row(
+      child: Wrap(
+        spacing: 4,
+        runSpacing: 4,
         children: [
-          for (final entry in _presets.entries)
+          for (final preset in _presets)
             _SegmentChip(
-              label: entry.value,
-              selected: !custom && seconds == entry.key,
-              onTap: () => onPreset(entry.key),
+              label: context.l10n.delayMinutes(preset ~/ 60),
+              selected: !custom && seconds == preset,
+              onTap: () => onPreset(preset),
             ),
-          _SegmentChip(label: 'Custom', selected: custom, onTap: onCustom),
+          _SegmentChip(
+            label: context.l10n.delayCustomAction,
+            selected: custom,
+            onTap: onCustom,
+          ),
         ],
       ),
     );
@@ -1851,14 +1874,14 @@ class _CustomMinutes extends StatelessWidget {
           Row(
             children: [
               Text(
-                'Custom duration',
+                context.l10n.erpPlanText('customDuration'),
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w800,
                 ),
               ),
               const Spacer(),
               Text(
-                '${minutes.round()} min',
+                context.l10n.delayMinutes(minutes.round()),
                 style: TextStyle(
                   color: theme.colorScheme.primary,
                   fontSize: 18,
@@ -1868,12 +1891,18 @@ class _CustomMinutes extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          Slider(
-            value: minutes,
-            min: 1,
-            max: 60,
-            divisions: 59,
-            onChanged: onChanged,
+          Semantics(
+            label: context.l10n.erpPlanText('customDuration'),
+            value: context.l10n.delayCustomMinutesValue(minutes.round()),
+            child: Slider(
+              value: minutes,
+              min: 1,
+              max: 60,
+              divisions: 59,
+              semanticFormatterCallback: (value) =>
+                  context.l10n.delayCustomMinutesValue(value.round()),
+              onChanged: onChanged,
+            ),
           ),
         ],
       ),

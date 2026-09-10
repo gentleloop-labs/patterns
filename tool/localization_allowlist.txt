@@ -13,3 +13,4 @@
 # Stable ICU selector keys for localized Guided ERP interface messages. These
 # values select ARB copy and are never presented to the user or persisted.
 ^lib/mobile/screens/erp_exercises_screen\.dart:.*context\.l10n\.erpFlowText\('[a-zA-Z]+'
+^lib/mobile/screens/erp_exercises_screen\.dart:.*context\.l10n\.erpPlanText\('[a-zA-Z]+'

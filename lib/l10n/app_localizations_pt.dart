@@ -2346,6 +2346,62 @@ class AppLocalizationsPt extends AppLocalizations {
   String erpIntensityValue(int value) {
     return 'Intensidade $value de 10';
   }
+
+  @override
+  String erpPlanText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'ERP guiada',
+      'subtitle': 'Reutilize um plano, pratique e registre o que aconteceu.',
+      'myPlans': 'Meus planos de ERP',
+      'newAction': 'Novo',
+      'plansError': 'Os planos de ERP não estão disponíveis agora.',
+      'recentPractice': 'Práticas recentes',
+      'historyError': 'O histórico de práticas não está disponível agora.',
+      'archiveTitle': 'Arquivar este plano?',
+      'archiveBody':
+          'Ele sairá dos seus planos ativos, mas as práticas anteriores continuarão no histórico.',
+      'keepAction': 'Manter',
+      'archiveAction': 'Arquivar',
+      'exposureValidation':
+          'Quando quiser, descreva a situação com a qual deseja praticar.',
+      'commitmentValidation':
+          'Escolha a resposta que deseja praticar não fazer para salvar o plano.',
+      'saveError': 'Não foi possível salvar seu plano de ERP. Tente novamente.',
+      'updated': 'Plano de ERP atualizado.',
+      'created': 'Plano de ERP criado.',
+      'editTitle': 'Editar plano de ERP',
+      'createTitle': 'Criar plano de ERP',
+      'exerciseType': 'Tipo de exercício',
+      'exposureTarget': 'Alvo da exposição',
+      'ocdPrediction': 'Previsão do TOC',
+      'preventionCommitment': 'Compromisso de prevenção de resposta',
+      'defaultDuration': 'Duração padrão',
+      'saving': 'Salvando…',
+      'saveAction': 'Salvar plano',
+      'createAction': 'Criar plano',
+      'emptyTitle': 'Crie seu primeiro plano de ERP',
+      'emptyBody':
+          'Escreva uma vez a exposição, a previsão e a resposta que deseja praticar não fazer. Depois, reutilize o plano quando precisar.',
+      'moreActions': 'Mais ações do plano',
+      'editAction': 'Editar plano',
+      'archivePlanAction': 'Arquivar plano',
+      'practiceGuide': 'Guia da prática',
+      'historyEmpty': 'As práticas concluídas aparecerão aqui.',
+      'customDuration': 'Duração personalizada',
+      'other': 'Plano de ERP',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpPlanResist(String response) {
+    return 'Não fazer: $response';
+  }
+
+  @override
+  String erpPlanRatingChange(int before, int after) {
+    return '$before → $after';
+  }
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -4689,5 +4745,61 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String erpIntensityValue(int value) {
     return 'Intensidade $value de 10';
+  }
+
+  @override
+  String erpPlanText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'ERP guiada',
+      'subtitle': 'Reutilize um plano, pratique e registre o que aconteceu.',
+      'myPlans': 'Meus planos de ERP',
+      'newAction': 'Novo',
+      'plansError': 'Os planos de ERP não estão disponíveis agora.',
+      'recentPractice': 'Práticas recentes',
+      'historyError': 'O histórico de práticas não está disponível agora.',
+      'archiveTitle': 'Arquivar este plano?',
+      'archiveBody':
+          'Ele sairá dos seus planos ativos, mas as práticas anteriores continuarão no histórico.',
+      'keepAction': 'Manter',
+      'archiveAction': 'Arquivar',
+      'exposureValidation':
+          'Quando quiser, descreva a situação com a qual deseja praticar.',
+      'commitmentValidation':
+          'Escolha a resposta que deseja praticar não fazer para salvar o plano.',
+      'saveError': 'Não foi possível salvar seu plano de ERP. Tente novamente.',
+      'updated': 'Plano de ERP atualizado.',
+      'created': 'Plano de ERP criado.',
+      'editTitle': 'Editar plano de ERP',
+      'createTitle': 'Criar plano de ERP',
+      'exerciseType': 'Tipo de exercício',
+      'exposureTarget': 'Alvo da exposição',
+      'ocdPrediction': 'Previsão do TOC',
+      'preventionCommitment': 'Compromisso de prevenção de resposta',
+      'defaultDuration': 'Duração padrão',
+      'saving': 'Salvando…',
+      'saveAction': 'Salvar plano',
+      'createAction': 'Criar plano',
+      'emptyTitle': 'Crie seu primeiro plano de ERP',
+      'emptyBody':
+          'Escreva uma vez a exposição, a previsão e a resposta que deseja praticar não fazer. Depois, reutilize o plano quando precisar.',
+      'moreActions': 'Mais ações do plano',
+      'editAction': 'Editar plano',
+      'archivePlanAction': 'Arquivar plano',
+      'practiceGuide': 'Guia da prática',
+      'historyEmpty': 'As práticas concluídas aparecerão aqui.',
+      'customDuration': 'Duração personalizada',
+      'other': 'Plano de ERP',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpPlanResist(String response) {
+    return 'Não fazer: $response';
+  }
+
+  @override
+  String erpPlanRatingChange(int before, int after) {
+    return '$before → $after';
   }
 }

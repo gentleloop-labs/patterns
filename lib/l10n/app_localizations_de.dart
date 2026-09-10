@@ -2356,4 +2356,62 @@ class AppLocalizationsDe extends AppLocalizations {
   String erpIntensityValue(int value) {
     return 'Intensität $value von 10';
   }
+
+  @override
+  String erpPlanText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Geführte ERP',
+      'subtitle':
+          'Nutze einen Plan erneut, übe und halte fest, was passiert ist.',
+      'myPlans': 'Meine ERP-Pläne',
+      'newAction': 'Neu',
+      'plansError': 'ERP-Pläne sind gerade nicht verfügbar.',
+      'recentPractice': 'Letzte Übungen',
+      'historyError': 'Der Übungsverlauf ist gerade nicht verfügbar.',
+      'archiveTitle': 'Diesen Plan archivieren?',
+      'archiveBody':
+          'Er wird aus deinen aktiven Plänen entfernt, vergangene Übungen bleiben aber im Verlauf.',
+      'keepAction': 'Behalten',
+      'archiveAction': 'Archivieren',
+      'exposureValidation':
+          'Wenn du bereit bist, benenne die Situation, mit der du üben möchtest.',
+      'commitmentValidation':
+          'Wähle die Reaktion, die du nicht ausführen möchtest, damit der Plan gespeichert werden kann.',
+      'saveError':
+          'Dein ERP-Plan konnte nicht gespeichert werden. Bitte versuche es erneut.',
+      'updated': 'ERP-Plan aktualisiert.',
+      'created': 'ERP-Plan erstellt.',
+      'editTitle': 'ERP-Plan bearbeiten',
+      'createTitle': 'ERP-Plan erstellen',
+      'exerciseType': 'Übungsart',
+      'exposureTarget': 'Expositionsziel',
+      'ocdPrediction': 'OCD-Vorhersage',
+      'preventionCommitment': 'Vorhaben zur Reaktionsverhinderung',
+      'defaultDuration': 'Standarddauer',
+      'saving': 'Wird gespeichert…',
+      'saveAction': 'Plan speichern',
+      'createAction': 'Plan erstellen',
+      'emptyTitle': 'Erstelle deinen ersten ERP-Plan',
+      'emptyBody':
+          'Notiere Exposition, Vorhersage und die Reaktion, die du nicht ausführen möchtest, einmal. Danach kannst du den Plan wiederverwenden.',
+      'moreActions': 'Weitere Planaktionen',
+      'editAction': 'Plan bearbeiten',
+      'archivePlanAction': 'Plan archivieren',
+      'practiceGuide': 'Übungsleitfaden',
+      'historyEmpty': 'Abgeschlossene Übungen erscheinen hier.',
+      'customDuration': 'Eigene Dauer',
+      'other': 'ERP-Plan',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String erpPlanResist(String response) {
+    return 'Nicht ausführen: $response';
+  }
+
+  @override
+  String erpPlanRatingChange(int before, int after) {
+    return '$before → $after';
+  }
 }
