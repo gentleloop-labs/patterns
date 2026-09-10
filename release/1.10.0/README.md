@@ -15,7 +15,7 @@ set `PATTERNS_ENABLE_MULTILINGUAL=true` in another release workflow.
 Release CI must also run `tool/localization_audit.sh` and
 `dart run tool/check_arb_translator_context.dart`. Translator context is now
 complete and that gate passes. The literal audit remains intentionally red
-with 697 candidates as of September 9, 2026; its report is the working
+with 667 candidates as of September 10, 2026; its report is the working
 full-product localization backlog and must reach zero before copy freeze.
 
 ## Product story
