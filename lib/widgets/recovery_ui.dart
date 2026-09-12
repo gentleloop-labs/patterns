@@ -88,6 +88,7 @@ class RatingSlider extends StatelessWidget {
   final double value;
   final ValueChanged<double> onChanged;
   final int max;
+  final String Function(int value)? valueFormatter;
 
   const RatingSlider({
     super.key,
@@ -95,39 +96,63 @@ class RatingSlider extends StatelessWidget {
     required this.value,
     required this.onChanged,
     this.max = 10,
+    this.valueFormatter,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final roundedValue = value.round();
+    final formattedValue =
+        valueFormatter?.call(roundedValue) ?? '$roundedValue/$max';
+    final largeText = MediaQuery.textScalerOf(context).scale(16) >= 24;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: Text(
-                label,
-                style: TextStyle(
-                  color: context.appColors.textSecondary,
-                  fontSize: 13,
+        if (largeText) ...[
+          Text(
+            label,
+            style: TextStyle(
+              color: context.appColors.textSecondary,
+              fontSize: 13,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            formattedValue,
+            style: theme.textTheme.labelLarge?.copyWith(
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+        ] else
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    color: context.appColors.textSecondary,
+                    fontSize: 13,
+                  ),
                 ),
               ),
-            ),
-            Text(
-              '${value.round()}/$max',
-              style: theme.textTheme.labelLarge?.copyWith(
-                fontWeight: FontWeight.w800,
+              Text(
+                formattedValue,
+                style: theme.textTheme.labelLarge?.copyWith(
+                  fontWeight: FontWeight.w800,
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
         Slider(
           value: value,
           min: 0,
           max: max.toDouble(),
           divisions: max,
           onChanged: onChanged,
+          semanticFormatterCallback: (sliderValue) =>
+              valueFormatter?.call(sliderValue.round()) ??
+              '${sliderValue.round()}/$max',
         ),
       ],
     );

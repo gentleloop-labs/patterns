@@ -27,3 +27,8 @@
 ^lib/mobile/screens/emergency_toolkit_screen\.dart:.*\.emergencyToolkitText\('[a-zA-Z]+'
 ^lib/mobile/screens/exposure_hierarchy_screen\.dart:.*\.exposureHierarchyText\('[a-zA-Z]+'
 ^lib/mobile/screens/exposure_materials_screen\.dart:.*\.exposureMaterialsText\('[a-zA-Z]+'
+
+# Stable ICU selector keys for the localized Response Prevention and Urge
+# Surfing tools. These select ARB copy and are never displayed or persisted.
+^lib/mobile/screens/response_prevention_screen\.dart:.*\.responsePreventionText\('[a-zA-Z]+'
+^lib/mobile/screens/urge_surf_screen\.dart:.*\.urgeSurfText\('[a-zA-Z]+'

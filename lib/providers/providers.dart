@@ -300,20 +300,28 @@ class ResponsePreventionNotifier
     return await DbHelper.instance.getResponsePreventionLogs();
   }
 
-  Future<void> addLog(ResponsePreventionLog log) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
+  Future<bool> addLog(ResponsePreventionLog log) async {
+    final previous = state.asData?.value ?? const <ResponsePreventionLog>[];
+    try {
       await DbHelper.instance.insertResponsePreventionLog(log);
-      return await DbHelper.instance.getResponsePreventionLogs();
-    });
+      state = AsyncData(await DbHelper.instance.getResponsePreventionLogs());
+      return true;
+    } catch (_) {
+      state = AsyncData(previous);
+      return false;
+    }
   }
 
-  Future<void> deleteLog(int id) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
+  Future<bool> deleteLog(int id) async {
+    final previous = state.asData?.value ?? const <ResponsePreventionLog>[];
+    try {
       await DbHelper.instance.deleteResponsePreventionLog(id);
-      return await DbHelper.instance.getResponsePreventionLogs();
-    });
+      state = AsyncData(await DbHelper.instance.getResponsePreventionLogs());
+      return true;
+    } catch (_) {
+      state = AsyncData(previous);
+      return false;
+    }
   }
 }
 
@@ -332,12 +340,16 @@ class UrgeSurfNotifier extends AsyncNotifier<List<UrgeSurfSession>> {
     return await DbHelper.instance.getUrgeSurfSessions();
   }
 
-  Future<void> addSession(UrgeSurfSession session) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
+  Future<bool> addSession(UrgeSurfSession session) async {
+    final previous = state.asData?.value ?? const <UrgeSurfSession>[];
+    try {
       await DbHelper.instance.insertUrgeSurfSession(session);
-      return await DbHelper.instance.getUrgeSurfSessions();
-    });
+      state = AsyncData(await DbHelper.instance.getUrgeSurfSessions());
+      return true;
+    } catch (_) {
+      state = AsyncData(previous);
+      return false;
+    }
   }
 }
 

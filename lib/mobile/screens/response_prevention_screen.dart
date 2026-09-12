@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter/semantics.dart';
 
+import '../../l10n/l10n.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../theme/app_colors.dart';
@@ -10,12 +11,15 @@ import '../../widgets/app_snack_bar.dart';
 import '../widgets/recovery_ui.dart';
 import '../widgets/section_intro.dart';
 
-const _outcomeLabels = {
-  ResponseOutcome.resisted: 'Resisted',
-  ResponseOutcome.delayed: 'Delayed',
-  ResponseOutcome.partial: 'Partly did it',
-  ResponseOutcome.performed: 'Did it',
-};
+String _outcomeLabel(BuildContext context, ResponseOutcome outcome) {
+  final key = switch (outcome) {
+    ResponseOutcome.resisted => 'outcomeResisted',
+    ResponseOutcome.delayed => 'outcomeDelayed',
+    ResponseOutcome.partial => 'outcomePartial',
+    ResponseOutcome.performed => 'outcomePerformed',
+  };
+  return context.l10n.responsePreventionText(key);
+}
 
 Color _outcomeColor(BuildContext context, ResponseOutcome outcome) {
   switch (outcome) {
@@ -36,6 +40,7 @@ class ResponsePreventionScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final logs = ref.watch(responsePreventionProvider);
 
     return Scaffold(
@@ -48,24 +53,26 @@ class ResponsePreventionScreen extends ConsumerWidget {
                 CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    'Response Prevention',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      strings.responsePreventionText('title'),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
                 TextButton.icon(
                   onPressed: () => _openLog(context),
                   icon: const Icon(Icons.add_rounded, size: 18),
-                  label: const Text('Log'),
+                  label: Text(strings.responsePreventionText('logAction')),
                 ),
               ],
             ),
             const SizedBox(height: 6),
             Text(
-              'After a trigger, note how you responded to the urge. Every '
-              'resisted or delayed urge is progress.',
+              strings.responsePreventionText('subtitle'),
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.4,
@@ -95,7 +102,7 @@ class ResponsePreventionScreen extends ConsumerWidget {
                 child: Center(child: CircularProgressIndicator()),
               ),
               error: (_, _) => Text(
-                'Your logs are unavailable right now.',
+                strings.responsePreventionText('loadError'),
                 style: TextStyle(color: context.appColors.textSecondary),
               ),
             ),
@@ -119,6 +126,7 @@ class ResponsePreventionScreen extends ConsumerWidget {
     WidgetRef ref,
     ResponsePreventionLog log,
   ) {
+    final strings = context.l10n;
     final id = log.id;
     if (id == null) return;
     showModalBottomSheet<void>(
@@ -137,15 +145,18 @@ class ResponsePreventionScreen extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Delete this log?',
-                style: Theme.of(
-                  sheetContext,
-                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+              Semantics(
+                header: true,
+                child: Text(
+                  strings.responsePreventionText('deleteTitle'),
+                  style: Theme.of(
+                    sheetContext,
+                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+                ),
               ),
               const SizedBox(height: 10),
               Text(
-                'This entry will be removed for good.',
+                strings.responsePreventionText('deleteBody'),
                 style: TextStyle(
                   color: context.appColors.textSecondary,
                   height: 1.45,
@@ -157,7 +168,7 @@ class ResponsePreventionScreen extends ConsumerWidget {
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () => Navigator.pop(sheetContext),
-                      child: const Text('Cancel'),
+                      child: Text(strings.responsePreventionText('cancel')),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -165,11 +176,27 @@ class ResponsePreventionScreen extends ConsumerWidget {
                     child: ElevatedButton(
                       onPressed: () async {
                         Navigator.pop(sheetContext);
-                        await ref
+                        final deleted = await ref
                             .read(responsePreventionProvider.notifier)
                             .deleteLog(id);
+                        if (!context.mounted) return;
+                        final message = strings.responsePreventionText(
+                          deleted ? 'deleteSuccess' : 'deleteError',
+                        );
+                        showAppSnackBar(
+                          context,
+                          message,
+                          type: deleted ? ToastType.success : ToastType.error,
+                        );
+                        await SemanticsService.sendAnnouncement(
+                          View.of(context),
+                          message,
+                          Directionality.of(context),
+                        );
                       },
-                      child: const Text('Delete'),
+                      child: Text(
+                        strings.responsePreventionText('deleteAction'),
+                      ),
                     ),
                   ),
                 ],
@@ -192,75 +219,92 @@ class _LogCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final color = _outcomeColor(context, log.outcome);
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: recoverySoftDecoration(theme),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
-                decoration: BoxDecoration(
-                  color: color.withValues(alpha: 0.16),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  _outcomeLabels[log.outcome]!,
-                  style: theme.textTheme.labelMedium?.copyWith(
-                    color: color,
-                    fontWeight: FontWeight.w800,
+    final strings = context.l10n;
+    final outcome = _outcomeLabel(context, log.outcome);
+    final date = context.formatMonthDay(log.datetime);
+    return Semantics(
+      container: true,
+      label: strings.responsePreventionLogSummary(
+        outcome,
+        date,
+        log.anxietyLevel,
+        log.situation,
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: recoverySoftDecoration(theme),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 5,
+                  ),
+                  decoration: BoxDecoration(
+                    color: color.withValues(alpha: 0.16),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    outcome,
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      color: color,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
+                const Spacer(),
+                Text(
+                  date,
+                  style: TextStyle(
+                    color: context.appColors.textSecondary,
+                    fontSize: 12,
+                  ),
+                ),
+                const SizedBox(width: 4),
+                IconButton(
+                  onPressed: onDelete,
+                  tooltip: strings.responsePreventionText('deleteTooltip'),
+                  constraints: const BoxConstraints(
+                    minWidth: 44,
+                    minHeight: 44,
+                  ),
+                  icon: Icon(
+                    Icons.close_rounded,
+                    size: 18,
+                    color: context.appColors.textSecondary,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Text(
+              log.situation,
+              style: theme.textTheme.bodyLarge?.copyWith(height: 1.35),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              strings.responsePreventionDistress(log.anxietyLevel),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                fontSize: 12,
               ),
-              const Spacer(),
+            ),
+            if (log.note != null && log.note!.trim().isNotEmpty) ...[
+              const SizedBox(height: 8),
               Text(
-                DateFormat('MMM d').format(log.datetime),
+                log.note!,
                 style: TextStyle(
                   color: context.appColors.textSecondary,
-                  fontSize: 12,
-                ),
-              ),
-              const SizedBox(width: 4),
-              GestureDetector(
-                onTap: onDelete,
-                child: Icon(
-                  Icons.close_rounded,
-                  size: 16,
-                  color: context.appColors.textSecondary,
+                  fontSize: 13,
+                  height: 1.4,
                 ),
               ),
             ],
-          ),
-          const SizedBox(height: 10),
-          Text(
-            log.situation,
-            style: theme.textTheme.bodyLarge?.copyWith(height: 1.35),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            'Anxiety ${log.anxietyLevel}/10',
-            style: TextStyle(
-              color: context.appColors.textSecondary,
-              fontSize: 12,
-            ),
-          ),
-          if (log.note != null && log.note!.trim().isNotEmpty) ...[
-            const SizedBox(height: 8),
-            Text(
-              log.note!,
-              style: TextStyle(
-                color: context.appColors.textSecondary,
-                fontSize: 13,
-                height: 1.4,
-              ),
-            ),
           ],
-        ],
+        ),
       ),
     );
   }
@@ -273,6 +317,7 @@ class _EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     return Container(
       padding: const EdgeInsets.all(22),
       decoration: recoverySoftDecoration(theme),
@@ -285,16 +330,18 @@ class _EmptyState extends StatelessWidget {
             size: 28,
           ),
           const SizedBox(height: 12),
-          Text(
-            'Track how you respond',
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w800,
+          Semantics(
+            header: true,
+            child: Text(
+              strings.responsePreventionText('emptyTitle'),
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w800,
+              ),
             ),
           ),
           const SizedBox(height: 6),
           Text(
-            'Log what happened after a trigger and how you handled the urge. '
-            'Over time you will see your resistance grow.',
+            strings.responsePreventionText('emptyBody'),
             style: TextStyle(
               color: context.appColors.textSecondary,
               height: 1.45,
@@ -305,7 +352,7 @@ class _EmptyState extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: onLog,
-              child: const Text('Log a response'),
+              child: Text(strings.responsePreventionText('emptyAction')),
             ),
           ),
         ],
@@ -338,11 +385,12 @@ class _ResponsePreventionLogScreenState
   }
 
   Future<void> _save() async {
+    final strings = context.l10n;
     final situation = _situationController.text.trim();
     if (situation.isEmpty) {
       showAppSnackBar(
         context,
-        'A quick note on what set it off, and this will save.',
+        strings.responsePreventionText('situationValidation'),
         type: ToastType.info,
       );
       return;
@@ -359,19 +407,31 @@ class _ResponsePreventionLogScreenState
           : _noteController.text.trim(),
       createdAt: now,
     );
-    await ref.read(responsePreventionProvider.notifier).addLog(log);
+    final saved = await ref
+        .read(responsePreventionProvider.notifier)
+        .addLog(log);
     if (!mounted) return;
-    Navigator.of(context).pop();
-    showAppSnackBar(
-      context,
-      'Logged. That awareness counts.',
-      type: ToastType.success,
+    final message = strings.responsePreventionText(
+      saved ? 'saveSuccess' : 'saveError',
     );
+    if (!saved) {
+      setState(() => _saving = false);
+      showAppSnackBar(context, message, type: ToastType.error);
+      await SemanticsService.sendAnnouncement(
+        View.of(context),
+        message,
+        Directionality.of(context),
+      );
+      return;
+    }
+    Navigator.of(context).pop();
+    showAppSnackBar(context, message, type: ToastType.success);
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -382,10 +442,13 @@ class _ResponsePreventionLogScreenState
                 CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    'Log a response',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      strings.responsePreventionText('editorTitle'),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
@@ -393,14 +456,14 @@ class _ResponsePreventionLogScreenState
             ),
             const SizedBox(height: 18),
             LabeledField(
-              label: 'What set it off?',
-              hint: 'The trigger, and what OCD wanted you to do',
+              label: strings.responsePreventionText('situationLabel'),
+              hint: strings.responsePreventionText('situationHint'),
               controller: _situationController,
               minLines: 2,
             ),
             const SizedBox(height: 20),
             Text(
-              'How did you respond?',
+              strings.responsePreventionText('outcomeQuestion'),
               style: theme.textTheme.labelLarge?.copyWith(
                 fontWeight: FontWeight.w700,
               ),
@@ -415,15 +478,16 @@ class _ResponsePreventionLogScreenState
               padding: const EdgeInsets.all(16),
               decoration: recoverySoftDecoration(theme, radius: 18),
               child: RatingSlider(
-                label: 'Distress at the time',
+                label: strings.responsePreventionText('distressLabel'),
                 value: _anxiety,
                 onChanged: (v) => setState(() => _anxiety = v),
+                valueFormatter: strings.responsePreventionDistress,
               ),
             ),
             const SizedBox(height: 16),
             LabeledField(
-              label: 'Note (optional)',
-              hint: 'Anything you want to remember',
+              label: strings.responsePreventionText('noteLabel'),
+              hint: strings.responsePreventionText('noteHint'),
               controller: _noteController,
               minLines: 2,
             ),
@@ -438,7 +502,7 @@ class _ResponsePreventionLogScreenState
                         width: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : const Text('Save log'),
+                    : Text(strings.responsePreventionText('saveAction')),
               ),
             ),
           ]),
@@ -457,39 +521,79 @@ class _OutcomePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: [
-        for (final entry in _outcomeLabels.entries)
-          GestureDetector(
-            onTap: () => onChanged(entry.key),
+    final largeText = MediaQuery.textScalerOf(context).scale(16) >= 24;
+    final choices = [
+      for (final value in ResponseOutcome.values)
+        Semantics(
+          button: true,
+          selected: outcome == value,
+          child: InkWell(
+            onTap: () => onChanged(value),
+            borderRadius: BorderRadius.circular(12),
             child: AnimatedContainer(
-              duration: AppMotion.fast,
+              duration: motionDisabled(context)
+                  ? Duration.zero
+                  : AppMotion.fast,
+              constraints: const BoxConstraints(minHeight: 44),
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               decoration: BoxDecoration(
-                color: outcome == entry.key
+                color: outcome == value
                     ? theme.colorScheme.primary
                     : theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: outcome == entry.key
+                  color: outcome == value
                       ? theme.colorScheme.primary
                       : theme.dividerColor,
                 ),
               ),
-              child: Text(
-                entry.value,
-                style: theme.textTheme.labelLarge?.copyWith(
-                  fontWeight: FontWeight.w700,
-                  color: outcome == entry.key
-                      ? theme.colorScheme.onPrimary
-                      : context.appColors.textSecondary,
-                ),
+              child: Row(
+                mainAxisSize: largeText ? MainAxisSize.max : MainAxisSize.min,
+                children: [
+                  if (outcome == value) ...[
+                    Icon(
+                      Icons.check_rounded,
+                      size: 16,
+                      color: theme.colorScheme.onPrimary,
+                    ),
+                    const SizedBox(width: 4),
+                  ],
+                  if (largeText)
+                    Expanded(
+                      child: Text(
+                        _outcomeLabel(context, value),
+                        style: theme.textTheme.labelLarge?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: outcome == value
+                              ? theme.colorScheme.onPrimary
+                              : context.appColors.textSecondary,
+                        ),
+                      ),
+                    )
+                  else
+                    Text(
+                      _outcomeLabel(context, value),
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: outcome == value
+                            ? theme.colorScheme.onPrimary
+                            : context.appColors.textSecondary,
+                      ),
+                    ),
+                ],
               ),
             ),
           ),
-      ],
-    );
+        ),
+    ];
+    if (largeText) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          for (final choice in choices) ...[choice, const SizedBox(height: 8)],
+        ],
+      );
+    }
+    return Wrap(spacing: 8, runSpacing: 8, children: choices);
   }
 }

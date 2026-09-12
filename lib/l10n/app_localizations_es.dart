@@ -2795,6 +2795,155 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String responsePreventionText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Prevención de respuesta',
+      'logAction': 'Registrar',
+      'subtitle':
+          'Registra el desencadenante, la respuesta que elegiste y el malestar de ese momento.',
+      'loadError':
+          'Tus registros de respuesta no están disponibles ahora. Inténtalo de nuevo.',
+      'deleteTitle': '¿Eliminar este registro de respuesta?',
+      'deleteBody':
+          'Esto elimina el registro de forma permanente de este dispositivo.',
+      'cancel': 'Cancelar',
+      'deleteAction': 'Eliminar',
+      'deleteTooltip': 'Eliminar registro de respuesta',
+      'deleteSuccess': 'Registro de respuesta eliminado.',
+      'deleteError':
+          'No se pudo eliminar este registro de respuesta. Inténtalo de nuevo.',
+      'outcomeResisted': 'No realizada',
+      'outcomeDelayed': 'Retrasada',
+      'outcomePartial': 'Realizada en parte',
+      'outcomePerformed': 'Realizada',
+      'emptyTitle': 'Registra una respuesta',
+      'emptyBody':
+          'Después de un desencadenante, registra lo que elegiste y el malestar que notaste.',
+      'emptyAction': 'Registrar una respuesta',
+      'editorTitle': 'Registrar una respuesta',
+      'situationLabel': '¿Qué lo desencadenó?',
+      'situationHint': 'El desencadenante y la respuesta que impulsó el TOC',
+      'outcomeQuestion': '¿Qué hiciste?',
+      'distressLabel': 'Malestar en ese momento',
+      'noteLabel': 'Nota (opcional)',
+      'noteHint': 'Algo que quieras recordar',
+      'saveAction': 'Guardar registro',
+      'situationValidation': 'Añade una descripción breve del desencadenante.',
+      'saveSuccess': 'Registro de respuesta guardado.',
+      'saveError':
+          'No se pudo guardar este registro de respuesta. Inténtalo de nuevo.',
+      'other': 'Prevención de respuesta',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String responsePreventionDistress(int value) {
+    return 'Malestar $value de 10';
+  }
+
+  @override
+  String responsePreventionLogSummary(
+    String outcome,
+    String date,
+    int distress,
+    String situation,
+  ) {
+    return '$outcome · $date · malestar $distress de 10 · $situation';
+  }
+
+  @override
+  String urgeSurfText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Surfear el impulso',
+      'subtitle':
+          'Observa un impulso durante el tiempo que elijas, sin tener que cambiarlo ni actuar en respuesta.',
+      'startAction': 'Empezar',
+      'historyTitle': 'Sesiones anteriores',
+      'emptyHistory':
+          'Aún no hay sesiones guardadas. Una sesión registrada aparecerá aquí.',
+      'loadError':
+          'Tus sesiones guardadas no están disponibles ahora. Inténtalo de nuevo.',
+      'triggerFallback': 'Un impulso',
+      'setupTitle': 'Antes de empezar',
+      'triggerLabel': '¿Cuál es el impulso? (opcional)',
+      'triggerHint': 'Por ejemplo, el impulso de volver a lavarme las manos',
+      'initialUrgeLabel': 'Impulso al comenzar',
+      'durationQuestion': '¿Durante cuánto tiempo quieres observarlo?',
+      'begin': 'Comenzar',
+      'surfingTitle': 'Observa el impulso',
+      'surfingBody':
+          'Observa los pensamientos y las sensaciones, y elige qué hacer después. Puedes parar en cualquier momento.',
+      'currentUrgeLabel': 'Impulso ahora',
+      'doneAction': 'Terminar por ahora',
+      'reflectionTitle': 'Registra lo que notaste',
+      'waveTitle': 'Niveles de impulso registrados',
+      'finalUrgeLabel': 'Impulso al terminar',
+      'noteLabel': 'Nota (opcional)',
+      'noteHint': '¿Qué notaste?',
+      'saveAction': 'Guardar sesión',
+      'finishAction': 'Finalizar',
+      'saveSuccess': 'Sesión guardada.',
+      'finishSuccess': 'Práctica finalizada.',
+      'saveError': 'No se pudo guardar esta sesión. Inténtalo de nuevo.',
+      'timerComplete': 'Tiempo de observación terminado.',
+      'other': 'Surfear el impulso',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String urgeSurfRating(int value) {
+    return 'Impulso $value de 10';
+  }
+
+  @override
+  String urgeSurfDuration(int minutes) {
+    String _temp0 = intl.Intl.pluralLogic(
+      minutes,
+      locale: localeName,
+      other: '$minutes minutos',
+      one: '1 minuto',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String urgeSurfRecordedDuration(int minutes, int seconds) {
+    return '$minutes min $seconds s';
+  }
+
+  @override
+  String urgeSurfHistorySummary(
+    int initial,
+    int peak,
+    int finalLevel,
+    String duration,
+  ) {
+    return 'Comenzó en $initial de 10 · valor más alto registrado $peak de 10 · terminó en $finalLevel de 10 · $duration';
+  }
+
+  @override
+  String urgeSurfSessionSemantics(String trigger, String date, String summary) {
+    return '$trigger · $date · $summary';
+  }
+
+  @override
+  String urgeSurfWaveSummary(int initial, int peak) {
+    return 'Comenzó en $initial de 10 · valor más alto registrado $peak de 10';
+  }
+
+  @override
+  String urgeSurfTimerDisplay(int minutes, String seconds) {
+    return '$minutes:$seconds';
+  }
+
+  @override
+  String urgeSurfTimeRemaining(int minutes, int seconds) {
+    return 'Quedan $minutes min y $seconds s';
+  }
+
+  @override
   String emergencyToolkitText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': 'Apoyo para este momento',

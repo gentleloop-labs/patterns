@@ -24,12 +24,12 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 | TODAY-02 | Today semantics, large text, Reduced Motion, and non-colour cues | code complete | Localized control/chart semantics, 44-point actions, 200% mobile/desktop reflow, Reduced Motion and explicit day-state tests |
 | TRACK-01 | OCD tracker localization, validation, and accessibility | code complete | Six-locale copy, locale-aware dates, safe CRUD failures, explicit adjustable distress semantics, 44-point controls, large-text and Reduced Motion coverage; 6 focused tests |
 | INSIGHTS-01 | Insights localization and accessible chart alternatives | code complete | Six-locale copy, factual Calm Insights, pressure-metric suppression, localized number/date formatting, chart and heatmap text alternatives, non-colour trend cues, safe errors, 200% reflow, Reduced Motion, and 36 focused/regression tests |
-| RECOVERY-01 | Recovery Hub and ERP tools localization/accessibility | in progress | Recovery Hub, Emergency Toolkit and breathing, Compulsion Delay, Guided ERP, Structured Programs, Y-BOCS, Exposure Hierarchy, and Exposure Materials are code complete. Hierarchies hide calculated progress in Calm Insights; status controls reflow and carry non-colour selected states; material files use confirmed deletion and failed-save cleanup. Remaining recovery tools remain. |
+| RECOVERY-01 | Recovery Hub and ERP tools localization/accessibility | in progress | Recovery Hub, Emergency Toolkit and breathing, Compulsion Delay, Guided ERP, Structured Programs, Y-BOCS, Exposure Hierarchy, Exposure Materials, Response Prevention, and Urge Surfing are code complete. Response and surf records preserve user text and use locale-aware summaries; CRUD failures remain retryable; controls reflow at 200% text; selected states use text/icons; timer decoration respects Reduced Motion; urge copy makes no outcome promise. Remaining recovery tools remain. |
 | CONTENT-01 | Stable-ID localized OCD tracks, programs, and Y-BOCS content | code complete | Structured programs, all five OCD tracks, and every Y-BOCS prompt, response anchor, symptom category/item, and severity explanation resolve from unchanged stable IDs in all six languages. Scoring, stored IDs, and English desktop compatibility remain unchanged; PDF theme labels now follow the selected locale. |
 | SETTINGS-01 | Remaining shared settings, privacy, backup, reminders, dialogs, and errors | pending | — |
 | SHELL-01 | Onboarding, What’s New, navigation, spotlight, and shared shell copy | pending | — |
 | COMMERCE-01 | Mobile Pro, tips, macOS StoreKit, and verified Windows/Linux licensing | code complete | Commerce widget/service tests; live desktop release configuration remains pending |
-| AUDIT-01 | Zero reviewed mobile/shared user-facing literal candidates | in progress | Mobile-only scope correctly excludes preserved desktop and legacy desktop-shell paths; 116 true mobile/shared candidates after completing Exposure Hierarchy and Exposure Materials |
+| AUDIT-01 | Zero reviewed mobile/shared user-facing literal candidates | in progress | Mobile-only scope correctly excludes preserved desktop and legacy desktop-shell paths; 100 true mobile/shared candidates after completing Response Prevention and Urge Surfing |
 
 ## Verification and release gates
 
@@ -49,6 +49,6 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 
 - Version: `1.10.0+32` (final build number must still be reconciled remotely).
 - Release announcement: `patterns_1_10`.
-- Full Flutter suite after completing Exposure Hierarchy and Exposure Materials: 269 passing tests.
-- Mobile/shared literal audit: 116 candidates; stable localization selector keys are covered by narrow documented allowlist rules.
+- Full Flutter suite after completing Response Prevention and Urge Surfing: 276 passing tests.
+- Mobile/shared literal audit: 100 candidates; stable localization selector keys are covered by narrow documented allowlist rules.
 - Store drafts: field, locale, and character-limit validation passing; not approved or uploaded.

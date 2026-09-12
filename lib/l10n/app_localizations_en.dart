@@ -2765,6 +2765,152 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String responsePreventionText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Response Prevention',
+      'logAction': 'Log',
+      'subtitle':
+          'Record the trigger, the response you chose, and your distress at that time.',
+      'loadError':
+          'Your response logs are unavailable right now. Please try again.',
+      'deleteTitle': 'Delete this response log?',
+      'deleteBody': 'This permanently removes the log from this device.',
+      'cancel': 'Cancel',
+      'deleteAction': 'Delete',
+      'deleteTooltip': 'Delete response log',
+      'deleteSuccess': 'Response log deleted.',
+      'deleteError':
+          'This response log could not be deleted. Please try again.',
+      'outcomeResisted': 'Not performed',
+      'outcomeDelayed': 'Delayed',
+      'outcomePartial': 'Partly performed',
+      'outcomePerformed': 'Performed',
+      'emptyTitle': 'Record a response',
+      'emptyBody':
+          'After a trigger, record what you chose and the distress you noticed.',
+      'emptyAction': 'Log a response',
+      'editorTitle': 'Log a response',
+      'situationLabel': 'What set it off?',
+      'situationHint': 'The trigger and the response OCD prompted',
+      'outcomeQuestion': 'What did you do?',
+      'distressLabel': 'Distress at the time',
+      'noteLabel': 'Note (optional)',
+      'noteHint': 'Anything you want to remember',
+      'saveAction': 'Save log',
+      'situationValidation': 'Add a brief description of the trigger.',
+      'saveSuccess': 'Response log saved.',
+      'saveError': 'This response log could not be saved. Please try again.',
+      'other': 'Response prevention',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String responsePreventionDistress(int value) {
+    return 'Distress $value of 10';
+  }
+
+  @override
+  String responsePreventionLogSummary(
+    String outcome,
+    String date,
+    int distress,
+    String situation,
+  ) {
+    return '$outcome · $date · distress $distress of 10 · $situation';
+  }
+
+  @override
+  String urgeSurfText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Urge Surfing',
+      'subtitle':
+          'Observe an urge for a chosen amount of time without needing to change it or act on it.',
+      'startAction': 'Start a surf',
+      'historyTitle': 'Past surfs',
+      'emptyHistory': 'No saved surfs yet. A recorded surf will appear here.',
+      'loadError':
+          'Your saved surfs are unavailable right now. Please try again.',
+      'triggerFallback': 'An urge',
+      'setupTitle': 'Before you surf',
+      'triggerLabel': 'What is the urge? (optional)',
+      'triggerHint': 'For example, the urge to wash my hands again',
+      'initialUrgeLabel': 'Urge at the start',
+      'durationQuestion': 'How long would you like to observe it?',
+      'begin': 'Begin',
+      'surfingTitle': 'Observe the urge',
+      'surfingBody':
+          'Notice thoughts and sensations, and choose what you do next. You can stop at any time.',
+      'currentUrgeLabel': 'Urge right now',
+      'doneAction': 'Done for now',
+      'reflectionTitle': 'Record what you noticed',
+      'waveTitle': 'Recorded urge levels',
+      'finalUrgeLabel': 'Urge at the end',
+      'noteLabel': 'Note (optional)',
+      'noteHint': 'What did you notice?',
+      'saveAction': 'Save surf',
+      'finishAction': 'Finish',
+      'saveSuccess': 'Surf record saved.',
+      'finishSuccess': 'Practice finished.',
+      'saveError': 'This surf could not be saved. Please try again.',
+      'timerComplete': 'Observation timer complete.',
+      'other': 'Urge surfing',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String urgeSurfRating(int value) {
+    return 'Urge $value of 10';
+  }
+
+  @override
+  String urgeSurfDuration(int minutes) {
+    String _temp0 = intl.Intl.pluralLogic(
+      minutes,
+      locale: localeName,
+      other: '$minutes minutes',
+      one: '1 minute',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String urgeSurfRecordedDuration(int minutes, int seconds) {
+    return '$minutes min $seconds sec';
+  }
+
+  @override
+  String urgeSurfHistorySummary(
+    int initial,
+    int peak,
+    int finalLevel,
+    String duration,
+  ) {
+    return 'Started at $initial of 10 · highest recorded $peak of 10 · ended at $finalLevel of 10 · $duration';
+  }
+
+  @override
+  String urgeSurfSessionSemantics(String trigger, String date, String summary) {
+    return '$trigger · $date · $summary';
+  }
+
+  @override
+  String urgeSurfWaveSummary(int initial, int peak) {
+    return 'Started at $initial of 10 · highest recorded $peak of 10';
+  }
+
+  @override
+  String urgeSurfTimerDisplay(int minutes, String seconds) {
+    return '$minutes:$seconds';
+  }
+
+  @override
+  String urgeSurfTimeRemaining(int minutes, int seconds) {
+    return '$minutes min $seconds sec remaining';
+  }
+
+  @override
   String emergencyToolkitText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': 'Support right now',
