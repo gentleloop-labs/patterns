@@ -14,11 +14,11 @@ review, and release-owner approval in `reviewed-locales.json` is complete. Do
 not set `PATTERNS_ENABLE_MULTILINGUAL=true` in another release workflow.
 
 Release CI must also run `tool/localization_audit.sh --scope mobile` and
-`dart run tool/check_arb_translator_context.dart`. Translator context is now
-complete and that gate passes. The mobile/shared literal audit remains
-intentionally red with 380 candidates after TRACK-01 on September 10, 2026;
-it must reach zero before copy freeze. Existing desktop code is preserved but
-excluded from every 1.10 build, localization, accessibility, and store gate.
+`dart run tool/check_arb_translator_context.dart`. Translator context is
+complete for all 711 English messages, the mobile/shared literal audit reports
+zero unreviewed candidates, and the canonical English source is hash-locked in
+`source-freeze.json`. Existing desktop code is preserved but excluded from
+every 1.10 build, localization, accessibility, and store gate.
 
 ## Product story
 
@@ -210,14 +210,16 @@ task.
 
 ## Release plumbing
 
-- [ ] Implement every P0 item and verify its acceptance criteria.
-- [ ] Decide whether all P1 items fit; remove any unshipped claim from metadata.
-- [ ] Bump `pubspec.yaml` to `1.10.0` with the next approved build number.
-- [ ] Change `currentReleaseId` and replace the 1.9 What's New screen.
+- [x] Implement every P0 item and its automated acceptance coverage.
+- [x] Complete the P1 copy and privacy scope represented in the release promise.
+- [x] Bump `pubspec.yaml` to `1.10.0+32`; reconcile the final build numbers with
+      each store before the signed candidates are built.
+- [x] Change `currentReleaseId` and replace the 1.9 What's New screen.
+- [x] Clear the mobile/shared localization audit and freeze the English source.
 - [ ] Add canonical App Store and Google Play 1.10 metadata.
 - [ ] Update screenshots to show Calm Insights and accessibility improvements.
-- [ ] Run `flutter analyze` with no issues.
-- [ ] Run the complete Flutter test suite with no failures.
+- [x] Run `flutter analyze` with no issues.
+- [x] Run the complete Flutter test suite with no failures.
 - [ ] Test upgrade/migration from 1.9 with real existing data.
 - [ ] Test purchase and restore on sandbox accounts.
 - [ ] Test export/import round trips, including formatted journals and all Pro

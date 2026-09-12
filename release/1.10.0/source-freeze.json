@@ -1,0 +1,28 @@
+{
+  "release": "1.10.0",
+  "status": "frozen",
+  "frozenAt": "2026-09-13",
+  "sourceCommit": "813dc8d04e15496c524f3e830443774bdbb4be71",
+  "scope": "mobile_and_shared",
+  "artifacts": [
+    {
+      "path": "lib/l10n/app_en.arb",
+      "kind": "canonical_flutter_arb",
+      "sha256": "606a985b5af05d93fb4f2b670fdff760d818a66df89deb4bc0d13c19e9074bed",
+      "messageCount": 711
+    },
+    {
+      "path": "ios/Runner/en.lproj/InfoPlist.strings",
+      "kind": "ios_permission_copy",
+      "sha256": "6b1b7be36d7f2eab9572fed2614067a2883d90488533ab0f30a5cd2bf4132caf"
+    }
+  ],
+  "evidence": {
+    "productUnits": "code_complete",
+    "mobileLiteralAudit": "pass_zero_candidates",
+    "translatorContext": "pass_711_of_711",
+    "flutterAnalyze": "pass",
+    "flutterTests": "pass_318_tests"
+  },
+  "changePolicy": "Any change to a frozen artifact must update this manifest and repeat every in-app translation and guarded review pass before multilingual release approval."
+}

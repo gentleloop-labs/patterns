@@ -1,6 +1,6 @@
 # Patterns 1.10.0 implementation progress
 
-Last updated: September 12, 2026
+Last updated: September 13, 2026
 
 This is the working ledger for completing the unified 1.10 release plan. A
 unit moves to **complete** only when its scoped implementation, focused tests,
@@ -35,8 +35,8 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 
 | ID | Gate | Status | Exit condition |
 | --- | --- | --- | --- |
-| COPY-01 | English copy freeze | pending | Product and accessibility implementation complete; literal audit cleared |
-| REVIEW-01 | Six-language guarded AI clinical, crisis, privacy, accessibility, and paywall review | blocked | Every recorded AI-assisted pass complete, risks resolved, physical QA recorded, and release owner approval given |
+| COPY-01 | English copy freeze | verified | `source-freeze.json` hash-locks the 711-message canonical ARB and English iOS permission copy at source commit `813dc8d`; `tool/check_copy_freeze.dart`, zero-candidate mobile audit, translator-context gate, analysis, and 318 tests pass |
+| REVIEW-01 | Six-language guarded AI clinical, crisis, privacy, accessibility, and paywall review | in progress | Frozen source is ready for independent per-locale passes; rendered-layout, physical QA, and release-owner approval remain open |
 | A11Y-DEVICE-01 | Physical-iPhone accessibility verification | pending | Common-task VoiceOver, largest text, Reduce Motion, grayscale, and Differentiate Without Color pass |
 | A11Y-DEVICE-02 | Physical-Android accessibility verification | pending | Common-task TalkBack, largest font/display scale, Reduced Motion, non-colour, and appearance pass |
 | DATA-01 | 1.9 upgrade and import/export compatibility | pending | Real-data upgrade and round-trip evidence recorded |

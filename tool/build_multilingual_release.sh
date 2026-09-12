@@ -1,6 +1,7 @@
 #!/bin/sh
 set -eu
 
+dart run tool/check_copy_freeze.dart
 dart run tool/check_multilingual_release.dart
 ./tool/localization_audit.sh --scope mobile
 dart run tool/check_arb_translator_context.dart
