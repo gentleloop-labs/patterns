@@ -3995,4 +3995,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String tourProgress(int current, int total) {
     return 'Step $current of $total';
   }
+
+  @override
+  String completionAnnouncement(String title, String body) {
+    return '$title. $body';
+  }
 }

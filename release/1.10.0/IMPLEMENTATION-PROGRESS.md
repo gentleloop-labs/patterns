@@ -29,13 +29,13 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 | SETTINGS-01 | Remaining shared settings, privacy, backup, reminders, dialogs, and errors | code complete | Six-language settings, privacy, App Lock, reminder, analytics-consent, ZIP export and ZIP/JSON import copy; complete localized backup previews; retry-safe scheduling/authentication/destructive outcomes; accessible 44-point controls, blocked background semantics, Reduced Motion, and 200% reflow coverage; 12 focused Settings/App Lock tests |
 | SHELL-01 | Onboarding, What’s New, navigation, spotlight, and shared shell copy | code complete | Six-language first-run results, section intros, tab-tour finale and controls, navigation/FAB labels, and add-sheet copy; factual non-celebratory first-run confirmations; focus-contained tour route, 44-point actions, scrollable large-text layouts, and Reduced Motion across onboarding/navigation; 4 focused shell tests |
 | COMMERCE-01 | Mobile Pro, tips, macOS StoreKit, and verified Windows/Linux licensing | code complete | Commerce widget/service tests; live desktop release configuration remains pending |
-| AUDIT-01 | Zero reviewed mobile/shared user-facing literal candidates | in progress | Mobile-only scope correctly excludes preserved desktop and legacy desktop-shell paths; 15 candidates remain after completing the product shell, all confined to shared service/demo/debug composition cleanup |
+| AUDIT-01 | Zero reviewed mobile/shared user-facing literal candidates | verified | Mobile audit reports zero unreviewed candidates. Completion announcements use ICU composition; analytics returns stable action/theme IDs for localization at presentation boundaries; debug seed and capture-only marketing text have explicit narrow scope exclusions. |
 
 ## Verification and release gates
 
 | ID | Gate | Status | Exit condition |
 | --- | --- | --- | --- |
-| COPY-01 | English copy freeze | blocked | Product and accessibility implementation complete; literal audit cleared |
+| COPY-01 | English copy freeze | pending | Product and accessibility implementation complete; literal audit cleared |
 | REVIEW-01 | Six-language guarded AI clinical, crisis, privacy, accessibility, and paywall review | blocked | Every recorded AI-assisted pass complete, risks resolved, physical QA recorded, and release owner approval given |
 | A11Y-DEVICE-01 | Physical-iPhone accessibility verification | pending | Common-task VoiceOver, largest text, Reduce Motion, grayscale, and Differentiate Without Color pass |
 | A11Y-DEVICE-02 | Physical-Android accessibility verification | pending | Common-task TalkBack, largest font/display scale, Reduced Motion, non-colour, and appearance pass |
@@ -49,6 +49,6 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 
 - Version: `1.10.0+32` (final build number must still be reconciled remotely).
 - Release announcement: `patterns_1_10`.
-- Full Flutter suite after completing the product shell: 316 passing tests.
-- Mobile/shared literal audit: 15 candidates; stable localization selector keys are covered by narrow documented allowlist rules.
+- Full Flutter suite after clearing the mobile audit: 318 passing tests.
+- Mobile/shared literal audit: zero unreviewed candidates; stable localization selector keys and debug-only sources are covered by documented allowlist rules.
 - Store drafts: field, locale, and character-limit validation passing; not approved or uploaded.

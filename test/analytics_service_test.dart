@@ -33,6 +33,54 @@ void main() {
     expect(filtered.map((entry) => entry.date).toList(), ['2026-01-10']);
   });
 
+  test('next-step selection returns stable IDs without display copy', () {
+    expect(
+      AnalyticsService.chooseNextStep(
+        isPro: false,
+        hasYbocs: false,
+        hasHierarchy: false,
+        practicedToday: false,
+      ),
+      RecoveryStep.selfCheck,
+    );
+    expect(
+      AnalyticsService.chooseNextStep(
+        isPro: true,
+        hasYbocs: true,
+        hasHierarchy: false,
+        practicedToday: false,
+      ),
+      RecoveryStep.buildHierarchy,
+    );
+    expect(
+      AnalyticsService.chooseNextStep(
+        isPro: false,
+        hasYbocs: true,
+        hasHierarchy: false,
+        practicedToday: false,
+      ),
+      RecoveryStep.dailyPractice,
+    );
+    expect(
+      AnalyticsService.chooseNextStep(
+        isPro: true,
+        hasYbocs: true,
+        hasHierarchy: true,
+        practicedToday: true,
+      ),
+      RecoveryStep.reflect,
+    );
+    expect(
+      AnalyticsService.chooseNextStep(
+        isPro: false,
+        hasYbocs: true,
+        hasHierarchy: false,
+        practicedToday: true,
+      ),
+      RecoveryStep.journal,
+    );
+  });
+
   group('recovery intelligence dashboard', () {
     final now = DateTime(2026, 7, 8, 12);
 
@@ -111,6 +159,20 @@ void main() {
       expect(dashboard.averageUrge, 0);
       expect(dashboard.consistencyPercent, 0);
       expect(dashboard.topThemes, isEmpty);
+    });
+
+    test('uncategorized activity uses a stable internal theme ID', () {
+      final dashboard = AnalyticsService.buildRecoveryDashboard(
+        journals: [_journal(now, daysAgo: 0, content: 'No matched keywords')],
+        ocds: const [],
+        delaySessions: const [],
+        erpSessions: const [],
+        exposureSteps: const [],
+        range: AnalyticsDateRange.seven,
+        now: now,
+      );
+
+      expect(dashboard.topThemes.single.label, uncategorizedThemeId);
     });
   });
 }

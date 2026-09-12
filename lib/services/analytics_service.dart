@@ -270,6 +270,10 @@ class RecoveryDashboardSummary {
 /// "Your next step" card on the Today screen and routed by the mobile shell.
 enum RecoveryStep { selfCheck, buildHierarchy, dailyPractice, reflect, journal }
 
+/// Internal classifier ID. It is resolved to localized "Other" copy at the
+/// presentation boundary and is never displayed directly.
+const uncategorizedThemeId = 'uncategorized';
+
 /// A single recommended next action, computed from where the user is in the
 /// Assess → Plan → Practice → Review arc.
 class RecoveryNextStep {
@@ -293,51 +297,25 @@ class AnalyticsService {
   /// Review (reflect). It is Pro-aware: a free user is never handed a paywalled
   /// step as their "next step" — the Plan step is skipped for them and the
   /// Review step falls back to a plain journal entry.
-  static RecoveryNextStep buildNextStep({
+  static RecoveryStep chooseNextStep({
     required bool isPro,
     required bool hasYbocs,
     required bool hasHierarchy,
     required bool practicedToday,
   }) {
     if (!hasYbocs) {
-      return const RecoveryNextStep(
-        step: RecoveryStep.selfCheck,
-        title: 'See where you are',
-        subtitle:
-            'A quick self-check sets a baseline to measure progress against.',
-        ctaLabel: 'Take self-check',
-      );
+      return RecoveryStep.selfCheck;
     }
     if (isPro && !hasHierarchy) {
-      return const RecoveryNextStep(
-        step: RecoveryStep.buildHierarchy,
-        title: 'Set up your practice',
-        subtitle: 'Build an exposure ladder, from easiest to hardest.',
-        ctaLabel: 'Build ladder',
-      );
+      return RecoveryStep.buildHierarchy;
     }
     if (!practicedToday) {
-      return const RecoveryNextStep(
-        step: RecoveryStep.dailyPractice,
-        title: 'Do today\'s practice',
-        subtitle: 'One small ERP rep today keeps your momentum going.',
-        ctaLabel: 'Start practice',
-      );
+      return RecoveryStep.dailyPractice;
     }
     if (isPro) {
-      return const RecoveryNextStep(
-        step: RecoveryStep.reflect,
-        title: 'Reflect and learn',
-        subtitle: 'Capture what today\'s practice taught you.',
-        ctaLabel: 'Reflect',
-      );
+      return RecoveryStep.reflect;
     }
-    return const RecoveryNextStep(
-      step: RecoveryStep.journal,
-      title: 'Reflect on today',
-      subtitle: 'Write a line about how your practice went.',
-      ctaLabel: 'Open journal',
-    );
+    return RecoveryStep.journal;
   }
 
   /// Whether the user has generated enough *real* activity to responsibly show
@@ -654,7 +632,11 @@ class AnalyticsService {
 
     if (counts.isEmpty && uncategorized > 0) {
       return [
-        ThemeInsight(label: 'Uncategorized', percent: 1, count: uncategorized),
+        ThemeInsight(
+          label: uncategorizedThemeId,
+          percent: 1,
+          count: uncategorized,
+        ),
       ];
     }
 
