@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter/semantics.dart';
 
+import '../../l10n/l10n.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../theme/app_colors.dart';
@@ -16,6 +17,7 @@ class BehavioralExperimentsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final experiments = ref.watch(behavioralExperimentProvider);
 
     return Scaffold(
@@ -28,23 +30,26 @@ class BehavioralExperimentsScreen extends ConsumerWidget {
                 CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    'Behavioral Experiments',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      strings.behavioralExperimentText('title'),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
                 TextButton.icon(
                   onPressed: () => _openCreate(context),
                   icon: const Icon(Icons.add_rounded, size: 18),
-                  label: const Text('New'),
+                  label: Text(strings.behavioralExperimentText('newAction')),
                 ),
               ],
             ),
             const SizedBox(height: 6),
             Text(
-              'Test what OCD predicts against what actually happens.',
+              strings.behavioralExperimentText('subtitle'),
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.4,
@@ -75,7 +80,7 @@ class BehavioralExperimentsScreen extends ConsumerWidget {
                 child: Center(child: CircularProgressIndicator()),
               ),
               error: (_, _) => Text(
-                'Your experiments are unavailable right now.',
+                strings.behavioralExperimentText('loadError'),
                 style: TextStyle(color: context.appColors.textSecondary),
               ),
             ),
@@ -108,65 +113,90 @@ class BehavioralExperimentsScreen extends ConsumerWidget {
     WidgetRef ref,
     BehavioralExperiment exp,
   ) {
+    final strings = context.l10n;
     final id = exp.id;
     if (id == null) return;
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (sheetContext) => SafeArea(
-        top: false,
-        child: Container(
-          margin: const EdgeInsets.all(14),
-          padding: const EdgeInsets.all(20),
-          decoration: recoverySoftDecoration(
-            Theme.of(sheetContext),
-            radius: 28,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Delete this experiment?',
-                style: Theme.of(
-                  sheetContext,
-                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'It will be removed for good.',
-                style: TextStyle(
-                  color: context.appColors.textSecondary,
-                  height: 1.45,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Row(
+      builder: (sheetContext) {
+        final largeText = MediaQuery.textScalerOf(sheetContext).scale(16) >= 24;
+        final cancel = OutlinedButton(
+          onPressed: () => Navigator.pop(sheetContext),
+          child: Text(strings.behavioralExperimentText('cancel')),
+        );
+        final delete = ElevatedButton(
+          onPressed: () async {
+            Navigator.pop(sheetContext);
+            final deleted = await ref
+                .read(behavioralExperimentProvider.notifier)
+                .delete(id);
+            if (!context.mounted) return;
+            final message = strings.behavioralExperimentText(
+              deleted ? 'deleteSuccess' : 'deleteError',
+            );
+            showAppSnackBar(
+              context,
+              message,
+              type: deleted ? ToastType.success : ToastType.error,
+            );
+            await SemanticsService.sendAnnouncement(
+              View.of(context),
+              message,
+              Directionality.of(context),
+            );
+          },
+          child: Text(strings.behavioralExperimentText('deleteAction')),
+        );
+        return SafeArea(
+          top: false,
+          child: Container(
+            margin: const EdgeInsets.all(14),
+            padding: const EdgeInsets.all(20),
+            decoration: recoverySoftDecoration(
+              Theme.of(sheetContext),
+              radius: 28,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () => Navigator.pop(sheetContext),
-                      child: const Text('Cancel'),
+                  Semantics(
+                    header: true,
+                    child: Text(
+                      strings.behavioralExperimentText('deleteTitle'),
+                      style: Theme.of(sheetContext).textTheme.titleLarge
+                          ?.copyWith(fontWeight: FontWeight.w800),
                     ),
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        Navigator.pop(sheetContext);
-                        await ref
-                            .read(behavioralExperimentProvider.notifier)
-                            .delete(id);
-                      },
-                      child: const Text('Delete'),
+                  const SizedBox(height: 10),
+                  Text(
+                    strings.behavioralExperimentText('deleteBody'),
+                    style: TextStyle(
+                      color: context.appColors.textSecondary,
+                      height: 1.45,
                     ),
                   ),
+                  const SizedBox(height: 20),
+                  if (largeText) ...[
+                    SizedBox(width: double.infinity, child: cancel),
+                    const SizedBox(height: 10),
+                    SizedBox(width: double.infinity, child: delete),
+                  ] else
+                    Row(
+                      children: [
+                        Expanded(child: cancel),
+                        const SizedBox(width: 12),
+                        Expanded(child: delete),
+                      ],
+                    ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
@@ -185,7 +215,15 @@ class _ExperimentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final completed = experiment.status == ExperimentStatus.completed;
+    final status = strings.behavioralExperimentText(
+      completed ? 'statusCompleted' : 'statusPlanned',
+    );
+    final confidence = strings.behavioralExperimentConfidence(
+      context.formatWholePercent(experiment.confidence),
+    );
+    final date = context.formatMonthDay(experiment.datetime);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: recoverySoftDecoration(theme),
@@ -193,66 +231,119 @@ class _ExperimentCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primary.withValues(alpha: 0.14),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  '${experiment.confidence}% sure',
-                  style: theme.textTheme.labelMedium?.copyWith(
-                    color: theme.colorScheme.primary,
-                    fontWeight: FontWeight.w800,
+              Expanded(
+                child: Semantics(
+                  label: strings.behavioralExperimentCardSummary(
+                    status,
+                    date,
+                    confidence,
+                    experiment.fearPrediction,
+                    experiment.experiment,
+                  ),
+                  excludeSemantics: true,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 5,
+                            ),
+                            decoration: BoxDecoration(
+                              color: theme.colorScheme.primary.withValues(
+                                alpha: 0.14,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  completed
+                                      ? Icons.check_circle_outline_rounded
+                                      : Icons.schedule_rounded,
+                                  size: 16,
+                                  color: theme.colorScheme.primary,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  status,
+                                  style: theme.textTheme.labelMedium?.copyWith(
+                                    color: theme.colorScheme.primary,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Text(
+                            confidence,
+                            style: theme.textTheme.labelMedium?.copyWith(
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                          Text(
+                            date,
+                            style: TextStyle(
+                              color: context.appColors.textSecondary,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        experiment.fearPrediction,
+                        style: theme.textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          height: 1.35,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        experiment.experiment,
+                        style: TextStyle(
+                          color: context.appColors.textSecondary,
+                          fontSize: 13,
+                          height: 1.4,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              const Spacer(),
-              Text(
-                DateFormat('MMM d').format(experiment.datetime),
-                style: TextStyle(
-                  color: context.appColors.textSecondary,
-                  fontSize: 12,
-                ),
-              ),
-              const SizedBox(width: 6),
-              GestureDetector(
-                onTap: onDelete,
-                child: Icon(
+              const SizedBox(width: 4),
+              IconButton(
+                onPressed: onDelete,
+                tooltip: strings.behavioralExperimentText('deleteTooltip'),
+                constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
+                icon: Icon(
                   Icons.close_rounded,
-                  size: 16,
+                  size: 18,
                   color: context.appColors.textSecondary,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 10),
-          Text(
-            experiment.fearPrediction,
-            style: theme.textTheme.bodyLarge?.copyWith(
-              fontWeight: FontWeight.w600,
-              height: 1.35,
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            experiment.experiment,
-            style: TextStyle(
-              color: context.appColors.textSecondary,
-              fontSize: 13,
-              height: 1.4,
-            ),
-          ),
           if (completed) ...[
             const SizedBox(height: 12),
-            _LabeledBlock(label: 'What happened', value: experiment.outcome),
+            _LabeledBlock(
+              label: strings.behavioralExperimentText('outcomeLabel'),
+              value: experiment.outcome,
+            ),
             if (experiment.learning.trim().isNotEmpty) ...[
               const SizedBox(height: 8),
-              _LabeledBlock(label: 'Learned', value: experiment.learning),
+              _LabeledBlock(
+                label: strings.behavioralExperimentText('learningLabel'),
+                value: experiment.learning,
+              ),
             ],
           ] else ...[
             const SizedBox(height: 12),
@@ -260,7 +351,7 @@ class _ExperimentCard extends StatelessWidget {
               width: double.infinity,
               child: OutlinedButton(
                 onPressed: onRecord,
-                child: const Text('Record what happened'),
+                child: Text(strings.behavioralExperimentText('recordAction')),
               ),
             ),
           ],
@@ -303,6 +394,7 @@ class _EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     return Container(
       padding: const EdgeInsets.all(22),
       decoration: recoverySoftDecoration(theme),
@@ -315,16 +407,18 @@ class _EmptyState extends StatelessWidget {
             size: 28,
           ),
           const SizedBox(height: 12),
-          Text(
-            'Put a fear to the test',
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w800,
+          Semantics(
+            header: true,
+            child: Text(
+              strings.behavioralExperimentText('emptyTitle'),
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w800,
+              ),
             ),
           ),
           const SizedBox(height: 6),
           Text(
-            'Write down what OCD predicts, run a small experiment, and record '
-            'what really happens.',
+            strings.behavioralExperimentText('emptyBody'),
             style: TextStyle(
               color: context.appColors.textSecondary,
               height: 1.45,
@@ -335,7 +429,7 @@ class _EmptyState extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: onCreate,
-              child: const Text('New experiment'),
+              child: Text(strings.behavioralExperimentText('emptyAction')),
             ),
           ),
         ],
@@ -387,19 +481,22 @@ class _BehavioralExperimentEditScreenState
   }
 
   Future<void> _save() async {
+    final strings = context.l10n;
     if (_outcomeMode) {
       final outcome = _outcomeController.text.trim();
       if (outcome.isEmpty) {
-        showAppSnackBar(
-          context,
-          'Note what actually happened to finish up.',
-          type: ToastType.info,
+        final message = strings.behavioralExperimentText('outcomeValidation');
+        showAppSnackBar(context, message, type: ToastType.info);
+        await SemanticsService.sendAnnouncement(
+          View.of(context),
+          message,
+          Directionality.of(context),
         );
         return;
       }
       setState(() => _saving = true);
       final existing = widget.existing!;
-      await ref
+      final saved = await ref
           .read(behavioralExperimentProvider.notifier)
           .edit(
             BehavioralExperiment(
@@ -415,28 +512,39 @@ class _BehavioralExperimentEditScreenState
             ),
           );
       if (!mounted) return;
-      Navigator.of(context).pop();
-      showAppSnackBar(
-        context,
-        'Recorded. Evidence beats prediction.',
-        type: ToastType.success,
+      final message = strings.behavioralExperimentText(
+        saved ? 'outcomeSaveSuccess' : 'saveError',
       );
+      if (!saved) {
+        setState(() => _saving = false);
+        showAppSnackBar(context, message, type: ToastType.error);
+        await SemanticsService.sendAnnouncement(
+          View.of(context),
+          message,
+          Directionality.of(context),
+        );
+        return;
+      }
+      Navigator.of(context).pop();
+      showAppSnackBar(context, message, type: ToastType.success);
       return;
     }
 
     final prediction = _predictionController.text.trim();
     final experiment = _experimentController.text.trim();
     if (prediction.isEmpty || experiment.isEmpty) {
-      showAppSnackBar(
-        context,
-        'What OCD predicts, and what you will do to test it. Then it saves.',
-        type: ToastType.info,
+      final message = strings.behavioralExperimentText('planValidation');
+      showAppSnackBar(context, message, type: ToastType.info);
+      await SemanticsService.sendAnnouncement(
+        View.of(context),
+        message,
+        Directionality.of(context),
       );
       return;
     }
     setState(() => _saving = true);
     final now = DateTime.now();
-    await ref
+    final saved = await ref
         .read(behavioralExperimentProvider.notifier)
         .add(
           BehavioralExperiment(
@@ -448,17 +556,31 @@ class _BehavioralExperimentEditScreenState
           ),
         );
     if (!mounted) return;
-    Navigator.of(context).pop();
-    showAppSnackBar(
-      context,
-      'Experiment saved. Try it out, then record what happens.',
-      type: ToastType.success,
+    final message = strings.behavioralExperimentText(
+      saved ? 'planSaveSuccess' : 'saveError',
     );
+    if (!saved) {
+      setState(() => _saving = false);
+      showAppSnackBar(context, message, type: ToastType.error);
+      await SemanticsService.sendAnnouncement(
+        View.of(context),
+        message,
+        Directionality.of(context),
+      );
+      return;
+    }
+    Navigator.of(context).pop();
+    showAppSnackBar(context, message, type: ToastType.success);
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
+    final largeText = MediaQuery.textScalerOf(context).scale(16) >= 24;
+    final confidence = strings.behavioralExperimentConfidence(
+      context.formatWholePercent(_confidence.round()),
+    );
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -469,10 +591,15 @@ class _BehavioralExperimentEditScreenState
                 CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    _outcomeMode ? 'Record outcome' : 'New experiment',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      strings.behavioralExperimentText(
+                        _outcomeMode ? 'outcomeEditorTitle' : 'newEditorTitle',
+                      ),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
@@ -487,12 +614,14 @@ class _BehavioralExperimentEditScreenState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _LabeledBlock(
-                      label: 'What OCD predicted',
+                      label: strings.behavioralExperimentText('predictedLabel'),
                       value: widget.existing!.fearPrediction,
                     ),
                     const SizedBox(height: 10),
                     _LabeledBlock(
-                      label: 'What you did to test it',
+                      label: strings.behavioralExperimentText(
+                        'testActionLabel',
+                      ),
                       value: widget.existing!.experiment,
                     ),
                   ],
@@ -500,22 +629,22 @@ class _BehavioralExperimentEditScreenState
               ),
               const SizedBox(height: 16),
               LabeledField(
-                label: 'What actually happened?',
-                hint: 'What really happened, not what nearly happened',
+                label: strings.behavioralExperimentText('outcomeInputLabel'),
+                hint: strings.behavioralExperimentText('outcomeInputHint'),
                 controller: _outcomeController,
                 minLines: 2,
               ),
               const SizedBox(height: 16),
               LabeledField(
-                label: 'What did you learn? (optional)',
-                hint: 'How did the forecast compare with the day?',
+                label: strings.behavioralExperimentText('learningInputLabel'),
+                hint: strings.behavioralExperimentText('learningInputHint'),
                 controller: _learningController,
                 minLines: 2,
               ),
             ] else ...[
               LabeledField(
-                label: 'What does OCD predict?',
-                hint: 'e.g. If I don\'t check, the house will flood',
+                label: strings.behavioralExperimentText('predictionInputLabel'),
+                hint: strings.behavioralExperimentText('predictionInputHint'),
                 controller: _predictionController,
                 minLines: 2,
               ),
@@ -526,39 +655,77 @@ class _BehavioralExperimentEditScreenState
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'How sure are you it will come true?',
-                            style: TextStyle(
-                              color: context.appColors.textSecondary,
-                              fontSize: 13,
+                    ExcludeSemantics(
+                      child: largeText
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  strings.behavioralExperimentText(
+                                    'confidenceQuestion',
+                                  ),
+                                  style: TextStyle(
+                                    color: context.appColors.textSecondary,
+                                    fontSize: 13,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  confidence,
+                                  style: theme.textTheme.labelLarge?.copyWith(
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    strings.behavioralExperimentText(
+                                      'confidenceQuestion',
+                                    ),
+                                    style: TextStyle(
+                                      color: context.appColors.textSecondary,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  confidence,
+                                  style: theme.textTheme.labelLarge?.copyWith(
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ),
-                        Text(
-                          '${_confidence.round()}%',
-                          style: theme.textTheme.labelLarge?.copyWith(
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                      ],
                     ),
-                    Slider(
-                      value: _confidence,
-                      min: 0,
-                      max: 100,
-                      divisions: 20,
-                      onChanged: (v) => setState(() => _confidence = v),
+                    MergeSemantics(
+                      child: Semantics(
+                        label: strings.behavioralExperimentText(
+                          'confidenceQuestion',
+                        ),
+                        value: confidence,
+                        child: Slider(
+                          value: _confidence,
+                          min: 0,
+                          max: 100,
+                          divisions: 20,
+                          onChanged: (v) => setState(() => _confidence = v),
+                          semanticFormatterCallback: (value) =>
+                              strings.behavioralExperimentConfidence(
+                                context.formatWholePercent(value.round()),
+                              ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 16),
               LabeledField(
-                label: 'Your experiment',
-                hint: 'e.g. Leave without checking and see what happens',
+                label: strings.behavioralExperimentText('experimentInputLabel'),
+                hint: strings.behavioralExperimentText('experimentInputHint'),
                 controller: _experimentController,
                 minLines: 2,
               ),
@@ -574,7 +741,11 @@ class _BehavioralExperimentEditScreenState
                         width: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : Text(_outcomeMode ? 'Save outcome' : 'Save experiment'),
+                    : Text(
+                        strings.behavioralExperimentText(
+                          _outcomeMode ? 'saveOutcome' : 'saveExperiment',
+                        ),
+                      ),
               ),
             ),
           ]),

@@ -32,3 +32,7 @@
 # Surfing tools. These select ARB copy and are never displayed or persisted.
 ^lib/mobile/screens/response_prevention_screen\.dart:.*\.responsePreventionText\('[a-zA-Z]+'
 ^lib/mobile/screens/urge_surf_screen\.dart:.*\.urgeSurfText\('[a-zA-Z]+'
+
+# Stable ICU selector keys for Behavioral Experiments. These select localized
+# interface messages and never appear to users or enter storage.
+^lib/mobile/screens/behavioral_experiments_screen\.dart:.*\.behavioralExperimentText\('[a-zA-Z]+'

@@ -3479,6 +3479,80 @@ class AppLocalizationsPt extends AppLocalizations {
     });
     return '$_temp0';
   }
+
+  @override
+  String behavioralExperimentText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Experimentos comportamentais',
+      'newAction': 'Novo',
+      'subtitle':
+          'Compare uma previsão do OCD com o que você observa depois de uma ação planejada.',
+      'loadError':
+          'Seus experimentos não estão disponíveis agora. Tente novamente.',
+      'deleteTitle': 'Excluir este experimento?',
+      'deleteBody':
+          'Isso remove o experimento permanentemente deste dispositivo.',
+      'cancel': 'Cancelar',
+      'deleteAction': 'Excluir',
+      'deleteTooltip': 'Excluir experimento',
+      'deleteSuccess': 'Experimento excluído.',
+      'deleteError':
+          'Não foi possível excluir este experimento. Tente novamente.',
+      'statusPlanned': 'Planejado',
+      'statusCompleted': 'Concluído',
+      'outcomeLabel': 'O que aconteceu',
+      'learningLabel': 'O que anotei',
+      'recordAction': 'Registrar o que aconteceu',
+      'emptyTitle': 'Planeje um experimento comportamental',
+      'emptyBody':
+          'Anote a previsão do OCD, escolha uma pequena ação e depois registre o que você observou.',
+      'emptyAction': 'Novo experimento',
+      'outcomeEditorTitle': 'Registrar o que aconteceu',
+      'newEditorTitle': 'Novo experimento',
+      'predictedLabel': 'O OCD previu',
+      'testActionLabel': 'Ação planejada',
+      'outcomeInputLabel': 'O que realmente aconteceu?',
+      'outcomeInputHint':
+          'Registre o que você observou, sem avaliar o resultado',
+      'learningInputLabel': 'Quer anotar algo? (opcional)',
+      'learningInputHint': 'Um detalhe que você queira lembrar',
+      'predictionInputLabel': 'O que o OCD prevê?',
+      'predictionInputHint':
+          'Por exemplo: Se eu não conferir de novo, a casa vai alagar',
+      'confidenceQuestion': 'Quão certa parece a previsão?',
+      'experimentInputLabel': 'Que ação vai testar a previsão?',
+      'experimentInputHint':
+          'Por exemplo: Sair após uma verificação normal e observar o que acontece',
+      'saveOutcome': 'Salvar observação',
+      'saveExperiment': 'Salvar experimento',
+      'outcomeValidation': 'Adicione uma nota curta sobre o que você observou.',
+      'planValidation':
+          'Adicione a previsão do OCD e a ação que você planeja realizar.',
+      'outcomeSaveSuccess': 'Observação salva.',
+      'planSaveSuccess':
+          'Experimento salvo. Registre o que aconteceu depois de realizá-lo.',
+      'saveError':
+          'Não foi possível salvar este experimento. Seu texto continua aqui. Tente novamente.',
+      'other': 'Experimento comportamental',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String behavioralExperimentConfidence(String percent) {
+    return '$percent de certeza';
+  }
+
+  @override
+  String behavioralExperimentCardSummary(
+    String status,
+    String date,
+    String confidence,
+    String prediction,
+    String experiment,
+  ) {
+    return '$status · $date · $confidence. Previsão: $prediction. Ação planejada: $experiment.';
+  }
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -6955,5 +7029,79 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
           'Este total registrado é um retrato do momento, não um diagnóstico.',
     });
     return '$_temp0';
+  }
+
+  @override
+  String behavioralExperimentText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Experimentos comportamentais',
+      'newAction': 'Novo',
+      'subtitle':
+          'Compare uma previsão do OCD com o que você observa depois de uma ação planejada.',
+      'loadError':
+          'Seus experimentos não estão disponíveis agora. Tente novamente.',
+      'deleteTitle': 'Excluir este experimento?',
+      'deleteBody':
+          'Isso remove o experimento permanentemente deste dispositivo.',
+      'cancel': 'Cancelar',
+      'deleteAction': 'Excluir',
+      'deleteTooltip': 'Excluir experimento',
+      'deleteSuccess': 'Experimento excluído.',
+      'deleteError':
+          'Não foi possível excluir este experimento. Tente novamente.',
+      'statusPlanned': 'Planejado',
+      'statusCompleted': 'Concluído',
+      'outcomeLabel': 'O que aconteceu',
+      'learningLabel': 'O que anotei',
+      'recordAction': 'Registrar o que aconteceu',
+      'emptyTitle': 'Planeje um experimento comportamental',
+      'emptyBody':
+          'Anote a previsão do OCD, escolha uma pequena ação e depois registre o que você observou.',
+      'emptyAction': 'Novo experimento',
+      'outcomeEditorTitle': 'Registrar o que aconteceu',
+      'newEditorTitle': 'Novo experimento',
+      'predictedLabel': 'O OCD previu',
+      'testActionLabel': 'Ação planejada',
+      'outcomeInputLabel': 'O que realmente aconteceu?',
+      'outcomeInputHint':
+          'Registre o que você observou, sem avaliar o resultado',
+      'learningInputLabel': 'Quer anotar algo? (opcional)',
+      'learningInputHint': 'Um detalhe que você queira lembrar',
+      'predictionInputLabel': 'O que o OCD prevê?',
+      'predictionInputHint':
+          'Por exemplo: Se eu não conferir de novo, a casa vai alagar',
+      'confidenceQuestion': 'Quão certa parece a previsão?',
+      'experimentInputLabel': 'Que ação vai testar a previsão?',
+      'experimentInputHint':
+          'Por exemplo: Sair após uma verificação normal e observar o que acontece',
+      'saveOutcome': 'Salvar observação',
+      'saveExperiment': 'Salvar experimento',
+      'outcomeValidation': 'Adicione uma nota curta sobre o que você observou.',
+      'planValidation':
+          'Adicione a previsão do OCD e a ação que você planeja realizar.',
+      'outcomeSaveSuccess': 'Observação salva.',
+      'planSaveSuccess':
+          'Experimento salvo. Registre o que aconteceu depois de realizá-lo.',
+      'saveError':
+          'Não foi possível salvar este experimento. Seu texto continua aqui. Tente novamente.',
+      'other': 'Experimento comportamental',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String behavioralExperimentConfidence(String percent) {
+    return '$percent de certeza';
+  }
+
+  @override
+  String behavioralExperimentCardSummary(
+    String status,
+    String date,
+    String confidence,
+    String prediction,
+    String experiment,
+  ) {
+    return '$status · $date · $confidence. Previsão: $prediction. Ação planejada: $experiment.';
   }
 }

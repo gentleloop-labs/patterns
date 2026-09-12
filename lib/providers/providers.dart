@@ -444,28 +444,40 @@ class BehavioralExperimentNotifier
     return await DbHelper.instance.getBehavioralExperiments();
   }
 
-  Future<void> add(BehavioralExperiment exp) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
+  Future<bool> add(BehavioralExperiment exp) async {
+    final previous = state.asData?.value ?? const <BehavioralExperiment>[];
+    try {
       await DbHelper.instance.insertBehavioralExperiment(exp);
-      return await DbHelper.instance.getBehavioralExperiments();
-    });
+      state = AsyncData(await DbHelper.instance.getBehavioralExperiments());
+      return true;
+    } catch (_) {
+      state = AsyncData(previous);
+      return false;
+    }
   }
 
-  Future<void> edit(BehavioralExperiment exp) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
+  Future<bool> edit(BehavioralExperiment exp) async {
+    final previous = state.asData?.value ?? const <BehavioralExperiment>[];
+    try {
       await DbHelper.instance.updateBehavioralExperiment(exp);
-      return await DbHelper.instance.getBehavioralExperiments();
-    });
+      state = AsyncData(await DbHelper.instance.getBehavioralExperiments());
+      return true;
+    } catch (_) {
+      state = AsyncData(previous);
+      return false;
+    }
   }
 
-  Future<void> delete(int id) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
+  Future<bool> delete(int id) async {
+    final previous = state.asData?.value ?? const <BehavioralExperiment>[];
+    try {
       await DbHelper.instance.deleteBehavioralExperiment(id);
-      return await DbHelper.instance.getBehavioralExperiments();
-    });
+      state = AsyncData(await DbHelper.instance.getBehavioralExperiments());
+      return true;
+    } catch (_) {
+      state = AsyncData(previous);
+      return false;
+    }
   }
 }
 
