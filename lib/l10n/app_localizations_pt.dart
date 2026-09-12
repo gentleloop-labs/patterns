@@ -3644,6 +3644,177 @@ class AppLocalizationsPt extends AppLocalizations {
   String implementationIntentionStatement(String trigger, String response) {
     return 'Se $trigger, então $response.';
   }
+
+  @override
+  String uncertaintyTrainingText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Prática da incerteza',
+      'subtitle': 'Pratique dar espaço ao não saber.',
+      'loadError':
+          'As contagens de práticas não estão disponíveis agora. Você ainda pode abrir os exercícios.',
+      'whyLabel': 'SOBRE ESTA PRÁTICA',
+      'willingnessLabel': 'Quão disposto você estava a permanecer sem saber?',
+      'noteLabel': 'Nota (opcional)',
+      'noteHint': 'O que você percebeu?',
+      'saveAction': 'Registrar esta prática',
+      'saveSuccess': 'Prática registrada.',
+      'saveError':
+          'Não foi possível registrar esta prática. Sua nota continua aqui. Tente novamente.',
+      'other': 'Prática da incerteza',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyExerciseTitle(String exercise) {
+    String _temp0 = intl.Intl.selectLogic(exercise, {
+      'maybe': 'Talvez sim, talvez não',
+      'unanswered': 'Deixe sem resposta',
+      'resist': 'Pause a busca por certeza',
+      'other': 'Exercício de incerteza',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyExerciseIntro(String exercise) {
+    String _temp0 = intl.Intl.selectLogic(exercise, {
+      'maybe':
+          'Quando o OCD pedir certeza, experimente responder “talvez sim, talvez não” e volte a atenção ao que você estava fazendo.',
+      'unanswered':
+          'Deixe uma pergunta recorrente em aberto em vez de resolvê-la.',
+      'resist':
+          'Perceba a vontade de conferir, pesquisar ou buscar confirmação e escolha não segui-la durante esta prática.',
+      'other': 'Uma prática para permitir que a incerteza continue presente.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyExerciseWhy(String exercise) {
+    String _temp0 = intl.Intl.selectLogic(exercise, {
+      'maybe':
+          'Este exercício pratica deixar uma pergunta sem resposta, sem acrescentar confirmação.',
+      'unanswered':
+          'Este exercício pratica permitir que uma pergunta continue em aberto.',
+      'resist':
+          'Este exercício registra a prática deliberada de não buscar certeza.',
+      'other': 'Este é um exercício de autoajuda para dar espaço à incerteza.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyExercisePrompt(String exercise) {
+    String _temp0 = intl.Intl.selectLogic(exercise, {
+      'maybe':
+          'Escolha uma preocupação e responda “talvez sim, talvez não”. Perceba o que está presente sem tentar resolver.',
+      'unanswered':
+          'Escolha uma pergunta que você normalmente resolveria e deixe-a sem resposta durante esta prática.',
+      'resist':
+          'Perceba uma vontade de buscar certeza e deixe-a sem resposta durante esta prática.',
+      'other':
+          'Escolha uma pequena forma de deixar a incerteza sem resposta durante esta prática.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyPracticeCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count práticas',
+      one: '1 prática',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyExerciseSummary(String title, String intro) {
+    return '$title. $intro';
+  }
+
+  @override
+  String uncertaintyExerciseSummaryWithCount(
+    String title,
+    String intro,
+    int count,
+  ) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count práticas registradas.',
+      one: '1 prática registrada.',
+    );
+    return '$title. $intro $_temp0';
+  }
+
+  @override
+  String uncertaintyWillingness(int value) {
+    return 'Disposição: $value de 10';
+  }
+
+  @override
+  String actionPlanText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Planejador de ações',
+      'newAction': 'Novo',
+      'subtitle':
+          'Registre uma situação e a resposta que você quer experimentar.',
+      'loadError':
+          'Seus planos de ação não estão disponíveis agora. Tente novamente.',
+      'deleteTitle': 'Excluir este plano de ação?',
+      'deleteBody': 'Isso exclui permanentemente o plano deste dispositivo.',
+      'cancel': 'Cancelar',
+      'deleteAction': 'Excluir',
+      'deleteTooltip': 'Excluir plano de ação',
+      'deleteSuccess': 'Plano de ação excluído.',
+      'deleteError':
+          'Não foi possível excluir este plano de ação. Tente novamente.',
+      'statePlanned': 'Planejado',
+      'stateCompleted': 'Marcado como concluído',
+      'toggleMarkComplete': 'Marcar plano de ação como concluído',
+      'toggleMarkIncomplete': 'Marcar plano de ação como não concluído',
+      'toggleSuccessComplete': 'Plano de ação marcado como concluído.',
+      'toggleSuccessIncomplete': 'Plano de ação marcado como não concluído.',
+      'toggleError':
+          'Não foi possível atualizar este plano de ação. O estado anterior continua sendo exibido. Tente novamente.',
+      'emptyTitle': 'Crie um plano de ação',
+      'emptyBody':
+          'Escreva uma situação e a resposta que você quer experimentar quando ela acontecer.',
+      'emptyAction': 'Novo plano de ação',
+      'editorTitle': 'Novo plano de ação',
+      'situationLabel': 'Quando o OCD aparecer',
+      'situationHint': 'Por exemplo: percebo a vontade de pesquisar um sintoma',
+      'actionLabel': 'Resposta que quero experimentar',
+      'actionHint':
+          'Por exemplo: esperar 15 minutos antes de decidir se pesquiso',
+      'dateLabel': 'Data (opcional)',
+      'pickDate': 'Escolher uma data',
+      'clearDate': 'Remover data',
+      'notesLabel': 'Notas (opcional)',
+      'notesHint': 'Qualquer coisa que você queira lembrar',
+      'saveAction': 'Salvar plano de ação',
+      'validation':
+          'Adicione a situação e a resposta que você quer experimentar.',
+      'saveSuccess': 'Plano de ação salvo.',
+      'saveError':
+          'Não foi possível salvar este plano de ação. Seu texto continua aqui. Tente novamente.',
+      'other': 'Plano de ação',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String actionPlanCardSummary(String status, String situation, String action) {
+    return '$status. Situação: $situation. Resposta planejada: $action.';
+  }
+
+  @override
+  String actionPlanDateSummary(String date) {
+    return 'Data planejada: $date.';
+  }
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -7285,5 +7456,176 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String implementationIntentionStatement(String trigger, String response) {
     return 'Se $trigger, então $response.';
+  }
+
+  @override
+  String uncertaintyTrainingText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Prática da incerteza',
+      'subtitle': 'Pratique dar espaço ao não saber.',
+      'loadError':
+          'As contagens de práticas não estão disponíveis agora. Você ainda pode abrir os exercícios.',
+      'whyLabel': 'SOBRE ESTA PRÁTICA',
+      'willingnessLabel': 'Quão disposto você estava a permanecer sem saber?',
+      'noteLabel': 'Nota (opcional)',
+      'noteHint': 'O que você percebeu?',
+      'saveAction': 'Registrar esta prática',
+      'saveSuccess': 'Prática registrada.',
+      'saveError':
+          'Não foi possível registrar esta prática. Sua nota continua aqui. Tente novamente.',
+      'other': 'Prática da incerteza',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyExerciseTitle(String exercise) {
+    String _temp0 = intl.Intl.selectLogic(exercise, {
+      'maybe': 'Talvez sim, talvez não',
+      'unanswered': 'Deixe sem resposta',
+      'resist': 'Pause a busca por certeza',
+      'other': 'Exercício de incerteza',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyExerciseIntro(String exercise) {
+    String _temp0 = intl.Intl.selectLogic(exercise, {
+      'maybe':
+          'Quando o OCD pedir certeza, experimente responder “talvez sim, talvez não” e volte a atenção ao que você estava fazendo.',
+      'unanswered':
+          'Deixe uma pergunta recorrente em aberto em vez de resolvê-la.',
+      'resist':
+          'Perceba a vontade de conferir, pesquisar ou buscar confirmação e escolha não segui-la durante esta prática.',
+      'other': 'Uma prática para permitir que a incerteza continue presente.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyExerciseWhy(String exercise) {
+    String _temp0 = intl.Intl.selectLogic(exercise, {
+      'maybe':
+          'Este exercício pratica deixar uma pergunta sem resposta, sem acrescentar confirmação.',
+      'unanswered':
+          'Este exercício pratica permitir que uma pergunta continue em aberto.',
+      'resist':
+          'Este exercício registra a prática deliberada de não buscar certeza.',
+      'other': 'Este é um exercício de autoajuda para dar espaço à incerteza.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyExercisePrompt(String exercise) {
+    String _temp0 = intl.Intl.selectLogic(exercise, {
+      'maybe':
+          'Escolha uma preocupação e responda “talvez sim, talvez não”. Perceba o que está presente sem tentar resolver.',
+      'unanswered':
+          'Escolha uma pergunta que você normalmente resolveria e deixe-a sem resposta durante esta prática.',
+      'resist':
+          'Perceba uma vontade de buscar certeza e deixe-a sem resposta durante esta prática.',
+      'other':
+          'Escolha uma pequena forma de deixar a incerteza sem resposta durante esta prática.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyPracticeCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count práticas',
+      one: '1 prática',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyExerciseSummary(String title, String intro) {
+    return '$title. $intro';
+  }
+
+  @override
+  String uncertaintyExerciseSummaryWithCount(
+    String title,
+    String intro,
+    int count,
+  ) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count práticas registradas.',
+      one: '1 prática registrada.',
+    );
+    return '$title. $intro $_temp0';
+  }
+
+  @override
+  String uncertaintyWillingness(int value) {
+    return 'Disposição: $value de 10';
+  }
+
+  @override
+  String actionPlanText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Planejador de ações',
+      'newAction': 'Novo',
+      'subtitle':
+          'Registre uma situação e a resposta que você quer experimentar.',
+      'loadError':
+          'Seus planos de ação não estão disponíveis agora. Tente novamente.',
+      'deleteTitle': 'Excluir este plano de ação?',
+      'deleteBody': 'Isso exclui permanentemente o plano deste dispositivo.',
+      'cancel': 'Cancelar',
+      'deleteAction': 'Excluir',
+      'deleteTooltip': 'Excluir plano de ação',
+      'deleteSuccess': 'Plano de ação excluído.',
+      'deleteError':
+          'Não foi possível excluir este plano de ação. Tente novamente.',
+      'statePlanned': 'Planejado',
+      'stateCompleted': 'Marcado como concluído',
+      'toggleMarkComplete': 'Marcar plano de ação como concluído',
+      'toggleMarkIncomplete': 'Marcar plano de ação como não concluído',
+      'toggleSuccessComplete': 'Plano de ação marcado como concluído.',
+      'toggleSuccessIncomplete': 'Plano de ação marcado como não concluído.',
+      'toggleError':
+          'Não foi possível atualizar este plano de ação. O estado anterior continua sendo exibido. Tente novamente.',
+      'emptyTitle': 'Crie um plano de ação',
+      'emptyBody':
+          'Escreva uma situação e a resposta que você quer experimentar quando ela acontecer.',
+      'emptyAction': 'Novo plano de ação',
+      'editorTitle': 'Novo plano de ação',
+      'situationLabel': 'Quando o OCD aparecer',
+      'situationHint': 'Por exemplo: percebo a vontade de pesquisar um sintoma',
+      'actionLabel': 'Resposta que quero experimentar',
+      'actionHint':
+          'Por exemplo: esperar 15 minutos antes de decidir se pesquiso',
+      'dateLabel': 'Data (opcional)',
+      'pickDate': 'Escolher uma data',
+      'clearDate': 'Remover data',
+      'notesLabel': 'Notas (opcional)',
+      'notesHint': 'Qualquer coisa que você queira lembrar',
+      'saveAction': 'Salvar plano de ação',
+      'validation':
+          'Adicione a situação e a resposta que você quer experimentar.',
+      'saveSuccess': 'Plano de ação salvo.',
+      'saveError':
+          'Não foi possível salvar este plano de ação. Seu texto continua aqui. Tente novamente.',
+      'other': 'Plano de ação',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String actionPlanCardSummary(String status, String situation, String action) {
+    return '$status. Situação: $situation. Resposta planejada: $action.';
+  }
+
+  @override
+  String actionPlanDateSummary(String date) {
+    return 'Data planejada: $date.';
   }
 }

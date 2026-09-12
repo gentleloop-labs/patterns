@@ -14,6 +14,9 @@ extension AppLocalizationsContext on BuildContext {
   String formatFullDate(DateTime date) =>
       DateFormat.yMMMMd(effectiveLocaleName).format(date);
 
+  String formatFullDateWithWeekday(DateTime date) =>
+      DateFormat.yMMMEd(effectiveLocaleName).format(date);
+
   String formatMonthDay(DateTime date) =>
       DateFormat.MMMd(effectiveLocaleName).format(date);
 

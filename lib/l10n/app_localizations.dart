@@ -4194,6 +4194,82 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'If {trigger}, then I will {response}.'**
   String implementationIntentionStatement(String trigger, String response);
+
+  /// Uncertainty Practice interface copy selected from a stable UI key. Keep wording optional and factual; never promise safety, reduced discomfort, learning, progress, or a clinical outcome.
+  ///
+  /// In en, this message translates to:
+  /// **'{key, select, title{Uncertainty Practice} subtitle{Practise making room for not knowing.} loadError{Practice counts are unavailable right now. You can still open an exercise.} whyLabel{ABOUT THIS PRACTICE} willingnessLabel{How willing were you to sit with not knowing?} noteLabel{Note (optional)} noteHint{What did you notice?} saveAction{Record this practice} saveSuccess{Practice recorded.} saveError{This practice could not be recorded. Your note is still here. Please try again.} other{Uncertainty practice}}'**
+  String uncertaintyTrainingText(String key);
+
+  /// Exercise title resolved from an unchanged stable exercise ID.
+  ///
+  /// In en, this message translates to:
+  /// **'{exercise, select, maybe{Maybe, maybe not} unanswered{Leave it unanswered} resist{Pause certainty-seeking} other{Uncertainty exercise}}'**
+  String uncertaintyExerciseTitle(String exercise);
+
+  /// Brief uncertainty-exercise instruction resolved from a stable ID. Do not reassure or promise that discomfort or urges will change.
+  ///
+  /// In en, this message translates to:
+  /// **'{exercise, select, maybe{When OCD asks for certainty, try responding “maybe, maybe not” and return attention to what you were doing.} unanswered{Let one recurring question remain open instead of resolving it.} resist{Notice an urge to check, search, or ask for reassurance, and choose not to follow it for this practice.} other{A practice for allowing uncertainty to remain present.}}'**
+  String uncertaintyExerciseIntro(String exercise);
+
+  /// Factual explanation of an uncertainty exercise. Never claim safety, brain retraining, symptom reduction, or treatment outcomes.
+  ///
+  /// In en, this message translates to:
+  /// **'{exercise, select, maybe{This exercise practises leaving a question unresolved without adding reassurance.} unanswered{This exercise practises allowing a question to remain open.} resist{This exercise records a deliberate attempt to avoid seeking certainty.} other{This exercise is a self-help practice for making room for uncertainty.}}'**
+  String uncertaintyExerciseWhy(String exercise);
+
+  /// Optional practice prompt resolved from an unchanged stable exercise ID.
+  ///
+  /// In en, this message translates to:
+  /// **'{exercise, select, maybe{Choose one worry and respond with “maybe, maybe not.” Notice what is present without trying to settle it.} unanswered{Choose one question you would usually settle and leave it unanswered for this practice.} resist{Notice one certainty-seeking urge and leave it unanswered for this practice.} other{Choose one small way to leave uncertainty unresolved for this practice.}}'**
+  String uncertaintyExercisePrompt(String exercise);
+
+  /// Factual historical practice count, hidden when Calm Insights is enabled.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 practice} other{{count} practices}}'**
+  String uncertaintyPracticeCount(int count);
+
+  /// Accessible exercise-card summary when Calm Insights hides the historical count.
+  ///
+  /// In en, this message translates to:
+  /// **'{title}. {intro}'**
+  String uncertaintyExerciseSummary(String title, String intro);
+
+  /// Accessible exercise-card summary with a factual count when Calm Insights is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'{title}. {intro} {count, plural, =1{Recorded 1 practice.} other{Recorded {count} practices.}}'**
+  String uncertaintyExerciseSummaryWithCount(
+    String title,
+    String intro,
+    int count,
+  );
+
+  /// Visible and accessible deliberately recorded willingness rating; remains available in Calm Insights mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Willingness {value} of 10'**
+  String uncertaintyWillingness(int value);
+
+  /// Action Planner interface copy selected from a stable UI key. Preserve user text and the optional ISO storage date; avoid promising that a situation will become easier or that a response is clinically recommended.
+  ///
+  /// In en, this message translates to:
+  /// **'{key, select, title{Action Planner} newAction{New} subtitle{Record a situation and the response you want to try.} loadError{Your action plans are unavailable right now. Please try again.} deleteTitle{Delete this action plan?} deleteBody{This permanently removes the plan from this device.} cancel{Cancel} deleteAction{Delete} deleteTooltip{Delete action plan} deleteSuccess{Action plan deleted.} deleteError{This action plan could not be deleted. Please try again.} statePlanned{Planned} stateCompleted{Marked complete} toggleMarkComplete{Mark action plan complete} toggleMarkIncomplete{Mark action plan incomplete} toggleSuccessComplete{Action plan marked complete.} toggleSuccessIncomplete{Action plan marked incomplete.} toggleError{This action plan could not be updated. Its previous state is still shown. Please try again.} emptyTitle{Create an action plan} emptyBody{Write down a situation and the response you want to try when it occurs.} emptyAction{New action plan} editorTitle{New action plan} situationLabel{When OCD shows up} situationHint{For example: I notice the urge to search for a symptom} actionLabel{Response I want to try} actionHint{For example: wait 15 minutes before deciding whether to search} dateLabel{Date (optional)} pickDate{Choose a date} clearDate{Remove date} notesLabel{Notes (optional)} notesHint{Anything you want to remember} saveAction{Save action plan} validation{Add both the situation and the response you want to try.} saveSuccess{Action plan saved.} saveError{This action plan could not be saved. Your text is still here. Please try again.} other{Action plan}}'**
+  String actionPlanText(String key);
+
+  /// Accessible factual action-plan summary. Situation and action contain unchanged user-authored text.
+  ///
+  /// In en, this message translates to:
+  /// **'{status}. Situation: {situation}. Planned response: {action}.'**
+  String actionPlanCardSummary(String status, String situation, String action);
+
+  /// Accessible action-plan date. Date is already locale formatted, while storage remains ASCII ISO.
+  ///
+  /// In en, this message translates to:
+  /// **'Planned date: {date}.'**
+  String actionPlanDateSummary(String date);
 }
 
 class _AppLocalizationsDelegate

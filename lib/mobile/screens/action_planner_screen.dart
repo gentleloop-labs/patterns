@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter/semantics.dart';
 
+import '../../l10n/l10n.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../theme/app_colors.dart';
@@ -16,6 +17,7 @@ class ActionPlannerScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final plans = ref.watch(actionPlanProvider);
 
     return Scaffold(
@@ -28,23 +30,26 @@ class ActionPlannerScreen extends ConsumerWidget {
                 CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    'Action Planner',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      strings.actionPlanText('title'),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
                 TextButton.icon(
                   onPressed: () => _openCreate(context),
                   icon: const Icon(Icons.add_rounded, size: 18),
-                  label: const Text('New'),
+                  label: Text(strings.actionPlanText('newAction')),
                 ),
               ],
             ),
             const SizedBox(height: 6),
             Text(
-              'Decide your response before a trigger arrives.',
+              strings.actionPlanText('subtitle'),
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.4,
@@ -62,9 +67,8 @@ class ActionPlannerScreen extends ConsumerWidget {
                     for (final plan in items) ...[
                       _PlanCard(
                         plan: plan,
-                        onToggle: (v) => ref
-                            .read(actionPlanProvider.notifier)
-                            .setCompleted(plan, v),
+                        onToggle: (value) =>
+                            _setCompleted(context, ref, plan, value),
                         onDelete: () => _confirmDelete(context, ref, plan),
                       ),
                       const SizedBox(height: 10),
@@ -77,7 +81,7 @@ class ActionPlannerScreen extends ConsumerWidget {
                 child: Center(child: CircularProgressIndicator()),
               ),
               error: (_, _) => Text(
-                'Your plans are unavailable right now.',
+                strings.actionPlanText('loadError'),
                 style: TextStyle(color: context.appColors.textSecondary),
               ),
             ),
@@ -97,70 +101,125 @@ class ActionPlannerScreen extends ConsumerWidget {
   }
 
   void _confirmDelete(BuildContext context, WidgetRef ref, ActionPlan plan) {
+    final strings = context.l10n;
     final id = plan.id;
     if (id == null) return;
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (sheetContext) => SafeArea(
-        top: false,
-        child: Container(
-          margin: const EdgeInsets.all(14),
-          padding: const EdgeInsets.all(20),
-          decoration: recoverySoftDecoration(
-            Theme.of(sheetContext),
-            radius: 28,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Delete this plan?',
-                style: Theme.of(
-                  sheetContext,
-                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'It will be removed for good.',
-                style: TextStyle(
-                  color: context.appColors.textSecondary,
-                  height: 1.45,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Row(
+      builder: (sheetContext) {
+        final largeText = MediaQuery.textScalerOf(sheetContext).scale(16) >= 24;
+        final cancel = OutlinedButton(
+          onPressed: () => Navigator.pop(sheetContext),
+          child: Text(strings.actionPlanText('cancel')),
+        );
+        final delete = ElevatedButton(
+          onPressed: () async {
+            Navigator.pop(sheetContext);
+            final deleted = await ref
+                .read(actionPlanProvider.notifier)
+                .delete(id);
+            if (!context.mounted) return;
+            final message = strings.actionPlanText(
+              deleted ? 'deleteSuccess' : 'deleteError',
+            );
+            showAppSnackBar(
+              context,
+              message,
+              type: deleted ? ToastType.success : ToastType.error,
+            );
+            await SemanticsService.sendAnnouncement(
+              View.of(context),
+              message,
+              Directionality.of(context),
+            );
+          },
+          child: Text(strings.actionPlanText('deleteAction')),
+        );
+        return SafeArea(
+          top: false,
+          child: Container(
+            margin: const EdgeInsets.all(14),
+            padding: const EdgeInsets.all(20),
+            decoration: recoverySoftDecoration(
+              Theme.of(sheetContext),
+              radius: 28,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () => Navigator.pop(sheetContext),
-                      child: const Text('Cancel'),
+                  Semantics(
+                    header: true,
+                    child: Text(
+                      strings.actionPlanText('deleteTitle'),
+                      style: Theme.of(sheetContext).textTheme.titleLarge
+                          ?.copyWith(fontWeight: FontWeight.w800),
                     ),
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        Navigator.pop(sheetContext);
-                        await ref.read(actionPlanProvider.notifier).delete(id);
-                      },
-                      child: const Text('Delete'),
+                  const SizedBox(height: 10),
+                  Text(
+                    strings.actionPlanText('deleteBody'),
+                    style: TextStyle(
+                      color: context.appColors.textSecondary,
+                      height: 1.45,
                     ),
                   ),
+                  const SizedBox(height: 20),
+                  if (largeText) ...[
+                    SizedBox(width: double.infinity, child: cancel),
+                    const SizedBox(height: 10),
+                    SizedBox(width: double.infinity, child: delete),
+                  ] else
+                    Row(
+                      children: [
+                        Expanded(child: cancel),
+                        const SizedBox(width: 12),
+                        Expanded(child: delete),
+                      ],
+                    ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
+    );
+  }
+
+  Future<void> _setCompleted(
+    BuildContext context,
+    WidgetRef ref,
+    ActionPlan plan,
+    bool completed,
+  ) async {
+    final strings = context.l10n;
+    final saved = await ref
+        .read(actionPlanProvider.notifier)
+        .setCompleted(plan, completed);
+    if (!context.mounted) return;
+    final message = strings.actionPlanText(
+      saved
+          ? (completed ? 'toggleSuccessComplete' : 'toggleSuccessIncomplete')
+          : 'toggleError',
+    );
+    showAppSnackBar(
+      context,
+      message,
+      type: saved ? ToastType.success : ToastType.error,
+    );
+    await SemanticsService.sendAnnouncement(
+      View.of(context),
+      message,
+      Directionality.of(context),
     );
   }
 }
 
 class _PlanCard extends StatelessWidget {
   final ActionPlan plan;
-  final ValueChanged<bool> onToggle;
+  final Future<void> Function(bool) onToggle;
   final VoidCallback onDelete;
 
   const _PlanCard({
@@ -172,18 +231,33 @@ class _PlanCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final done = plan.completed;
+    final state = strings.actionPlanText(
+      done ? 'stateCompleted' : 'statePlanned',
+    );
+    final date = _prettyDate(context, plan.date);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: recoverySoftDecoration(theme),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
-            onTap: () => onToggle(!done),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 2),
-              child: Icon(
+          Semantics(
+            button: true,
+            toggled: done,
+            label: strings.actionPlanText(
+              done ? 'toggleMarkIncomplete' : 'toggleMarkComplete',
+            ),
+            excludeSemantics: true,
+            child: IconButton(
+              onPressed: () => onToggle(!done),
+              tooltip: strings.actionPlanText(
+                done ? 'toggleMarkIncomplete' : 'toggleMarkComplete',
+              ),
+              constraints: const BoxConstraints.tightFor(width: 44, height: 44),
+              padding: EdgeInsets.zero,
+              icon: Icon(
                 done
                     ? Icons.check_circle_rounded
                     : Icons.radio_button_unchecked_rounded,
@@ -198,63 +272,93 @@ class _PlanCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  plan.situation,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    decoration: done ? TextDecoration.lineThrough : null,
-                    color: done ? context.appColors.textSecondary : null,
+                Semantics(
+                  label: strings.actionPlanCardSummary(
+                    state,
+                    plan.situation,
+                    plan.plannedAction,
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  plan.plannedAction,
-                  style: TextStyle(
-                    color: context.appColors.textSecondary,
-                    fontSize: 13,
-                    height: 1.4,
-                  ),
-                ),
-                if (plan.date != null) ...[
-                  const SizedBox(height: 8),
-                  Row(
+                  excludeSemantics: true,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(
-                        Icons.event_rounded,
-                        size: 14,
-                        color: theme.colorScheme.primary,
-                      ),
-                      const SizedBox(width: 4),
                       Text(
-                        _prettyDate(plan.date!),
+                        plan.situation,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w800,
+                          decoration: done ? TextDecoration.lineThrough : null,
+                          color: done ? context.appColors.textSecondary : null,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        plan.plannedAction,
                         style: TextStyle(
-                          color: theme.colorScheme.primary,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
+                          color: context.appColors.textSecondary,
+                          fontSize: 13,
+                          height: 1.4,
                         ),
                       ),
                     ],
+                  ),
+                ),
+                if (date != null) ...[
+                  const SizedBox(height: 8),
+                  Semantics(
+                    label: strings.actionPlanDateSummary(date),
+                    excludeSemantics: true,
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.event_rounded,
+                          size: 14,
+                          color: theme.colorScheme.primary,
+                        ),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            date,
+                            style: TextStyle(
+                              color: theme.colorScheme.primary,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+                if (plan.notes?.trim().isNotEmpty ?? false) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    plan.notes!,
+                    style: TextStyle(
+                      color: context.appColors.textSecondary,
+                      fontSize: 13,
+                      height: 1.4,
+                    ),
                   ),
                 ],
               ],
             ),
           ),
-          GestureDetector(
-            onTap: onDelete,
-            child: Icon(
-              Icons.close_rounded,
-              size: 16,
-              color: context.appColors.textSecondary,
-            ),
+          IconButton(
+            onPressed: onDelete,
+            tooltip: strings.actionPlanText('deleteTooltip'),
+            constraints: const BoxConstraints.tightFor(width: 44, height: 44),
+            padding: EdgeInsets.zero,
+            icon: const Icon(Icons.close_rounded),
           ),
         ],
       ),
     );
   }
 
-  String _prettyDate(String iso) {
+  String? _prettyDate(BuildContext context, String? iso) {
+    if (iso == null) return null;
     try {
-      return DateFormat('EEE, MMM d').format(DateTime.parse(iso));
+      return context.formatFullDateWithWeekday(DateTime.parse(iso));
     } catch (_) {
       return iso;
     }
@@ -268,6 +372,7 @@ class _EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     return Container(
       padding: const EdgeInsets.all(22),
       decoration: recoverySoftDecoration(theme),
@@ -280,16 +385,18 @@ class _EmptyState extends StatelessWidget {
             size: 28,
           ),
           const SizedBox(height: 12),
-          Text(
-            'Plan ahead',
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w800,
+          Semantics(
+            header: true,
+            child: Text(
+              strings.actionPlanText('emptyTitle'),
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w800,
+              ),
             ),
           ),
           const SizedBox(height: 6),
           Text(
-            'Pick a likely trigger and decide now how you will respond, so the '
-            'moment is easier.',
+            strings.actionPlanText('emptyBody'),
             style: TextStyle(
               color: context.appColors.textSecondary,
               height: 1.45,
@@ -300,7 +407,7 @@ class _EmptyState extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: onCreate,
-              child: const Text('New plan'),
+              child: Text(strings.actionPlanText('emptyAction')),
             ),
           ),
         ],
@@ -344,38 +451,60 @@ class _ActionPlanEditScreenState extends ConsumerState<ActionPlanEditScreen> {
   }
 
   Future<void> _save() async {
+    final strings = context.l10n;
     final situation = _situation.text.trim();
     final action = _action.text.trim();
     if (situation.isEmpty || action.isEmpty) {
-      showAppSnackBar(
-        context,
-        'When OCD shows up, and what you will do instead. Then it saves.',
-        type: ToastType.info,
+      final message = strings.actionPlanText('validation');
+      showAppSnackBar(context, message, type: ToastType.info);
+      await SemanticsService.sendAnnouncement(
+        View.of(context),
+        message,
+        Directionality.of(context),
       );
       return;
     }
     setState(() => _saving = true);
-    await ref
+    final saved = await ref
         .read(actionPlanProvider.notifier)
         .add(
           ActionPlan(
             situation: situation,
             plannedAction: action,
-            date: _date == null
-                ? null
-                : DateFormat('yyyy-MM-dd').format(_date!),
+            date: _date == null ? null : _storageDate(_date!),
             notes: _notes.text.trim().isEmpty ? null : _notes.text.trim(),
             createdAt: DateTime.now(),
           ),
         );
     if (!mounted) return;
+    if (!saved) {
+      setState(() => _saving = false);
+      final message = strings.actionPlanText('saveError');
+      showAppSnackBar(context, message, type: ToastType.error);
+      await SemanticsService.sendAnnouncement(
+        View.of(context),
+        message,
+        Directionality.of(context),
+      );
+      return;
+    }
     Navigator.of(context).pop();
-    showAppSnackBar(context, 'Plan saved.', type: ToastType.success);
+    final message = strings.actionPlanText('saveSuccess');
+    showAppSnackBar(context, message, type: ToastType.success);
+    await SemanticsService.sendAnnouncement(
+      View.of(context),
+      message,
+      Directionality.of(context),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
+    final selectedDate = _date == null
+        ? strings.actionPlanText('pickDate')
+        : context.formatFullDateWithWeekday(_date!);
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -386,10 +515,13 @@ class _ActionPlanEditScreenState extends ConsumerState<ActionPlanEditScreen> {
                 CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    'New plan',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      strings.actionPlanText('editorTitle'),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
@@ -397,70 +529,83 @@ class _ActionPlanEditScreenState extends ConsumerState<ActionPlanEditScreen> {
             ),
             const SizedBox(height: 18),
             LabeledField(
-              label: 'When OCD shows up',
-              hint: 'e.g. The urge to Google a symptom',
+              label: strings.actionPlanText('situationLabel'),
+              hint: strings.actionPlanText('situationHint'),
               controller: _situation,
               minLines: 2,
             ),
             const SizedBox(height: 16),
             LabeledField(
-              label: 'What you will do instead',
-              hint: 'e.g. Wait 15 minutes before searching',
+              label: strings.actionPlanText('actionLabel'),
+              hint: strings.actionPlanText('actionHint'),
               controller: _action,
               minLines: 2,
             ),
             const SizedBox(height: 16),
             Text(
-              'Date (optional)',
+              strings.actionPlanText('dateLabel'),
               style: theme.textTheme.labelLarge?.copyWith(
                 fontWeight: FontWeight.w700,
               ),
             ),
             const SizedBox(height: 8),
-            GestureDetector(
-              onTap: _pickDate,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 16,
-                ),
-                decoration: recoverySoftDecoration(theme, radius: 18),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.event_rounded,
-                      size: 18,
-                      color: theme.colorScheme.primary,
-                    ),
-                    const SizedBox(width: 10),
-                    Text(
-                      _date == null
-                          ? 'Pick a date'
-                          : DateFormat('EEE, MMM d, y').format(_date!),
-                      style: TextStyle(
-                        color: _date == null
-                            ? context.appColors.textSecondary
-                            : theme.colorScheme.onSurface,
-                      ),
-                    ),
-                    const Spacer(),
-                    if (_date != null)
-                      GestureDetector(
-                        onTap: () => setState(() => _date = null),
-                        child: Icon(
-                          Icons.close_rounded,
-                          size: 18,
-                          color: context.appColors.textSecondary,
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: recoverySoftDecoration(theme, radius: 18),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Semantics(
+                      button: true,
+                      label: selectedDate,
+                      excludeSemantics: true,
+                      child: InkWell(
+                        onTap: _pickDate,
+                        borderRadius: BorderRadius.circular(14),
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(minHeight: 44),
+                          child: Row(
+                            children: [
+                              const SizedBox(width: 8),
+                              Icon(
+                                Icons.event_rounded,
+                                size: 18,
+                                color: theme.colorScheme.primary,
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  selectedDate,
+                                  style: TextStyle(
+                                    color: _date == null
+                                        ? context.appColors.textSecondary
+                                        : theme.colorScheme.onSurface,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                  ],
-                ),
+                    ),
+                  ),
+                  if (_date != null)
+                    IconButton(
+                      onPressed: () => setState(() => _date = null),
+                      tooltip: strings.actionPlanText('clearDate'),
+                      constraints: const BoxConstraints.tightFor(
+                        width: 44,
+                        height: 44,
+                      ),
+                      icon: const Icon(Icons.close_rounded),
+                    ),
+                ],
               ),
             ),
             const SizedBox(height: 16),
             LabeledField(
-              label: 'Notes (optional)',
-              hint: 'Anything that helps',
+              label: strings.actionPlanText('notesLabel'),
+              hint: strings.actionPlanText('notesHint'),
               controller: _notes,
               minLines: 2,
             ),
@@ -475,7 +620,7 @@ class _ActionPlanEditScreenState extends ConsumerState<ActionPlanEditScreen> {
                         width: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : const Text('Save plan'),
+                    : Text(strings.actionPlanText('saveAction')),
               ),
             ),
           ]),
@@ -483,4 +628,11 @@ class _ActionPlanEditScreenState extends ConsumerState<ActionPlanEditScreen> {
       ),
     );
   }
+}
+
+String _storageDate(DateTime value) {
+  final year = value.year.toString().padLeft(4, '0');
+  final month = value.month.toString().padLeft(2, '0');
+  final day = value.day.toString().padLeft(2, '0');
+  return '$year-$month-$day';
 }

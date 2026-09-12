@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/semantics.dart';
 
+import '../../app_preferences.dart';
+import '../../l10n/l10n.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../theme/app_colors.dart';
@@ -11,49 +14,13 @@ import '../widgets/section_intro.dart';
 
 class UncertaintyExercise {
   final String id;
-  final String title;
-  final String intro;
-  final String why;
-  final String prompt;
-  const UncertaintyExercise({
-    required this.id,
-    required this.title,
-    required this.intro,
-    required this.why,
-    required this.prompt,
-  });
+  const UncertaintyExercise({required this.id});
 }
 
 const uncertaintyExercises = <UncertaintyExercise>[
-  UncertaintyExercise(
-    id: 'maybe',
-    title: 'Maybe, maybe not',
-    intro:
-        'When OCD demands certainty, answer it with "maybe, maybe not" and '
-        'carry on.',
-    why:
-        'Agreeing to uncertainty starves the compulsion of the reassurance it '
-        'feeds on.',
-    prompt: 'Pick a worry and respond to it: "Maybe, maybe not." Sit with it.',
-  ),
-  UncertaintyExercise(
-    id: 'unanswered',
-    title: 'Leave it unanswered',
-    intro: 'Let a nagging question stay open instead of resolving it.',
-    why:
-        'Your brain learns that an unanswered question is uncomfortable but '
-        'safe, and the discomfort fades.',
-    prompt: 'Choose one question you would normally settle, and leave it be.',
-  ),
-  UncertaintyExercise(
-    id: 'resist',
-    title: 'Resist certainty-seeking',
-    intro: 'Notice the pull to check, google, or ask, and don\'t.',
-    why:
-        'Each time you resist, the urge to seek certainty gets a little '
-        'quieter.',
-    prompt: 'Catch one certainty-seeking urge and let it pass unanswered.',
-  ),
+  UncertaintyExercise(id: 'maybe'),
+  UncertaintyExercise(id: 'unanswered'),
+  UncertaintyExercise(id: 'resist'),
 ];
 
 class UncertaintyTrainingScreen extends ConsumerWidget {
@@ -62,7 +29,10 @@ class UncertaintyTrainingScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final logs = ref.watch(uncertaintyLogProvider).asData?.value ?? const [];
+    final strings = context.l10n;
+    final calmInsightsEnabled = ref.watch(calmInsightsProvider);
+    final logsValue = ref.watch(uncertaintyLogProvider);
+    final logs = logsValue.asData?.value ?? const <UncertaintyLog>[];
 
     return Scaffold(
       body: SafeArea(
@@ -74,10 +44,13 @@ class UncertaintyTrainingScreen extends ConsumerWidget {
                 CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    'Uncertainty Training',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      strings.uncertaintyTrainingText('title'),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
@@ -85,7 +58,7 @@ class UncertaintyTrainingScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 6),
             Text(
-              'Build your willingness to live with not knowing.',
+              strings.uncertaintyTrainingText('subtitle'),
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.4,
@@ -93,12 +66,19 @@ class UncertaintyTrainingScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 18),
             const SectionIntro(id: 'uncertaintyTraining'),
+            if (logsValue.hasError) ...[
+              Text(
+                strings.uncertaintyTrainingText('loadError'),
+                style: TextStyle(color: context.appColors.textSecondary),
+              ),
+              const SizedBox(height: 12),
+            ],
             for (final exercise in uncertaintyExercises) ...[
               _ExerciseCard(
                 exercise: exercise,
-                practiceCount: logs
-                    .where((l) => l.exerciseId == exercise.id)
-                    .length,
+                practiceCount: calmInsightsEnabled
+                    ? null
+                    : logs.where((l) => l.exerciseId == exercise.id).length,
                 onTap: () => _openPractice(context, exercise),
               ),
               const SizedBox(height: 10),
@@ -121,7 +101,7 @@ class UncertaintyTrainingScreen extends ConsumerWidget {
 
 class _ExerciseCard extends StatelessWidget {
   final UncertaintyExercise exercise;
-  final int practiceCount;
+  final int? practiceCount;
   final VoidCallback onTap;
 
   const _ExerciseCard({
@@ -133,44 +113,61 @@ class _ExerciseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return PressScale(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(18),
-        decoration: recoverySoftDecoration(theme),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    exercise.title,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w800,
+    final strings = context.l10n;
+    final title = strings.uncertaintyExerciseTitle(exercise.id);
+    final intro = strings.uncertaintyExerciseIntro(exercise.id);
+    final summary = practiceCount == null
+        ? strings.uncertaintyExerciseSummary(title, intro)
+        : strings.uncertaintyExerciseSummaryWithCount(
+            title,
+            intro,
+            practiceCount!,
+          );
+    return Semantics(
+      button: true,
+      label: summary,
+      excludeSemantics: true,
+      child: PressScale(
+        onTap: onTap,
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 44),
+          padding: const EdgeInsets.all(18),
+          decoration: recoverySoftDecoration(theme),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
-                ),
-                if (practiceCount > 0)
-                  Text(
-                    '$practiceCount×',
-                    style: theme.textTheme.labelLarge?.copyWith(
-                      color: theme.colorScheme.primary,
-                      fontWeight: FontWeight.w800,
+                  if (practiceCount != null && practiceCount! > 0)
+                    Text(
+                      strings.uncertaintyPracticeCount(practiceCount!),
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: theme.colorScheme.primary,
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
-                  ),
-              ],
-            ),
-            const SizedBox(height: 4),
-            Text(
-              exercise.intro,
-              style: TextStyle(
-                color: context.appColors.textSecondary,
-                fontSize: 13,
-                height: 1.4,
+                ],
               ),
-            ),
-          ],
+              const SizedBox(height: 4),
+              Text(
+                intro,
+                style: TextStyle(
+                  color: context.appColors.textSecondary,
+                  fontSize: 13,
+                  height: 1.4,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -199,9 +196,10 @@ class _UncertaintyPracticeScreenState
   }
 
   Future<void> _log() async {
+    final strings = context.l10n;
     setState(() => _saving = true);
     final now = DateTime.now();
-    await ref
+    final saved = await ref
         .read(uncertaintyLogProvider.notifier)
         .add(
           UncertaintyLog(
@@ -213,18 +211,33 @@ class _UncertaintyPracticeScreenState
           ),
         );
     if (!mounted) return;
+    if (!saved) {
+      setState(() => _saving = false);
+      final message = strings.uncertaintyTrainingText('saveError');
+      showAppSnackBar(context, message, type: ToastType.error);
+      await SemanticsService.sendAnnouncement(
+        View.of(context),
+        message,
+        Directionality.of(context),
+      );
+      return;
+    }
     Navigator.of(context).pop();
-    showAppSnackBar(
-      context,
-      'Logged. Willingness grows with practice.',
-      type: ToastType.success,
+    final message = strings.uncertaintyTrainingText('saveSuccess');
+    showAppSnackBar(context, message, type: ToastType.success);
+    await SemanticsService.sendAnnouncement(
+      View.of(context),
+      message,
+      Directionality.of(context),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final exercise = widget.exercise;
+    final title = strings.uncertaintyExerciseTitle(exercise.id);
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -235,10 +248,13 @@ class _UncertaintyPracticeScreenState
                 CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    exercise.title,
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      title,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
@@ -252,12 +268,12 @@ class _UncertaintyPracticeScreenState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    exercise.intro,
+                    strings.uncertaintyExerciseIntro(exercise.id),
                     style: theme.textTheme.bodyLarge?.copyWith(height: 1.4),
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    'WHY IT WORKS',
+                    strings.uncertaintyTrainingText('whyLabel'),
                     style: theme.textTheme.labelSmall?.copyWith(
                       color: context.appColors.textSecondary,
                       fontWeight: FontWeight.w800,
@@ -267,7 +283,7 @@ class _UncertaintyPracticeScreenState
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    exercise.why,
+                    strings.uncertaintyExerciseWhy(exercise.id),
                     style: TextStyle(
                       color: context.appColors.textSecondary,
                       height: 1.45,
@@ -284,7 +300,7 @@ class _UncertaintyPracticeScreenState
                 borderRadius: BorderRadius.circular(18),
               ),
               child: Text(
-                exercise.prompt,
+                strings.uncertaintyExercisePrompt(exercise.id),
                 style: theme.textTheme.bodyLarge?.copyWith(
                   height: 1.4,
                   fontWeight: FontWeight.w600,
@@ -296,15 +312,16 @@ class _UncertaintyPracticeScreenState
               padding: const EdgeInsets.all(16),
               decoration: recoverySoftDecoration(theme, radius: 18),
               child: RatingSlider(
-                label: 'How willing were you to sit with not knowing?',
+                label: strings.uncertaintyTrainingText('willingnessLabel'),
                 value: _willingness,
                 onChanged: (v) => setState(() => _willingness = v),
+                valueFormatter: strings.uncertaintyWillingness,
               ),
             ),
             const SizedBox(height: 16),
             LabeledField(
-              label: 'Note (optional)',
-              hint: 'What did you notice?',
+              label: strings.uncertaintyTrainingText('noteLabel'),
+              hint: strings.uncertaintyTrainingText('noteHint'),
               controller: _note,
               minLines: 2,
             ),
@@ -319,7 +336,7 @@ class _UncertaintyPracticeScreenState
                         width: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : const Text('Log this practice'),
+                    : Text(strings.uncertaintyTrainingText('saveAction')),
               ),
             ),
           ]),

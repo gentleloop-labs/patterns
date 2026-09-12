@@ -536,30 +536,42 @@ class ActionPlanNotifier extends AsyncNotifier<List<ActionPlan>> {
     return await DbHelper.instance.getActionPlans();
   }
 
-  Future<void> add(ActionPlan plan) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
+  Future<bool> add(ActionPlan plan) async {
+    final previous = state.asData?.value ?? const <ActionPlan>[];
+    try {
       await DbHelper.instance.insertActionPlan(plan);
-      return await DbHelper.instance.getActionPlans();
-    });
+      state = AsyncData(await DbHelper.instance.getActionPlans());
+      return true;
+    } catch (_) {
+      state = AsyncData(previous);
+      return false;
+    }
   }
 
-  Future<void> setCompleted(ActionPlan plan, bool completed) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
+  Future<bool> setCompleted(ActionPlan plan, bool completed) async {
+    final previous = state.asData?.value ?? const <ActionPlan>[];
+    try {
       await DbHelper.instance.updateActionPlan(
         plan.copyWith(completed: completed),
       );
-      return await DbHelper.instance.getActionPlans();
-    });
+      state = AsyncData(await DbHelper.instance.getActionPlans());
+      return true;
+    } catch (_) {
+      state = AsyncData(previous);
+      return false;
+    }
   }
 
-  Future<void> delete(int id) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
+  Future<bool> delete(int id) async {
+    final previous = state.asData?.value ?? const <ActionPlan>[];
+    try {
       await DbHelper.instance.deleteActionPlan(id);
-      return await DbHelper.instance.getActionPlans();
-    });
+      state = AsyncData(await DbHelper.instance.getActionPlans());
+      return true;
+    } catch (_) {
+      state = AsyncData(previous);
+      return false;
+    }
   }
 }
 
@@ -616,12 +628,16 @@ class UncertaintyLogNotifier extends AsyncNotifier<List<UncertaintyLog>> {
     return await DbHelper.instance.getUncertaintyLogs();
   }
 
-  Future<void> add(UncertaintyLog log) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
+  Future<bool> add(UncertaintyLog log) async {
+    final previous = state.asData?.value ?? const <UncertaintyLog>[];
+    try {
       await DbHelper.instance.insertUncertaintyLog(log);
-      return await DbHelper.instance.getUncertaintyLogs();
-    });
+      state = AsyncData(await DbHelper.instance.getUncertaintyLogs());
+      return true;
+    } catch (_) {
+      state = AsyncData(previous);
+      return false;
+    }
   }
 }
 
