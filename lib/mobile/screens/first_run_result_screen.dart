@@ -44,49 +44,37 @@ class _FirstRunResultScreenState extends ConsumerState<FirstRunResultScreen> {
     Telemetry.log('result.shown', {'kind': widget.kind.name});
   }
 
-  ({String headline, String body, IconData icon}) get _copy {
-    final before = widget.result.intensityBefore;
-    final after = widget.result.intensityAfter;
+  ({String headline, String body, IconData icon}) _copy(BuildContext context) {
+    final strings = context.l10n;
     switch (widget.kind) {
       case FirstRunPath.urge:
-        final dropLine = (before != null && after != null && after < before)
-            ? 'Your urge dropped from $before to $after. '
-            : 'Whether or not the urge dropped, showing up is what counts. ';
         return (
-          headline: 'You made space before responding.',
-          body:
-              '${dropLine}That pause is the practice. The urge doesn’t have to '
-              'win, and you just proved it.',
+          headline: strings.completionPracticeTitle,
+          body: strings.completionDelayBody,
           icon: LineIcons.hourglassHalf,
         );
       case FirstRunPath.journal:
         return (
-          headline: 'It’s out of your head and on the page.',
-          body:
-              'Naming a thought takes some of its power away. That’s a real '
-              'step.',
+          headline: strings.completionSavedTitle,
+          body: strings.completionTrackedBody,
           icon: LineIcons.pen,
         );
       case FirstRunPath.erp:
         return (
-          headline: 'You practised sitting with discomfort.',
-          body:
-              'That’s exactly how the brain learns the fear alarm is a false '
-              'one.',
+          headline: strings.completionPracticeTitle,
+          body: strings.completionErpBody,
           icon: LineIcons.seedling,
         );
       case FirstRunPath.selfcheck:
         return (
-          headline: 'Thanks for checking in.',
-          body:
-              'This gives you a starting point to look back on later, not a '
-              'label.',
+          headline: strings.completionSavedTitle,
+          body: strings.shellText('firstSelfCheckBody'),
           icon: LineIcons.clipboardList,
         );
       case FirstRunPath.explore:
         return (
-          headline: 'Nice to have you here.',
-          body: 'Take your time and look around.',
+          headline: strings.shellText('firstExploreTitle'),
+          body: strings.shellText('firstExploreBody'),
           icon: LineIcons.compass,
         );
     }
@@ -95,7 +83,7 @@ class _FirstRunResultScreenState extends ConsumerState<FirstRunResultScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final copy = _copy;
+    final copy = _copy(context);
 
     return Scaffold(
       body: DecoratedBox(
@@ -117,34 +105,39 @@ class _FirstRunResultScreenState extends ConsumerState<FirstRunResultScreen> {
                       child: Column(
                         children: [
                           FadeSlideIn(
-                            child: Container(
-                              width: 76,
-                              height: 76,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: context.appColors.accent.withValues(
-                                  alpha: 0.15,
+                            child: ExcludeSemantics(
+                              child: Container(
+                                width: 76,
+                                height: 76,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: context.appColors.accent.withValues(
+                                    alpha: 0.15,
+                                  ),
                                 ),
-                              ),
-                              child: Icon(
-                                copy.icon,
-                                color: context.appColors.accent,
-                                size: 34,
+                                child: Icon(
+                                  copy.icon,
+                                  color: context.appColors.accent,
+                                  size: 34,
+                                ),
                               ),
                             ),
                           ),
                           const SizedBox(height: 26),
                           FadeSlideIn(
                             delay: const Duration(milliseconds: 90),
-                            child: Text(
-                              copy.headline,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontFamily: AppTheme.displayFamily,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 27,
-                                height: 1.15,
-                                color: context.appColors.textPrimary,
+                            child: Semantics(
+                              header: true,
+                              child: Text(
+                                copy.headline,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: AppTheme.displayFamily,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 27,
+                                  height: 1.15,
+                                  color: context.appColors.textPrimary,
+                                ),
                               ),
                             ),
                           ),
@@ -169,7 +162,7 @@ class _FirstRunResultScreenState extends ConsumerState<FirstRunResultScreen> {
                   OutlinedButton.icon(
                     onPressed: _askReminder,
                     icon: Icon(LineIcons.bell, size: 18),
-                    label: Text('Set a gentle reminder'),
+                    label: Text(context.l10n.shellText('setReminder')),
                   ),
                 const SizedBox(height: 10),
                 SizedBox(
@@ -181,7 +174,7 @@ class _FirstRunResultScreenState extends ConsumerState<FirstRunResultScreen> {
                       });
                       widget.onDone();
                     },
-                    child: Text('Go to my space'),
+                    child: Text(context.l10n.shellText('goToSpace')),
                   ),
                 ),
               ],
@@ -201,42 +194,49 @@ class _FirstRunResultScreenState extends ConsumerState<FirstRunResultScreen> {
         hour: NotificationService.defaultHour,
         minute: NotificationService.defaultMinute,
       ),
-      helpText: 'When should we check in?',
+      helpText: context.l10n.shellText('reminderPrompt'),
     );
     if (picked == null || !mounted) {
       Telemetry.log('reminder.declined', {'reason': 'no_time'});
       return;
     }
 
+    final strings = context.l10n;
     final granted = await NotificationService.requestPermission();
     if (!granted) {
       Telemetry.log('reminder.declined', {'reason': 'permission'});
       if (mounted) {
         showAppSnackBar(
           context,
-          'Notifications are off for Patterns. You can turn them on anytime '
-          'in Settings.',
+          strings.shellText('notificationsOff'),
           type: ToastType.info,
         );
       }
       return;
     }
 
-    await NotificationService.scheduleDailyReminder(
-      picked,
-      strings: context.l10n,
-    );
-    await ref
-        .read(reminderProvider.notifier)
-        .setTime(picked.hour, picked.minute);
-    await ref.read(reminderProvider.notifier).setEnabled(true);
-    Telemetry.log('reminder.enabled');
-    if (!mounted) return;
-    setState(() => _reminderSet = true);
-    showAppSnackBar(
-      context,
-      'A gentle reminder is set. Turn it off anytime in Settings.',
-      type: ToastType.success,
-    );
+    try {
+      await NotificationService.scheduleDailyReminder(picked, strings: strings);
+      await ref
+          .read(reminderProvider.notifier)
+          .setTime(picked.hour, picked.minute);
+      await ref.read(reminderProvider.notifier).setEnabled(true);
+      Telemetry.log('reminder.enabled');
+      if (!mounted) return;
+      setState(() => _reminderSet = true);
+      showAppSnackBar(
+        context,
+        strings.shellText('reminderSet'),
+        type: ToastType.success,
+      );
+    } catch (_) {
+      await NotificationService.cancelReminder().catchError((_) {});
+      if (!mounted) return;
+      showAppSnackBar(
+        context,
+        strings.shellText('reminderFailed'),
+        type: ToastType.error,
+      );
+    }
   }
 }

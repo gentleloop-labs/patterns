@@ -4384,6 +4384,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Share anonymous usage'**
   String get shareAnonymousUsageAction;
+
+  /// Mobile onboarding, navigation, section-intro, spotlight-tour, and add-sheet copy selected from a stable UI key. Keep completion and self-check wording factual, optional, non-diagnostic, non-emergency, and free of praise or engagement pressure.
+  ///
+  /// In en, this message translates to:
+  /// **'{key, select, sectionTodayBody{Choose a useful next step or simply review what you have recorded.} sectionJournalBody{Write only what feels useful. Your words stay as written on this device.} sectionTrackBody{Record an obsession or compulsion and any response you chose.} sectionRecoveryBody{Open a self-help tool or practice at your own pace.} sectionInsightsBody{Review factual patterns in the activity and measurements you recorded.} gotIt{Got it} tourFinalTitle{That’s the tour} tourFinalBody{A short Y-BOCS self-check can record a baseline whenever you choose. It is optional, not a diagnosis, and not emergency support.} takeSelfCheck{Take self-check} skip{Skip} next{Next} addPrompt{What would you like to add?} addJournal{Journal entry} addOcd{OCD event} addErp{Guided ERP} addDelay{Pause an urge} firstSelfCheckBody{Your self-check is saved on this device. The result is a snapshot, not a diagnosis.} firstExploreTitle{Welcome to Patterns} firstExploreBody{Explore at your own pace.} setReminder{Set a gentle reminder} goToSpace{Go to my space} reminderPrompt{When should Patterns remind you?} notificationsOff{Notifications are off for Patterns. You can enable them in device settings.} reminderSet{Reminder set. You can change or turn it off in Settings.} reminderFailed{Patterns could not set the reminder. No reminder was enabled. Please try again.} other{Patterns}}'**
+  String shellText(String key);
+
+  /// Visible and accessible progress through the optional mobile app tour.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {current} of {total}'**
+  String tourProgress(int current, int total);
 }
 
 class _AppLocalizationsDelegate

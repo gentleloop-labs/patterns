@@ -4041,4 +4041,52 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get shareAnonymousUsageAction => 'Anonyme Nutzung teilen';
+
+  @override
+  String shellText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'sectionTodayBody':
+          'Wähle einen hilfreichen nächsten Schritt oder sieh dir einfach deine Aufzeichnungen an.',
+      'sectionJournalBody':
+          'Schreibe nur auf, was dir nützlich erscheint. Deine Worte bleiben auf diesem Gerät unverändert.',
+      'sectionTrackBody':
+          'Halte eine Obsession oder Zwangshandlung und die von dir gewählte Reaktion fest.',
+      'sectionRecoveryBody':
+          'Öffne ein Selbsthilfe-Werkzeug oder übe in deinem eigenen Tempo.',
+      'sectionInsightsBody':
+          'Sieh dir sachliche Muster in deinen aufgezeichneten Aktivitäten und Messwerten an.',
+      'gotIt': 'Verstanden',
+      'tourFinalTitle': 'Das war die Tour',
+      'tourFinalBody':
+          'Ein kurzer Y-BOCS-Selbstcheck kann jederzeit einen Ausgangswert festhalten. Er ist optional, keine Diagnose und keine Notfallhilfe.',
+      'takeSelfCheck': 'Selbstcheck starten',
+      'skip': 'Überspringen',
+      'next': 'Weiter',
+      'addPrompt': 'Was möchtest du hinzufügen?',
+      'addJournal': 'Tagebucheintrag',
+      'addOcd': 'OCD-Ereignis',
+      'addErp': 'Geführte ERP',
+      'addDelay': 'Drang pausieren',
+      'firstSelfCheckBody':
+          'Dein Selbstcheck ist auf diesem Gerät gespeichert. Das Ergebnis ist eine Momentaufnahme, keine Diagnose.',
+      'firstExploreTitle': 'Willkommen bei Patterns',
+      'firstExploreBody': 'Sieh dich in deinem eigenen Tempo um.',
+      'setReminder': 'Sanfte Erinnerung einstellen',
+      'goToSpace': 'Zu meinem Bereich',
+      'reminderPrompt': 'Wann soll Patterns dich erinnern?',
+      'notificationsOff':
+          'Benachrichtigungen für Patterns sind ausgeschaltet. Du kannst sie in den Geräteeinstellungen aktivieren.',
+      'reminderSet':
+          'Erinnerung eingestellt. Du kannst sie in den Einstellungen ändern oder ausschalten.',
+      'reminderFailed':
+          'Patterns konnte die Erinnerung nicht einstellen. Es wurde keine Erinnerung aktiviert. Bitte versuche es erneut.',
+      'other': 'Patterns',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String tourProgress(int current, int total) {
+    return 'Schritt $current von $total';
+  }
 }

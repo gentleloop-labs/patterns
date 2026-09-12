@@ -3491,4 +3491,44 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get shareAnonymousUsageAction => '匿名の利用状況を共有';
+
+  @override
+  String shellText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'sectionTodayBody': '役立ちそうな次の一歩を選ぶか、記録した内容を確認できます。',
+      'sectionJournalBody': '役立つと感じることだけを書いてください。入力した言葉は、この端末にそのまま保存されます。',
+      'sectionTrackBody': '強迫観念や強迫行為と、自分が選んだ対応を記録します。',
+      'sectionRecoveryBody': 'セルフヘルプのツールを開き、自分のペースで練習できます。',
+      'sectionInsightsBody': '記録した活動や測定値に見られる事実に基づくパターンを確認します。',
+      'gotIt': 'わかりました',
+      'tourFinalTitle': 'ツアーは以上です',
+      'tourFinalBody':
+          '希望するときに短いY-BOCSセルフチェックを行い、基準となる記録を残せます。これは任意であり、診断でも緊急支援でもありません。',
+      'takeSelfCheck': 'セルフチェックを行う',
+      'skip': 'スキップ',
+      'next': '次へ',
+      'addPrompt': '何を追加しますか？',
+      'addJournal': '日記エントリー',
+      'addOcd': 'OCDの出来事',
+      'addErp': 'ガイド付きERP',
+      'addDelay': '衝動を一時停止',
+      'firstSelfCheckBody': 'セルフチェックはこの端末に保存されました。結果は現時点の記録であり、診断ではありません。',
+      'firstExploreTitle': 'Patternsへようこそ',
+      'firstExploreBody': '自分のペースで見て回れます。',
+      'setReminder': 'やさしいリマインダーを設定',
+      'goToSpace': '自分のスペースへ',
+      'reminderPrompt': 'Patternsから何時にリマインドしますか？',
+      'notificationsOff': 'Patternsの通知はオフになっています。端末の設定でオンにできます。',
+      'reminderSet': 'リマインダーを設定しました。設定画面で変更またはオフにできます。',
+      'reminderFailed':
+          'Patternsはリマインダーを設定できませんでした。リマインダーは有効になっていません。もう一度お試しください。',
+      'other': 'Patterns',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String tourProgress(int current, int total) {
+    return '$totalステップ中$currentステップ目';
+  }
 }

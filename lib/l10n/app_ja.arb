@@ -1192,5 +1192,7 @@
   "analyticsPromptTitle": "Patternsの改善に協力しますか？", "@analyticsPromptTitle": {},
   "analyticsPromptBody": "Patternsの改善に役立てるため、機能の利用状況を匿名で共有できます。日記、OCDの内容、評価、メモ、生成された要約、地域、選択した言語は含まれません。選択しない限り共有は無効のままです。", "@analyticsPromptBody": {},
   "notNowAction": "今はしない", "@notNowAction": {},
-  "shareAnonymousUsageAction": "匿名の利用状況を共有", "@shareAnonymousUsageAction": {}
+  "shareAnonymousUsageAction": "匿名の利用状況を共有", "@shareAnonymousUsageAction": {},
+  "shellText": "{key, select, sectionTodayBody{役立ちそうな次の一歩を選ぶか、記録した内容を確認できます。} sectionJournalBody{役立つと感じることだけを書いてください。入力した言葉は、この端末にそのまま保存されます。} sectionTrackBody{強迫観念や強迫行為と、自分が選んだ対応を記録します。} sectionRecoveryBody{セルフヘルプのツールを開き、自分のペースで練習できます。} sectionInsightsBody{記録した活動や測定値に見られる事実に基づくパターンを確認します。} gotIt{わかりました} tourFinalTitle{ツアーは以上です} tourFinalBody{希望するときに短いY-BOCSセルフチェックを行い、基準となる記録を残せます。これは任意であり、診断でも緊急支援でもありません。} takeSelfCheck{セルフチェックを行う} skip{スキップ} next{次へ} addPrompt{何を追加しますか？} addJournal{日記エントリー} addOcd{OCDの出来事} addErp{ガイド付きERP} addDelay{衝動を一時停止} firstSelfCheckBody{セルフチェックはこの端末に保存されました。結果は現時点の記録であり、診断ではありません。} firstExploreTitle{Patternsへようこそ} firstExploreBody{自分のペースで見て回れます。} setReminder{やさしいリマインダーを設定} goToSpace{自分のスペースへ} reminderPrompt{Patternsから何時にリマインドしますか？} notificationsOff{Patternsの通知はオフになっています。端末の設定でオンにできます。} reminderSet{リマインダーを設定しました。設定画面で変更またはオフにできます。} reminderFailed{Patternsはリマインダーを設定できませんでした。リマインダーは有効になっていません。もう一度お試しください。} other{Patterns}}", "@shellText": {},
+  "tourProgress": "{total}ステップ中{current}ステップ目", "@tourProgress": {}
 }
