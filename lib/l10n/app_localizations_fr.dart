@@ -3661,4 +3661,49 @@ class AppLocalizationsFr extends AppLocalizations {
   String exposureReflectionCardSummary(String date, String whatHappened) {
     return '$date. Ce qui s’est passé : $whatHappened.';
   }
+
+  @override
+  String implementationIntentionText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Plans si-alors',
+      'newAction': 'Nouveau',
+      'subtitle':
+          'Associez une situation à une réponse que vous souhaitez essayer lorsqu’elle se présente.',
+      'loadError':
+          'Vos plans si-alors sont indisponibles pour le moment. Veuillez réessayer.',
+      'deleteTitle': 'Supprimer ce plan si-alors ?',
+      'deleteBody':
+          'Cette action supprime définitivement le plan de cet appareil.',
+      'cancel': 'Annuler',
+      'deleteAction': 'Supprimer',
+      'deleteTooltip': 'Supprimer le plan si-alors',
+      'deleteSuccess': 'Plan si-alors supprimé.',
+      'deleteError':
+          'Ce plan si-alors n’a pas pu être supprimé. Veuillez réessayer.',
+      'emptyTitle': 'Créer un plan si-alors',
+      'emptyBody':
+          'Notez une situation et la réponse que vous souhaitez essayer lorsqu’elle se présente.',
+      'emptyAction': 'Nouveau plan si-alors',
+      'editorTitle': 'Nouveau plan si-alors',
+      'triggerLabel': 'Si…',
+      'triggerHint':
+          'La situation, par exemple : je remarque l’envie de demander à être rassuré',
+      'responseLabel': 'alors…',
+      'responseHint':
+          'La réponse que vous souhaitez essayer, par exemple : noter ce que j’observe',
+      'saveAction': 'Enregistrer le plan si-alors',
+      'validation':
+          'Ajoutez la situation et la réponse que vous souhaitez essayer.',
+      'saveSuccess': 'Plan si-alors enregistré.',
+      'saveError':
+          'Ce plan si-alors n’a pas pu être enregistré. Votre texte est toujours là. Veuillez réessayer.',
+      'other': 'Plan si-alors',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String implementationIntentionStatement(String trigger, String response) {
+    return 'Si $trigger, alors $response.';
+  }
 }

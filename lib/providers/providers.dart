@@ -576,20 +576,28 @@ class ImplementationIntentionNotifier
     return await DbHelper.instance.getImplementationIntentions();
   }
 
-  Future<void> add(ImplementationIntention intention) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
+  Future<bool> add(ImplementationIntention intention) async {
+    final previous = state.asData?.value ?? const <ImplementationIntention>[];
+    try {
       await DbHelper.instance.insertImplementationIntention(intention);
-      return await DbHelper.instance.getImplementationIntentions();
-    });
+      state = AsyncData(await DbHelper.instance.getImplementationIntentions());
+      return true;
+    } catch (_) {
+      state = AsyncData(previous);
+      return false;
+    }
   }
 
-  Future<void> delete(int id) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
+  Future<bool> delete(int id) async {
+    final previous = state.asData?.value ?? const <ImplementationIntention>[];
+    try {
       await DbHelper.instance.deleteImplementationIntention(id);
-      return await DbHelper.instance.getImplementationIntentions();
-    });
+      state = AsyncData(await DbHelper.instance.getImplementationIntentions());
+      return true;
+    } catch (_) {
+      state = AsyncData(previous);
+      return false;
+    }
   }
 }
 

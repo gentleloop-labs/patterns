@@ -3552,4 +3552,47 @@ class AppLocalizationsEn extends AppLocalizations {
   String exposureReflectionCardSummary(String date, String whatHappened) {
     return '$date. What happened: $whatHappened.';
   }
+
+  @override
+  String implementationIntentionText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'If–Then Plans',
+      'newAction': 'New',
+      'subtitle':
+          'Pair a situation with a response you want to try when it happens.',
+      'loadError':
+          'Your if–then plans are unavailable right now. Please try again.',
+      'deleteTitle': 'Delete this if–then plan?',
+      'deleteBody': 'This permanently removes the plan from this device.',
+      'cancel': 'Cancel',
+      'deleteAction': 'Delete',
+      'deleteTooltip': 'Delete if–then plan',
+      'deleteSuccess': 'If–then plan deleted.',
+      'deleteError':
+          'This if–then plan could not be deleted. Please try again.',
+      'emptyTitle': 'Create an if–then plan',
+      'emptyBody':
+          'Write a situation and the response you want to try when it happens.',
+      'emptyAction': 'New if–then plan',
+      'editorTitle': 'New if–then plan',
+      'triggerLabel': 'If…',
+      'triggerHint':
+          'The situation, for example: I notice the urge to seek reassurance',
+      'responseLabel': 'then I will…',
+      'responseHint':
+          'The response you want to try, for example: write down what I am noticing',
+      'saveAction': 'Save if–then plan',
+      'validation': 'Add both the situation and the response you want to try.',
+      'saveSuccess': 'If–then plan saved.',
+      'saveError':
+          'This if–then plan could not be saved. Your text is still here. Please try again.',
+      'other': 'If–then plan',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String implementationIntentionStatement(String trigger, String response) {
+    return 'If $trigger, then I will $response.';
+  }
 }

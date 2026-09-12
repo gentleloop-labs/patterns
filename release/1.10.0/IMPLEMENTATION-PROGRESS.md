@@ -24,12 +24,12 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 | TODAY-02 | Today semantics, large text, Reduced Motion, and non-colour cues | code complete | Localized control/chart semantics, 44-point actions, 200% mobile/desktop reflow, Reduced Motion and explicit day-state tests |
 | TRACK-01 | OCD tracker localization, validation, and accessibility | code complete | Six-locale copy, locale-aware dates, safe CRUD failures, explicit adjustable distress semantics, 44-point controls, large-text and Reduced Motion coverage; 6 focused tests |
 | INSIGHTS-01 | Insights localization and accessible chart alternatives | code complete | Six-locale copy, factual Calm Insights, pressure-metric suppression, localized number/date formatting, chart and heatmap text alternatives, non-colour trend cues, safe errors, 200% reflow, Reduced Motion, and 36 focused/regression tests |
-| RECOVERY-01 | Recovery Hub and ERP tools localization/accessibility | in progress | Recovery Hub, Emergency Toolkit and breathing, Compulsion Delay, Guided ERP, Structured Programs, Y-BOCS, Exposure Hierarchy, Exposure Materials, Response Prevention, Urge Surfing, Behavioral Experiments, and Exposure Reflections are code complete. Exposure Reflections preserves every user-authored field, uses factual locale-aware summaries and 44-point actions, avoids claims that an OCD prediction was wrong, and leaves forms and lists retryable after CRUD failures. Remaining recovery tools remain. |
+| RECOVERY-01 | Recovery Hub and ERP tools localization/accessibility | in progress | Recovery Hub, Emergency Toolkit and breathing, Compulsion Delay, Guided ERP, Structured Programs, Y-BOCS, Exposure Hierarchy, Exposure Materials, Response Prevention, Urge Surfing, Behavioral Experiments, Exposure Reflections, and Implementation Intentions are code complete. Implementation Intentions preserves both user-authored fields, uses locale-aware if–then grammar and 44-point actions, avoids promises that a response will become automatic, and leaves forms and lists retryable after CRUD failures. Remaining recovery tools remain. |
 | CONTENT-01 | Stable-ID localized OCD tracks, programs, and Y-BOCS content | code complete | Structured programs, all five OCD tracks, and every Y-BOCS prompt, response anchor, symptom category/item, and severity explanation resolve from unchanged stable IDs in all six languages. Scoring, stored IDs, and English desktop compatibility remain unchanged; PDF theme labels now follow the selected locale. |
 | SETTINGS-01 | Remaining shared settings, privacy, backup, reminders, dialogs, and errors | pending | — |
 | SHELL-01 | Onboarding, What’s New, navigation, spotlight, and shared shell copy | pending | — |
 | COMMERCE-01 | Mobile Pro, tips, macOS StoreKit, and verified Windows/Linux licensing | code complete | Commerce widget/service tests; live desktop release configuration remains pending |
-| AUDIT-01 | Zero reviewed mobile/shared user-facing literal candidates | in progress | Mobile-only scope correctly excludes preserved desktop and legacy desktop-shell paths; 77 true mobile/shared candidates after completing Exposure Reflections |
+| AUDIT-01 | Zero reviewed mobile/shared user-facing literal candidates | in progress | Mobile-only scope correctly excludes preserved desktop and legacy desktop-shell paths; 70 true mobile/shared candidates after completing Implementation Intentions |
 
 ## Verification and release gates
 
@@ -49,6 +49,6 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 
 - Version: `1.10.0+32` (final build number must still be reconciled remotely).
 - Release announcement: `patterns_1_10`.
-- Full Flutter suite after completing Exposure Reflections: 290 passing tests.
-- Mobile/shared literal audit: 77 candidates; stable localization selector keys are covered by narrow documented allowlist rules.
+- Full Flutter suite after completing Implementation Intentions: 297 passing tests.
+- Mobile/shared literal audit: 70 candidates; stable localization selector keys are covered by narrow documented allowlist rules.
 - Store drafts: field, locale, and character-limit validation passing; not approved or uploaded.
