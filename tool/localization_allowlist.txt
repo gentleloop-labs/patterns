@@ -22,3 +22,6 @@
 # Stable ICU selector keys for the localized Y-BOCS mobile flow. The quoted
 # values select ARB copy and are never shown directly or stored.
 ^lib/mobile/screens/ybocs_screen\.dart:.*\.ybocsText\('[a-zA-Z]+'
+
+# Stable ICU selector keys for immediate-support and breathing copy.
+^lib/mobile/screens/emergency_toolkit_screen\.dart:.*\.emergencyToolkitText\('[a-zA-Z]+'

@@ -2611,6 +2611,39 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String emergencyToolkitText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Support right now',
+      'pauseTitle': 'Pause before responding',
+      'pauseBody':
+          'You do not have to respond to the urge immediately. Choose one self-help exercise below and take it slowly.',
+      'boundary':
+          'These tools do not provide emergency or clinical care. If you may be in immediate danger, contact local emergency services.',
+      'breathe': 'Breathe',
+      'breatheSubtitle': 'Follow a paced breathing cycle',
+      'delay': 'Delay the urge',
+      'delaySubtitle': 'Make space with a timer',
+      'surf': 'Surf the urge',
+      'surfSubtitle': 'Notice the urge without acting on it',
+      'coping': 'Coping techniques',
+      'copingSubtitle': 'Grounding, acceptance, and more',
+      'remindersTitle': 'A few reminders',
+      'reminderThought':
+          'A thought does not require a response. I can notice it without acting.',
+      'reminderUrge':
+          'An urge may change over time. I can choose what I do next.',
+      'reminderUncertainty': 'I can make room for uncertainty in this moment.',
+      'breatheIn': 'Breathe in',
+      'hold': 'Hold',
+      'breatheOut': 'Breathe out',
+      'breathingHint':
+          'Follow the circle: breathe in for 4 seconds, hold, breathe out for 4 seconds, then hold.',
+      'other': 'Support tool',
+    });
+    return '$_temp0';
+  }
+
+  @override
   String ybocsText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': 'OCD Self-Check',

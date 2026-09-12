@@ -2654,6 +2654,40 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String emergencyToolkitText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Unterstützung für jetzt',
+      'pauseTitle': 'Vor einer Reaktion innehalten',
+      'pauseBody':
+          'Sie müssen nicht sofort auf den Drang reagieren. Wählen Sie unten eine Selbsthilfeübung und gehen Sie langsam vor.',
+      'boundary':
+          'Diese Werkzeuge bieten keine Notfall- oder klinische Versorgung. Wenn Sie möglicherweise in unmittelbarer Gefahr sind, wenden Sie sich an die örtlichen Notfalldienste.',
+      'breathe': 'Atmen',
+      'breatheSubtitle': 'Einem ruhigen Atemrhythmus folgen',
+      'delay': 'Den Drang aufschieben',
+      'delaySubtitle': 'Mit einem Timer Abstand schaffen',
+      'surf': 'Auf der Drangwelle bleiben',
+      'surfSubtitle': 'Den Drang wahrnehmen, ohne danach zu handeln',
+      'coping': 'Bewältigungstechniken',
+      'copingSubtitle': 'Erdung, Akzeptanz und mehr',
+      'remindersTitle': 'Ein paar Erinnerungen',
+      'reminderThought':
+          'Ein Gedanke verlangt keine Reaktion. Ich kann ihn wahrnehmen, ohne zu handeln.',
+      'reminderUrge':
+          'Ein Drang kann sich mit der Zeit verändern. Ich kann wählen, was ich als Nächstes tue.',
+      'reminderUncertainty':
+          'Ich kann der Unsicherheit in diesem Moment Raum geben.',
+      'breatheIn': 'Einatmen',
+      'hold': 'Halten',
+      'breatheOut': 'Ausatmen',
+      'breathingHint':
+          'Folgen Sie dem Kreis: 4 Sekunden einatmen, halten, 4 Sekunden ausatmen, dann halten.',
+      'other': 'Unterstützungswerkzeug',
+    });
+    return '$_temp0';
+  }
+
+  @override
   String ybocsText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': 'OCD-Selbstcheck',
