@@ -3231,4 +3231,143 @@ class AppLocalizationsJa extends AppLocalizations {
   String implementationIntentionStatement(String trigger, String response) {
     return 'もし$triggerなら、$response。';
   }
+
+  @override
+  String uncertaintyTrainingText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': '不確かさの練習',
+      'subtitle': '分からないままにしておく練習をします。',
+      'loadError': '現在、練習回数を表示できません。各練習はそのまま開けます。',
+      'whyLabel': 'この練習について',
+      'willingnessLabel': '分からないままにしておく意思はどのくらいありましたか？',
+      'noteLabel': 'メモ（任意）',
+      'noteHint': '何に気づきましたか？',
+      'saveAction': 'この練習を記録',
+      'saveSuccess': '練習を記録しました。',
+      'saveError': 'この練習を記録できませんでした。入力したメモは残っています。もう一度お試しください。',
+      'other': '不確かさの練習',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyExerciseTitle(String exercise) {
+    String _temp0 = intl.Intl.selectLogic(exercise, {
+      'maybe': 'そうかもしれないし、違うかもしれない',
+      'unanswered': '答えを出さない',
+      'resist': '確かさ探しをいったん止める',
+      'other': '不確かさの練習',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyExerciseIntro(String exercise) {
+    String _temp0 = intl.Intl.selectLogic(exercise, {
+      'maybe': 'OCDが確かさを求めたときは、「そうかもしれないし、違うかもしれない」と答え、していたことに注意を戻してみます。',
+      'unanswered': '繰り返し浮かぶ質問を解決せず、答えを出さないままにします。',
+      'resist': '確認する、検索する、安心を求める衝動に気づき、この練習では従わないことを選びます。',
+      'other': '不確かさがあるままにしておく練習です。',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyExerciseWhy(String exercise) {
+    String _temp0 = intl.Intl.selectLogic(exercise, {
+      'maybe': '安心材料を付け加えず、質問を未解決のままにしておく練習です。',
+      'unanswered': '質問に答えを出さず、開いたままにしておく練習です。',
+      'resist': '確かさを探さないことを意図的に練習し、その実施を記録します。',
+      'other': '不確かさがある状態に余地を作るためのセルフヘルプ練習です。',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyExercisePrompt(String exercise) {
+    String _temp0 = intl.Intl.selectLogic(exercise, {
+      'maybe': '心配事を一つ選び、「そうかもしれないし、違うかもしれない」と答えます。結論を出そうとせず、今あるものに気づきます。',
+      'unanswered': '普段なら答えを出す質問を一つ選び、この練習では答えを出さないままにします。',
+      'resist': '確かさを求める衝動を一つ見つけ、この練習では答えを出さないままにします。',
+      'other': '不確かさを未解決のままにする小さな方法を一つ選びます。',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyPracticeCount(int count) {
+    return '$count回の練習';
+  }
+
+  @override
+  String uncertaintyExerciseSummary(String title, String intro) {
+    return '$title。$intro';
+  }
+
+  @override
+  String uncertaintyExerciseSummaryWithCount(
+    String title,
+    String intro,
+    int count,
+  ) {
+    return '$title。$intro 記録した練習は$count回です。';
+  }
+
+  @override
+  String uncertaintyWillingness(int value) {
+    return '意思の度合い：10段階中$value';
+  }
+
+  @override
+  String actionPlanText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': '行動プラン',
+      'newAction': '新規',
+      'subtitle': '状況と、そのときに試したい対応を記録します。',
+      'loadError': '現在、行動プランを表示できません。もう一度お試しください。',
+      'deleteTitle': 'この行動プランを削除しますか？',
+      'deleteBody': 'この端末からプランが完全に削除されます。',
+      'cancel': 'キャンセル',
+      'deleteAction': '削除',
+      'deleteTooltip': '行動プランを削除',
+      'deleteSuccess': '行動プランを削除しました。',
+      'deleteError': 'この行動プランを削除できませんでした。もう一度お試しください。',
+      'statePlanned': '予定',
+      'stateCompleted': '完了として記録',
+      'toggleMarkComplete': '行動プランを完了として記録',
+      'toggleMarkIncomplete': '行動プランを未完了として記録',
+      'toggleSuccessComplete': '行動プランを完了として記録しました。',
+      'toggleSuccessIncomplete': '行動プランを未完了として記録しました。',
+      'toggleError': 'この行動プランを更新できませんでした。以前の状態を表示しています。もう一度お試しください。',
+      'emptyTitle': '行動プランを作る',
+      'emptyBody': '状況と、その状況になったときに試したい対応を記録します。',
+      'emptyAction': '新しい行動プラン',
+      'editorTitle': '新しい行動プラン',
+      'situationLabel': 'OCDが現れたとき',
+      'situationHint': '例：症状について検索したい衝動に気づいたとき',
+      'actionLabel': '試したい対応',
+      'actionHint': '例：検索するか決める前に15分待つ',
+      'dateLabel': '日付（任意）',
+      'pickDate': '日付を選択',
+      'clearDate': '日付を削除',
+      'notesLabel': 'メモ（任意）',
+      'notesHint': '覚えておきたいこと',
+      'saveAction': '行動プランを保存',
+      'validation': '状況と、試したい対応の両方を入力してください。',
+      'saveSuccess': '行動プランを保存しました。',
+      'saveError': 'この行動プランを保存できませんでした。入力した内容は残っています。もう一度お試しください。',
+      'other': '行動プラン',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String actionPlanCardSummary(String status, String situation, String action) {
+    return '$status。状況：$situation。予定した対応：$action。';
+  }
+
+  @override
+  String actionPlanDateSummary(String date) {
+    return '予定日：$date。';
+  }
 }

@@ -3595,4 +3595,173 @@ class AppLocalizationsEn extends AppLocalizations {
   String implementationIntentionStatement(String trigger, String response) {
     return 'If $trigger, then I will $response.';
   }
+
+  @override
+  String uncertaintyTrainingText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Uncertainty Practice',
+      'subtitle': 'Practise making room for not knowing.',
+      'loadError':
+          'Practice counts are unavailable right now. You can still open an exercise.',
+      'whyLabel': 'ABOUT THIS PRACTICE',
+      'willingnessLabel': 'How willing were you to sit with not knowing?',
+      'noteLabel': 'Note (optional)',
+      'noteHint': 'What did you notice?',
+      'saveAction': 'Record this practice',
+      'saveSuccess': 'Practice recorded.',
+      'saveError':
+          'This practice could not be recorded. Your note is still here. Please try again.',
+      'other': 'Uncertainty practice',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyExerciseTitle(String exercise) {
+    String _temp0 = intl.Intl.selectLogic(exercise, {
+      'maybe': 'Maybe, maybe not',
+      'unanswered': 'Leave it unanswered',
+      'resist': 'Pause certainty-seeking',
+      'other': 'Uncertainty exercise',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyExerciseIntro(String exercise) {
+    String _temp0 = intl.Intl.selectLogic(exercise, {
+      'maybe':
+          'When OCD asks for certainty, try responding “maybe, maybe not” and return attention to what you were doing.',
+      'unanswered':
+          'Let one recurring question remain open instead of resolving it.',
+      'resist':
+          'Notice an urge to check, search, or ask for reassurance, and choose not to follow it for this practice.',
+      'other': 'A practice for allowing uncertainty to remain present.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyExerciseWhy(String exercise) {
+    String _temp0 = intl.Intl.selectLogic(exercise, {
+      'maybe':
+          'This exercise practises leaving a question unresolved without adding reassurance.',
+      'unanswered':
+          'This exercise practises allowing a question to remain open.',
+      'resist':
+          'This exercise records a deliberate attempt to avoid seeking certainty.',
+      'other':
+          'This exercise is a self-help practice for making room for uncertainty.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyExercisePrompt(String exercise) {
+    String _temp0 = intl.Intl.selectLogic(exercise, {
+      'maybe':
+          'Choose one worry and respond with “maybe, maybe not.” Notice what is present without trying to settle it.',
+      'unanswered':
+          'Choose one question you would usually settle and leave it unanswered for this practice.',
+      'resist':
+          'Notice one certainty-seeking urge and leave it unanswered for this practice.',
+      'other':
+          'Choose one small way to leave uncertainty unresolved for this practice.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyPracticeCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count practices',
+      one: '1 practice',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String uncertaintyExerciseSummary(String title, String intro) {
+    return '$title. $intro';
+  }
+
+  @override
+  String uncertaintyExerciseSummaryWithCount(
+    String title,
+    String intro,
+    int count,
+  ) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Recorded $count practices.',
+      one: 'Recorded 1 practice.',
+    );
+    return '$title. $intro $_temp0';
+  }
+
+  @override
+  String uncertaintyWillingness(int value) {
+    return 'Willingness $value of 10';
+  }
+
+  @override
+  String actionPlanText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Action Planner',
+      'newAction': 'New',
+      'subtitle': 'Record a situation and the response you want to try.',
+      'loadError':
+          'Your action plans are unavailable right now. Please try again.',
+      'deleteTitle': 'Delete this action plan?',
+      'deleteBody': 'This permanently removes the plan from this device.',
+      'cancel': 'Cancel',
+      'deleteAction': 'Delete',
+      'deleteTooltip': 'Delete action plan',
+      'deleteSuccess': 'Action plan deleted.',
+      'deleteError': 'This action plan could not be deleted. Please try again.',
+      'statePlanned': 'Planned',
+      'stateCompleted': 'Marked complete',
+      'toggleMarkComplete': 'Mark action plan complete',
+      'toggleMarkIncomplete': 'Mark action plan incomplete',
+      'toggleSuccessComplete': 'Action plan marked complete.',
+      'toggleSuccessIncomplete': 'Action plan marked incomplete.',
+      'toggleError':
+          'This action plan could not be updated. Its previous state is still shown. Please try again.',
+      'emptyTitle': 'Create an action plan',
+      'emptyBody':
+          'Write down a situation and the response you want to try when it occurs.',
+      'emptyAction': 'New action plan',
+      'editorTitle': 'New action plan',
+      'situationLabel': 'When OCD shows up',
+      'situationHint': 'For example: I notice the urge to search for a symptom',
+      'actionLabel': 'Response I want to try',
+      'actionHint':
+          'For example: wait 15 minutes before deciding whether to search',
+      'dateLabel': 'Date (optional)',
+      'pickDate': 'Choose a date',
+      'clearDate': 'Remove date',
+      'notesLabel': 'Notes (optional)',
+      'notesHint': 'Anything you want to remember',
+      'saveAction': 'Save action plan',
+      'validation': 'Add both the situation and the response you want to try.',
+      'saveSuccess': 'Action plan saved.',
+      'saveError':
+          'This action plan could not be saved. Your text is still here. Please try again.',
+      'other': 'Action plan',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String actionPlanCardSummary(String status, String situation, String action) {
+    return '$status. Situation: $situation. Planned response: $action.';
+  }
+
+  @override
+  String actionPlanDateSummary(String date) {
+    return 'Planned date: $date.';
+  }
 }

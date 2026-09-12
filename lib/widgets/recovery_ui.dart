@@ -109,50 +109,62 @@ class RatingSlider extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (largeText) ...[
-          Text(
-            label,
-            style: TextStyle(
-              color: context.appColors.textSecondary,
-              fontSize: 13,
+        ExcludeSemantics(
+          child: largeText
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      label,
+                      style: TextStyle(
+                        color: context.appColors.textSecondary,
+                        fontSize: 13,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      formattedValue,
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ],
+                )
+              : Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        label,
+                        style: TextStyle(
+                          color: context.appColors.textSecondary,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      formattedValue,
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ],
+                ),
+        ),
+        MergeSemantics(
+          child: Semantics(
+            label: label,
+            value: formattedValue,
+            child: Slider(
+              value: value,
+              min: 0,
+              max: max.toDouble(),
+              divisions: max,
+              onChanged: onChanged,
+              semanticFormatterCallback: (sliderValue) =>
+                  valueFormatter?.call(sliderValue.round()) ??
+                  '${sliderValue.round()}/$max',
             ),
           ),
-          const SizedBox(height: 4),
-          Text(
-            formattedValue,
-            style: theme.textTheme.labelLarge?.copyWith(
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-        ] else
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  label,
-                  style: TextStyle(
-                    color: context.appColors.textSecondary,
-                    fontSize: 13,
-                  ),
-                ),
-              ),
-              Text(
-                formattedValue,
-                style: theme.textTheme.labelLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-            ],
-          ),
-        Slider(
-          value: value,
-          min: 0,
-          max: max.toDouble(),
-          divisions: max,
-          onChanged: onChanged,
-          semanticFormatterCallback: (sliderValue) =>
-              valueFormatter?.call(sliderValue.round()) ??
-              '${sliderValue.round()}/$max',
         ),
       ],
     );

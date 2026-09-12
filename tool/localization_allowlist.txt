@@ -41,3 +41,8 @@
 
 # Stable selector keys mapped to localized Implementation Intentions copy.
 ^lib/mobile/screens/implementation_intentions_screen\.dart:.*\.implementationIntentionText\('[a-zA-Z]+'
+
+# Stable selector keys mapped to localized Uncertainty Practice and Action
+# Planner copy. These are never displayed or persisted.
+^lib/mobile/screens/uncertainty_training_screen\.dart:.*\.uncertaintyTrainingText\('[a-zA-Z]+'
+^lib/mobile/screens/action_planner_screen\.dart:.*\.actionPlanText\('[a-zA-Z]+'
