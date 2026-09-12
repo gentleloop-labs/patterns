@@ -23,14 +23,22 @@ class CircleBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return PressScale(
-      onTap: onTap,
-      child: Container(
-        width: 40,
-        height: 40,
-        alignment: Alignment.center,
-        decoration: recoverySoftDecoration(theme, radius: 14),
-        child: const Icon(LineIcons.angleLeft, size: 20),
+    final label = MaterialLocalizations.of(context).backButtonTooltip;
+    return Semantics(
+      button: true,
+      label: label,
+      child: Tooltip(
+        message: label,
+        child: PressScale(
+          onTap: onTap,
+          child: Container(
+            width: 44,
+            height: 44,
+            alignment: Alignment.center,
+            decoration: recoverySoftDecoration(theme, radius: 14),
+            child: const Icon(LineIcons.angleLeft, size: 20),
+          ),
+        ),
       ),
     );
   }

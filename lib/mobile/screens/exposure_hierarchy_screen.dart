@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/semantics.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../../app_preferences.dart';
 import '../../content/ocd_tracks.dart';
 import '../../l10n/l10n.dart';
 import '../../models/models.dart';
@@ -21,6 +23,10 @@ BoxDecoration _softDecoration(ThemeData theme, {double radius = 22}) {
   );
 }
 
+String _displayTheme(BuildContext context, String theme) => theme == 'General'
+    ? context.l10n.exposureHierarchyText('generalTheme')
+    : theme;
+
 // ---------------------------------------------------------------------------
 // List screen
 // ---------------------------------------------------------------------------
@@ -31,6 +37,8 @@ class ExposureHierarchyScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
+    final calmInsights = ref.watch(calmInsightsProvider);
     final hierarchies = ref.watch(exposureHierarchyProvider);
     final stepsAsync = ref.watch(exposureStepProvider);
     final steps = stepsAsync.asData?.value ?? const <ExposureStep>[];
@@ -45,23 +53,26 @@ class ExposureHierarchyScreen extends ConsumerWidget {
                 _CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    'Exposure Hierarchy',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      strings.exposureHierarchyText('title'),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
                 TextButton.icon(
                   onPressed: () => _openBuilder(context),
                   icon: const Icon(Icons.add_rounded, size: 18),
-                  label: const Text('New'),
+                  label: Text(strings.exposureHierarchyText('newAction')),
                 ),
               ],
             ),
             const SizedBox(height: 6),
             Text(
-              'Build a ladder of exposures and climb it one rung at a time.',
+              strings.exposureHierarchyText('subtitle'),
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.4,
@@ -79,6 +90,7 @@ class ExposureHierarchyScreen extends ConsumerWidget {
                     for (final h in items) ...[
                       _HierarchyCard(
                         hierarchy: h,
+                        calmInsights: calmInsights,
                         steps: steps
                             .where((s) => s.hierarchyId == h.id)
                             .toList(),
@@ -95,7 +107,7 @@ class ExposureHierarchyScreen extends ConsumerWidget {
                 child: Center(child: CircularProgressIndicator()),
               ),
               error: (_, _) => Text(
-                'Your hierarchies are unavailable right now.',
+                strings.exposureHierarchyText('loadError'),
                 style: TextStyle(color: context.appColors.textSecondary),
               ),
             ),
@@ -127,6 +139,7 @@ class ExposureHierarchyScreen extends ConsumerWidget {
     WidgetRef ref,
     ExposureHierarchy hierarchy,
   ) {
+    final strings = context.l10n;
     final id = hierarchy.id;
     if (id == null) return;
     showModalBottomSheet<void>(
@@ -143,15 +156,14 @@ class ExposureHierarchyScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Archive this hierarchy?',
+                strings.exposureHierarchyText('archiveTitle'),
                 style: Theme.of(
                   sheetContext,
                 ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
               ),
               const SizedBox(height: 10),
               Text(
-                'It will leave your list. This is just to keep things tidy. '
-                'progress you made still counts.',
+                strings.exposureHierarchyText('archiveBody'),
                 style: TextStyle(
                   color: context.appColors.textSecondary,
                   height: 1.45,
@@ -163,7 +175,7 @@ class ExposureHierarchyScreen extends ConsumerWidget {
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () => Navigator.pop(sheetContext),
-                      child: const Text('Keep it'),
+                      child: Text(strings.exposureHierarchyText('keepAction')),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -171,11 +183,27 @@ class ExposureHierarchyScreen extends ConsumerWidget {
                     child: ElevatedButton(
                       onPressed: () async {
                         Navigator.pop(sheetContext);
-                        await ref
+                        final saved = await ref
                             .read(exposureHierarchyProvider.notifier)
                             .archiveHierarchy(id);
+                        if (!context.mounted) return;
+                        final message = strings.exposureHierarchyText(
+                          saved ? 'archiveSuccess' : 'archiveError',
+                        );
+                        showAppSnackBar(
+                          context,
+                          message,
+                          type: saved ? ToastType.success : ToastType.error,
+                        );
+                        await SemanticsService.sendAnnouncement(
+                          View.of(context),
+                          message,
+                          Directionality.of(context),
+                        );
                       },
-                      child: const Text('Archive'),
+                      child: Text(
+                        strings.exposureHierarchyText('archiveAction'),
+                      ),
                     ),
                   ),
                 ],
@@ -190,12 +218,14 @@ class ExposureHierarchyScreen extends ConsumerWidget {
 
 class _HierarchyCard extends StatelessWidget {
   final ExposureHierarchy hierarchy;
+  final bool calmInsights;
   final List<ExposureStep> steps;
   final VoidCallback onOpen;
   final VoidCallback onArchive;
 
   const _HierarchyCard({
     required this.hierarchy,
+    required this.calmInsights,
     required this.steps,
     required this.onOpen,
     required this.onArchive,
@@ -209,56 +239,72 @@ class _HierarchyCard extends StatelessWidget {
         .where((s) => s.status == ExposureStepStatus.completed)
         .length;
     final pct = total == 0 ? 0.0 : done / total;
+    final strings = context.l10n;
+    final themeLabel = _displayTheme(context, hierarchy.theme);
+    final summary = calmInsights
+        ? themeLabel
+        : strings.exposureHierarchySummary(done, total, themeLabel);
 
-    return PressScale(
-      onTap: onOpen,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: _softDecoration(theme),
-        child: Row(
-          children: [
-            _ProgressRing(value: pct),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    hierarchy.title,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w800,
+    return Semantics(
+      button: true,
+      label: hierarchy.title,
+      value: summary,
+      hint: strings.exposureHierarchyText('openHierarchy'),
+      excludeSemantics: true,
+      child: PressScale(
+        onTap: onOpen,
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: _softDecoration(theme),
+          child: Row(
+            children: [
+              if (!calmInsights) ...[
+                _ProgressRing(value: pct),
+                const SizedBox(width: 14),
+              ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      hierarchy.title,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    total == 0
-                        ? hierarchy.theme
-                        : '$done of $total steps · ${hierarchy.theme}',
-                    style: TextStyle(
-                      color: context.appColors.textSecondary,
-                      fontSize: 13,
-                      height: 1.3,
+                    const SizedBox(height: 4),
+                    Text(
+                      summary,
+                      style: TextStyle(
+                        color: context.appColors.textSecondary,
+                        fontSize: 13,
+                        height: 1.3,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                  ],
+                ),
+              ),
+              PopupMenuButton<String>(
+                icon: Icon(
+                  LineIcons.verticalEllipsis,
+                  color: context.appColors.textSecondary,
+                  size: 18,
+                ),
+                onSelected: (value) {
+                  if (value == 'archive') onArchive();
+                },
+                tooltip: strings.exposureHierarchyText('archiveHierarchy'),
+                itemBuilder: (_) => [
+                  PopupMenuItem(
+                    value: 'archive',
+                    child: Text(strings.exposureHierarchyText('archiveAction')),
                   ),
                 ],
               ),
-            ),
-            PopupMenuButton<String>(
-              icon: Icon(
-                LineIcons.verticalEllipsis,
-                color: context.appColors.textSecondary,
-                size: 18,
-              ),
-              onSelected: (value) {
-                if (value == 'archive') onArchive();
-              },
-              itemBuilder: (_) => const [
-                PopupMenuItem(value: 'archive', child: Text('Archive')),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -272,6 +318,7 @@ class _EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     return Container(
       padding: const EdgeInsets.all(22),
       decoration: _softDecoration(theme),
@@ -284,16 +331,18 @@ class _EmptyState extends StatelessWidget {
             size: 28,
           ),
           const SizedBox(height: 12),
-          Text(
-            'Start your first ladder',
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w800,
+          Semantics(
+            header: true,
+            child: Text(
+              strings.exposureHierarchyText('emptyTitle'),
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w800,
+              ),
             ),
           ),
           const SizedBox(height: 6),
           Text(
-            'List exposures from easiest to hardest, then work your way up at '
-            'your own pace.',
+            strings.exposureHierarchyText('emptyBody'),
             style: TextStyle(
               color: context.appColors.textSecondary,
               height: 1.45,
@@ -304,7 +353,7 @@ class _EmptyState extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: onCreate,
-              child: const Text('Build a hierarchy'),
+              child: Text(strings.exposureHierarchyText('buildAction')),
             ),
           ),
         ],
@@ -374,6 +423,7 @@ class _ExposureHierarchyBuilderScreenState
   }
 
   Future<void> _save() async {
+    final strings = context.l10n;
     final title = _titleController.text.trim();
     final theme = _themeController.text.trim();
     final steps = _steps
@@ -383,7 +433,7 @@ class _ExposureHierarchyBuilderScreenState
     if (title.isEmpty) {
       showAppSnackBar(
         context,
-        'Give this ladder a name and it will save.',
+        strings.exposureHierarchyText('titleValidation'),
         type: ToastType.info,
       );
       return;
@@ -391,7 +441,7 @@ class _ExposureHierarchyBuilderScreenState
     if (steps.isEmpty) {
       showAppSnackBar(
         context,
-        'Add one step you could imagine trying, and this will save.',
+        strings.exposureHierarchyText('stepValidation'),
         type: ToastType.info,
       );
       return;
@@ -415,17 +465,28 @@ class _ExposureHierarchyBuilderScreenState
         ),
     ];
 
-    await ref
+    final saved = await ref
         .read(exposureHierarchyProvider.notifier)
         .addHierarchyWithSteps(hierarchy, stepModels);
-    // Step count only — no title, theme, or step description.
-    AppEvents.logFirstExposureCreated(stepCount: stepModels.length);
 
     if (!mounted) return;
+    if (!saved) {
+      setState(() => _saving = false);
+      final message = strings.exposureHierarchyText('createError');
+      showAppSnackBar(context, message, type: ToastType.error);
+      await SemanticsService.sendAnnouncement(
+        View.of(context),
+        message,
+        Directionality.of(context),
+      );
+      return;
+    }
+    // Step count only — no title, theme, or step description.
+    AppEvents.logFirstExposureCreated(stepCount: stepModels.length);
     Navigator.of(context).pop();
     showAppSnackBar(
       context,
-      'Hierarchy created. Take it one rung at a time.',
+      strings.exposureHierarchyText('createSuccess'),
       type: ToastType.success,
     );
   }
@@ -433,6 +494,7 @@ class _ExposureHierarchyBuilderScreenState
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
 
     return Scaffold(
       body: SafeArea(
@@ -444,10 +506,13 @@ class _ExposureHierarchyBuilderScreenState
                 _CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    'New hierarchy',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      strings.exposureHierarchyText('newTitle'),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
@@ -455,14 +520,14 @@ class _ExposureHierarchyBuilderScreenState
             ),
             const SizedBox(height: 18),
             _LabeledField(
-              label: 'Name',
-              hint: 'e.g. Touching door handles',
+              label: strings.exposureHierarchyText('nameLabel'),
+              hint: strings.exposureHierarchyText('nameHint'),
               controller: _titleController,
             ),
             const SizedBox(height: 14),
             _LabeledField(
-              label: 'Theme (optional)',
-              hint: 'e.g. Contamination',
+              label: strings.exposureHierarchyText('themeLabel'),
+              hint: strings.exposureHierarchyText('themeHint'),
               controller: _themeController,
             ),
             const SizedBox(height: 8),
@@ -487,17 +552,20 @@ class _ExposureHierarchyBuilderScreenState
             Row(
               children: [
                 Expanded(
-                  child: Text(
-                    'Steps, easiest first',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      strings.exposureHierarchyText('stepsTitle'),
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
                 TextButton.icon(
                   onPressed: _addStep,
                   icon: const Icon(Icons.add_rounded, size: 18),
-                  label: const Text('Add'),
+                  label: Text(strings.exposureHierarchyText('addAction')),
                 ),
               ],
             ),
@@ -525,7 +593,7 @@ class _ExposureHierarchyBuilderScreenState
                         width: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : const Text('Create hierarchy'),
+                    : Text(strings.exposureHierarchyText('createAction')),
               ),
             ),
           ]),
@@ -557,45 +625,58 @@ class _StepEditorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
+    final largeText = MediaQuery.textScalerOf(context).scale(1) >= 1.5;
+    final stepLabel = Text(
+      strings.exposureStepLabel(index + 1),
+      style: theme.textTheme.labelLarge?.copyWith(
+        fontWeight: FontWeight.w800,
+        color: theme.colorScheme.primary,
+      ),
+    );
+    final controls = <Widget>[
+      _MiniIconButton(
+        icon: LineIcons.angleUp,
+        tooltip: strings.exposureHierarchyText('moveUp'),
+        onTap: index == 0 ? null : onMoveUp,
+      ),
+      _MiniIconButton(
+        icon: LineIcons.angleDown,
+        tooltip: strings.exposureHierarchyText('moveDown'),
+        onTap: index == total - 1 ? null : onMoveDown,
+      ),
+      _MiniIconButton(
+        icon: LineIcons.times,
+        tooltip: strings.exposureHierarchyText('removeStep'),
+        onTap: onRemove,
+      ),
+    ];
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: _softDecoration(theme, radius: 18),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Text(
-                'Step ${index + 1}',
-                style: theme.textTheme.labelLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
-                  color: theme.colorScheme.primary,
-                ),
-              ),
-              const Spacer(),
-              _MiniIconButton(
-                icon: LineIcons.angleUp,
-                onTap: index == 0 ? null : onMoveUp,
-              ),
-              _MiniIconButton(
-                icon: LineIcons.angleDown,
-                onTap: index == total - 1 ? null : onMoveDown,
-              ),
-              _MiniIconButton(icon: LineIcons.times, onTap: onRemove),
-            ],
-          ),
+          if (largeText) ...[
+            stepLabel,
+            Align(
+              alignment: AlignmentDirectional.centerEnd,
+              child: Row(mainAxisSize: MainAxisSize.min, children: controls),
+            ),
+          ] else
+            Row(children: [stepLabel, const Spacer(), ...controls]),
           const SizedBox(height: 8),
           TextField(
             controller: draft.description,
             minLines: 1,
             maxLines: 3,
-            decoration: const InputDecoration(
-              hintText: 'What will you expose yourself to?',
+            decoration: InputDecoration(
+              hintText: strings.exposureHierarchyText('stepHint'),
             ),
           ),
           const SizedBox(height: 8),
           _RatingSlider(
-            label: 'Difficulty',
+            label: strings.exposureHierarchyText('difficulty'),
             value: draft.difficulty,
             onChanged: (v) {
               draft.difficulty = v;
@@ -603,7 +684,7 @@ class _StepEditorCard extends StatelessWidget {
             },
           ),
           _RatingSlider(
-            label: 'Anticipated anxiety',
+            label: strings.exposureHierarchyText('anxiety'),
             value: draft.anxiety,
             onChanged: (v) {
               draft.anxiety = v;
@@ -627,6 +708,8 @@ class ExposureHierarchyDetailScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
+    final calmInsights = ref.watch(calmInsightsProvider);
     final stepsAsync = ref.watch(exposureStepProvider);
     final materials =
         ref.watch(exposureMaterialProvider).asData?.value ??
@@ -655,14 +738,17 @@ class ExposureHierarchyDetailScreen extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        hierarchy.title,
-                        style: theme.textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w800,
+                      Semantics(
+                        header: true,
+                        child: Text(
+                          hierarchy.title,
+                          style: theme.textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.w800,
+                          ),
                         ),
                       ),
                       Text(
-                        hierarchy.theme,
+                        _displayTheme(context, hierarchy.theme),
                         style: TextStyle(
                           color: context.appColors.textSecondary,
                           fontSize: 13,
@@ -671,7 +757,7 @@ class ExposureHierarchyDetailScreen extends ConsumerWidget {
                     ],
                   ),
                 ),
-                _ProgressRing(value: pct),
+                if (!calmInsights) _ProgressRing(value: pct),
               ],
             ),
             const SizedBox(height: 20),
@@ -679,8 +765,8 @@ class ExposureHierarchyDetailScreen extends ConsumerWidget {
               _ClimbStepCard(
                 number: i + 1,
                 step: steps[i],
-                onStatus: (status) {
-                  ref
+                onStatus: (status) async {
+                  final saved = await ref
                       .read(exposureStepProvider.notifier)
                       .updateStep(
                         steps[i].copyWith(
@@ -692,6 +778,14 @@ class ExposureHierarchyDetailScreen extends ConsumerWidget {
                               status != ExposureStepStatus.completed,
                         ),
                       );
+                  if (!context.mounted || saved) return;
+                  final message = strings.exposureHierarchyText('statusError');
+                  showAppSnackBar(context, message, type: ToastType.error);
+                  await SemanticsService.sendAnnouncement(
+                    View.of(context),
+                    message,
+                    Directionality.of(context),
+                  );
                 },
               ),
               for (final m in materials.where(
@@ -703,7 +797,7 @@ class ExposureHierarchyDetailScreen extends ConsumerWidget {
                   child: MaterialCard(
                     material: m,
                     onDelete: () =>
-                        ref.read(exposureMaterialProvider.notifier).delete(m),
+                        confirmExposureMaterialDelete(context, ref, m),
                   ),
                 ),
               ],
@@ -720,7 +814,7 @@ class ExposureHierarchyDetailScreen extends ConsumerWidget {
                     ),
                   ),
                   icon: const Icon(Icons.add_rounded, size: 16),
-                  label: const Text('Material'),
+                  label: Text(strings.exposureHierarchyText('materialAction')),
                 ),
               ),
               const SizedBox(height: 14),
@@ -746,63 +840,69 @@ class _ClimbStepCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final done = step.status == ExposureStepStatus.completed;
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: _softDecoration(theme),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 26,
-                height: 26,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: done
-                      ? theme.colorScheme.primary
-                      : theme.colorScheme.primary.withValues(alpha: 0.14),
-                ),
-                child: done
-                    ? const Icon(
-                        Icons.check_rounded,
-                        size: 16,
-                        color: Colors.white,
-                      )
-                    : Text(
-                        '$number',
-                        style: theme.textTheme.labelMedium?.copyWith(
-                          fontWeight: FontWeight.w800,
-                          color: theme.colorScheme.primary,
+    return Semantics(
+      container: true,
+      label: strings.exposureStepLabel(number),
+      value: strings.exposureStepMetrics(step.difficulty, step.anxietyRating),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: _softDecoration(theme),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 26,
+                  height: 26,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: done
+                        ? theme.colorScheme.primary
+                        : theme.colorScheme.primary.withValues(alpha: 0.14),
+                  ),
+                  child: done
+                      ? const Icon(
+                          Icons.check_rounded,
+                          size: 16,
+                          color: Colors.white,
+                        )
+                      : Text(
+                          '$number',
+                          style: theme.textTheme.labelMedium?.copyWith(
+                            fontWeight: FontWeight.w800,
+                            color: theme.colorScheme.primary,
+                          ),
                         ),
-                      ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  step.description,
-                  style: theme.textTheme.bodyLarge?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    height: 1.35,
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    step.description,
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      height: 1.35,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Text(
-            'Difficulty ${step.difficulty}/10 · Anxiety ${step.anxietyRating}/10',
-            style: TextStyle(
-              color: context.appColors.textSecondary,
-              fontSize: 12,
+              ],
             ),
-          ),
-          const SizedBox(height: 12),
-          _StatusPicker(status: step.status, onChanged: onStatus),
-        ],
+            const SizedBox(height: 10),
+            Text(
+              strings.exposureStepMetrics(step.difficulty, step.anxietyRating),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                fontSize: 12,
+              ),
+            ),
+            const SizedBox(height: 12),
+            _StatusPicker(status: step.status, onChanged: onStatus),
+          ],
+        ),
       ),
     );
   }
@@ -814,11 +914,14 @@ class _StatusPicker extends StatelessWidget {
 
   const _StatusPicker({required this.status, required this.onChanged});
 
-  static const _labels = {
-    ExposureStepStatus.notStarted: 'Not started',
-    ExposureStepStatus.inProgress: 'In progress',
-    ExposureStepStatus.completed: 'Done',
-  };
+  String _label(BuildContext context, ExposureStepStatus value) {
+    final key = switch (value) {
+      ExposureStepStatus.notStarted => 'statusNotStarted',
+      ExposureStepStatus.inProgress => 'statusInProgress',
+      ExposureStepStatus.completed => 'statusDone',
+    };
+    return context.l10n.exposureHierarchyText(key);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -830,35 +933,83 @@ class _StatusPicker extends StatelessWidget {
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: theme.dividerColor),
       ),
-      child: Row(
-        children: [
-          for (final entry in _labels.entries)
-            Expanded(
-              child: GestureDetector(
-                onTap: () => onChanged(entry.key),
-                child: AnimatedContainer(
-                  duration: AppMotion.fast,
-                  padding: const EdgeInsets.symmetric(vertical: 9),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: status == entry.key
-                        ? theme.colorScheme.primary
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(
-                    entry.value,
-                    style: theme.textTheme.labelMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: status == entry.key
-                          ? Colors.white
-                          : context.appColors.textSecondary,
-                    ),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final vertical = MediaQuery.textScalerOf(context).scale(1) >= 1.5;
+          final choices = [
+            for (final value in ExposureStepStatus.values)
+              _StatusChoice(
+                label: _label(context, value),
+                selected: status == value,
+                onTap: () => onChanged(value),
+              ),
+          ];
+          if (vertical) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: choices,
+            );
+          }
+          return Row(
+            children: [for (final choice in choices) Expanded(child: choice)],
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _StatusChoice extends StatelessWidget {
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  const _StatusChoice({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Semantics(
+      button: true,
+      selected: selected,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(10),
+        child: AnimatedContainer(
+          duration: motionDisabled(context) ? Duration.zero : AppMotion.fast,
+          constraints: const BoxConstraints(minHeight: 44),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 9),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: selected ? theme.colorScheme.primary : Colors.transparent,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (selected) ...[
+                const Icon(Icons.check_rounded, size: 16, color: Colors.white),
+                const SizedBox(width: 4),
+              ],
+              Flexible(
+                child: Text(
+                  label,
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: selected
+                        ? Colors.white
+                        : context.appColors.textSecondary,
                   ),
                 ),
               ),
-            ),
-        ],
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -915,6 +1066,7 @@ class _RatingSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final roundedValue = value.round();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -930,7 +1082,7 @@ class _RatingSlider extends StatelessWidget {
               ),
             ),
             Text(
-              '${value.round()}/10',
+              context.l10n.exposureRating(roundedValue),
               style: theme.textTheme.labelLarge?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
@@ -943,6 +1095,8 @@ class _RatingSlider extends StatelessWidget {
           max: 10,
           divisions: 10,
           onChanged: onChanged,
+          semanticFormatterCallback: (sliderValue) =>
+              context.l10n.exposureRating(sliderValue.round()),
         ),
       ],
     );
@@ -956,29 +1110,35 @@ class _ProgressRing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return SizedBox(
-      width: 46,
-      height: 46,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          SizedBox(
-            width: 46,
-            height: 46,
-            child: CircularProgressIndicator(
-              value: value,
-              strokeWidth: 4,
-              backgroundColor: theme.dividerColor,
-              valueColor: AlwaysStoppedAnimation(theme.colorScheme.primary),
-            ),
+    final percent = (value * 100).round();
+    return Semantics(
+      label: context.l10n.exposureProgress(percent),
+      child: ExcludeSemantics(
+        child: SizedBox(
+          width: 46,
+          height: 46,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              SizedBox(
+                width: 46,
+                height: 46,
+                child: CircularProgressIndicator(
+                  value: value,
+                  strokeWidth: 4,
+                  backgroundColor: theme.dividerColor,
+                  valueColor: AlwaysStoppedAnimation(theme.colorScheme.primary),
+                ),
+              ),
+              Text(
+                context.formatWholePercent(percent),
+                style: theme.textTheme.labelSmall?.copyWith(
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ],
           ),
-          Text(
-            '${(value * 100).round()}%',
-            style: theme.textTheme.labelSmall?.copyWith(
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -991,14 +1151,21 @@ class _CircleBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return PressScale(
-      onTap: onTap,
-      child: Container(
-        width: 40,
-        height: 40,
-        alignment: Alignment.center,
-        decoration: _softDecoration(theme, radius: 14),
-        child: const Icon(LineIcons.angleLeft, size: 20),
+    return Semantics(
+      button: true,
+      label: context.l10n.backAction,
+      child: Tooltip(
+        message: context.l10n.backAction,
+        child: PressScale(
+          onTap: onTap,
+          child: Container(
+            width: 44,
+            height: 44,
+            alignment: Alignment.center,
+            decoration: _softDecoration(theme, radius: 14),
+            child: const Icon(LineIcons.angleLeft, size: 20),
+          ),
+        ),
       ),
     );
   }
@@ -1006,15 +1173,21 @@ class _CircleBackButton extends StatelessWidget {
 
 class _MiniIconButton extends StatelessWidget {
   final IconData icon;
+  final String tooltip;
   final VoidCallback? onTap;
-  const _MiniIconButton({required this.icon, required this.onTap});
+  const _MiniIconButton({
+    required this.icon,
+    required this.tooltip,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     final disabled = onTap == null;
     return IconButton(
       onPressed: onTap,
-      visualDensity: VisualDensity.compact,
+      tooltip: tooltip,
+      constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
       icon: Icon(
         icon,
         size: 18,
@@ -1039,7 +1212,8 @@ class _ThemeChip extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(999),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        constraints: const BoxConstraints(minHeight: 44),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(999),
           border: Border.all(color: theme.dividerColor),

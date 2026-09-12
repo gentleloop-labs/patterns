@@ -3857,6 +3857,60 @@ abstract class AppLocalizations {
   /// **'{done}/{total}'**
   String structuredProgramCompactProgress(int done, int total);
 
+  /// Exposure hierarchy mobile UI copy. Keep it factual and self-directed; do not imply prescribed treatment order, completion pressure, or outcomes.
+  ///
+  /// In en, this message translates to:
+  /// **'{key, select, title{Exposure Hierarchy} newAction{New} subtitle{Build a ladder of exposures and practise one step at a time.} loadError{Your hierarchies are unavailable right now. Please try again.} archiveTitle{Archive this hierarchy?} archiveBody{This removes the hierarchy from your active list. Its saved steps remain on this device.} keepAction{Keep it} archiveAction{Archive} archiveSuccess{Hierarchy archived.} archiveError{This hierarchy could not be archived. Please try again.} emptyTitle{Start your first ladder} emptyBody{List possible exposures from easier to harder and choose your own pace.} buildAction{Build a hierarchy} newTitle{New hierarchy} nameLabel{Name} nameHint{For example, touching door handles} themeLabel{Theme (optional)} themeHint{For example, contamination} generalTheme{General} stepsTitle{Steps, easier first} addAction{Add} createAction{Create hierarchy} saving{Saving…} titleValidation{Add a name for this ladder.} stepValidation{Add at least one exposure step.} createSuccess{Hierarchy saved.} createError{This hierarchy could not be saved. Please try again.} stepHint{What exposure could you practise?} difficulty{Difficulty} anxiety{Anticipated anxiety} materialAction{Material} statusNotStarted{Not started} statusInProgress{In progress} statusDone{Done} statusError{This step status could not be saved. Please try again.} moveUp{Move step up} moveDown{Move step down} removeStep{Remove step} openHierarchy{Open hierarchy} archiveHierarchy{Archive hierarchy} other{Exposure hierarchy}}'**
+  String exposureHierarchyText(String key);
+
+  /// Factual saved-step summary for one hierarchy. Theme is user-entered and must remain unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{{theme}} =1{{done} of 1 step · {theme}} other{{done} of {count} steps · {theme}}}'**
+  String exposureHierarchySummary(int done, int count, String theme);
+
+  /// Visible and accessible one-based exposure step number.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {number}'**
+  String exposureStepLabel(int number);
+
+  /// Accessible exposure difficulty or anticipated-anxiety rating.
+  ///
+  /// In en, this message translates to:
+  /// **'{value} of 10'**
+  String exposureRating(int value);
+
+  /// Accessible and visible factual ratings saved for an exposure step.
+  ///
+  /// In en, this message translates to:
+  /// **'Difficulty {difficulty} of 10 · Anticipated anxiety {anxiety} of 10'**
+  String exposureStepMetrics(int difficulty, int anxiety);
+
+  /// Text alternative for an exposure hierarchy progress ring. Calculated progress is factual and carries no praise.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% of steps marked done'**
+  String exposureProgress(int percent);
+
+  /// Exposure-material library/editor copy. Local files and user-entered titles, scripts, and links must remain private and unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{key, select, title{Exposure Materials} newAction{New} subtitle{Keep your scripts, loop recordings, images, and links together for use during an exposure.} loadError{Your materials are unavailable right now. Please try again.} typeScript{Script} typeLoopTape{Loop recording} typeImage{Image} typeLink{Link} deleteTitle{Delete this material?} deleteBody{This removes the material from this device, including its stored file if present.} cancel{Cancel} deleteAction{Delete} deleteTooltip{Delete material} deleteSuccess{Material deleted.} deleteError{This material could not be deleted. Please try again.} emptyTitle{Gather your materials} emptyBody{Save a script, loop recording, image, or link for an exposure you choose.} addAction{Add a material} readScript{Read script} openLink{Open link} viewImage{View image} linkError{That link could not be opened.} imageMissing{This image is no longer available on this device.} recordingMissing{This recording is no longer available on this device.} stop{Stop} playLoop{Play loop} microphoneNeeded{Microphone access is needed to record a loop. You can change this in device settings.} nameValidation{Add a name for this material.} scriptValidation{Add the script text.} linkValidation{Paste a link.} imageValidation{Choose an image.} recordingValidation{Record a loop before saving.} saveSuccess{Material saved.} saveError{This material could not be saved. Please try again.} titleLabel{Title} titleHint{A short name you will recognise} saveAction{Save material} scriptLabel{Script} scriptHint{The text you want to read during the exposure} linkLabel{Link} pickImage{Choose image} changeImage{Change image} rerecord{Record again} recorderHint{Record a short clip to replay in a loop.} record{Record} recording{Recording} other{Exposure material}}'**
+  String exposureMaterialsText(String key);
+
+  /// Title for creating a material. Type is already localized.
+  ///
+  /// In en, this message translates to:
+  /// **'New {type}'**
+  String exposureMaterialEditorTitle(String type);
+
+  /// Accessible elapsed time while recording a local loop clip.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording · {seconds} s'**
+  String exposureRecordingSeconds(int seconds);
+
   /// Immediate self-help and paced-breathing copy. Never promise safety, symptom relief, urge disappearance, or replace emergency or clinical care.
   ///
   /// In en, this message translates to:

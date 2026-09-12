@@ -5,11 +5,13 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart' hide MaterialType;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/semantics.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../l10n/l10n.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../services/material_file_store.dart';
@@ -32,17 +34,93 @@ IconData _typeIcon(MaterialType type) {
   }
 }
 
-String _typeLabel(MaterialType type) {
-  switch (type) {
-    case MaterialType.script:
-      return 'Script';
-    case MaterialType.loopTape:
-      return 'Loop tape';
-    case MaterialType.image:
-      return 'Image';
-    case MaterialType.link:
-      return 'Link';
-  }
+String _typeLabel(BuildContext context, MaterialType type) {
+  final key = switch (type) {
+    MaterialType.script => 'typeScript',
+    MaterialType.loopTape => 'typeLoopTape',
+    MaterialType.image => 'typeImage',
+    MaterialType.link => 'typeLink',
+  };
+  return context.l10n.exposureMaterialsText(key);
+}
+
+Future<void> confirmExposureMaterialDelete(
+  BuildContext context,
+  WidgetRef ref,
+  ExposureMaterial material,
+) async {
+  final strings = context.l10n;
+  final confirmed = await showModalBottomSheet<bool>(
+    context: context,
+    backgroundColor: Colors.transparent,
+    builder: (sheetContext) => SafeArea(
+      top: false,
+      child: Container(
+        margin: const EdgeInsets.all(14),
+        padding: const EdgeInsets.all(20),
+        decoration: recoverySoftDecoration(Theme.of(sheetContext), radius: 28),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Semantics(
+              header: true,
+              child: Text(
+                strings.exposureMaterialsText('deleteTitle'),
+                style: Theme.of(
+                  sheetContext,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              strings.exposureMaterialsText('deleteBody'),
+              style: TextStyle(
+                color: sheetContext.appColors.textSecondary,
+                height: 1.45,
+              ),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () => Navigator.pop(sheetContext, false),
+                    child: Text(strings.exposureMaterialsText('cancel')),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.pop(sheetContext, true),
+                    child: Text(strings.exposureMaterialsText('deleteAction')),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+  if (confirmed != true || !context.mounted) return;
+  final deleted = await ref
+      .read(exposureMaterialProvider.notifier)
+      .delete(material);
+  if (!context.mounted) return;
+  final message = strings.exposureMaterialsText(
+    deleted ? 'deleteSuccess' : 'deleteError',
+  );
+  showAppSnackBar(
+    context,
+    message,
+    type: deleted ? ToastType.success : ToastType.error,
+  );
+  await SemanticsService.sendAnnouncement(
+    View.of(context),
+    message,
+    Directionality.of(context),
+  );
 }
 
 class ExposureMaterialsScreen extends ConsumerWidget {
@@ -59,6 +137,7 @@ class ExposureMaterialsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final materialsAsync = ref.watch(exposureMaterialProvider);
 
     return Scaffold(
@@ -71,24 +150,26 @@ class ExposureMaterialsScreen extends ConsumerWidget {
                 CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    'Exposure Materials',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      strings.exposureMaterialsText('title'),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
                 TextButton.icon(
                   onPressed: () => _chooseType(context),
                   icon: const Icon(Icons.add_rounded, size: 18),
-                  label: const Text('New'),
+                  label: Text(strings.exposureMaterialsText('newAction')),
                 ),
               ],
             ),
             const SizedBox(height: 6),
             Text(
-              'Keep your scripts, loop tapes, images, and links here so they are '
-              'one tap away during an exposure.',
+              strings.exposureMaterialsText('subtitle'),
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.4,
@@ -111,7 +192,8 @@ class ExposureMaterialsScreen extends ConsumerWidget {
                     for (final m in list) ...[
                       MaterialCard(
                         material: m,
-                        onDelete: () => _confirmDelete(context, ref, m),
+                        onDelete: () =>
+                            confirmExposureMaterialDelete(context, ref, m),
                       ),
                       const SizedBox(height: 10),
                     ],
@@ -123,7 +205,7 @@ class ExposureMaterialsScreen extends ConsumerWidget {
                 child: Center(child: CircularProgressIndicator()),
               ),
               error: (_, _) => Text(
-                'Your materials are unavailable right now.',
+                strings.exposureMaterialsText('loadError'),
                 style: TextStyle(color: context.appColors.textSecondary),
               ),
             ),
@@ -155,7 +237,7 @@ class ExposureMaterialsScreen extends ConsumerWidget {
                     _typeIcon(type),
                     color: Theme.of(sheetContext).colorScheme.primary,
                   ),
-                  title: Text(_typeLabel(type)),
+                  title: Text(_typeLabel(sheetContext, type)),
                   onTap: () {
                     Navigator.pop(sheetContext);
                     Navigator.of(context).push(
@@ -176,71 +258,6 @@ class ExposureMaterialsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  void _confirmDelete(
-    BuildContext context,
-    WidgetRef ref,
-    ExposureMaterial material,
-  ) {
-    showModalBottomSheet<void>(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (sheetContext) => SafeArea(
-        top: false,
-        child: Container(
-          margin: const EdgeInsets.all(14),
-          padding: const EdgeInsets.all(20),
-          decoration: recoverySoftDecoration(
-            Theme.of(sheetContext),
-            radius: 28,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Delete this material?',
-                style: Theme.of(
-                  sheetContext,
-                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'The file (if any) is removed from your device too.',
-                style: TextStyle(
-                  color: context.appColors.textSecondary,
-                  height: 1.45,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () => Navigator.pop(sheetContext),
-                      child: const Text('Cancel'),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        Navigator.pop(sheetContext);
-                        await ref
-                            .read(exposureMaterialProvider.notifier)
-                            .delete(material);
-                      },
-                      child: const Text('Delete'),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }
 
 class _EmptyState extends StatelessWidget {
@@ -250,6 +267,7 @@ class _EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     return Container(
       padding: const EdgeInsets.all(22),
       decoration: recoverySoftDecoration(theme),
@@ -262,16 +280,18 @@ class _EmptyState extends StatelessWidget {
             size: 28,
           ),
           const SizedBox(height: 12),
-          Text(
-            'Gather your materials',
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w800,
+          Semantics(
+            header: true,
+            child: Text(
+              strings.exposureMaterialsText('emptyTitle'),
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w800,
+              ),
             ),
           ),
           const SizedBox(height: 6),
           Text(
-            'Save a script to read, record a loop tape, add an image, or keep a '
-            'link, ready for your next exposure.',
+            strings.exposureMaterialsText('emptyBody'),
             style: TextStyle(
               color: context.appColors.textSecondary,
               height: 1.45,
@@ -282,7 +302,7 @@ class _EmptyState extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: onAdd,
-              child: const Text('Add a material'),
+              child: Text(strings.exposureMaterialsText('addAction')),
             ),
           ),
         ],
@@ -304,6 +324,7 @@ class MaterialCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: recoverySoftDecoration(theme),
@@ -326,11 +347,13 @@ class MaterialCard extends StatelessWidget {
                   ),
                 ),
               ),
-              GestureDetector(
-                onTap: onDelete,
-                child: Icon(
+              IconButton(
+                onPressed: onDelete,
+                tooltip: strings.exposureMaterialsText('deleteTooltip'),
+                constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
+                icon: Icon(
                   Icons.close_rounded,
-                  size: 16,
+                  size: 18,
                   color: context.appColors.textSecondary,
                 ),
               ),
@@ -348,19 +371,19 @@ class MaterialCard extends StatelessWidget {
       case MaterialType.script:
         return _ActionButton(
           icon: Icons.menu_book_rounded,
-          label: 'Read script',
+          label: context.l10n.exposureMaterialsText('readScript'),
           onTap: () => _showScript(context),
         );
       case MaterialType.link:
         return _ActionButton(
           icon: Icons.open_in_new_rounded,
-          label: material.url ?? 'Open link',
+          label: material.url ?? context.l10n.exposureMaterialsText('openLink'),
           onTap: () => _openLink(context),
         );
       case MaterialType.image:
         return _ActionButton(
           icon: Icons.visibility_rounded,
-          label: 'View image',
+          label: context.l10n.exposureMaterialsText('viewImage'),
           onTap: () => _showImage(context),
         );
       case MaterialType.loopTape:
@@ -417,7 +440,7 @@ class MaterialCard extends StatelessWidget {
       if (context.mounted) {
         showAppSnackBar(
           context,
-          'Could not open that link.',
+          context.l10n.exposureMaterialsText('linkError'),
           type: ToastType.error,
         );
       }
@@ -432,7 +455,7 @@ class MaterialCard extends StatelessWidget {
     if (!file.existsSync()) {
       showAppSnackBar(
         context,
-        'This image is no longer available.',
+        context.l10n.exposureMaterialsText('imageMissing'),
         type: ToastType.info,
       );
       return;
@@ -463,30 +486,34 @@ class _ActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return PressScale(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-        decoration: BoxDecoration(
-          color: theme.colorScheme.primary.withValues(alpha: 0.10),
-          borderRadius: BorderRadius.circular(14),
-        ),
-        child: Row(
-          children: [
-            Icon(icon, size: 18, color: theme.colorScheme.primary),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                label,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.labelLarge?.copyWith(
-                  fontWeight: FontWeight.w700,
-                  color: theme.colorScheme.primary,
+    return Semantics(
+      button: true,
+      label: label,
+      excludeSemantics: true,
+      child: PressScale(
+        onTap: onTap,
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 44),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.primary.withValues(alpha: 0.10),
+            borderRadius: BorderRadius.circular(14),
+          ),
+          child: Row(
+            children: [
+              Icon(icon, size: 18, color: theme.colorScheme.primary),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  label,
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: theme.colorScheme.primary,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -545,7 +572,7 @@ class _LoopTapePlayerState extends State<LoopTapePlayer> {
     if (path == null) {
       showAppSnackBar(
         context,
-        'This recording is no longer available.',
+        context.l10n.exposureMaterialsText('recordingMissing'),
         type: ToastType.info,
       );
       return;
@@ -560,30 +587,40 @@ class _LoopTapePlayerState extends State<LoopTapePlayer> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return PressScale(
-      onTap: _toggle,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-        decoration: BoxDecoration(
-          color: theme.colorScheme.primary.withValues(alpha: 0.10),
-          borderRadius: BorderRadius.circular(14),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              _playing ? Icons.stop_rounded : Icons.play_arrow_rounded,
-              size: 20,
-              color: theme.colorScheme.primary,
-            ),
-            const SizedBox(width: 10),
-            Text(
-              _playing ? 'Stop' : 'Play loop',
-              style: theme.textTheme.labelLarge?.copyWith(
-                fontWeight: FontWeight.w700,
+    final label = context.l10n.exposureMaterialsText(
+      _playing ? 'stop' : 'playLoop',
+    );
+    return Semantics(
+      button: true,
+      toggled: _playing,
+      label: label,
+      excludeSemantics: true,
+      child: PressScale(
+        onTap: _toggle,
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 44),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.primary.withValues(alpha: 0.10),
+            borderRadius: BorderRadius.circular(14),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                _playing ? Icons.stop_rounded : Icons.play_arrow_rounded,
+                size: 20,
                 color: theme.colorScheme.primary,
               ),
-            ),
-          ],
+              const SizedBox(width: 10),
+              Text(
+                label,
+                style: theme.textTheme.labelLarge?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: theme.colorScheme.primary,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -647,7 +684,7 @@ class _ExposureMaterialEditScreenState
       if (mounted) {
         showAppSnackBar(
           context,
-          'Microphone access is needed to record a loop tape.',
+          context.l10n.exposureMaterialsText('microphoneNeeded'),
           type: ToastType.info,
         );
       }
@@ -679,11 +716,12 @@ class _ExposureMaterialEditScreenState
   }
 
   Future<void> _save() async {
+    final strings = context.l10n;
     final title = _titleController.text.trim();
     if (title.isEmpty) {
       showAppSnackBar(
         context,
-        'Give this a name and it will save.',
+        strings.exposureMaterialsText('nameValidation'),
         type: ToastType.info,
       );
       return;
@@ -699,7 +737,7 @@ class _ExposureMaterialEditScreenState
         if (text.isEmpty) {
           showAppSnackBar(
             context,
-            'Add the script text and this will save.',
+            strings.exposureMaterialsText('scriptValidation'),
             type: ToastType.info,
           );
           return;
@@ -709,7 +747,7 @@ class _ExposureMaterialEditScreenState
         if (url.isEmpty) {
           showAppSnackBar(
             context,
-            'Paste a link and this will save.',
+            strings.exposureMaterialsText('linkValidation'),
             type: ToastType.info,
           );
           return;
@@ -718,7 +756,7 @@ class _ExposureMaterialEditScreenState
         if (_pickedImagePath == null) {
           showAppSnackBar(
             context,
-            'Pick an image and this will save.',
+            strings.exposureMaterialsText('imageValidation'),
             type: ToastType.info,
           );
           return;
@@ -727,7 +765,7 @@ class _ExposureMaterialEditScreenState
         if (_recordedPath == null) {
           showAppSnackBar(
             context,
-            'Record a loop tape and this will save.',
+            strings.exposureMaterialsText('recordingValidation'),
             type: ToastType.info,
           );
           return;
@@ -735,38 +773,65 @@ class _ExposureMaterialEditScreenState
     }
 
     setState(() => _saving = true);
-    if (widget.type == MaterialType.image) {
-      final ext = p.extension(_pickedImagePath!).replaceFirst('.', '');
-      fileName = await MaterialFileStore.save(
-        _pickedImagePath!,
-        ext.isEmpty ? 'jpg' : ext,
-      );
-    } else if (widget.type == MaterialType.loopTape) {
-      fileName = await MaterialFileStore.save(_recordedPath!, 'm4a');
-    }
-
-    await ref
-        .read(exposureMaterialProvider.notifier)
-        .add(
-          ExposureMaterial(
-            type: widget.type,
-            title: title,
-            text: text,
-            url: url,
-            fileName: fileName,
-            linkedStepId: widget.linkedStepId,
-            linkedHierarchyId: widget.linkedHierarchyId,
-            createdAt: DateTime.now(),
-          ),
+    var saved = false;
+    try {
+      if (widget.type == MaterialType.image) {
+        final ext = p.extension(_pickedImagePath!).replaceFirst('.', '');
+        fileName = await MaterialFileStore.save(
+          _pickedImagePath!,
+          ext.isEmpty ? 'jpg' : ext,
         );
+      } else if (widget.type == MaterialType.loopTape) {
+        fileName = await MaterialFileStore.save(_recordedPath!, 'm4a');
+      }
+
+      saved = await ref
+          .read(exposureMaterialProvider.notifier)
+          .add(
+            ExposureMaterial(
+              type: widget.type,
+              title: title,
+              text: text,
+              url: url,
+              fileName: fileName,
+              linkedStepId: widget.linkedStepId,
+              linkedHierarchyId: widget.linkedHierarchyId,
+              createdAt: DateTime.now(),
+            ),
+          );
+    } catch (_) {
+      saved = false;
+    }
+    if (!saved && fileName != null) {
+      try {
+        await MaterialFileStore.delete(fileName);
+      } catch (_) {
+        // The failed database save remains the user-facing error. A later
+        // backup/wipe maintenance pass can remove an inaccessible orphan.
+      }
+    }
     if (!mounted) return;
+    final message = strings.exposureMaterialsText(
+      saved ? 'saveSuccess' : 'saveError',
+    );
+    if (!saved) {
+      setState(() => _saving = false);
+      showAppSnackBar(context, message, type: ToastType.error);
+      await SemanticsService.sendAnnouncement(
+        View.of(context),
+        message,
+        Directionality.of(context),
+      );
+      return;
+    }
     Navigator.of(context).pop();
-    showAppSnackBar(context, 'Material saved.', type: ToastType.success);
+    showAppSnackBar(context, message, type: ToastType.success);
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -777,10 +842,15 @@ class _ExposureMaterialEditScreenState
                 CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    'New ${_typeLabel(widget.type).toLowerCase()}',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      strings.exposureMaterialEditorTitle(
+                        _typeLabel(context, widget.type),
+                      ),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
@@ -788,8 +858,8 @@ class _ExposureMaterialEditScreenState
             ),
             const SizedBox(height: 18),
             LabeledField(
-              label: 'Title',
-              hint: 'A short name you will recognise',
+              label: strings.exposureMaterialsText('titleLabel'),
+              hint: strings.exposureMaterialsText('titleHint'),
               controller: _titleController,
             ),
             const SizedBox(height: 16),
@@ -805,7 +875,7 @@ class _ExposureMaterialEditScreenState
                         width: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : const Text('Save material'),
+                    : Text(strings.exposureMaterialsText('saveAction')),
               ),
             ),
           ]),
@@ -819,8 +889,8 @@ class _ExposureMaterialEditScreenState
       case MaterialType.script:
         return [
           LabeledField(
-            label: 'Script',
-            hint: 'The text you want to read during the exposure',
+            label: context.l10n.exposureMaterialsText('scriptLabel'),
+            hint: context.l10n.exposureMaterialsText('scriptHint'),
             controller: _textController,
             minLines: 5,
           ),
@@ -828,7 +898,7 @@ class _ExposureMaterialEditScreenState
       case MaterialType.link:
         return [
           LabeledField(
-            label: 'Link',
+            label: context.l10n.exposureMaterialsText('linkLabel'),
             hint: 'https://…',
             controller: _urlController,
           ),
@@ -854,7 +924,9 @@ class _ExposureMaterialEditScreenState
               onPressed: _pickImage,
               icon: const Icon(Icons.image_rounded, size: 18),
               label: Text(
-                _pickedImagePath == null ? 'Pick image' : 'Change image',
+                context.l10n.exposureMaterialsText(
+                  _pickedImagePath == null ? 'pickImage' : 'changeImage',
+                ),
               ),
             ),
           ),
@@ -872,7 +944,7 @@ class _ExposureMaterialEditScreenState
         children: [
           if (_isRecording) ...[
             Text(
-              'Recording… ${_elapsed}s',
+              context.l10n.exposureRecordingSeconds(_elapsed),
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w800,
                 color: context.appColors.negative,
@@ -884,7 +956,7 @@ class _ExposureMaterialEditScreenState
               child: ElevatedButton.icon(
                 onPressed: _stopRecording,
                 icon: const Icon(Icons.stop_rounded, size: 18),
-                label: const Text('Stop'),
+                label: Text(context.l10n.exposureMaterialsText('stop')),
               ),
             ),
           ] else if (_recordedPath != null) ...[
@@ -895,12 +967,12 @@ class _ExposureMaterialEditScreenState
               child: OutlinedButton.icon(
                 onPressed: _startRecording,
                 icon: const Icon(Icons.fiber_manual_record_rounded, size: 16),
-                label: const Text('Re-record'),
+                label: Text(context.l10n.exposureMaterialsText('rerecord')),
               ),
             ),
           ] else ...[
             Text(
-              'Record a short clip to replay on a loop.',
+              context.l10n.exposureMaterialsText('recorderHint'),
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.4,
@@ -912,7 +984,7 @@ class _ExposureMaterialEditScreenState
               child: ElevatedButton.icon(
                 onPressed: _startRecording,
                 icon: const Icon(Icons.fiber_manual_record_rounded, size: 16),
-                label: const Text('Record'),
+                label: Text(context.l10n.exposureMaterialsText('record')),
               ),
             ),
           ],
