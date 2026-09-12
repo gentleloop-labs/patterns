@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/semantics.dart';
 
+import '../../l10n/l10n.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../theme/app_colors.dart';
-import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
 import '../../widgets/app_snack_bar.dart';
 import '../widgets/recovery_ui.dart';
@@ -16,6 +17,7 @@ class ImplementationIntentionsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final intentions = ref.watch(implementationIntentionProvider);
 
     return Scaffold(
@@ -28,24 +30,26 @@ class ImplementationIntentionsScreen extends ConsumerWidget {
                 CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    'Implementation Intentions',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      strings.implementationIntentionText('title'),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
                 TextButton.icon(
                   onPressed: () => _openCreate(context),
                   icon: const Icon(Icons.add_rounded, size: 18),
-                  label: const Text('New'),
+                  label: Text(strings.implementationIntentionText('newAction')),
                 ),
               ],
             ),
             const SizedBox(height: 6),
             Text(
-              'Pre-decide your response so it becomes automatic: '
-              '"If X, then I will Y."',
+              strings.implementationIntentionText('subtitle'),
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.4,
@@ -75,7 +79,7 @@ class ImplementationIntentionsScreen extends ConsumerWidget {
                 child: Center(child: CircularProgressIndicator()),
               ),
               error: (_, _) => Text(
-                'Your intentions are unavailable right now.',
+                strings.implementationIntentionText('loadError'),
                 style: TextStyle(color: context.appColors.textSecondary),
               ),
             ),
@@ -99,65 +103,90 @@ class ImplementationIntentionsScreen extends ConsumerWidget {
     WidgetRef ref,
     ImplementationIntention intention,
   ) {
+    final strings = context.l10n;
     final id = intention.id;
     if (id == null) return;
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (sheetContext) => SafeArea(
-        top: false,
-        child: Container(
-          margin: const EdgeInsets.all(14),
-          padding: const EdgeInsets.all(20),
-          decoration: recoverySoftDecoration(
-            Theme.of(sheetContext),
-            radius: 28,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Delete this intention?',
-                style: Theme.of(
-                  sheetContext,
-                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'It will be removed for good.',
-                style: TextStyle(
-                  color: context.appColors.textSecondary,
-                  height: 1.45,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Row(
+      builder: (sheetContext) {
+        final largeText = MediaQuery.textScalerOf(sheetContext).scale(16) >= 24;
+        final cancel = OutlinedButton(
+          onPressed: () => Navigator.pop(sheetContext),
+          child: Text(strings.implementationIntentionText('cancel')),
+        );
+        final delete = ElevatedButton(
+          onPressed: () async {
+            Navigator.pop(sheetContext);
+            final deleted = await ref
+                .read(implementationIntentionProvider.notifier)
+                .delete(id);
+            if (!context.mounted) return;
+            final message = strings.implementationIntentionText(
+              deleted ? 'deleteSuccess' : 'deleteError',
+            );
+            showAppSnackBar(
+              context,
+              message,
+              type: deleted ? ToastType.success : ToastType.error,
+            );
+            await SemanticsService.sendAnnouncement(
+              View.of(context),
+              message,
+              Directionality.of(context),
+            );
+          },
+          child: Text(strings.implementationIntentionText('deleteAction')),
+        );
+        return SafeArea(
+          top: false,
+          child: Container(
+            margin: const EdgeInsets.all(14),
+            padding: const EdgeInsets.all(20),
+            decoration: recoverySoftDecoration(
+              Theme.of(sheetContext),
+              radius: 28,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () => Navigator.pop(sheetContext),
-                      child: const Text('Cancel'),
+                  Semantics(
+                    header: true,
+                    child: Text(
+                      strings.implementationIntentionText('deleteTitle'),
+                      style: Theme.of(sheetContext).textTheme.titleLarge
+                          ?.copyWith(fontWeight: FontWeight.w800),
                     ),
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        Navigator.pop(sheetContext);
-                        await ref
-                            .read(implementationIntentionProvider.notifier)
-                            .delete(id);
-                      },
-                      child: const Text('Delete'),
+                  const SizedBox(height: 10),
+                  Text(
+                    strings.implementationIntentionText('deleteBody'),
+                    style: TextStyle(
+                      color: context.appColors.textSecondary,
+                      height: 1.45,
                     ),
                   ),
+                  const SizedBox(height: 20),
+                  if (largeText) ...[
+                    SizedBox(width: double.infinity, child: cancel),
+                    const SizedBox(height: 10),
+                    SizedBox(width: double.infinity, child: delete),
+                  ] else
+                    Row(
+                      children: [
+                        Expanded(child: cancel),
+                        const SizedBox(width: 12),
+                        Expanded(child: delete),
+                      ],
+                    ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
@@ -171,6 +200,11 @@ class _IntentionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
+    final statement = strings.implementationIntentionStatement(
+      intention.trigger,
+      intention.response,
+    );
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: recoverySoftDecoration(theme),
@@ -178,35 +212,22 @@ class _IntentionCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: RichText(
-              text: TextSpan(
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  height: 1.5,
-                  fontFamily: AppTheme.displayFamily,
-                ),
-                children: [
-                  TextSpan(
-                    text: 'If ',
-                    style: TextStyle(color: theme.colorScheme.primary),
-                  ),
-                  TextSpan(text: intention.trigger),
-                  TextSpan(
-                    text: ', then ',
-                    style: TextStyle(color: theme.colorScheme.primary),
-                  ),
-                  TextSpan(text: intention.response),
-                ],
+            child: Semantics(
+              label: statement,
+              excludeSemantics: true,
+              child: Text(
+                statement,
+                style: theme.textTheme.bodyLarge?.copyWith(height: 1.5),
               ),
             ),
           ),
-          const SizedBox(width: 10),
-          GestureDetector(
-            onTap: onDelete,
-            child: Icon(
-              Icons.close_rounded,
-              size: 16,
-              color: context.appColors.textSecondary,
-            ),
+          const SizedBox(width: 6),
+          IconButton(
+            onPressed: onDelete,
+            tooltip: strings.implementationIntentionText('deleteTooltip'),
+            constraints: const BoxConstraints.tightFor(width: 44, height: 44),
+            padding: EdgeInsets.zero,
+            icon: const Icon(Icons.close_rounded),
           ),
         ],
       ),
@@ -221,6 +242,7 @@ class _EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     return Container(
       padding: const EdgeInsets.all(22),
       decoration: recoverySoftDecoration(theme),
@@ -233,16 +255,18 @@ class _EmptyState extends StatelessWidget {
             size: 28,
           ),
           const SizedBox(height: 12),
-          Text(
-            'Make your response automatic',
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w800,
+          Semantics(
+            header: true,
+            child: Text(
+              strings.implementationIntentionText('emptyTitle'),
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w800,
+              ),
             ),
           ),
           const SizedBox(height: 6),
           Text(
-            'Linking a trigger to a planned response makes it far easier to '
-            'follow through in the moment.',
+            strings.implementationIntentionText('emptyBody'),
             style: TextStyle(
               color: context.appColors.textSecondary,
               height: 1.45,
@@ -253,7 +277,7 @@ class _EmptyState extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: onCreate,
-              child: const Text('New intention'),
+              child: Text(strings.implementationIntentionText('emptyAction')),
             ),
           ),
         ],
@@ -284,18 +308,21 @@ class _ImplementationIntentionEditScreenState
   }
 
   Future<void> _save() async {
+    final strings = context.l10n;
     final trigger = _trigger.text.trim();
     final response = _response.text.trim();
     if (trigger.isEmpty || response.isEmpty) {
-      showAppSnackBar(
-        context,
-        'Both halves, the if and the then, and this will save.',
-        type: ToastType.info,
+      final message = strings.implementationIntentionText('validation');
+      showAppSnackBar(context, message, type: ToastType.info);
+      await SemanticsService.sendAnnouncement(
+        View.of(context),
+        message,
+        Directionality.of(context),
       );
       return;
     }
     setState(() => _saving = true);
-    await ref
+    final saved = await ref
         .read(implementationIntentionProvider.notifier)
         .add(
           ImplementationIntention(
@@ -305,13 +332,31 @@ class _ImplementationIntentionEditScreenState
           ),
         );
     if (!mounted) return;
+    if (!saved) {
+      setState(() => _saving = false);
+      final message = strings.implementationIntentionText('saveError');
+      showAppSnackBar(context, message, type: ToastType.error);
+      await SemanticsService.sendAnnouncement(
+        View.of(context),
+        message,
+        Directionality.of(context),
+      );
+      return;
+    }
     Navigator.of(context).pop();
-    showAppSnackBar(context, 'Intention saved.', type: ToastType.success);
+    final message = strings.implementationIntentionText('saveSuccess');
+    showAppSnackBar(context, message, type: ToastType.success);
+    await SemanticsService.sendAnnouncement(
+      View.of(context),
+      message,
+      Directionality.of(context),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -322,10 +367,13 @@ class _ImplementationIntentionEditScreenState
                 CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    'New intention',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      strings.implementationIntentionText('editorTitle'),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
@@ -333,15 +381,15 @@ class _ImplementationIntentionEditScreenState
             ),
             const SizedBox(height: 18),
             LabeledField(
-              label: 'If…',
-              hint: 'the trigger, e.g. I feel the urge to seek reassurance',
+              label: strings.implementationIntentionText('triggerLabel'),
+              hint: strings.implementationIntentionText('triggerHint'),
               controller: _trigger,
               minLines: 2,
             ),
             const SizedBox(height: 16),
             LabeledField(
-              label: 'then I will…',
-              hint: 'your response, e.g. write my thoughts down instead',
+              label: strings.implementationIntentionText('responseLabel'),
+              hint: strings.implementationIntentionText('responseHint'),
               controller: _response,
               minLines: 2,
             ),
@@ -356,7 +404,7 @@ class _ImplementationIntentionEditScreenState
                         width: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : const Text('Save intention'),
+                    : Text(strings.implementationIntentionText('saveAction')),
               ),
             ),
           ]),

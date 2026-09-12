@@ -3600,6 +3600,50 @@ class AppLocalizationsPt extends AppLocalizations {
   String exposureReflectionCardSummary(String date, String whatHappened) {
     return '$date. O que aconteceu: $whatHappened.';
   }
+
+  @override
+  String implementationIntentionText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Planos se-então',
+      'newAction': 'Novo',
+      'subtitle':
+          'Associe uma situação a uma resposta que você queira experimentar quando ela acontecer.',
+      'loadError':
+          'Seus planos se-então não estão disponíveis agora. Tente novamente.',
+      'deleteTitle': 'Excluir este plano se-então?',
+      'deleteBody': 'Isso exclui permanentemente o plano deste dispositivo.',
+      'cancel': 'Cancelar',
+      'deleteAction': 'Excluir',
+      'deleteTooltip': 'Excluir plano se-então',
+      'deleteSuccess': 'Plano se-então excluído.',
+      'deleteError':
+          'Não foi possível excluir este plano se-então. Tente novamente.',
+      'emptyTitle': 'Crie um plano se-então',
+      'emptyBody':
+          'Escreva uma situação e a resposta que você queira experimentar quando ela acontecer.',
+      'emptyAction': 'Novo plano se-então',
+      'editorTitle': 'Novo plano se-então',
+      'triggerLabel': 'Se…',
+      'triggerHint':
+          'A situação, por exemplo: noto a vontade de buscar confirmação',
+      'responseLabel': 'então eu vou…',
+      'responseHint':
+          'A resposta que você quer experimentar, por exemplo: anotar o que estou percebendo',
+      'saveAction': 'Salvar plano se-então',
+      'validation':
+          'Adicione a situação e a resposta que você quer experimentar.',
+      'saveSuccess': 'Plano se-então salvo.',
+      'saveError':
+          'Não foi possível salvar este plano se-então. Seu texto continua aqui. Tente novamente.',
+      'other': 'Plano se-então',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String implementationIntentionStatement(String trigger, String response) {
+    return 'Se $trigger, então $response.';
+  }
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -7197,5 +7241,49 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String exposureReflectionCardSummary(String date, String whatHappened) {
     return '$date. O que aconteceu: $whatHappened.';
+  }
+
+  @override
+  String implementationIntentionText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Planos se-então',
+      'newAction': 'Novo',
+      'subtitle':
+          'Associe uma situação a uma resposta que você queira experimentar quando ela acontecer.',
+      'loadError':
+          'Seus planos se-então não estão disponíveis agora. Tente novamente.',
+      'deleteTitle': 'Excluir este plano se-então?',
+      'deleteBody': 'Isso exclui permanentemente o plano deste dispositivo.',
+      'cancel': 'Cancelar',
+      'deleteAction': 'Excluir',
+      'deleteTooltip': 'Excluir plano se-então',
+      'deleteSuccess': 'Plano se-então excluído.',
+      'deleteError':
+          'Não foi possível excluir este plano se-então. Tente novamente.',
+      'emptyTitle': 'Crie um plano se-então',
+      'emptyBody':
+          'Escreva uma situação e a resposta que você queira experimentar quando ela acontecer.',
+      'emptyAction': 'Novo plano se-então',
+      'editorTitle': 'Novo plano se-então',
+      'triggerLabel': 'Se…',
+      'triggerHint':
+          'A situação, por exemplo: noto a vontade de buscar confirmação',
+      'responseLabel': 'então eu vou…',
+      'responseHint':
+          'A resposta que você quer experimentar, por exemplo: anotar o que estou percebendo',
+      'saveAction': 'Salvar plano se-então',
+      'validation':
+          'Adicione a situação e a resposta que você quer experimentar.',
+      'saveSuccess': 'Plano se-então salvo.',
+      'saveError':
+          'Não foi possível salvar este plano se-então. Seu texto continua aqui. Tente novamente.',
+      'other': 'Plano se-então',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String implementationIntentionStatement(String trigger, String response) {
+    return 'Se $trigger, então $response.';
   }
 }

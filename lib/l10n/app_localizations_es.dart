@@ -3607,4 +3607,48 @@ class AppLocalizationsEs extends AppLocalizations {
   String exposureReflectionCardSummary(String date, String whatHappened) {
     return '$date. Qué ocurrió: $whatHappened.';
   }
+
+  @override
+  String implementationIntentionText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Planes si-entonces',
+      'newAction': 'Nuevo',
+      'subtitle':
+          'Relaciona una situación con una respuesta que quieras probar cuando ocurra.',
+      'loadError':
+          'Tus planes si-entonces no están disponibles en este momento. Inténtalo de nuevo.',
+      'deleteTitle': '¿Eliminar este plan si-entonces?',
+      'deleteBody':
+          'Esto elimina el plan de este dispositivo de forma permanente.',
+      'cancel': 'Cancelar',
+      'deleteAction': 'Eliminar',
+      'deleteTooltip': 'Eliminar plan si-entonces',
+      'deleteSuccess': 'Plan si-entonces eliminado.',
+      'deleteError':
+          'No se pudo eliminar este plan si-entonces. Inténtalo de nuevo.',
+      'emptyTitle': 'Crea un plan si-entonces',
+      'emptyBody':
+          'Escribe una situación y la respuesta que quieras probar cuando ocurra.',
+      'emptyAction': 'Nuevo plan si-entonces',
+      'editorTitle': 'Nuevo plan si-entonces',
+      'triggerLabel': 'Si…',
+      'triggerHint':
+          'La situación, por ejemplo: noto la necesidad de buscar tranquilidad',
+      'responseLabel': 'entonces…',
+      'responseHint':
+          'La respuesta que quieres probar, por ejemplo: escribir lo que estoy notando',
+      'saveAction': 'Guardar plan si-entonces',
+      'validation': 'Añade la situación y la respuesta que quieras probar.',
+      'saveSuccess': 'Plan si-entonces guardado.',
+      'saveError':
+          'No se pudo guardar este plan si-entonces. Tu texto sigue aquí. Inténtalo de nuevo.',
+      'other': 'Plan si-entonces',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String implementationIntentionStatement(String trigger, String response) {
+    return 'Si $trigger, entonces $response.';
+  }
 }

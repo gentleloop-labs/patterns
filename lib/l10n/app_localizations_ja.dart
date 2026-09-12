@@ -3195,4 +3195,40 @@ class AppLocalizationsJa extends AppLocalizations {
   String exposureReflectionCardSummary(String date, String whatHappened) {
     return '$date。何が起きたか：$whatHappened。';
   }
+
+  @override
+  String implementationIntentionText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'もし〜ならプラン',
+      'newAction': '新規',
+      'subtitle': 'ある状況と、そのとき試したい対応を組み合わせます。',
+      'loadError': '現在、もし〜ならプランを表示できません。もう一度お試しください。',
+      'deleteTitle': 'このもし〜ならプランを削除しますか？',
+      'deleteBody': 'この端末からプランが完全に削除されます。',
+      'cancel': 'キャンセル',
+      'deleteAction': '削除',
+      'deleteTooltip': 'もし〜ならプランを削除',
+      'deleteSuccess': 'もし〜ならプランを削除しました。',
+      'deleteError': 'このもし〜ならプランを削除できませんでした。もう一度お試しください。',
+      'emptyTitle': 'もし〜ならプランを作る',
+      'emptyBody': '状況と、その状況になったときに試したい対応を記録します。',
+      'emptyAction': '新しいもし〜ならプラン',
+      'editorTitle': '新しいもし〜ならプラン',
+      'triggerLabel': 'もし…',
+      'triggerHint': '状況（例：安心を求めたい衝動に気づいたとき）',
+      'responseLabel': 'そのとき私は…',
+      'responseHint': '試したい対応（例：今気づいていることを書き留める）',
+      'saveAction': 'もし〜ならプランを保存',
+      'validation': '状況と、試したい対応の両方を入力してください。',
+      'saveSuccess': 'もし〜ならプランを保存しました。',
+      'saveError': 'このもし〜ならプランを保存できませんでした。入力した内容は残っています。もう一度お試しください。',
+      'other': 'もし〜ならプラン',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String implementationIntentionStatement(String trigger, String response) {
+    return 'もし$triggerなら、$response。';
+  }
 }

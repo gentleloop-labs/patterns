@@ -3638,4 +3638,49 @@ class AppLocalizationsDe extends AppLocalizations {
   String exposureReflectionCardSummary(String date, String whatHappened) {
     return '$date. Was passiert ist: $whatHappened.';
   }
+
+  @override
+  String implementationIntentionText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Wenn-dann-Pläne',
+      'newAction': 'Neu',
+      'subtitle':
+          'Verbinden Sie eine Situation mit einer Reaktion, die Sie dann ausprobieren möchten.',
+      'loadError':
+          'Ihre Wenn-dann-Pläne sind derzeit nicht verfügbar. Bitte versuchen Sie es erneut.',
+      'deleteTitle': 'Diesen Wenn-dann-Plan löschen?',
+      'deleteBody':
+          'Dadurch wird der Plan dauerhaft von diesem Gerät entfernt.',
+      'cancel': 'Abbrechen',
+      'deleteAction': 'Löschen',
+      'deleteTooltip': 'Wenn-dann-Plan löschen',
+      'deleteSuccess': 'Wenn-dann-Plan gelöscht.',
+      'deleteError':
+          'Dieser Wenn-dann-Plan konnte nicht gelöscht werden. Bitte versuchen Sie es erneut.',
+      'emptyTitle': 'Einen Wenn-dann-Plan erstellen',
+      'emptyBody':
+          'Notieren Sie eine Situation und die Reaktion, die Sie dann ausprobieren möchten.',
+      'emptyAction': 'Neuer Wenn-dann-Plan',
+      'editorTitle': 'Neuer Wenn-dann-Plan',
+      'triggerLabel': 'Wenn…',
+      'triggerHint':
+          'Die Situation, zum Beispiel: Ich bemerke den Drang, um Rückversicherung zu bitten',
+      'responseLabel': 'dann werde ich…',
+      'responseHint':
+          'Die Reaktion, die Sie ausprobieren möchten, zum Beispiel: aufschreiben, was mir auffällt',
+      'saveAction': 'Wenn-dann-Plan speichern',
+      'validation':
+          'Fügen Sie sowohl die Situation als auch die Reaktion hinzu, die Sie ausprobieren möchten.',
+      'saveSuccess': 'Wenn-dann-Plan gespeichert.',
+      'saveError':
+          'Dieser Wenn-dann-Plan konnte nicht gespeichert werden. Ihr Text ist noch vorhanden. Bitte versuchen Sie es erneut.',
+      'other': 'Wenn-dann-Plan',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String implementationIntentionStatement(String trigger, String response) {
+    return 'Wenn $trigger, dann werde ich $response.';
+  }
 }

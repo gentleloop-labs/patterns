@@ -38,3 +38,6 @@
 ^lib/mobile/screens/behavioral_experiments_screen\.dart:.*\.behavioralExperimentText\('[a-zA-Z]+'
 # Stable selector keys mapped to localized Exposure Reflection copy in ARB.
 ^lib/mobile/screens/exposure_reflection_screen\.dart:.*\.exposureReflectionText\('[a-zA-Z]+'
+
+# Stable selector keys mapped to localized Implementation Intentions copy.
+^lib/mobile/screens/implementation_intentions_screen\.dart:.*\.implementationIntentionText\('[a-zA-Z]+'
