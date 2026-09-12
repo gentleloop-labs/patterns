@@ -4396,6 +4396,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Step {current} of {total}'**
   String tourProgress(int current, int total);
+
+  /// Screen-reader announcement for a quiet completion. Title and body are already localized factual confirmations; translators may reorder them without adding praise or prompts.
+  ///
+  /// In en, this message translates to:
+  /// **'{title}. {body}'**
+  String completionAnnouncement(String title, String body);
 }
 
 class _AppLocalizationsDelegate

@@ -104,13 +104,13 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
     final practicedToday =
         erp.any((e) => isToday(e.createdAt)) ||
         delays.any((d) => isToday(d.createdAt));
-    final nextStep = AnalyticsService.buildNextStep(
+    final nextStep = AnalyticsService.chooseNextStep(
       isPro: isPro,
       hasYbocs: ybocs.isNotEmpty,
       hasHierarchy: hierarchySteps.isNotEmpty,
       practicedToday: practicedToday,
     );
-    final localizedNextStep = _localizedNextStep(context, nextStep.step);
+    final localizedNextStep = _localizedNextStep(context, nextStep);
     final dismissedUntilMillis =
         mobilePreferences?.getInt(proCardDismissedUntilKey) ?? 0;
     final showProCard =

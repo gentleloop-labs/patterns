@@ -59,3 +59,8 @@
 ^lib/mobile/main_shell\.dart:.*\.shellText\('[a-zA-Z]+'
 ^lib/mobile/screens/first_run_result_screen\.dart:.*\.shellText\('[a-zA-Z]+'
 ^lib/mobile/widgets/spotlight_tour\.dart:.*\.shellText\('[a-zA-Z]+'
+
+# Debug-only seeded records are guarded by kDebugMode and explicit opt-in.
+# The marketing renderer is a separate capture-only entrypoint, not app UI.
+^lib/services/demo_seed_service\.dart:
+^lib/main_marketing\.dart:

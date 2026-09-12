@@ -37,9 +37,12 @@ Future<void> showQuietCompletion(
   final content = PopScope(
     canPop: false,
     child: Semantics(
+      container: true,
+      explicitChildNodes: true,
+      scopesRoute: true,
       namesRoute: true,
       liveRegion: true,
-      label: '$title. $body',
+      label: strings.completionAnnouncement(title, body),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(24, 20, 24, 24),
         child: Column(

@@ -4049,6 +4049,11 @@ class AppLocalizationsPt extends AppLocalizations {
   String tourProgress(int current, int total) {
     return 'Etapa $current de $total';
   }
+
+  @override
+  String completionAnnouncement(String title, String body) {
+    return '$title. $body';
+  }
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -8095,5 +8100,10 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String tourProgress(int current, int total) {
     return 'Etapa $current de $total';
+  }
+
+  @override
+  String completionAnnouncement(String title, String body) {
+    return '$title. $body';
   }
 }

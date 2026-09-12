@@ -4116,4 +4116,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String tourProgress(int current, int total) {
     return 'Étape $current sur $total';
   }
+
+  @override
+  String completionAnnouncement(String title, String body) {
+    return '$title. $body';
+  }
 }

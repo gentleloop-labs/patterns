@@ -60,6 +60,7 @@ void main() {
 
     expect(find.text('練習を記録しました'), findsOneWidget);
     expect(find.text('今はここまで'), findsOneWidget);
+    expect(find.bySemanticsLabel('練習を記録しました。ERP練習を記録しました。'), findsOneWidget);
   });
 
   testWidgets(
