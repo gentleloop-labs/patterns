@@ -1,12 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:local_auth/local_auth.dart'
     show LocalAuthException, LocalAuthExceptionCode;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:patterns/l10n/app_localizations.dart';
 import 'package:patterns/mobile/biometric_auth.dart';
 import 'package:patterns/mobile/main_shell.dart';
 import 'package:patterns/mobile/preferences.dart';
@@ -23,9 +25,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [biometricAuthenticatorProvider.overrideWithValue(fake)],
-        child: const MaterialApp(
-          home: MobileAppFrame(child: SizedBox.shrink()),
-        ),
+        child: _testApp(),
       ),
     );
 
@@ -57,9 +57,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [biometricAuthenticatorProvider.overrideWithValue(fake)],
-        child: const MaterialApp(
-          home: MobileAppFrame(child: SizedBox.shrink()),
-        ),
+        child: _testApp(),
       ),
     );
 
@@ -90,9 +88,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [biometricAuthenticatorProvider.overrideWithValue(fake)],
-        child: const MaterialApp(
-          home: MobileAppFrame(child: SizedBox.shrink()),
-        ),
+        child: _testApp(),
       ),
     );
 
@@ -120,12 +116,7 @@ void main() {
     addTearDown(container.dispose);
 
     await tester.pumpWidget(
-      UncontrolledProviderScope(
-        container: container,
-        child: const MaterialApp(
-          home: MobileAppFrame(child: SizedBox.shrink()),
-        ),
-      ),
+      UncontrolledProviderScope(container: container, child: _testApp()),
     );
 
     for (var i = 0; i < 6; i++) {
@@ -151,9 +142,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [biometricAuthenticatorProvider.overrideWithValue(fake)],
-        child: const MaterialApp(
-          home: MobileAppFrame(child: SizedBox.shrink()),
-        ),
+        child: _testApp(),
       ),
     );
 
@@ -191,9 +180,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [biometricAuthenticatorProvider.overrideWithValue(fake)],
-        child: const MaterialApp(
-          home: MobileAppFrame(child: SizedBox.shrink()),
-        ),
+        child: _testApp(),
       ),
     );
 
@@ -216,6 +203,65 @@ void main() {
       reason: 'returning from a true backgrounding must re-auth exactly once',
     );
   });
+
+  testWidgets('a false biometric result keeps the localized privacy cover', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({appLockPreferenceKey: true});
+    await initMobilePreferences();
+    final fake = _RejectingFakeAuthenticator();
+
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [biometricAuthenticatorProvider.overrideWithValue(fake)],
+        child: _testApp(
+          locale: const Locale('ja'),
+          child: Semantics(
+            label: 'private journal content',
+            child: const Text('Private journal content'),
+          ),
+        ),
+      ),
+    );
+    for (var i = 0; i < 4; i++) {
+      await tester.pump(const Duration(milliseconds: 16));
+    }
+
+    expect(fake.reason, '続けるにはPatternsのロックを解除してください。');
+    expect(find.text('ロックを解除'), findsOneWidget);
+    expect(find.bySemanticsLabel('Patternsのプライバシー画面'), findsOneWidget);
+    expect(find.bySemanticsLabel('private journal content'), findsNothing);
+  });
+}
+
+Widget _testApp({
+  Locale locale = const Locale('en'),
+  Widget child = const SizedBox.shrink(),
+}) {
+  return MaterialApp(
+    locale: locale,
+    supportedLocales: AppLocalizations.supportedLocales,
+    localizationsDelegates: const [
+      AppLocalizations.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+    ],
+    home: MobileAppFrame(child: child),
+  );
+}
+
+class _RejectingFakeAuthenticator implements BiometricAuthenticator {
+  String? reason;
+
+  @override
+  Future<bool> isDeviceSupported() async => true;
+
+  @override
+  Future<bool> authenticate({required String reason}) async {
+    this.reason = reason;
+    return false;
+  }
 }
 
 /// Fake authenticator that mimics the OS dispatching `paused` while the

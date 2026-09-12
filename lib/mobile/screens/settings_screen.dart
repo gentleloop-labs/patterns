@@ -60,23 +60,22 @@ class SettingsScreen extends ConsumerWidget {
               children: [
                 IconButton(
                   onPressed: () => Navigator.pop(context),
+                  tooltip: MaterialLocalizations.of(context).backButtonTooltip,
                   icon: const Icon(LineIcons.angleLeft),
                 ),
                 Expanded(
-                  child: Text(
-                    strings.settingsTitle,
-                    style: _screenTitle(theme),
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      strings.settingsTitle,
+                      style: _screenTitle(theme),
+                    ),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 22),
-            Text(
-              strings.appearanceTitle,
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w800,
-              ),
-            ),
+            _sectionHeading(context, strings.appearanceTitle),
             const SizedBox(height: 12),
             _AppearancePicker(
               value: appearance,
@@ -102,12 +101,7 @@ class SettingsScreen extends ConsumerWidget {
                   ref.read(calmInsightsProvider.notifier).setEnabled(value),
             ),
             const SizedBox(height: 28),
-            Text(
-              strings.settingsDataSection,
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w800,
-              ),
-            ),
+            _sectionHeading(context, strings.settingsDataSection),
             const SizedBox(height: 12),
             _SettingsItem(
               icon: LineIcons.download,
@@ -133,12 +127,7 @@ class SettingsScreen extends ConsumerWidget {
             ),
             if (NotificationService.isSupported) ...[
               const SizedBox(height: 28),
-              Text(
-                strings.settingsRemindersSection,
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              _sectionHeading(context, strings.settingsRemindersSection),
               const SizedBox(height: 12),
               _SettingsSwitchItem(
                 icon: LineIcons.bell,
@@ -168,12 +157,7 @@ class SettingsScreen extends ConsumerWidget {
               ],
             ],
             const SizedBox(height: 28),
-            Text(
-              strings.settingsPrivacySection,
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w800,
-              ),
-            ),
+            _sectionHeading(context, strings.settingsPrivacySection),
             const SizedBox(height: 12),
             _SettingsItem(
               icon: LineIcons.lock,
@@ -187,7 +171,7 @@ class SettingsScreen extends ConsumerWidget {
               title: strings.settingsAnalyticsTitle,
               subtitle: strings.settingsAnalyticsSubtitle,
               value: usageAnalyticsEnabled,
-              onChanged: (value) => _setUsageAnalytics(ref, value),
+              onChanged: (value) => _setUsageAnalytics(context, ref, value),
             ),
             const SizedBox(height: 10),
             _SettingsSwitchItem(
@@ -206,12 +190,7 @@ class SettingsScreen extends ConsumerWidget {
             ),
             if (ProService.isPlatformSupported) ...[
               const SizedBox(height: 28),
-              Text(
-                strings.settingsProSection,
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              _sectionHeading(context, strings.settingsProSection),
               const SizedBox(height: 12),
               if (ref.watch(proProvider)) ...[
                 _SettingsItem(
@@ -220,7 +199,7 @@ class SettingsScreen extends ConsumerWidget {
                   subtitle: strings.settingsProActiveSubtitle,
                   onTap: () => showAppSnackBar(
                     context,
-                    'Patterns Pro is active on this device.',
+                    strings.settingsText('proActiveMessage'),
                     type: ToastType.success,
                   ),
                 ),
@@ -243,12 +222,7 @@ class SettingsScreen extends ConsumerWidget {
               ),
             ],
             const SizedBox(height: 28),
-            Text(
-              strings.settingsHelpSection,
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w800,
-              ),
-            ),
+            _sectionHeading(context, strings.settingsHelpSection),
             const SizedBox(height: 12),
             _SettingsItem(
               icon: LineIcons.compass,
@@ -275,18 +249,13 @@ class SettingsScreen extends ConsumerWidget {
                 mobilePreferences?.setBool(hasStartedKey, false);
                 showAppSnackBar(
                   context,
-                  'The welcome screens will show next time you open Patterns.',
+                  strings.settingsText('welcomeScheduled'),
                   type: ToastType.info,
                 );
               },
             ),
             const SizedBox(height: 28),
-            Text(
-              strings.settingsFeedbackSection,
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w800,
-              ),
-            ),
+            _sectionHeading(context, strings.settingsFeedbackSection),
             const SizedBox(height: 12),
             _SettingsItem(
               icon: LineIcons.star,
@@ -312,12 +281,7 @@ class SettingsScreen extends ConsumerWidget {
             ],
             if (kDebugMode) ...[
               const SizedBox(height: 28),
-              Text(
-                'Debug',
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              _sectionHeading(context, 'Debug'),
               const SizedBox(height: 12),
               _SettingsItem(
                 icon: LineIcons.barChart,
@@ -337,23 +301,28 @@ class SettingsScreen extends ConsumerWidget {
   }
 
   void _confirmExport(BuildContext context) {
+    final strings = context.l10n;
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       builder: (context) => _BottomPanel(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Export data?',
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+            Semantics(
+              header: true,
+              child: Text(
+                strings.settingsText('exportPromptTitle'),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+              ),
             ),
             const SizedBox(height: 10),
             Text(
-              'The backup is a readable JSON file and is not encrypted by Patterns. Save it somewhere private.',
+              strings.settingsText('exportPromptBody'),
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.45,
@@ -367,7 +336,7 @@ class SettingsScreen extends ConsumerWidget {
                   Navigator.pop(context);
                   _exportData(context);
                 },
-                child: const Text('Export JSON backup'),
+                child: Text(strings.settingsText('exportBackupAction')),
               ),
             ),
           ],
@@ -377,42 +346,54 @@ class SettingsScreen extends ConsumerWidget {
   }
 
   Future<void> _exportData(BuildContext context) async {
+    final strings = context.l10n;
     try {
       final bytes = await DbHelper.instance.exportBundle();
       final path = await FilePicker.platform.saveFile(
-        dialogTitle: 'Export Patterns Data',
+        dialogTitle: strings.settingsText('exportDialogTitle'),
         fileName: 'patterns_backup.zip',
         type: FileType.custom,
         allowedExtensions: ['zip'],
         bytes: bytes,
       );
       if (path == null) return;
-      if (context.mounted) _showMessage(context, 'Data exported');
-    } catch (error) {
       if (context.mounted) {
-        _showMessage(context, 'Export failed', type: ToastType.error);
+        _showMessage(context, strings.settingsText('exportSucceeded'));
+      }
+    } catch (_) {
+      if (context.mounted) {
+        _showMessage(
+          context,
+          strings.settingsText('exportFailed'),
+          type: ToastType.error,
+        );
       }
     }
   }
 
   void _confirmImport(BuildContext context, WidgetRef ref) {
+    final strings = context.l10n;
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       builder: (context) => _BottomPanel(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Import data?',
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+            Semantics(
+              header: true,
+              child: Text(
+                strings.settingsText('importPromptTitle'),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+              ),
             ),
             const SizedBox(height: 10),
             Text(
-              'Choose a JSON backup. Patterns will show what it contains before replacing current entries.',
+              strings.settingsText('importPromptBody'),
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.45,
@@ -426,7 +407,7 @@ class SettingsScreen extends ConsumerWidget {
                   Navigator.pop(context);
                   _importData(context, ref);
                 },
-                child: const Text('Choose backup'),
+                child: Text(strings.settingsText('chooseBackupAction')),
               ),
             ),
           ],
@@ -436,9 +417,10 @@ class SettingsScreen extends ConsumerWidget {
   }
 
   Future<void> _importData(BuildContext context, WidgetRef ref) async {
+    final strings = context.l10n;
     try {
       final result = await FilePicker.platform.pickFiles(
-        dialogTitle: 'Select Patterns Backup',
+        dialogTitle: strings.settingsText('importDialogTitle'),
         type: FileType.custom,
         allowedExtensions: ['zip', 'json'],
         withData: true,
@@ -449,7 +431,7 @@ class SettingsScreen extends ConsumerWidget {
         if (context.mounted) {
           _showMessage(
             context,
-            'Could not read backup file',
+            strings.settingsText('backupUnreadable'),
             type: ToastType.error,
           );
         }
@@ -467,13 +449,17 @@ class SettingsScreen extends ConsumerWidget {
       if (context.mounted) {
         _showMessage(
           context,
-          'Backup file is not valid',
+          strings.settingsText('backupInvalid'),
           type: ToastType.error,
         );
       }
-    } catch (error) {
+    } catch (_) {
       if (context.mounted) {
-        _showMessage(context, 'Import failed', type: ToastType.error);
+        _showMessage(
+          context,
+          strings.settingsText('importFailed'),
+          type: ToastType.error,
+        );
       }
     }
   }
@@ -485,48 +471,73 @@ class SettingsScreen extends ConsumerWidget {
     bool isZip,
     BackupSummary summary,
   ) {
+    final strings = context.l10n;
+    final recoveryCount =
+        summary.exposureHierarchyCount +
+        summary.exposureStepCount +
+        summary.responsePreventionCount +
+        summary.urgeSurfCount +
+        summary.programEnrollmentCount +
+        summary.programTaskProgressCount +
+        summary.behavioralExperimentCount +
+        summary.exposureReflectionCount +
+        summary.actionPlanCount +
+        summary.implementationIntentionCount +
+        summary.uncertaintyLogCount +
+        summary.exposureMaterialCount;
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       builder: (context) => _BottomPanel(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Import backup?',
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+            Semantics(
+              header: true,
+              child: Text(
+                strings.settingsText('importPreviewTitle'),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+              ),
             ),
             const SizedBox(height: 10),
             Text(
-              'This backup contains ${summary.journalCount} journal entries, ${summary.ocdCount} OCD events, ${summary.delaySessionCount} delay sessions, ${summary.erpExercisePlanCount} ERP plans, and ${summary.erpExerciseSessionCount} ERP practices. Importing replaces your current entries.',
+              strings.settingsText('importPreviewIntro'),
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.45,
               ),
             ),
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Cancel'),
-                  ),
+            const SizedBox(height: 12),
+            _BackupCountList(
+              lines: [
+                strings.settingsBackupJournalCount(summary.journalCount),
+                strings.settingsBackupOcdCount(summary.ocdCount),
+                strings.settingsBackupDelayCount(summary.delaySessionCount),
+                strings.settingsBackupErpPlanCount(
+                  summary.erpExercisePlanCount,
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      Navigator.pop(context);
-                      await _finishImport(context, ref, bytes, isZip);
-                    },
-                    child: const Text('Replace'),
-                  ),
+                strings.settingsBackupErpPracticeCount(
+                  summary.erpExerciseSessionCount,
+                ),
+                strings.settingsBackupRecoveryCount(recoveryCount),
+                strings.settingsBackupSelfCheckCount(
+                  summary.ybocsAssessmentCount,
                 ),
               ],
+            ),
+            const SizedBox(height: 20),
+            _PanelActions(
+              cancelLabel: strings.cancelAction,
+              confirmLabel: strings.settingsText('replaceAction'),
+              onCancel: () => Navigator.pop(context),
+              onConfirm: () async {
+                Navigator.pop(context);
+                await _finishImport(context, ref, bytes, isZip);
+              },
             ),
           ],
         ),
@@ -540,41 +551,32 @@ class SettingsScreen extends ConsumerWidget {
     Uint8List bytes,
     bool isZip,
   ) async {
+    final strings = context.l10n;
     try {
       if (isZip) {
         await DbHelper.instance.importBundle(bytes);
       } else {
         await DbHelper.instance.importAll(utf8.decode(bytes));
       }
-      ref.invalidate(journalProvider);
-      ref.invalidate(ocdProvider);
-      ref.invalidate(delaySessionProvider);
-      ref.invalidate(erpExercisePlanProvider);
-      ref.invalidate(erpExerciseSessionProvider);
-      ref.invalidate(exposureHierarchyProvider);
-      ref.invalidate(exposureStepProvider);
-      ref.invalidate(responsePreventionProvider);
-      ref.invalidate(urgeSurfProvider);
-      ref.invalidate(programEnrollmentProvider);
-      ref.invalidate(programTaskProgressProvider);
-      ref.invalidate(behavioralExperimentProvider);
-      ref.invalidate(exposureReflectionProvider);
-      ref.invalidate(actionPlanProvider);
-      ref.invalidate(implementationIntentionProvider);
-      ref.invalidate(uncertaintyLogProvider);
-      ref.invalidate(exposureMaterialProvider);
-      if (context.mounted) _showMessage(context, 'Data imported');
+      _invalidateLocalDataProviders(ref);
+      if (context.mounted) {
+        _showMessage(context, strings.settingsText('importSucceeded'));
+      }
     } on FormatException {
       if (context.mounted) {
         _showMessage(
           context,
-          'Backup file is not valid',
+          strings.settingsText('backupInvalid'),
           type: ToastType.error,
         );
       }
-    } catch (error) {
+    } catch (_) {
       if (context.mounted) {
-        _showMessage(context, 'Import failed', type: ToastType.error);
+        _showMessage(
+          context,
+          strings.settingsText('importFailed'),
+          type: ToastType.error,
+        );
       }
     }
   }
@@ -650,63 +652,60 @@ class SettingsScreen extends ConsumerWidget {
   }
 
   void _confirmWipeData(BuildContext context, WidgetRef ref) {
+    final strings = context.l10n;
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       builder: (context) => _BottomPanel(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Wipe all data?',
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+            Semantics(
+              header: true,
+              child: Text(
+                strings.settingsText('wipePromptTitle'),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+              ),
             ),
             const SizedBox(height: 10),
             Text(
-              'This deletes local journal entries, OCD events, ERP practice history, and app preferences from this device. This cannot be undone.\n\n'
-              'If you have Patterns Pro, your purchase is safe, but this device will forget it. Tap Restore purchases afterwards to bring it back.',
+              strings.settingsText('wipePromptBody'),
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.45,
               ),
             ),
             const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Cancel'),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      Navigator.pop(context);
-                      await DbHelper.instance.clearAll();
-                      await MaterialFileStore.deleteAll();
-                      await clearLocalPreferences();
-                      ref.invalidate(usageAnalyticsEnabledProvider);
-                      ref.invalidate(appearanceProvider);
-                      ref.invalidate(meaningfulActionCountProvider);
-                      ref.invalidate(journalProvider);
-                      ref.invalidate(ocdProvider);
-                      ref.invalidate(delaySessionProvider);
-                      ref.invalidate(erpExercisePlanProvider);
-                      ref.invalidate(erpExerciseSessionProvider);
-                      ref.invalidate(exposureMaterialProvider);
-                      if (context.mounted) {
-                        _showMessage(context, 'Local data wiped');
-                      }
-                    },
-                    child: const Text('Wipe'),
-                  ),
-                ),
-              ],
+            _PanelActions(
+              cancelLabel: strings.cancelAction,
+              confirmLabel: strings.settingsText('wipeAction'),
+              onCancel: () => Navigator.pop(context),
+              onConfirm: () async {
+                final successMessage = strings.settingsText('wipeSucceeded');
+                Navigator.pop(context);
+                try {
+                  await DbHelper.instance.clearAll();
+                  await MaterialFileStore.deleteAll();
+                  await clearLocalPreferences();
+                  _invalidateLocalDataProviders(ref);
+                  _invalidateLocalPreferenceProviders(ref);
+                  if (context.mounted) {
+                    _showMessage(context, successMessage);
+                  }
+                } catch (_) {
+                  if (context.mounted) {
+                    _showMessage(
+                      context,
+                      strings.settingsText('wipeFailed'),
+                      type: ToastType.error,
+                    );
+                  }
+                }
+              },
             ),
           ],
         ),
@@ -728,8 +727,20 @@ class SettingsScreen extends ConsumerWidget {
     bool enabled,
   ) async {
     if (!enabled) {
-      await ref.read(appLockEnabledProvider.notifier).setEnabled(false);
-      if (context.mounted) _showMessage(context, 'App lock disabled');
+      try {
+        await ref.read(appLockEnabledProvider.notifier).setEnabled(false);
+        if (context.mounted) {
+          _showMessage(context, context.l10n.settingsText('appLockDisabled'));
+        }
+      } catch (_) {
+        if (context.mounted) {
+          _showMessage(
+            context,
+            context.l10n.settingsText('appLockEnableFailed'),
+            type: ToastType.error,
+          );
+        }
+      }
       return;
     }
 
@@ -740,7 +751,7 @@ class SettingsScreen extends ConsumerWidget {
         if (context.mounted) {
           _showMessage(
             context,
-            'Device lock unavailable',
+            context.l10n.settingsText('deviceLockUnavailable'),
             type: ToastType.error,
           );
         }
@@ -748,9 +759,14 @@ class SettingsScreen extends ConsumerWidget {
       }
       // local_auth 3.x returns true only on success; everything else (cancel,
       // lockout, missing biometrics, etc.) is surfaced as LocalAuthException.
-      await auth.authenticate(reason: 'Unlock Patterns to enable app lock.');
+      final authenticated = await auth.authenticate(
+        reason: context.l10n.settingsText('appLockReason'),
+      );
+      if (!authenticated) return;
       await ref.read(appLockEnabledProvider.notifier).setEnabled(true);
-      if (context.mounted) _showMessage(context, 'App lock enabled');
+      if (context.mounted) {
+        _showMessage(context, context.l10n.settingsText('appLockEnabled'));
+      }
     } on LocalAuthException catch (e) {
       if (!context.mounted) return;
       switch (e.code) {
@@ -763,14 +779,14 @@ class SettingsScreen extends ConsumerWidget {
         case LocalAuthExceptionCode.temporaryLockout:
           _showMessage(
             context,
-            'Too many attempts. Try again in a moment.',
+            context.l10n.settingsText('appLockTemporaryLockout'),
             type: ToastType.error,
           );
           break;
         case LocalAuthExceptionCode.biometricLockout:
           _showMessage(
             context,
-            'Biometric authentication is locked. Unlock your device with your passcode first.',
+            context.l10n.settingsText('appLockBiometricLockout'),
             type: ToastType.error,
           );
           break;
@@ -780,14 +796,14 @@ class SettingsScreen extends ConsumerWidget {
         case LocalAuthExceptionCode.biometricHardwareTemporarilyUnavailable:
           _showMessage(
             context,
-            'Device lock unavailable',
+            context.l10n.settingsText('deviceLockUnavailable'),
             type: ToastType.error,
           );
           break;
         default:
           _showMessage(
             context,
-            'Could not enable app lock',
+            context.l10n.settingsText('appLockEnableFailed'),
             type: ToastType.error,
           );
       }
@@ -795,7 +811,7 @@ class SettingsScreen extends ConsumerWidget {
       if (context.mounted) {
         _showMessage(
           context,
-          'Could not enable app lock',
+          context.l10n.settingsText('appLockEnableFailed'),
           type: ToastType.error,
         );
       }
@@ -807,33 +823,50 @@ class SettingsScreen extends ConsumerWidget {
     WidgetRef ref,
     bool enabled,
   ) async {
-    if (!enabled) {
-      await ref.read(reminderProvider.notifier).setEnabled(false);
-      await NotificationService.cancelReminder();
-      if (context.mounted) _showMessage(context, 'Daily reminder turned off');
-      return;
-    }
+    final strings = context.l10n;
+    try {
+      if (!enabled) {
+        await NotificationService.cancelReminder();
+        await ref.read(reminderProvider.notifier).setEnabled(false);
+        if (context.mounted) {
+          _showMessage(context, strings.settingsText('reminderOff'));
+        }
+        return;
+      }
 
-    final granted = await NotificationService.requestPermission();
-    if (!granted) {
+      final granted = await NotificationService.requestPermission();
+      if (!granted) {
+        if (context.mounted) {
+          _showMessage(
+            context,
+            strings.settingsText('notificationsUnavailable'),
+            type: ToastType.info,
+          );
+        }
+        return;
+      }
+
+      final settings = ref.read(reminderProvider);
+      await NotificationService.scheduleDailyReminder(
+        TimeOfDay(hour: settings.hour, minute: settings.minute),
+        strings: strings,
+      );
+      await ref.read(reminderProvider.notifier).setEnabled(true);
+      if (context.mounted) {
+        _showMessage(context, strings.settingsText('reminderOn'));
+      }
+    } catch (_) {
+      if (enabled) {
+        await NotificationService.cancelReminder().catchError((_) {});
+      }
       if (context.mounted) {
         _showMessage(
           context,
-          'Notifications are off for Patterns. Enable them in your device '
-          'settings to get reminders.',
-          type: ToastType.info,
+          strings.settingsText('reminderChangeFailed'),
+          type: ToastType.error,
         );
       }
-      return;
     }
-
-    final settings = ref.read(reminderProvider);
-    await NotificationService.scheduleDailyReminder(
-      TimeOfDay(hour: settings.hour, minute: settings.minute),
-      strings: context.l10n,
-    );
-    await ref.read(reminderProvider.notifier).setEnabled(true);
-    if (context.mounted) _showMessage(context, 'Daily reminder is on');
   }
 
   Future<void> _pickReminderTime(BuildContext context, WidgetRef ref) async {
@@ -843,16 +876,36 @@ class SettingsScreen extends ConsumerWidget {
       initialTime: TimeOfDay(hour: settings.hour, minute: settings.minute),
     );
     if (picked == null) return;
-    await ref
-        .read(reminderProvider.notifier)
-        .setTime(picked.hour, picked.minute);
-    if (ref.read(reminderProvider).enabled) {
-      await NotificationService.scheduleDailyReminder(
-        picked,
-        strings: context.l10n,
-      );
+    final strings = context.l10n;
+    try {
+      if (settings.enabled) {
+        await NotificationService.scheduleDailyReminder(
+          picked,
+          strings: strings,
+        );
+      }
+      await ref
+          .read(reminderProvider.notifier)
+          .setTime(picked.hour, picked.minute);
       if (context.mounted) {
-        _showMessage(context, 'Reminder set for ${picked.format(context)}');
+        _showMessage(
+          context,
+          strings.settingsReminderSetFor(picked.format(context)),
+        );
+      }
+    } catch (_) {
+      if (settings.enabled) {
+        await NotificationService.scheduleDailyReminder(
+          TimeOfDay(hour: settings.hour, minute: settings.minute),
+          strings: strings,
+        ).catchError((_) {});
+      }
+      if (context.mounted) {
+        _showMessage(
+          context,
+          strings.settingsText('reminderChangeFailed'),
+          type: ToastType.error,
+        );
       }
     }
   }
@@ -868,11 +921,14 @@ class SettingsScreen extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              strings.privacySafetyTitle,
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+            Semantics(
+              header: true,
+              child: Text(
+                strings.privacySafetyTitle,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+              ),
             ),
             const SizedBox(height: 12),
             Text(
@@ -918,10 +974,7 @@ class SettingsScreen extends ConsumerWidget {
             SizedBox(
               width: double.infinity,
               child: OutlinedButton(
-                onPressed: () => launchUrl(
-                  Uri.parse('https://patternsocd.com/privacy'),
-                  mode: LaunchMode.externalApplication,
-                ),
+                onPressed: () => _openPrivacyPolicy(context),
                 child: Text(strings.viewPrivacyPolicyAction),
               ),
             ),
@@ -931,21 +984,109 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
-  Future<void> _setUsageAnalytics(WidgetRef ref, bool enabled) async {
-    await appPreferences?.setString(
-      analyticsConsentDecisionKey,
-      (enabled
-              ? AnalyticsConsentDecision.granted
-              : AnalyticsConsentDecision.declined)
-          .name,
-    );
-    await ref.read(usageAnalyticsEnabledProvider.notifier).setEnabled(enabled);
-    await usageAnalytics.setCollectionEnabled(enabled);
-    if (enabled) {
-      AppEvents.logAnalyticsConsentGranted();
-      await usageAnalytics.flush();
+  Future<void> _openPrivacyPolicy(BuildContext context) async {
+    try {
+      final opened = await launchUrl(
+        Uri.parse('https://patternsocd.com/privacy'),
+        mode: LaunchMode.externalApplication,
+      );
+      if (!opened && context.mounted) {
+        _showMessage(
+          context,
+          context.l10n.settingsText('privacyPolicyFailed'),
+          type: ToastType.error,
+        );
+      }
+    } catch (_) {
+      if (context.mounted) {
+        _showMessage(
+          context,
+          context.l10n.settingsText('privacyPolicyFailed'),
+          type: ToastType.error,
+        );
+      }
     }
   }
+
+  Future<void> _setUsageAnalytics(
+    BuildContext context,
+    WidgetRef ref,
+    bool enabled,
+  ) async {
+    final previous = ref.read(usageAnalyticsEnabledProvider);
+    final previousDecision = appPreferences?.getString(
+      analyticsConsentDecisionKey,
+    );
+    try {
+      await appPreferences?.setString(
+        analyticsConsentDecisionKey,
+        (enabled
+                ? AnalyticsConsentDecision.granted
+                : AnalyticsConsentDecision.declined)
+            .name,
+      );
+      await ref
+          .read(usageAnalyticsEnabledProvider.notifier)
+          .setEnabled(enabled);
+      await usageAnalytics.setCollectionEnabled(enabled);
+      if (enabled) {
+        AppEvents.logAnalyticsConsentGranted();
+        await usageAnalytics.flush();
+      }
+    } catch (_) {
+      await ref
+          .read(usageAnalyticsEnabledProvider.notifier)
+          .setEnabled(previous);
+      await usageAnalytics.setCollectionEnabled(previous).catchError((_) {});
+      if (previousDecision == null) {
+        await appPreferences?.remove(analyticsConsentDecisionKey);
+      } else {
+        await appPreferences?.setString(
+          analyticsConsentDecisionKey,
+          previousDecision,
+        );
+      }
+      if (context.mounted) {
+        _showMessage(
+          context,
+          context.l10n.settingsText('analyticsChangeFailed'),
+          type: ToastType.error,
+        );
+      }
+    }
+  }
+}
+
+void _invalidateLocalDataProviders(WidgetRef ref) {
+  ref.invalidate(journalProvider);
+  ref.invalidate(ocdProvider);
+  ref.invalidate(delaySessionProvider);
+  ref.invalidate(erpExercisePlanProvider);
+  ref.invalidate(erpExerciseSessionProvider);
+  ref.invalidate(exposureHierarchyProvider);
+  ref.invalidate(exposureStepProvider);
+  ref.invalidate(responsePreventionProvider);
+  ref.invalidate(urgeSurfProvider);
+  ref.invalidate(programEnrollmentProvider);
+  ref.invalidate(programTaskProgressProvider);
+  ref.invalidate(behavioralExperimentProvider);
+  ref.invalidate(exposureReflectionProvider);
+  ref.invalidate(actionPlanProvider);
+  ref.invalidate(implementationIntentionProvider);
+  ref.invalidate(uncertaintyLogProvider);
+  ref.invalidate(exposureMaterialProvider);
+  ref.invalidate(ybocsAssessmentProvider);
+}
+
+void _invalidateLocalPreferenceProviders(WidgetRef ref) {
+  ref.invalidate(usageAnalyticsEnabledProvider);
+  ref.invalidate(appearanceProvider);
+  ref.invalidate(languageProvider);
+  ref.invalidate(calmInsightsProvider);
+  ref.invalidate(meaningfulActionCountProvider);
+  ref.invalidate(appLockEnabledProvider);
+  ref.invalidate(reminderProvider);
+  ref.invalidate(proProvider);
 }
 
 class _SettingsItem extends StatelessWidget {
@@ -965,44 +1106,126 @@ class _SettingsItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return PressScale(
+    return Semantics(
+      button: true,
+      label: title,
+      hint: subtitle,
       onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(18),
-        decoration: _softDecoration(theme, radius: 22),
-        child: Row(
-          children: [
-            Icon(icon, color: theme.colorScheme.primary),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w800,
-                    ),
+      child: ExcludeSemantics(
+        child: PressScale(
+          onTap: onTap,
+          child: Container(
+            constraints: const BoxConstraints(minHeight: 44),
+            padding: const EdgeInsets.all(18),
+            decoration: _softDecoration(theme, radius: 22),
+            child: Row(
+              children: [
+                Icon(icon, color: theme.colorScheme.primary),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        subtitle,
+                        style: TextStyle(
+                          color: context.appColors.textSecondary,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    subtitle,
-                    style: TextStyle(
-                      color: context.appColors.textSecondary,
-                      fontSize: 13,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                Icon(
+                  LineIcons.angleRight,
+                  color: context.appColors.textSecondary,
+                  size: 18,
+                ),
+              ],
             ),
-            Icon(
-              LineIcons.angleRight,
-              color: context.appColors.textSecondary,
-              size: 18,
-            ),
-          ],
+          ),
         ),
       ),
+    );
+  }
+}
+
+class _BackupCountList extends StatelessWidget {
+  final List<String> lines;
+
+  const _BackupCountList({required this.lines});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (final line in lines)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 5),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ExcludeSemantics(
+                  child: Icon(
+                    Icons.circle,
+                    size: 5,
+                    color: context.appColors.textSecondary,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(child: Text(line)),
+              ],
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class _PanelActions extends StatelessWidget {
+  final String cancelLabel;
+  final String confirmLabel;
+  final VoidCallback onCancel;
+  final FutureOr<void> Function() onConfirm;
+
+  const _PanelActions({
+    required this.cancelLabel,
+    required this.confirmLabel,
+    required this.onCancel,
+    required this.onConfirm,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final stacked = MediaQuery.textScalerOf(context).scale(1) > 1.3;
+    final cancel = OutlinedButton(
+      onPressed: onCancel,
+      child: Text(cancelLabel),
+    );
+    final confirm = ElevatedButton(
+      onPressed: onConfirm,
+      child: Text(confirmLabel),
+    );
+    if (stacked) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [confirm, const SizedBox(height: 10), cancel],
+      );
+    }
+    return Row(
+      children: [
+        Expanded(child: cancel),
+        const SizedBox(width: 12),
+        Expanded(child: confirm),
+      ],
     );
   }
 }
@@ -1026,36 +1249,46 @@ class _SettingsSwitchItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: _softDecoration(theme, radius: 22),
-      child: Row(
-        children: [
-          Icon(icon, color: theme.colorScheme.primary),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w800,
-                  ),
+    return Semantics(
+      container: true,
+      toggled: value,
+      label: title,
+      hint: subtitle,
+      onTap: () => onChanged(!value),
+      child: ExcludeSemantics(
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 44),
+          padding: const EdgeInsets.all(18),
+          decoration: _softDecoration(theme, radius: 22),
+          child: Row(
+            children: [
+              Icon(icon, color: theme.colorScheme.primary),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      subtitle,
+                      style: TextStyle(
+                        color: context.appColors.textSecondary,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: TextStyle(
-                    color: context.appColors.textSecondary,
-                    fontSize: 13,
-                  ),
-                ),
-              ],
-            ),
+              ),
+              Switch(value: value, onChanged: onChanged),
+            ],
           ),
-          Switch(value: value, onChanged: onChanged),
-        ],
+        ),
       ),
     );
   }
@@ -1070,10 +1303,13 @@ class _AppearancePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final largeText = MediaQuery.textScalerOf(context).scale(1) > 1.3;
     return Container(
       padding: const EdgeInsets.all(6),
       decoration: _softDecoration(theme, radius: 22),
       child: SegmentedButton<AppAppearance>(
+        direction: largeText ? Axis.vertical : Axis.horizontal,
+        expandedInsets: largeText ? null : const EdgeInsets.all(0),
         segments: [
           ButtonSegment(
             value: AppAppearance.system,
@@ -1107,18 +1343,38 @@ class _BottomPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Container(
-        margin: const EdgeInsets.all(14),
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
-          borderRadius: BorderRadius.circular(28),
-          border: Border.all(color: Theme.of(context).dividerColor),
+      child: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.viewInsetsOf(context).bottom,
         ),
-        child: child,
+        child: Container(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.sizeOf(context).height * 0.88,
+          ),
+          margin: const EdgeInsets.all(14),
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(28),
+            border: Border.all(color: Theme.of(context).dividerColor),
+          ),
+          child: SingleChildScrollView(child: child),
+        ),
       ),
     );
   }
+}
+
+Widget _sectionHeading(BuildContext context, String text) {
+  return Semantics(
+    header: true,
+    child: Text(
+      text,
+      style: Theme.of(
+        context,
+      ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
+    ),
+  );
 }
 
 TextStyle _screenTitle(ThemeData theme) {

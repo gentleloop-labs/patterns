@@ -22,7 +22,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get settingsExportDataSubtitle =>
-      'Guarda tus registros en una copia JSON local';
+      'Guarda tus registros en una copia ZIP local';
 
   @override
   String get settingsImportDataTitle => 'Importar datos';
@@ -3822,4 +3822,190 @@ class AppLocalizationsEs extends AppLocalizations {
   String actionPlanDateSummary(String date) {
     return 'Fecha planificada: $date.';
   }
+
+  @override
+  String settingsText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'proActiveMessage': 'Patterns Pro está activo en este dispositivo.',
+      'welcomeScheduled':
+          'Las pantallas de bienvenida aparecerán la próxima vez que abras Patterns.',
+      'exportPromptTitle': '¿Exportar datos?',
+      'exportPromptBody':
+          'Patterns crea una copia ZIP sin cifrar de tus registros locales. Guárdala en un lugar privado.',
+      'exportBackupAction': 'Exportar copia ZIP',
+      'exportDialogTitle': 'Exportar datos de Patterns',
+      'exportSucceeded': 'Datos exportados.',
+      'exportFailed':
+          'La exportación falló. Tus datos no cambiaron. Inténtalo de nuevo.',
+      'importPromptTitle': '¿Importar datos?',
+      'importPromptBody':
+          'Elige una copia de Patterns en formato ZIP o JSON. Podrás revisar su contenido antes de reemplazar tus registros actuales.',
+      'chooseBackupAction': 'Elegir copia',
+      'importDialogTitle': 'Seleccionar copia de Patterns',
+      'backupUnreadable':
+          'Patterns no pudo leer este archivo de copia. Elige otro archivo.',
+      'backupInvalid':
+          'Esta no es una copia válida de Patterns. Tus datos actuales no cambiaron.',
+      'importFailed':
+          'La importación falló. Tus datos actuales no cambiaron. Inténtalo de nuevo.',
+      'importPreviewTitle': '¿Reemplazar los datos actuales?',
+      'importPreviewIntro':
+          'Esta copia contiene los siguientes registros locales. Al importarla se reemplazarán tus registros actuales.',
+      'replaceAction': 'Reemplazar datos',
+      'importSucceeded': 'Datos importados.',
+      'wipePromptTitle': '¿Borrar todos los datos locales?',
+      'wipePromptBody':
+          'Esto elimina permanentemente de este dispositivo las entradas del diario, los registros de OCD, el historial de prácticas de recuperación, los materiales guardados localmente y las preferencias de la aplicación. No se puede deshacer. Tu compra de Patterns Pro permanece vinculada a tu cuenta de la tienda, pero este dispositivo olvidará el desbloqueo local. Podrás restaurarlo después.',
+      'wipeAction': 'Borrar datos',
+      'wipeSucceeded': 'Datos locales borrados.',
+      'wipeFailed':
+          'Patterns no pudo terminar de borrar los datos locales. Inténtalo de nuevo.',
+      'appLockDisabled': 'Bloqueo de la aplicación desactivado.',
+      'deviceLockUnavailable':
+          'El bloqueo del dispositivo no está disponible. Configura un código o datos biométricos e inténtalo de nuevo.',
+      'appLockReason':
+          'Desbloquea Patterns para activar el bloqueo de la aplicación.',
+      'appLockEnabled': 'Bloqueo de la aplicación activado.',
+      'appLockTemporaryLockout':
+          'Demasiados intentos. Vuelve a intentarlo en un momento.',
+      'appLockBiometricLockout':
+          'La autenticación biométrica está bloqueada. Desbloquea primero el dispositivo con su código.',
+      'appLockEnableFailed':
+          'Patterns no pudo cambiar el bloqueo de la aplicación. Inténtalo de nuevo.',
+      'reminderOff': 'Recordatorio diario desactivado.',
+      'notificationsUnavailable':
+          'Las notificaciones de Patterns están desactivadas. Actívalas en los ajustes del dispositivo para recibir recordatorios.',
+      'reminderOn': 'Recordatorio diario activado.',
+      'reminderChangeFailed':
+          'Patterns no pudo cambiar el recordatorio. Se mantiene tu ajuste anterior.',
+      'analyticsChangeFailed':
+          'Patterns no pudo cambiar el uso compartido anónimo. Se mantiene tu ajuste anterior.',
+      'privacyPolicyFailed':
+          'Patterns no pudo abrir la política de privacidad. Inténtalo de nuevo.',
+      'other': 'Ajustes',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String settingsBackupJournalCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count entradas del diario',
+      one: '1 entrada del diario',
+      zero: 'Ninguna entrada del diario',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String settingsBackupOcdCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count eventos de OCD',
+      one: '1 evento de OCD',
+      zero: 'Ningún evento de OCD',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String settingsBackupDelayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count sesiones de demora',
+      one: '1 sesión de demora',
+      zero: 'Ninguna sesión de demora',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String settingsBackupErpPlanCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count planes de ERP',
+      one: '1 plan de ERP',
+      zero: 'Ningún plan de ERP',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String settingsBackupErpPracticeCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count prácticas de ERP',
+      one: '1 práctica de ERP',
+      zero: 'Ninguna práctica de ERP',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String settingsBackupRecoveryCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count registros más de herramientas de recuperación',
+      one: '1 registro más de herramientas de recuperación',
+      zero: 'Ningún otro registro de herramientas de recuperación',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String settingsBackupSelfCheckCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count autochequeos Y-BOCS',
+      one: '1 autochequeo Y-BOCS',
+      zero: 'Ningún autochequeo Y-BOCS',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String settingsReminderSetFor(String time) {
+    return 'Recordatorio fijado para las $time.';
+  }
+
+  @override
+  String get appUnlockReason => 'Desbloquea Patterns para continuar.';
+
+  @override
+  String get appLockUnavailableDisabled =>
+      'La autenticación biométrica no está disponible. El bloqueo de la aplicación se desactivó.';
+
+  @override
+  String get appUnlockFailed =>
+      'No se pudo desbloquear Patterns. Inténtalo de nuevo.';
+
+  @override
+  String get privacyScreenLabel => 'Pantalla de privacidad de Patterns';
+
+  @override
+  String get unlockingAction => 'Desbloqueando…';
+
+  @override
+  String get unlockAction => 'Desbloquear';
+
+  @override
+  String get analyticsPromptTitle => '¿Ayudas a mejorar Patterns?';
+
+  @override
+  String get analyticsPromptBody =>
+      'Comparte eventos anónimos sobre el uso de funciones para ayudar a mejorar Patterns. Nunca se incluyen entradas del diario, contenido de OCD, valoraciones, notas, resúmenes generados, región ni idioma elegido. El envío permanece desactivado hasta que lo elijas.';
+
+  @override
+  String get notNowAction => 'Ahora no';
+
+  @override
+  String get shareAnonymousUsageAction => 'Compartir uso anónimo';
 }

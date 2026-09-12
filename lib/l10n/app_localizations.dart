@@ -134,7 +134,7 @@ abstract class AppLocalizations {
   /// User-facing Patterns interface copy for settings export data subtitle.
   ///
   /// In en, this message translates to:
-  /// **'Save your records to a local JSON backup'**
+  /// **'Save your records to a local ZIP backup'**
   String get settingsExportDataSubtitle;
 
   /// User-facing Patterns interface copy for settings import data title.
@@ -4270,6 +4270,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Planned date: {date}.'**
   String actionPlanDateSummary(String date);
+
+  /// Settings, privacy, backup, reminder, analytics, and App Lock interface copy selected from a stable UI key. Backup and wipe wording must distinguish local records, local preferences, app-store purchases, and unencrypted manual exports.
+  ///
+  /// In en, this message translates to:
+  /// **'{key, select, proActiveMessage{Patterns Pro is active on this device.} welcomeScheduled{The welcome screens will appear next time you open Patterns.} exportPromptTitle{Export data?} exportPromptBody{Patterns creates an unencrypted ZIP backup of your local records. Save it somewhere private.} exportBackupAction{Export ZIP backup} exportDialogTitle{Export Patterns data} exportSucceeded{Data exported.} exportFailed{Export failed. Your data is unchanged. Please try again.} importPromptTitle{Import data?} importPromptBody{Choose a ZIP or JSON Patterns backup. You can review its contents before replacing your current records.} chooseBackupAction{Choose backup} importDialogTitle{Select Patterns backup} backupUnreadable{Patterns could not read this backup file. Choose another file.} backupInvalid{This is not a valid Patterns backup. Your current data is unchanged.} importFailed{Import failed. Your current data is unchanged. Please try again.} importPreviewTitle{Replace current data?} importPreviewIntro{This backup contains the following local records. Importing it replaces your current records.} replaceAction{Replace data} importSucceeded{Data imported.} wipePromptTitle{Wipe all local data?} wipePromptBody{This permanently deletes local journal entries, OCD records, recovery practice history, locally stored materials, and app preferences from this device. This cannot be undone. Your Patterns Pro purchase remains with your app-store account, but this device will forget the local unlock. You can restore it afterwards.} wipeAction{Wipe data} wipeSucceeded{Local data wiped.} wipeFailed{Patterns could not finish wiping local data. Please try again.} appLockDisabled{App lock disabled.} deviceLockUnavailable{Device lock is unavailable. Set up a device passcode or biometrics, then try again.} appLockReason{Unlock Patterns to enable app lock.} appLockEnabled{App lock enabled.} appLockTemporaryLockout{Too many attempts. Try again in a moment.} appLockBiometricLockout{Biometric authentication is locked. Unlock your device with its passcode first.} appLockEnableFailed{Patterns could not change app lock. Please try again.} reminderOff{Daily reminder turned off.} notificationsUnavailable{Notifications are off for Patterns. Enable them in your device settings to receive reminders.} reminderOn{Daily reminder turned on.} reminderChangeFailed{Patterns could not change the reminder. Your previous setting is still in place.} analyticsChangeFailed{Patterns could not change anonymous usage sharing. Your previous setting is still in place.} privacyPolicyFailed{Patterns could not open the privacy policy. Please try again.} other{Settings}}'**
+  String settingsText(String key);
+
+  /// Exact journal-entry count in a backup preview.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No journal entries} =1{1 journal entry} other{{count} journal entries}}'**
+  String settingsBackupJournalCount(int count);
+
+  /// Exact OCD-event count in a backup preview.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No OCD events} =1{1 OCD event} other{{count} OCD events}}'**
+  String settingsBackupOcdCount(int count);
+
+  /// Exact compulsion-delay session count in a backup preview.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No delay sessions} =1{1 delay session} other{{count} delay sessions}}'**
+  String settingsBackupDelayCount(int count);
+
+  /// Exact Guided ERP plan count in a backup preview.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No ERP plans} =1{1 ERP plan} other{{count} ERP plans}}'**
+  String settingsBackupErpPlanCount(int count);
+
+  /// Exact Guided ERP practice count in a backup preview.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No ERP practices} =1{1 ERP practice} other{{count} ERP practices}}'**
+  String settingsBackupErpPracticeCount(int count);
+
+  /// Combined exact count for the remaining recovery-tool tables in a backup preview.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No other recovery-tool records} =1{1 other recovery-tool record} other{{count} other recovery-tool records}}'**
+  String settingsBackupRecoveryCount(int count);
+
+  /// Exact Y-BOCS self-check count in a backup preview.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No Y-BOCS self-checks} =1{1 Y-BOCS self-check} other{{count} Y-BOCS self-checks}}'**
+  String settingsBackupSelfCheckCount(int count);
+
+  /// Confirmation after the user changes the daily reminder time. Time is already locale-formatted.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder set for {time}.'**
+  String settingsReminderSetFor(String time);
+
+  /// Native biometric prompt reason shown when App Lock protects Patterns.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock Patterns to continue.'**
+  String get appUnlockReason;
+
+  /// Factual App Lock recovery message when device authentication is no longer configured.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication is unavailable. App lock has been turned off.'**
+  String get appLockUnavailableDisabled;
+
+  /// Retryable App Lock error. Do not imply data loss.
+  ///
+  /// In en, this message translates to:
+  /// **'Patterns could not be unlocked. Please try again.'**
+  String get appUnlockFailed;
+
+  /// Accessibility label for the full-screen privacy cover that hides personal content.
+  ///
+  /// In en, this message translates to:
+  /// **'Patterns privacy screen'**
+  String get privacyScreenLabel;
+
+  /// Disabled App Lock action while native authentication is in progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocking…'**
+  String get unlockingAction;
+
+  /// Action to retry native App Lock authentication.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock'**
+  String get unlockAction;
+
+  /// Optional, non-coercive anonymous usage analytics consent title.
+  ///
+  /// In en, this message translates to:
+  /// **'Help improve Patterns?'**
+  String get analyticsPromptTitle;
+
+  /// Privacy-sensitive analytics consent explanation. Must accurately state the default-off behavior and excluded personal or locale data.
+  ///
+  /// In en, this message translates to:
+  /// **'Share anonymous feature-use events to help improve Patterns. Journal entries, OCD content, ratings, notes, generated summaries, locale, and language choices are never included. Sharing stays off unless you choose it.'**
+  String get analyticsPromptBody;
+
+  /// Neutral action that declines or defers an optional prompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get notNowAction;
+
+  /// Explicit action granting anonymous usage analytics consent.
+  ///
+  /// In en, this message translates to:
+  /// **'Share anonymous usage'**
+  String get shareAnonymousUsageAction;
 }
 
 class _AppLocalizationsDelegate
