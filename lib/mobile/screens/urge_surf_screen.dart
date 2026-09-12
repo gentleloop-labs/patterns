@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter/semantics.dart';
 
+import '../../l10n/l10n.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../theme/app_colors.dart';
@@ -18,6 +19,7 @@ class UrgeSurfScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final sessions = ref.watch(urgeSurfProvider);
 
     return Scaffold(
@@ -30,10 +32,13 @@ class UrgeSurfScreen extends ConsumerWidget {
                 CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    'Urge Surfing',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      strings.urgeSurfText('title'),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
@@ -41,8 +46,7 @@ class UrgeSurfScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 6),
             Text(
-              'Urges rise, crest, and fall on their own. Ride one out without '
-              'acting on it.',
+              strings.urgeSurfText('subtitle'),
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.4,
@@ -55,14 +59,17 @@ class UrgeSurfScreen extends ConsumerWidget {
               child: ElevatedButton.icon(
                 onPressed: () => _startSurf(context),
                 icon: const Icon(Icons.waves_rounded, size: 18),
-                label: const Text('Start a surf'),
+                label: Text(strings.urgeSurfText('startAction')),
               ),
             ),
             const SizedBox(height: 22),
-            Text(
-              'Past surfs',
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w800,
+            Semantics(
+              header: true,
+              child: Text(
+                strings.urgeSurfText('historyTitle'),
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
             const SizedBox(height: 12),
@@ -70,7 +77,7 @@ class UrgeSurfScreen extends ConsumerWidget {
               data: (items) {
                 if (items.isEmpty) {
                   return Text(
-                    'No surfs yet. Your first one will appear here.',
+                    strings.urgeSurfText('emptyHistory'),
                     style: TextStyle(color: context.appColors.textSecondary),
                   );
                 }
@@ -88,7 +95,7 @@ class UrgeSurfScreen extends ConsumerWidget {
                 child: Center(child: CircularProgressIndicator()),
               ),
               error: (_, _) => Text(
-                'Your surfs are unavailable right now.',
+                strings.urgeSurfText('loadError'),
                 style: TextStyle(color: context.appColors.textSecondary),
               ),
             ),
@@ -115,43 +122,62 @@ class _SurfCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final mins = (session.durationSeconds / 60).floor();
     final secs = session.durationSeconds % 60;
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: recoverySoftDecoration(theme),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  session.trigger.isEmpty ? 'An urge' : session.trigger,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w800,
+    final trigger = session.trigger.isEmpty
+        ? strings.urgeSurfText('triggerFallback')
+        : session.trigger;
+    final duration = strings.urgeSurfRecordedDuration(mins, secs);
+    final summary = strings.urgeSurfHistorySummary(
+      session.initialUrge,
+      session.peakUrge,
+      session.finalUrge,
+      duration,
+    );
+    return Semantics(
+      container: true,
+      label: strings.urgeSurfSessionSemantics(
+        trigger,
+        context.formatMonthDay(session.datetime),
+        summary,
+      ),
+      excludeSemantics: true,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: recoverySoftDecoration(theme),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    trigger,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
-              ),
-              Text(
-                DateFormat('MMM d').format(session.datetime),
-                style: TextStyle(
-                  color: context.appColors.textSecondary,
-                  fontSize: 12,
+                Text(
+                  context.formatMonthDay(session.datetime),
+                  style: TextStyle(
+                    color: context.appColors.textSecondary,
+                    fontSize: 12,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Text(
-            'Urge ${session.initialUrge} → peak ${session.peakUrge} → '
-            '${session.finalUrge}   ·   surfed ${mins}m ${secs}s',
-            style: TextStyle(
-              color: context.appColors.textSecondary,
-              fontSize: 13,
+              ],
             ),
-          ),
-        ],
+            const SizedBox(height: 10),
+            Text(
+              summary,
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                fontSize: 13,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -194,7 +220,7 @@ class _UrgeSurfFlowState extends ConsumerState<UrgeSurfFlow>
     super.initState();
     _timer.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        _finishSurf(elapsed: _plannedSeconds);
+        _finishSurf(announceCompletion: true);
       }
     });
   }
@@ -219,20 +245,28 @@ class _UrgeSurfFlowState extends ConsumerState<UrgeSurfFlow>
       ..forward(from: 0);
   }
 
-  void _finishSurf({required int elapsed}) {
+  void _finishSurf({required bool announceCompletion}) {
     if (_phase != _Phase.surfing) return;
     _timer.stop();
     HapticFeedback.mediumImpact();
     setState(() => _phase = _Phase.reflection);
+    if (announceCompletion) {
+      SemanticsService.sendAnnouncement(
+        View.of(context),
+        context.l10n.urgeSurfText('timerComplete'),
+        Directionality.of(context),
+      );
+    }
   }
 
   void _endEarly() {
-    final elapsed = (_plannedSeconds * _timer.value).round();
-    _finishSurf(elapsed: elapsed);
+    _finishSurf(announceCompletion: false);
   }
 
   Future<void> _save() async {
+    final strings = context.l10n;
     setState(() => _saving = true);
+    var saved = true;
     if (widget.record) {
       final now = DateTime.now();
       final actualSeconds = (_plannedSeconds * _timer.value).round();
@@ -248,15 +282,24 @@ class _UrgeSurfFlowState extends ConsumerState<UrgeSurfFlow>
             : _noteController.text.trim(),
         createdAt: now,
       );
-      await ref.read(urgeSurfProvider.notifier).addSession(session);
+      saved = await ref.read(urgeSurfProvider.notifier).addSession(session);
     }
     if (!mounted) return;
-    Navigator.of(context).pop();
-    showAppSnackBar(
-      context,
-      'Nice work riding that out.',
-      type: ToastType.success,
+    final message = strings.urgeSurfText(
+      saved ? (widget.record ? 'saveSuccess' : 'finishSuccess') : 'saveError',
     );
+    if (!saved) {
+      setState(() => _saving = false);
+      showAppSnackBar(context, message, type: ToastType.error);
+      await SemanticsService.sendAnnouncement(
+        View.of(context),
+        message,
+        Directionality.of(context),
+      );
+      return;
+    }
+    Navigator.of(context).pop();
+    showAppSnackBar(context, message, type: ToastType.success);
   }
 
   @override
@@ -264,7 +307,7 @@ class _UrgeSurfFlowState extends ConsumerState<UrgeSurfFlow>
     return Scaffold(
       body: SafeArea(
         child: AnimatedSwitcher(
-          duration: AppMotion.medium,
+          duration: motionDisabled(context) ? Duration.zero : AppMotion.medium,
           child: switch (_phase) {
             _Phase.setup => _buildSetup(),
             _Phase.surfing => _buildSurfing(),
@@ -277,6 +320,7 @@ class _UrgeSurfFlowState extends ConsumerState<UrgeSurfFlow>
 
   Widget _buildSetup() {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     return ListView(
       key: const ValueKey('setup'),
       padding: const EdgeInsets.fromLTRB(20, 14, 20, 40),
@@ -286,10 +330,13 @@ class _UrgeSurfFlowState extends ConsumerState<UrgeSurfFlow>
             CircleBackButton(onTap: () => Navigator.of(context).pop()),
             const SizedBox(width: 12),
             Expanded(
-              child: Text(
-                'Before you surf',
-                style: theme.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
+              child: Semantics(
+                header: true,
+                child: Text(
+                  strings.urgeSurfText('setupTitle'),
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
             ),
@@ -297,8 +344,8 @@ class _UrgeSurfFlowState extends ConsumerState<UrgeSurfFlow>
         ),
         const SizedBox(height: 18),
         LabeledField(
-          label: 'What is the urge? (optional)',
-          hint: 'e.g. Urge to wash my hands again',
+          label: strings.urgeSurfText('triggerLabel'),
+          hint: strings.urgeSurfText('triggerHint'),
           controller: _triggerController,
         ),
         const SizedBox(height: 20),
@@ -306,14 +353,15 @@ class _UrgeSurfFlowState extends ConsumerState<UrgeSurfFlow>
           padding: const EdgeInsets.all(16),
           decoration: recoverySoftDecoration(theme, radius: 18),
           child: RatingSlider(
-            label: 'How strong is it right now?',
+            label: strings.urgeSurfText('initialUrgeLabel'),
             value: _initialUrge,
             onChanged: (v) => setState(() => _initialUrge = v),
+            valueFormatter: strings.urgeSurfRating,
           ),
         ),
         const SizedBox(height: 20),
         Text(
-          'How long will you surf?',
+          strings.urgeSurfText('durationQuestion'),
           style: theme.textTheme.labelLarge?.copyWith(
             fontWeight: FontWeight.w700,
           ),
@@ -326,7 +374,10 @@ class _UrgeSurfFlowState extends ConsumerState<UrgeSurfFlow>
         const SizedBox(height: 24),
         SizedBox(
           width: double.infinity,
-          child: ElevatedButton(onPressed: _begin, child: const Text('Begin')),
+          child: ElevatedButton(
+            onPressed: _begin,
+            child: Text(strings.urgeSurfText('begin')),
+          ),
         ),
       ]),
     );
@@ -334,100 +385,123 @@ class _UrgeSurfFlowState extends ConsumerState<UrgeSurfFlow>
 
   Widget _buildSurfing() {
     final theme = Theme.of(context);
-    return Padding(
+    final strings = context.l10n;
+    final reduceMotion = motionDisabled(context);
+    return ListView(
       key: const ValueKey('surfing'),
       padding: const EdgeInsets.fromLTRB(20, 14, 20, 24),
-      child: Column(
-        children: [
-          const SizedBox(height: 12),
-          Text(
-            'Ride it out',
+      children: [
+        const SizedBox(height: 12),
+        Semantics(
+          header: true,
+          child: Text(
+            strings.urgeSurfText('surfingTitle'),
+            textAlign: TextAlign.center,
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.w800,
             ),
           ),
-          const SizedBox(height: 6),
-          Text(
-            'Notice the urge without feeding it. It will pass.',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: context.appColors.textSecondary,
-              height: 1.4,
-            ),
-          ),
-          const Spacer(),
-          AnimatedBuilder(
-            animation: _timer,
-            builder: (context, _) {
-              final remaining = (_plannedSeconds * (1 - _timer.value)).ceil();
-              final mins = (remaining / 60).floor();
-              final secs = remaining % 60;
-              return SizedBox(
-                width: 220,
-                height: 220,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    SizedBox(
-                      width: 220,
-                      height: 220,
-                      child: CircularProgressIndicator(
-                        value: 1 - _timer.value,
-                        strokeWidth: 8,
-                        backgroundColor: theme.dividerColor,
-                        valueColor: AlwaysStoppedAnimation(
-                          theme.colorScheme.primary,
+        ),
+        const SizedBox(height: 6),
+        Text(
+          strings.urgeSurfText('surfingBody'),
+          textAlign: TextAlign.center,
+          style: TextStyle(color: context.appColors.textSecondary, height: 1.4),
+        ),
+        const SizedBox(height: 32),
+        AnimatedBuilder(
+          animation: _timer,
+          builder: (context, _) {
+            final remaining = (_plannedSeconds * (1 - _timer.value)).ceil();
+            final mins = (remaining / 60).floor();
+            final secs = remaining % 60;
+            final paddedSeconds = secs.toString().padLeft(2, '0');
+            return Center(
+              child: Semantics(
+                label: strings.urgeSurfTimeRemaining(mins, secs),
+                excludeSemantics: true,
+                child: SizedBox(
+                  width: 220,
+                  height: 220,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      SizedBox(
+                        width: 220,
+                        height: 220,
+                        child: reduceMotion
+                            ? DecoratedBox(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: theme.dividerColor,
+                                    width: 8,
+                                  ),
+                                ),
+                              )
+                            : CircularProgressIndicator(
+                                value: 1 - _timer.value,
+                                strokeWidth: 8,
+                                backgroundColor: theme.dividerColor,
+                                valueColor: AlwaysStoppedAnimation(
+                                  theme.colorScheme.primary,
+                                ),
+                              ),
+                      ),
+                      Text(
+                        strings.urgeSurfTimerDisplay(mins, paddedSeconds),
+                        style: theme.textTheme.displaySmall?.copyWith(
+                          fontWeight: FontWeight.w800,
+                          fontFamily: AppTheme.displayFamily,
                         ),
                       ),
-                    ),
-                    Text(
-                      '$mins:${secs.toString().padLeft(2, '0')}',
-                      style: theme.textTheme.displaySmall?.copyWith(
-                        fontWeight: FontWeight.w800,
-                        fontFamily: AppTheme.displayFamily,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              );
-            },
+              ),
+            );
+          },
+        ),
+        const SizedBox(height: 32),
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: recoverySoftDecoration(theme, radius: 18),
+          child: RatingSlider(
+            label: strings.urgeSurfText('currentUrgeLabel'),
+            value: _currentUrge,
+            onChanged: (v) => setState(() {
+              _currentUrge = v;
+              if (v.round() > _peakUrge) _peakUrge = v.round();
+            }),
+            valueFormatter: strings.urgeSurfRating,
           ),
-          const Spacer(),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: recoverySoftDecoration(theme, radius: 18),
-            child: RatingSlider(
-              label: 'Urge right now',
-              value: _currentUrge,
-              onChanged: (v) => setState(() {
-                _currentUrge = v;
-                if (v.round() > _peakUrge) _peakUrge = v.round();
-              }),
-            ),
+        ),
+        const SizedBox(height: 14),
+        SizedBox(
+          width: double.infinity,
+          child: OutlinedButton(
+            onPressed: _endEarly,
+            child: Text(strings.urgeSurfText('doneAction')),
           ),
-          const SizedBox(height: 14),
-          SizedBox(
-            width: double.infinity,
-            child: OutlinedButton(
-              onPressed: _endEarly,
-              child: const Text("I'm done"),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget _buildReflection() {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     return ListView(
       key: const ValueKey('reflection'),
       padding: const EdgeInsets.fromLTRB(20, 14, 20, 40),
       children: staggered([
-        Text(
-          'How was that?',
-          style: theme.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.w800,
+        Semantics(
+          header: true,
+          child: Text(
+            strings.urgeSurfText('reflectionTitle'),
+            style: theme.textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.w800,
+            ),
           ),
         ),
         const SizedBox(height: 16),
@@ -438,14 +512,14 @@ class _UrgeSurfFlowState extends ConsumerState<UrgeSurfFlow>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Your wave',
+                strings.urgeSurfText('waveTitle'),
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w800,
                 ),
               ),
               const SizedBox(height: 8),
               Text(
-                'Started at ${_initialUrge.round()} · peaked at $_peakUrge',
+                strings.urgeSurfWaveSummary(_initialUrge.round(), _peakUrge),
                 style: TextStyle(
                   color: context.appColors.textSecondary,
                   height: 1.4,
@@ -459,15 +533,16 @@ class _UrgeSurfFlowState extends ConsumerState<UrgeSurfFlow>
           padding: const EdgeInsets.all(16),
           decoration: recoverySoftDecoration(theme, radius: 18),
           child: RatingSlider(
-            label: 'Where is the urge now?',
+            label: strings.urgeSurfText('finalUrgeLabel'),
             value: _finalUrge,
             onChanged: (v) => setState(() => _finalUrge = v),
+            valueFormatter: strings.urgeSurfRating,
           ),
         ),
         const SizedBox(height: 16),
         LabeledField(
-          label: 'Note (optional)',
-          hint: 'What did you notice?',
+          label: strings.urgeSurfText('noteLabel'),
+          hint: strings.urgeSurfText('noteHint'),
           controller: _noteController,
           minLines: 2,
         ),
@@ -482,7 +557,11 @@ class _UrgeSurfFlowState extends ConsumerState<UrgeSurfFlow>
                     width: 20,
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
-                : Text(widget.record ? 'Save surf' : 'Finish'),
+                : Text(
+                    strings.urgeSurfText(
+                      widget.record ? 'saveAction' : 'finishAction',
+                    ),
+                  ),
           ),
         ),
       ]),
@@ -496,44 +575,84 @@ class _DurationPicker extends StatelessWidget {
 
   const _DurationPicker({required this.seconds, required this.onChanged});
 
-  static const _options = {60: '1 min', 180: '3 min', 300: '5 min'};
+  static const _options = [60, 180, 300];
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
+    final largeText = MediaQuery.textScalerOf(context).scale(16) >= 24;
+    final children = [
+      for (final option in _options)
+        Semantics(
+          button: true,
+          selected: seconds == option,
+          child: InkWell(
+            onTap: () => onChanged(option),
+            borderRadius: BorderRadius.circular(12),
+            child: AnimatedContainer(
+              duration: motionDisabled(context)
+                  ? Duration.zero
+                  : AppMotion.fast,
+              alignment: Alignment.center,
+              constraints: const BoxConstraints(minHeight: 44),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 11),
+              decoration: BoxDecoration(
+                color: seconds == option
+                    ? theme.colorScheme.primary
+                    : Colors.transparent,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (seconds == option) ...[
+                    Icon(
+                      Icons.check_rounded,
+                      size: 16,
+                      color: theme.colorScheme.onPrimary,
+                    ),
+                    const SizedBox(width: 4),
+                  ],
+                  Flexible(
+                    child: Text(
+                      strings.urgeSurfDuration(option ~/ 60),
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: seconds == option
+                            ? theme.colorScheme.onPrimary
+                            : context.appColors.textSecondary,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+    ];
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: recoverySoftDecoration(theme, radius: 16),
-      child: Row(
-        children: [
-          for (final entry in _options.entries)
-            Expanded(
-              child: GestureDetector(
-                onTap: () => onChanged(entry.key),
-                child: AnimatedContainer(
-                  duration: AppMotion.fast,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(vertical: 11),
-                  decoration: BoxDecoration(
-                    color: seconds == entry.key
-                        ? theme.colorScheme.primary
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    entry.value,
-                    style: theme.textTheme.labelLarge?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: seconds == entry.key
-                          ? theme.colorScheme.onPrimary
-                          : context.appColors.textSecondary,
+      child: largeText
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: children
+                  .map(
+                    (child) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2),
+                      child: child,
                     ),
-                  ),
-                ),
-              ),
+                  )
+                  .toList(),
+            )
+          : Row(
+              children: children
+                  .map((child) => Expanded(child: child))
+                  .toList(),
             ),
-        ],
-      ),
     );
   }
 }

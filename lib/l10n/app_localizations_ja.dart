@@ -2480,6 +2480,139 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String responsePreventionText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': '反応妨害',
+      'logAction': '記録',
+      'subtitle': 'きっかけ、選んだ反応、その時の苦痛度を記録します。',
+      'loadError': '反応の記録を読み込めませんでした。もう一度お試しください。',
+      'deleteTitle': 'この反応の記録を削除しますか？',
+      'deleteBody': 'この記録を端末から完全に削除します。',
+      'cancel': 'キャンセル',
+      'deleteAction': '削除',
+      'deleteTooltip': '反応の記録を削除',
+      'deleteSuccess': '反応の記録を削除しました。',
+      'deleteError': '反応の記録を削除できませんでした。もう一度お試しください。',
+      'outcomeResisted': '実行しなかった',
+      'outcomeDelayed': '遅らせた',
+      'outcomePartial': '一部実行した',
+      'outcomePerformed': '実行した',
+      'emptyTitle': '反応を記録する',
+      'emptyBody': 'きっかけの後に選んだことと、その時に気づいた苦痛度を記録します。',
+      'emptyAction': '反応を記録',
+      'editorTitle': '反応を記録',
+      'situationLabel': 'きっかけは何でしたか？',
+      'situationHint': 'きっかけと、OCDが促した反応',
+      'outcomeQuestion': '何をしましたか？',
+      'distressLabel': 'その時の苦痛度',
+      'noteLabel': 'メモ（任意）',
+      'noteHint': '覚えておきたいこと',
+      'saveAction': '記録を保存',
+      'situationValidation': 'きっかけについて短く入力してください。',
+      'saveSuccess': '反応の記録を保存しました。',
+      'saveError': '反応の記録を保存できませんでした。もう一度お試しください。',
+      'other': '反応妨害',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String responsePreventionDistress(int value) {
+    return '苦痛度$value/10';
+  }
+
+  @override
+  String responsePreventionLogSummary(
+    String outcome,
+    String date,
+    int distress,
+    String situation,
+  ) {
+    return '$outcome · $date · 苦痛度$distress/10 · $situation';
+  }
+
+  @override
+  String urgeSurfText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': '衝動の波に乗る',
+      'subtitle': '衝動を変えたり反応したりする必要を置かず、選んだ時間だけ観察します。',
+      'startAction': '始める',
+      'historyTitle': '過去の記録',
+      'emptyHistory': '保存した記録はまだありません。記録したセッションがここに表示されます。',
+      'loadError': '保存した記録を読み込めませんでした。もう一度お試しください。',
+      'triggerFallback': '衝動',
+      'setupTitle': '始める前に',
+      'triggerLabel': 'どのような衝動ですか？（任意）',
+      'triggerHint': '例：もう一度手を洗いたい衝動',
+      'initialUrgeLabel': '開始時の衝動',
+      'durationQuestion': 'どのくらい観察しますか？',
+      'begin': '開始',
+      'surfingTitle': '衝動を観察する',
+      'surfingBody': '考えや感覚に気づき、次に何をするかを選びます。いつでも止められます。',
+      'currentUrgeLabel': '現在の衝動',
+      'doneAction': '今はここまで',
+      'reflectionTitle': '気づいたことを記録',
+      'waveTitle': '記録した衝動の強さ',
+      'finalUrgeLabel': '終了時の衝動',
+      'noteLabel': 'メモ（任意）',
+      'noteHint': '何に気づきましたか？',
+      'saveAction': '記録を保存',
+      'finishAction': '終了',
+      'saveSuccess': '記録を保存しました。',
+      'finishSuccess': '練習を終了しました。',
+      'saveError': '記録を保存できませんでした。もう一度お試しください。',
+      'timerComplete': '観察時間が終了しました。',
+      'other': '衝動の波に乗る',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String urgeSurfRating(int value) {
+    return '衝動の強さ$value/10';
+  }
+
+  @override
+  String urgeSurfDuration(int minutes) {
+    return '$minutes分';
+  }
+
+  @override
+  String urgeSurfRecordedDuration(int minutes, int seconds) {
+    return '$minutes分$seconds秒';
+  }
+
+  @override
+  String urgeSurfHistorySummary(
+    int initial,
+    int peak,
+    int finalLevel,
+    String duration,
+  ) {
+    return '開始時$initial/10 · 記録した最高値$peak/10 · 終了時$finalLevel/10 · $duration';
+  }
+
+  @override
+  String urgeSurfSessionSemantics(String trigger, String date, String summary) {
+    return '$trigger · $date · $summary';
+  }
+
+  @override
+  String urgeSurfWaveSummary(int initial, int peak) {
+    return '開始時$initial/10 · 記録した最高値$peak/10';
+  }
+
+  @override
+  String urgeSurfTimerDisplay(int minutes, String seconds) {
+    return '$minutes:$seconds';
+  }
+
+  @override
+  String urgeSurfTimeRemaining(int minutes, int seconds) {
+    return '残り$minutes分$seconds秒';
+  }
+
+  @override
   String emergencyToolkitText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': '今この時のサポート',

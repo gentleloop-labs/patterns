@@ -3911,6 +3911,88 @@ abstract class AppLocalizations {
   /// **'Recording · {seconds} s'**
   String exposureRecordingSeconds(int seconds);
 
+  /// Response-prevention log interface copy. Keep outcomes factual and non-judgmental; do not praise resistance, shame a performed response, or promise progress.
+  ///
+  /// In en, this message translates to:
+  /// **'{key, select, title{Response Prevention} logAction{Log} subtitle{Record the trigger, the response you chose, and your distress at that time.} loadError{Your response logs are unavailable right now. Please try again.} deleteTitle{Delete this response log?} deleteBody{This permanently removes the log from this device.} cancel{Cancel} deleteAction{Delete} deleteTooltip{Delete response log} deleteSuccess{Response log deleted.} deleteError{This response log could not be deleted. Please try again.} outcomeResisted{Not performed} outcomeDelayed{Delayed} outcomePartial{Partly performed} outcomePerformed{Performed} emptyTitle{Record a response} emptyBody{After a trigger, record what you chose and the distress you noticed.} emptyAction{Log a response} editorTitle{Log a response} situationLabel{What set it off?} situationHint{The trigger and the response OCD prompted} outcomeQuestion{What did you do?} distressLabel{Distress at the time} noteLabel{Note (optional)} noteHint{Anything you want to remember} saveAction{Save log} situationValidation{Add a brief description of the trigger.} saveSuccess{Response log saved.} saveError{This response log could not be saved. Please try again.} other{Response prevention}}'**
+  String responsePreventionText(String key);
+
+  /// Visible and accessible deliberately recorded distress rating in a response-prevention log.
+  ///
+  /// In en, this message translates to:
+  /// **'Distress {value} of 10'**
+  String responsePreventionDistress(int value);
+
+  /// Accessible summary of a saved response-prevention log. Outcome and date are already localized; situation is unchanged user text.
+  ///
+  /// In en, this message translates to:
+  /// **'{outcome} · {date} · distress {distress} of 10 · {situation}'**
+  String responsePreventionLogSummary(
+    String outcome,
+    String date,
+    int distress,
+    String situation,
+  );
+
+  /// Urge-surfing interface copy. Keep it optional, factual, and non-reassuring; never promise that an urge will fall, pass, or become easier.
+  ///
+  /// In en, this message translates to:
+  /// **'{key, select, title{Urge Surfing} subtitle{Observe an urge for a chosen amount of time without needing to change it or act on it.} startAction{Start a surf} historyTitle{Past surfs} emptyHistory{No saved surfs yet. A recorded surf will appear here.} loadError{Your saved surfs are unavailable right now. Please try again.} triggerFallback{An urge} setupTitle{Before you surf} triggerLabel{What is the urge? (optional)} triggerHint{For example, the urge to wash my hands again} initialUrgeLabel{Urge at the start} durationQuestion{How long would you like to observe it?} begin{Begin} surfingTitle{Observe the urge} surfingBody{Notice thoughts and sensations, and choose what you do next. You can stop at any time.} currentUrgeLabel{Urge right now} doneAction{Done for now} reflectionTitle{Record what you noticed} waveTitle{Recorded urge levels} finalUrgeLabel{Urge at the end} noteLabel{Note (optional)} noteHint{What did you notice?} saveAction{Save surf} finishAction{Finish} saveSuccess{Surf record saved.} finishSuccess{Practice finished.} saveError{This surf could not be saved. Please try again.} timerComplete{Observation timer complete.} other{Urge surfing}}'**
+  String urgeSurfText(String key);
+
+  /// Visible and accessible deliberately recorded urge rating.
+  ///
+  /// In en, this message translates to:
+  /// **'Urge {value} of 10'**
+  String urgeSurfRating(int value);
+
+  /// Localized urge-surf duration choice or history duration.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes, plural, =1{1 minute} other{{minutes} minutes}}'**
+  String urgeSurfDuration(int minutes);
+
+  /// Factual elapsed duration for a saved urge-surf session.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min {seconds} sec'**
+  String urgeSurfRecordedDuration(int minutes, int seconds);
+
+  /// Factual accessible summary of deliberately recorded urge levels and duration. Duration is already localized.
+  ///
+  /// In en, this message translates to:
+  /// **'Started at {initial} of 10 · highest recorded {peak} of 10 · ended at {finalLevel} of 10 · {duration}'**
+  String urgeSurfHistorySummary(
+    int initial,
+    int peak,
+    int finalLevel,
+    String duration,
+  );
+
+  /// Accessible saved-session card combining unchanged user trigger text with already-localized date and factual rating summary.
+  ///
+  /// In en, this message translates to:
+  /// **'{trigger} · {date} · {summary}'**
+  String urgeSurfSessionSemantics(String trigger, String date, String summary);
+
+  /// Factual summary shown after an urge-surf timer; do not infer improvement.
+  ///
+  /// In en, this message translates to:
+  /// **'Started at {initial} of 10 · highest recorded {peak} of 10'**
+  String urgeSurfWaveSummary(int initial, int peak);
+
+  /// Compact countdown display. Seconds is pre-padded to two ASCII digits for timer readability.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes}:{seconds}'**
+  String urgeSurfTimerDisplay(int minutes, String seconds);
+
+  /// Accessible countdown value. It is not a live region and should not be announced every second.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min {seconds} sec remaining'**
+  String urgeSurfTimeRemaining(int minutes, int seconds);
+
   /// Immediate self-help and paced-breathing copy. Never promise safety, symptom relief, urge disappearance, or replace emergency or clinical care.
   ///
   /// In en, this message translates to:

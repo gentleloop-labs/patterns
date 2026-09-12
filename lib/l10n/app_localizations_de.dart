@@ -2814,6 +2814,158 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String responsePreventionText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Reaktionsprävention',
+      'logAction': 'Erfassen',
+      'subtitle':
+          'Erfassen Sie den Auslöser, die gewählte Reaktion und die Belastung zu diesem Zeitpunkt.',
+      'loadError':
+          'Ihre Reaktionsprotokolle sind derzeit nicht verfügbar. Bitte versuchen Sie es erneut.',
+      'deleteTitle': 'Dieses Reaktionsprotokoll löschen?',
+      'deleteBody':
+          'Dadurch wird das Protokoll dauerhaft von diesem Gerät entfernt.',
+      'cancel': 'Abbrechen',
+      'deleteAction': 'Löschen',
+      'deleteTooltip': 'Reaktionsprotokoll löschen',
+      'deleteSuccess': 'Reaktionsprotokoll gelöscht.',
+      'deleteError':
+          'Dieses Reaktionsprotokoll konnte nicht gelöscht werden. Bitte versuchen Sie es erneut.',
+      'outcomeResisted': 'Nicht ausgeführt',
+      'outcomeDelayed': 'Verzögert',
+      'outcomePartial': 'Teilweise ausgeführt',
+      'outcomePerformed': 'Ausgeführt',
+      'emptyTitle': 'Eine Reaktion erfassen',
+      'emptyBody':
+          'Erfassen Sie nach einem Auslöser, was Sie gewählt und welche Belastung Sie bemerkt haben.',
+      'emptyAction': 'Reaktion erfassen',
+      'editorTitle': 'Reaktion erfassen',
+      'situationLabel': 'Was hat es ausgelöst?',
+      'situationHint':
+          'Der Auslöser und die von der Zwangsstörung angeregte Reaktion',
+      'outcomeQuestion': 'Was haben Sie getan?',
+      'distressLabel': 'Belastung zu diesem Zeitpunkt',
+      'noteLabel': 'Notiz (optional)',
+      'noteHint': 'Alles, woran Sie sich erinnern möchten',
+      'saveAction': 'Protokoll speichern',
+      'situationValidation':
+          'Fügen Sie eine kurze Beschreibung des Auslösers hinzu.',
+      'saveSuccess': 'Reaktionsprotokoll gespeichert.',
+      'saveError':
+          'Dieses Reaktionsprotokoll konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.',
+      'other': 'Reaktionsprävention',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String responsePreventionDistress(int value) {
+    return 'Belastung $value von 10';
+  }
+
+  @override
+  String responsePreventionLogSummary(
+    String outcome,
+    String date,
+    int distress,
+    String situation,
+  ) {
+    return '$outcome · $date · Belastung $distress von 10 · $situation';
+  }
+
+  @override
+  String urgeSurfText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Urge-Surfing',
+      'subtitle':
+          'Beobachten Sie einen Drang für eine gewählte Zeit, ohne ihn ändern oder danach handeln zu müssen.',
+      'startAction': 'Surf beginnen',
+      'historyTitle': 'Frühere Surfs',
+      'emptyHistory':
+          'Noch keine Surfs gespeichert. Ein erfasster Surf erscheint hier.',
+      'loadError':
+          'Ihre gespeicherten Surfs sind derzeit nicht verfügbar. Bitte versuchen Sie es erneut.',
+      'triggerFallback': 'Ein Drang',
+      'setupTitle': 'Vor dem Surf',
+      'triggerLabel': 'Was ist der Drang? (optional)',
+      'triggerHint': 'Zum Beispiel der Drang, meine Hände erneut zu waschen',
+      'initialUrgeLabel': 'Drang zu Beginn',
+      'durationQuestion': 'Wie lange möchten Sie ihn beobachten?',
+      'begin': 'Beginnen',
+      'surfingTitle': 'Den Drang beobachten',
+      'surfingBody':
+          'Nehmen Sie Gedanken und Empfindungen wahr und entscheiden Sie, was Sie als Nächstes tun. Sie können jederzeit aufhören.',
+      'currentUrgeLabel': 'Drang im Moment',
+      'doneAction': 'Für jetzt fertig',
+      'reflectionTitle': 'Festhalten, was Sie bemerkt haben',
+      'waveTitle': 'Erfasste Drangstärken',
+      'finalUrgeLabel': 'Drang am Ende',
+      'noteLabel': 'Notiz (optional)',
+      'noteHint': 'Was haben Sie bemerkt?',
+      'saveAction': 'Surf speichern',
+      'finishAction': 'Beenden',
+      'saveSuccess': 'Surf-Protokoll gespeichert.',
+      'finishSuccess': 'Übung beendet.',
+      'saveError':
+          'Dieser Surf konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.',
+      'timerComplete': 'Beobachtungszeit beendet.',
+      'other': 'Urge-Surfing',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String urgeSurfRating(int value) {
+    return 'Drang $value von 10';
+  }
+
+  @override
+  String urgeSurfDuration(int minutes) {
+    String _temp0 = intl.Intl.pluralLogic(
+      minutes,
+      locale: localeName,
+      other: '$minutes Minuten',
+      one: '1 Minute',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String urgeSurfRecordedDuration(int minutes, int seconds) {
+    return '$minutes Min. $seconds Sek.';
+  }
+
+  @override
+  String urgeSurfHistorySummary(
+    int initial,
+    int peak,
+    int finalLevel,
+    String duration,
+  ) {
+    return 'Beginn bei $initial von 10 · höchster erfasster Wert $peak von 10 · Ende bei $finalLevel von 10 · $duration';
+  }
+
+  @override
+  String urgeSurfSessionSemantics(String trigger, String date, String summary) {
+    return '$trigger · $date · $summary';
+  }
+
+  @override
+  String urgeSurfWaveSummary(int initial, int peak) {
+    return 'Beginn bei $initial von 10 · höchster erfasster Wert $peak von 10';
+  }
+
+  @override
+  String urgeSurfTimerDisplay(int minutes, String seconds) {
+    return '$minutes:$seconds';
+  }
+
+  @override
+  String urgeSurfTimeRemaining(int minutes, int seconds) {
+    return 'Noch $minutes Min. $seconds Sek.';
+  }
+
+  @override
   String emergencyToolkitText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': 'Unterstützung für jetzt',

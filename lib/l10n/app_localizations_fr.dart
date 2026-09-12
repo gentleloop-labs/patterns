@@ -2821,6 +2821,156 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String responsePreventionText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Prévention de la réponse',
+      'logAction': 'Noter',
+      'subtitle':
+          'Notez le déclencheur, la réponse choisie et la détresse ressentie à ce moment-là.',
+      'loadError':
+          'Vos relevés de réponse sont indisponibles pour le moment. Veuillez réessayer.',
+      'deleteTitle': 'Supprimer ce relevé de réponse ?',
+      'deleteBody': 'Cela supprime définitivement le relevé de cet appareil.',
+      'cancel': 'Annuler',
+      'deleteAction': 'Supprimer',
+      'deleteTooltip': 'Supprimer le relevé de réponse',
+      'deleteSuccess': 'Relevé de réponse supprimé.',
+      'deleteError':
+          'Ce relevé de réponse n’a pas pu être supprimé. Veuillez réessayer.',
+      'outcomeResisted': 'Non effectuée',
+      'outcomeDelayed': 'Retardée',
+      'outcomePartial': 'Partiellement effectuée',
+      'outcomePerformed': 'Effectuée',
+      'emptyTitle': 'Noter une réponse',
+      'emptyBody':
+          'Après un déclencheur, notez votre choix et la détresse ressentie.',
+      'emptyAction': 'Noter une réponse',
+      'editorTitle': 'Noter une réponse',
+      'situationLabel': 'Quel a été le déclencheur ?',
+      'situationHint': 'Le déclencheur et la réponse suggérée par le TOC',
+      'outcomeQuestion': 'Qu’avez-vous fait ?',
+      'distressLabel': 'Détresse à ce moment-là',
+      'noteLabel': 'Note (facultative)',
+      'noteHint': 'Ce que vous souhaitez retenir',
+      'saveAction': 'Enregistrer le relevé',
+      'situationValidation': 'Ajoutez une brève description du déclencheur.',
+      'saveSuccess': 'Relevé de réponse enregistré.',
+      'saveError':
+          'Ce relevé de réponse n’a pas pu être enregistré. Veuillez réessayer.',
+      'other': 'Prévention de la réponse',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String responsePreventionDistress(int value) {
+    return 'Détresse $value sur 10';
+  }
+
+  @override
+  String responsePreventionLogSummary(
+    String outcome,
+    String date,
+    int distress,
+    String situation,
+  ) {
+    return '$outcome · $date · détresse $distress sur 10 · $situation';
+  }
+
+  @override
+  String urgeSurfText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Surfer sur l’envie compulsive',
+      'subtitle':
+          'Observez une envie compulsive pendant la durée choisie, sans devoir la modifier ni y répondre.',
+      'startAction': 'Commencer',
+      'historyTitle': 'Sessions précédentes',
+      'emptyHistory':
+          'Aucune session enregistrée pour le moment. Une session enregistrée apparaîtra ici.',
+      'loadError':
+          'Vos sessions enregistrées sont indisponibles pour le moment. Veuillez réessayer.',
+      'triggerFallback': 'Une envie compulsive',
+      'setupTitle': 'Avant de commencer',
+      'triggerLabel': 'Quelle est l’envie ? (facultatif)',
+      'triggerHint': 'Par exemple, l’envie de me laver à nouveau les mains',
+      'initialUrgeLabel': 'Envie au début',
+      'durationQuestion':
+          'Pendant combien de temps souhaitez-vous l’observer ?',
+      'begin': 'Commencer',
+      'surfingTitle': 'Observer l’envie',
+      'surfingBody':
+          'Remarquez les pensées et les sensations, puis choisissez ce que vous faites ensuite. Vous pouvez arrêter à tout moment.',
+      'currentUrgeLabel': 'Envie maintenant',
+      'doneAction': 'Terminer pour l’instant',
+      'reflectionTitle': 'Noter ce que vous avez remarqué',
+      'waveTitle': 'Niveaux d’envie relevés',
+      'finalUrgeLabel': 'Envie à la fin',
+      'noteLabel': 'Note (facultative)',
+      'noteHint': 'Qu’avez-vous remarqué ?',
+      'saveAction': 'Enregistrer la session',
+      'finishAction': 'Terminer',
+      'saveSuccess': 'Session enregistrée.',
+      'finishSuccess': 'Exercice terminé.',
+      'saveError':
+          'Cette session n’a pas pu être enregistrée. Veuillez réessayer.',
+      'timerComplete': 'Temps d’observation terminé.',
+      'other': 'Surfer sur l’envie compulsive',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String urgeSurfRating(int value) {
+    return 'Envie $value sur 10';
+  }
+
+  @override
+  String urgeSurfDuration(int minutes) {
+    String _temp0 = intl.Intl.pluralLogic(
+      minutes,
+      locale: localeName,
+      other: '$minutes minutes',
+      one: '1 minute',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String urgeSurfRecordedDuration(int minutes, int seconds) {
+    return '$minutes min $seconds s';
+  }
+
+  @override
+  String urgeSurfHistorySummary(
+    int initial,
+    int peak,
+    int finalLevel,
+    String duration,
+  ) {
+    return 'Début à $initial sur 10 · valeur maximale relevée $peak sur 10 · fin à $finalLevel sur 10 · $duration';
+  }
+
+  @override
+  String urgeSurfSessionSemantics(String trigger, String date, String summary) {
+    return '$trigger · $date · $summary';
+  }
+
+  @override
+  String urgeSurfWaveSummary(int initial, int peak) {
+    return 'Début à $initial sur 10 · valeur maximale relevée $peak sur 10';
+  }
+
+  @override
+  String urgeSurfTimerDisplay(int minutes, String seconds) {
+    return '$minutes:$seconds';
+  }
+
+  @override
+  String urgeSurfTimeRemaining(int minutes, int seconds) {
+    return 'Il reste $minutes min et $seconds s';
+  }
+
+  @override
   String emergencyToolkitText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': 'Soutien pour maintenant',
