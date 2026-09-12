@@ -18,3 +18,7 @@
 # Stable ICU selector keys for Structured Programs. These select localized UI
 # messages and never appear to users or enter storage.
 ^lib/mobile/screens/structured_programs_screen\.dart:.*\.l10n\.structuredProgramText\('[a-zA-Z]+'
+
+# Stable ICU selector keys for the localized Y-BOCS mobile flow. The quoted
+# values select ARB copy and are never shown directly or stored.
+^lib/mobile/screens/ybocs_screen\.dart:.*\.ybocsText\('[a-zA-Z]+'

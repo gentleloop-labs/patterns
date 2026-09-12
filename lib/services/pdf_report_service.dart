@@ -183,7 +183,7 @@ class PdfReportService {
           );
 
     final themeLabels = latest.themes
-        .map((id) => ybocsCategoryTitleFor(id))
+        .map((id) => localizedYbocsCategoryTitleFor(id, strings))
         .whereType<String>()
         .toList();
 

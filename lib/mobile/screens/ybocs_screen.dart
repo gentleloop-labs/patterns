@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter/semantics.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../../l10n/l10n.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../theme/app_colors.dart';
@@ -15,7 +16,7 @@ import 'ybocs_content.dart';
 
 /// The Y-BOCS self-check: a staged flow that stays simple no matter how many
 /// items it holds. Intro → symptom checklist → one-question-at-a-time severity
-/// → results. Results are saved so someone can retake and watch trends shift.
+/// → results. Results can be saved locally for later reference.
 ///
 /// This is a self-check aid, not a diagnosis — the UI says so at the start and
 /// again at the end.
@@ -42,6 +43,7 @@ class _YbocsScreenState extends ConsumerState<YbocsScreen> {
   );
   int _questionIndex = 0;
   bool _saved = false;
+  bool _saving = false;
 
   int get _obsessionScore {
     var sum = 0;
@@ -80,10 +82,14 @@ class _YbocsScreenState extends ConsumerState<YbocsScreen> {
       }
       _questionIndex = 0;
       _saved = false;
+      _saving = false;
     });
   }
 
   Future<void> _save() async {
+    if (_saving) return;
+    setState(() => _saving = true);
+    final strings = context.l10n;
     final now = DateTime.now();
     final assessment = YbocsAssessment(
       datetime: now,
@@ -98,8 +104,22 @@ class _YbocsScreenState extends ConsumerState<YbocsScreen> {
     );
     await ref.read(ybocsAssessmentProvider.notifier).add(assessment);
     if (!mounted) return;
-    setState(() => _saved = true);
-    showAppSnackBar(context, 'Saved to your history.', type: ToastType.success);
+    final failed = ref.read(ybocsAssessmentProvider).hasError;
+    final message = strings.ybocsText(failed ? 'saveError' : 'saveSuccess');
+    setState(() {
+      _saved = !failed;
+      _saving = false;
+    });
+    showAppSnackBar(
+      context,
+      message,
+      type: failed ? ToastType.error : ToastType.success,
+    );
+    await SemanticsService.sendAnnouncement(
+      View.of(context),
+      message,
+      Directionality.of(context),
+    );
   }
 
   @override
@@ -145,6 +165,7 @@ class _YbocsScreenState extends ConsumerState<YbocsScreen> {
             total: _total,
             categories: _selectedCategories,
             saved: _saved,
+            saving: _saving,
             onSave: _save,
             onRetake: _restart,
             onClose: () => Navigator.of(context).pop(
@@ -168,6 +189,7 @@ class _IntroView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final history =
         ref.watch(ybocsAssessmentProvider).asData?.value ?? const [];
 
@@ -179,10 +201,13 @@ class _IntroView extends ConsumerWidget {
             CircleBackButton(onTap: onClose),
             const SizedBox(width: 12),
             Expanded(
-              child: Text(
-                'OCD Self-Check',
-                style: theme.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
+              child: Semantics(
+                header: true,
+                child: Text(
+                  strings.ybocsText('title'),
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
             ),
@@ -190,8 +215,7 @@ class _IntroView extends ConsumerWidget {
         ),
         const SizedBox(height: 14),
         Text(
-          'A guided walk through the Yale-Brown Obsessive Compulsive Scale '
-          '(Y-BOCS): the patterns you notice, and how much they affect you.',
+          strings.ybocsText('introBody'),
           style: TextStyle(
             color: context.appColors.textSecondary,
             height: 1.45,
@@ -203,25 +227,23 @@ class _IntroView extends ConsumerWidget {
         _CockpitCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               _IntroPoint(
                 icon: Icons.checklist_rounded,
-                title: 'Spot the patterns',
-                body: 'Tick the obsessions and compulsions that feel familiar.',
+                title: strings.ybocsText('spotTitle'),
+                body: strings.ybocsText('spotBody'),
               ),
-              SizedBox(height: 14),
+              const SizedBox(height: 14),
               _IntroPoint(
                 icon: Icons.speed_rounded,
-                title: 'Measure the impact',
-                body:
-                    '10 short questions rate how much they take from your day.',
+                title: strings.ybocsText('impactTitle'),
+                body: strings.ybocsText('impactBody'),
               ),
-              SizedBox(height: 14),
+              const SizedBox(height: 14),
               _IntroPoint(
                 icon: Icons.insights_rounded,
-                title: 'See where you stand',
-                body:
-                    'Get your themes and a severity band you can retake anytime.',
+                title: strings.ybocsText('resultIntroTitle'),
+                body: strings.ybocsText('resultIntroBody'),
               ),
             ],
           ),
@@ -235,12 +257,14 @@ class _IntroView extends ConsumerWidget {
           width: double.infinity,
           child: ElevatedButton(
             onPressed: onBegin,
-            child: Text(history.isEmpty ? 'Begin' : 'Take it again'),
+            child: Text(
+              strings.ybocsText(history.isEmpty ? 'begin' : 'retakeAction'),
+            ),
           ),
         ),
         const SizedBox(height: 12),
         Text(
-          'Takes about 10 minutes. Everything stays private on your device.',
+          strings.ybocsText('privacyDuration'),
           textAlign: TextAlign.center,
           style: TextStyle(
             color: context.appColors.textSecondary,
@@ -257,6 +281,7 @@ class _DisclaimerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = context.l10n;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -273,9 +298,7 @@ class _DisclaimerCard extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              'This is a self-check to help you understand your experience, '
-              'not a diagnosis. Only a qualified professional can diagnose OCD. '
-              'Bring your results to them if anything here resonates.',
+              strings.ybocsText('disclaimer'),
               style: TextStyle(
                 color: context.appColors.textPrimary,
                 height: 1.45,
@@ -348,17 +371,21 @@ class _HistorySection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final strings = context.l10n;
     return _CockpitCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Your history',
-            style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
+          Semantics(
+            header: true,
+            child: Text(
+              strings.ybocsText('historyTitle'),
+              style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
+            ),
           ),
           const SizedBox(height: 4),
           Text(
-            'Retaking every few weeks shows whether things are shifting.',
+            strings.ybocsText('historyBody'),
             style: TextStyle(
               color: context.appColors.textSecondary,
               fontSize: 12.5,
@@ -372,14 +399,12 @@ class _HistorySection extends ConsumerWidget {
                 final confirmed = await showDialog<bool>(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: Text('Delete Assessment?'),
-                    content: Text(
-                      'This will permanently delete this Y-BOCS assessment history entry.',
-                    ),
+                    title: Text(strings.ybocsText('deleteTitle')),
+                    content: Text(strings.ybocsText('deleteBody')),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context, false),
-                        child: Text('Cancel'),
+                        child: Text(strings.ybocsText('cancel')),
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -387,13 +412,28 @@ class _HistorySection extends ConsumerWidget {
                           foregroundColor: Colors.white,
                         ),
                         onPressed: () => Navigator.pop(context, true),
-                        child: Text('Delete'),
+                        child: Text(strings.ybocsText('deleteAction')),
                       ),
                     ],
                   ),
                 );
-                if (confirmed == true) {
-                  ref.read(ybocsAssessmentProvider.notifier).delete(a.id!);
+                if (confirmed == true && a.id != null) {
+                  await ref
+                      .read(ybocsAssessmentProvider.notifier)
+                      .delete(a.id!);
+                  if (!context.mounted) return;
+                  final failed = ref.read(ybocsAssessmentProvider).hasError;
+                  final message = strings.ybocsText(
+                    failed ? 'deleteError' : 'deleteSuccess',
+                  );
+                  if (failed) {
+                    showAppSnackBar(context, message, type: ToastType.error);
+                  }
+                  await SemanticsService.sendAnnouncement(
+                    View.of(context),
+                    message,
+                    Directionality.of(context),
+                  );
                 }
               },
             ),
@@ -413,53 +453,68 @@ class _HistoryRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(12, 10, 6, 10),
-      decoration: BoxDecoration(
-        color: context.appColors.card,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: context.appColors.border),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 10,
-            height: 10,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: assessment.severity.color,
+    final strings = context.l10n;
+    final severity = assessment.severity.localizedLabel(strings);
+    final date = context.formatFullDate(assessment.datetime);
+    final summary = strings.ybocsHistorySummary(
+      severity,
+      assessment.totalScore,
+      date,
+    );
+    return Semantics(
+      label: summary,
+      container: true,
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(12, 10, 6, 10),
+        decoration: BoxDecoration(
+          color: context.appColors.card,
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: context.appColors.border),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 10,
+              height: 10,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: assessment.severity.color,
+              ),
             ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '${assessment.severity.label} · ${assessment.totalScore}/40',
-                  style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13.5),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  DateFormat('MMM d, y').format(assessment.datetime),
-                  style: TextStyle(
-                    color: context.appColors.textSecondary,
-                    fontSize: 11.5,
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '$severity · ${assessment.totalScore}/40',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 13.5,
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 2),
+                  Text(
+                    date,
+                    style: TextStyle(
+                      color: context.appColors.textSecondary,
+                      fontSize: 11.5,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          IconButton(
-            onPressed: onDelete,
-            icon: Icon(
-              LineIcons.trash,
-              size: 18,
-              color: context.appColors.textSecondary,
+            IconButton(
+              onPressed: onDelete,
+              icon: Icon(
+                LineIcons.trash,
+                size: 18,
+                color: context.appColors.textSecondary,
+              ),
+              tooltip: strings.ybocsText('deleteTooltip'),
             ),
-            tooltip: 'Delete',
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -483,6 +538,7 @@ class _ChecklistView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final obsessions = ybocsCategories.where(
       (c) => c.kind == YbocsDimension.obsessions,
     );
@@ -499,10 +555,13 @@ class _ChecklistView extends StatelessWidget {
               CircleBackButton(onTap: onBack),
               const SizedBox(width: 12),
               Expanded(
-                child: Text(
-                  'What feels familiar?',
-                  style: theme.textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.w800,
+                child: Semantics(
+                  header: true,
+                  child: Text(
+                    strings.ybocsText('checklistTitle'),
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
               ),
@@ -514,8 +573,7 @@ class _ChecklistView extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(20, 14, 20, 24),
             children: staggered([
               Text(
-                'Tick anything you\'ve experienced, now or in the past. Skip '
-                'what doesn\'t fit. There are no wrong answers.',
+                strings.ybocsText('checklistBody'),
                 style: TextStyle(
                   color: context.appColors.textSecondary,
                   height: 1.45,
@@ -523,8 +581,8 @@ class _ChecklistView extends StatelessWidget {
               ),
               const SizedBox(height: 18),
               _GroupLabel(
-                label: 'Obsessions',
-                sub: 'Unwanted thoughts, images, or urges',
+                label: strings.ybocsText('obsessions'),
+                sub: strings.ybocsText('obsessionsDescription'),
               ),
               const SizedBox(height: 10),
               for (final c in obsessions) ...[
@@ -537,8 +595,8 @@ class _ChecklistView extends StatelessWidget {
               ],
               const SizedBox(height: 12),
               _GroupLabel(
-                label: 'Compulsions',
-                sub: 'Behaviours or mental acts to feel less anxious',
+                label: strings.ybocsText('compulsions'),
+                sub: strings.ybocsText('compulsionsDescription'),
               ),
               const SizedBox(height: 10),
               for (final c in compulsions) ...[
@@ -555,11 +613,7 @@ class _ChecklistView extends StatelessWidget {
         _BottomBar(
           child: ElevatedButton(
             onPressed: onContinue,
-            child: Text(
-              selected.isEmpty
-                  ? 'Continue'
-                  : 'Continue · ${selected.length} selected',
-            ),
+            child: Text(strings.ybocsSelectedCount(selected.length)),
           ),
         ),
       ],
@@ -578,9 +632,12 @@ class _GroupLabel extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 17),
+        Semantics(
+          header: true,
+          child: Text(
+            label,
+            style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 17),
+          ),
         ),
         const SizedBox(height: 2),
         Text(
@@ -609,6 +666,7 @@ class _CategoryBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final count = category.items.where((i) => selected.contains(i.id)).length;
 
     return Container(
@@ -621,7 +679,7 @@ class _CategoryBlock extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  category.title,
+                  category.localizedTitle(strings),
                   style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14.5),
                 ),
               ),
@@ -635,12 +693,16 @@ class _CategoryBlock extends StatelessWidget {
                     color: theme.colorScheme.primary.withValues(alpha: 0.16),
                     borderRadius: BorderRadius.circular(999),
                   ),
-                  child: Text(
-                    '$count',
-                    style: TextStyle(
-                      color: theme.colorScheme.primary,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 12,
+                  child: Semantics(
+                    label: strings.ybocsCategorySelectedCount(count),
+                    excludeSemantics: true,
+                    child: Text(
+                      context.formatInteger(count),
+                      style: TextStyle(
+                        color: theme.colorScheme.primary,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 ),
@@ -649,7 +711,7 @@ class _CategoryBlock extends StatelessWidget {
           const SizedBox(height: 4),
           for (final item in category.items)
             _CheckRow(
-              label: item.label,
+              label: item.localizedLabel(strings),
               checked: selected.contains(item.id),
               onTap: () => onToggle(item.id),
             ),
@@ -673,51 +735,64 @@ class _CheckRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(10),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 150),
-              width: 22,
-              height: 22,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(7),
-                color: checked ? theme.colorScheme.primary : Colors.transparent,
-                border: Border.all(
-                  color: checked
-                      ? theme.colorScheme.primary
-                      : const Color(0xFF4A473F),
-                  width: 1.5,
+    return Semantics(
+      button: true,
+      checked: checked,
+      label: label,
+      excludeSemantics: true,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(10),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 44),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AnimatedContainer(
+                  duration: motionDisabled(context)
+                      ? Duration.zero
+                      : AppMotion.fast,
+                  width: 22,
+                  height: 22,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(7),
+                    color: checked
+                        ? theme.colorScheme.primary
+                        : Colors.transparent,
+                    border: Border.all(
+                      color: checked
+                          ? theme.colorScheme.primary
+                          : const Color(0xFF4A473F),
+                      width: 1.5,
+                    ),
+                  ),
+                  child: checked
+                      ? Icon(
+                          Icons.check_rounded,
+                          size: 15,
+                          color: theme.colorScheme.onPrimary,
+                        )
+                      : null,
                 ),
-              ),
-              child: checked
-                  ? Icon(
-                      Icons.check_rounded,
-                      size: 15,
-                      color: theme.colorScheme.onPrimary,
-                    )
-                  : null,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontSize: 13.5,
-                  height: 1.35,
-                  color: checked
-                      ? context.appColors.textPrimary
-                      : context.appColors.textSecondary,
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    label,
+                    style: TextStyle(
+                      fontSize: 13.5,
+                      height: 1.35,
+                      color: checked
+                          ? context.appColors.textPrimary
+                          : context.appColors.textSecondary,
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -744,13 +819,15 @@ class _SeverityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final total = ybocsSeverityQuestions.length;
     final question = ybocsSeverityQuestions[index];
     final answer = answers[index];
     final isLast = index == total - 1;
     final dimensionLabel = question.dimension == YbocsDimension.obsessions
-        ? 'Obsessions'
-        : 'Compulsions';
+        ? strings.ybocsText('obsessions')
+        : strings.ybocsText('compulsions');
+    final progress = strings.ybocsQuestionProgress(index + 1, total);
 
     return Column(
       children: [
@@ -765,7 +842,7 @@ class _SeverityView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Question ${index + 1} of $total',
+                      progress,
                       style: TextStyle(
                         fontWeight: FontWeight.w800,
                         fontSize: 15,
@@ -788,14 +865,20 @@ class _SeverityView extends StatelessWidget {
         const SizedBox(height: 12),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(999),
-            child: LinearProgressIndicator(
-              value: (index + 1) / total,
-              minHeight: 6,
-              backgroundColor: const Color(0xFF2B2926),
-              valueColor: AlwaysStoppedAnimation<Color>(
-                context.appColors.accent,
+          child: Semantics(
+            label: progress,
+            value: context.formatWholePercent((index + 1) / total * 100),
+            child: ExcludeSemantics(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(999),
+                child: LinearProgressIndicator(
+                  value: (index + 1) / total,
+                  minHeight: 6,
+                  backgroundColor: const Color(0xFF2B2926),
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    context.appColors.accent,
+                  ),
+                ),
               ),
             ),
           ),
@@ -806,16 +889,16 @@ class _SeverityView extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(20, 18, 20, 24),
             children: staggered([
               Text(
-                question.prompt,
+                question.localizedPrompt(strings),
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w800,
                   height: 1.3,
                 ),
               ),
               const SizedBox(height: 16),
-              for (var i = 0; i < question.options.length; i++) ...[
+              for (var i = 0; i <= 4; i++) ...[
                 _OptionRow(
-                  label: question.options[i],
+                  label: question.localizedOption(strings, i),
                   selected: answer == i,
                   onTap: () => onSelect(i),
                 ),
@@ -827,7 +910,7 @@ class _SeverityView extends StatelessWidget {
         _BottomBar(
           child: ElevatedButton(
             onPressed: answer == null ? null : onNext,
-            child: Text(isLast ? 'See results' : 'Next'),
+            child: Text(strings.ybocsText(isLast ? 'seeResults' : 'next')),
           ),
         ),
       ],
@@ -849,59 +932,66 @@ class _OptionRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return PressScale(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 150),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: selected
-              ? theme.colorScheme.primary.withValues(alpha: 0.12)
-              : theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: selected ? theme.colorScheme.primary : theme.dividerColor,
-            width: selected ? 1.5 : 1,
+    return Semantics(
+      button: true,
+      selected: selected,
+      label: label,
+      excludeSemantics: true,
+      child: PressScale(
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: motionDisabled(context) ? Duration.zero : AppMotion.fast,
+          constraints: const BoxConstraints(minHeight: 44),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: selected
+                ? theme.colorScheme.primary.withValues(alpha: 0.12)
+                : theme.colorScheme.surface,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: selected ? theme.colorScheme.primary : theme.dividerColor,
+              width: selected ? 1.5 : 1,
+            ),
           ),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 22,
-              height: 22,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: selected
-                      ? theme.colorScheme.primary
-                      : const Color(0xFF4A473F),
-                  width: 2,
+          child: Row(
+            children: [
+              Container(
+                width: 22,
+                height: 22,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: selected
+                        ? theme.colorScheme.primary
+                        : const Color(0xFF4A473F),
+                    width: 2,
+                  ),
+                ),
+                child: selected
+                    ? Container(
+                        width: 11,
+                        height: 11,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: theme.colorScheme.primary,
+                        ),
+                      )
+                    : null,
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 14,
+                    height: 1.35,
+                    fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                  ),
                 ),
               ),
-              child: selected
-                  ? Container(
-                      width: 11,
-                      height: 11,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: theme.colorScheme.primary,
-                      ),
-                    )
-                  : null,
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontSize: 14,
-                  height: 1.35,
-                  fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -916,6 +1006,7 @@ class _ResultsView extends StatelessWidget {
   final int total;
   final List<YbocsSymptomCategory> categories;
   final bool saved;
+  final bool saving;
   final Future<void> Function() onSave;
   final VoidCallback onRetake;
   final VoidCallback onClose;
@@ -926,6 +1017,7 @@ class _ResultsView extends StatelessWidget {
     required this.total,
     required this.categories,
     required this.saved,
+    required this.saving,
     required this.onSave,
     required this.onRetake,
     required this.onClose,
@@ -934,6 +1026,7 @@ class _ResultsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final severity = ybocsSeverityForScore(total);
     final hasObsessions =
         categories.any((c) => c.kind == YbocsDimension.obsessions) ||
@@ -951,10 +1044,13 @@ class _ResultsView extends StatelessWidget {
               CircleBackButton(onTap: onClose),
               const SizedBox(width: 12),
               Expanded(
-                child: Text(
-                  'Your results',
-                  style: theme.textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.w800,
+                child: Semantics(
+                  header: true,
+                  child: Text(
+                    strings.ybocsText('resultsTitle'),
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
               ),
@@ -986,23 +1082,35 @@ class _ResultsView extends StatelessWidget {
           ),
         ),
         _BottomBar(
-          child: Row(
-            children: [
-              Expanded(
-                child: OutlinedButton(
-                  onPressed: onRetake,
-                  child: Text('Retake'),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final stack = MediaQuery.textScalerOf(context).scale(1) >= 1.5;
+              final retake = OutlinedButton(
+                onPressed: saving ? null : onRetake,
+                child: Text(strings.ybocsText('retake')),
+              );
+              final save = ElevatedButton(
+                onPressed: saved || saving ? null : () => onSave(),
+                child: Text(
+                  strings.ybocsText(
+                    saving ? 'saving' : (saved ? 'saved' : 'saveHistory'),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                flex: 2,
-                child: ElevatedButton(
-                  onPressed: saved ? null : () => onSave(),
-                  child: Text(saved ? 'Saved ✓' : 'Save to my history'),
-                ),
-              ),
-            ],
+              );
+              if (stack) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [save, const SizedBox(height: 8), retake],
+                );
+              }
+              return Row(
+                children: [
+                  Expanded(child: retake),
+                  const SizedBox(width: 12),
+                  Expanded(flex: 2, child: save),
+                ],
+              );
+            },
           ),
         ),
       ],
@@ -1018,74 +1126,91 @@ class _SeverityCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            severity.color.withValues(alpha: 0.20),
-            severity.color.withValues(alpha: 0.06),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: severity.color.withValues(alpha: 0.35)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                '$total',
-                style: TextStyle(
-                  fontFamily: AppTheme.displayFamily,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 52,
-                  height: 1,
-                  color: severity.color,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 8),
-                child: Text(
-                  ' / 40',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                    color: context.appColors.textSecondary,
-                  ),
-                ),
-              ),
-              const Spacer(),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 7,
-                ),
-                decoration: BoxDecoration(
-                  color: severity.color.withValues(alpha: 0.18),
-                  borderRadius: BorderRadius.circular(999),
-                ),
-                child: Text(
-                  severity.label,
-                  style: TextStyle(
-                    color: severity.color,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
+    final strings = context.l10n;
+    final severityLabel = severity.localizedLabel(strings);
+    final score = strings.ybocsScoreOutOf(total, 40);
+    final summary = strings.ybocsSeveritySummary(
+      severityLabel,
+      score,
+      severity.localizedBlurb(strings),
+    );
+    return Semantics(
+      container: true,
+      label: summary,
+      excludeSemantics: true,
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              severity.color.withValues(alpha: 0.20),
+              severity.color.withValues(alpha: 0.06),
             ],
           ),
-          const SizedBox(height: 12),
-          Text(
-            severity.blurb,
-            style: TextStyle(color: context.appColors.textPrimary, height: 1.5),
-          ),
-        ],
+          borderRadius: BorderRadius.circular(22),
+          border: Border.all(color: severity.color.withValues(alpha: 0.35)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.end,
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                Text(
+                  '$total',
+                  style: TextStyle(
+                    fontFamily: AppTheme.displayFamily,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 52,
+                    height: 1,
+                    color: severity.color,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    ' / 40',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      color: context.appColors.textSecondary,
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: severity.color.withValues(alpha: 0.18),
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Text(
+                    severityLabel,
+                    style: TextStyle(
+                      color: severity.color,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Text(
+              severity.localizedBlurb(strings),
+              style: TextStyle(
+                color: context.appColors.textPrimary,
+                height: 1.5,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -1102,18 +1227,28 @@ class _BreakdownCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = context.l10n;
     return _CockpitCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Where it weighs most',
-            style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
+          Semantics(
+            header: true,
+            child: Text(
+              strings.ybocsText('breakdownTitle'),
+              style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
+            ),
           ),
           const SizedBox(height: 14),
-          _ScoreBar(label: 'Obsessions', score: obsessionScore),
+          _ScoreBar(
+            label: strings.ybocsText('obsessions'),
+            score: obsessionScore,
+          ),
           const SizedBox(height: 12),
-          _ScoreBar(label: 'Compulsions', score: compulsionScore),
+          _ScoreBar(
+            label: strings.ybocsText('compulsions'),
+            score: compulsionScore,
+          ),
         ],
       ),
     );
@@ -1128,38 +1263,48 @@ class _ScoreBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: Text(
-                label,
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13.5),
+    final scoreLabel = context.l10n.ybocsScoreOutOf(score, 20);
+    final summary = context.l10n.ybocsSubtotalSummary(label, scoreLabel);
+    return Semantics(
+      label: summary,
+      excludeSemantics: true,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  label,
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13.5),
+                ),
               ),
-            ),
-            Text(
-              '$score/20',
-              style: TextStyle(
-                color: context.appColors.textSecondary,
-                fontWeight: FontWeight.w800,
-                fontSize: 12.5,
+              Text(
+                '$score/20',
+                style: TextStyle(
+                  color: context.appColors.textSecondary,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 12.5,
+                ),
               ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 6),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(999),
-          child: LinearProgressIndicator(
-            value: score / 20,
-            minHeight: 8,
-            backgroundColor: const Color(0xFF2B2926),
-            valueColor: AlwaysStoppedAnimation<Color>(context.appColors.accent),
+            ],
           ),
-        ),
-      ],
+          const SizedBox(height: 6),
+          ExcludeSemantics(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(999),
+              child: LinearProgressIndicator(
+                value: score / 20,
+                minHeight: 8,
+                backgroundColor: const Color(0xFF2B2926),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  context.appColors.accent,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -1172,24 +1317,27 @@ class _TypesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = context.l10n;
     final types = <String>[
-      if (hasObsessions) 'Obsessions',
-      if (hasCompulsions) 'Compulsions',
+      if (hasObsessions) strings.ybocsText('obsessions'),
+      if (hasCompulsions) strings.ybocsText('compulsions'),
     ];
-    final text = switch (types.length) {
-      0 => 'You didn\'t flag a clear pattern this time, and that\'s okay.',
-      2 =>
-        'You noticed both obsessions and compulsions, and the two often feed '
-            'each other.',
-      _ => 'You mainly noticed ${types.first.toLowerCase()}.',
+    final text = switch ((hasObsessions, hasCompulsions)) {
+      (false, false) => strings.ybocsText('typesNone'),
+      (true, true) => strings.ybocsText('typesBoth'),
+      (true, false) => strings.ybocsText('typesObsessions'),
+      (false, true) => strings.ybocsText('typesCompulsions'),
     };
     return _CockpitCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'The types you noticed',
-            style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
+          Semantics(
+            header: true,
+            child: Text(
+              strings.ybocsText('typesTitle'),
+              style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
+            ),
           ),
           const SizedBox(height: 10),
           if (types.isNotEmpty)
@@ -1219,17 +1367,21 @@ class _ThemesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = context.l10n;
     return _CockpitCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Your themes',
-            style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
+          Semantics(
+            header: true,
+            child: Text(
+              strings.ybocsText('themesTitle'),
+              style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
+            ),
           ),
           const SizedBox(height: 4),
           Text(
-            'The areas your obsessions and compulsions cluster around.',
+            strings.ybocsText('themesBody'),
             style: TextStyle(
               color: context.appColors.textSecondary,
               fontSize: 12.5,
@@ -1239,7 +1391,10 @@ class _ThemesCard extends StatelessWidget {
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: [for (final c in categories) _Chip(label: c.title)],
+            children: [
+              for (final c in categories)
+                _Chip(label: c.localizedTitle(strings)),
+            ],
           ),
         ],
       ),
@@ -1281,6 +1436,7 @@ class _NextStepsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = context.l10n;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -1300,18 +1456,23 @@ class _NextStepsCard extends StatelessWidget {
                 color: context.appColors.accent,
               ),
               SizedBox(width: 10),
-              Text(
-                'What now?',
-                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 15),
+              Expanded(
+                child: Semantics(
+                  header: true,
+                  child: Text(
+                    strings.ybocsText('nextStepsTitle'),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 10),
           Text(
-            'This score is a snapshot, not a diagnosis. If these patterns are '
-            'affecting your life, a therapist trained in ERP can help, and the '
-            'Recovery tools here are a good place to start practising in the '
-            'meantime.',
+            strings.ybocsText('nextStepsBody'),
             style: TextStyle(
               color: context.appColors.textPrimary,
               height: 1.5,

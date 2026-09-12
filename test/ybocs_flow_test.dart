@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:patterns/models/models.dart';
 import 'package:patterns/providers/providers.dart';
+import 'package:patterns/l10n/app_localizations.dart';
 import 'package:patterns/mobile/screens/ybocs_content.dart';
 import 'package:patterns/mobile/screens/ybocs_screen.dart';
 import 'package:patterns/theme/app_theme.dart';
@@ -37,6 +38,8 @@ void main() {
       ProviderScope(
         overrides: [ybocsAssessmentProvider.overrideWith(() => fake)],
         child: MaterialApp(
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
           theme: AppTheme.mobileDarkTheme,
           home: const YbocsScreen(),
         ),
@@ -70,7 +73,7 @@ void main() {
     }
 
     // Results — 10 items × 2 points = 20 → Moderate band.
-    expect(find.text('Your results'), findsOneWidget);
+    expect(find.text('Your result'), findsOneWidget);
     expect(find.text('20'), findsOneWidget);
     expect(find.text('Moderate'), findsWidgets);
 

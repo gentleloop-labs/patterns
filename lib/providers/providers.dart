@@ -647,7 +647,6 @@ class YbocsAssessmentNotifier extends AsyncNotifier<List<YbocsAssessment>> {
   }
 
   Future<void> delete(int id) async {
-    state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await DbHelper.instance.deleteYbocsAssessment(id);
       return await DbHelper.instance.getYbocsAssessments();
