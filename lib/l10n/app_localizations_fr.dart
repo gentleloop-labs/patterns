@@ -3612,4 +3612,53 @@ class AppLocalizationsFr extends AppLocalizations {
   ) {
     return '$status · $date · $confidence. Prédiction : $prediction. Action planifiée : $experiment.';
   }
+
+  @override
+  String exposureReflectionText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Réflexions après exposition',
+      'newAction': 'Nouvelle',
+      'subtitle':
+          'Notez ce que vous avez remarqué après une exposition. Ajoutez uniquement les détails qui vous semblent utiles.',
+      'loadError':
+          'Vos réflexions sont indisponibles pour le moment. Veuillez réessayer.',
+      'deleteTitle': 'Supprimer cette réflexion ?',
+      'deleteBody':
+          'Cette action supprime définitivement la réflexion de cet appareil.',
+      'cancel': 'Annuler',
+      'deleteAction': 'Supprimer',
+      'deleteTooltip': 'Supprimer la réflexion',
+      'deleteSuccess': 'Réflexion supprimée.',
+      'deleteError':
+          'Cette réflexion n’a pas pu être supprimée. Veuillez réessayer.',
+      'emptyTitle': 'Réfléchir à une exposition',
+      'emptyBody':
+          'Notez ce qui s’est passé, ce que l’OCD avait prédit et tout ce dont vous souhaitez vous souvenir. Seule la première question est obligatoire.',
+      'emptyAction': 'Nouvelle réflexion',
+      'editorTitle': 'Nouvelle réflexion',
+      'whatHappenedLabel': 'Que s’est-il passé ?',
+      'whatHappenedHint': 'L’exposition ou l’exercice que vous avez réalisé',
+      'predictionLabel': 'Qu’a prédit l’OCD ?',
+      'predictionHint': 'Le résultat qui, selon l’OCD, pouvait se produire',
+      'actualLabel': 'Qu’avez-vous observé ?',
+      'actualHint': 'Ce qui s’est passé pendant ou après l’exposition',
+      'learningLabel': 'Quelque chose à retenir ? (facultatif)',
+      'learningHint': 'Un détail qui pourrait être utile plus tard',
+      'nextTimeLabel': 'Quelque chose à changer ? (facultatif)',
+      'nextTimeHint': 'Laissez ce champ vide si rien ne vous vient à l’esprit',
+      'saveAction': 'Enregistrer la réflexion',
+      'validation':
+          'Commencez par une courte note sur ce qui s’est passé. Les autres questions sont facultatives.',
+      'saveSuccess': 'Réflexion enregistrée.',
+      'saveError':
+          'Cette réflexion n’a pas pu être enregistrée. Votre texte est toujours là. Veuillez réessayer.',
+      'other': 'Réflexion après exposition',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String exposureReflectionCardSummary(String date, String whatHappened) {
+    return '$date. Ce qui s’est passé : $whatHappened.';
+  }
 }

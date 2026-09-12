@@ -3505,4 +3505,51 @@ class AppLocalizationsEn extends AppLocalizations {
   ) {
     return '$status · $date · $confidence. Prediction: $prediction. Planned action: $experiment.';
   }
+
+  @override
+  String exposureReflectionText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Exposure Reflections',
+      'newAction': 'New',
+      'subtitle':
+          'Record what you noticed after an exposure. Add only the details that feel useful.',
+      'loadError':
+          'Your reflections are unavailable right now. Please try again.',
+      'deleteTitle': 'Delete this reflection?',
+      'deleteBody': 'This permanently removes the reflection from this device.',
+      'cancel': 'Cancel',
+      'deleteAction': 'Delete',
+      'deleteTooltip': 'Delete reflection',
+      'deleteSuccess': 'Reflection deleted.',
+      'deleteError': 'This reflection could not be deleted. Please try again.',
+      'emptyTitle': 'Reflect on an exposure',
+      'emptyBody':
+          'Record what happened, what OCD predicted, and anything you want to remember. Only the first prompt is required.',
+      'emptyAction': 'New reflection',
+      'editorTitle': 'New reflection',
+      'whatHappenedLabel': 'What happened?',
+      'whatHappenedHint': 'The exposure or practice you did',
+      'predictionLabel': 'What did OCD predict?',
+      'predictionHint': 'The outcome OCD said might happen',
+      'actualLabel': 'What did you observe?',
+      'actualHint': 'What happened during or after the exposure',
+      'learningLabel': 'Anything you want to remember? (optional)',
+      'learningHint': 'A detail that may be useful later',
+      'nextTimeLabel': 'Anything you might change? (optional)',
+      'nextTimeHint': 'Leave this blank if nothing comes to mind',
+      'saveAction': 'Save reflection',
+      'validation':
+          'Start with a short note about what happened. The remaining prompts are optional.',
+      'saveSuccess': 'Reflection saved.',
+      'saveError':
+          'This reflection could not be saved. Your text is still here. Please try again.',
+      'other': 'Exposure reflection',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String exposureReflectionCardSummary(String date, String whatHappened) {
+    return '$date. What happened: $whatHappened.';
+  }
 }

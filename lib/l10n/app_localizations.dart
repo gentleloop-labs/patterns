@@ -4170,6 +4170,18 @@ abstract class AppLocalizations {
     String prediction,
     String experiment,
   );
+
+  /// Exposure Reflection interface copy selected from a stable UI key. Preserve all user-authored text; avoid reassurance, judgment, treatment claims, or claiming that an OCD prediction was wrong.
+  ///
+  /// In en, this message translates to:
+  /// **'{key, select, title{Exposure Reflections} newAction{New} subtitle{Record what you noticed after an exposure. Add only the details that feel useful.} loadError{Your reflections are unavailable right now. Please try again.} deleteTitle{Delete this reflection?} deleteBody{This permanently removes the reflection from this device.} cancel{Cancel} deleteAction{Delete} deleteTooltip{Delete reflection} deleteSuccess{Reflection deleted.} deleteError{This reflection could not be deleted. Please try again.} emptyTitle{Reflect on an exposure} emptyBody{Record what happened, what OCD predicted, and anything you want to remember. Only the first prompt is required.} emptyAction{New reflection} editorTitle{New reflection} whatHappenedLabel{What happened?} whatHappenedHint{The exposure or practice you did} predictionLabel{What did OCD predict?} predictionHint{The outcome OCD said might happen} actualLabel{What did you observe?} actualHint{What happened during or after the exposure} learningLabel{Anything you want to remember? (optional)} learningHint{A detail that may be useful later} nextTimeLabel{Anything you might change? (optional)} nextTimeHint{Leave this blank if nothing comes to mind} saveAction{Save reflection} validation{Start with a short note about what happened. The remaining prompts are optional.} saveSuccess{Reflection saved.} saveError{This reflection could not be saved. Your text is still here. Please try again.} other{Exposure reflection}}'**
+  String exposureReflectionText(String key);
+
+  /// Accessible factual summary of an exposure reflection. The event text is user-authored and must remain unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{date}. What happened: {whatHappened}.'**
+  String exposureReflectionCardSummary(String date, String whatHappened);
 }
 
 class _AppLocalizationsDelegate
