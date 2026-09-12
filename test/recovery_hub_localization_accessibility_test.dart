@@ -64,7 +64,7 @@ void main() {
     await tester.pumpAndSettle();
 
     await tester.scrollUntilVisible(
-      find.text('Recovery-Aktivität'),
+      find.text('Übungsaktivität'),
       120,
       scrollable: find.byType(Scrollable).first,
     );
@@ -72,7 +72,7 @@ void main() {
 
     expect(find.text('Patterns Pro'), findsWidgets);
     final semantics = tester.getSemantics(
-      find.bySemanticsLabel('Recovery-Aktivität'),
+      find.bySemanticsLabel('Übungsaktivität'),
     );
     expect(semantics.hint, contains('erfordert Patterns Pro'));
     expect(semantics.getSemanticsData().hasAction(SemanticsAction.tap), isTrue);

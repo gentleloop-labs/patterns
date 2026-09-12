@@ -198,7 +198,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('OCD-Selbstcheck'), findsOneWidget);
+    expect(find.text('Selbstcheck zur Zwangsstörung'), findsOneWidget);
     expect(tester.takeException(), isNull);
     await tester.drag(find.byType(ListView), const Offset(0, -3000));
     await tester.pumpAndSettle();

@@ -61,7 +61,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get settingsAnalyticsSubtitle =>
-      'Nur Ereignisse zur Funktionsnutzung teilen. Persönliche OCD-Daten werden nie einbezogen.';
+      'Nur Ereignisse zur Funktionsnutzung teilen. Persönliche Daten zur Zwangsstörung werden nie einbezogen.';
 
   @override
   String get settingsAppLockTitle => 'App-Sperre';
@@ -85,14 +85,14 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get settingsProActiveSubtitle =>
-      'Alle Genesungswerkzeuge sind freigeschaltet. Vielen Dank.';
+      'Alle Selbsthilfeübungen sind freigeschaltet. Vielen Dank.';
 
   @override
   String get settingsUnlockProTitle => 'Patterns Pro freischalten';
 
   @override
   String get settingsUnlockProSubtitle =>
-      'Einmalige Freischaltung aller Genesungswerkzeuge';
+      'Einmalige Freischaltung aller Selbsthilfeübungen';
 
   @override
   String get settingsRestorePurchasesTitle => 'Käufe wiederherstellen';
@@ -160,7 +160,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get languageSubtitle => 'Wählen Sie die Sprache für Patterns';
 
   @override
-  String get calmInsightsTitle => 'Ruhige Einblicke';
+  String get calmInsightsTitle => 'Sachliche Einblicke';
 
   @override
   String get calmInsightsSubtitle =>
@@ -229,11 +229,10 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get recoveryMetricsTitle => 'Genesungsaktivität';
+  String get recoveryMetricsTitle => 'Übungsaktivität';
 
   @override
-  String get recoveryMetricsTeaserTitle =>
-      'Ihre Genesungsaktivität im Überblick';
+  String get recoveryMetricsTeaserTitle => 'Ihre Übungsaktivität im Überblick';
 
   @override
   String get recoveryMetricsCalmTeaserBody =>
@@ -247,8 +246,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get recoveryMetricsUnlockPro => 'Patterns Pro freischalten';
 
   @override
-  String get recoveryMetricsEmptyTitle =>
-      'Ihre Genesungsaktivität erscheint hier';
+  String get recoveryMetricsEmptyTitle => 'Ihre Übungsaktivität erscheint hier';
 
   @override
   String get recoveryMetricsCalmEmptyBody =>
@@ -292,7 +290,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get doneAction => 'Fertig';
 
   @override
-  String get doneForNowAction => 'Für jetzt fertig';
+  String get doneForNowAction => 'Für den Moment fertig';
 
   @override
   String get completionSavedTitle => 'Gespeichert';
@@ -348,14 +346,14 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get appUpdatesChannelDescription =>
-      'Gelegentliche Hinweise auf wichtige neue Genesungswerkzeuge in Patterns.';
+      'Gelegentliche Hinweise auf wichtige neue Selbsthilfeübungen in Patterns.';
 
   @override
   String get updateAnnouncementTitle => 'Patterns wurde verbessert';
 
   @override
   String get updateAnnouncementBody =>
-      'Neue Genesungswerkzeuge, Fortschrittseinblicke und eine ruhigere Startseite sind verfügbar.';
+      'Neue Selbsthilfeübungen, sachliche Einblicke und eine ruhigere Startseite sind verfügbar.';
 
   @override
   String get practiceWindowCompleteTitle => 'Übungszeit beendet';
@@ -387,7 +385,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get navTracker => 'Tracker';
 
   @override
-  String get navRecovery => 'Genesung';
+  String get navRecovery => 'Übungen';
 
   @override
   String get navInsights => 'Einblicke';
@@ -400,7 +398,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get exportReportDescription =>
-      'Speichern Sie ein gemeinsames PDF aus Tagebuch, OCD-Protokoll und Einblicken. Sie entscheiden, wo Sie es speichern und ob Sie es teilen.';
+      'Speichern Sie einen gemeinsamen PDF-Bericht aus Tagebuch, Zwangsprotokoll und Einblicken. Sie entscheiden, wo Sie ihn speichern und ob Sie ihn teilen.';
 
   @override
   String get exportTimeWindow => 'Zeitraum';
@@ -421,7 +419,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get exportJournalEntries => 'Tagebucheinträge';
 
   @override
-  String get exportOcdEvents => 'OCD-Ereignisse';
+  String get exportOcdEvents => 'Zwangsmomente';
 
   @override
   String get exportYbocsSelfChecks => 'Y-BOCS-Selbstchecks';
@@ -435,7 +433,7 @@ class AppLocalizationsDe extends AppLocalizations {
       one: '1 Eintrag',
       zero: 'Keine Einträge',
     );
-    return '$_temp0 in diesem Zeitraum ($journal Tagebuch, $ocd OCD, $selfChecks Selbstchecks)';
+    return '$_temp0 in diesem Zeitraum ($journal Tagebuch, $ocd Zwangsmomente, $selfChecks Selbstchecks)';
   }
 
   @override
@@ -512,7 +510,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get pdfJournalCount => 'Tagebucheinträge';
 
   @override
-  String get pdfOcdCount => 'OCD-Ereignisse';
+  String get pdfOcdCount => 'Zwangsmomente';
 
   @override
   String get pdfAverageDistress => 'Durchschnittliche Belastung';
@@ -528,13 +526,13 @@ class AppLocalizationsDe extends AppLocalizations {
       'Keine Tagebucheinträge in diesem Zeitraum.';
 
   @override
-  String get pdfNoOcdEvents => 'Keine OCD-Ereignisse in diesem Zeitraum.';
+  String get pdfNoOcdEvents => 'Keine Zwangsmomente in diesem Zeitraum.';
 
   @override
   String get pdfObsession => 'Obsession';
 
   @override
-  String get pdfCompulsion => 'Zwang';
+  String get pdfCompulsion => 'Zwangshandlung';
 
   @override
   String pdfDistressScore(int score) {
@@ -622,15 +620,16 @@ class AppLocalizationsDe extends AppLocalizations {
       'Datenschutz ist eingebaut. Keine Diagnose und kein Ersatz für professionelle Hilfe.';
 
   @override
-  String get onboardingHeadline => 'Ein ruhiger Ort zum Üben mit OCD.';
+  String get onboardingHeadline =>
+      'Ein ruhiger Ort zum Üben im Umgang mit einer Zwangsstörung.';
 
   @override
   String get onboardingIntroduction =>
-      'Halten Sie den aufdringlichen Gedanken fest, verzögern Sie den Zwang und üben Sie Schritt für Schritt eine andere Reaktion.';
+      'Halten Sie den aufdringlichen Gedanken fest, schieben Sie die Zwangshandlung auf und üben Sie Schritt für Schritt eine andere Reaktion.';
 
   @override
   String get onboardingPrivacy =>
-      'Ihre OCD-Daten bleiben auf diesem Gerät. Kein Konto. Keine Cloud-Synchronisierung.';
+      'Ihre Daten zur Zwangsstörung bleiben auf diesem Gerät. Kein Konto. Keine Cloud-Synchronisierung.';
 
   @override
   String get getStartedAction => 'Loslegen';
@@ -661,14 +660,15 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get onboardingErpTitle =>
-      'Ich möchte üben, einen Zwang nicht auszuführen';
+      'Ich möchte üben, eine Zwangshandlung nicht auszuführen';
 
   @override
-  String get onboardingErpSubtitle => 'Eine kurze, geführte Exposition.';
+  String get onboardingErpSubtitle =>
+      'Eine kurze, geführte Reizkonfrontation mit Reaktionsverhinderung (ERP).';
 
   @override
   String get onboardingSelfCheckTitle =>
-      'Ich möchte sehen, wo mein OCD gerade steht';
+      'Ich möchte meine Zwangsmuster einschätzen';
 
   @override
   String get onboardingSelfCheckSubtitle =>
@@ -686,10 +686,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get whatsNewBody =>
-      'Patterns 1.10 bietet ruhigere Einblicke, sanftere Abschlüsse, bessere Barrierefreiheit und eine optionale Sprachauswahl.';
+      'Patterns 1.10 bietet sachliche Einblicke, ruhigere Abschlüsse, bessere Barrierefreiheit und eine optionale Sprachauswahl.';
 
   @override
-  String get whatsNewLanguagesTitle => 'Ruhige Einblicke';
+  String get whatsNewLanguagesTitle => 'Sachliche Einblicke';
 
   @override
   String get whatsNewLanguagesBody =>
@@ -700,7 +700,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get whatsNewPrivateBody =>
-      'Tagebuch-, Tracking-, Aufschub- und ERP-Sitzungen enden jetzt mit einer sachlichen Bestätigung und „Für jetzt fertig“.';
+      'Tagebuch-, Tracking-, Aufschub- und ERP-Sitzungen enden jetzt mit einer sachlichen Bestätigung und „Für den Moment fertig“.';
 
   @override
   String get whatsNewReportsTitle => 'Barriereärmer, in Ihrer Sprache';
@@ -717,7 +717,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get whatsNewNotificationNote =>
-      'Ihre Einträge bleiben unverändert. Sprache und Ruhige Einblicke bleiben auf diesem Gerät und werden weder in Analysen noch in Backups aufgenommen.';
+      'Ihre Einträge bleiben unverändert. Sprache und Sachliche Einblicke bleiben auf diesem Gerät und werden weder in Analysen noch in Sicherungen aufgenommen.';
 
   @override
   String get formatBold => 'Fett';
@@ -746,7 +746,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String recoveryScoreSemantics(int score) {
-    return 'Recovery-Punktzahl: $score von 100.';
+    return 'Übungswert: $score von 100.';
   }
 
   @override
@@ -754,11 +754,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get privacyLocalContent =>
-      'Tagebucheinträge, OCD-Ereignisse, Belastungswerte, Reflexionen und App-Einstellungen werden lokal auf diesem Gerät gespeichert.';
+      'Tagebucheinträge, Zwangsmomente, Belastungswerte, Reflexionen und App-Einstellungen werden lokal auf diesem Gerät gespeichert.';
 
   @override
   String get privacyPurchases =>
-      'Patterns Pro und Trinkgelder werden vom App Store verarbeitet. Patterns erhält keine Daten Ihrer Zahlungskarte.';
+      'Patterns Pro und Trinkgelder werden vom jeweiligen App-Store verarbeitet. Patterns erhält keine Zahlungskartendaten.';
 
   @override
   String get privacyExports =>
@@ -766,11 +766,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get privacyAnalytics =>
-      'Anonyme Nutzungsanalysen sind aus, bis Sie sie aktivieren. Wenn aktiviert, sendet Patterns benannte Funktionsereignisse, eine zufällige Installations-ID, Plattform, App-Version und Ereigniszeit an den eigenen Dienst. Tagebucheinträge, OCD-Daten, erstellte Zusammenfassungen, Region und Sprachauswahl werden nie einbezogen. Beim Ausschalten werden ausstehende Ereignisse und die lokale Analyse-ID gelöscht.';
+      'Anonyme Nutzungsanalysen sind deaktiviert, bis Sie sie einschalten. Wenn sie aktiviert sind, sendet Patterns benannte Ereignisse zur Funktionsnutzung, eine zufällige Installations-ID, die Plattform, die App-Version und die Ereigniszeit an den eigenen Dienst. Tagebucheinträge, Daten zur Zwangsstörung, erstellte Zusammenfassungen, Region und Sprachauswahl werden nie einbezogen. Beim Ausschalten werden ausstehende Ereignisse und die lokale Analyse-ID gelöscht.';
 
   @override
   String get privacyClinicalBoundary =>
-      'Patterns ist ein Selbsthilfetool für persönliche Reflexion und ERP-Übungen. Es diagnostiziert oder behandelt OCD nicht, ersetzt keine qualifizierte fachliche Betreuung und bietet keine Notfallhilfe.';
+      'Patterns ist ein Selbsthilfetool für persönliche Reflexion und Übungen zur Reizkonfrontation mit Reaktionsverhinderung (ERP). Es diagnostiziert oder behandelt keine Zwangsstörung, ersetzt keine qualifizierte fachliche Betreuung und bietet keine Notfallhilfe.';
 
   @override
   String get viewPrivacyPolicyAction => 'Vollständige Datenschutzerklärung';
@@ -846,7 +846,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get proPaywallUnlockedBody =>
-      'Patterns Pro ist freigeschaltet. Alle Recovery-Werkzeuge sind jetzt verfügbar.';
+      'Patterns Pro ist freigeschaltet. Alle Selbsthilfeübungen sind jetzt verfügbar.';
 
   @override
   String get proPaywallContinueAction => 'Weiter';
@@ -855,14 +855,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get proPaywallLoadingLabel => 'Patterns Pro wird geladen';
 
   @override
-  String get proHeadlineSettings =>
-      'Mehr als protokollieren: Recovery aktiv üben';
+  String get proHeadlineSettings => 'Mehr als protokollieren: aktiv üben';
 
   @override
   String get proHeadlineTodayNextStep => 'Auf der heutigen Übung aufbauen';
 
   @override
-  String get proHeadlineRecoveryMetrics => 'Ihre Recovery-Aktivitäten ansehen';
+  String get proHeadlineRecoveryMetrics => 'Ihre Übungsaktivitäten ansehen';
 
   @override
   String get proHeadlineExposureHierarchy =>
@@ -874,11 +873,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get proHeadlineStructuredPrograms =>
-      'Recovery in eine Routine integrieren';
+      'Übungen in eine Routine integrieren';
 
   @override
   String get proHeadlineActionPlanner =>
-      'Ihre Reaktion planen, bevor OCD auftaucht';
+      'Ihre Reaktion planen, bevor die Zwangsstörung auftritt';
 
   @override
   String get proHeadlineImplementationIntentions =>
@@ -896,7 +895,8 @@ class AppLocalizationsDe extends AppLocalizations {
       'Üben, dem Vielleicht Raum zu geben';
 
   @override
-  String get proHeadlineBehavioralExperiments => 'OCD-Vorhersagen überprüfen';
+  String get proHeadlineBehavioralExperiments =>
+      'Vorhersagen der Zwangsstörung überprüfen';
 
   @override
   String get proHeadlineReflectionJournal =>
@@ -912,7 +912,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get proBenefitGeneralReview =>
-      'Recovery-Aktivitäten und Reflexionen ansehen';
+      'Übungsaktivitäten und Reflexionen ansehen';
 
   @override
   String get proBenefitMetricsActivity =>
@@ -923,7 +923,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'Aufgezeichnete Aktivitäten ansehen, ohne einzelne Tage zu bewerten';
 
   @override
-  String get proBenefitMetricsPatterns => 'Sachliche Recovery-Muster erkunden';
+  String get proBenefitMetricsPatterns => 'Sachliche Übungsmuster erkunden';
 
   @override
   String get proBenefitExposureLadder =>
@@ -988,7 +988,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get proRestoreSucceeded =>
-      'Patterns Pro wurde wiederhergestellt. Alle Recovery-Werkzeuge sind wieder freigeschaltet.';
+      'Patterns Pro wurde wiederhergestellt. Alle Selbsthilfeübungen sind wieder freigeschaltet.';
 
   @override
   String get tipJarTitle => 'Patterns unterstützen';
@@ -1576,7 +1576,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get todayCheckInAction => 'Eintragen';
 
   @override
-  String get todayRecoveryScore => 'Recovery-Wert';
+  String get todayRecoveryScore => 'Übungswert';
 
   @override
   String todayActivitiesLastSevenDays(int count) {
@@ -1643,7 +1643,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get todayReflectProcess => 'Reflektieren und verarbeiten';
 
   @override
-  String get todayRecoveryTools => 'Recovery-Werkzeuge';
+  String get todayRecoveryTools => 'Selbsthilfeübungen';
 
   @override
   String get todaySupportPractice => 'Unterstützung für Ihre Praxis';
@@ -1819,7 +1819,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'Erfassen Sie nur, was hilfreich erscheint. Eine kurze Notiz genügt.';
 
   @override
-  String get trackerEmptyAction => 'OCD-Ereignis erfassen';
+  String get trackerEmptyAction => 'Zwangsmoment erfassen';
 
   @override
   String get insightsTitle => 'Einblicke';
@@ -1889,14 +1889,14 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get insightsYbocsEmpty =>
-      'Nach dem Selbsttest beginnt Ihr erfasster Gesamtwert hier eine Linie.';
+      'Nach dem Selbstcheck beginnt Ihr erfasster Gesamtwert hier eine Linie.';
 
   @override
   String get insightsOutOfFortyShort => '/40';
 
   @override
   String insightsYbocsSingleResult(String severity) {
-    return 'Bereich $severity. Wiederholen Sie den Selbsttest in einigen Wochen, um einen weiteren erfassten Punkt hinzuzufügen.';
+    return 'Bereich $severity. Wiederholen Sie den Selbstcheck in einigen Wochen, um einen weiteren erfassten Punkt hinzuzufügen.';
   }
 
   @override
@@ -1909,8 +1909,8 @@ class AppLocalizationsDe extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count Selbsttests',
-      one: '1 Selbsttest',
+      other: '$count Selbstchecks',
+      one: '1 Selbstcheck',
     );
     return 'über $_temp0';
   }
@@ -2061,11 +2061,11 @@ class AppLocalizationsDe extends AppLocalizations {
   String get insightsThemeOther => 'Sonstiges';
 
   @override
-  String get recoveryTitle => 'Recovery';
+  String get recoveryTitle => 'Übungen';
 
   @override
   String get recoverySubtitle =>
-      'Hilfen und Übungen, passend zu deinem aktuellen Schritt.';
+      'Hilfen und Übungen, passend zu Ihrem aktuellen Schritt.';
 
   @override
   String get recoveryImmediateHelpTitle =>
@@ -2074,23 +2074,23 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String recoveryToolTitle(String tool) {
     String _temp0 = intl.Intl.selectLogic(tool, {
-      'emergencyToolkit': 'Notfall-Toolkit',
+      'emergencyToolkit': 'Hilfe für schwierige Momente',
       'copingLibrary': 'Hilfen zum Bewältigen',
       'compulsionDelay': 'Zwangshandlung aufschieben',
-      'ybocsSelfCheck': 'OCD-Selbstcheck',
-      'recoveryMetrics': 'Recovery-Aktivität',
+      'ybocsSelfCheck': 'Selbstcheck zur Zwangsstörung',
+      'recoveryMetrics': 'Übungsaktivität',
       'exposureHierarchy': 'Expositionshierarchie',
       'exposureMaterials': 'Expositionsmaterialien',
       'structuredPrograms': 'Strukturierte Programme',
       'actionPlanner': 'Handlungsplan',
       'implementationIntentions': 'Wenn-dann-Pläne',
-      'guidedErp': 'Begleitete ERP',
-      'urgeSurfing': 'Drang surfen',
+      'guidedErp': 'Geführte ERP-Übung',
+      'urgeSurfing': 'Drang wie eine Welle beobachten',
       'responsePrevention': 'Reaktionsverhinderung',
       'uncertaintyTraining': 'Unsicherheit üben',
       'behavioralExperiments': 'Verhaltensexperimente',
       'reflectionJournal': 'Reflexionstagebuch',
-      'other': 'Recovery-Hilfe',
+      'other': 'Selbsthilfeübung',
     });
     return '$_temp0';
   }
@@ -2098,23 +2098,23 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String recoveryToolSubtitle(String tool) {
     String _temp0 = intl.Intl.selectLogic(tool, {
-      'emergencyToolkit': 'Schnelle Hilfe zum Stabilisieren.',
+      'emergencyToolkit': 'Kurze Übungen zum Ankommen.',
       'copingLibrary': 'Ankommen und neu orientieren.',
       'compulsionDelay': 'Vor dem Reagieren Raum schaffen.',
-      'ybocsSelfCheck': 'Ein Y-BOCS-Check-in.',
+      'ybocsSelfCheck': 'Ein Y-BOCS-Selbstcheck.',
       'recoveryMetrics': 'Aufgezeichnete Aktivität ansehen.',
-      'exposureHierarchy': 'Deine Stufenleiter aufbauen.',
+      'exposureHierarchy': 'Ihre Stufenleiter aufbauen.',
       'exposureMaterials': 'Skripte und Links sammeln.',
       'structuredPrograms': 'Begleitete Wochen durchgehen.',
       'actionPlanner': 'Reaktionen vorausplanen.',
       'implementationIntentions': 'Wenn-dann-Pläne erstellen.',
       'guidedErp': 'Einen Plan üben.',
-      'urgeSurfing': 'Auf der Welle bleiben.',
-      'responsePrevention': 'Festhalten, was du stattdessen getan hast.',
+      'urgeSurfing': 'Bei der Welle bleiben.',
+      'responsePrevention': 'Festhalten, was Sie stattdessen getan haben.',
       'uncertaintyTraining': 'Dem Vielleicht Raum geben.',
-      'behavioralExperiments': 'Die Vorhersage von OCD prüfen.',
-      'reflectionJournal': 'Festhalten, was dir aufgefallen ist.',
-      'other': 'Eine Recovery-Hilfe öffnen.',
+      'behavioralExperiments': 'Die Vorhersage der Zwangsstörung prüfen.',
+      'reflectionJournal': 'Festhalten, was Ihnen aufgefallen ist.',
+      'other': 'Eine Selbsthilfeübung öffnen.',
     });
     return '$_temp0';
   }
@@ -2134,11 +2134,11 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String recoveryStageSubtitle(String stage) {
     String _temp0 = intl.Intl.selectLogic(stage, {
-      'assess': 'Sieh, wo du gerade stehst.',
-      'plan': 'Bereite deine Übung vor.',
-      'practice': 'Mach eine Übung.',
-      'review': 'Reflektiere und lerne.',
-      'other': 'Wähle, was hilfreich ist.',
+      'assess': 'Sehen Sie, wo Sie gerade stehen.',
+      'plan': 'Bereiten Sie Ihre Übung vor.',
+      'practice': 'Machen Sie eine Übung.',
+      'review': 'Halten Sie fest, was Ihnen aufgefallen ist.',
+      'other': 'Wählen Sie, was hilfreich ist.',
     });
     return '$_temp0';
   }
@@ -2158,15 +2158,15 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get delayNameUrgeValidation =>
-      'Wenn du bereit bist, benenne den Drang, mit dem du sitzen möchtest.';
+      'Wenn Sie bereit sind, benennen Sie kurz den Drang, bei dem Sie bleiben möchten.';
 
   @override
   String get delayOutcomeValidation =>
-      'Wenn du bereit bist, wähle aus, was du am Ende getan hast.';
+      'Wenn Sie bereit sind, wählen Sie aus, was Sie am Ende getan haben.';
 
   @override
   String get delaySaveError =>
-      'Deine Übung konnte nicht gespeichert werden. Bitte versuche es erneut.';
+      'Ihre Übung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.';
 
   @override
   String get delayStopEarlyTitle => 'Früher aufhören?';
@@ -2185,7 +2185,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get delaySetupTitle => 'Den Drang pausieren';
 
   @override
-  String get delayUrgeQuestion => 'Mit welchem Drang sitzt du gerade?';
+  String get delayUrgeQuestion =>
+      'Bei welchem Drang möchten Sie gerade bleiben?';
 
   @override
   String get delayUrgeHint =>
@@ -2195,7 +2196,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get delayUrgeBeforeLabel => 'Wie stark ist der Drang gerade?';
 
   @override
-  String get delayDurationQuestion => 'Wie lange möchtest du warten?';
+  String get delayDurationQuestion => 'Wie lange möchten Sie warten?';
 
   @override
   String get delayDurationGroupLabel => 'Dauer des Aufschubs';
@@ -2204,11 +2205,11 @@ class AppLocalizationsDe extends AppLocalizations {
   String get delayBeginAction => 'Beginnen';
 
   @override
-  String get delayCountdownTitle => 'Du bleibst bei dem Gefühl';
+  String get delayCountdownTitle => 'Sie bleiben bei dem Gefühl';
 
   @override
   String get delayCountdownBody =>
-      'Nimm den Drang wahr, ohne zu handeln. Du kannst entscheiden, was als Nächstes passiert.';
+      'Nehmen Sie den Drang wahr, ohne zu handeln. Sie entscheiden, was als Nächstes passiert.';
 
   @override
   String get delayReflectionTitle => 'Was ist passiert?';
@@ -2219,7 +2220,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'completed':
           'Die geplante Zeit ist beendet. Die Angaben unten sind freiwillig.',
       'early':
-          'Du hast den Timer früher beendet. Die Angaben unten sind freiwillig.',
+          'Sie haben den Timer früher beendet. Die Angaben unten sind freiwillig.',
       'other': 'Der Timer ist beendet. Die Angaben unten sind freiwillig.',
     });
     return '$_temp0';
@@ -2229,13 +2230,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get delayUrgeAfterLabel => 'Wie stark ist der Drang jetzt?';
 
   @override
-  String get delayOutcomeQuestion => 'Was hast du mit dem Drang gemacht?';
+  String get delayOutcomeQuestion => 'Was haben Sie mit dem Drang gemacht?';
 
   @override
   String get delayOutcomeGroupLabel => 'Aufgezeichnetes Ergebnis';
 
   @override
-  String get delayNoteLabel => 'Ist dir etwas aufgefallen? (optional)';
+  String get delayNoteLabel => 'Ist Ihnen etwas aufgefallen? (optional)';
 
   @override
   String get delayNoteHint => 'Eine kurze Notiz reicht.';
@@ -2294,9 +2295,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String erpFlowText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'outcomeValidation':
-          'Wenn du bereit bist, wähle aus, was während der Übung passiert ist.',
+          'Wenn Sie bereit sind, wählen Sie aus, was während der Übung passiert ist.',
       'saveError':
-          'Deine ERP-Übung konnte nicht gespeichert werden. Bitte versuche es erneut.',
+          'Ihre ERP-Übung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.',
       'stopTitle': 'Früher aufhören?',
       'stopBody':
           'Es ist in Ordnung aufzuhören. Die geübte Zeit kann trotzdem gespeichert werden.',
@@ -2306,21 +2307,21 @@ class AppLocalizationsDe extends AppLocalizations {
       'duration': 'Dauer',
       'start': 'Übung starten',
       'countdownCue': 'Üben ohne',
-      'resisting': 'Reaktion, die du nicht ausführst',
+      'resisting': 'Reaktion, die Sie nicht ausführen',
       'countdownBody':
-          'Du musst die Vorhersage nicht widerlegen, bevor der Timer endet.',
+          'Sie müssen die Vorhersage nicht widerlegen, bevor der Timer endet.',
       'stopEarly': 'Früher aufhören',
-      'reflectionTitle': 'Reflektieren',
+      'reflectionTitle': 'Notizen (optional)',
       'reflectionBody':
-          'Die Angaben unten sind freiwillig. Halte nur fest, was für dich hilfreich ist.',
+          'Die Angaben unten sind freiwillig. Halten Sie nur fest, was für Sie hilfreich ist.',
       'anxietyAfter': 'Wie stark ist es jetzt?',
-      'outcomeQuestion': 'Was hast du getan?',
+      'outcomeQuestion': 'Was haben Sie getan?',
       'whatHappened': 'Was ist tatsächlich passiert?',
       'whatHappenedHint':
-          'Was ist dir während oder nach der Übung aufgefallen?',
+          'Was ist Ihnen während oder nach der Übung aufgefallen?',
       'learning': 'Für das nächste Mal',
       'learningHint':
-          'Woran möchtest du dich erinnern, wenn OCD das nächste Mal fragt?',
+          'Woran möchten Sie sich erinnern, wenn die Zwangsstörung das nächste Mal Gewissheit verlangt?',
       'exposure': 'Exposition',
       'prediction': 'Vorhersage',
       'commitment': 'Vorhaben',
@@ -2335,7 +2336,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String erpReflectionStatus(String status) {
     String _temp0 = intl.Intl.selectLogic(status, {
       'completed': 'Die geplante Zeit ist beendet.',
-      'early': 'Du hast den Timer früher beendet.',
+      'early': 'Sie haben den Timer früher beendet.',
       'other': 'Der Timer ist beendet.',
     });
     return '$_temp0';
@@ -2360,9 +2361,9 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String erpPlanText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
-      'title': 'Geführte ERP',
+      'title': 'Geführte ERP-Übung',
       'subtitle':
-          'Nutze einen Plan erneut, übe und halte fest, was passiert ist.',
+          'Nutzen Sie einen Plan erneut, üben Sie und halten Sie fest, was passiert ist.',
       'myPlans': 'Meine ERP-Pläne',
       'newAction': 'Neu',
       'plansError': 'ERP-Pläne sind gerade nicht verfügbar.',
@@ -2370,30 +2371,30 @@ class AppLocalizationsDe extends AppLocalizations {
       'historyError': 'Der Übungsverlauf ist gerade nicht verfügbar.',
       'archiveTitle': 'Diesen Plan archivieren?',
       'archiveBody':
-          'Er wird aus deinen aktiven Plänen entfernt, vergangene Übungen bleiben aber im Verlauf.',
+          'Er wird aus Ihren aktiven Plänen entfernt, vergangene Übungen bleiben aber im Verlauf.',
       'keepAction': 'Behalten',
       'archiveAction': 'Archivieren',
       'exposureValidation':
-          'Wenn du bereit bist, benenne die Situation, mit der du üben möchtest.',
+          'Wenn Sie bereit sind, benennen Sie die Situation, mit der Sie üben möchten.',
       'commitmentValidation':
-          'Wähle die Reaktion, die du nicht ausführen möchtest, damit der Plan gespeichert werden kann.',
+          'Wählen Sie die Reaktion, die Sie nicht ausführen möchten, damit der Plan gespeichert werden kann.',
       'saveError':
-          'Dein ERP-Plan konnte nicht gespeichert werden. Bitte versuche es erneut.',
+          'Ihr ERP-Plan konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.',
       'updated': 'ERP-Plan aktualisiert.',
       'created': 'ERP-Plan erstellt.',
       'editTitle': 'ERP-Plan bearbeiten',
       'createTitle': 'ERP-Plan erstellen',
       'exerciseType': 'Übungsart',
       'exposureTarget': 'Expositionsziel',
-      'ocdPrediction': 'OCD-Vorhersage',
+      'ocdPrediction': 'Vorhersage der Zwangsstörung',
       'preventionCommitment': 'Vorhaben zur Reaktionsverhinderung',
       'defaultDuration': 'Standarddauer',
       'saving': 'Wird gespeichert…',
       'saveAction': 'Plan speichern',
       'createAction': 'Plan erstellen',
-      'emptyTitle': 'Erstelle deinen ersten ERP-Plan',
+      'emptyTitle': 'Erstellen Sie Ihren ersten ERP-Plan',
       'emptyBody':
-          'Notiere Exposition, Vorhersage und die Reaktion, die du nicht ausführen möchtest, einmal. Danach kannst du den Plan wiederverwenden.',
+          'Notieren Sie Exposition, Vorhersage und die Reaktion, die Sie nicht ausführen möchten. Danach können Sie den Plan wiederverwenden.',
       'moreActions': 'Weitere Planaktionen',
       'editAction': 'Plan bearbeiten',
       'archivePlanAction': 'Plan archivieren',
@@ -2417,7 +2418,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get erpFirstRunPrediction =>
-      'OCD sagt, dass sich das Unbehagen nur ändert, wenn du reagierst.';
+      'Die Zwangsstörung sagt, dass sich das Unbehagen nur ändert, wenn Sie reagieren.';
 
   @override
   String erpTemplateTitle(String template) {
@@ -2435,13 +2436,16 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String erpTemplateSubtitle(String template) {
     String _temp0 = intl.Intl.selectLogic(template, {
-      'delayChecking': 'Übe für kurze Zeit, etwas ungeprüft zu lassen.',
-      'delayReassurance': 'Warte, bevor du jemanden um Gewissheit bittest.',
-      'delayGoogling': 'Schiebe die Suche nach Gewissheit oder Beweisen auf.',
-      'delayRumination': 'Bemerke mentales Problemlösen, ohne ihm zu folgen.',
+      'delayChecking': 'Üben Sie für kurze Zeit, etwas ungeprüft zu lassen.',
+      'delayReassurance':
+          'Warten Sie, bevor Sie jemanden um Gewissheit bitten.',
+      'delayGoogling':
+          'Schieben Sie die Suche nach Gewissheit oder Beweisen auf.',
+      'delayRumination':
+          'Bemerken Sie mentales Problemlösen, ohne ihm zu folgen.',
       'delayWashing':
-          'Warte, bevor du erneut wäschst, reinigst oder desinfizierst.',
-      'other': 'Übe, eine Reaktion aufzuschieben.',
+          'Warten Sie, bevor Sie erneut waschen, reinigen oder desinfizieren.',
+      'other': 'Üben Sie, eine Reaktion aufzuschieben.',
     });
     return '$_temp0';
   }
@@ -2450,16 +2454,16 @@ class AppLocalizationsDe extends AppLocalizations {
   String erpTemplateIntro(String template) {
     String _temp0 = intl.Intl.selectLogic(template, {
       'delayChecking':
-          'Erstelle einen wiederverwendbaren Plan für Momente, in denen OCD dich drängt, Schlösser, Schalter, Nachrichten, Symptome oder Fehler erneut zu prüfen.',
+          'Erstellen Sie einen wiederverwendbaren Plan für Momente, in denen die Zwangsstörung Sie drängt, Schlösser, Schalter, Nachrichten, Symptome oder Fehler erneut zu prüfen.',
       'delayReassurance':
-          'Erstelle einen Plan für den Drang, zu fragen, zu gestehen, zu erklären oder dir bestätigen zu lassen, dass alles in Ordnung ist.',
+          'Erstellen Sie einen Plan für den Drang, zu fragen, zu gestehen, zu erklären oder sich bestätigen zu lassen, dass alles in Ordnung ist.',
       'delayGoogling':
-          'Erstelle einen Plan für Momente, in denen OCD dich nach Symptomen, Bedeutungen, Risiken, Regeln oder Geschichten suchen lässt, bis du dich sicher fühlst.',
+          'Erstellen Sie einen Plan für Momente, in denen die Zwangsstörung Sie nach Symptomen, Bedeutungen, Risiken, Regeln oder Berichten suchen lässt, bis Sie sich sicher fühlen.',
       'delayRumination':
-          'Erstelle einen Plan für mentale Zwänge wie Wiederholen, Beweisen, Überprüfen oder Lösen.',
+          'Erstellen Sie einen Plan für mentale Zwänge wie Wiederholen, Beweisen, Überprüfen oder Lösen.',
       'delayWashing':
-          'Erstelle einen Plan für den Drang zu waschen, zu reinigen, zu desinfizieren oder neu anzufangen, weil sich etwas verunreinigt anfühlt.',
-      'other': 'Erstelle einen wiederverwendbaren ERP-Übungsplan.',
+          'Erstellen Sie einen Plan für den Drang zu waschen, zu reinigen, zu desinfizieren oder neu anzufangen, weil sich etwas verunreinigt anfühlt.',
+      'other': 'Erstellen Sie einen wiederverwendbaren ERP-Übungsplan.',
     });
     return '$_temp0';
   }
@@ -2468,17 +2472,17 @@ class AppLocalizationsDe extends AppLocalizations {
   String erpTemplateWhy(String template) {
     String _temp0 = intl.Intl.selectLogic(template, {
       'delayChecking':
-          'Mit ERP kannst du üben, Unsicherheit da sein zu lassen, ohne sofort ein Ritual auszuführen.',
+          'Mit ERP können Sie üben, Unsicherheit da sein zu lassen, ohne sofort ein Ritual auszuführen.',
       'delayReassurance':
-          'Rückversicherung kann sich im Moment hilfreich anfühlen; wenn du sie aufschiebst, kannst du üben, etwas nicht zu wissen.',
+          'Wiederholt Bestätigung zu suchen kann sich im Moment hilfreich anfühlen. Wenn Sie es aufschieben, können Sie üben, etwas nicht zu wissen.',
       'delayGoogling':
-          'Das Aufschieben der Suche unterbricht die Gewissheitsschleife und lässt dich üben, eine Frage unbeantwortet zu lassen.',
+          'Das Aufschieben der Suche unterbricht die Gewissheitsschleife und lässt Sie üben, eine Frage unbeantwortet zu lassen.',
       'delayRumination':
-          'Grübeln kann wie Denken wirken; ERP lässt dich üben, die Schleife zu verlassen, ohne das Argument zu Ende zu führen.',
+          'Grübeln kann wie Denken wirken. ERP lässt Sie üben, die Schleife zu verlassen, ohne das Argument zu Ende zu führen.',
       'delayWashing':
-          'Durch Warten kannst du üben, ein Verunreinigungsgefühl da sein zu lassen, ohne sofort ein Ritual auszuführen.',
+          'Durch Warten können Sie üben, ein Verunreinigungsgefühl da sein zu lassen, ohne sofort ein Ritual auszuführen.',
       'other':
-          'Bei ERP übst du, Unsicherheit ohne ein sofortiges Ritual zuzulassen.',
+          'Bei ERP üben Sie, Unsicherheit ohne ein sofortiges Ritual zuzulassen.',
     });
     return '$_temp0';
   }
@@ -2487,34 +2491,35 @@ class AppLocalizationsDe extends AppLocalizations {
   String erpTemplatePrompt(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'delayCheckingExposure':
-          'Was lässt du ungeprüft oder prüfst du nur einmal?',
+          'Was lassen Sie ungeprüft oder prüfen Sie nur einmal?',
       'delayCheckingPrediction':
-          'Was sagt OCD voraus, wenn du nicht erneut prüfst?',
+          'Was sagt die Zwangsstörung voraus, wenn Sie nicht erneut prüfen?',
       'delayCheckingCommitment':
-          'Welches Kontrollritual möchtest du nicht ausführen?',
-      'delayReassuranceExposure':
-          'Welche Rückversicherung möchtest du erfragen?',
+          'Welches Kontrollritual möchten Sie nicht ausführen?',
+      'delayReassuranceExposure': 'Um welche Bestätigung möchten Sie bitten?',
       'delayReassurancePrediction':
-          'Was sagt OCD voraus, wenn du nicht fragst?',
+          'Was sagt die Zwangsstörung voraus, wenn Sie nicht fragen?',
       'delayReassuranceCommitment':
-          'Welche Nachricht, welches Geständnis oder welche Frage wirst du zurückhalten?',
+          'Welche Nachricht, welches Geständnis oder welche Frage möchten Sie zurückhalten?',
       'delayGooglingExposure':
-          'Welche Suche oder Frage lässt du unbeantwortet?',
-      'delayGooglingPrediction': 'Was musst du laut OCD jetzt wissen?',
+          'Welche Suche oder Frage lassen Sie unbeantwortet?',
+      'delayGooglingPrediction':
+          'Was müssen Sie laut der Zwangsstörung jetzt wissen?',
       'delayGooglingCommitment':
-          'Welche Suche, welchen Artikel oder welches Forum wirst du meiden?',
+          'Welche Suche, welchen Artikel oder welches Forum möchten Sie meiden?',
       'delayRuminationExposure':
-          'Welche Gedankenschleife lässt du unvollendet?',
-      'delayRuminationPrediction': 'Was musst du laut OCD lösen oder beweisen?',
+          'Welche Gedankenschleife lassen Sie unvollendet?',
+      'delayRuminationPrediction':
+          'Was müssen Sie laut der Zwangsstörung lösen oder beweisen?',
       'delayRuminationCommitment':
-          'Welche mentale Prüfung oder Argumentation wirst du nicht fortsetzen?',
+          'Welche mentale Prüfung oder Argumentation möchten Sie nicht fortsetzen?',
       'delayWashingExposure':
-          'Welche normale Hygienegrenze wirst du einhalten?',
+          'Welche normale Hygienegrenze möchten Sie einhalten?',
       'delayWashingPrediction':
-          'Was sagt OCD voraus, wenn du nicht erneut wäschst?',
+          'Was sagt die Zwangsstörung voraus, wenn Sie nicht erneut waschen?',
       'delayWashingCommitment':
-          'Welches zusätzliche Waschen, Reinigen oder Desinfizieren wirst du nicht ausführen?',
-      'other': 'Welche Reaktion möchtest du nicht ausführen?',
+          'Welches zusätzliche Waschen, Reinigen oder Desinfizieren möchten Sie nicht ausführen?',
+      'other': 'Welche Reaktion möchten Sie nicht ausführen?',
     });
     return '$_temp0';
   }
@@ -2522,38 +2527,39 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String erpTemplateInstruction(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
-      'delayChecking1': 'Lege vor Beginn eine Kontrollregel fest.',
+      'delayChecking1': 'Legen Sie vor Beginn eine Kontrollregel fest.',
       'delayChecking2':
-          'Prüfe einmal wie geplant, wenn dies zur normalen Sicherheit gehört.',
-      'delayChecking3': 'Prüfe während des Timers nicht erneut.',
-      'delayChecking4': 'Bemerke den Drang, ohne mit ihm zu verhandeln.',
+          'Prüfen Sie einmal wie geplant, wenn dies zur normalen Sicherheit gehört.',
+      'delayChecking3': 'Prüfen Sie während des Timers nicht erneut.',
+      'delayChecking4': 'Bemerken Sie den Drang, ohne mit ihm zu verhandeln.',
       'delayReassurance1':
-          'Lege die Bitte um Rückversicherung vor Beginn fest.',
+          'Legen Sie vor Beginn fest, um welche Bestätigung Sie bitten würden.',
       'delayReassurance2':
-          'Sende während des Timers keine Nachricht und stelle die Frage nicht.',
+          'Senden Sie während des Timers keine Nachricht und stellen Sie die Frage nicht.',
       'delayReassurance3':
-          'Lass das Unbehagen da sein, ohne Gewissheit zu suchen.',
+          'Lassen Sie das Unbehagen da sein, ohne Gewissheit zu suchen.',
       'delayReassurance4':
-          'Kehre so sanft wie möglich zu deiner vorherigen Tätigkeit zurück.',
-      'delayGoogling1': 'Lege die Suche fest, bevor du etwas anderes öffnest.',
-      'delayGoogling2': 'Schließe das Suchfeld oder den Browser-Tab.',
-      'delayGoogling3': 'Starte den Timer, bevor du etwas anderes liest.',
-      'delayGoogling4': 'Lass die Frage vorerst unbeantwortet.',
+          'Kehren Sie so behutsam wie möglich zu Ihrer vorherigen Tätigkeit zurück.',
+      'delayGoogling1':
+          'Legen Sie die Suche fest, bevor Sie etwas anderes öffnen.',
+      'delayGoogling2': 'Schließen Sie das Suchfeld oder den Browser-Tab.',
+      'delayGoogling3': 'Starten Sie den Timer, bevor Sie etwas anderes lesen.',
+      'delayGoogling4': 'Lassen Sie die Frage vorerst unbeantwortet.',
       'delayRumination1':
-          'Benenne die Schleife: überprüfen, lösen, beweisen oder kontrollieren.',
-      'delayRumination2': 'Lass den Gedanken unvollendet.',
+          'Benennen Sie die Schleife: überprüfen, lösen, beweisen oder kontrollieren.',
+      'delayRumination2': 'Lassen Sie den Gedanken unvollendet.',
       'delayRumination3':
-          'Lenke die Aufmerksamkeit auf eine gewöhnliche Aufgabe oder Empfindung zurück.',
+          'Lenken Sie die Aufmerksamkeit auf eine gewöhnliche Aufgabe oder Empfindung zurück.',
       'delayRumination4':
-          'Beginne jedes Mal sanft neu, wenn die Schleife dich zurückzieht.',
-      'delayWashing1': 'Lege vor Beginn die normale Hygienegrenze fest.',
+          'Beginnen Sie jedes Mal behutsam neu, wenn die Schleife Sie zurückzieht.',
+      'delayWashing1': 'Legen Sie vor Beginn die normale Hygienegrenze fest.',
       'delayWashing2':
-          'Beginne mit einer Verzögerung, die herausfordernd, aber möglich wirkt.',
+          'Beginnen Sie mit einer Verzögerung, die herausfordernd, aber möglich wirkt.',
       'delayWashing3':
-          'Halte deine Hände während des Timers von Waschbecken und Desinfektionsmittel fern.',
+          'Halten Sie Ihre Hände während des Timers von Waschbecken und Desinfektionsmittel fern.',
       'delayWashing4':
-          'Lass das Unbehagen da sein, ohne es perfekt machen zu wollen.',
-      'other': 'Folge deinem gewählten Plan.',
+          'Lassen Sie das Unbehagen da sein, ohne es perfekt machen zu wollen.',
+      'other': 'Folgen Sie Ihrem gewählten Plan.',
     });
     return '$_temp0';
   }
@@ -2586,27 +2592,27 @@ class AppLocalizationsDe extends AppLocalizations {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': 'Strukturierte Programme',
       'subtitle':
-          'Folge in deinem eigenen Tempo einem Plan von Woche zu Woche.',
-      'themeGroup': 'Nach OCD-Thema',
+          'Folgen Sie in Ihrem eigenen Tempo einem Plan von Woche zu Woche.',
+      'themeGroup': 'Nach Zwangsthema',
       'themeGroupEmpty':
-          'Wähle ein Thema, wenn es zu deiner gewünschten Übung passt.',
+          'Wählen Sie ein Thema, wenn es zu Ihrer gewünschten Übung passt.',
       'themeGroupMatched':
-          'Themen aus deinem letzten Selbstcheck sind unten gekennzeichnet.',
+          'Themen aus Ihrem letzten Selbstcheck sind unten gekennzeichnet.',
       'generalGroup': 'Allgemeine Übungen',
       'generalCaption':
           'Fertigkeiten, die bei verschiedenen Themen genutzt werden können.',
       'enrollError':
-          'Dieses Programm konnte nicht geöffnet werden. Bitte versuche es erneut.',
+          'Dieses Programm konnte nicht geöffnet werden. Bitte versuchen Sie es erneut.',
       'started': 'Begonnen',
       'notStarted': 'Nicht begonnen',
       'openHint': 'Programmdetails öffnen',
-      'selfCheckMatch': 'Passt zu deinem Selbstcheck',
+      'selfCheckMatch': 'Passt zu Ihrem Selbstcheck',
       'tapToStart': 'Zum Starten tippen',
       'progressLoadError':
-          'Die Programmaktivität konnte nicht geladen werden. Bitte versuche es erneut.',
-      'activityRecorded': 'Deine Aufgabenauswahl wird lokal gespeichert.',
+          'Die Programmaktivität konnte nicht geladen werden. Bitte versuchen Sie es erneut.',
+      'activityRecorded': 'Ihre Aufgabenauswahl wird lokal gespeichert.',
       'taskSaveError':
-          'Diese Aufgabenänderung konnte nicht gespeichert werden. Bitte versuche es erneut.',
+          'Diese Aufgabenänderung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.',
       'weekComplete': 'Alle Aufgaben als abgeschlossen markiert',
       'weekNotComplete': 'Aufgaben verbleiben',
       'weekToggleHint': 'Diese Woche ein- oder ausklappen',
@@ -2896,7 +2902,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'surfingBody':
           'Nehmen Sie Gedanken und Empfindungen wahr und entscheiden Sie, was Sie als Nächstes tun. Sie können jederzeit aufhören.',
       'currentUrgeLabel': 'Drang im Moment',
-      'doneAction': 'Für jetzt fertig',
+      'doneAction': 'Für den Moment fertig',
       'reflectionTitle': 'Festhalten, was Sie bemerkt haben',
       'waveTitle': 'Erfasste Drangstärken',
       'finalUrgeLabel': 'Drang am Ende',
@@ -3002,7 +3008,7 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String ybocsText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
-      'title': 'OCD-Selbstcheck',
+      'title': 'Selbstcheck zur Zwangsstörung',
       'introBody':
           'Ein geführter Selbstcheck auf Grundlage der Yale-Brown Obsessive Compulsive Scale (Y-BOCS) zu den Mustern, die Sie bemerken, und dazu, wie sehr sie Sie beeinträchtigen.',
       'spotTitle': 'Muster wahrnehmen',
@@ -3019,7 +3025,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'privacyDuration':
           'Dauert etwa 10 Minuten. Ihre Antworten bleiben auf diesem Gerät, sofern Sie sie nicht selbst exportieren.',
       'disclaimer':
-          'Dieser Selbstcheck kann Ihnen helfen, Ihre Erfahrung zu beschreiben. Er stellt keine OCD-Diagnose und keine Notfallhilfe dar. Nur qualifizierte Fachpersonen können OCD diagnostizieren.',
+          'Dieser Selbstcheck kann Ihnen helfen, Ihre Erfahrung zu beschreiben. Er stellt keine Diagnose einer Zwangsstörung und keine Notfallhilfe dar. Nur qualifizierte Fachpersonen können eine Zwangsstörung diagnostizieren.',
       'historyTitle': 'Ihr Verlauf',
       'historyBody': 'Ihre zuvor erfassten Gesamtwerte werden hier angezeigt.',
       'deleteTitle': 'Selbstcheck löschen?',
@@ -3171,19 +3177,19 @@ class AppLocalizationsDe extends AppLocalizations {
   String structuredProgramTask(String task) {
     String _temp0 = intl.Intl.selectLogic(task, {
       'w1a': '3 Dränge festhalten, ohne sofort zu handeln',
-      'w1b': 'Einen Zwang dreimal um 1 Minute aufschieben',
-      'w2a': 'Zwänge um 5 Minuten aufschieben',
-      'w2b': 'Einmal Urge Surfing ausprobieren',
+      'w1b': 'Eine Zwangshandlung dreimal um 1 Minute aufschieben',
+      'w2a': 'Zwangshandlungen um 5 Minuten aufschieben',
+      'w2b': 'Einmal einen Drang wie eine Welle beobachten',
       'w3a': 'Um 15 Minuten aufschieben',
-      'w3b': 'Einem Drang nach Rückversicherung widerstehen',
+      'w3b': 'Dem Drang widerstehen, wiederholt Bestätigung zu suchen',
       'w4a': 'Jeden Tag eine Exposition durchführen',
-      'w4b': 'Festhalten, was dir aufgefallen ist',
+      'w4b': 'Festhalten, was Ihnen aufgefallen ist',
       'u1a': 'Eine Frage unbeantwortet lassen',
       'u1b': 'Einmaligem Kontrollieren widerstehen',
-      'u2a': 'Dreimal mit „vielleicht, vielleicht nicht“ antworten',
+      'u2a': 'Dreimal mit „vielleicht, vielleicht auch nicht“ antworten',
       'u2b': 'Die Online-Suche zu einer Sorge aufschieben',
       'u3a': 'Einen Tag lang keine Gewissheit suchen',
-      'u3b': 'Festhalten, was dir aufgefallen ist',
+      'u3b': 'Festhalten, was Ihnen aufgefallen ist',
       'other': 'Programmaufgabe',
     });
     return '$_temp0';
@@ -3197,7 +3203,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'harm': 'Schadens- und Tabugedanken',
       'relationship': 'Beziehungszweifel',
       'justRight': 'Genau-richtig-Gefühl und Symmetrie',
-      'other': 'OCD-Thema',
+      'other': 'Zwangsthema',
     });
     return '$_temp0';
   }
@@ -3208,14 +3214,14 @@ class AppLocalizationsDe extends AppLocalizations {
       'contamination':
           'Für Ängste, dass etwas schmutzig, ansteckend oder unsicher zu berühren ist, und das folgende Waschen oder Reinigen.',
       'checking':
-          'Für Schlösser, Herdplatten, Schalter, Nachrichten und anderes, zu dem du zurückkehrst, weil es sich nicht sicher genug anfühlt.',
+          'Für Schlösser, Herdplatten, Schalter, Nachrichten und anderes, zu dem Sie zurückkehren, weil es sich nicht sicher genug anfühlt.',
       'harm':
-          'Für aufdringliche Gedanken über Schaden oder Themen, die gewalttätig, sexuell oder blasphemisch wirken, sowie folgende Zwänge oder Vermeidung.',
+          'Für aufdringliche Gedanken über Schaden oder Themen, die gewalttätig, sexuell oder blasphemisch wirken, sowie folgende Zwangshandlungen oder Vermeidung.',
       'relationship':
-          'Für wiederkehrende Zweifel daran, ob eine Beziehung richtig ist, ob du genug fühlst oder was der Zweifel bedeutet.',
+          'Für wiederkehrende Zweifel daran, ob eine Beziehung richtig ist, ob Sie genug fühlen oder was der Zweifel bedeutet.',
       'justRight':
           'Für Dinge, die gleichmäßig, geordnet oder wiederholt sein müssen, bis sie sich richtig anfühlen.',
-      'other': 'Ein nach einem OCD-Thema geordneter Übungspfad.',
+      'other': 'Ein nach einem Zwangsthema geordneter Übungspfad.',
     });
     return '$_temp0';
   }
@@ -3228,7 +3234,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'harm': 'Schadens- und Tabugedanken',
       'relationship': 'Beziehungszweifel',
       'justRight': 'Genau richtig',
-      'other': 'OCD-Thema',
+      'other': 'Zwangsthema',
     });
     return '$_temp0';
   }
@@ -3237,7 +3243,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String ocdTrackChecklistNote(String track) {
     String _temp0 = intl.Intl.selectLogic(track, {
       'relationship':
-          'Die Y-BOCS-Checkliste entstand vor der Forschung zu Beziehungs-OCD, daher ist dieses Thema keine ihrer Kategorien. Du kannst diesen Übungspfad trotzdem nutzen.',
+          'Die Y-BOCS-Checkliste entstand vor der Forschung zu beziehungsbezogenen Zwängen. Daher ist dieses Thema keine ihrer Kategorien. Sie können diesen Übungspfad trotzdem nutzen.',
       'other':
           'Dieses Thema ist nicht als Kategorie der Y-BOCS-Checkliste vertreten.',
     });
@@ -3278,7 +3284,8 @@ class AppLocalizationsDe extends AppLocalizations {
       'ct2b': 'Eine Oberfläche zu Hause eine Woche lang ungereinigt lassen',
       'ct3a':
           'An einen Ort gehen, der danach meist zum Waschen anregt, und zu Hause nicht waschen',
-      'ct3b': 'OCDs Vorhersage neben dem tatsächlichen Geschehen notieren',
+      'ct3b':
+          'Die Vorhersage der Zwangsstörung neben dem tatsächlichen Geschehen notieren',
       'ck1a': 'Eine Sache einmal prüfen und ohne zweiten Blick weggehen',
       'ck1b': 'Einmal das Haus ohne abschließenden Rundgang verlassen',
       'ck2a':
@@ -3286,24 +3293,24 @@ class AppLocalizationsDe extends AppLocalizations {
       'ck2b':
           'Eine Nachricht senden, ohne sie davor oder danach erneut zu lesen',
       'ck3a': 'Einen Tag lang nichts ein zweites Mal prüfen',
-      'ck3b': 'Festhalten, was geschah und was OCD vorhersagte',
+      'ck3b': 'Festhalten, was geschah und was die Zwangsstörung vorhersagte',
       'hm1a':
           'Einen aufdringlichen Gedanken eine Minute da sein lassen, ohne mit ihm zu streiten oder ihn wegzudrängen',
       'hm1b':
           'Die mentale Prüfung bemerken, bevor sie beginnt, und sie sein lassen',
       'hm2a':
-          'Nicht fragen, ob du ein guter Mensch bist, und auch nicht nach einer Antwort suchen',
+          'Nicht fragen, ob Sie ein guter Mensch sind, und auch nicht nach einer Antwort suchen',
       'hm2b':
-          'In einer Situation bleiben, die du wegen des Gedankens gemieden hast',
-      'hm3a': 'Einen Tag lang Gefühle nicht als Beweis über dich prüfen',
-      'hm3b': 'Festhalten, wie die Woche war, ohne dich zu bewerten',
+          'In einer Situation bleiben, die Sie wegen des Gedankens gemieden haben',
+      'hm3a': 'Einen Tag lang Gefühle nicht als Beweis über sich selbst prüfen',
+      'hm3b': 'Festhalten, wie die Woche war, ohne sich zu bewerten',
       'rl1a': 'Einen Verträglichkeitstest bemerken und einmal auslassen',
       'rl1b': 'Einen Beziehungszweifel zehn Minuten unbeantwortet lassen',
       'rl2a':
           'Einen Tag lang weder Partner, Freunde noch das Internet fragen, ob die Beziehung richtig ist',
-      'rl2b': 'Etwas zusammen tun, ohne dabei deine Gefühle zu überwachen',
+      'rl2b': 'Etwas zusammen tun, ohne dabei Ihre Gefühle zu überwachen',
       'rl3a':
-          'Mit „vielleicht, vielleicht nicht“ antworten, wenn die Frage kommt',
+          'Mit „vielleicht, vielleicht auch nicht“ antworten, wenn die Frage kommt',
       'rl3b':
           'Über die Woche nachdenken, ohne eine Zukunftsentscheidung zu treffen',
       'jr1a':
@@ -3520,7 +3527,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'title': 'Verhaltensexperimente',
       'newAction': 'Neu',
       'subtitle':
-          'Vergleichen Sie eine OCD-Vorhersage mit dem, was Sie nach einer geplanten Handlung beobachten.',
+          'Vergleichen Sie eine Vorhersage der Zwangsstörung mit dem, was Sie nach einer geplanten Handlung beobachten.',
       'loadError':
           'Ihre Experimente sind derzeit nicht verfügbar. Bitte versuchen Sie es erneut.',
       'deleteTitle': 'Dieses Experiment löschen?',
@@ -3539,18 +3546,18 @@ class AppLocalizationsDe extends AppLocalizations {
       'recordAction': 'Beobachtung festhalten',
       'emptyTitle': 'Ein Verhaltensexperiment planen',
       'emptyBody':
-          'Notieren Sie die Vorhersage von OCD, wählen Sie eine kleine Handlung und halten Sie später Ihre Beobachtung fest.',
+          'Notieren Sie die Vorhersage der Zwangsstörung, wählen Sie eine kleine Handlung und halten Sie später Ihre Beobachtung fest.',
       'emptyAction': 'Neues Experiment',
       'outcomeEditorTitle': 'Beobachtung festhalten',
       'newEditorTitle': 'Neues Experiment',
-      'predictedLabel': 'OCD sagte voraus',
+      'predictedLabel': 'Die Zwangsstörung sagte voraus',
       'testActionLabel': 'Geplante Handlung',
       'outcomeInputLabel': 'Was ist tatsächlich passiert?',
       'outcomeInputHint':
           'Halten Sie Ihre Beobachtung fest, ohne das Ergebnis zu bewerten',
       'learningInputLabel': 'Möchten Sie etwas notieren? (optional)',
       'learningInputHint': 'Ein Detail, an das Sie sich erinnern möchten',
-      'predictionInputLabel': 'Was sagt OCD voraus?',
+      'predictionInputLabel': 'Was sagt die Zwangsstörung voraus?',
       'predictionInputHint':
           'Zum Beispiel: Wenn ich nicht noch einmal kontrolliere, wird das Haus überflutet',
       'confidenceQuestion': 'Wie sicher fühlt sich die Vorhersage an?',
@@ -3562,7 +3569,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'outcomeValidation':
           'Fügen Sie eine kurze Notiz zu Ihrer Beobachtung hinzu.',
       'planValidation':
-          'Fügen Sie sowohl die Vorhersage von OCD als auch Ihre geplante Handlung hinzu.',
+          'Fügen Sie sowohl die Vorhersage der Zwangsstörung als auch Ihre geplante Handlung hinzu.',
       'outcomeSaveSuccess': 'Beobachtung gespeichert.',
       'planSaveSuccess':
           'Experiment gespeichert. Halten Sie nach der Durchführung fest, was passiert ist.',
@@ -3609,14 +3616,15 @@ class AppLocalizationsDe extends AppLocalizations {
           'Diese Reflexion konnte nicht gelöscht werden. Bitte versuchen Sie es erneut.',
       'emptyTitle': 'Über eine Exposition nachdenken',
       'emptyBody':
-          'Halten Sie fest, was passiert ist, was OCD vorhergesagt hat und woran Sie sich erinnern möchten. Nur die erste Frage ist erforderlich.',
+          'Halten Sie fest, was passiert ist, was die Zwangsstörung vorhergesagt hat und woran Sie sich erinnern möchten. Nur die erste Frage ist erforderlich.',
       'emptyAction': 'Neue Reflexion',
       'editorTitle': 'Neue Reflexion',
       'whatHappenedLabel': 'Was ist passiert?',
       'whatHappenedHint':
           'Die Exposition oder Übung, die Sie durchgeführt haben',
-      'predictionLabel': 'Was hat OCD vorhergesagt?',
-      'predictionHint': 'Das Ergebnis, das laut OCD eintreten könnte',
+      'predictionLabel': 'Was hat die Zwangsstörung vorhergesagt?',
+      'predictionHint':
+          'Das Ergebnis, das laut der Zwangsstörung eintreten könnte',
       'actualLabel': 'Was haben Sie beobachtet?',
       'actualHint': 'Was während oder nach der Exposition passiert ist',
       'learningLabel': 'Möchten Sie sich an etwas erinnern? (optional)',
@@ -3719,7 +3727,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String uncertaintyExerciseIntro(String exercise) {
     String _temp0 = intl.Intl.selectLogic(exercise, {
       'maybe':
-          'Wenn OCD Gewissheit verlangt, antworten Sie versuchsweise mit „vielleicht, vielleicht auch nicht“ und richten Sie Ihre Aufmerksamkeit wieder auf das, was Sie getan haben.',
+          'Wenn die Zwangsstörung Gewissheit verlangt, antworten Sie versuchsweise mit „vielleicht, vielleicht auch nicht“ und richten Sie Ihre Aufmerksamkeit wieder auf das, was Sie getan haben.',
       'unanswered':
           'Lassen Sie eine wiederkehrende Frage offen, statt sie zu klären.',
       'resist':
@@ -3825,7 +3833,7 @@ class AppLocalizationsDe extends AppLocalizations {
           'Notieren Sie eine Situation und die Reaktion, die Sie dann ausprobieren möchten.',
       'emptyAction': 'Neuer Handlungsplan',
       'editorTitle': 'Neuer Handlungsplan',
-      'situationLabel': 'Wenn OCD auftaucht',
+      'situationLabel': 'Wenn die Zwangsstörung auftritt',
       'situationHint':
           'Zum Beispiel: Ich bemerke den Drang, nach einem Symptom zu suchen',
       'actionLabel': 'Reaktion, die ich ausprobieren möchte',
@@ -3889,7 +3897,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'importSucceeded': 'Daten importiert.',
       'wipePromptTitle': 'Alle lokalen Daten löschen?',
       'wipePromptBody':
-          'Dadurch werden lokale Tagebucheinträge, OCD-Aufzeichnungen, der Verlauf von Genesungsübungen, lokal gespeicherte Materialien und App-Einstellungen dauerhaft von diesem Gerät gelöscht. Dies kann nicht rückgängig gemacht werden. Ihr Patterns-Pro-Kauf bleibt mit Ihrem App-Store-Konto verknüpft, aber dieses Gerät vergisst die lokale Freischaltung. Sie können sie danach wiederherstellen.',
+          'Dadurch werden lokale Tagebucheinträge, Aufzeichnungen zu Zwangsmomenten, der Verlauf von Selbsthilfeübungen, lokal gespeicherte Materialien und App-Einstellungen dauerhaft von diesem Gerät gelöscht. Dies kann nicht rückgängig gemacht werden. Ihr Patterns-Pro-Kauf bleibt mit Ihrem App-Store-Konto verknüpft, aber dieses Gerät vergisst die lokale Freischaltung. Sie können sie danach wiederherstellen.',
       'wipeAction': 'Daten löschen',
       'wipeSucceeded': 'Lokale Daten gelöscht.',
       'wipeFailed':
@@ -3937,9 +3945,9 @@ class AppLocalizationsDe extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count OCD-Ereignisse',
-      one: '1 OCD-Ereignis',
-      zero: 'Keine OCD-Ereignisse',
+      other: '$count Zwangsmomente',
+      one: '1 Zwangsmoment',
+      zero: 'Keine Zwangsmomente',
     );
     return '$_temp0';
   }
@@ -3985,9 +3993,9 @@ class AppLocalizationsDe extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count weitere Einträge aus Genesungswerkzeugen',
-      one: '1 weiterer Eintrag aus Genesungswerkzeugen',
-      zero: 'Keine weiteren Einträge aus Genesungswerkzeugen',
+      other: '$count weitere Einträge aus Selbsthilfeübungen',
+      one: '1 weiterer Eintrag aus Selbsthilfeübungen',
+      zero: 'Keine weiteren Einträge aus Selbsthilfeübungen',
     );
     return '$_temp0';
   }
@@ -4034,7 +4042,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get analyticsPromptBody =>
-      'Teilen Sie anonyme Ereignisse zur Funktionsnutzung, um Patterns zu verbessern. Tagebucheinträge, OCD-Inhalte, Bewertungen, Notizen, erstellte Zusammenfassungen, Region und Sprachauswahl werden nie einbezogen. Die Freigabe bleibt aus, bis Sie sich dafür entscheiden.';
+      'Teilen Sie anonyme Ereignisse zur Funktionsnutzung, um Patterns zu verbessern. Tagebucheinträge, Inhalte zur Zwangsstörung, Bewertungen, Notizen, erstellte Zusammenfassungen, Region und Sprachauswahl werden nie einbezogen. Die Freigabe bleibt aus, bis Sie sich dafür entscheiden.';
 
   @override
   String get notNowAction => 'Nicht jetzt';
@@ -4046,15 +4054,15 @@ class AppLocalizationsDe extends AppLocalizations {
   String shellText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'sectionTodayBody':
-          'Wähle einen hilfreichen nächsten Schritt oder sieh dir einfach deine Aufzeichnungen an.',
+          'Wählen Sie einen hilfreichen nächsten Schritt oder sehen Sie sich einfach Ihre Aufzeichnungen an.',
       'sectionJournalBody':
-          'Schreibe nur auf, was dir nützlich erscheint. Deine Worte bleiben auf diesem Gerät unverändert.',
+          'Schreiben Sie nur auf, was Ihnen nützlich erscheint. Ihre Worte bleiben auf diesem Gerät unverändert.',
       'sectionTrackBody':
-          'Halte eine Obsession oder Zwangshandlung und die von dir gewählte Reaktion fest.',
+          'Halten Sie einen Zwangsgedanken oder eine Zwangshandlung und die von Ihnen gewählte Reaktion fest.',
       'sectionRecoveryBody':
-          'Öffne ein Selbsthilfe-Werkzeug oder übe in deinem eigenen Tempo.',
+          'Öffnen Sie eine Selbsthilfeübung oder üben Sie in Ihrem eigenen Tempo.',
       'sectionInsightsBody':
-          'Sieh dir sachliche Muster in deinen aufgezeichneten Aktivitäten und Messwerten an.',
+          'Sehen Sie sich sachliche Muster in Ihren aufgezeichneten Aktivitäten und Messwerten an.',
       'gotIt': 'Verstanden',
       'tourFinalTitle': 'Das war die Tour',
       'tourFinalBody':
@@ -4062,24 +4070,24 @@ class AppLocalizationsDe extends AppLocalizations {
       'takeSelfCheck': 'Selbstcheck starten',
       'skip': 'Überspringen',
       'next': 'Weiter',
-      'addPrompt': 'Was möchtest du hinzufügen?',
+      'addPrompt': 'Was möchten Sie hinzufügen?',
       'addJournal': 'Tagebucheintrag',
-      'addOcd': 'OCD-Ereignis',
-      'addErp': 'Geführte ERP',
-      'addDelay': 'Drang pausieren',
+      'addOcd': 'Zwangsmoment',
+      'addErp': 'Geführte ERP-Übung',
+      'addDelay': 'Drang aufschieben',
       'firstSelfCheckBody':
-          'Dein Selbstcheck ist auf diesem Gerät gespeichert. Das Ergebnis ist eine Momentaufnahme, keine Diagnose.',
+          'Ihr Selbstcheck ist auf diesem Gerät gespeichert. Das Ergebnis ist eine Momentaufnahme, keine Diagnose.',
       'firstExploreTitle': 'Willkommen bei Patterns',
-      'firstExploreBody': 'Sieh dich in deinem eigenen Tempo um.',
+      'firstExploreBody': 'Sehen Sie sich in Ihrem eigenen Tempo um.',
       'setReminder': 'Sanfte Erinnerung einstellen',
       'goToSpace': 'Zu meinem Bereich',
-      'reminderPrompt': 'Wann soll Patterns dich erinnern?',
+      'reminderPrompt': 'Wann soll Patterns Sie erinnern?',
       'notificationsOff':
-          'Benachrichtigungen für Patterns sind ausgeschaltet. Du kannst sie in den Geräteeinstellungen aktivieren.',
+          'Benachrichtigungen für Patterns sind ausgeschaltet. Sie können sie in den Geräteeinstellungen aktivieren.',
       'reminderSet':
-          'Erinnerung eingestellt. Du kannst sie in den Einstellungen ändern oder ausschalten.',
+          'Erinnerung eingestellt. Sie können sie in den Einstellungen ändern oder ausschalten.',
       'reminderFailed':
-          'Patterns konnte die Erinnerung nicht einstellen. Es wurde keine Erinnerung aktiviert. Bitte versuche es erneut.',
+          'Patterns konnte die Erinnerung nicht einstellen. Es wurde keine Erinnerung aktiviert. Bitte versuchen Sie es erneut.',
       'other': 'Patterns',
     });
     return '$_temp0';

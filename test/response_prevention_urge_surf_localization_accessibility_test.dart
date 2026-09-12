@@ -295,7 +295,7 @@ void main() {
     );
     expect(tester.takeException(), isNull);
 
-    final done = find.text('Für jetzt fertig');
+    final done = find.text('Für den Moment fertig');
     await tester.scrollUntilVisible(
       done,
       300,
