@@ -2667,6 +2667,160 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String exposureHierarchyText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Hiérarchie d’exposition',
+      'newAction': 'Nouvelle',
+      'subtitle':
+          'Créez une échelle d’expositions possibles et pratiquez une étape à la fois.',
+      'loadError':
+          'Vos hiérarchies sont indisponibles pour le moment. Réessayez.',
+      'archiveTitle': 'Archiver cette hiérarchie ?',
+      'archiveBody':
+          'La hiérarchie sera retirée de votre liste active. Ses étapes enregistrées resteront sur cet appareil.',
+      'keepAction': 'Conserver',
+      'archiveAction': 'Archiver',
+      'archiveSuccess': 'Hiérarchie archivée.',
+      'archiveError': 'Impossible d’archiver cette hiérarchie. Réessayez.',
+      'emptyTitle': 'Créez votre première échelle',
+      'emptyBody':
+          'Listez des expositions possibles de la plus facile à la plus difficile et choisissez votre rythme.',
+      'buildAction': 'Créer une hiérarchie',
+      'newTitle': 'Nouvelle hiérarchie',
+      'nameLabel': 'Nom',
+      'nameHint': 'Par exemple, toucher des poignées de porte',
+      'themeLabel': 'Thème (facultatif)',
+      'themeHint': 'Par exemple, contamination',
+      'generalTheme': 'Général',
+      'stepsTitle': 'Étapes, les plus faciles d’abord',
+      'addAction': 'Ajouter',
+      'createAction': 'Créer la hiérarchie',
+      'saving': 'Enregistrement…',
+      'titleValidation': 'Ajoutez un nom à cette échelle.',
+      'stepValidation': 'Ajoutez au moins une étape d’exposition.',
+      'createSuccess': 'Hiérarchie enregistrée.',
+      'createError': 'Impossible d’enregistrer cette hiérarchie. Réessayez.',
+      'stepHint': 'Quelle exposition pourriez-vous pratiquer ?',
+      'difficulty': 'Difficulté',
+      'anxiety': 'Anxiété anticipée',
+      'materialAction': 'Matériel',
+      'statusNotStarted': 'Non commencée',
+      'statusInProgress': 'En cours',
+      'statusDone': 'Terminée',
+      'statusError':
+          'Impossible d’enregistrer l’état de cette étape. Réessayez.',
+      'moveUp': 'Monter l’étape',
+      'moveDown': 'Descendre l’étape',
+      'removeStep': 'Supprimer l’étape',
+      'openHierarchy': 'Ouvrir la hiérarchie',
+      'archiveHierarchy': 'Archiver la hiérarchie',
+      'other': 'Hiérarchie d’exposition',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String exposureHierarchySummary(int done, int count, String theme) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$done étapes sur $count · $theme',
+      one: '$done étape sur 1 · $theme',
+      zero: '$theme',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String exposureStepLabel(int number) {
+    return 'Étape $number';
+  }
+
+  @override
+  String exposureRating(int value) {
+    return '$value sur 10';
+  }
+
+  @override
+  String exposureStepMetrics(int difficulty, int anxiety) {
+    return 'Difficulté $difficulty sur 10 · Anxiété anticipée $anxiety sur 10';
+  }
+
+  @override
+  String exposureProgress(int percent) {
+    return '$percent % des étapes marquées comme terminées';
+  }
+
+  @override
+  String exposureMaterialsText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Matériel d’exposition',
+      'newAction': 'Nouveau',
+      'subtitle':
+          'Regroupez vos scripts, enregistrements en boucle, images et liens pour les utiliser pendant une exposition.',
+      'loadError': 'Votre matériel est indisponible pour le moment. Réessayez.',
+      'typeScript': 'Script',
+      'typeLoopTape': 'Enregistrement en boucle',
+      'typeImage': 'Image',
+      'typeLink': 'Lien',
+      'deleteTitle': 'Supprimer ce matériel ?',
+      'deleteBody':
+          'Cette action supprime le matériel de cet appareil, y compris son fichier enregistré le cas échéant.',
+      'cancel': 'Annuler',
+      'deleteAction': 'Supprimer',
+      'deleteTooltip': 'Supprimer le matériel',
+      'deleteSuccess': 'Matériel supprimé.',
+      'deleteError': 'Impossible de supprimer ce matériel. Réessayez.',
+      'emptyTitle': 'Rassemblez votre matériel',
+      'emptyBody':
+          'Enregistrez un script, un enregistrement en boucle, une image ou un lien pour une exposition de votre choix.',
+      'addAction': 'Ajouter du matériel',
+      'readScript': 'Lire le script',
+      'openLink': 'Ouvrir le lien',
+      'viewImage': 'Voir l’image',
+      'linkError': 'Impossible d’ouvrir ce lien.',
+      'imageMissing': 'Cette image n’est plus disponible sur cet appareil.',
+      'recordingMissing':
+          'Cet enregistrement n’est plus disponible sur cet appareil.',
+      'stop': 'Arrêter',
+      'playLoop': 'Lire en boucle',
+      'microphoneNeeded':
+          'L’accès au microphone est nécessaire pour enregistrer une boucle. Vous pouvez le modifier dans les réglages de l’appareil.',
+      'nameValidation': 'Ajoutez un nom à ce matériel.',
+      'scriptValidation': 'Ajoutez le texte du script.',
+      'linkValidation': 'Collez un lien.',
+      'imageValidation': 'Choisissez une image.',
+      'recordingValidation': 'Enregistrez une boucle avant de sauvegarder.',
+      'saveSuccess': 'Matériel enregistré.',
+      'saveError': 'Impossible d’enregistrer ce matériel. Réessayez.',
+      'titleLabel': 'Titre',
+      'titleHint': 'Un nom court que vous reconnaîtrez',
+      'saveAction': 'Enregistrer le matériel',
+      'scriptLabel': 'Script',
+      'scriptHint': 'Le texte à lire pendant l’exposition',
+      'linkLabel': 'Lien',
+      'pickImage': 'Choisir une image',
+      'changeImage': 'Changer l’image',
+      'rerecord': 'Réenregistrer',
+      'recorderHint': 'Enregistrez un court extrait à lire en boucle.',
+      'record': 'Enregistrer',
+      'recording': 'Enregistrement',
+      'other': 'Matériel d’exposition',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String exposureMaterialEditorTitle(String type) {
+    return 'Nouveau : $type';
+  }
+
+  @override
+  String exposureRecordingSeconds(int seconds) {
+    return 'Enregistrement · $seconds s';
+  }
+
+  @override
   String emergencyToolkitText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': 'Soutien pour maintenant',

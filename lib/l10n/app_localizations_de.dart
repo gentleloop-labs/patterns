@@ -2654,6 +2654,166 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String exposureHierarchyText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Expositionshierarchie',
+      'newAction': 'Neu',
+      'subtitle':
+          'Erstellen Sie eine Leiter möglicher Expositionen und üben Sie jeweils einen Schritt.',
+      'loadError':
+          'Ihre Hierarchien sind derzeit nicht verfügbar. Bitte versuchen Sie es erneut.',
+      'archiveTitle': 'Diese Hierarchie archivieren?',
+      'archiveBody':
+          'Dadurch wird die Hierarchie aus Ihrer aktiven Liste entfernt. Die gespeicherten Schritte bleiben auf diesem Gerät.',
+      'keepAction': 'Behalten',
+      'archiveAction': 'Archivieren',
+      'archiveSuccess': 'Hierarchie archiviert.',
+      'archiveError':
+          'Diese Hierarchie konnte nicht archiviert werden. Bitte versuchen Sie es erneut.',
+      'emptyTitle': 'Erste Leiter beginnen',
+      'emptyBody':
+          'Listen Sie mögliche Expositionen von leichter bis schwerer auf und wählen Sie Ihr eigenes Tempo.',
+      'buildAction': 'Hierarchie erstellen',
+      'newTitle': 'Neue Hierarchie',
+      'nameLabel': 'Name',
+      'nameHint': 'Zum Beispiel Türgriffe berühren',
+      'themeLabel': 'Thema (optional)',
+      'themeHint': 'Zum Beispiel Kontamination',
+      'generalTheme': 'Allgemein',
+      'stepsTitle': 'Schritte, leichtere zuerst',
+      'addAction': 'Hinzufügen',
+      'createAction': 'Hierarchie erstellen',
+      'saving': 'Wird gespeichert…',
+      'titleValidation': 'Geben Sie dieser Leiter einen Namen.',
+      'stepValidation': 'Fügen Sie mindestens einen Expositionsschritt hinzu.',
+      'createSuccess': 'Hierarchie gespeichert.',
+      'createError':
+          'Diese Hierarchie konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.',
+      'stepHint': 'Welche Exposition könnten Sie üben?',
+      'difficulty': 'Schwierigkeit',
+      'anxiety': 'Erwartete Angst',
+      'materialAction': 'Material',
+      'statusNotStarted': 'Nicht begonnen',
+      'statusInProgress': 'In Arbeit',
+      'statusDone': 'Erledigt',
+      'statusError':
+          'Der Status dieses Schritts konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.',
+      'moveUp': 'Schritt nach oben verschieben',
+      'moveDown': 'Schritt nach unten verschieben',
+      'removeStep': 'Schritt entfernen',
+      'openHierarchy': 'Hierarchie öffnen',
+      'archiveHierarchy': 'Hierarchie archivieren',
+      'other': 'Expositionshierarchie',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String exposureHierarchySummary(int done, int count, String theme) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$done von $count Schritten · $theme',
+      one: '$done von 1 Schritt · $theme',
+      zero: '$theme',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String exposureStepLabel(int number) {
+    return 'Schritt $number';
+  }
+
+  @override
+  String exposureRating(int value) {
+    return '$value von 10';
+  }
+
+  @override
+  String exposureStepMetrics(int difficulty, int anxiety) {
+    return 'Schwierigkeit $difficulty von 10 · Erwartete Angst $anxiety von 10';
+  }
+
+  @override
+  String exposureProgress(int percent) {
+    return '$percent % der Schritte als erledigt markiert';
+  }
+
+  @override
+  String exposureMaterialsText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Expositionsmaterialien',
+      'newAction': 'Neu',
+      'subtitle':
+          'Bewahren Sie Skripte, Schleifenaufnahmen, Bilder und Links für eine Exposition zusammen auf.',
+      'loadError':
+          'Ihre Materialien sind derzeit nicht verfügbar. Bitte versuchen Sie es erneut.',
+      'typeScript': 'Skript',
+      'typeLoopTape': 'Schleifenaufnahme',
+      'typeImage': 'Bild',
+      'typeLink': 'Link',
+      'deleteTitle': 'Dieses Material löschen?',
+      'deleteBody':
+          'Dadurch wird das Material einschließlich einer gespeicherten Datei von diesem Gerät entfernt.',
+      'cancel': 'Abbrechen',
+      'deleteAction': 'Löschen',
+      'deleteTooltip': 'Material löschen',
+      'deleteSuccess': 'Material gelöscht.',
+      'deleteError':
+          'Dieses Material konnte nicht gelöscht werden. Bitte versuchen Sie es erneut.',
+      'emptyTitle': 'Materialien sammeln',
+      'emptyBody':
+          'Speichern Sie ein Skript, eine Schleifenaufnahme, ein Bild oder einen Link für eine von Ihnen gewählte Exposition.',
+      'addAction': 'Material hinzufügen',
+      'readScript': 'Skript lesen',
+      'openLink': 'Link öffnen',
+      'viewImage': 'Bild ansehen',
+      'linkError': 'Dieser Link konnte nicht geöffnet werden.',
+      'imageMissing': 'Dieses Bild ist auf diesem Gerät nicht mehr verfügbar.',
+      'recordingMissing':
+          'Diese Aufnahme ist auf diesem Gerät nicht mehr verfügbar.',
+      'stop': 'Stopp',
+      'playLoop': 'Schleife abspielen',
+      'microphoneNeeded':
+          'Für eine Schleifenaufnahme ist Mikrofonzugriff erforderlich. Sie können dies in den Geräteeinstellungen ändern.',
+      'nameValidation': 'Geben Sie diesem Material einen Namen.',
+      'scriptValidation': 'Fügen Sie den Skripttext hinzu.',
+      'linkValidation': 'Fügen Sie einen Link ein.',
+      'imageValidation': 'Wählen Sie ein Bild.',
+      'recordingValidation': 'Nehmen Sie vor dem Speichern eine Schleife auf.',
+      'saveSuccess': 'Material gespeichert.',
+      'saveError':
+          'Dieses Material konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.',
+      'titleLabel': 'Titel',
+      'titleHint': 'Ein kurzer, wiedererkennbarer Name',
+      'saveAction': 'Material speichern',
+      'scriptLabel': 'Skript',
+      'scriptHint': 'Der Text, den Sie während der Exposition lesen möchten',
+      'linkLabel': 'Link',
+      'pickImage': 'Bild auswählen',
+      'changeImage': 'Bild ändern',
+      'rerecord': 'Erneut aufnehmen',
+      'recorderHint':
+          'Nehmen Sie einen kurzen Clip zur Wiedergabe in Schleife auf.',
+      'record': 'Aufnehmen',
+      'recording': 'Aufnahme',
+      'other': 'Expositionsmaterial',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String exposureMaterialEditorTitle(String type) {
+    return 'Neu: $type';
+  }
+
+  @override
+  String exposureRecordingSeconds(int seconds) {
+    return 'Aufnahme · $seconds s';
+  }
+
+  @override
   String emergencyToolkitText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': 'Unterstützung für jetzt',

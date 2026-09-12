@@ -2337,6 +2337,149 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String exposureHierarchyText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'エクスポージャー階層',
+      'newAction': '新規',
+      'subtitle': '取り組めそうなエクスポージャーを段階に分け、一つずつ練習します。',
+      'loadError': '階層を読み込めませんでした。もう一度お試しください。',
+      'archiveTitle': 'この階層をアーカイブしますか？',
+      'archiveBody': 'この階層は使用中の一覧から外れます。保存したステップはこの端末に残ります。',
+      'keepAction': '残す',
+      'archiveAction': 'アーカイブ',
+      'archiveSuccess': '階層をアーカイブしました。',
+      'archiveError': '階層をアーカイブできませんでした。もう一度お試しください。',
+      'emptyTitle': '最初の階層を作る',
+      'emptyBody': '取り組めそうなエクスポージャーを易しいものから難しいものへ並べ、自分のペースを選びます。',
+      'buildAction': '階層を作る',
+      'newTitle': '新しい階層',
+      'nameLabel': '名前',
+      'nameHint': '例：ドアノブに触れる',
+      'themeLabel': 'テーマ（任意）',
+      'themeHint': '例：汚染',
+      'generalTheme': '一般',
+      'stepsTitle': '易しい順のステップ',
+      'addAction': '追加',
+      'createAction': '階層を作成',
+      'saving': '保存中…',
+      'titleValidation': 'この階層に名前を付けてください。',
+      'stepValidation': 'エクスポージャーのステップを少なくとも一つ追加してください。',
+      'createSuccess': '階層を保存しました。',
+      'createError': '階層を保存できませんでした。もう一度お試しください。',
+      'stepHint': 'どのようなエクスポージャーを練習できますか？',
+      'difficulty': '難易度',
+      'anxiety': '予想される不安',
+      'materialAction': '素材',
+      'statusNotStarted': '未開始',
+      'statusInProgress': '進行中',
+      'statusDone': '完了',
+      'statusError': 'ステップの状態を保存できませんでした。もう一度お試しください。',
+      'moveUp': 'ステップを上へ移動',
+      'moveDown': 'ステップを下へ移動',
+      'removeStep': 'ステップを削除',
+      'openHierarchy': '階層を開く',
+      'archiveHierarchy': '階層をアーカイブ',
+      'other': 'エクスポージャー階層',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String exposureHierarchySummary(int done, int count, String theme) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count件中$done件完了 · $theme',
+      zero: '$theme',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String exposureStepLabel(int number) {
+    return 'ステップ$number';
+  }
+
+  @override
+  String exposureRating(int value) {
+    return '10段階中$value';
+  }
+
+  @override
+  String exposureStepMetrics(int difficulty, int anxiety) {
+    return '難易度 10段階中$difficulty · 予想される不安 10段階中$anxiety';
+  }
+
+  @override
+  String exposureProgress(int percent) {
+    return '$percent％のステップを完了として記録';
+  }
+
+  @override
+  String exposureMaterialsText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'エクスポージャー素材',
+      'newAction': '新規',
+      'subtitle': 'エクスポージャーで使う台本、ループ録音、画像、リンクをまとめて保存します。',
+      'loadError': '素材を読み込めませんでした。もう一度お試しください。',
+      'typeScript': '台本',
+      'typeLoopTape': 'ループ録音',
+      'typeImage': '画像',
+      'typeLink': 'リンク',
+      'deleteTitle': 'この素材を削除しますか？',
+      'deleteBody': '保存ファイルがある場合は、そのファイルを含めてこの端末から削除します。',
+      'cancel': 'キャンセル',
+      'deleteAction': '削除',
+      'deleteTooltip': '素材を削除',
+      'deleteSuccess': '素材を削除しました。',
+      'deleteError': '素材を削除できませんでした。もう一度お試しください。',
+      'emptyTitle': '素材をまとめる',
+      'emptyBody': '自分で選んだエクスポージャーのために、台本、ループ録音、画像、リンクを保存します。',
+      'addAction': '素材を追加',
+      'readScript': '台本を読む',
+      'openLink': 'リンクを開く',
+      'viewImage': '画像を見る',
+      'linkError': 'リンクを開けませんでした。',
+      'imageMissing': 'この画像はこの端末で利用できなくなっています。',
+      'recordingMissing': 'この録音はこの端末で利用できなくなっています。',
+      'stop': '停止',
+      'playLoop': 'ループ再生',
+      'microphoneNeeded': 'ループを録音するにはマイクへのアクセスが必要です。端末の設定で変更できます。',
+      'nameValidation': 'この素材に名前を付けてください。',
+      'scriptValidation': '台本の文章を追加してください。',
+      'linkValidation': 'リンクを貼り付けてください。',
+      'imageValidation': '画像を選んでください。',
+      'recordingValidation': '保存する前にループを録音してください。',
+      'saveSuccess': '素材を保存しました。',
+      'saveError': '素材を保存できませんでした。もう一度お試しください。',
+      'titleLabel': 'タイトル',
+      'titleHint': '見分けやすい短い名前',
+      'saveAction': '素材を保存',
+      'scriptLabel': '台本',
+      'scriptHint': 'エクスポージャー中に読む文章',
+      'linkLabel': 'リンク',
+      'pickImage': '画像を選ぶ',
+      'changeImage': '画像を変更',
+      'rerecord': '録音し直す',
+      'recorderHint': '繰り返し再生する短い音声を録音します。',
+      'record': '録音',
+      'recording': '録音中',
+      'other': 'エクスポージャー素材',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String exposureMaterialEditorTitle(String type) {
+    return '新しい$type';
+  }
+
+  @override
+  String exposureRecordingSeconds(int seconds) {
+    return '録音中 · $seconds秒';
+  }
+
+  @override
   String emergencyToolkitText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': '今この時のサポート',

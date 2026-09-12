@@ -2611,6 +2611,160 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String exposureHierarchyText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Exposure Hierarchy',
+      'newAction': 'New',
+      'subtitle':
+          'Build a ladder of exposures and practise one step at a time.',
+      'loadError':
+          'Your hierarchies are unavailable right now. Please try again.',
+      'archiveTitle': 'Archive this hierarchy?',
+      'archiveBody':
+          'This removes the hierarchy from your active list. Its saved steps remain on this device.',
+      'keepAction': 'Keep it',
+      'archiveAction': 'Archive',
+      'archiveSuccess': 'Hierarchy archived.',
+      'archiveError': 'This hierarchy could not be archived. Please try again.',
+      'emptyTitle': 'Start your first ladder',
+      'emptyBody':
+          'List possible exposures from easier to harder and choose your own pace.',
+      'buildAction': 'Build a hierarchy',
+      'newTitle': 'New hierarchy',
+      'nameLabel': 'Name',
+      'nameHint': 'For example, touching door handles',
+      'themeLabel': 'Theme (optional)',
+      'themeHint': 'For example, contamination',
+      'generalTheme': 'General',
+      'stepsTitle': 'Steps, easier first',
+      'addAction': 'Add',
+      'createAction': 'Create hierarchy',
+      'saving': 'Saving…',
+      'titleValidation': 'Add a name for this ladder.',
+      'stepValidation': 'Add at least one exposure step.',
+      'createSuccess': 'Hierarchy saved.',
+      'createError': 'This hierarchy could not be saved. Please try again.',
+      'stepHint': 'What exposure could you practise?',
+      'difficulty': 'Difficulty',
+      'anxiety': 'Anticipated anxiety',
+      'materialAction': 'Material',
+      'statusNotStarted': 'Not started',
+      'statusInProgress': 'In progress',
+      'statusDone': 'Done',
+      'statusError': 'This step status could not be saved. Please try again.',
+      'moveUp': 'Move step up',
+      'moveDown': 'Move step down',
+      'removeStep': 'Remove step',
+      'openHierarchy': 'Open hierarchy',
+      'archiveHierarchy': 'Archive hierarchy',
+      'other': 'Exposure hierarchy',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String exposureHierarchySummary(int done, int count, String theme) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$done of $count steps · $theme',
+      one: '$done of 1 step · $theme',
+      zero: '$theme',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String exposureStepLabel(int number) {
+    return 'Step $number';
+  }
+
+  @override
+  String exposureRating(int value) {
+    return '$value of 10';
+  }
+
+  @override
+  String exposureStepMetrics(int difficulty, int anxiety) {
+    return 'Difficulty $difficulty of 10 · Anticipated anxiety $anxiety of 10';
+  }
+
+  @override
+  String exposureProgress(int percent) {
+    return '$percent% of steps marked done';
+  }
+
+  @override
+  String exposureMaterialsText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Exposure Materials',
+      'newAction': 'New',
+      'subtitle':
+          'Keep your scripts, loop recordings, images, and links together for use during an exposure.',
+      'loadError':
+          'Your materials are unavailable right now. Please try again.',
+      'typeScript': 'Script',
+      'typeLoopTape': 'Loop recording',
+      'typeImage': 'Image',
+      'typeLink': 'Link',
+      'deleteTitle': 'Delete this material?',
+      'deleteBody':
+          'This removes the material from this device, including its stored file if present.',
+      'cancel': 'Cancel',
+      'deleteAction': 'Delete',
+      'deleteTooltip': 'Delete material',
+      'deleteSuccess': 'Material deleted.',
+      'deleteError': 'This material could not be deleted. Please try again.',
+      'emptyTitle': 'Gather your materials',
+      'emptyBody':
+          'Save a script, loop recording, image, or link for an exposure you choose.',
+      'addAction': 'Add a material',
+      'readScript': 'Read script',
+      'openLink': 'Open link',
+      'viewImage': 'View image',
+      'linkError': 'That link could not be opened.',
+      'imageMissing': 'This image is no longer available on this device.',
+      'recordingMissing':
+          'This recording is no longer available on this device.',
+      'stop': 'Stop',
+      'playLoop': 'Play loop',
+      'microphoneNeeded':
+          'Microphone access is needed to record a loop. You can change this in device settings.',
+      'nameValidation': 'Add a name for this material.',
+      'scriptValidation': 'Add the script text.',
+      'linkValidation': 'Paste a link.',
+      'imageValidation': 'Choose an image.',
+      'recordingValidation': 'Record a loop before saving.',
+      'saveSuccess': 'Material saved.',
+      'saveError': 'This material could not be saved. Please try again.',
+      'titleLabel': 'Title',
+      'titleHint': 'A short name you will recognise',
+      'saveAction': 'Save material',
+      'scriptLabel': 'Script',
+      'scriptHint': 'The text you want to read during the exposure',
+      'linkLabel': 'Link',
+      'pickImage': 'Choose image',
+      'changeImage': 'Change image',
+      'rerecord': 'Record again',
+      'recorderHint': 'Record a short clip to replay in a loop.',
+      'record': 'Record',
+      'recording': 'Recording',
+      'other': 'Exposure material',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String exposureMaterialEditorTitle(String type) {
+    return 'New $type';
+  }
+
+  @override
+  String exposureRecordingSeconds(int seconds) {
+    return 'Recording · $seconds s';
+  }
+
+  @override
   String emergencyToolkitText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': 'Support right now',

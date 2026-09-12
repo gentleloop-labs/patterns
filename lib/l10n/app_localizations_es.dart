@@ -2640,6 +2640,161 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String exposureHierarchyText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Jerarquía de exposición',
+      'newAction': 'Nueva',
+      'subtitle':
+          'Crea una escala de posibles exposiciones y practica un paso cada vez.',
+      'loadError':
+          'Tus jerarquías no están disponibles ahora. Inténtalo de nuevo.',
+      'archiveTitle': '¿Archivar esta jerarquía?',
+      'archiveBody':
+          'Esto quita la jerarquía de tu lista activa. Los pasos guardados permanecen en este dispositivo.',
+      'keepAction': 'Conservar',
+      'archiveAction': 'Archivar',
+      'archiveSuccess': 'Jerarquía archivada.',
+      'archiveError': 'No se pudo archivar esta jerarquía. Inténtalo de nuevo.',
+      'emptyTitle': 'Crea tu primera escala',
+      'emptyBody':
+          'Enumera posibles exposiciones de menor a mayor dificultad y elige tu propio ritmo.',
+      'buildAction': 'Crear una jerarquía',
+      'newTitle': 'Nueva jerarquía',
+      'nameLabel': 'Nombre',
+      'nameHint': 'Por ejemplo, tocar manijas de puertas',
+      'themeLabel': 'Tema (opcional)',
+      'themeHint': 'Por ejemplo, contaminación',
+      'generalTheme': 'General',
+      'stepsTitle': 'Pasos, primero los más fáciles',
+      'addAction': 'Añadir',
+      'createAction': 'Crear jerarquía',
+      'saving': 'Guardando…',
+      'titleValidation': 'Añade un nombre para esta escala.',
+      'stepValidation': 'Añade al menos un paso de exposición.',
+      'createSuccess': 'Jerarquía guardada.',
+      'createError': 'No se pudo guardar esta jerarquía. Inténtalo de nuevo.',
+      'stepHint': '¿Qué exposición podrías practicar?',
+      'difficulty': 'Dificultad',
+      'anxiety': 'Ansiedad prevista',
+      'materialAction': 'Material',
+      'statusNotStarted': 'Sin empezar',
+      'statusInProgress': 'En curso',
+      'statusDone': 'Hecho',
+      'statusError':
+          'No se pudo guardar el estado de este paso. Inténtalo de nuevo.',
+      'moveUp': 'Subir el paso',
+      'moveDown': 'Bajar el paso',
+      'removeStep': 'Eliminar el paso',
+      'openHierarchy': 'Abrir jerarquía',
+      'archiveHierarchy': 'Archivar jerarquía',
+      'other': 'Jerarquía de exposición',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String exposureHierarchySummary(int done, int count, String theme) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$done de $count pasos · $theme',
+      one: '$done de 1 paso · $theme',
+      zero: '$theme',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String exposureStepLabel(int number) {
+    return 'Paso $number';
+  }
+
+  @override
+  String exposureRating(int value) {
+    return '$value de 10';
+  }
+
+  @override
+  String exposureStepMetrics(int difficulty, int anxiety) {
+    return 'Dificultad $difficulty de 10 · Ansiedad prevista $anxiety de 10';
+  }
+
+  @override
+  String exposureProgress(int percent) {
+    return '$percent % de pasos marcados como hechos';
+  }
+
+  @override
+  String exposureMaterialsText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Materiales de exposición',
+      'newAction': 'Nuevo',
+      'subtitle':
+          'Guarda juntos tus guiones, grabaciones en bucle, imágenes y enlaces para usarlos durante una exposición.',
+      'loadError':
+          'Tus materiales no están disponibles ahora. Inténtalo de nuevo.',
+      'typeScript': 'Guion',
+      'typeLoopTape': 'Grabación en bucle',
+      'typeImage': 'Imagen',
+      'typeLink': 'Enlace',
+      'deleteTitle': '¿Eliminar este material?',
+      'deleteBody':
+          'Esto elimina el material de este dispositivo, incluido su archivo guardado si existe.',
+      'cancel': 'Cancelar',
+      'deleteAction': 'Eliminar',
+      'deleteTooltip': 'Eliminar material',
+      'deleteSuccess': 'Material eliminado.',
+      'deleteError': 'No se pudo eliminar este material. Inténtalo de nuevo.',
+      'emptyTitle': 'Reúne tus materiales',
+      'emptyBody':
+          'Guarda un guion, una grabación en bucle, una imagen o un enlace para una exposición que elijas.',
+      'addAction': 'Añadir material',
+      'readScript': 'Leer guion',
+      'openLink': 'Abrir enlace',
+      'viewImage': 'Ver imagen',
+      'linkError': 'No se pudo abrir ese enlace.',
+      'imageMissing': 'Esta imagen ya no está disponible en este dispositivo.',
+      'recordingMissing':
+          'Esta grabación ya no está disponible en este dispositivo.',
+      'stop': 'Detener',
+      'playLoop': 'Reproducir bucle',
+      'microphoneNeeded':
+          'Se necesita acceso al micrófono para grabar un bucle. Puedes cambiarlo en los ajustes del dispositivo.',
+      'nameValidation': 'Añade un nombre para este material.',
+      'scriptValidation': 'Añade el texto del guion.',
+      'linkValidation': 'Pega un enlace.',
+      'imageValidation': 'Elige una imagen.',
+      'recordingValidation': 'Graba un bucle antes de guardar.',
+      'saveSuccess': 'Material guardado.',
+      'saveError': 'No se pudo guardar este material. Inténtalo de nuevo.',
+      'titleLabel': 'Título',
+      'titleHint': 'Un nombre corto que reconocerás',
+      'saveAction': 'Guardar material',
+      'scriptLabel': 'Guion',
+      'scriptHint': 'El texto que quieres leer durante la exposición',
+      'linkLabel': 'Enlace',
+      'pickImage': 'Elegir imagen',
+      'changeImage': 'Cambiar imagen',
+      'rerecord': 'Volver a grabar',
+      'recorderHint': 'Graba un clip corto para reproducirlo en bucle.',
+      'record': 'Grabar',
+      'recording': 'Grabando',
+      'other': 'Material de exposición',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String exposureMaterialEditorTitle(String type) {
+    return 'Nuevo: $type';
+  }
+
+  @override
+  String exposureRecordingSeconds(int seconds) {
+    return 'Grabando · $seconds s';
+  }
+
+  @override
   String emergencyToolkitText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': 'Apoyo para este momento',

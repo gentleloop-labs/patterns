@@ -2641,6 +2641,163 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
+  String exposureHierarchyText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Hierarquia de exposição',
+      'newAction': 'Nova',
+      'subtitle':
+          'Crie uma escala de possíveis exposições e pratique um passo de cada vez.',
+      'loadError':
+          'Suas hierarquias não estão disponíveis agora. Tente novamente.',
+      'archiveTitle': 'Arquivar esta hierarquia?',
+      'archiveBody':
+          'Isso remove a hierarquia da sua lista ativa. Os passos salvos permanecem neste dispositivo.',
+      'keepAction': 'Manter',
+      'archiveAction': 'Arquivar',
+      'archiveSuccess': 'Hierarquia arquivada.',
+      'archiveError':
+          'Não foi possível arquivar esta hierarquia. Tente novamente.',
+      'emptyTitle': 'Crie sua primeira escala',
+      'emptyBody':
+          'Liste possíveis exposições da mais fácil à mais difícil e escolha seu próprio ritmo.',
+      'buildAction': 'Criar uma hierarquia',
+      'newTitle': 'Nova hierarquia',
+      'nameLabel': 'Nome',
+      'nameHint': 'Por exemplo, tocar maçanetas',
+      'themeLabel': 'Tema (opcional)',
+      'themeHint': 'Por exemplo, contaminação',
+      'generalTheme': 'Geral',
+      'stepsTitle': 'Passos, os mais fáceis primeiro',
+      'addAction': 'Adicionar',
+      'createAction': 'Criar hierarquia',
+      'saving': 'Salvando…',
+      'titleValidation': 'Adicione um nome para esta escala.',
+      'stepValidation': 'Adicione pelo menos um passo de exposição.',
+      'createSuccess': 'Hierarquia salva.',
+      'createError':
+          'Não foi possível salvar esta hierarquia. Tente novamente.',
+      'stepHint': 'Que exposição você poderia praticar?',
+      'difficulty': 'Dificuldade',
+      'anxiety': 'Ansiedade prevista',
+      'materialAction': 'Material',
+      'statusNotStarted': 'Não iniciado',
+      'statusInProgress': 'Em andamento',
+      'statusDone': 'Concluído',
+      'statusError':
+          'Não foi possível salvar o estado deste passo. Tente novamente.',
+      'moveUp': 'Mover passo para cima',
+      'moveDown': 'Mover passo para baixo',
+      'removeStep': 'Remover passo',
+      'openHierarchy': 'Abrir hierarquia',
+      'archiveHierarchy': 'Arquivar hierarquia',
+      'other': 'Hierarquia de exposição',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String exposureHierarchySummary(int done, int count, String theme) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$done de $count passos · $theme',
+      one: '$done de 1 passo · $theme',
+      zero: '$theme',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String exposureStepLabel(int number) {
+    return 'Passo $number';
+  }
+
+  @override
+  String exposureRating(int value) {
+    return '$value de 10';
+  }
+
+  @override
+  String exposureStepMetrics(int difficulty, int anxiety) {
+    return 'Dificuldade $difficulty de 10 · Ansiedade prevista $anxiety de 10';
+  }
+
+  @override
+  String exposureProgress(int percent) {
+    return '$percent% dos passos marcados como concluídos';
+  }
+
+  @override
+  String exposureMaterialsText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Materiais de exposição',
+      'newAction': 'Novo',
+      'subtitle':
+          'Mantenha roteiros, gravações em loop, imagens e links juntos para usar durante uma exposição.',
+      'loadError':
+          'Seus materiais não estão disponíveis agora. Tente novamente.',
+      'typeScript': 'Roteiro',
+      'typeLoopTape': 'Gravação em loop',
+      'typeImage': 'Imagem',
+      'typeLink': 'Link',
+      'deleteTitle': 'Excluir este material?',
+      'deleteBody':
+          'Isso remove o material deste dispositivo, incluindo o arquivo armazenado, se houver.',
+      'cancel': 'Cancelar',
+      'deleteAction': 'Excluir',
+      'deleteTooltip': 'Excluir material',
+      'deleteSuccess': 'Material excluído.',
+      'deleteError': 'Não foi possível excluir este material. Tente novamente.',
+      'emptyTitle': 'Reúna seus materiais',
+      'emptyBody':
+          'Salve um roteiro, uma gravação em loop, uma imagem ou um link para uma exposição escolhida por você.',
+      'addAction': 'Adicionar material',
+      'readScript': 'Ler roteiro',
+      'openLink': 'Abrir link',
+      'viewImage': 'Ver imagem',
+      'linkError': 'Não foi possível abrir esse link.',
+      'imageMissing': 'Esta imagem não está mais disponível neste dispositivo.',
+      'recordingMissing':
+          'Esta gravação não está mais disponível neste dispositivo.',
+      'stop': 'Parar',
+      'playLoop': 'Reproduzir loop',
+      'microphoneNeeded':
+          'O acesso ao microfone é necessário para gravar um loop. Você pode mudar isso nas configurações do dispositivo.',
+      'nameValidation': 'Adicione um nome para este material.',
+      'scriptValidation': 'Adicione o texto do roteiro.',
+      'linkValidation': 'Cole um link.',
+      'imageValidation': 'Escolha uma imagem.',
+      'recordingValidation': 'Grave um loop antes de salvar.',
+      'saveSuccess': 'Material salvo.',
+      'saveError': 'Não foi possível salvar este material. Tente novamente.',
+      'titleLabel': 'Título',
+      'titleHint': 'Um nome curto que você reconhecerá',
+      'saveAction': 'Salvar material',
+      'scriptLabel': 'Roteiro',
+      'scriptHint': 'O texto que você quer ler durante a exposição',
+      'linkLabel': 'Link',
+      'pickImage': 'Escolher imagem',
+      'changeImage': 'Trocar imagem',
+      'rerecord': 'Gravar novamente',
+      'recorderHint': 'Grave um trecho curto para repetir em loop.',
+      'record': 'Gravar',
+      'recording': 'Gravando',
+      'other': 'Material de exposição',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String exposureMaterialEditorTitle(String type) {
+    return 'Novo: $type';
+  }
+
+  @override
+  String exposureRecordingSeconds(int seconds) {
+    return 'Gravando · $seconds s';
+  }
+
+  @override
   String emergencyToolkitText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': 'Apoio para este momento',
@@ -5810,6 +5967,163 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String structuredProgramCompactProgress(int done, int total) {
     return '$done/$total';
+  }
+
+  @override
+  String exposureHierarchyText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Hierarquia de exposição',
+      'newAction': 'Nova',
+      'subtitle':
+          'Crie uma escala de possíveis exposições e pratique um passo de cada vez.',
+      'loadError':
+          'Suas hierarquias não estão disponíveis agora. Tente novamente.',
+      'archiveTitle': 'Arquivar esta hierarquia?',
+      'archiveBody':
+          'Isso remove a hierarquia da sua lista ativa. Os passos salvos permanecem neste dispositivo.',
+      'keepAction': 'Manter',
+      'archiveAction': 'Arquivar',
+      'archiveSuccess': 'Hierarquia arquivada.',
+      'archiveError':
+          'Não foi possível arquivar esta hierarquia. Tente novamente.',
+      'emptyTitle': 'Crie sua primeira escala',
+      'emptyBody':
+          'Liste possíveis exposições da mais fácil à mais difícil e escolha seu próprio ritmo.',
+      'buildAction': 'Criar uma hierarquia',
+      'newTitle': 'Nova hierarquia',
+      'nameLabel': 'Nome',
+      'nameHint': 'Por exemplo, tocar maçanetas',
+      'themeLabel': 'Tema (opcional)',
+      'themeHint': 'Por exemplo, contaminação',
+      'generalTheme': 'Geral',
+      'stepsTitle': 'Passos, os mais fáceis primeiro',
+      'addAction': 'Adicionar',
+      'createAction': 'Criar hierarquia',
+      'saving': 'Salvando…',
+      'titleValidation': 'Adicione um nome para esta escala.',
+      'stepValidation': 'Adicione pelo menos um passo de exposição.',
+      'createSuccess': 'Hierarquia salva.',
+      'createError':
+          'Não foi possível salvar esta hierarquia. Tente novamente.',
+      'stepHint': 'Que exposição você poderia praticar?',
+      'difficulty': 'Dificuldade',
+      'anxiety': 'Ansiedade prevista',
+      'materialAction': 'Material',
+      'statusNotStarted': 'Não iniciado',
+      'statusInProgress': 'Em andamento',
+      'statusDone': 'Concluído',
+      'statusError':
+          'Não foi possível salvar o estado deste passo. Tente novamente.',
+      'moveUp': 'Mover passo para cima',
+      'moveDown': 'Mover passo para baixo',
+      'removeStep': 'Remover passo',
+      'openHierarchy': 'Abrir hierarquia',
+      'archiveHierarchy': 'Arquivar hierarquia',
+      'other': 'Hierarquia de exposição',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String exposureHierarchySummary(int done, int count, String theme) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$done de $count passos · $theme',
+      one: '$done de 1 passo · $theme',
+      zero: '$theme',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String exposureStepLabel(int number) {
+    return 'Passo $number';
+  }
+
+  @override
+  String exposureRating(int value) {
+    return '$value de 10';
+  }
+
+  @override
+  String exposureStepMetrics(int difficulty, int anxiety) {
+    return 'Dificuldade $difficulty de 10 · Ansiedade prevista $anxiety de 10';
+  }
+
+  @override
+  String exposureProgress(int percent) {
+    return '$percent% dos passos marcados como concluídos';
+  }
+
+  @override
+  String exposureMaterialsText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Materiais de exposição',
+      'newAction': 'Novo',
+      'subtitle':
+          'Mantenha roteiros, gravações em loop, imagens e links juntos para usar durante uma exposição.',
+      'loadError':
+          'Seus materiais não estão disponíveis agora. Tente novamente.',
+      'typeScript': 'Roteiro',
+      'typeLoopTape': 'Gravação em loop',
+      'typeImage': 'Imagem',
+      'typeLink': 'Link',
+      'deleteTitle': 'Excluir este material?',
+      'deleteBody':
+          'Isso remove o material deste dispositivo, incluindo o arquivo armazenado, se houver.',
+      'cancel': 'Cancelar',
+      'deleteAction': 'Excluir',
+      'deleteTooltip': 'Excluir material',
+      'deleteSuccess': 'Material excluído.',
+      'deleteError': 'Não foi possível excluir este material. Tente novamente.',
+      'emptyTitle': 'Reúna seus materiais',
+      'emptyBody':
+          'Salve um roteiro, uma gravação em loop, uma imagem ou um link para uma exposição escolhida por você.',
+      'addAction': 'Adicionar material',
+      'readScript': 'Ler roteiro',
+      'openLink': 'Abrir link',
+      'viewImage': 'Ver imagem',
+      'linkError': 'Não foi possível abrir esse link.',
+      'imageMissing': 'Esta imagem não está mais disponível neste dispositivo.',
+      'recordingMissing':
+          'Esta gravação não está mais disponível neste dispositivo.',
+      'stop': 'Parar',
+      'playLoop': 'Reproduzir loop',
+      'microphoneNeeded':
+          'O acesso ao microfone é necessário para gravar um loop. Você pode mudar isso nas configurações do dispositivo.',
+      'nameValidation': 'Adicione um nome para este material.',
+      'scriptValidation': 'Adicione o texto do roteiro.',
+      'linkValidation': 'Cole um link.',
+      'imageValidation': 'Escolha uma imagem.',
+      'recordingValidation': 'Grave um loop antes de salvar.',
+      'saveSuccess': 'Material salvo.',
+      'saveError': 'Não foi possível salvar este material. Tente novamente.',
+      'titleLabel': 'Título',
+      'titleHint': 'Um nome curto que você reconhecerá',
+      'saveAction': 'Salvar material',
+      'scriptLabel': 'Roteiro',
+      'scriptHint': 'O texto que você quer ler durante a exposição',
+      'linkLabel': 'Link',
+      'pickImage': 'Escolher imagem',
+      'changeImage': 'Trocar imagem',
+      'rerecord': 'Gravar novamente',
+      'recorderHint': 'Grave um trecho curto para repetir em loop.',
+      'record': 'Gravar',
+      'recording': 'Gravando',
+      'other': 'Material de exposição',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String exposureMaterialEditorTitle(String type) {
+    return 'Novo: $type';
+  }
+
+  @override
+  String exposureRecordingSeconds(int seconds) {
+    return 'Gravando · $seconds s';
   }
 
   @override

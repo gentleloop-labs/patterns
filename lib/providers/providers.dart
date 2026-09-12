@@ -240,7 +240,7 @@ class ExposureHierarchyNotifier extends AsyncNotifier<List<ExposureHierarchy>> {
     return await DbHelper.instance.getActiveExposureHierarchies();
   }
 
-  Future<void> addHierarchyWithSteps(
+  Future<bool> addHierarchyWithSteps(
     ExposureHierarchy hierarchy,
     List<ExposureStep> steps,
   ) async {
@@ -253,14 +253,15 @@ class ExposureHierarchyNotifier extends AsyncNotifier<List<ExposureHierarchy>> {
       ref.invalidate(exposureStepProvider);
       return await DbHelper.instance.getActiveExposureHierarchies();
     });
+    return !state.hasError;
   }
 
-  Future<void> archiveHierarchy(int id) async {
-    state = const AsyncLoading();
+  Future<bool> archiveHierarchy(int id) async {
     state = await AsyncValue.guard(() async {
       await DbHelper.instance.archiveExposureHierarchy(id);
       return await DbHelper.instance.getActiveExposureHierarchies();
     });
+    return !state.hasError;
   }
 }
 
@@ -277,12 +278,12 @@ class ExposureStepNotifier extends AsyncNotifier<List<ExposureStep>> {
     return await DbHelper.instance.getExposureSteps();
   }
 
-  Future<void> updateStep(ExposureStep step) async {
-    state = const AsyncLoading();
+  Future<bool> updateStep(ExposureStep step) async {
     state = await AsyncValue.guard(() async {
       await DbHelper.instance.updateExposureStep(step);
       return await DbHelper.instance.getExposureSteps();
     });
+    return !state.hasError;
   }
 }
 
@@ -598,16 +599,16 @@ class ExposureMaterialNotifier extends AsyncNotifier<List<ExposureMaterial>> {
 
   /// The material's [ExposureMaterial.fileName] (if any) must already point at a
   /// file copied into the materials dir via `MaterialFileStore.save`.
-  Future<void> add(ExposureMaterial material) async {
+  Future<bool> add(ExposureMaterial material) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await DbHelper.instance.insertExposureMaterial(material);
       return await DbHelper.instance.getExposureMaterials();
     });
+    return !state.hasError;
   }
 
-  Future<void> delete(ExposureMaterial material) async {
-    state = const AsyncLoading();
+  Future<bool> delete(ExposureMaterial material) async {
     state = await AsyncValue.guard(() async {
       if (material.id != null) {
         await DbHelper.instance.deleteExposureMaterial(material.id!);
@@ -618,6 +619,7 @@ class ExposureMaterialNotifier extends AsyncNotifier<List<ExposureMaterial>> {
       }
       return await DbHelper.instance.getExposureMaterials();
     });
+    return !state.hasError;
   }
 }
 

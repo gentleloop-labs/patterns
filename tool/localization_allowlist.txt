@@ -25,3 +25,5 @@
 
 # Stable ICU selector keys for immediate-support and breathing copy.
 ^lib/mobile/screens/emergency_toolkit_screen\.dart:.*\.emergencyToolkitText\('[a-zA-Z]+'
+^lib/mobile/screens/exposure_hierarchy_screen\.dart:.*\.exposureHierarchyText\('[a-zA-Z]+'
+^lib/mobile/screens/exposure_materials_screen\.dart:.*\.exposureMaterialsText\('[a-zA-Z]+'
