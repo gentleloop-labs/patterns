@@ -163,7 +163,7 @@ void main() {
     expect(saved.value, isNull);
     expect(
       find.text(
-        'Deine ERP-Übung konnte nicht gespeichert werden. Bitte versuche es erneut.',
+        'Ihre ERP-Übung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.',
       ),
       findsOneWidget,
     );

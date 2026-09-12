@@ -117,7 +117,7 @@ void main() {
     expect(find.text('ERP-Plan erstellen'), findsOneWidget);
     expect(
       find.text(
-        'Dein ERP-Plan konnte nicht gespeichert werden. Bitte versuche es erneut.',
+        'Ihr ERP-Plan konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.',
       ),
       findsOneWidget,
     );

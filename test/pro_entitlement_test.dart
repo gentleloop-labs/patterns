@@ -295,7 +295,7 @@ void main() {
       await tester.pump();
 
       expect(find.byType(SingleChildScrollView), findsOneWidget);
-      expect(find.text('Ihre Recovery-Aktivitäten ansehen'), findsOneWidget);
+      expect(find.text('Ihre Übungsaktivitäten ansehen'), findsOneWidget);
       expect(tester.takeException(), isNull);
     });
   });
