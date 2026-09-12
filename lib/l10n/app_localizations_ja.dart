@@ -3090,4 +3090,67 @@ class AppLocalizationsJa extends AppLocalizations {
     });
     return '$_temp0';
   }
+
+  @override
+  String behavioralExperimentText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': '行動実験',
+      'newAction': '新規',
+      'subtitle': 'OCDの予測と、予定した行動の後に観察したことを比べます。',
+      'loadError': '行動実験を読み込めませんでした。もう一度お試しください。',
+      'deleteTitle': 'この行動実験を削除しますか？',
+      'deleteBody': 'この行動実験を端末から完全に削除します。',
+      'cancel': 'キャンセル',
+      'deleteAction': '削除',
+      'deleteTooltip': '行動実験を削除',
+      'deleteSuccess': '行動実験を削除しました。',
+      'deleteError': 'この行動実験を削除できませんでした。もう一度お試しください。',
+      'statusPlanned': '予定',
+      'statusCompleted': '完了',
+      'outcomeLabel': '実際に起きたこと',
+      'learningLabel': '自分のメモ',
+      'recordAction': '起きたことを記録',
+      'emptyTitle': '行動実験を計画する',
+      'emptyBody': 'OCDの予測と小さな行動を書き、後で観察したことを記録します。',
+      'emptyAction': '新しい行動実験',
+      'outcomeEditorTitle': '起きたことを記録',
+      'newEditorTitle': '新しい行動実験',
+      'predictedLabel': 'OCDの予測',
+      'testActionLabel': '予定した行動',
+      'outcomeInputLabel': '実際に何が起きましたか？',
+      'outcomeInputHint': '結果を評価せず、観察したことを記録します',
+      'learningInputLabel': 'メモしておきたいことはありますか？（任意）',
+      'learningInputHint': '覚えておきたいこと',
+      'predictionInputLabel': 'OCDは何が起きると予測していますか？',
+      'predictionInputHint': '例：もう一度確認しなければ、家が水浸しになる',
+      'confidenceQuestion': 'その予測はどのくらい確かに感じますか？',
+      'experimentInputLabel': '予測を確かめるために何をしますか？',
+      'experimentInputHint': '例：通常の確認を1回して出かけ、その後を観察する',
+      'saveOutcome': '観察を保存',
+      'saveExperiment': '行動実験を保存',
+      'outcomeValidation': '観察したことを短く入力してください。',
+      'planValidation': 'OCDの予測と、予定している行動の両方を入力してください。',
+      'outcomeSaveSuccess': '観察を保存しました。',
+      'planSaveSuccess': '行動実験を保存しました。実行後に起きたことを記録できます。',
+      'saveError': 'この行動実験を保存できませんでした。入力した内容は残っています。もう一度お試しください。',
+      'other': '行動実験',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String behavioralExperimentConfidence(String percent) {
+    return '確信度$percent';
+  }
+
+  @override
+  String behavioralExperimentCardSummary(
+    String status,
+    String date,
+    String confidence,
+    String prediction,
+    String experiment,
+  ) {
+    return '$status・$date・$confidence。予測：$prediction。予定した行動：$experiment。';
+  }
 }

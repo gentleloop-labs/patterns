@@ -4146,6 +4146,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{severity, select, subclinical{This total falls in the subclinical Y-BOCS range. The result is a snapshot, not a diagnosis.} mild{This total falls in the mild Y-BOCS range. The result is a snapshot, not a diagnosis.} moderate{This total falls in the moderate Y-BOCS range. The result is a snapshot, not a diagnosis.} severe{This total falls in the severe Y-BOCS range. Consider discussing the impact with a qualified professional.} extreme{This total falls in the extreme Y-BOCS range. Consider contacting a qualified professional for support. If you may be in immediate danger, contact local emergency services.} other{This recorded total is a snapshot, not a diagnosis.}}'**
   String ybocsSeverityBlurb(String severity);
+
+  /// Behavioral Experiments interface copy selected from a stable UI key. Preserve OCD terminology and user text; avoid reassurance, praise, scores, and claims that a prediction was disproved.
+  ///
+  /// In en, this message translates to:
+  /// **'{key, select, title{Behavioral Experiments} newAction{New} subtitle{Compare an OCD prediction with what you observe after a planned action.} loadError{Your experiments are unavailable right now. Please try again.} deleteTitle{Delete this experiment?} deleteBody{This permanently removes the experiment from this device.} cancel{Cancel} deleteAction{Delete} deleteTooltip{Delete experiment} deleteSuccess{Experiment deleted.} deleteError{This experiment could not be deleted. Please try again.} statusPlanned{Planned} statusCompleted{Completed} outcomeLabel{What happened} learningLabel{What I noted} recordAction{Record what happened} emptyTitle{Plan a behavioral experiment} emptyBody{Write down OCD’s prediction, choose a small action, and later record what you observed.} emptyAction{New experiment} outcomeEditorTitle{Record what happened} newEditorTitle{New experiment} predictedLabel{OCD predicted} testActionLabel{Planned action} outcomeInputLabel{What actually happened?} outcomeInputHint{Record what you observed, without grading the result} learningInputLabel{Anything you want to note? (optional)} learningInputHint{A detail you may want to remember} predictionInputLabel{What does OCD predict?} predictionInputHint{For example: If I do not check again, the house will flood} confidenceQuestion{How certain does the prediction feel?} experimentInputLabel{What action will test the prediction?} experimentInputHint{For example: Leave after one normal check and observe what happens} saveOutcome{Save observation} saveExperiment{Save experiment} outcomeValidation{Add a short note about what you observed.} planValidation{Add both OCD’s prediction and the action you plan to take.} outcomeSaveSuccess{Observation saved.} planSaveSuccess{Experiment saved. Record what happened after you try it.} saveError{This experiment could not be saved. Your text is still here. Please try again.} other{Behavioral experiment}}'**
+  String behavioralExperimentText(String key);
+
+  /// Locale-formatted, deliberately recorded confidence value. Percent already includes the locale-appropriate percent sign.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent} certain'**
+  String behavioralExperimentConfidence(String percent);
+
+  /// Accessible factual summary of a behavioral experiment. Prediction and experiment are user-authored and must remain unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{status} · {date} · {confidence}. Prediction: {prediction}. Planned action: {experiment}.'**
+  String behavioralExperimentCardSummary(
+    String status,
+    String date,
+    String confidence,
+    String prediction,
+    String experiment,
+  );
 }
 
 class _AppLocalizationsDelegate
