@@ -2611,6 +2611,124 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String ybocsText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'OCD Self-Check',
+      'introBody':
+          'A guided self-check based on the Yale-Brown Obsessive Compulsive Scale (Y-BOCS), covering the patterns you notice and how much they affect you.',
+      'spotTitle': 'Notice the patterns',
+      'spotBody': 'Select obsessions and compulsions you have experienced.',
+      'impactTitle': 'Record the impact',
+      'impactBody': 'Answer 10 questions about how much they affect your day.',
+      'resultIntroTitle': 'Review the result',
+      'resultIntroBody':
+          'See the recorded themes, subtotals, and severity range.',
+      'begin': 'Begin',
+      'retakeAction': 'Take it again',
+      'privacyDuration':
+          'Takes about 10 minutes. Your answers stay on this device unless you choose to export them.',
+      'disclaimer':
+          'This self-check can help you describe your experience. It does not diagnose OCD and is not emergency support. Only a qualified professional can diagnose OCD.',
+      'historyTitle': 'Your history',
+      'historyBody': 'Your previous recorded totals appear here.',
+      'deleteTitle': 'Delete assessment?',
+      'deleteBody':
+          'This permanently removes this assessment from this device.',
+      'cancel': 'Cancel',
+      'deleteAction': 'Delete',
+      'deleteTooltip': 'Delete assessment',
+      'deleteSuccess': 'Assessment deleted.',
+      'deleteError': 'This assessment could not be deleted. Please try again.',
+      'checklistTitle': 'What feels familiar?',
+      'checklistBody':
+          'Select anything you have experienced, now or in the past. Skip what does not fit.',
+      'obsessions': 'Obsessions',
+      'obsessionsDescription': 'Unwanted thoughts, images, or urges',
+      'compulsions': 'Compulsions',
+      'compulsionsDescription':
+          'Behaviours or mental acts performed in response to distress',
+      'continueAction': 'Continue',
+      'seeResults': 'See results',
+      'next': 'Next',
+      'resultsTitle': 'Your result',
+      'retake': 'Retake',
+      'saved': 'Saved',
+      'saveHistory': 'Save to my history',
+      'saving': 'Saving…',
+      'saveSuccess': 'Saved to your history.',
+      'saveError': 'This assessment could not be saved. Please try again.',
+      'breakdownTitle': 'Recorded subtotals',
+      'typesTitle': 'Types recorded',
+      'typesNone':
+          'No obsession or compulsion type was recorded in this self-check.',
+      'typesBoth':
+          'Both obsessions and compulsions were recorded in this self-check.',
+      'typesObsessions': 'Obsessions were recorded in this self-check.',
+      'typesCompulsions': 'Compulsions were recorded in this self-check.',
+      'themesTitle': 'Themes recorded',
+      'themesBody':
+          'The checklist categories containing the items you selected.',
+      'nextStepsTitle': 'About this result',
+      'nextStepsBody':
+          'This result is a self-reported snapshot, not a diagnosis or emergency support. If these patterns affect your life, you can discuss them with a qualified professional. If you may be in immediate danger, contact local emergency services.',
+      'other': 'Y-BOCS self-check',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsSelectedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Continue · $count selected',
+      one: 'Continue · 1 selected',
+      zero: 'Continue',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsQuestionProgress(int current, int total) {
+    return 'Question $current of $total';
+  }
+
+  @override
+  String ybocsScoreOutOf(int score, int maximum) {
+    return '$score of $maximum';
+  }
+
+  @override
+  String ybocsHistorySummary(String severity, int score, String date) {
+    return '$severity · $score of 40 · $date';
+  }
+
+  @override
+  String ybocsSeveritySummary(
+    String severity,
+    String score,
+    String description,
+  ) {
+    return '$severity · $score · $description';
+  }
+
+  @override
+  String ybocsSubtotalSummary(String label, String score) {
+    return '$label · $score';
+  }
+
+  @override
+  String ybocsCategorySelectedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count items selected',
+      one: '1 item selected',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String structuredProgramTaskChanged(String status) {
     String _temp0 = intl.Intl.selectLogic(status, {
       'completed': 'Task marked complete.',
@@ -2798,6 +2916,187 @@ class AppLocalizationsEn extends AppLocalizations {
       'jr3b':
           'Record what happened to the not-right feeling without changing it',
       'other': 'Track task',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsQuestionPrompt(String question) {
+    String _temp0 = intl.Intl.selectLogic(question, {
+      'o_time': 'How much of my time is taken up by obsessive thoughts?',
+      'o_interfere': 'How much do the obsessions get in the way of my life?',
+      'o_distress': 'How much distress do the obsessive thoughts cause me?',
+      'o_resist': 'How hard do I try to resist the obsessive thoughts?',
+      'o_control': 'How much control do I have over the obsessive thoughts?',
+      'c_time':
+          'How much time do I spend on compulsions, such as rituals or checking?',
+      'c_interfere': 'How much do the compulsions get in the way of my life?',
+      'c_distress':
+          'How anxious or upset would I feel if I could not do the compulsion?',
+      'c_resist': 'How hard do I try to resist the compulsions?',
+      'c_control': 'How much control do I have over the compulsions?',
+      'other': 'Self-check question',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsQuestionOption(String option) {
+    String _temp0 = intl.Intl.selectLogic(option, {
+      'o_time_0': 'None at all',
+      'o_time_1': 'A little: less than an hour a day, or a few now and then',
+      'o_time_2':
+          'A moderate amount: 1 to 3 hours a day, or frequent intrusions',
+      'o_time_3': 'A lot: 3 to 8 hours a day, or very frequent intrusions',
+      'o_time_4': 'Almost constant: more than 8 hours a day',
+      'o_interfere_0': 'Not at all',
+      'o_interfere_1': 'A little: they do not really affect what I do',
+      'o_interfere_2': 'Some: they interfere but I can still manage',
+      'o_interfere_3': 'A lot: they clearly get in the way of my day',
+      'o_interfere_4': 'So much that I can barely function',
+      'o_distress_0': 'None',
+      'o_distress_1': 'A little: not too disturbing',
+      'o_distress_2': 'A moderate amount: disturbing but manageable',
+      'o_distress_3': 'A lot: very disturbing',
+      'o_distress_4': 'Nearly constant, disabling distress',
+      'o_resist_0': 'I always try to resist, or they barely happen',
+      'o_resist_1': 'I try to resist most of the time',
+      'o_resist_2': 'I make some effort to resist',
+      'o_resist_3': 'I give in to almost all of them without much of a fight',
+      'o_resist_4': 'I completely give in to them, willingly',
+      'o_control_0': 'Full control: I can dismiss them easily',
+      'o_control_1': 'A lot of control: usually I can stop or divert them',
+      'o_control_2': 'Some control: sometimes I can, sometimes I cannot',
+      'o_control_3': 'Little control: I rarely manage to stop them',
+      'o_control_4': 'No control: they feel completely involuntary',
+      'c_time_0': 'None at all',
+      'c_time_1': 'A little: less than an hour a day, or a few now and then',
+      'c_time_2': 'A moderate amount: 1 to 3 hours a day, or frequent rituals',
+      'c_time_3': 'A lot: 3 to 8 hours a day, or very frequent rituals',
+      'c_time_4': 'Almost constant: more than 8 hours a day',
+      'c_interfere_0': 'Not at all',
+      'c_interfere_1': 'A little: they do not really affect what I do',
+      'c_interfere_2': 'Some: they interfere but I can still manage',
+      'c_interfere_3': 'A lot: they clearly get in the way of my day',
+      'c_interfere_4': 'So much that I can barely function',
+      'c_distress_0': 'Not at all',
+      'c_distress_1': 'A little uneasy',
+      'c_distress_2': 'Moderately anxious',
+      'c_distress_3': 'Very anxious',
+      'c_distress_4': 'Overwhelmed, disabling anxiety',
+      'c_resist_0': 'I always try to resist, or they barely happen',
+      'c_resist_1': 'I try to resist most of the time',
+      'c_resist_2': 'I make some effort to resist',
+      'c_resist_3': 'I give in to almost all of them without much of a fight',
+      'c_resist_4': 'I completely give in to them, willingly',
+      'c_control_0': 'Full control: I can stop myself easily',
+      'c_control_1': 'A lot of control: usually I can stop or delay',
+      'c_control_2': 'Some control: sometimes I can, sometimes I cannot',
+      'c_control_3': 'Little control: I can rarely stop or delay',
+      'c_control_4': 'No control: I have to complete them',
+      'other': 'Response option',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsCategoryTitle(String category) {
+    String _temp0 = intl.Intl.selectLogic(category, {
+      'aggressive': 'Aggressive or harm-related',
+      'contamination': 'Contamination',
+      'sexual': 'Sexual',
+      'hoarding_obs': 'Hoarding or saving',
+      'religious': 'Religious or moral scrupulosity',
+      'symmetry_obs': 'Symmetry or exactness',
+      'somatic': 'Body or illness',
+      'misc_obs': 'Other obsessions',
+      'washing': 'Washing or cleaning',
+      'checking': 'Checking',
+      'repeating': 'Repeating rituals',
+      'counting': 'Counting',
+      'ordering': 'Ordering or arranging',
+      'misc_comp': 'Other compulsions',
+      'other': 'Other theme',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsSymptomLabel(String symptom) {
+    String _temp0 = intl.Intl.selectLogic(symptom, {
+      'agg_harm_self': 'Fear I might harm myself',
+      'agg_harm_others': 'Fear I might harm someone else',
+      'agg_violent': 'Violent or horrific images in my mind',
+      'agg_blurt': 'Fear I will blurt out insults or obscenities',
+      'agg_impulse': 'Fear I will act on an unwanted impulse',
+      'agg_responsible':
+          'Fear I will be responsible for something terrible happening',
+      'con_dirt': 'Concern with dirt or germs',
+      'con_bodily': 'Disgust with bodily waste or secretions',
+      'con_chemicals': 'Concern about household chemicals or cleaners',
+      'con_ill': 'Fear I will get ill from contamination',
+      'con_spread': 'Fear I will spread contamination to others',
+      'con_sticky': 'Bothered by sticky substances or residues',
+      'sex_forbidden': 'Forbidden or unwanted sexual thoughts or images',
+      'sex_others': 'Sexual thoughts involving others that disturb me',
+      'sex_orientation': 'Unwanted doubts about my sexual orientation',
+      'sex_aggressive': 'Aggressive sexual thoughts toward others',
+      'hoard_discard': 'Fear of throwing away something I might need',
+      'hoard_value': 'Feeling objects have value I cannot let go of',
+      'rel_sacrilege': 'Concern with sacrilege or blasphemy',
+      'rel_rightwrong': 'Excessive concern with right and wrong, or morality',
+      'rel_punish': 'Fear of punishment by God or fate',
+      'sym_even': 'Need things even, balanced, or “just right”',
+      'sym_exact': 'Need for exactness, order, or precision',
+      'sym_incomplete': 'A feeling of incompleteness until things feel right',
+      'som_illness': 'Excessive concern with illness or disease',
+      'som_body': 'Excessive concern with a body part or appearance',
+      'misc_know': 'Need to know or remember things',
+      'misc_saywrong': 'Fear of saying the wrong thing',
+      'misc_lucky': 'Lucky or unlucky numbers, words, or colours',
+      'misc_sounds': 'Intrusive sounds, words, or music I cannot stop',
+      'misc_lose': 'Fear of losing things',
+      'wash_hands': 'Excessive or ritualised hand-washing',
+      'wash_shower': 'Excessive showering, bathing, or grooming',
+      'wash_clean': 'Excessive cleaning of household items',
+      'wash_avoid': 'Avoiding things I see as contaminated',
+      'chk_locks': 'Checking locks, appliances, taps, or the stove',
+      'chk_harm': 'Checking I did not or will not harm someone',
+      'chk_mistake': 'Checking I did not make a mistake',
+      'chk_body': 'Checking my body for signs of illness',
+      'rep_reread': 'Re-reading or re-writing',
+      'rep_routine':
+          'Repeating routine actions, such as going through doors or going up and down',
+      'rep_untilright': 'Repeating until it feels “just right”',
+      'cnt_count': 'Counting objects, steps, or actions',
+      'cnt_numbers': 'Doing things a certain number of times',
+      'ord_arrange': 'Arranging things until they are symmetrical or exact',
+      'ord_align': 'Aligning or straightening objects repeatedly',
+      'mc_mental':
+          'Mental rituals, such as silent prayers, phrases, or reviewing',
+      'mc_reassure': 'Repeatedly asking for reassurance or confessing',
+      'mc_touch': 'Needing to touch, tap, or rub things',
+      'mc_lists': 'Excessive list-making',
+      'mc_avoid': 'Avoiding situations to prevent an urge',
+      'other': 'Other symptom',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsSeverityBlurb(String severity) {
+    String _temp0 = intl.Intl.selectLogic(severity, {
+      'subclinical':
+          'This total falls in the subclinical Y-BOCS range. The result is a snapshot, not a diagnosis.',
+      'mild':
+          'This total falls in the mild Y-BOCS range. The result is a snapshot, not a diagnosis.',
+      'moderate':
+          'This total falls in the moderate Y-BOCS range. The result is a snapshot, not a diagnosis.',
+      'severe':
+          'This total falls in the severe Y-BOCS range. Consider discussing the impact with a qualified professional.',
+      'extreme':
+          'This total falls in the extreme Y-BOCS range. Consider contacting a qualified professional for support. If you may be in immediate danger, contact local emergency services.',
+      'other': 'This recorded total is a snapshot, not a diagnosis.',
     });
     return '$_temp0';
   }

@@ -2641,6 +2641,125 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
+  String ybocsText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Autoavaliação de TOC',
+      'introBody':
+          'Uma autoavaliação guiada baseada na Escala Obsessivo-Compulsiva de Yale-Brown (Y-BOCS), sobre os padrões que você percebe e o quanto eles afetam você.',
+      'spotTitle': 'Observe os padrões',
+      'spotBody': 'Selecione obsessões e compulsões que você já vivenciou.',
+      'impactTitle': 'Registre o impacto',
+      'impactBody':
+          'Responda a 10 perguntas sobre o quanto elas afetam o seu dia.',
+      'resultIntroTitle': 'Veja o resultado',
+      'resultIntroBody':
+          'Confira os temas, subtotais e a faixa de gravidade registrados.',
+      'begin': 'Começar',
+      'retakeAction': 'Fazer novamente',
+      'privacyDuration':
+          'Leva cerca de 10 minutos. Suas respostas ficam neste dispositivo, a menos que você escolha exportá-las.',
+      'disclaimer':
+          'Esta autoavaliação pode ajudar você a descrever sua experiência. Ela não diagnostica TOC nem oferece apoio de emergência. Somente um profissional qualificado pode diagnosticar TOC.',
+      'historyTitle': 'Seu histórico',
+      'historyBody': 'Seus totais registrados anteriormente aparecem aqui.',
+      'deleteTitle': 'Excluir avaliação?',
+      'deleteBody':
+          'Isso remove permanentemente esta avaliação deste dispositivo.',
+      'cancel': 'Cancelar',
+      'deleteAction': 'Excluir',
+      'deleteTooltip': 'Excluir avaliação',
+      'deleteSuccess': 'Avaliação excluída.',
+      'deleteError':
+          'Não foi possível excluir esta avaliação. Tente novamente.',
+      'checklistTitle': 'O que parece familiar?',
+      'checklistBody':
+          'Selecione qualquer experiência atual ou passada. Ignore o que não se aplica.',
+      'obsessions': 'Obsessões',
+      'obsessionsDescription': 'Pensamentos, imagens ou impulsos indesejados',
+      'compulsions': 'Compulsões',
+      'compulsionsDescription':
+          'Comportamentos ou atos mentais realizados em resposta ao sofrimento',
+      'continueAction': 'Continuar',
+      'seeResults': 'Ver resultado',
+      'next': 'Avançar',
+      'resultsTitle': 'Seu resultado',
+      'retake': 'Refazer',
+      'saved': 'Salvo',
+      'saveHistory': 'Salvar no meu histórico',
+      'saving': 'Salvando…',
+      'saveSuccess': 'Salvo no seu histórico.',
+      'saveError': 'Não foi possível salvar esta avaliação. Tente novamente.',
+      'breakdownTitle': 'Subtotais registrados',
+      'typesTitle': 'Tipos registrados',
+      'typesNone':
+          'Nenhum tipo de obsessão ou compulsão foi registrado nesta autoavaliação.',
+      'typesBoth':
+          'Obsessões e compulsões foram registradas nesta autoavaliação.',
+      'typesObsessions': 'Obsessões foram registradas nesta autoavaliação.',
+      'typesCompulsions': 'Compulsões foram registradas nesta autoavaliação.',
+      'themesTitle': 'Temas registrados',
+      'themesBody': 'As categorias da lista que contêm os itens selecionados.',
+      'nextStepsTitle': 'Sobre este resultado',
+      'nextStepsBody':
+          'Este resultado é um retrato autorrelatado, não um diagnóstico nem apoio de emergência. Se esses padrões afetam sua vida, você pode conversar com um profissional qualificado. Se houver perigo imediato, entre em contato com os serviços de emergência locais.',
+      'other': 'Autoavaliação Y-BOCS',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsSelectedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Continuar · $count selecionados',
+      one: 'Continuar · 1 selecionado',
+      zero: 'Continuar',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsQuestionProgress(int current, int total) {
+    return 'Pergunta $current de $total';
+  }
+
+  @override
+  String ybocsScoreOutOf(int score, int maximum) {
+    return '$score de $maximum';
+  }
+
+  @override
+  String ybocsHistorySummary(String severity, int score, String date) {
+    return '$severity · $score de 40 · $date';
+  }
+
+  @override
+  String ybocsSeveritySummary(
+    String severity,
+    String score,
+    String description,
+  ) {
+    return '$severity · $score · $description';
+  }
+
+  @override
+  String ybocsSubtotalSummary(String label, String score) {
+    return '$label · $score';
+  }
+
+  @override
+  String ybocsCategorySelectedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count itens selecionados',
+      one: '1 item selecionado',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String structuredProgramTaskChanged(String status) {
     String _temp0 = intl.Intl.selectLogic(status, {
       'completed': 'Tarefa marcada como concluída.',
@@ -2832,6 +2951,192 @@ class AppLocalizationsPt extends AppLocalizations {
       'jr3b':
           'Registre o que aconteceu com a sensação de que algo não estava certo sem mudá-la',
       'other': 'Tarefa da trilha',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsQuestionPrompt(String question) {
+    String _temp0 = intl.Intl.selectLogic(question, {
+      'o_time': 'Quanto do meu tempo é ocupado por pensamentos obsessivos?',
+      'o_interfere': 'Quanto as obsessões interferem na minha vida?',
+      'o_distress': 'Quanto sofrimento os pensamentos obsessivos me causam?',
+      'o_resist': 'Quanto tento resistir aos pensamentos obsessivos?',
+      'o_control': 'Quanto controle tenho sobre os pensamentos obsessivos?',
+      'c_time':
+          'Quanto tempo passo em compulsões, como rituais ou verificações?',
+      'c_interfere': 'Quanto as compulsões interferem na minha vida?',
+      'c_distress':
+          'Quão ansioso ou perturbado eu me sentiria se não pudesse realizar a compulsão?',
+      'c_resist': 'Quanto tento resistir às compulsões?',
+      'c_control': 'Quanto controle tenho sobre as compulsões?',
+      'other': 'Pergunta da autoavaliação',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsQuestionOption(String option) {
+    String _temp0 = intl.Intl.selectLogic(option, {
+      'o_time_0': 'Nenhum',
+      'o_time_1': 'Pouco: menos de uma hora por dia ou algumas vezes',
+      'o_time_2': 'Moderado: de 1 a 3 horas por dia ou intrusões frequentes',
+      'o_time_3': 'Muito: de 3 a 8 horas por dia ou intrusões muito frequentes',
+      'o_time_4': 'Quase constante: mais de 8 horas por dia',
+      'o_interfere_0': 'Nada',
+      'o_interfere_1': 'Pouco: quase não afetam o que faço',
+      'o_interfere_2': 'Um pouco: interferem, mas ainda consigo lidar',
+      'o_interfere_3': 'Muito: atrapalham claramente o meu dia',
+      'o_interfere_4': 'Tanto que mal consigo funcionar',
+      'o_distress_0': 'Nenhum',
+      'o_distress_1': 'Pouco: não muito perturbador',
+      'o_distress_2': 'Moderado: perturbador, mas administrável',
+      'o_distress_3': 'Muito: muito perturbador',
+      'o_distress_4': 'Sofrimento quase constante e incapacitante',
+      'o_resist_0': 'Sempre tento resistir, ou quase não acontecem',
+      'o_resist_1': 'Tento resistir na maior parte do tempo',
+      'o_resist_2': 'Faço algum esforço para resistir',
+      'o_resist_3': 'Cedo a quase todos sem muita resistência',
+      'o_resist_4': 'Cedo completamente e por vontade própria',
+      'o_control_0': 'Controle total: consigo afastá-los facilmente',
+      'o_control_1':
+          'Muito controle: geralmente consigo pará-los ou redirecioná-los',
+      'o_control_2': 'Algum controle: às vezes consigo, às vezes não',
+      'o_control_3': 'Pouco controle: raramente consigo pará-los',
+      'o_control_4': 'Nenhum controle: parecem totalmente involuntários',
+      'c_time_0': 'Nenhum',
+      'c_time_1': 'Pouco: menos de uma hora por dia ou algumas vezes',
+      'c_time_2': 'Moderado: de 1 a 3 horas por dia ou rituais frequentes',
+      'c_time_3': 'Muito: de 3 a 8 horas por dia ou rituais muito frequentes',
+      'c_time_4': 'Quase constante: mais de 8 horas por dia',
+      'c_interfere_0': 'Nada',
+      'c_interfere_1': 'Pouco: quase não afetam o que faço',
+      'c_interfere_2': 'Um pouco: interferem, mas ainda consigo lidar',
+      'c_interfere_3': 'Muito: atrapalham claramente o meu dia',
+      'c_interfere_4': 'Tanto que mal consigo funcionar',
+      'c_distress_0': 'Nada',
+      'c_distress_1': 'Um pouco inquieto',
+      'c_distress_2': 'Moderadamente ansioso',
+      'c_distress_3': 'Muito ansioso',
+      'c_distress_4': 'Ansiedade esmagadora e incapacitante',
+      'c_resist_0': 'Sempre tento resistir, ou quase não acontecem',
+      'c_resist_1': 'Tento resistir na maior parte do tempo',
+      'c_resist_2': 'Faço algum esforço para resistir',
+      'c_resist_3': 'Cedo a quase todas sem muita resistência',
+      'c_resist_4': 'Cedo completamente e por vontade própria',
+      'c_control_0': 'Controle total: consigo me impedir facilmente',
+      'c_control_1': 'Muito controle: geralmente consigo parar ou adiar',
+      'c_control_2': 'Algum controle: às vezes consigo, às vezes não',
+      'c_control_3': 'Pouco controle: raramente consigo parar ou adiar',
+      'c_control_4': 'Nenhum controle: preciso concluí-las',
+      'other': 'Opção de resposta',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsCategoryTitle(String category) {
+    String _temp0 = intl.Intl.selectLogic(category, {
+      'aggressive': 'Agressividade ou dano',
+      'contamination': 'Contaminação',
+      'sexual': 'Sexual',
+      'hoarding_obs': 'Acumulação ou guarda',
+      'religious': 'Escrupulosidade religiosa ou moral',
+      'symmetry_obs': 'Simetria ou exatidão',
+      'somatic': 'Corpo ou doença',
+      'misc_obs': 'Outras obsessões',
+      'washing': 'Lavagem ou limpeza',
+      'checking': 'Verificação',
+      'repeating': 'Rituais de repetição',
+      'counting': 'Contagem',
+      'ordering': 'Ordenação ou organização',
+      'misc_comp': 'Outras compulsões',
+      'other': 'Outro tema',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsSymptomLabel(String symptom) {
+    String _temp0 = intl.Intl.selectLogic(symptom, {
+      'agg_harm_self': 'Medo de machucar a mim mesmo',
+      'agg_harm_others': 'Medo de machucar outra pessoa',
+      'agg_violent': 'Imagens violentas ou horríveis na minha mente',
+      'agg_blurt': 'Medo de falar insultos ou obscenidades de repente',
+      'agg_impulse': 'Medo de agir por um impulso indesejado',
+      'agg_responsible': 'Medo de ser responsável por algo terrível',
+      'con_dirt': 'Preocupação com sujeira ou germes',
+      'con_bodily': 'Nojo de resíduos ou secreções corporais',
+      'con_chemicals':
+          'Preocupação com produtos químicos ou de limpeza doméstica',
+      'con_ill': 'Medo de adoecer por contaminação',
+      'con_spread': 'Medo de transmitir contaminação a outras pessoas',
+      'con_sticky': 'Incômodo com substâncias ou resíduos pegajosos',
+      'sex_forbidden':
+          'Pensamentos ou imagens sexuais proibidos ou indesejados',
+      'sex_others': 'Pensamentos sexuais sobre outras pessoas que me perturbam',
+      'sex_orientation': 'Dúvidas indesejadas sobre minha orientação sexual',
+      'sex_aggressive': 'Pensamentos sexuais agressivos sobre outras pessoas',
+      'hoard_discard': 'Medo de jogar fora algo de que eu possa precisar',
+      'hoard_value':
+          'Sensação de que objetos têm um valor do qual não consigo abrir mão',
+      'rel_sacrilege': 'Preocupação com sacrilégio ou blasfêmia',
+      'rel_rightwrong': 'Preocupação excessiva com certo, errado ou moralidade',
+      'rel_punish': 'Medo de punição por Deus ou pelo destino',
+      'sym_even':
+          'Necessidade de que as coisas estejam equilibradas ou “do jeito certo”',
+      'sym_exact': 'Necessidade de exatidão, ordem ou precisão',
+      'sym_incomplete': 'Sensação de incompletude até que tudo pareça certo',
+      'som_illness': 'Preocupação excessiva com doença',
+      'som_body': 'Preocupação excessiva com uma parte do corpo ou aparência',
+      'misc_know': 'Necessidade de saber ou lembrar de coisas',
+      'misc_saywrong': 'Medo de dizer algo errado',
+      'misc_lucky': 'Números, palavras ou cores de sorte ou azar',
+      'misc_sounds':
+          'Sons, palavras ou músicas intrusivos que não consigo parar',
+      'misc_lose': 'Medo de perder coisas',
+      'wash_hands': 'Lavagem excessiva ou ritualizada das mãos',
+      'wash_shower': 'Banho ou cuidados pessoais excessivos',
+      'wash_clean': 'Limpeza excessiva de itens domésticos',
+      'wash_avoid': 'Evitar coisas que considero contaminadas',
+      'chk_locks': 'Verificar fechaduras, aparelhos, torneiras ou fogão',
+      'chk_harm': 'Verificar se não machuquei ou não vou machucar alguém',
+      'chk_mistake': 'Verificar se não cometi um erro',
+      'chk_body': 'Verificar meu corpo em busca de sinais de doença',
+      'rep_reread': 'Reler ou reescrever',
+      'rep_routine':
+          'Repetir ações rotineiras, como passar por portas ou subir e descer',
+      'rep_untilright': 'Repetir até parecer “do jeito certo”',
+      'cnt_count': 'Contar objetos, passos ou ações',
+      'cnt_numbers': 'Fazer algo um determinado número de vezes',
+      'ord_arrange': 'Organizar objetos até ficarem simétricos ou exatos',
+      'ord_align': 'Alinhar ou endireitar objetos repetidamente',
+      'mc_mental':
+          'Rituais mentais, como orações silenciosas, frases ou revisões',
+      'mc_reassure': 'Pedir reafirmação ou confessar repetidamente',
+      'mc_touch': 'Precisar tocar, bater ou esfregar objetos',
+      'mc_lists': 'Fazer listas excessivamente',
+      'mc_avoid': 'Evitar situações para impedir um impulso',
+      'other': 'Outro sintoma',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsSeverityBlurb(String severity) {
+    String _temp0 = intl.Intl.selectLogic(severity, {
+      'subclinical':
+          'Este total está na faixa subclínica da Y-BOCS. O resultado é um retrato do momento, não um diagnóstico.',
+      'mild':
+          'Este total está na faixa leve da Y-BOCS. O resultado é um retrato do momento, não um diagnóstico.',
+      'moderate':
+          'Este total está na faixa moderada da Y-BOCS. O resultado é um retrato do momento, não um diagnóstico.',
+      'severe':
+          'Este total está na faixa grave da Y-BOCS. Considere conversar sobre o impacto com um profissional qualificado.',
+      'extreme':
+          'Este total está na faixa extrema da Y-BOCS. Considere entrar em contato com um profissional qualificado. Se houver perigo imediato, contate os serviços de emergência locais.',
+      'other':
+          'Este total registrado é um retrato do momento, não um diagnóstico.',
     });
     return '$_temp0';
   }
@@ -5474,6 +5779,125 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   }
 
   @override
+  String ybocsText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Autoavaliação de TOC',
+      'introBody':
+          'Uma autoavaliação guiada baseada na Escala Obsessivo-Compulsiva de Yale-Brown (Y-BOCS), sobre os padrões que você percebe e o quanto eles afetam você.',
+      'spotTitle': 'Observe os padrões',
+      'spotBody': 'Selecione obsessões e compulsões que você já vivenciou.',
+      'impactTitle': 'Registre o impacto',
+      'impactBody':
+          'Responda a 10 perguntas sobre o quanto elas afetam o seu dia.',
+      'resultIntroTitle': 'Veja o resultado',
+      'resultIntroBody':
+          'Confira os temas, subtotais e a faixa de gravidade registrados.',
+      'begin': 'Começar',
+      'retakeAction': 'Fazer novamente',
+      'privacyDuration':
+          'Leva cerca de 10 minutos. Suas respostas ficam neste dispositivo, a menos que você escolha exportá-las.',
+      'disclaimer':
+          'Esta autoavaliação pode ajudar você a descrever sua experiência. Ela não diagnostica TOC nem oferece apoio de emergência. Somente um profissional qualificado pode diagnosticar TOC.',
+      'historyTitle': 'Seu histórico',
+      'historyBody': 'Seus totais registrados anteriormente aparecem aqui.',
+      'deleteTitle': 'Excluir avaliação?',
+      'deleteBody':
+          'Isso remove permanentemente esta avaliação deste dispositivo.',
+      'cancel': 'Cancelar',
+      'deleteAction': 'Excluir',
+      'deleteTooltip': 'Excluir avaliação',
+      'deleteSuccess': 'Avaliação excluída.',
+      'deleteError':
+          'Não foi possível excluir esta avaliação. Tente novamente.',
+      'checklistTitle': 'O que parece familiar?',
+      'checklistBody':
+          'Selecione qualquer experiência atual ou passada. Ignore o que não se aplica.',
+      'obsessions': 'Obsessões',
+      'obsessionsDescription': 'Pensamentos, imagens ou impulsos indesejados',
+      'compulsions': 'Compulsões',
+      'compulsionsDescription':
+          'Comportamentos ou atos mentais realizados em resposta ao sofrimento',
+      'continueAction': 'Continuar',
+      'seeResults': 'Ver resultado',
+      'next': 'Avançar',
+      'resultsTitle': 'Seu resultado',
+      'retake': 'Refazer',
+      'saved': 'Salvo',
+      'saveHistory': 'Salvar no meu histórico',
+      'saving': 'Salvando…',
+      'saveSuccess': 'Salvo no seu histórico.',
+      'saveError': 'Não foi possível salvar esta avaliação. Tente novamente.',
+      'breakdownTitle': 'Subtotais registrados',
+      'typesTitle': 'Tipos registrados',
+      'typesNone':
+          'Nenhum tipo de obsessão ou compulsão foi registrado nesta autoavaliação.',
+      'typesBoth':
+          'Obsessões e compulsões foram registradas nesta autoavaliação.',
+      'typesObsessions': 'Obsessões foram registradas nesta autoavaliação.',
+      'typesCompulsions': 'Compulsões foram registradas nesta autoavaliação.',
+      'themesTitle': 'Temas registrados',
+      'themesBody': 'As categorias da lista que contêm os itens selecionados.',
+      'nextStepsTitle': 'Sobre este resultado',
+      'nextStepsBody':
+          'Este resultado é um retrato autorrelatado, não um diagnóstico nem apoio de emergência. Se esses padrões afetam sua vida, você pode conversar com um profissional qualificado. Se houver perigo imediato, entre em contato com os serviços de emergência locais.',
+      'other': 'Autoavaliação Y-BOCS',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsSelectedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Continuar · $count selecionados',
+      one: 'Continuar · 1 selecionado',
+      zero: 'Continuar',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsQuestionProgress(int current, int total) {
+    return 'Pergunta $current de $total';
+  }
+
+  @override
+  String ybocsScoreOutOf(int score, int maximum) {
+    return '$score de $maximum';
+  }
+
+  @override
+  String ybocsHistorySummary(String severity, int score, String date) {
+    return '$severity · $score de 40 · $date';
+  }
+
+  @override
+  String ybocsSeveritySummary(
+    String severity,
+    String score,
+    String description,
+  ) {
+    return '$severity · $score · $description';
+  }
+
+  @override
+  String ybocsSubtotalSummary(String label, String score) {
+    return '$label · $score';
+  }
+
+  @override
+  String ybocsCategorySelectedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count itens selecionados',
+      one: '1 item selecionado',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String structuredProgramTaskChanged(String status) {
     String _temp0 = intl.Intl.selectLogic(status, {
       'completed': 'Tarefa marcada como concluída.',
@@ -5665,6 +6089,192 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       'jr3b':
           'Registre o que aconteceu com a sensação de que algo não estava certo sem mudá-la',
       'other': 'Tarefa da trilha',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsQuestionPrompt(String question) {
+    String _temp0 = intl.Intl.selectLogic(question, {
+      'o_time': 'Quanto do meu tempo é ocupado por pensamentos obsessivos?',
+      'o_interfere': 'Quanto as obsessões interferem na minha vida?',
+      'o_distress': 'Quanto sofrimento os pensamentos obsessivos me causam?',
+      'o_resist': 'Quanto tento resistir aos pensamentos obsessivos?',
+      'o_control': 'Quanto controle tenho sobre os pensamentos obsessivos?',
+      'c_time':
+          'Quanto tempo passo em compulsões, como rituais ou verificações?',
+      'c_interfere': 'Quanto as compulsões interferem na minha vida?',
+      'c_distress':
+          'Quão ansioso ou perturbado eu me sentiria se não pudesse realizar a compulsão?',
+      'c_resist': 'Quanto tento resistir às compulsões?',
+      'c_control': 'Quanto controle tenho sobre as compulsões?',
+      'other': 'Pergunta da autoavaliação',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsQuestionOption(String option) {
+    String _temp0 = intl.Intl.selectLogic(option, {
+      'o_time_0': 'Nenhum',
+      'o_time_1': 'Pouco: menos de uma hora por dia ou algumas vezes',
+      'o_time_2': 'Moderado: de 1 a 3 horas por dia ou intrusões frequentes',
+      'o_time_3': 'Muito: de 3 a 8 horas por dia ou intrusões muito frequentes',
+      'o_time_4': 'Quase constante: mais de 8 horas por dia',
+      'o_interfere_0': 'Nada',
+      'o_interfere_1': 'Pouco: quase não afetam o que faço',
+      'o_interfere_2': 'Um pouco: interferem, mas ainda consigo lidar',
+      'o_interfere_3': 'Muito: atrapalham claramente o meu dia',
+      'o_interfere_4': 'Tanto que mal consigo funcionar',
+      'o_distress_0': 'Nenhum',
+      'o_distress_1': 'Pouco: não muito perturbador',
+      'o_distress_2': 'Moderado: perturbador, mas administrável',
+      'o_distress_3': 'Muito: muito perturbador',
+      'o_distress_4': 'Sofrimento quase constante e incapacitante',
+      'o_resist_0': 'Sempre tento resistir, ou quase não acontecem',
+      'o_resist_1': 'Tento resistir na maior parte do tempo',
+      'o_resist_2': 'Faço algum esforço para resistir',
+      'o_resist_3': 'Cedo a quase todos sem muita resistência',
+      'o_resist_4': 'Cedo completamente e por vontade própria',
+      'o_control_0': 'Controle total: consigo afastá-los facilmente',
+      'o_control_1':
+          'Muito controle: geralmente consigo pará-los ou redirecioná-los',
+      'o_control_2': 'Algum controle: às vezes consigo, às vezes não',
+      'o_control_3': 'Pouco controle: raramente consigo pará-los',
+      'o_control_4': 'Nenhum controle: parecem totalmente involuntários',
+      'c_time_0': 'Nenhum',
+      'c_time_1': 'Pouco: menos de uma hora por dia ou algumas vezes',
+      'c_time_2': 'Moderado: de 1 a 3 horas por dia ou rituais frequentes',
+      'c_time_3': 'Muito: de 3 a 8 horas por dia ou rituais muito frequentes',
+      'c_time_4': 'Quase constante: mais de 8 horas por dia',
+      'c_interfere_0': 'Nada',
+      'c_interfere_1': 'Pouco: quase não afetam o que faço',
+      'c_interfere_2': 'Um pouco: interferem, mas ainda consigo lidar',
+      'c_interfere_3': 'Muito: atrapalham claramente o meu dia',
+      'c_interfere_4': 'Tanto que mal consigo funcionar',
+      'c_distress_0': 'Nada',
+      'c_distress_1': 'Um pouco inquieto',
+      'c_distress_2': 'Moderadamente ansioso',
+      'c_distress_3': 'Muito ansioso',
+      'c_distress_4': 'Ansiedade esmagadora e incapacitante',
+      'c_resist_0': 'Sempre tento resistir, ou quase não acontecem',
+      'c_resist_1': 'Tento resistir na maior parte do tempo',
+      'c_resist_2': 'Faço algum esforço para resistir',
+      'c_resist_3': 'Cedo a quase todas sem muita resistência',
+      'c_resist_4': 'Cedo completamente e por vontade própria',
+      'c_control_0': 'Controle total: consigo me impedir facilmente',
+      'c_control_1': 'Muito controle: geralmente consigo parar ou adiar',
+      'c_control_2': 'Algum controle: às vezes consigo, às vezes não',
+      'c_control_3': 'Pouco controle: raramente consigo parar ou adiar',
+      'c_control_4': 'Nenhum controle: preciso concluí-las',
+      'other': 'Opção de resposta',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsCategoryTitle(String category) {
+    String _temp0 = intl.Intl.selectLogic(category, {
+      'aggressive': 'Agressividade ou dano',
+      'contamination': 'Contaminação',
+      'sexual': 'Sexual',
+      'hoarding_obs': 'Acumulação ou guarda',
+      'religious': 'Escrupulosidade religiosa ou moral',
+      'symmetry_obs': 'Simetria ou exatidão',
+      'somatic': 'Corpo ou doença',
+      'misc_obs': 'Outras obsessões',
+      'washing': 'Lavagem ou limpeza',
+      'checking': 'Verificação',
+      'repeating': 'Rituais de repetição',
+      'counting': 'Contagem',
+      'ordering': 'Ordenação ou organização',
+      'misc_comp': 'Outras compulsões',
+      'other': 'Outro tema',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsSymptomLabel(String symptom) {
+    String _temp0 = intl.Intl.selectLogic(symptom, {
+      'agg_harm_self': 'Medo de machucar a mim mesmo',
+      'agg_harm_others': 'Medo de machucar outra pessoa',
+      'agg_violent': 'Imagens violentas ou horríveis na minha mente',
+      'agg_blurt': 'Medo de falar insultos ou obscenidades de repente',
+      'agg_impulse': 'Medo de agir por um impulso indesejado',
+      'agg_responsible': 'Medo de ser responsável por algo terrível',
+      'con_dirt': 'Preocupação com sujeira ou germes',
+      'con_bodily': 'Nojo de resíduos ou secreções corporais',
+      'con_chemicals':
+          'Preocupação com produtos químicos ou de limpeza doméstica',
+      'con_ill': 'Medo de adoecer por contaminação',
+      'con_spread': 'Medo de transmitir contaminação a outras pessoas',
+      'con_sticky': 'Incômodo com substâncias ou resíduos pegajosos',
+      'sex_forbidden':
+          'Pensamentos ou imagens sexuais proibidos ou indesejados',
+      'sex_others': 'Pensamentos sexuais sobre outras pessoas que me perturbam',
+      'sex_orientation': 'Dúvidas indesejadas sobre minha orientação sexual',
+      'sex_aggressive': 'Pensamentos sexuais agressivos sobre outras pessoas',
+      'hoard_discard': 'Medo de jogar fora algo de que eu possa precisar',
+      'hoard_value':
+          'Sensação de que objetos têm um valor do qual não consigo abrir mão',
+      'rel_sacrilege': 'Preocupação com sacrilégio ou blasfêmia',
+      'rel_rightwrong': 'Preocupação excessiva com certo, errado ou moralidade',
+      'rel_punish': 'Medo de punição por Deus ou pelo destino',
+      'sym_even':
+          'Necessidade de que as coisas estejam equilibradas ou “do jeito certo”',
+      'sym_exact': 'Necessidade de exatidão, ordem ou precisão',
+      'sym_incomplete': 'Sensação de incompletude até que tudo pareça certo',
+      'som_illness': 'Preocupação excessiva com doença',
+      'som_body': 'Preocupação excessiva com uma parte do corpo ou aparência',
+      'misc_know': 'Necessidade de saber ou lembrar de coisas',
+      'misc_saywrong': 'Medo de dizer algo errado',
+      'misc_lucky': 'Números, palavras ou cores de sorte ou azar',
+      'misc_sounds':
+          'Sons, palavras ou músicas intrusivos que não consigo parar',
+      'misc_lose': 'Medo de perder coisas',
+      'wash_hands': 'Lavagem excessiva ou ritualizada das mãos',
+      'wash_shower': 'Banho ou cuidados pessoais excessivos',
+      'wash_clean': 'Limpeza excessiva de itens domésticos',
+      'wash_avoid': 'Evitar coisas que considero contaminadas',
+      'chk_locks': 'Verificar fechaduras, aparelhos, torneiras ou fogão',
+      'chk_harm': 'Verificar se não machuquei ou não vou machucar alguém',
+      'chk_mistake': 'Verificar se não cometi um erro',
+      'chk_body': 'Verificar meu corpo em busca de sinais de doença',
+      'rep_reread': 'Reler ou reescrever',
+      'rep_routine':
+          'Repetir ações rotineiras, como passar por portas ou subir e descer',
+      'rep_untilright': 'Repetir até parecer “do jeito certo”',
+      'cnt_count': 'Contar objetos, passos ou ações',
+      'cnt_numbers': 'Fazer algo um determinado número de vezes',
+      'ord_arrange': 'Organizar objetos até ficarem simétricos ou exatos',
+      'ord_align': 'Alinhar ou endireitar objetos repetidamente',
+      'mc_mental':
+          'Rituais mentais, como orações silenciosas, frases ou revisões',
+      'mc_reassure': 'Pedir reafirmação ou confessar repetidamente',
+      'mc_touch': 'Precisar tocar, bater ou esfregar objetos',
+      'mc_lists': 'Fazer listas excessivamente',
+      'mc_avoid': 'Evitar situações para impedir um impulso',
+      'other': 'Outro sintoma',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ybocsSeverityBlurb(String severity) {
+    String _temp0 = intl.Intl.selectLogic(severity, {
+      'subclinical':
+          'Este total está na faixa subclínica da Y-BOCS. O resultado é um retrato do momento, não um diagnóstico.',
+      'mild':
+          'Este total está na faixa leve da Y-BOCS. O resultado é um retrato do momento, não um diagnóstico.',
+      'moderate':
+          'Este total está na faixa moderada da Y-BOCS. O resultado é um retrato do momento, não um diagnóstico.',
+      'severe':
+          'Este total está na faixa grave da Y-BOCS. Considere conversar sobre o impacto com um profissional qualificado.',
+      'extreme':
+          'Este total está na faixa extrema da Y-BOCS. Considere entrar em contato com um profissional qualificado. Se houver perigo imediato, contate os serviços de emergência locais.',
+      'other':
+          'Este total registrado é um retrato do momento, não um diagnóstico.',
     });
     return '$_temp0';
   }
