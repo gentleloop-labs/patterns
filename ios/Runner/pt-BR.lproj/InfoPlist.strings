@@ -1,6 +1,6 @@
 "CFBundleDisplayName" = "Patterns";
 "NSCameraUsageDescription" = "O Patterns pode solicitar acesso à câmera somente se o seletor de arquivos do sistema oferecer a câmera ao anexar materiais de exposição. Os arquivos capturados permanecem no seu dispositivo.";
-"NSFaceIDUsageDescription" = "O Patterns usa o Face ID para desbloquear seu diário privado e seus dados de acompanhamento de OCD quando o bloqueio do app está ativado.";
+"NSFaceIDUsageDescription" = "O Patterns usa o Face ID para desbloquear seu diário privado e seus dados de acompanhamento de TOC quando o bloqueio do app está ativado.";
 "NSLocationWhenInUseUsageDescription" = "O Patterns não usa sua localização para rastreamento. Este texto está incluído porque a Apple pode detectar APIs com recursos de localização no seletor de arquivos do sistema ou em bibliotecas da plataforma.";
 "NSMicrophoneUsageDescription" = "O Patterns usa o microfone somente quando você grava um áudio em repetição para seus exercícios de exposição. As gravações permanecem no seu dispositivo.";
 "NSPhotoLibraryUsageDescription" = "O Patterns pode solicitar acesso à fototeca somente quando o seletor de arquivos do sistema oferecer essa origem ao importar ou exportar um backup.";

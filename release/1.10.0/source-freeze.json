@@ -22,7 +22,7 @@
     "mobileLiteralAudit": "pass_zero_candidates",
     "translatorContext": "pass_711_of_711",
     "flutterAnalyze": "pass",
-    "flutterTests": "pass_318_tests"
+    "flutterTests": "pass_322_tests"
   },
   "changePolicy": "Any change to a frozen artifact must update this manifest and repeat every in-app translation and guarded review pass before multilingual release approval."
 }

@@ -35,8 +35,8 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 
 | ID | Gate | Status | Exit condition |
 | --- | --- | --- | --- |
-| COPY-01 | English copy freeze | verified | `source-freeze.json` hash-locks the 711-message canonical ARB and English iOS permission copy at source commit `813dc8d`; `tool/check_copy_freeze.dart`, zero-candidate mobile audit, translator-context gate, analysis, and 318 tests pass |
-| REVIEW-01 | Six-language guarded AI clinical, crisis, privacy, accessibility, and paywall review | in progress | Frozen source is ready for independent per-locale passes; rendered-layout, physical QA, and release-owner approval remain open |
+| COPY-01 | English copy freeze | verified | `source-freeze.json` hash-locks the 711-message canonical ARB and English iOS permission copy at source commit `813dc8d`; `tool/check_copy_freeze.dart`, zero-candidate mobile audit, translator-context gate, analysis, and 322 tests pass |
+| REVIEW-01 | Six-language guarded AI clinical, crisis, privacy, accessibility, and paywall review | in progress | Brazilian Portuguese has 4/6 review passes complete with terminology and safety revisions recorded; its full back-translation and rendered-layout pass remain open. The other languages, physical QA, and release-owner approval remain open. |
 | A11Y-DEVICE-01 | Physical-iPhone accessibility verification | pending | Common-task VoiceOver, largest text, Reduce Motion, grayscale, and Differentiate Without Color pass |
 | A11Y-DEVICE-02 | Physical-Android accessibility verification | pending | Common-task TalkBack, largest font/display scale, Reduced Motion, non-colour, and appearance pass |
 | DATA-01 | 1.9 upgrade and import/export compatibility | pending | Real-data upgrade and round-trip evidence recorded |
@@ -49,6 +49,6 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 
 - Version: `1.10.0+32` (final build number must still be reconciled remotely).
 - Release announcement: `patterns_1_10`.
-- Full Flutter suite after clearing the mobile audit: 318 passing tests.
+- Full Flutter suite after the first language review: 322 passing tests.
 - Mobile/shared literal audit: zero unreviewed candidates; stable localization selector keys and debug-only sources are covered by documented allowlist rules.
 - Store drafts: field, locale, and character-limit validation passing; not approved or uploaded.
