@@ -3559,4 +3559,52 @@ class AppLocalizationsEs extends AppLocalizations {
   ) {
     return '$status · $date · $confidence. Predicción: $prediction. Acción planificada: $experiment.';
   }
+
+  @override
+  String exposureReflectionText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Reflexiones sobre exposiciones',
+      'newAction': 'Nueva',
+      'subtitle':
+          'Registra lo que notaste después de una exposición. Añade solo los detalles que te resulten útiles.',
+      'loadError':
+          'Tus reflexiones no están disponibles en este momento. Inténtalo de nuevo.',
+      'deleteTitle': '¿Eliminar esta reflexión?',
+      'deleteBody':
+          'Esto elimina la reflexión de este dispositivo de forma permanente.',
+      'cancel': 'Cancelar',
+      'deleteAction': 'Eliminar',
+      'deleteTooltip': 'Eliminar reflexión',
+      'deleteSuccess': 'Reflexión eliminada.',
+      'deleteError': 'No se pudo eliminar esta reflexión. Inténtalo de nuevo.',
+      'emptyTitle': 'Reflexiona sobre una exposición',
+      'emptyBody':
+          'Registra qué ocurrió, qué predijo el OCD y cualquier cosa que quieras recordar. Solo se requiere la primera pregunta.',
+      'emptyAction': 'Nueva reflexión',
+      'editorTitle': 'Nueva reflexión',
+      'whatHappenedLabel': '¿Qué ocurrió?',
+      'whatHappenedHint': 'La exposición o práctica que realizaste',
+      'predictionLabel': '¿Qué predijo el OCD?',
+      'predictionHint': 'El resultado que el OCD dijo que podría ocurrir',
+      'actualLabel': '¿Qué observaste?',
+      'actualHint': 'Lo que ocurrió durante o después de la exposición',
+      'learningLabel': '¿Hay algo que quieras recordar? (opcional)',
+      'learningHint': 'Un detalle que podría ser útil más adelante',
+      'nextTimeLabel': '¿Hay algo que podrías cambiar? (opcional)',
+      'nextTimeHint': 'Déjalo en blanco si no se te ocurre nada',
+      'saveAction': 'Guardar reflexión',
+      'validation':
+          'Empieza con una breve nota sobre lo que ocurrió. Las demás preguntas son opcionales.',
+      'saveSuccess': 'Reflexión guardada.',
+      'saveError':
+          'No se pudo guardar esta reflexión. Tu texto sigue aquí. Inténtalo de nuevo.',
+      'other': 'Reflexión sobre una exposición',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String exposureReflectionCardSummary(String date, String whatHappened) {
+    return '$date. Qué ocurrió: $whatHappened.';
+  }
 }

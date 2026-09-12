@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter/semantics.dart';
 
+import '../../l10n/l10n.dart';
 import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../theme/app_colors.dart';
@@ -16,6 +17,7 @@ class ExposureReflectionScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final reflections = ref.watch(exposureReflectionProvider);
 
     return Scaffold(
@@ -28,23 +30,26 @@ class ExposureReflectionScreen extends ConsumerWidget {
                 CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    'Reflection Journal',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      strings.exposureReflectionText('title'),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
                 TextButton.icon(
                   onPressed: () => _openCreate(context),
                   icon: const Icon(Icons.add_rounded, size: 18),
-                  label: const Text('New'),
+                  label: Text(strings.exposureReflectionText('newAction')),
                 ),
               ],
             ),
             const SizedBox(height: 6),
             Text(
-              'Capture what you learned after an exposure, while it is fresh.',
+              strings.exposureReflectionText('subtitle'),
               style: TextStyle(
                 color: context.appColors.textSecondary,
                 height: 1.4,
@@ -74,7 +79,7 @@ class ExposureReflectionScreen extends ConsumerWidget {
                 child: Center(child: CircularProgressIndicator()),
               ),
               error: (_, _) => Text(
-                'Your reflections are unavailable right now.',
+                strings.exposureReflectionText('loadError'),
                 style: TextStyle(color: context.appColors.textSecondary),
               ),
             ),
@@ -98,65 +103,90 @@ class ExposureReflectionScreen extends ConsumerWidget {
     WidgetRef ref,
     ExposureReflection reflection,
   ) {
+    final strings = context.l10n;
     final id = reflection.id;
     if (id == null) return;
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (sheetContext) => SafeArea(
-        top: false,
-        child: Container(
-          margin: const EdgeInsets.all(14),
-          padding: const EdgeInsets.all(20),
-          decoration: recoverySoftDecoration(
-            Theme.of(sheetContext),
-            radius: 28,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Delete this reflection?',
-                style: Theme.of(
-                  sheetContext,
-                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'It will be removed for good.',
-                style: TextStyle(
-                  color: context.appColors.textSecondary,
-                  height: 1.45,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Row(
+      builder: (sheetContext) {
+        final largeText = MediaQuery.textScalerOf(sheetContext).scale(16) >= 24;
+        final cancel = OutlinedButton(
+          onPressed: () => Navigator.pop(sheetContext),
+          child: Text(strings.exposureReflectionText('cancel')),
+        );
+        final delete = ElevatedButton(
+          onPressed: () async {
+            Navigator.pop(sheetContext);
+            final deleted = await ref
+                .read(exposureReflectionProvider.notifier)
+                .delete(id);
+            if (!context.mounted) return;
+            final message = strings.exposureReflectionText(
+              deleted ? 'deleteSuccess' : 'deleteError',
+            );
+            showAppSnackBar(
+              context,
+              message,
+              type: deleted ? ToastType.success : ToastType.error,
+            );
+            await SemanticsService.sendAnnouncement(
+              View.of(context),
+              message,
+              Directionality.of(context),
+            );
+          },
+          child: Text(strings.exposureReflectionText('deleteAction')),
+        );
+        return SafeArea(
+          top: false,
+          child: Container(
+            margin: const EdgeInsets.all(14),
+            padding: const EdgeInsets.all(20),
+            decoration: recoverySoftDecoration(
+              Theme.of(sheetContext),
+              radius: 28,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () => Navigator.pop(sheetContext),
-                      child: const Text('Cancel'),
+                  Semantics(
+                    header: true,
+                    child: Text(
+                      strings.exposureReflectionText('deleteTitle'),
+                      style: Theme.of(sheetContext).textTheme.titleLarge
+                          ?.copyWith(fontWeight: FontWeight.w800),
                     ),
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        Navigator.pop(sheetContext);
-                        await ref
-                            .read(exposureReflectionProvider.notifier)
-                            .delete(id);
-                      },
-                      child: const Text('Delete'),
+                  const SizedBox(height: 10),
+                  Text(
+                    strings.exposureReflectionText('deleteBody'),
+                    style: TextStyle(
+                      color: context.appColors.textSecondary,
+                      height: 1.45,
                     ),
                   ),
+                  const SizedBox(height: 20),
+                  if (largeText) ...[
+                    SizedBox(width: double.infinity, child: cancel),
+                    const SizedBox(height: 10),
+                    SizedBox(width: double.infinity, child: delete),
+                  ] else
+                    Row(
+                      children: [
+                        Expanded(child: cancel),
+                        const SizedBox(width: 12),
+                        Expanded(child: delete),
+                      ],
+                    ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
@@ -170,6 +200,8 @@ class _ReflectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
+    final date = context.formatMonthDay(reflection.datetime);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: recoverySoftDecoration(theme),
@@ -177,34 +209,42 @@ class _ReflectionCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: Text(
-                  reflection.whatHappened,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    height: 1.3,
+                child: Semantics(
+                  label: strings.exposureReflectionCardSummary(
+                    date,
+                    reflection.whatHappened,
                   ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                DateFormat('MMM d').format(reflection.datetime),
-                style: TextStyle(
-                  color: context.appColors.textSecondary,
-                  fontSize: 12,
+                  excludeSemantics: true,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        reflection.whatHappened,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w800,
+                          height: 1.3,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        date,
+                        style: TextStyle(
+                          color: context.appColors.textSecondary,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(width: 6),
-              GestureDetector(
-                onTap: onDelete,
-                child: Icon(
-                  Icons.close_rounded,
-                  size: 16,
-                  color: context.appColors.textSecondary,
-                ),
+              IconButton(
+                onPressed: onDelete,
+                tooltip: strings.exposureReflectionText('deleteTooltip'),
+                icon: const Icon(Icons.close_rounded),
               ),
             ],
           ),
@@ -217,8 +257,6 @@ class _ReflectionCard extends StatelessWidget {
                 fontSize: 13,
                 height: 1.4,
               ),
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
             ),
           ],
         ],
@@ -234,6 +272,7 @@ class _EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     return Container(
       padding: const EdgeInsets.all(22),
       decoration: recoverySoftDecoration(theme),
@@ -246,16 +285,18 @@ class _EmptyState extends StatelessWidget {
             size: 28,
           ),
           const SizedBox(height: 12),
-          Text(
-            'Reflect on an exposure',
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w800,
+          Semantics(
+            header: true,
+            child: Text(
+              strings.exposureReflectionText('emptyTitle'),
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w800,
+              ),
             ),
           ),
           const SizedBox(height: 6),
           Text(
-            'A few prompts to help you notice what OCD got wrong and what you '
-            'learned.',
+            strings.exposureReflectionText('emptyBody'),
             style: TextStyle(
               color: context.appColors.textSecondary,
               height: 1.45,
@@ -266,7 +307,7 @@ class _EmptyState extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: onCreate,
-              child: const Text('New reflection'),
+              child: Text(strings.exposureReflectionText('emptyAction')),
             ),
           ),
         ],
@@ -303,17 +344,20 @@ class _ExposureReflectionEditScreenState
   }
 
   Future<void> _save() async {
+    final strings = context.l10n;
     if (_whatHappened.text.trim().isEmpty) {
-      showAppSnackBar(
-        context,
-        'Start with what happened. The rest is optional.',
-        type: ToastType.info,
+      final message = strings.exposureReflectionText('validation');
+      showAppSnackBar(context, message, type: ToastType.info);
+      await SemanticsService.sendAnnouncement(
+        View.of(context),
+        message,
+        Directionality.of(context),
       );
       return;
     }
     setState(() => _saving = true);
     final now = DateTime.now();
-    await ref
+    final saved = await ref
         .read(exposureReflectionProvider.notifier)
         .add(
           ExposureReflection(
@@ -327,13 +371,31 @@ class _ExposureReflectionEditScreenState
           ),
         );
     if (!mounted) return;
+    if (!saved) {
+      setState(() => _saving = false);
+      final message = strings.exposureReflectionText('saveError');
+      showAppSnackBar(context, message, type: ToastType.error);
+      await SemanticsService.sendAnnouncement(
+        View.of(context),
+        message,
+        Directionality.of(context),
+      );
+      return;
+    }
     Navigator.of(context).pop();
-    showAppSnackBar(context, 'Reflection saved.', type: ToastType.success);
+    final message = strings.exposureReflectionText('saveSuccess');
+    showAppSnackBar(context, message, type: ToastType.success);
+    await SemanticsService.sendAnnouncement(
+      View.of(context),
+      message,
+      Directionality.of(context),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -344,10 +406,13 @@ class _ExposureReflectionEditScreenState
                 CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    'New reflection',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      strings.exposureReflectionText('editorTitle'),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
@@ -355,36 +420,36 @@ class _ExposureReflectionEditScreenState
             ),
             const SizedBox(height: 18),
             LabeledField(
-              label: 'What happened?',
-              hint: 'The exposure you did',
+              label: strings.exposureReflectionText('whatHappenedLabel'),
+              hint: strings.exposureReflectionText('whatHappenedHint'),
               controller: _whatHappened,
               minLines: 2,
             ),
             const SizedBox(height: 16),
             LabeledField(
-              label: 'What did OCD predict?',
-              hint: 'The feared outcome',
+              label: strings.exposureReflectionText('predictionLabel'),
+              hint: strings.exposureReflectionText('predictionHint'),
               controller: _ocdPredicted,
               minLines: 2,
             ),
             const SizedBox(height: 16),
             LabeledField(
-              label: 'What actually happened?',
-              hint: 'The real result',
+              label: strings.exposureReflectionText('actualLabel'),
+              hint: strings.exposureReflectionText('actualHint'),
               controller: _actuallyHappened,
               minLines: 2,
             ),
             const SizedBox(height: 16),
             LabeledField(
-              label: 'What did you learn?',
-              hint: 'Any insight from the gap',
+              label: strings.exposureReflectionText('learningLabel'),
+              hint: strings.exposureReflectionText('learningHint'),
               controller: _whatILearned,
               minLines: 2,
             ),
             const SizedBox(height: 16),
             LabeledField(
-              label: 'What would you do differently?',
-              hint: 'Next time',
+              label: strings.exposureReflectionText('nextTimeLabel'),
+              hint: strings.exposureReflectionText('nextTimeHint'),
               controller: _doDifferently,
               minLines: 2,
             ),
@@ -399,7 +464,7 @@ class _ExposureReflectionEditScreenState
                         width: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : const Text('Save reflection'),
+                    : Text(strings.exposureReflectionText('saveAction')),
               ),
             ),
           ]),

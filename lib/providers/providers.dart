@@ -497,20 +497,28 @@ class ExposureReflectionNotifier
     return await DbHelper.instance.getExposureReflections();
   }
 
-  Future<void> add(ExposureReflection reflection) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
+  Future<bool> add(ExposureReflection reflection) async {
+    final previous = state.asData?.value ?? const <ExposureReflection>[];
+    try {
       await DbHelper.instance.insertExposureReflection(reflection);
-      return await DbHelper.instance.getExposureReflections();
-    });
+      state = AsyncData(await DbHelper.instance.getExposureReflections());
+      return true;
+    } catch (_) {
+      state = AsyncData(previous);
+      return false;
+    }
   }
 
-  Future<void> delete(int id) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
+  Future<bool> delete(int id) async {
+    final previous = state.asData?.value ?? const <ExposureReflection>[];
+    try {
       await DbHelper.instance.deleteExposureReflection(id);
-      return await DbHelper.instance.getExposureReflections();
-    });
+      state = AsyncData(await DbHelper.instance.getExposureReflections());
+      return true;
+    } catch (_) {
+      state = AsyncData(previous);
+      return false;
+    }
   }
 }
 

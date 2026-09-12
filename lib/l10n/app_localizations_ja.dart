@@ -3153,4 +3153,46 @@ class AppLocalizationsJa extends AppLocalizations {
   ) {
     return '$status・$date・$confidence。予測：$prediction。予定した行動：$experiment。';
   }
+
+  @override
+  String exposureReflectionText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': '曝露の振り返り',
+      'newAction': '新規',
+      'subtitle': '曝露の後に気づいたことを記録します。役立つと感じる内容だけを追加してください。',
+      'loadError': '現在、振り返りを表示できません。もう一度お試しください。',
+      'deleteTitle': 'この振り返りを削除しますか？',
+      'deleteBody': 'この端末から振り返りが完全に削除されます。',
+      'cancel': 'キャンセル',
+      'deleteAction': '削除',
+      'deleteTooltip': '振り返りを削除',
+      'deleteSuccess': '振り返りを削除しました。',
+      'deleteError': 'この振り返りを削除できませんでした。もう一度お試しください。',
+      'emptyTitle': '曝露を振り返る',
+      'emptyBody': '何が起きたか、OCDが何を予測したか、覚えておきたいことを記録します。必須なのは最初の質問だけです。',
+      'emptyAction': '新しい振り返り',
+      'editorTitle': '新しい振り返り',
+      'whatHappenedLabel': '何が起きましたか？',
+      'whatHappenedHint': '行った曝露や練習',
+      'predictionLabel': 'OCDは何を予測しましたか？',
+      'predictionHint': 'OCDが起きるかもしれないと告げた結果',
+      'actualLabel': '何を観察しましたか？',
+      'actualHint': '曝露中または曝露後に起きたこと',
+      'learningLabel': '覚えておきたいことはありますか？（任意）',
+      'learningHint': '後で役立つかもしれない内容',
+      'nextTimeLabel': '変えてみたいことはありますか？（任意）',
+      'nextTimeHint': '思い浮かばなければ空欄のままで構いません',
+      'saveAction': '振り返りを保存',
+      'validation': 'まず、何が起きたかを短く入力してください。その他の質問は任意です。',
+      'saveSuccess': '振り返りを保存しました。',
+      'saveError': 'この振り返りを保存できませんでした。入力した内容は残っています。もう一度お試しください。',
+      'other': '曝露の振り返り',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String exposureReflectionCardSummary(String date, String whatHappened) {
+    return '$date。何が起きたか：$whatHappened。';
+  }
 }

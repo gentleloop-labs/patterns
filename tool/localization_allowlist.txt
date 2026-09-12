@@ -36,3 +36,5 @@
 # Stable ICU selector keys for Behavioral Experiments. These select localized
 # interface messages and never appear to users or enter storage.
 ^lib/mobile/screens/behavioral_experiments_screen\.dart:.*\.behavioralExperimentText\('[a-zA-Z]+'
+# Stable selector keys mapped to localized Exposure Reflection copy in ARB.
+^lib/mobile/screens/exposure_reflection_screen\.dart:.*\.exposureReflectionText\('[a-zA-Z]+'
