@@ -2337,6 +2337,34 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String emergencyToolkitText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': '今この時のサポート',
+      'pauseTitle': '反応する前に立ち止まる',
+      'pauseBody': '衝動にすぐ反応する必要はありません。下からセルフヘルプの練習を一つ選び、ゆっくり進めてください。',
+      'boundary': 'これらのツールは緊急支援や医療ではありません。差し迫った危険がある場合は、地域の緊急サービスに連絡してください。',
+      'breathe': '呼吸する',
+      'breatheSubtitle': '一定のリズムで呼吸する',
+      'delay': '衝動を待つ',
+      'delaySubtitle': 'タイマーで間をつくる',
+      'surf': '衝動の波に乗る',
+      'surfSubtitle': '行動せずに衝動に気づく',
+      'coping': '対処法',
+      'copingSubtitle': 'グラウンディング、受容など',
+      'remindersTitle': 'いくつかの確認',
+      'reminderThought': '考えに反応する必要はない。行動せずに気づくことができる。',
+      'reminderUrge': '衝動は時間とともに変化することがある。次にすることは自分で選べる。',
+      'reminderUncertainty': '今この時、不確かさのための余地をつくることができる。',
+      'breatheIn': '息を吸う',
+      'hold': '止める',
+      'breatheOut': '息を吐く',
+      'breathingHint': '円に合わせて、4秒吸い、止め、4秒吐き、もう一度止めます。',
+      'other': 'サポートツール',
+    });
+    return '$_temp0';
+  }
+
+  @override
   String ybocsText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': 'OCDセルフチェック',

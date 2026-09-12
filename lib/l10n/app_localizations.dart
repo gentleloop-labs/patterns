@@ -3857,6 +3857,12 @@ abstract class AppLocalizations {
   /// **'{done}/{total}'**
   String structuredProgramCompactProgress(int done, int total);
 
+  /// Immediate self-help and paced-breathing copy. Never promise safety, symptom relief, urge disappearance, or replace emergency or clinical care.
+  ///
+  /// In en, this message translates to:
+  /// **'{key, select, title{Support right now} pauseTitle{Pause before responding} pauseBody{You do not have to respond to the urge immediately. Choose one self-help exercise below and take it slowly.} boundary{These tools do not provide emergency or clinical care. If you may be in immediate danger, contact local emergency services.} breathe{Breathe} breatheSubtitle{Follow a paced breathing cycle} delay{Delay the urge} delaySubtitle{Make space with a timer} surf{Surf the urge} surfSubtitle{Notice the urge without acting on it} coping{Coping techniques} copingSubtitle{Grounding, acceptance, and more} remindersTitle{A few reminders} reminderThought{A thought does not require a response. I can notice it without acting.} reminderUrge{An urge may change over time. I can choose what I do next.} reminderUncertainty{I can make room for uncertainty in this moment.} breatheIn{Breathe in} hold{Hold} breatheOut{Breathe out} breathingHint{Follow the circle: breathe in for 4 seconds, hold, breathe out for 4 seconds, then hold.} other{Support tool}}'**
+  String emergencyToolkitText(String key);
+
   /// Y-BOCS mobile flow copy selected from a stable UI key. Keep the flow factual, non-diagnostic, non-reassuring, and explicit about local storage and emergency boundaries.
   ///
   /// In en, this message translates to:

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../../l10n/l10n.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/animations.dart';
@@ -19,6 +20,7 @@ class EmergencyToolkitScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -29,10 +31,13 @@ class EmergencyToolkitScreen extends StatelessWidget {
                 CircleBackButton(onTap: () => Navigator.of(context).pop()),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    'Right now',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      strings.emergencyToolkitText('title'),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
@@ -50,16 +55,18 @@ class EmergencyToolkitScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "You're safe in this moment.",
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  Semantics(
+                    header: true,
+                    child: Text(
+                      strings.emergencyToolkitText('pauseTitle'),
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    'You do not have to act on the urge. Pick one thing below '
-                    'and take it slowly.',
+                    strings.emergencyToolkitText('pauseBody'),
                     style: TextStyle(
                       color: context.appColors.textSecondary,
                       height: 1.45,
@@ -69,45 +76,60 @@ class EmergencyToolkitScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 18),
+            Text(
+              strings.emergencyToolkitText('boundary'),
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                height: 1.45,
+              ),
+            ),
+            const SizedBox(height: 18),
             _ActionTile(
               icon: Icons.air_rounded,
-              title: 'Breathe',
-              subtitle: 'A slow guided breathing cycle',
+              title: strings.emergencyToolkitText('breathe'),
+              subtitle: strings.emergencyToolkitText('breatheSubtitle'),
               onTap: () => _push(context, const BreathingScreen()),
             ),
             const SizedBox(height: 10),
             _ActionTile(
               icon: Icons.hourglass_bottom_rounded,
-              title: 'Delay the urge',
-              subtitle: 'Sit with it on a timer',
+              title: strings.emergencyToolkitText('delay'),
+              subtitle: strings.emergencyToolkitText('delaySubtitle'),
               onTap: () =>
                   _pushFullscreen(context, const CompulsionDelayFlow()),
             ),
             const SizedBox(height: 10),
             _ActionTile(
               icon: Icons.waves_rounded,
-              title: 'Surf the urge',
-              subtitle: 'Ride it out without acting',
+              title: strings.emergencyToolkitText('surf'),
+              subtitle: strings.emergencyToolkitText('surfSubtitle'),
               onTap: () =>
                   _pushFullscreen(context, const UrgeSurfFlow(record: false)),
             ),
             const SizedBox(height: 10),
             _ActionTile(
               icon: Icons.spa_rounded,
-              title: 'Coping techniques',
-              subtitle: 'Grounding, acceptance, and more',
+              title: strings.emergencyToolkitText('coping'),
+              subtitle: strings.emergencyToolkitText('copingSubtitle'),
               onTap: () => _push(context, const CopingLibraryScreen()),
             ),
             const SizedBox(height: 24),
-            Text(
-              'A few reminders',
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w800,
+            Semantics(
+              header: true,
+              child: Text(
+                strings.emergencyToolkitText('remindersTitle'),
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
             const SizedBox(height: 12),
-            for (final statement in _statements) ...[
-              _StatementCard(text: statement),
+            for (final key in const [
+              'reminderThought',
+              'reminderUrge',
+              'reminderUncertainty',
+            ]) ...[
+              _StatementCard(text: strings.emergencyToolkitText(key)),
               const SizedBox(height: 10),
             ],
           ]),
@@ -125,12 +147,6 @@ class EmergencyToolkitScreen extends StatelessWidget {
       MaterialPageRoute<void>(fullscreenDialog: true, builder: (_) => screen),
     );
   }
-
-  static const _statements = [
-    'A thought is not a threat. It can be here without me responding.',
-    'Urges always pass. I do not have to do anything about this one.',
-    'Uncertainty is uncomfortable, not dangerous. I can carry it.',
-  ];
 }
 
 class _ActionTile extends StatelessWidget {
@@ -149,46 +165,53 @@ class _ActionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return PressScale(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: recoverySoftDecoration(theme),
-        child: Row(
-          children: [
-            Container(
-              width: 44,
-              height: 44,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: theme.colorScheme.primary.withValues(alpha: 0.14),
+    return Semantics(
+      button: true,
+      label: title,
+      hint: subtitle,
+      excludeSemantics: true,
+      child: PressScale(
+        onTap: onTap,
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 44),
+          padding: const EdgeInsets.all(16),
+          decoration: recoverySoftDecoration(theme),
+          child: Row(
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: theme.colorScheme.primary.withValues(alpha: 0.14),
+                ),
+                child: Icon(icon, color: theme.colorScheme.primary, size: 22),
               ),
-              child: Icon(icon, color: theme.colorScheme.primary, size: 22),
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w800,
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    subtitle,
-                    style: TextStyle(
-                      color: context.appColors.textSecondary,
-                      fontSize: 13,
+                    const SizedBox(height: 2),
+                    Text(
+                      subtitle,
+                      style: TextStyle(
+                        color: context.appColors.textSecondary,
+                        fontSize: 13,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -230,10 +253,10 @@ class BreathingScreen extends StatefulWidget {
 
 class _BreathingScreenState extends State<BreathingScreen> {
   static const _phases = [
-    (label: 'Breathe in', big: true),
-    (label: 'Hold', big: true),
-    (label: 'Breathe out', big: false),
-    (label: 'Hold', big: false),
+    (key: 'breatheIn', big: true),
+    (key: 'hold', big: true),
+    (key: 'breatheOut', big: false),
+    (key: 'hold', big: false),
   ];
   static const _phaseDuration = Duration(seconds: 4);
 
@@ -258,8 +281,10 @@ class _BreathingScreenState extends State<BreathingScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = context.l10n;
     final phase = _phases[_index];
-    final size = phase.big ? 240.0 : 130.0;
+    final phaseLabel = strings.emergencyToolkitText(phase.key);
+    final requestedSize = phase.big ? 240.0 : 130.0;
 
     return Scaffold(
       body: SafeArea(
@@ -271,54 +296,77 @@ class _BreathingScreenState extends State<BreathingScreen> {
                 children: [
                   CircleBackButton(onTap: () => Navigator.of(context).pop()),
                   const SizedBox(width: 12),
-                  Text(
-                    'Breathe',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  Expanded(
+                    child: Semantics(
+                      header: true,
+                      child: Text(
+                        strings.emergencyToolkitText('breathe'),
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
             Expanded(
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    AnimatedContainer(
-                      duration: _phaseDuration,
-                      curve: Curves.easeInOut,
-                      width: size,
-                      height: size,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: theme.colorScheme.primary.withValues(
-                          alpha: 0.16,
-                        ),
-                        border: Border.all(
-                          color: theme.colorScheme.primary,
-                          width: 2,
-                        ),
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        phase.label,
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w800,
-                          color: theme.colorScheme.primary,
-                        ),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final size = requestedSize.clamp(
+                    96.0,
+                    constraints.biggest.shortestSide * 0.65,
+                  );
+                  return Center(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Semantics(
+                            liveRegion: true,
+                            label: phaseLabel,
+                            excludeSemantics: true,
+                            child: AnimatedContainer(
+                              duration: motionDisabled(context)
+                                  ? Duration.zero
+                                  : _phaseDuration,
+                              curve: Curves.easeInOut,
+                              width: size,
+                              height: size,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: theme.colorScheme.primary.withValues(
+                                  alpha: 0.16,
+                                ),
+                                border: Border.all(
+                                  color: theme.colorScheme.primary,
+                                  width: 2,
+                                ),
+                              ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                phaseLabel,
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w800,
+                                  color: theme.colorScheme.primary,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 40),
+                          Text(
+                            strings.emergencyToolkitText('breathingHint'),
+                            style: TextStyle(
+                              color: context.appColors.textSecondary,
+                              height: 1.4,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(height: 40),
-                    Text(
-                      'Follow the circle. In for 4, hold, out for 4.',
-                      style: TextStyle(
-                        color: context.appColors.textSecondary,
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
-                ),
+                  );
+                },
               ),
             ),
           ],

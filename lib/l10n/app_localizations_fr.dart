@@ -2667,6 +2667,40 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String emergencyToolkitText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Soutien pour maintenant',
+      'pauseTitle': 'Faire une pause avant de réagir',
+      'pauseBody':
+          'Vous n’avez pas à répondre immédiatement à l’impulsion. Choisissez un exercice d’auto-assistance ci-dessous et avancez doucement.',
+      'boundary':
+          'Ces outils ne fournissent pas de soins d’urgence ou cliniques. En cas de danger immédiat, contactez les services d’urgence locaux.',
+      'breathe': 'Respirer',
+      'breatheSubtitle': 'Suivre un cycle respiratoire rythmé',
+      'delay': 'Retarder l’impulsion',
+      'delaySubtitle': 'Créer un espace avec un minuteur',
+      'surf': 'Observer l’impulsion',
+      'surfSubtitle': 'Remarquer l’impulsion sans agir',
+      'coping': 'Techniques d’adaptation',
+      'copingSubtitle': 'Ancrage, acceptation et plus',
+      'remindersTitle': 'Quelques rappels',
+      'reminderThought':
+          'Une pensée n’exige pas de réponse. Je peux la remarquer sans agir.',
+      'reminderUrge':
+          'Une impulsion peut changer avec le temps. Je peux choisir la suite.',
+      'reminderUncertainty':
+          'Je peux laisser une place à l’incertitude dans ce moment.',
+      'breatheIn': 'Inspirer',
+      'hold': 'Retenir',
+      'breatheOut': 'Expirer',
+      'breathingHint':
+          'Suivez le cercle : inspirez pendant 4 secondes, retenez, expirez pendant 4 secondes, puis retenez.',
+      'other': 'Outil de soutien',
+    });
+    return '$_temp0';
+  }
+
+  @override
   String ybocsText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': 'Auto-évaluation du TOC',

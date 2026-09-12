@@ -2641,6 +2641,40 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
+  String emergencyToolkitText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Apoio para este momento',
+      'pauseTitle': 'Faça uma pausa antes de responder',
+      'pauseBody':
+          'Você não precisa responder ao impulso imediatamente. Escolha um exercício de autoajuda abaixo e vá devagar.',
+      'boundary':
+          'Estas ferramentas não oferecem atendimento clínico ou de emergência. Se houver perigo imediato, entre em contato com os serviços de emergência locais.',
+      'breathe': 'Respirar',
+      'breatheSubtitle': 'Siga um ciclo de respiração ritmada',
+      'delay': 'Adiar o impulso',
+      'delaySubtitle': 'Crie espaço com um temporizador',
+      'surf': 'Observar o impulso',
+      'surfSubtitle': 'Perceba o impulso sem agir',
+      'coping': 'Técnicas de enfrentamento',
+      'copingSubtitle': 'Aterramento, aceitação e mais',
+      'remindersTitle': 'Alguns lembretes',
+      'reminderThought':
+          'Um pensamento não exige uma resposta. Posso percebê-lo sem agir.',
+      'reminderUrge':
+          'Um impulso pode mudar com o tempo. Posso escolher o que fazer em seguida.',
+      'reminderUncertainty':
+          'Posso abrir espaço para a incerteza neste momento.',
+      'breatheIn': 'Inspire',
+      'hold': 'Segure',
+      'breatheOut': 'Expire',
+      'breathingHint':
+          'Siga o círculo: inspire por 4 segundos, segure, expire por 4 segundos e segure.',
+      'other': 'Ferramenta de apoio',
+    });
+    return '$_temp0';
+  }
+
+  @override
   String ybocsText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': 'Autoavaliação de TOC',
@@ -5776,6 +5810,40 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String structuredProgramCompactProgress(int done, int total) {
     return '$done/$total';
+  }
+
+  @override
+  String emergencyToolkitText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Apoio para este momento',
+      'pauseTitle': 'Faça uma pausa antes de responder',
+      'pauseBody':
+          'Você não precisa responder ao impulso imediatamente. Escolha um exercício de autoajuda abaixo e vá devagar.',
+      'boundary':
+          'Estas ferramentas não oferecem atendimento clínico ou de emergência. Se houver perigo imediato, entre em contato com os serviços de emergência locais.',
+      'breathe': 'Respirar',
+      'breatheSubtitle': 'Siga um ciclo de respiração ritmada',
+      'delay': 'Adiar o impulso',
+      'delaySubtitle': 'Crie espaço com um temporizador',
+      'surf': 'Observar o impulso',
+      'surfSubtitle': 'Perceba o impulso sem agir',
+      'coping': 'Técnicas de enfrentamento',
+      'copingSubtitle': 'Aterramento, aceitação e mais',
+      'remindersTitle': 'Alguns lembretes',
+      'reminderThought':
+          'Um pensamento não exige uma resposta. Posso percebê-lo sem agir.',
+      'reminderUrge':
+          'Um impulso pode mudar com o tempo. Posso escolher o que fazer em seguida.',
+      'reminderUncertainty':
+          'Posso abrir espaço para a incerteza neste momento.',
+      'breatheIn': 'Inspire',
+      'hold': 'Segure',
+      'breatheOut': 'Expire',
+      'breathingHint':
+          'Siga o círculo: inspire por 4 segundos, segure, expire por 4 segundos e segure.',
+      'other': 'Ferramenta de apoio',
+    });
+    return '$_temp0';
   }
 
   @override

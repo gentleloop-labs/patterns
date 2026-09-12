@@ -2640,6 +2640,40 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String emergencyToolkitText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'title': 'Apoyo para este momento',
+      'pauseTitle': 'Haz una pausa antes de responder',
+      'pauseBody':
+          'No tienes que responder al impulso de inmediato. Elige un ejercicio de autoayuda y hazlo despacio.',
+      'boundary':
+          'Estas herramientas no ofrecen atención clínica ni de emergencia. Si corres peligro inmediato, contacta con los servicios de emergencia locales.',
+      'breathe': 'Respirar',
+      'breatheSubtitle': 'Sigue un ciclo de respiración pautada',
+      'delay': 'Retrasar el impulso',
+      'delaySubtitle': 'Crea espacio con un temporizador',
+      'surf': 'Observar el impulso',
+      'surfSubtitle': 'Nota el impulso sin actuar',
+      'coping': 'Técnicas de afrontamiento',
+      'copingSubtitle': 'Anclaje, aceptación y más',
+      'remindersTitle': 'Algunos recordatorios',
+      'reminderThought':
+          'Un pensamiento no exige una respuesta. Puedo notarlo sin actuar.',
+      'reminderUrge':
+          'Un impulso puede cambiar con el tiempo. Puedo elegir qué hacer después.',
+      'reminderUncertainty':
+          'Puedo dar espacio a la incertidumbre en este momento.',
+      'breatheIn': 'Inspira',
+      'hold': 'Mantén',
+      'breatheOut': 'Espira',
+      'breathingHint':
+          'Sigue el círculo: inspira durante 4 segundos, mantén, espira durante 4 segundos y mantén.',
+      'other': 'Herramienta de apoyo',
+    });
+    return '$_temp0';
+  }
+
+  @override
   String ybocsText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': 'Autoevaluación de TOC',
