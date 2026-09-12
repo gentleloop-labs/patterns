@@ -842,7 +842,7 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
 
   List<TourStep> _buildTourSteps() {
     TourStep tab(_Tab t, String id) {
-      final intro = sectionIntros[id]!;
+      final intro = localizedSectionIntro(context.l10n, id)!;
       return TourStep(
         targetKey: _tabKeys[t]!,
         title: intro.title,
@@ -858,12 +858,9 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
       tab(_Tab.erp, 'recoveryHub'),
       tab(_Tab.insights, 'insights'),
       TourStep(
-        title: "You're all set",
-        points: const [
-          'Whenever you like, a short self-check can set a baseline you can '
-              'look back on later. It’s optional, and it’s not a diagnosis.',
-        ],
-        ctaLabel: 'Take self-check',
+        title: context.l10n.shellText('tourFinalTitle'),
+        points: [context.l10n.shellText('tourFinalBody')],
+        ctaLabel: context.l10n.shellText('takeSelfCheck'),
         onShow: () => _selectTab(_Tab.home),
       ),
     ];
@@ -915,6 +912,7 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
     };
 
     final showFab = _selectedTab == _Tab.journal || _selectedTab == _Tab.track;
+    final reduceMotion = motionDisabled(context);
 
     return Scaffold(
       body: Stack(
@@ -961,11 +959,13 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
               minimum: EdgeInsets.zero,
               child: AnimatedSlide(
                 offset: showFab ? Offset.zero : const Offset(0, 1.6),
-                duration: AppMotion.medium,
+                duration: reduceMotion ? Duration.zero : AppMotion.medium,
                 curve: Curves.easeOutCubic,
                 child: AnimatedOpacity(
                   opacity: showFab ? 1 : 0,
-                  duration: const Duration(milliseconds: 220),
+                  duration: reduceMotion
+                      ? Duration.zero
+                      : const Duration(milliseconds: 220),
                   child: IgnorePointer(
                     ignoring: !showFab,
                     child: _FloatingPenButton(
@@ -973,8 +973,8 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
                           ? Icons.add_rounded
                           : LineIcons.penNib,
                       semanticLabel: _selectedTab == _Tab.track
-                          ? 'Track OCD event'
-                          : 'Add entry',
+                          ? context.l10n.trackerEmptyAction
+                          : context.l10n.journalNewEntryAction,
                       onTap: switch (_selectedTab) {
                         _Tab.journal => () => _openJournalEditor(context),
                         _Tab.track => () => _openOcdFlow(context),
@@ -1185,6 +1185,7 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       builder: (context) => _ActionSheet(
         onJournal: () {
           Navigator.pop(context);
@@ -1295,6 +1296,7 @@ class _FloatingPenButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final reduceMotion = motionDisabled(context);
 
     return Semantics(
       button: true,
@@ -1323,7 +1325,9 @@ class _FloatingPenButton extends StatelessWidget {
             height: 52,
             child: Center(
               child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 260),
+                duration: reduceMotion
+                    ? Duration.zero
+                    : const Duration(milliseconds: 260),
                 switchInCurve: Curves.easeOutBack,
                 switchOutCurve: Curves.easeInCubic,
                 transitionBuilder: (child, animation) => ScaleTransition(
@@ -1376,6 +1380,9 @@ class _SegmentTabItem extends StatelessWidget {
     final inactiveColor = context.appColors.textSecondary;
     final activeColor = theme.colorScheme.primary;
     final activeBackground = activeColor.withValues(alpha: 0.14);
+    final duration = motionDisabled(context)
+        ? Duration.zero
+        : const Duration(milliseconds: 240);
 
     return Expanded(
       child: Tooltip(
@@ -1395,7 +1402,7 @@ class _SegmentTabItem extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(4, 5, 4, 5),
                       child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 240),
+                        duration: duration,
                         curve: Curves.easeOutCubic,
                         decoration: BoxDecoration(
                           color: active ? activeBackground : Colors.transparent,
@@ -1410,7 +1417,7 @@ class _SegmentTabItem extends StatelessWidget {
                     ),
                   ),
                   AnimatedPositioned(
-                    duration: const Duration(milliseconds: 240),
+                    duration: duration,
                     curve: Curves.easeOutCubic,
                     top: 0,
                     left: active ? 18 : 28,
@@ -1418,7 +1425,7 @@ class _SegmentTabItem extends StatelessWidget {
                     height: 3,
                     child: AnimatedOpacity(
                       opacity: active ? 1 : 0,
-                      duration: const Duration(milliseconds: 180),
+                      duration: duration,
                       child: DecoratedBox(
                         decoration: BoxDecoration(
                           color: activeColor,
@@ -1437,7 +1444,7 @@ class _SegmentTabItem extends StatelessWidget {
                         children: [
                           AnimatedScale(
                             scale: active ? 1.05 : 1,
-                            duration: const Duration(milliseconds: 220),
+                            duration: duration,
                             curve: Curves.easeOutCubic,
                             child: Icon(
                               spec.icon,
@@ -1449,7 +1456,7 @@ class _SegmentTabItem extends StatelessWidget {
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: AnimatedDefaultTextStyle(
-                              duration: const Duration(milliseconds: 220),
+                              duration: duration,
                               curve: Curves.easeOutCubic,
                               style: TextStyle(
                                 color: active ? activeColor : inactiveColor,
@@ -1497,89 +1504,99 @@ class _ActionSheet extends StatelessWidget {
     final theme = Theme.of(context);
 
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(14),
-        child: LiquidGlass(
-          borderRadius: 28,
-          shadows: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.30),
-              blurRadius: 30,
-              offset: const Offset(0, 12),
-            ),
-          ],
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Container(
-                    width: 42,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: theme.dividerColor,
-                      borderRadius: BorderRadius.circular(100),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.sizeOf(context).height * 0.88,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(14),
+          child: LiquidGlass(
+            borderRadius: 28,
+            shadows: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.30),
+                blurRadius: 30,
+                offset: const Offset(0, 12),
+              ),
+            ],
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: ExcludeSemantics(
+                      child: Container(
+                        width: 42,
+                        height: 4,
+                        decoration: BoxDecoration(
+                          color: theme.dividerColor,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 22),
-                FadeSlideIn(
-                  duration: AppMotion.medium,
-                  offset: AppMotion.smallOffset,
-                  child: Text(
-                    'What do you want to add?',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                  const SizedBox(height: 22),
+                  FadeSlideIn(
+                    duration: AppMotion.medium,
+                    offset: AppMotion.smallOffset,
+                    child: Semantics(
+                      header: true,
+                      child: Text(
+                        context.l10n.shellText('addPrompt'),
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 16),
-                FadeSlideIn(
-                  delay: const Duration(milliseconds: 40),
-                  duration: AppMotion.medium,
-                  offset: AppMotion.smallOffset,
-                  child: _SheetAction(
-                    icon: LineIcons.penNib,
-                    title: 'Journal Entry',
-                    onTap: onJournal,
+                  const SizedBox(height: 16),
+                  FadeSlideIn(
+                    delay: const Duration(milliseconds: 40),
+                    duration: AppMotion.medium,
+                    offset: AppMotion.smallOffset,
+                    child: _SheetAction(
+                      icon: LineIcons.penNib,
+                      title: context.l10n.shellText('addJournal'),
+                      onTap: onJournal,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                FadeSlideIn(
-                  delay: const Duration(milliseconds: 80),
-                  duration: AppMotion.medium,
-                  offset: AppMotion.smallOffset,
-                  child: _SheetAction(
-                    icon: LineIcons.bullseye,
-                    title: 'OCD Event',
-                    onTap: onOcd,
+                  const SizedBox(height: 10),
+                  FadeSlideIn(
+                    delay: const Duration(milliseconds: 80),
+                    duration: AppMotion.medium,
+                    offset: AppMotion.smallOffset,
+                    child: _SheetAction(
+                      icon: LineIcons.bullseye,
+                      title: context.l10n.shellText('addOcd'),
+                      onTap: onOcd,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                FadeSlideIn(
-                  delay: const Duration(milliseconds: 120),
-                  duration: AppMotion.medium,
-                  offset: AppMotion.smallOffset,
-                  child: _SheetAction(
-                    icon: Icons.self_improvement_rounded,
-                    title: 'Guided ERP',
-                    onTap: onErp,
+                  const SizedBox(height: 10),
+                  FadeSlideIn(
+                    delay: const Duration(milliseconds: 120),
+                    duration: AppMotion.medium,
+                    offset: AppMotion.smallOffset,
+                    child: _SheetAction(
+                      icon: Icons.self_improvement_rounded,
+                      title: context.l10n.shellText('addErp'),
+                      onTap: onErp,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                FadeSlideIn(
-                  delay: const Duration(milliseconds: 160),
-                  duration: AppMotion.medium,
-                  offset: AppMotion.smallOffset,
-                  child: _SheetAction(
-                    icon: LineIcons.hourglassHalf,
-                    title: 'Pause an Urge',
-                    onTap: onDelay,
+                  const SizedBox(height: 10),
+                  FadeSlideIn(
+                    delay: const Duration(milliseconds: 160),
+                    duration: AppMotion.medium,
+                    offset: AppMotion.smallOffset,
+                    child: _SheetAction(
+                      icon: LineIcons.hourglassHalf,
+                      title: context.l10n.shellText('addDelay'),
+                      onTap: onDelay,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -1605,27 +1622,36 @@ class _SheetAction extends StatelessWidget {
     final fill = context.appColors.input;
     final textColor = context.appColors.textPrimary;
 
-    return PressScale(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(18),
-        decoration: BoxDecoration(
-          color: fill,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: theme.dividerColor),
-        ),
-        child: Row(
-          children: [
-            Icon(icon, color: theme.colorScheme.primary),
-            const SizedBox(width: 14),
-            Text(
-              title,
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w700,
-                color: textColor,
-              ),
+    return Semantics(
+      button: true,
+      label: title,
+      child: ExcludeSemantics(
+        child: PressScale(
+          onTap: onTap,
+          child: Container(
+            constraints: const BoxConstraints(minHeight: 44),
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              color: fill,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: theme.dividerColor),
             ),
-          ],
+            child: Row(
+              children: [
+                Icon(icon, color: theme.colorScheme.primary),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: textColor,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

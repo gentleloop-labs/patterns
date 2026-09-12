@@ -4068,4 +4068,52 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get shareAnonymousUsageAction => 'Partager l’utilisation anonyme';
+
+  @override
+  String shellText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'sectionTodayBody':
+          'Choisissez une prochaine étape utile ou consultez simplement ce que vous avez enregistré.',
+      'sectionJournalBody':
+          'Écrivez uniquement ce qui vous semble utile. Vos mots restent tels quels sur cet appareil.',
+      'sectionTrackBody':
+          'Notez une obsession ou une compulsion ainsi que la réponse que vous avez choisie.',
+      'sectionRecoveryBody':
+          'Ouvrez un outil d’auto-assistance ou avancez à votre rythme.',
+      'sectionInsightsBody':
+          'Consultez les tendances factuelles dans les activités et mesures que vous avez enregistrées.',
+      'gotIt': 'Compris',
+      'tourFinalTitle': 'Fin de la visite',
+      'tourFinalBody':
+          'Quand vous le souhaitez, une brève auto-évaluation Y-BOCS peut enregistrer un point de repère. Elle est facultative, ne constitue pas un diagnostic et n’est pas une aide d’urgence.',
+      'takeSelfCheck': 'Faire l’auto-évaluation',
+      'skip': 'Ignorer',
+      'next': 'Suivant',
+      'addPrompt': 'Que souhaitez-vous ajouter ?',
+      'addJournal': 'Entrée de journal',
+      'addOcd': 'Événement OCD',
+      'addErp': 'ERP guidée',
+      'addDelay': 'Mettre une envie en pause',
+      'firstSelfCheckBody':
+          'Votre auto-évaluation est enregistrée sur cet appareil. Le résultat est un instantané, pas un diagnostic.',
+      'firstExploreTitle': 'Bienvenue dans Patterns',
+      'firstExploreBody': 'Explorez à votre rythme.',
+      'setReminder': 'Définir un rappel discret',
+      'goToSpace': 'Accéder à mon espace',
+      'reminderPrompt': 'Quand Patterns doit-il vous envoyer un rappel ?',
+      'notificationsOff':
+          'Les notifications de Patterns sont désactivées. Vous pouvez les activer dans les réglages de l’appareil.',
+      'reminderSet':
+          'Rappel défini. Vous pouvez le modifier ou le désactiver dans Réglages.',
+      'reminderFailed':
+          'Patterns n’a pas pu définir le rappel. Aucun rappel n’a été activé. Veuillez réessayer.',
+      'other': 'Patterns',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String tourProgress(int current, int total) {
+    return 'Étape $current sur $total';
+  }
 }

@@ -54,6 +54,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   void _goToChoices() {
     Telemetry.log('onboarding.get_started');
+    if (motionDisabled(context)) {
+      _controller.jumpToPage(1);
+      return;
+    }
     _controller.animateToPage(
       1,
       duration: AppMotion.medium,
@@ -62,6 +66,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   void _back() {
+    if (motionDisabled(context)) {
+      _controller.jumpToPage(0);
+      return;
+    }
     _controller.animateToPage(
       0,
       duration: AppMotion.medium,

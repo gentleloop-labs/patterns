@@ -4001,6 +4001,54 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get shareAnonymousUsageAction => 'Compartilhar uso anônimo';
+
+  @override
+  String shellText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'sectionTodayBody':
+          'Escolha um próximo passo que seja útil ou apenas reveja o que você registrou.',
+      'sectionJournalBody':
+          'Escreva apenas o que for útil. Suas palavras permanecem como foram escritas neste dispositivo.',
+      'sectionTrackBody':
+          'Registre uma obsessão ou compulsão e qualquer resposta que você escolheu.',
+      'sectionRecoveryBody':
+          'Abra uma ferramenta de autoajuda ou pratique no seu próprio ritmo.',
+      'sectionInsightsBody':
+          'Reveja padrões factuais nas atividades e medidas que você registrou.',
+      'gotIt': 'Entendi',
+      'tourFinalTitle': 'Este foi o tour',
+      'tourFinalBody':
+          'Quando quiser, um breve autoquestionário Y-BOCS pode registrar uma referência inicial. Ele é opcional, não é um diagnóstico nem suporte de emergência.',
+      'takeSelfCheck': 'Fazer autoquestionário',
+      'skip': 'Pular',
+      'next': 'Próximo',
+      'addPrompt': 'O que você gostaria de adicionar?',
+      'addJournal': 'Entrada no diário',
+      'addOcd': 'Evento de OCD',
+      'addErp': 'ERP guiada',
+      'addDelay': 'Pausar um impulso',
+      'firstSelfCheckBody':
+          'Seu autoquestionário foi salvo neste dispositivo. O resultado é um retrato do momento, não um diagnóstico.',
+      'firstExploreTitle': 'Boas-vindas ao Patterns',
+      'firstExploreBody': 'Explore no seu próprio ritmo.',
+      'setReminder': 'Definir um lembrete gentil',
+      'goToSpace': 'Ir para meu espaço',
+      'reminderPrompt': 'Quando o Patterns deve lembrar você?',
+      'notificationsOff':
+          'As notificações do Patterns estão desativadas. Você pode ativá-las nas configurações do dispositivo.',
+      'reminderSet':
+          'Lembrete definido. Você pode alterá-lo ou desativá-lo em Configurações.',
+      'reminderFailed':
+          'O Patterns não conseguiu definir o lembrete. Nenhum lembrete foi ativado. Tente novamente.',
+      'other': 'Patterns',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String tourProgress(int current, int total) {
+    return 'Etapa $current de $total';
+  }
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -8000,4 +8048,52 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get shareAnonymousUsageAction => 'Compartilhar uso anônimo';
+
+  @override
+  String shellText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'sectionTodayBody':
+          'Escolha um próximo passo que seja útil ou apenas reveja o que você registrou.',
+      'sectionJournalBody':
+          'Escreva apenas o que for útil. Suas palavras permanecem como foram escritas neste dispositivo.',
+      'sectionTrackBody':
+          'Registre uma obsessão ou compulsão e qualquer resposta que você escolheu.',
+      'sectionRecoveryBody':
+          'Abra uma ferramenta de autoajuda ou pratique no seu próprio ritmo.',
+      'sectionInsightsBody':
+          'Reveja padrões factuais nas atividades e medidas que você registrou.',
+      'gotIt': 'Entendi',
+      'tourFinalTitle': 'Este foi o tour',
+      'tourFinalBody':
+          'Quando quiser, um breve autoquestionário Y-BOCS pode registrar uma referência inicial. Ele é opcional, não é um diagnóstico nem suporte de emergência.',
+      'takeSelfCheck': 'Fazer autoquestionário',
+      'skip': 'Pular',
+      'next': 'Próximo',
+      'addPrompt': 'O que você gostaria de adicionar?',
+      'addJournal': 'Entrada no diário',
+      'addOcd': 'Evento de OCD',
+      'addErp': 'ERP guiada',
+      'addDelay': 'Pausar um impulso',
+      'firstSelfCheckBody':
+          'Seu autoquestionário foi salvo neste dispositivo. O resultado é um retrato do momento, não um diagnóstico.',
+      'firstExploreTitle': 'Boas-vindas ao Patterns',
+      'firstExploreBody': 'Explore no seu próprio ritmo.',
+      'setReminder': 'Definir um lembrete gentil',
+      'goToSpace': 'Ir para meu espaço',
+      'reminderPrompt': 'Quando o Patterns deve lembrar você?',
+      'notificationsOff':
+          'As notificações do Patterns estão desativadas. Você pode ativá-las nas configurações do dispositivo.',
+      'reminderSet':
+          'Lembrete definido. Você pode alterá-lo ou desativá-lo em Configurações.',
+      'reminderFailed':
+          'O Patterns não conseguiu definir o lembrete. Nenhum lembrete foi ativado. Tente novamente.',
+      'other': 'Patterns',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String tourProgress(int current, int total) {
+    return 'Etapa $current de $total';
+  }
 }

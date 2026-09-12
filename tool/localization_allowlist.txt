@@ -52,3 +52,10 @@
 # Stable Settings UI selector keys mapped to generated localized copy.
 ^lib/mobile/screens/settings_screen\.dart:.*\.settingsText\('[a-zA-Z]+'
 ^lib/mobile/main_shell\.dart:.*\.settingsText\('[a-zA-Z]+'
+
+# Stable mobile-shell selector keys mapped to generated localized copy. These
+# choose interface messages and never appear directly or enter storage.
+^lib/widgets/section_intro\.dart:.*\.shellText\('[a-zA-Z]+'
+^lib/mobile/main_shell\.dart:.*\.shellText\('[a-zA-Z]+'
+^lib/mobile/screens/first_run_result_screen\.dart:.*\.shellText\('[a-zA-Z]+'
+^lib/mobile/widgets/spotlight_tour\.dart:.*\.shellText\('[a-zA-Z]+'

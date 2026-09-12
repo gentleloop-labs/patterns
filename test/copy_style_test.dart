@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:patterns/l10n/app_localizations_en.dart';
 import 'package:patterns/widgets/section_intro.dart';
 
 /// House style, enforced so it does not drift back one screen at a time.
@@ -14,33 +15,30 @@ import 'package:patterns/widgets/section_intro.dart';
 /// is checked, since "practice" the noun is correct.
 void main() {
   group('section intros', () {
+    final strings = AppLocalizationsEn();
+
     test('every intro has a title and at least one point', () {
-      expect(sectionIntros, isNotEmpty);
-      for (final entry in sectionIntros.entries) {
-        expect(entry.value.title, isNotEmpty, reason: 'title for ${entry.key}');
-        expect(
-          entry.value.points,
-          isNotEmpty,
-          reason: 'points for ${entry.key}',
-        );
+      expect(sectionIntroIds, isNotEmpty);
+      for (final id in sectionIntroIds) {
+        final intro = localizedSectionIntro(strings, id);
+        expect(intro, isNotNull, reason: 'copy for $id');
+        expect(intro!.title, isNotEmpty, reason: 'title for $id');
+        expect(intro.points, isNotEmpty, reason: 'points for $id');
       }
     });
 
     test('no em dashes', () {
-      for (final entry in sectionIntros.entries) {
-        expect(
-          entry.value.title,
-          isNot(contains('—')),
-          reason: 'title for ${entry.key}',
-        );
-        for (final point in entry.value.points) {
-          expect(point, isNot(contains('—')), reason: 'point in ${entry.key}');
+      for (final id in sectionIntroIds) {
+        final intro = localizedSectionIntro(strings, id)!;
+        expect(intro.title, isNot(contains('—')), reason: 'title for $id');
+        for (final point in intro.points) {
+          expect(point, isNot(contains('—')), reason: 'point in $id');
         }
       }
     });
 
     test('does not promise the recovery score, which was removed', () {
-      final today = sectionIntros['today'];
+      final today = localizedSectionIntro(strings, 'today');
       expect(today, isNotNull);
       for (final point in today!.points) {
         expect(point.toLowerCase(), isNot(contains('recovery score')));

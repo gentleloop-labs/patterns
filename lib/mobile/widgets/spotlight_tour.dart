@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
+import '../../l10n/l10n.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/animations.dart';
 
@@ -40,21 +43,24 @@ void showSpotlightTour(
     onFinish();
     return;
   }
-  final overlay = Overlay.of(context);
-  late OverlayEntry entry;
-  var closed = false;
-  void close({bool runCta = false}) {
-    if (closed) return;
-    closed = true;
-    entry.remove();
-    if (runCta) onFinaleCta?.call();
-    onFinish();
-  }
-
-  entry = OverlayEntry(
-    builder: (_) => _SpotlightOverlay(steps: steps, onClose: close),
+  unawaited(
+    showGeneralDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      barrierColor: Colors.transparent,
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+      transitionDuration: Duration.zero,
+      pageBuilder: (dialogContext, _, _) => _SpotlightOverlay(
+        steps: steps,
+        onClose: ({runCta = false}) {
+          Navigator.of(dialogContext).pop(runCta);
+        },
+      ),
+    ).then((runCta) {
+      if (runCta ?? false) onFinaleCta?.call();
+      onFinish();
+    }),
   );
-  overlay.insert(entry);
 }
 
 class _SpotlightOverlay extends StatefulWidget {
@@ -148,25 +154,28 @@ class _SpotlightOverlayState extends State<_SpotlightOverlay> {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
-    return Material(
-      type: MaterialType.transparency,
-      child: Stack(
-        children: [
-          // Swallow taps so nothing behind the scrim is triggered mid-tour.
-          Positioned.fill(
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () {},
-              child: CustomPaint(
-                painter: _SpotlightPainter(
-                  _rect,
-                  accent: context.appColors.accent,
+    return BlockSemantics(
+      blocking: true,
+      child: Material(
+        type: MaterialType.transparency,
+        child: Stack(
+          children: [
+            // Swallow taps so nothing behind the scrim is triggered mid-tour.
+            Positioned.fill(
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {},
+                child: CustomPaint(
+                  painter: _SpotlightPainter(
+                    _rect,
+                    accent: context.appColors.accent,
+                  ),
                 ),
               ),
             ),
-          ),
-          if (_ready) _buildBubble(size, _rect),
-        ],
+            if (_ready) _buildBubble(size, _rect),
+          ],
+        ),
       ),
     );
   }
@@ -237,76 +246,95 @@ class _TourBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final card = Container(
-      padding: const EdgeInsets.fromLTRB(18, 14, 18, 12),
-      decoration: BoxDecoration(
-        color: context.appColors.card,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: context.appColors.border),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.4),
-            blurRadius: 28,
-            offset: const Offset(0, 14),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Text(
-                '${index + 1} of $total',
-                style: TextStyle(
-                  color: context.appColors.accent,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 0.5,
-                ),
+    final card = Semantics(
+      scopesRoute: true,
+      namesRoute: true,
+      label: step.title,
+      explicitChildNodes: true,
+      child: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(18, 14, 18, 12),
+          decoration: BoxDecoration(
+            color: context.appColors.card,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: context.appColors.border),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.4),
+                blurRadius: 28,
+                offset: const Offset(0, 14),
               ),
-              const Spacer(),
-              if (!isLast || onCta != null)
-                TextButton(
-                  onPressed: onSkip,
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    minimumSize: const Size(0, 32),
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  child: Text('Skip'),
-                ),
             ],
           ),
-          const SizedBox(height: 6),
-          Text(
-            step.title,
-            style: TextStyle(
-              color: context.appColors.textPrimary,
-              fontSize: 17,
-              fontWeight: FontWeight.w800,
-              height: 1.15,
-            ),
-          ),
-          const SizedBox(height: 8),
-          for (final point in step.points) _bullet(context, point),
-          const SizedBox(height: 6),
-          Align(
-            alignment: Alignment.centerRight,
-            child: ElevatedButton(
-              onPressed: onCta ?? onNext,
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(0, 42),
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Semantics(
+                    label: context.l10n.tourProgress(index + 1, total),
+                    excludeSemantics: true,
+                    child: Text(
+                      context.l10n.tourProgress(index + 1, total),
+                      style: TextStyle(
+                        color: context.appColors.accent,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  if (!isLast || onCta != null)
+                    TextButton(
+                      onPressed: onSkip,
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        minimumSize: const Size(44, 44),
+                      ),
+                      child: Text(context.l10n.shellText('skip')),
+                    ),
+                ],
+              ),
+              const SizedBox(height: 6),
+              Semantics(
+                header: true,
+                child: Text(
+                  step.title,
+                  style: TextStyle(
+                    color: context.appColors.textPrimary,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w800,
+                    height: 1.15,
+                  ),
                 ),
               ),
-              child: Text(step.ctaLabel ?? (isLast ? 'Done' : 'Next')),
-            ),
+              const SizedBox(height: 8),
+              for (final point in step.points) _bullet(context, point),
+              const SizedBox(height: 6),
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton(
+                  onPressed: onCta ?? onNext,
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(44, 44),
+                    padding: const EdgeInsets.symmetric(horizontal: 18),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
+                  child: Text(
+                    step.ctaLabel ??
+                        (isLast
+                            ? context.l10n.doneAction
+                            : context.l10n.shellText('next')),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
 
@@ -323,12 +351,14 @@ class _TourBubble extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 7),
-            child: Container(
-              width: 4,
-              height: 4,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: context.appColors.textSecondary,
+            child: ExcludeSemantics(
+              child: Container(
+                width: 4,
+                height: 4,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: context.appColors.textSecondary,
+                ),
               ),
             ),
           ),
