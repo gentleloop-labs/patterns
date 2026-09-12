@@ -26,10 +26,10 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 | INSIGHTS-01 | Insights localization and accessible chart alternatives | code complete | Six-locale copy, factual Calm Insights, pressure-metric suppression, localized number/date formatting, chart and heatmap text alternatives, non-colour trend cues, safe errors, 200% reflow, Reduced Motion, and 36 focused/regression tests |
 | RECOVERY-01 | Recovery Hub and ERP tools localization/accessibility | code complete | Every mobile recovery surface is complete. Uncertainty Training resolves its three exercises from unchanged stable IDs, hides calculated practice counts in Calm Insights while retaining the deliberately recorded willingness value, and keeps failed saves retryable. Action Planner preserves user-authored situations, actions and notes, stores dates with the unchanged ASCII ISO codec, formats visible dates for the active locale, exposes explicit completion state, and keeps save, toggle and delete failures retryable. Both final units include six-language copy, accessible summaries and 44-point controls, 200% reflow, Reduced Motion coverage, and 10 focused tests. |
 | CONTENT-01 | Stable-ID localized OCD tracks, programs, and Y-BOCS content | code complete | Structured programs, all five OCD tracks, and every Y-BOCS prompt, response anchor, symptom category/item, and severity explanation resolve from unchanged stable IDs in all six languages. Scoring, stored IDs, and English desktop compatibility remain unchanged; PDF theme labels now follow the selected locale. |
-| SETTINGS-01 | Remaining shared settings, privacy, backup, reminders, dialogs, and errors | pending | — |
+| SETTINGS-01 | Remaining shared settings, privacy, backup, reminders, dialogs, and errors | code complete | Six-language settings, privacy, App Lock, reminder, analytics-consent, ZIP export and ZIP/JSON import copy; complete localized backup previews; retry-safe scheduling/authentication/destructive outcomes; accessible 44-point controls, blocked background semantics, Reduced Motion, and 200% reflow coverage; 12 focused Settings/App Lock tests |
 | SHELL-01 | Onboarding, What’s New, navigation, spotlight, and shared shell copy | pending | — |
 | COMMERCE-01 | Mobile Pro, tips, macOS StoreKit, and verified Windows/Linux licensing | code complete | Commerce widget/service tests; live desktop release configuration remains pending |
-| AUDIT-01 | Zero reviewed mobile/shared user-facing literal candidates | in progress | Mobile-only scope correctly excludes preserved desktop and legacy desktop-shell paths; 56 true mobile/shared candidates after completing every recovery unit |
+| AUDIT-01 | Zero reviewed mobile/shared user-facing literal candidates | in progress | Mobile-only scope correctly excludes preserved desktop and legacy desktop-shell paths; 44 true mobile/shared candidates after completing Settings, with no production Settings candidates remaining |
 
 ## Verification and release gates
 
@@ -49,6 +49,6 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 
 - Version: `1.10.0+32` (final build number must still be reconciled remotely).
 - Release announcement: `patterns_1_10`.
-- Full Flutter suite after completing all recovery units: 307 passing tests.
-- Mobile/shared literal audit: 56 candidates; stable localization selector keys are covered by narrow documented allowlist rules.
+- Full Flutter suite after completing Settings: 312 passing tests.
+- Mobile/shared literal audit: 44 candidates; stable localization selector keys are covered by narrow documented allowlist rules.
 - Store drafts: field, locale, and character-limit validation passing; not approved or uploaded.

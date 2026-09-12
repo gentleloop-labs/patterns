@@ -19,6 +19,7 @@ import '../services/usage_analytics.dart';
 import '../theme/app_theme.dart';
 import '../theme/app_colors.dart';
 import '../widgets/animations.dart';
+import '../widgets/app_snack_bar.dart';
 import '../widgets/liquid_glass.dart';
 import 'biometric_auth.dart';
 import 'first_run.dart';
@@ -488,16 +489,21 @@ class _PrivacyScreenState extends ConsumerState<_PrivacyScreen>
       children: [
         widget.child,
         Positioned.fill(
-          child: IgnorePointer(
-            ignoring: !covered,
-            child: AnimatedOpacity(
-              opacity: covered ? 1 : 0,
-              duration: const Duration(milliseconds: 120),
-              child: _PrivacyCover(
-                showUnlock: _locked && !_lifecycleCovered,
-                unlockBusy: _authInProgress,
-                onUnlock: _authenticate,
-                message: _lifecycleCovered ? null : _errorMessage,
+          child: BlockSemantics(
+            blocking: covered,
+            child: IgnorePointer(
+              ignoring: !covered,
+              child: AnimatedOpacity(
+                opacity: covered ? 1 : 0,
+                duration: motionDisabled(context)
+                    ? Duration.zero
+                    : const Duration(milliseconds: 120),
+                child: _PrivacyCover(
+                  showUnlock: _locked && !_lifecycleCovered,
+                  unlockBusy: _authInProgress,
+                  onUnlock: _authenticate,
+                  message: _lifecycleCovered ? null : _errorMessage,
+                ),
               ),
             ),
           ),
@@ -514,6 +520,7 @@ class _PrivacyScreenState extends ConsumerState<_PrivacyScreen>
       _authInProgress = true;
       _errorMessage = null;
     });
+    final strings = context.l10n;
     try {
       final auth = ref.read(biometricAuthenticatorProvider);
       final supported = await auth.isDeviceSupported();
@@ -524,7 +531,10 @@ class _PrivacyScreenState extends ConsumerState<_PrivacyScreen>
       }
       // local_auth 3.x returns true only on success; everything else (including
       // user cancellation) is signalled via LocalAuthException.
-      await auth.authenticate(reason: 'Unlock Patterns to continue.');
+      final authenticated = await auth.authenticate(
+        reason: strings.appUnlockReason,
+      );
+      if (!authenticated) return;
       if (!mounted) return;
       setState(() => _locked = false);
     } on LocalAuthException catch (e) {
@@ -539,13 +549,14 @@ class _PrivacyScreenState extends ConsumerState<_PrivacyScreen>
           break;
         case LocalAuthExceptionCode.temporaryLockout:
           setState(
-            () => _errorMessage = 'Too many attempts. Try again in a moment.',
+            () =>
+                _errorMessage = strings.settingsText('appLockTemporaryLockout'),
           );
           break;
         case LocalAuthExceptionCode.biometricLockout:
           setState(
-            () => _errorMessage =
-                'Biometric authentication is locked. Unlock your device with your passcode to reset it.',
+            () =>
+                _errorMessage = strings.settingsText('appLockBiometricLockout'),
           );
           break;
         case LocalAuthExceptionCode.noBiometricsEnrolled:
@@ -558,19 +569,16 @@ class _PrivacyScreenState extends ConsumerState<_PrivacyScreen>
           if (mounted) {
             setState(() {
               _locked = false;
-              _errorMessage =
-                  'Biometric authentication is unavailable. App lock has been turned off.';
+              _errorMessage = strings.appLockUnavailableDisabled;
             });
           }
           break;
         default:
-          setState(
-            () => _errorMessage = 'Could not unlock Patterns. Try again.',
-          );
+          setState(() => _errorMessage = strings.appUnlockFailed);
       }
     } catch (_) {
       if (mounted) {
-        setState(() => _errorMessage = 'Could not unlock Patterns. Try again.');
+        setState(() => _errorMessage = strings.appUnlockFailed);
       }
     } finally {
       // Defer clearing the in-progress flag until after the next frame. The
@@ -610,7 +618,7 @@ class _PrivacyCover extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Semantics(
-              label: 'Patterns privacy screen',
+              label: context.l10n.privacyScreenLabel,
               child: Container(
                 width: 96,
                 height: 96,
@@ -630,19 +638,28 @@ class _PrivacyCover extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: unlockBusy ? null : onUnlock,
-                child: Text(unlockBusy ? 'Unlocking...' : 'Unlock'),
+                child: Text(
+                  unlockBusy
+                      ? context.l10n.unlockingAction
+                      : context.l10n.unlockAction,
+                ),
               ),
             ],
             if (message != null) ...[
               const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: Text(
-                  message!,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: context.appColors.textSecondary,
-                    height: 1.4,
+                child: Semantics(
+                  liveRegion: true,
+                  label: message!,
+                  excludeSemantics: true,
+                  child: Text(
+                    message!,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: context.appColors.textSecondary,
+                      height: 1.4,
+                    ),
                   ),
                 ),
               ),
@@ -991,43 +1008,59 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
       _analyticsConsentShowing = false;
       return;
     }
+    final strings = context.l10n;
     final share = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Help improve Patterns?'),
-        content: const Text(
-          'Share anonymous feature-use events so we can improve what helps. '
-          'Journal entries, OCD content, ratings, and notes are never included.',
-        ),
+        title: Text(strings.analyticsPromptTitle),
+        content: Text(strings.analyticsPromptBody),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(dialogContext, false),
-            child: const Text('Not now'),
+            child: Text(strings.notNowAction),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(dialogContext, true),
-            child: const Text('Share anonymous usage'),
+            child: Text(strings.shareAnonymousUsageAction),
           ),
         ],
       ),
     );
     _analyticsConsentShowing = false;
-    if (share == true) {
+    try {
+      if (share == true) {
+        await mobilePreferences?.setString(
+          analyticsConsentDecisionKey,
+          AnalyticsConsentDecision.granted.name,
+        );
+        await ref.read(usageAnalyticsEnabledProvider.notifier).setEnabled(true);
+        await usageAnalytics.setCollectionEnabled(true);
+        AppEvents.logAnalyticsConsentGranted(action);
+        await usageAnalytics.flush();
+      } else {
+        await mobilePreferences?.setString(
+          analyticsConsentDecisionKey,
+          AnalyticsConsentDecision.declined.name,
+        );
+        await ref
+            .read(usageAnalyticsEnabledProvider.notifier)
+            .setEnabled(false);
+        await usageAnalytics.setCollectionEnabled(false);
+      }
+    } catch (_) {
       await mobilePreferences?.setString(
         analyticsConsentDecisionKey,
-        AnalyticsConsentDecision.granted.name,
-      );
-      await ref.read(usageAnalyticsEnabledProvider.notifier).setEnabled(true);
-      await usageAnalytics.setCollectionEnabled(true);
-      AppEvents.logAnalyticsConsentGranted(action);
-      await usageAnalytics.flush();
-    } else {
-      await mobilePreferences?.setString(
-        analyticsConsentDecisionKey,
-        AnalyticsConsentDecision.declined.name,
+        AnalyticsConsentDecision.undecided.name,
       );
       await ref.read(usageAnalyticsEnabledProvider.notifier).setEnabled(false);
-      await usageAnalytics.setCollectionEnabled(false);
+      await usageAnalytics.setCollectionEnabled(false).catchError((_) {});
+      if (mounted) {
+        showAppSnackBar(
+          context,
+          strings.settingsText('analyticsChangeFailed'),
+          type: ToastType.error,
+        );
+      }
     }
   }
 

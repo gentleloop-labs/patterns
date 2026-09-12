@@ -22,7 +22,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsExportDataSubtitle =>
-      'Save your records to a local JSON backup';
+      'Save your records to a local ZIP backup';
 
   @override
   String get settingsImportDataTitle => 'Import data';
@@ -3764,4 +3764,188 @@ class AppLocalizationsEn extends AppLocalizations {
   String actionPlanDateSummary(String date) {
     return 'Planned date: $date.';
   }
+
+  @override
+  String settingsText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'proActiveMessage': 'Patterns Pro is active on this device.',
+      'welcomeScheduled':
+          'The welcome screens will appear next time you open Patterns.',
+      'exportPromptTitle': 'Export data?',
+      'exportPromptBody':
+          'Patterns creates an unencrypted ZIP backup of your local records. Save it somewhere private.',
+      'exportBackupAction': 'Export ZIP backup',
+      'exportDialogTitle': 'Export Patterns data',
+      'exportSucceeded': 'Data exported.',
+      'exportFailed':
+          'Export failed. Your data is unchanged. Please try again.',
+      'importPromptTitle': 'Import data?',
+      'importPromptBody':
+          'Choose a ZIP or JSON Patterns backup. You can review its contents before replacing your current records.',
+      'chooseBackupAction': 'Choose backup',
+      'importDialogTitle': 'Select Patterns backup',
+      'backupUnreadable':
+          'Patterns could not read this backup file. Choose another file.',
+      'backupInvalid':
+          'This is not a valid Patterns backup. Your current data is unchanged.',
+      'importFailed':
+          'Import failed. Your current data is unchanged. Please try again.',
+      'importPreviewTitle': 'Replace current data?',
+      'importPreviewIntro':
+          'This backup contains the following local records. Importing it replaces your current records.',
+      'replaceAction': 'Replace data',
+      'importSucceeded': 'Data imported.',
+      'wipePromptTitle': 'Wipe all local data?',
+      'wipePromptBody':
+          'This permanently deletes local journal entries, OCD records, recovery practice history, locally stored materials, and app preferences from this device. This cannot be undone. Your Patterns Pro purchase remains with your app-store account, but this device will forget the local unlock. You can restore it afterwards.',
+      'wipeAction': 'Wipe data',
+      'wipeSucceeded': 'Local data wiped.',
+      'wipeFailed':
+          'Patterns could not finish wiping local data. Please try again.',
+      'appLockDisabled': 'App lock disabled.',
+      'deviceLockUnavailable':
+          'Device lock is unavailable. Set up a device passcode or biometrics, then try again.',
+      'appLockReason': 'Unlock Patterns to enable app lock.',
+      'appLockEnabled': 'App lock enabled.',
+      'appLockTemporaryLockout': 'Too many attempts. Try again in a moment.',
+      'appLockBiometricLockout':
+          'Biometric authentication is locked. Unlock your device with its passcode first.',
+      'appLockEnableFailed':
+          'Patterns could not change app lock. Please try again.',
+      'reminderOff': 'Daily reminder turned off.',
+      'notificationsUnavailable':
+          'Notifications are off for Patterns. Enable them in your device settings to receive reminders.',
+      'reminderOn': 'Daily reminder turned on.',
+      'reminderChangeFailed':
+          'Patterns could not change the reminder. Your previous setting is still in place.',
+      'analyticsChangeFailed':
+          'Patterns could not change anonymous usage sharing. Your previous setting is still in place.',
+      'privacyPolicyFailed':
+          'Patterns could not open the privacy policy. Please try again.',
+      'other': 'Settings',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String settingsBackupJournalCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count journal entries',
+      one: '1 journal entry',
+      zero: 'No journal entries',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String settingsBackupOcdCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count OCD events',
+      one: '1 OCD event',
+      zero: 'No OCD events',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String settingsBackupDelayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count delay sessions',
+      one: '1 delay session',
+      zero: 'No delay sessions',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String settingsBackupErpPlanCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ERP plans',
+      one: '1 ERP plan',
+      zero: 'No ERP plans',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String settingsBackupErpPracticeCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ERP practices',
+      one: '1 ERP practice',
+      zero: 'No ERP practices',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String settingsBackupRecoveryCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count other recovery-tool records',
+      one: '1 other recovery-tool record',
+      zero: 'No other recovery-tool records',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String settingsBackupSelfCheckCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Y-BOCS self-checks',
+      one: '1 Y-BOCS self-check',
+      zero: 'No Y-BOCS self-checks',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String settingsReminderSetFor(String time) {
+    return 'Reminder set for $time.';
+  }
+
+  @override
+  String get appUnlockReason => 'Unlock Patterns to continue.';
+
+  @override
+  String get appLockUnavailableDisabled =>
+      'Biometric authentication is unavailable. App lock has been turned off.';
+
+  @override
+  String get appUnlockFailed =>
+      'Patterns could not be unlocked. Please try again.';
+
+  @override
+  String get privacyScreenLabel => 'Patterns privacy screen';
+
+  @override
+  String get unlockingAction => 'Unlocking…';
+
+  @override
+  String get unlockAction => 'Unlock';
+
+  @override
+  String get analyticsPromptTitle => 'Help improve Patterns?';
+
+  @override
+  String get analyticsPromptBody =>
+      'Share anonymous feature-use events to help improve Patterns. Journal entries, OCD content, ratings, notes, generated summaries, locale, and language choices are never included. Sharing stays off unless you choose it.';
+
+  @override
+  String get notNowAction => 'Not now';
+
+  @override
+  String get shareAnonymousUsageAction => 'Share anonymous usage';
 }

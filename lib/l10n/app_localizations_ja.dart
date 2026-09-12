@@ -21,7 +21,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settingsExportDataTitle => 'データを書き出す';
 
   @override
-  String get settingsExportDataSubtitle => '記録を端末内のJSONバックアップに保存します';
+  String get settingsExportDataSubtitle => '記録を端末内のZIPバックアップに保存します';
 
   @override
   String get settingsImportDataTitle => 'データを読み込む';
@@ -3370,4 +3370,125 @@ class AppLocalizationsJa extends AppLocalizations {
   String actionPlanDateSummary(String date) {
     return '予定日：$date。';
   }
+
+  @override
+  String settingsText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'proActiveMessage': 'この端末でPatterns Proが有効です。',
+      'welcomeScheduled': '次にPatternsを開いたときに、ようこそ画面が表示されます。',
+      'exportPromptTitle': 'データを書き出しますか？',
+      'exportPromptBody':
+          'Patternsは、端末内の記録を暗号化されていないZIPバックアップとして作成します。プライバシーを守れる場所に保存してください。',
+      'exportBackupAction': 'ZIPバックアップを書き出す',
+      'exportDialogTitle': 'Patternsのデータを書き出す',
+      'exportSucceeded': 'データを書き出しました。',
+      'exportFailed': '書き出しに失敗しました。データは変更されていません。もう一度お試しください。',
+      'importPromptTitle': 'データを読み込みますか？',
+      'importPromptBody':
+          'ZIPまたはJSON形式のPatternsバックアップを選択します。現在の記録を置き換える前に内容を確認できます。',
+      'chooseBackupAction': 'バックアップを選択',
+      'importDialogTitle': 'Patternsバックアップを選択',
+      'backupUnreadable': 'このバックアップファイルを読み取れませんでした。別のファイルを選択してください。',
+      'backupInvalid': '有効なPatternsバックアップではありません。現在のデータは変更されていません。',
+      'importFailed': '読み込みに失敗しました。現在のデータは変更されていません。もう一度お試しください。',
+      'importPreviewTitle': '現在のデータを置き換えますか？',
+      'importPreviewIntro': 'このバックアップには、次の端末内の記録が含まれています。読み込むと現在の記録が置き換えられます。',
+      'replaceAction': 'データを置き換える',
+      'importSucceeded': 'データを読み込みました。',
+      'wipePromptTitle': '端末内のデータをすべて消去しますか？',
+      'wipePromptBody':
+          'この端末にある日記、OCDの記録、回復練習の履歴、端末内に保存した素材、アプリ設定が完全に削除されます。元に戻すことはできません。Patterns Proの購入はApp StoreまたはGoogle Playのアカウントに残りますが、この端末の解除情報は消去されます。後から復元できます。',
+      'wipeAction': 'データを消去',
+      'wipeSucceeded': '端末内のデータを消去しました。',
+      'wipeFailed': '端末内のデータをすべて消去できませんでした。もう一度お試しください。',
+      'appLockDisabled': 'アプリロックを無効にしました。',
+      'deviceLockUnavailable':
+          '端末のロックを利用できません。パスコードまたは生体認証を設定してから、もう一度お試しください。',
+      'appLockReason': 'アプリロックを有効にするためにPatternsのロックを解除してください。',
+      'appLockEnabled': 'アプリロックを有効にしました。',
+      'appLockTemporaryLockout': '試行回数が多すぎます。しばらくしてからもう一度お試しください。',
+      'appLockBiometricLockout': '生体認証がロックされています。先に端末のパスコードでロックを解除してください。',
+      'appLockEnableFailed': 'アプリロックを変更できませんでした。もう一度お試しください。',
+      'reminderOff': '毎日のリマインダーを無効にしました。',
+      'notificationsUnavailable':
+          'Patternsの通知が無効です。リマインダーを受け取るには、端末の設定で通知を有効にしてください。',
+      'reminderOn': '毎日のリマインダーを有効にしました。',
+      'reminderChangeFailed': 'リマインダーを変更できませんでした。以前の設定がそのまま使われます。',
+      'analyticsChangeFailed': '匿名の利用状況の共有を変更できませんでした。以前の設定がそのまま使われます。',
+      'privacyPolicyFailed': 'プライバシーポリシーを開けませんでした。もう一度お試しください。',
+      'other': '設定',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String settingsBackupJournalCount(int count) {
+    return '日記：$count件';
+  }
+
+  @override
+  String settingsBackupOcdCount(int count) {
+    return 'OCDイベント：$count件';
+  }
+
+  @override
+  String settingsBackupDelayCount(int count) {
+    return '先延ばしセッション：$count件';
+  }
+
+  @override
+  String settingsBackupErpPlanCount(int count) {
+    return 'ERPプラン：$count件';
+  }
+
+  @override
+  String settingsBackupErpPracticeCount(int count) {
+    return 'ERP練習：$count件';
+  }
+
+  @override
+  String settingsBackupRecoveryCount(int count) {
+    return 'その他の回復ツールの記録：$count件';
+  }
+
+  @override
+  String settingsBackupSelfCheckCount(int count) {
+    return 'Y-BOCSセルフチェック：$count件';
+  }
+
+  @override
+  String settingsReminderSetFor(String time) {
+    return 'リマインダーを$timeに設定しました。';
+  }
+
+  @override
+  String get appUnlockReason => '続けるにはPatternsのロックを解除してください。';
+
+  @override
+  String get appLockUnavailableDisabled => '生体認証を利用できないため、アプリロックを無効にしました。';
+
+  @override
+  String get appUnlockFailed => 'Patternsのロックを解除できませんでした。もう一度お試しください。';
+
+  @override
+  String get privacyScreenLabel => 'Patternsのプライバシー画面';
+
+  @override
+  String get unlockingAction => 'ロックを解除しています…';
+
+  @override
+  String get unlockAction => 'ロックを解除';
+
+  @override
+  String get analyticsPromptTitle => 'Patternsの改善に協力しますか？';
+
+  @override
+  String get analyticsPromptBody =>
+      'Patternsの改善に役立てるため、機能の利用状況を匿名で共有できます。日記、OCDの内容、評価、メモ、生成された要約、地域、選択した言語は含まれません。選択しない限り共有は無効のままです。';
+
+  @override
+  String get notNowAction => '今はしない';
+
+  @override
+  String get shareAnonymousUsageAction => '匿名の利用状況を共有';
 }

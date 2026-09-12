@@ -3,6 +3,8 @@
 
 # Debug-only local telemetry inspector; excluded from production builds.
 ^lib/mobile/screens/debug_funnel_screen\.dart:
+^lib/mobile/screens/settings_screen\.dart:.*title: 'Funnel'
+^lib/mobile/screens/settings_screen\.dart:.*subtitle: 'On-device telemetry counters & recent events'
 
 # Locale-formatted value assembled from caller-supplied localized prefix/suffix.
 ^lib/widgets/animations\.dart:.*formatter\.format
@@ -46,3 +48,7 @@
 # Planner copy. These are never displayed or persisted.
 ^lib/mobile/screens/uncertainty_training_screen\.dart:.*\.uncertaintyTrainingText\('[a-zA-Z]+'
 ^lib/mobile/screens/action_planner_screen\.dart:.*\.actionPlanText\('[a-zA-Z]+'
+
+# Stable Settings UI selector keys mapped to generated localized copy.
+^lib/mobile/screens/settings_screen\.dart:.*\.settingsText\('[a-zA-Z]+'
+^lib/mobile/main_shell\.dart:.*\.settingsText\('[a-zA-Z]+'
