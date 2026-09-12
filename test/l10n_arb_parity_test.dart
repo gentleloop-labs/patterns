@@ -52,6 +52,26 @@ void main() {
       }
     }
   });
+
+  test('every translated placeholder keeps its English name and type', () {
+    final directory = Directory('lib/l10n');
+    final files =
+        directory
+            .listSync()
+            .whereType<File>()
+            .where((file) => file.path.endsWith('.arb'))
+            .toList()
+          ..sort((a, b) => a.path.compareTo(b.path));
+    final english = _placeholderTypes(File('lib/l10n/app_en.arb'));
+
+    for (final file in files) {
+      expect(
+        _placeholderTypes(file),
+        english,
+        reason: '${file.path} must preserve placeholder names and types',
+      );
+    }
+  });
 }
 
 Set<String> _keys(File file) {
@@ -65,6 +85,25 @@ Map<String, String> _messages(File file) {
     for (final entry in data.entries)
       if (!entry.key.startsWith('@') && entry.value is String)
         entry.key: entry.value as String,
+  };
+}
+
+Map<String, Map<String, String>> _placeholderTypes(File file) {
+  final data = jsonDecode(file.readAsStringSync()) as Map<String, dynamic>;
+  return {
+    for (final key in data.keys.where(
+      (key) => key != '@@locale' && !key.startsWith('@'),
+    ))
+      key: {
+        for (final entry
+            in (((data['@$key'] as Map<String, dynamic>)['placeholders']
+                        as Map<String, dynamic>?) ??
+                    const <String, dynamic>{})
+                .entries)
+          entry.key:
+              (entry.value as Map<String, dynamic>)['type'] as String? ??
+              'Object',
+      },
   };
 }
 
