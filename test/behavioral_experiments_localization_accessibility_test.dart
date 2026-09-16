@@ -159,7 +159,7 @@ void main() {
     save.onPressed!();
     await tester.pumpAndSettle();
 
-    expect(find.text('OCDの予測と、予定している行動の両方を入力してください。'), findsOneWidget);
+    expect(find.text('強迫症の予測と、予定している行動の両方を入力してください。'), findsOneWidget);
   });
 
   testWidgets('failed plan save retains both user-authored fields', (

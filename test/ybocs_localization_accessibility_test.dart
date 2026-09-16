@@ -163,7 +163,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('OCDセルフチェック'), findsOneWidget);
+    expect(find.text('強迫症セルフチェック'), findsOneWidget);
     await tester.tap(find.text('始める'));
     await tester.pumpAndSettle();
 

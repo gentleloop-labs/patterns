@@ -90,7 +90,7 @@ void main() {
     expect(find.text('記録した出来事を絞り込む'), findsNothing);
     expect(find.bySemanticsLabel('記録した出来事を絞り込む'), findsOneWidget);
     expect(find.text('まだ出来事はありません'), findsOneWidget);
-    expect(find.text('OCDの出来事を記録'), findsOneWidget);
+    expect(find.text('強迫症の出来事を記録'), findsOneWidget);
     expect(find.text('No events yet'), findsNothing);
   });
 

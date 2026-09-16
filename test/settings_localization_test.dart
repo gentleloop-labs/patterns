@@ -119,7 +119,7 @@ void main() {
     expect(english.settingsBackupJournalCount(0), 'No journal entries');
     expect(english.settingsBackupJournalCount(1), '1 journal entry');
     expect(english.settingsBackupJournalCount(2), '2 journal entries');
-    expect(japanese.settingsBackupRecoveryCount(12), 'その他の回復ツールの記録：12件');
+    expect(japanese.settingsBackupRecoveryCount(12), 'その他のセルフヘルプツールの記録：12件');
   });
 }
 

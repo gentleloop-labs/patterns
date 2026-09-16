@@ -56,7 +56,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settingsAnalyticsTitle => '匿名の利用状況を共有';
 
   @override
-  String get settingsAnalyticsSubtitle => '機能の利用イベントのみを共有します。個人のOCDデータは含まれません。';
+  String get settingsAnalyticsSubtitle =>
+      '機能の利用イベントのみを共有します。個人の強迫症に関するデータは含まれません。';
 
   @override
   String get settingsAppLockTitle => 'アプリロック';
@@ -77,13 +78,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settingsProActiveTitle => 'Patterns Proは有効です';
 
   @override
-  String get settingsProActiveSubtitle => 'すべての回復ツールを利用できます。ありがとうございます。';
+  String get settingsProActiveSubtitle => 'すべてのセルフヘルプツールを利用できます。ありがとうございます。';
 
   @override
   String get settingsUnlockProTitle => 'Patterns Proを利用する';
 
   @override
-  String get settingsUnlockProSubtitle => '一度の購入ですべての回復ツールを利用できます';
+  String get settingsUnlockProSubtitle => '一度の購入ですべてのセルフヘルプツールを利用できます';
 
   @override
   String get settingsRestorePurchasesTitle => '購入を復元';
@@ -146,7 +147,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get languageSubtitle => 'Patternsで使用する言語を選択';
 
   @override
-  String get calmInsightsTitle => '穏やかなインサイト';
+  String get calmInsightsTitle => '穏やかな分析';
 
   @override
   String get calmInsightsSubtitle => '連続記録と計算スコアを非表示にします。記録したデータは引き続き確認できます。';
@@ -183,35 +184,35 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String get recoveryMetricsTitle => '回復アクティビティ';
+  String get recoveryMetricsTitle => '練習アクティビティ';
 
   @override
-  String get recoveryMetricsTeaserTitle => '回復アクティビティをまとめて確認';
+  String get recoveryMetricsTeaserTitle => '練習アクティビティをまとめて確認';
 
   @override
   String get recoveryMetricsCalmTeaserBody =>
-      'ERPツールで記録したエクスポージャー、練習セッション、衝動の変化を確認できます。Patterns Proで利用できます。';
+      'ERPツールで記録した曝露、練習セッション、衝動の変化を確認できます。Patterns Proで利用できます。';
 
   @override
   String get recoveryMetricsDetailedTeaserBody =>
-      'ERPツールで練習の連続記録、完了したエクスポージャー、記録した衝動の変化を確認できます。Patterns Proで利用できます。';
+      'ERPツールで練習の連続記録、完了した曝露、記録した衝動の変化を確認できます。Patterns Proで利用できます。';
 
   @override
   String get recoveryMetricsUnlockPro => 'Patterns Proを利用する';
 
   @override
-  String get recoveryMetricsEmptyTitle => '回復アクティビティがここに表示されます';
+  String get recoveryMetricsEmptyTitle => '練習アクティビティがここに表示されます';
 
   @override
   String get recoveryMetricsCalmEmptyBody =>
-      '強迫行為の延期、ERPセッション、またはエクスポージャーのステップを練習すると、事実に基づく活動件数がここに表示されます。';
+      '強迫行為の延期、ERPセッション、または曝露のステップを練習すると、事実に基づく活動件数がここに表示されます。';
 
   @override
   String get recoveryMetricsDetailedEmptyBody =>
-      '強迫行為の延期、ERPセッション、またはエクスポージャーのステップを練習すると、活動履歴と練習の連続記録が始まります。';
+      '強迫行為の延期、ERPセッション、または曝露のステップを練習すると、活動履歴と練習の連続記録が始まります。';
 
   @override
-  String get recoveryMetricsExposuresDone => '完了したエクスポージャー';
+  String get recoveryMetricsExposuresDone => '完了した曝露';
 
   @override
   String get recoveryMetricsSessionsPracticed => '練習したセッション';
@@ -287,14 +288,14 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get appUpdatesChannelDescription =>
-      'Patternsに大切な新しい回復ツールが追加されたときにお知らせします。';
+      'Patternsに大切な新しいセルフヘルプツールが追加されたときにお知らせします。';
 
   @override
   String get updateAnnouncementTitle => 'Patternsがより良くなりました';
 
   @override
   String get updateAnnouncementBody =>
-      '新しい回復ツール、進捗の振り返り、より穏やかなホーム画面をご利用いただけます。';
+      '新しいセルフヘルプツール、事実に基づく活動の振り返り、より穏やかなホーム画面をご利用いただけます。';
 
   @override
   String get practiceWindowCompleteTitle => '練習時間が終了しました';
@@ -324,7 +325,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get navTracker => 'トラッカー';
 
   @override
-  String get navRecovery => '回復';
+  String get navRecovery => '練習';
 
   @override
   String get navInsights => '分析';
@@ -337,7 +338,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get exportReportDescription =>
-      'ジャーナル、OCD記録、分析を1つのPDFに保存します。保存先と共有するかどうかは自分で選べます。';
+      'ジャーナル、強迫症に関する記録、分析を1つのPDFに保存します。保存先と共有するかどうかは自分で選べます。';
 
   @override
   String get exportTimeWindow => '期間';
@@ -358,14 +359,14 @@ class AppLocalizationsJa extends AppLocalizations {
   String get exportJournalEntries => 'ジャーナル記録';
 
   @override
-  String get exportOcdEvents => 'OCDイベント';
+  String get exportOcdEvents => '強迫症に関する記録';
 
   @override
   String get exportYbocsSelfChecks => 'Y-BOCSセルフチェック';
 
   @override
   String exportEntrySummary(int total, int journal, int ocd, int selfChecks) {
-    return 'この期間の記録：$total件（ジャーナル $journal件、OCD $ocd件、セルフチェック $selfChecks件）';
+    return 'この期間の記録：$total件（ジャーナル $journal件、強迫症に関する記録 $ocd件、セルフチェック $selfChecks件）';
   }
 
   @override
@@ -438,7 +439,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get pdfJournalCount => 'ジャーナル記録';
 
   @override
-  String get pdfOcdCount => 'OCDイベント';
+  String get pdfOcdCount => '強迫症に関する記録';
 
   @override
   String get pdfAverageDistress => '苦痛の平均';
@@ -453,7 +454,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get pdfNoJournalEntries => 'この期間のジャーナル記録はありません。';
 
   @override
-  String get pdfNoOcdEvents => 'この期間のOCDイベントはありません。';
+  String get pdfNoOcdEvents => 'この期間の強迫症に関する記録はありません。';
 
   @override
   String get pdfObsession => '強迫観念';
@@ -484,7 +485,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get pdfYbocsDescription =>
-      'Yale-Brown Obsessive Compulsive Scaleをアプリ内で自己評価したものです。合計40点で、強迫観念と強迫行為はそれぞれ20点です。';
+      'Yale-Brown Obsessive Compulsive Scale（Y-BOCS）に基づくアプリ内セルフチェックです。合計40点で、強迫観念と強迫行為はそれぞれ20点です。';
 
   @override
   String get pdfMostRecentTotal => '最新の合計';
@@ -547,13 +548,13 @@ class AppLocalizationsJa extends AppLocalizations {
       'プライバシーを重視した設計です。診断や専門的なケアの代わりではありません。';
 
   @override
-  String get onboardingHeadline => 'OCDと向き合うための静かな場所。';
+  String get onboardingHeadline => '強迫性障害（強迫症）と向き合うための静かな場所。';
 
   @override
   String get onboardingIntroduction => '侵入思考を記録し、強迫行為を遅らせ、少しずつ別の対応を練習します。';
 
   @override
-  String get onboardingPrivacy => 'OCDデータはこの端末内に保存されます。アカウントもクラウド同期もありません。';
+  String get onboardingPrivacy => '強迫症に関するデータはこの端末内に保存されます。アカウントもクラウド同期もありません。';
 
   @override
   String get getStartedAction => '始める';
@@ -583,10 +584,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get onboardingErpTitle => '強迫行為をしない練習をしたい';
 
   @override
-  String get onboardingErpSubtitle => '短いガイド付きエクスポージャーです。';
+  String get onboardingErpSubtitle => '短い、ガイド付きの曝露反応妨害法（ERP）の練習です。';
 
   @override
-  String get onboardingSelfCheckTitle => '今のOCDの状態を知りたい';
+  String get onboardingSelfCheckTitle => '今の強迫症のパターンを確認したい';
 
   @override
   String get onboardingSelfCheckSubtitle => 'Y-BOCSセルフチェック。約10分です。';
@@ -602,10 +603,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get whatsNewBody =>
-      'Patterns 1.10では、穏やかなインサイト、静かなセッション終了、アクセシビリティの改善、任意の言語選択が加わりました。';
+      'Patterns 1.10では、穏やかな分析、静かなセッション終了、アクセシビリティの改善、任意の言語選択が加わりました。';
 
   @override
-  String get whatsNewLanguagesTitle => '穏やかなインサイト';
+  String get whatsNewLanguagesTitle => '穏やかな分析';
 
   @override
   String get whatsNewLanguagesBody =>
@@ -619,7 +620,7 @@ class AppLocalizationsJa extends AppLocalizations {
       '日記、記録、強迫行為の延期、ERPセッションは、事実に基づく確認と「今はここまで」で終了します。';
 
   @override
-  String get whatsNewReportsTitle => 'より使いやすく、あなたの言語で';
+  String get whatsNewReportsTitle => 'より使いやすく、選んだ言語で';
 
   @override
   String get whatsNewReportsBody =>
@@ -633,7 +634,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get whatsNewNotificationNote =>
-      '入力内容はそのまま保持されます。言語と穏やかなインサイトの設定は端末内だけに保存され、分析やバックアップには含まれません。';
+      '入力内容はそのまま保持されます。言語と穏やかな分析の設定は端末内だけに保存され、分析やバックアップには含まれません。';
 
   @override
   String get formatBold => '太字';
@@ -660,18 +661,18 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String recoveryScoreSemantics(int score) {
-    return '回復スコア：100点中$score点。';
+    return '練習スコア：100点中$score点。';
   }
 
   @override
   String get privacySafetyTitle => 'プライバシーと安全';
 
   @override
-  String get privacyLocalContent => '日記、OCDの記録、苦痛度、振り返り、アプリ設定はこの端末内に保存されます。';
+  String get privacyLocalContent => '日記、強迫症の記録、苦痛度、振り返り、アプリ設定はこの端末内に保存されます。';
 
   @override
   String get privacyPurchases =>
-      'Patterns Proとチップはアプリストアが処理します。Patternsが支払いカード情報を受け取ることはありません。';
+      'Patterns Proとチップの購入はアプリストアが処理します。Patternsが決済カード情報を受け取ることはありません。';
 
   @override
   String get privacyExports =>
@@ -679,11 +680,11 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get privacyAnalytics =>
-      '匿名の利用状況分析は、あなたが有効にしない限りオフです。有効にすると、機能利用イベント、ランダムなインストールID、プラットフォーム、アプリのバージョン、イベント時刻が自社サービスに送信されます。日記、OCDデータ、生成した概要、地域設定、言語選択は含まれません。オフにすると、保留中のイベントと端末内の分析IDが削除されます。';
+      '匿名の利用状況分析は、有効にしない限りオフです。有効にすると、機能利用イベント、ランダムなインストールID、プラットフォーム、アプリのバージョン、イベント時刻が自社サービスに送信されます。日記、強迫症に関するデータ、生成した概要、地域設定、言語選択は含まれません。オフにすると、保留中のイベントと端末内の分析IDが削除されます。';
 
   @override
   String get privacyClinicalBoundary =>
-      'Patternsは個人の振り返りとERP練習のためのセルフヘルプツールです。OCDの診断や治療、専門家によるケアの代替、緊急支援は提供しません。';
+      'Patternsは個人の振り返りと曝露反応妨害法（ERP）の練習を支えるセルフヘルプツールです。強迫症の診断や治療、専門家によるケアの代替、緊急支援は提供しません。';
 
   @override
   String get viewPrivacyPolicyAction => 'プライバシーポリシーを表示';
@@ -752,7 +753,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get proPaywallUnlockedBody =>
-      'Patterns Proをアンロックしました。すべてのリカバリーツールを利用できます。';
+      'Patterns Proをアンロックしました。すべてのセルフヘルプツールを利用できます。';
 
   @override
   String get proPaywallContinueAction => '続ける';
@@ -761,25 +762,25 @@ class AppLocalizationsJa extends AppLocalizations {
   String get proPaywallLoadingLabel => 'Patterns Proを読み込み中';
 
   @override
-  String get proHeadlineSettings => '記録から一歩進み、リカバリーを練習する';
+  String get proHeadlineSettings => '記録から一歩進み、セルフヘルプを練習する';
 
   @override
   String get proHeadlineTodayNextStep => '今日の練習を続ける';
 
   @override
-  String get proHeadlineRecoveryMetrics => 'リカバリー活動を確認する';
+  String get proHeadlineRecoveryMetrics => 'セルフヘルプ活動を確認する';
 
   @override
-  String get proHeadlineExposureHierarchy => '明確なエクスポージャー階層を作る';
+  String get proHeadlineExposureHierarchy => '明確な曝露階層を作る';
 
   @override
   String get proHeadlineExposureMaterials => '練習用の資料をまとめておく';
 
   @override
-  String get proHeadlineStructuredPrograms => 'リカバリーを日課にする';
+  String get proHeadlineStructuredPrograms => 'セルフヘルプを日課にする';
 
   @override
-  String get proHeadlineActionPlanner => 'OCDが現れる前に対応を計画する';
+  String get proHeadlineActionPlanner => '強迫症が現れる前に対応を計画する';
 
   @override
   String get proHeadlineImplementationIntentions => '次の選択をしやすくする';
@@ -794,19 +795,19 @@ class AppLocalizationsJa extends AppLocalizations {
   String get proHeadlineUncertaintyTraining => '「かもしれない」を受け入れる練習をする';
 
   @override
-  String get proHeadlineBehavioralExperiments => 'OCDの予測を確かめる';
+  String get proHeadlineBehavioralExperiments => '強迫症の予測を確かめる';
 
   @override
   String get proHeadlineReflectionJournal => '練習で学んだことを記録する';
 
   @override
-  String get proBenefitGeneralPlans => 'エクスポージャー階層と練習計画を作る';
+  String get proBenefitGeneralPlans => '曝露階層と練習計画を作る';
 
   @override
   String get proBenefitGeneralResponsePrevention => '反応妨害に特化したツールを使う';
 
   @override
-  String get proBenefitGeneralReview => 'リカバリー活動と振り返りを確認する';
+  String get proBenefitGeneralReview => 'セルフヘルプ活動と振り返りを確認する';
 
   @override
   String get proBenefitMetricsActivity => '練習活動を時系列で確認する';
@@ -815,7 +816,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get proBenefitMetricsNonjudgmental => '一日ごとに評価せず、記録された活動を確認する';
 
   @override
-  String get proBenefitMetricsPatterns => '事実に基づくリカバリーの傾向を確認する';
+  String get proBenefitMetricsPatterns => '事実に基づくセルフヘルプの傾向を確認する';
 
   @override
   String get proBenefitExposureLadder => '取り組みやすいものから難しいものへ並べる';
@@ -867,7 +868,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get proRestoreSucceeded =>
-      'Patterns Proを復元しました。すべてのリカバリーツールを再び利用できます。';
+      'Patterns Proを復元しました。すべてのセルフヘルプツールを再び利用できます。';
 
   @override
   String get tipJarTitle => 'Patternsを支援';
@@ -1204,7 +1205,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get todayPracticeErpTitle => '練習する（ERP）';
 
   @override
-  String get todayPracticeErpBody => '短いガイド付きエクササイズです。';
+  String get todayPracticeErpBody => '短いガイド付きERP練習です。';
 
   @override
   String get todayFirstJournalTitle => '別の場面を書き留める';
@@ -1320,7 +1321,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get todayNextPracticeTitle => '今日の練習を選ぶ';
 
   @override
-  String get todayNextPracticeBody => '今日取り組めるERPエクササイズをひとつ選びます。';
+  String get todayNextPracticeBody => '今日取り組めるERP練習をひとつ選びます。';
 
   @override
   String get todayNextPracticeAction => '練習を始める';
@@ -1380,7 +1381,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get todaySelfCheckDuration => '任意 · 約10分';
 
   @override
-  String get todayInsightsPlaceholder => '活動を記録すると、ここにインサイトが表示されます。';
+  String get todayInsightsPlaceholder => '活動を記録すると、ここに分析が表示されます。';
 
   @override
   String get todayDailyCheckInComplete => '今日のチェックインを記録済み';
@@ -1401,7 +1402,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get todayCheckInAction => '記録する';
 
   @override
-  String get todayRecoveryScore => '回復スコア';
+  String get todayRecoveryScore => '練習スコア';
 
   @override
   String todayActivitiesLastSevenDays(int count) {
@@ -1449,7 +1450,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get todayReflectProcess => '書いて振り返る';
 
   @override
-  String get todayRecoveryTools => '回復ツール';
+  String get todayRecoveryTools => 'セルフヘルプツール';
 
   @override
   String get todaySupportPractice => '練習を支える';
@@ -1532,7 +1533,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get trackerUrgeHint => '衝動や強迫行為を書いてください。';
 
   @override
-  String get trackerActionLabel => 'OCDによって何をしたくなりましたか？';
+  String get trackerActionLabel => '強迫症によって何をしたくなりましたか？';
 
   @override
   String get trackerActionHint => '短いメモで十分です。';
@@ -1616,10 +1617,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get trackerEmptyBody => '役立つと感じることだけを記録してください。短いメモで十分です。';
 
   @override
-  String get trackerEmptyAction => 'OCDの出来事を記録';
+  String get trackerEmptyAction => '強迫症の出来事を記録';
 
   @override
-  String get insightsTitle => 'インサイト';
+  String get insightsTitle => '分析';
 
   @override
   String get insightsExportReport => 'レポートを書き出す';
@@ -1729,7 +1730,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get insightsTopThemes => '主なテーマ';
 
   @override
-  String get insightsThemesEmpty => 'OCDが何に集中しているかを記録すると、テーマが表示されます。';
+  String get insightsThemesEmpty => '強迫症が何に集中しているかを記録すると、テーマが表示されます。';
 
   @override
   String insightsThemeShare(String theme, int percent) {
@@ -1770,10 +1771,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get insightsNoData => 'まだデータはありません';
 
   @override
-  String get insightsLoading => 'インサイトを読み込んでいます';
+  String get insightsLoading => '分析を読み込んでいます';
 
   @override
-  String get insightsLoadError => 'インサイトを読み込めませんでした。もう一度お試しください。';
+  String get insightsLoadError => '分析を読み込めませんでした。もう一度お試しください。';
 
   @override
   String insightsChartPoint(String date, String value) {
@@ -1834,7 +1835,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get insightsThemeOther => 'その他';
 
   @override
-  String get recoveryTitle => '回復';
+  String get recoveryTitle => '練習';
 
   @override
   String get recoverySubtitle => '今取り組んでいる段階に合わせて、ツールと練習をまとめています。';
@@ -1845,11 +1846,11 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String recoveryToolTitle(String tool) {
     String _temp0 = intl.Intl.selectLogic(tool, {
-      'emergencyToolkit': 'つらい時のツールキット',
+      'emergencyToolkit': 'つらい時のサポート',
       'copingLibrary': '対処法ライブラリ',
       'compulsionDelay': '強迫行為を待つ',
-      'ybocsSelfCheck': 'OCDセルフチェック',
-      'recoveryMetrics': '回復の記録',
+      'ybocsSelfCheck': '強迫症セルフチェック',
+      'recoveryMetrics': '練習の記録',
       'exposureHierarchy': '曝露の段階表',
       'exposureMaterials': '曝露の素材',
       'structuredPrograms': '構造化プログラム',
@@ -1861,7 +1862,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'uncertaintyTraining': '不確かさの練習',
       'behavioralExperiments': '行動実験',
       'reflectionJournal': '振り返り日記',
-      'other': '回復ツール',
+      'other': 'セルフヘルプツール',
     });
     return '$_temp0';
   }
@@ -1883,9 +1884,9 @@ class AppLocalizationsJa extends AppLocalizations {
       'urgeSurfing': '波が過ぎるのを見守る。',
       'responsePrevention': '代わりにしたことを記録する。',
       'uncertaintyTraining': '「たぶん」に居場所をつくる。',
-      'behavioralExperiments': 'OCDの予測を確かめる。',
+      'behavioralExperiments': '強迫症の予測を確かめる。',
       'reflectionJournal': '気づいたことを記録する。',
-      'other': '回復ツールを開く。',
+      'other': 'セルフヘルプツールを開く。',
     });
     return '$_temp0';
   }
@@ -2064,7 +2065,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'whatHappened': '実際には何が起きましたか？',
       'whatHappenedHint': '練習中や練習後に気づいたことは？',
       'learning': '次回のための気づき',
-      'learningHint': '次にOCDが求めてきた時、何を覚えておきたいですか？',
+      'learningHint': '次に強迫症が求めてきた時、何を覚えておきたいですか？',
       'exposure': '曝露',
       'prediction': '予測',
       'commitment': '取り組むこと',
@@ -2124,7 +2125,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'createTitle': 'ERP計画を作成',
       'exerciseType': '練習の種類',
       'exposureTarget': '曝露の対象',
-      'ocdPrediction': 'OCDの予測',
+      'ocdPrediction': '強迫症の予測',
       'preventionCommitment': '反応妨害の取り組み',
       'defaultDuration': '既定の時間',
       'saving': '保存中…',
@@ -2154,7 +2155,7 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String get erpFirstRunPrediction => '反応しなければ不快感は変わらない、とOCDは言っています。';
+  String get erpFirstRunPrediction => '反応しなければ不快感は変わらない、と強迫症は言っています。';
 
   @override
   String erpTemplateTitle(String template) {
@@ -2186,9 +2187,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String erpTemplateIntro(String template) {
     String _temp0 = intl.Intl.selectLogic(template, {
       'delayChecking':
-          '鍵、スイッチ、メッセージ、症状、間違いなどをもう一度確認するようOCDが迫る場面のために、再利用できる計画を作ります。',
+          '鍵、スイッチ、メッセージ、症状、間違いなどをもう一度確認するよう強迫症が迫る場面のために、再利用できる計画を作ります。',
       'delayReassurance': '質問、告白、説明をしたり、誰かに大丈夫だと確認してもらったりしたい衝動のために計画を作ります。',
-      'delayGoogling': '確かになるまで症状、意味、危険、規則、体験談を検索するようOCDが迫る場面のために計画を作ります。',
+      'delayGoogling': '確かになるまで症状、意味、危険、規則、体験談を検索するよう強迫症が迫る場面のために計画を作ります。',
       'delayRumination': '思い返す、証明する、見直す、解決するといった心の強迫行為のために計画を作ります。',
       'delayWashing': '何かが汚染されたように感じて、洗う、掃除する、消毒する、やり直す衝動のために計画を作ります。',
       'other': '繰り返し使えるERP練習の計画を作ります。',
@@ -2213,19 +2214,19 @@ class AppLocalizationsJa extends AppLocalizations {
   String erpTemplatePrompt(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
       'delayCheckingExposure': '確認せずにおくもの、または一度だけ確認するものは？',
-      'delayCheckingPrediction': '再確認しなければ何が起きるとOCDは予測していますか？',
+      'delayCheckingPrediction': '再確認しなければ何が起きると強迫症は予測していますか？',
       'delayCheckingCommitment': 'どの確認行為をしない練習をしますか？',
       'delayReassuranceExposure': 'どのような安心を求めたいですか？',
-      'delayReassurancePrediction': '尋ねなければ何が起きるとOCDは言っていますか？',
+      'delayReassurancePrediction': '尋ねなければ何が起きると強迫症は言っていますか？',
       'delayReassuranceCommitment': 'どのメッセージ、告白、質問を控えますか？',
       'delayGooglingExposure': 'どの検索や問いを未回答のままにしますか？',
-      'delayGooglingPrediction': '今すぐ何を知る必要があるとOCDは言っていますか？',
+      'delayGooglingPrediction': '今すぐ何を知る必要があると強迫症は言っていますか？',
       'delayGooglingCommitment': 'どの検索、記事、掲示板を避けますか？',
       'delayRuminationExposure': 'どの思考の循環を終わらせずにおきますか？',
-      'delayRuminationPrediction': '何を解決または証明する必要があるとOCDは言っていますか？',
+      'delayRuminationPrediction': '何を解決または証明する必要があると強迫症は言っていますか？',
       'delayRuminationCommitment': 'どの心の見直しや議論を控えますか？',
       'delayWashingExposure': 'どの通常の衛生上の範囲に従いますか？',
-      'delayWashingPrediction': 'もう一度洗わなければ何が起きるとOCDは予測していますか？',
+      'delayWashingPrediction': 'もう一度洗わなければ何が起きると強迫症は予測していますか？',
       'delayWashingCommitment': 'どの追加の洗浄、掃除、消毒を控えますか？',
       'other': 'どの反応をしない練習をしますか？',
     });
@@ -2288,7 +2289,7 @@ class AppLocalizationsJa extends AppLocalizations {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': '構造化プログラム',
       'subtitle': '自分のペースで、週ごとのガイド付き計画に取り組みます。',
-      'themeGroup': 'OCDのテーマ別',
+      'themeGroup': '強迫症のテーマ別',
       'themeGroupEmpty': '練習したい内容に合う場合はテーマを選んでください。',
       'themeGroupMatched': '前回のセルフチェックで記録したテーマには印が付いています。',
       'generalGroup': '一般的な練習',
@@ -2339,9 +2340,9 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String exposureHierarchyText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
-      'title': 'エクスポージャー階層',
+      'title': '曝露階層',
       'newAction': '新規',
-      'subtitle': '取り組めそうなエクスポージャーを段階に分け、一つずつ練習します。',
+      'subtitle': '取り組めそうな曝露を段階に分け、一つずつ練習します。',
       'loadError': '階層を読み込めませんでした。もう一度お試しください。',
       'archiveTitle': 'この階層をアーカイブしますか？',
       'archiveBody': 'この階層は使用中の一覧から外れます。保存したステップはこの端末に残ります。',
@@ -2350,7 +2351,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'archiveSuccess': '階層をアーカイブしました。',
       'archiveError': '階層をアーカイブできませんでした。もう一度お試しください。',
       'emptyTitle': '最初の階層を作る',
-      'emptyBody': '取り組めそうなエクスポージャーを易しいものから難しいものへ並べ、自分のペースを選びます。',
+      'emptyBody': '取り組めそうな曝露を易しいものから難しいものへ並べ、自分のペースを選びます。',
       'buildAction': '階層を作る',
       'newTitle': '新しい階層',
       'nameLabel': '名前',
@@ -2363,10 +2364,10 @@ class AppLocalizationsJa extends AppLocalizations {
       'createAction': '階層を作成',
       'saving': '保存中…',
       'titleValidation': 'この階層に名前を付けてください。',
-      'stepValidation': 'エクスポージャーのステップを少なくとも一つ追加してください。',
+      'stepValidation': '曝露のステップを少なくとも一つ追加してください。',
       'createSuccess': '階層を保存しました。',
       'createError': '階層を保存できませんでした。もう一度お試しください。',
-      'stepHint': 'どのようなエクスポージャーを練習できますか？',
+      'stepHint': 'どのような曝露を練習できますか？',
       'difficulty': '難易度',
       'anxiety': '予想される不安',
       'materialAction': '素材',
@@ -2379,7 +2380,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'removeStep': 'ステップを削除',
       'openHierarchy': '階層を開く',
       'archiveHierarchy': '階層をアーカイブ',
-      'other': 'エクスポージャー階層',
+      'other': '曝露階層',
     });
     return '$_temp0';
   }
@@ -2418,9 +2419,9 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String exposureMaterialsText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
-      'title': 'エクスポージャー素材',
+      'title': '曝露素材',
       'newAction': '新規',
-      'subtitle': 'エクスポージャーで使う台本、ループ録音、画像、リンクをまとめて保存します。',
+      'subtitle': '曝露で使う台本、ループ録音、画像、リンクをまとめて保存します。',
       'loadError': '素材を読み込めませんでした。もう一度お試しください。',
       'typeScript': '台本',
       'typeLoopTape': 'ループ録音',
@@ -2434,7 +2435,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'deleteSuccess': '素材を削除しました。',
       'deleteError': '素材を削除できませんでした。もう一度お試しください。',
       'emptyTitle': '素材をまとめる',
-      'emptyBody': '自分で選んだエクスポージャーのために、台本、ループ録音、画像、リンクを保存します。',
+      'emptyBody': '自分で選んだ曝露のために、台本、ループ録音、画像、リンクを保存します。',
       'addAction': '素材を追加',
       'readScript': '台本を読む',
       'openLink': 'リンクを開く',
@@ -2456,7 +2457,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'titleHint': '見分けやすい短い名前',
       'saveAction': '素材を保存',
       'scriptLabel': '台本',
-      'scriptHint': 'エクスポージャー中に読む文章',
+      'scriptHint': '曝露中に読む文章',
       'linkLabel': 'リンク',
       'pickImage': '画像を選ぶ',
       'changeImage': '画像を変更',
@@ -2464,7 +2465,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'recorderHint': '繰り返し再生する短い音声を録音します。',
       'record': '録音',
       'recording': '録音中',
-      'other': 'エクスポージャー素材',
+      'other': '曝露素材',
     });
     return '$_temp0';
   }
@@ -2502,7 +2503,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'emptyAction': '反応を記録',
       'editorTitle': '反応を記録',
       'situationLabel': 'きっかけは何でしたか？',
-      'situationHint': 'きっかけと、OCDが促した反応',
+      'situationHint': 'きっかけと、強迫症が促した反応',
       'outcomeQuestion': '何をしましたか？',
       'distressLabel': 'その時の苦痛度',
       'noteLabel': 'メモ（任意）',
@@ -2618,7 +2619,8 @@ class AppLocalizationsJa extends AppLocalizations {
       'title': '今この時のサポート',
       'pauseTitle': '反応する前に立ち止まる',
       'pauseBody': '衝動にすぐ反応する必要はありません。下からセルフヘルプの練習を一つ選び、ゆっくり進めてください。',
-      'boundary': 'これらのツールは緊急支援や医療ではありません。差し迫った危険がある場合は、地域の緊急サービスに連絡してください。',
+      'boundary':
+          'これらのツールは救急・緊急支援や医療を提供するものではありません。差し迫った危険がある場合は、地域の緊急窓口に連絡してください。',
       'breathe': '呼吸する',
       'breatheSubtitle': '一定のリズムで呼吸する',
       'delay': '衝動を待つ',
@@ -2643,7 +2645,7 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String ybocsText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
-      'title': 'OCDセルフチェック',
+      'title': '強迫症セルフチェック',
       'introBody':
           'Yale-Brown Obsessive Compulsive Scale（Y-BOCS）に基づき、気づいたパターンと生活への影響を確認するガイド付きセルフチェックです。',
       'spotTitle': 'パターンを確認',
@@ -2656,16 +2658,16 @@ class AppLocalizationsJa extends AppLocalizations {
       'retakeAction': 'もう一度行う',
       'privacyDuration': '所要時間は約10分です。エクスポートしない限り、回答はこの端末に保存されます。',
       'disclaimer':
-          'このセルフチェックは体験を言葉にするためのものです。OCDの診断や緊急支援ではありません。OCDを診断できるのは資格を持つ専門家だけです。',
+          'このセルフチェックは体験を言葉にするためのものです。強迫症の診断や緊急支援ではありません。強迫症を診断できるのは資格を持つ専門家だけです。',
       'historyTitle': '履歴',
       'historyBody': '以前に記録した合計点がここに表示されます。',
-      'deleteTitle': '評価を削除しますか？',
-      'deleteBody': 'この端末からこの評価を完全に削除します。',
+      'deleteTitle': 'セルフチェックを削除しますか？',
+      'deleteBody': 'この端末からこのセルフチェックを完全に削除します。',
       'cancel': 'キャンセル',
       'deleteAction': '削除',
-      'deleteTooltip': '評価を削除',
-      'deleteSuccess': '評価を削除しました。',
-      'deleteError': '評価を削除できませんでした。もう一度お試しください。',
+      'deleteTooltip': 'セルフチェックを削除',
+      'deleteSuccess': 'セルフチェックを削除しました。',
+      'deleteError': 'セルフチェックを削除できませんでした。もう一度お試しください。',
       'checklistTitle': '思い当たるものはありますか？',
       'checklistBody': '現在または過去に経験したものを選んでください。当てはまらないものは飛ばせます。',
       'obsessions': '強迫観念',
@@ -2681,7 +2683,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'saveHistory': '履歴に保存',
       'saving': '保存中…',
       'saveSuccess': '履歴に保存しました。',
-      'saveError': '評価を保存できませんでした。もう一度お試しください。',
+      'saveError': 'セルフチェックを保存できませんでした。もう一度お試しください。',
       'breakdownTitle': '記録された小計',
       'typesTitle': '記録された種類',
       'typesNone': 'このセルフチェックでは強迫観念または強迫行為の種類は記録されませんでした。',
@@ -2692,7 +2694,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'themesBody': '選択した項目を含むチェックリストのカテゴリーです。',
       'nextStepsTitle': 'この結果について',
       'nextStepsBody':
-          'この結果は自己申告による一時点の記録で、診断や緊急支援ではありません。生活に影響がある場合は、資格を持つ専門家に相談できます。差し迫った危険がある場合は、地域の緊急サービスに連絡してください。',
+          'この結果は自己申告による一時点の記録で、診断や緊急支援ではありません。生活に影響がある場合は、資格を持つ専門家に相談できます。差し迫った危険がある場合は、地域の緊急窓口に連絡してください。',
       'other': 'Y-BOCSセルフチェック',
     });
     return '$_temp0';
@@ -2818,7 +2820,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'harm': '加害・タブー思考',
       'relationship': '関係への疑い',
       'justRight': 'ぴったり感と対称性',
-      'other': 'OCDのテーマ',
+      'other': '強迫症のテーマ',
     });
     return '$_temp0';
   }
@@ -2831,7 +2833,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'harm': '加害や、暴力的・性的・冒とく的に感じるテーマの侵入思考と、その後の強迫行為や回避のための練習です。',
       'relationship': '関係が正しいか、十分に感じているか、疑いにどんな意味があるかという繰り返す疑いのための練習です。',
       'justRight': 'ぴったり感じるまで、均等、整列、反復が必要に感じられることのための練習です。',
-      'other': 'OCDのテーマに沿った練習トラックです。',
+      'other': '強迫症のテーマに沿った練習トラックです。',
     });
     return '$_temp0';
   }
@@ -2844,7 +2846,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'harm': '加害・タブー思考',
       'relationship': '関係への疑い',
       'justRight': 'ぴったり感',
-      'other': 'OCDのテーマ',
+      'other': '強迫症のテーマ',
     });
     return '$_temp0';
   }
@@ -2853,7 +2855,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String ocdTrackChecklistNote(String track) {
     String _temp0 = intl.Intl.selectLogic(track, {
       'relationship':
-          'Y-BOCSチェックリストは関係性OCDの研究より前に作られたため、このテーマはカテゴリーに含まれていません。この練習トラックは利用できます。',
+          'Y-BOCSチェックリストは関係性強迫症の研究より前に作られたため、このテーマはカテゴリーに含まれていません。この練習トラックは利用できます。',
       'other': 'このテーマはY-BOCSチェックリストのカテゴリーには含まれていません。',
     });
     return '$_temp0';
@@ -2890,13 +2892,13 @@ class AppLocalizationsJa extends AppLocalizations {
       'ct2a': '通常どおり一度洗い、2回目に戻らない',
       'ct2b': '家の一つの表面を1週間掃除せずにおく',
       'ct3a': '普段なら後で洗いたくなる場所に行き、帰宅時に洗わない',
-      'ct3b': 'OCDの予測と実際に起きたことを並べて書く',
+      'ct3b': '強迫症の予測と実際に起きたことを並べて書く',
       'ck1a': '一つのものを一度だけ確認し、二度目を見ずに離れる',
       'ck1b': '部屋を最後に見回さずに一度外出する',
       'ck2a': '記憶を再生したい衝動が来たら、疑いを未解決のままにする',
       'ck2b': '送信前後に読み直さず、一つのメッセージを送る',
       'ck3a': '一日、何も二度確認しに戻らずに過ごす',
-      'ck3b': '実際に起きたこととOCDの予測を記録する',
+      'ck3b': '実際に起きたことと強迫症の予測を記録する',
       'hm1a': '一つの侵入思考を、反論したり押しのけたりせず1分間そこに置く',
       'hm1b': '心の見直しが始まる前に気づき、そのままにする',
       'hm2a': '自分が良い人か尋ねず、答えの検索もしない',
@@ -3083,9 +3085,10 @@ class AppLocalizationsJa extends AppLocalizations {
       'subclinical': 'この合計点はY-BOCSの臨床閾値未満の範囲です。結果は一時点の記録で、診断ではありません。',
       'mild': 'この合計点はY-BOCSの軽度範囲です。結果は一時点の記録で、診断ではありません。',
       'moderate': 'この合計点はY-BOCSの中等度範囲です。結果は一時点の記録で、診断ではありません。',
-      'severe': 'この合計点はY-BOCSの重度範囲です。生活への影響を資格を持つ専門家に相談することを検討してください。',
+      'severe':
+          'この合計点はY-BOCSの重度範囲です。結果は一時点の記録で、診断ではありません。生活への影響を資格を持つ専門家に相談することを検討してください。',
       'extreme':
-          'この合計点はY-BOCSの最重度範囲です。資格を持つ専門家への相談を検討してください。差し迫った危険がある場合は、地域の緊急サービスに連絡してください。',
+          'この合計点はY-BOCSの最重度範囲です。結果は一時点の記録で、診断ではありません。資格を持つ専門家への相談を検討してください。差し迫った危険がある場合は、地域の緊急窓口に連絡してください。',
       'other': 'この記録された合計点は一時点の記録で、診断ではありません。',
     });
     return '$_temp0';
@@ -3096,7 +3099,7 @@ class AppLocalizationsJa extends AppLocalizations {
     String _temp0 = intl.Intl.selectLogic(key, {
       'title': '行動実験',
       'newAction': '新規',
-      'subtitle': 'OCDの予測と、予定した行動の後に観察したことを比べます。',
+      'subtitle': '強迫症の予測と、予定した行動の後に観察したことを比べます。',
       'loadError': '行動実験を読み込めませんでした。もう一度お試しください。',
       'deleteTitle': 'この行動実験を削除しますか？',
       'deleteBody': 'この行動実験を端末から完全に削除します。',
@@ -3111,17 +3114,17 @@ class AppLocalizationsJa extends AppLocalizations {
       'learningLabel': '自分のメモ',
       'recordAction': '起きたことを記録',
       'emptyTitle': '行動実験を計画する',
-      'emptyBody': 'OCDの予測と小さな行動を書き、後で観察したことを記録します。',
+      'emptyBody': '強迫症の予測と小さな行動を書き、後で観察したことを記録します。',
       'emptyAction': '新しい行動実験',
       'outcomeEditorTitle': '起きたことを記録',
       'newEditorTitle': '新しい行動実験',
-      'predictedLabel': 'OCDの予測',
+      'predictedLabel': '強迫症の予測',
       'testActionLabel': '予定した行動',
       'outcomeInputLabel': '実際に何が起きましたか？',
       'outcomeInputHint': '結果を評価せず、観察したことを記録します',
       'learningInputLabel': 'メモしておきたいことはありますか？（任意）',
       'learningInputHint': '覚えておきたいこと',
-      'predictionInputLabel': 'OCDは何が起きると予測していますか？',
+      'predictionInputLabel': '強迫症は何が起きると予測していますか？',
       'predictionInputHint': '例：もう一度確認しなければ、家が水浸しになる',
       'confidenceQuestion': 'その予測はどのくらい確かに感じますか？',
       'experimentInputLabel': '予測を確かめるために何をしますか？',
@@ -3129,7 +3132,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'saveOutcome': '観察を保存',
       'saveExperiment': '行動実験を保存',
       'outcomeValidation': '観察したことを短く入力してください。',
-      'planValidation': 'OCDの予測と、予定している行動の両方を入力してください。',
+      'planValidation': '強迫症の予測と、予定している行動の両方を入力してください。',
       'outcomeSaveSuccess': '観察を保存しました。',
       'planSaveSuccess': '行動実験を保存しました。実行後に起きたことを記録できます。',
       'saveError': 'この行動実験を保存できませんでした。入力した内容は残っています。もう一度お試しください。',
@@ -3169,13 +3172,13 @@ class AppLocalizationsJa extends AppLocalizations {
       'deleteSuccess': '振り返りを削除しました。',
       'deleteError': 'この振り返りを削除できませんでした。もう一度お試しください。',
       'emptyTitle': '曝露を振り返る',
-      'emptyBody': '何が起きたか、OCDが何を予測したか、覚えておきたいことを記録します。必須なのは最初の質問だけです。',
+      'emptyBody': '何が起きたか、強迫症が何を予測したか、覚えておきたいことを記録します。必須なのは最初の質問だけです。',
       'emptyAction': '新しい振り返り',
       'editorTitle': '新しい振り返り',
       'whatHappenedLabel': '何が起きましたか？',
       'whatHappenedHint': '行った曝露や練習',
-      'predictionLabel': 'OCDは何を予測しましたか？',
-      'predictionHint': 'OCDが起きるかもしれないと告げた結果',
+      'predictionLabel': '強迫症は何を予測しましたか？',
+      'predictionHint': '強迫症が起きるかもしれないと告げた結果',
       'actualLabel': '何を観察しましたか？',
       'actualHint': '曝露中または曝露後に起きたこと',
       'learningLabel': '覚えておきたいことはありますか？（任意）',
@@ -3264,7 +3267,7 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String uncertaintyExerciseIntro(String exercise) {
     String _temp0 = intl.Intl.selectLogic(exercise, {
-      'maybe': 'OCDが確かさを求めたときは、「そうかもしれないし、違うかもしれない」と答え、していたことに注意を戻してみます。',
+      'maybe': '強迫症が確かさを求めたときは、「そうかもしれないし、違うかもしれない」と答え、していたことに注意を戻してみます。',
       'unanswered': '繰り返し浮かぶ質問を解決せず、答えを出さないままにします。',
       'resist': '確認する、検索する、安心を求める衝動に気づき、この練習では従わないことを選びます。',
       'other': '不確かさがあるままにしておく練習です。',
@@ -3343,7 +3346,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'emptyBody': '状況と、その状況になったときに試したい対応を記録します。',
       'emptyAction': '新しい行動プラン',
       'editorTitle': '新しい行動プラン',
-      'situationLabel': 'OCDが現れたとき',
+      'situationLabel': '強迫症が現れたとき',
       'situationHint': '例：症状について検索したい衝動に気づいたとき',
       'actionLabel': '試したい対応',
       'actionHint': '例：検索するか決める前に15分待つ',
@@ -3397,7 +3400,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'importSucceeded': 'データを読み込みました。',
       'wipePromptTitle': '端末内のデータをすべて消去しますか？',
       'wipePromptBody':
-          'この端末にある日記、OCDの記録、回復練習の履歴、端末内に保存した素材、アプリ設定が完全に削除されます。元に戻すことはできません。Patterns Proの購入はApp StoreまたはGoogle Playのアカウントに残りますが、この端末の解除情報は消去されます。後から復元できます。',
+          'この端末にある日記、強迫症の記録、セルフヘルプ練習の履歴、端末内に保存した素材、アプリ設定が完全に削除されます。元に戻すことはできません。Patterns Proの購入はApp StoreまたはGoogle Playのアカウントに残りますが、この端末の解除情報は消去されます。後から復元できます。',
       'wipeAction': 'データを消去',
       'wipeSucceeded': '端末内のデータを消去しました。',
       'wipeFailed': '端末内のデータをすべて消去できませんでした。もう一度お試しください。',
@@ -3428,7 +3431,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String settingsBackupOcdCount(int count) {
-    return 'OCDイベント：$count件';
+    return '強迫症に関する記録：$count件';
   }
 
   @override
@@ -3448,7 +3451,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String settingsBackupRecoveryCount(int count) {
-    return 'その他の回復ツールの記録：$count件';
+    return 'その他のセルフヘルプツールの記録：$count件';
   }
 
   @override
@@ -3484,7 +3487,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get analyticsPromptBody =>
-      'Patternsの改善に役立てるため、機能の利用状況を匿名で共有できます。日記、OCDの内容、評価、メモ、生成された要約、地域、選択した言語は含まれません。選択しない限り共有は無効のままです。';
+      'Patternsの改善に役立てるため、機能の利用状況を匿名で共有できます。日記、強迫症の内容、評価、メモ、生成された要約、地域、選択した言語は含まれません。選択しない限り共有は無効のままです。';
 
   @override
   String get notNowAction => '今はしない';
@@ -3509,7 +3512,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'next': '次へ',
       'addPrompt': '何を追加しますか？',
       'addJournal': '日記エントリー',
-      'addOcd': 'OCDの出来事',
+      'addOcd': '強迫症の出来事',
       'addErp': 'ガイド付きERP',
       'addDelay': '衝動を一時停止',
       'firstSelfCheckBody': 'セルフチェックはこの端末に保存されました。結果は現時点の記録であり、診断ではありません。',

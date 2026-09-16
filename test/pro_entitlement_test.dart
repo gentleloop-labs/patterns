@@ -261,7 +261,7 @@ void main() {
       );
       await tester.pump();
 
-      expect(find.text('リカバリー活動を確認する'), findsOneWidget);
+      expect(find.text('セルフヘルプ活動を確認する'), findsOneWidget);
       expect(find.text('すでにProを購入済みですか？再度請求されることはありません。'), findsOneWidget);
       expect(find.text('復元'), findsOneWidget);
     });

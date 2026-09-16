@@ -101,7 +101,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('エクスポージャー階層'), findsOneWidget);
+    expect(find.text('曝露階層'), findsOneWidget);
     expect(find.text('最初の階層を作る'), findsOneWidget);
     expect(find.text('Exposure Hierarchy'), findsNothing);
 
@@ -117,7 +117,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('エクスポージャー素材'), findsOneWidget);
+    expect(find.text('曝露素材'), findsOneWidget);
     expect(find.text('素材をまとめる'), findsOneWidget);
     expect(find.text('Exposure Materials'), findsNothing);
   });
