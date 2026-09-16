@@ -221,7 +221,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(
-      find.text('This assessment could not be saved. Please try again.'),
+      find.text('This self-check could not be saved. Please try again.'),
       findsOneWidget,
     );
     expect(find.text('Save to my history'), findsOneWidget);
@@ -237,13 +237,13 @@ void main() {
 
     await tester.drag(find.byType(ListView), const Offset(0, -450));
     await tester.pumpAndSettle();
-    await tester.tap(find.byTooltip('Delete assessment'));
+    await tester.tap(find.byTooltip('Delete self-check'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Delete'));
     await tester.pumpAndSettle();
 
     expect(
-      find.text('This assessment could not be deleted. Please try again.'),
+      find.text('This self-check could not be deleted. Please try again.'),
       findsOneWidget,
     );
     expect(store.saved, hasLength(1));
