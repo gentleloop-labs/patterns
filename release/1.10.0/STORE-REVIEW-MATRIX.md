@@ -10,7 +10,7 @@ unchanged. App Store Connect inventory and pricing checks have been read-only.
 
 | Language | Product copy | Guarded AI review | Rendered layouts | Physical iPhone | Physical Android | Production enablement |
 | --- | --- | --- | --- | --- | --- | --- |
-| English | frozen, 711 messages | pending | pending | pending | pending | blocked |
+| English | reviewed source, 711 messages | 4/6 passes | pending | pending | pending | blocked |
 | Português (Brasil) | revised draft | 4/6 passes | pending | pending | pending | blocked |
 | Deutsch | revised draft | 4/6 passes | pending | pending | pending | blocked |
 | 日本語 | revised draft | 4/6 passes | pending | pending | pending | blocked |
