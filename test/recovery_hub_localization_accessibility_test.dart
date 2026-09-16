@@ -95,11 +95,13 @@ void main() {
     );
     await tester.pump();
 
-    expect(find.text('Rétablissement'), findsOneWidget);
+    expect(find.text('Pratique'), findsOneWidget);
     expect(find.byType(AnimatedScale), findsNothing);
     expect(tester.takeException(), isNull);
 
-    final quickTool = find.bySemanticsLabel('Kit pour les moments difficiles');
+    final quickTool = find.bySemanticsLabel(
+      'Du soutien dans un moment difficile',
+    );
     expect(quickTool, findsOneWidget);
     expect(tester.getSize(quickTool).height, greaterThanOrEqualTo(72));
   });

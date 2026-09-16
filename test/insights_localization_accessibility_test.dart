@@ -196,7 +196,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(
-      find.text('Impossible de charger votre aperçu. Veuillez réessayer.'),
+      find.text('Impossible de charger les analyses. Veuillez réessayer.'),
       findsOneWidget,
     );
     expect(find.textContaining('private database path'), findsNothing);
