@@ -164,7 +164,7 @@ void main() {
 
     expect(find.text('Inicio'), findsOneWidget);
     expect(find.text('Acciones rápidas'), findsOneWidget);
-    expect(find.text('Herramientas de recuperación'), findsOneWidget);
+    expect(find.text('Herramientas de autoayuda'), findsOneWidget);
     expect(find.text('Recovery tools'), findsNothing);
     expect(tester.takeException(), isNull);
   });

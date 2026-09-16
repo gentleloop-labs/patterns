@@ -61,7 +61,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get settingsAnalyticsSubtitle =>
-      'Comparte solo eventos de uso de funciones. Nunca incluye datos personales sobre el OCD.';
+      'Comparte solo eventos de uso de funciones. Nunca incluye datos personales sobre el TOC.';
 
   @override
   String get settingsAppLockTitle => 'Bloqueo de la aplicación';
@@ -85,14 +85,14 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get settingsProActiveSubtitle =>
-      'Todas las herramientas de recuperación están desbloqueadas. Gracias.';
+      'Todas las herramientas de autoayuda están desbloqueadas. Gracias.';
 
   @override
   String get settingsUnlockProTitle => 'Desbloquear Patterns Pro';
 
   @override
   String get settingsUnlockProSubtitle =>
-      'Pago único para todas las herramientas de recuperación';
+      'Pago único para todas las herramientas de autoayuda';
 
   @override
   String get settingsRestorePurchasesTitle => 'Restaurar compras';
@@ -157,21 +157,21 @@ class AppLocalizationsEs extends AppLocalizations {
   String get languageTitle => 'Idioma';
 
   @override
-  String get languageSubtitle => 'Elija el idioma que usa Patterns';
+  String get languageSubtitle => 'Elige el idioma que usa Patterns';
 
   @override
-  String get calmInsightsTitle => 'Información sin presión';
+  String get calmInsightsTitle => 'Análisis sin presión';
 
   @override
   String get calmInsightsSubtitle =>
-      'Oculta las rachas y las puntuaciones calculadas. Sus datos registrados siguen disponibles.';
+      'Oculta las rachas y las puntuaciones calculadas. Tus datos registrados siguen disponibles.';
 
   @override
-  String get calmRecentActivityTitle => 'Su actividad reciente';
+  String get calmRecentActivityTitle => 'Tu actividad reciente';
 
   @override
   String get calmNoRecentActivity =>
-      'No hay registros en los últimos 7 días. Este espacio estará listo cuando lo necesite.';
+      'No hay registros en los últimos 7 días. Este espacio estará listo cuando lo necesites.';
 
   @override
   String calmJournalActivity(int count) {
@@ -211,8 +211,8 @@ class AppLocalizationsEs extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count prácticas de ERP',
-      one: '1 práctica de ERP',
+      other: '$count prácticas de EPR',
+      one: '1 práctica de EPR',
     );
     return '$_temp0';
   }
@@ -229,33 +229,33 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get recoveryMetricsTitle => 'Actividad de recuperación';
+  String get recoveryMetricsTitle => 'Actividad de práctica';
 
   @override
-  String get recoveryMetricsTeaserTitle => 'Reúne tu actividad de recuperación';
+  String get recoveryMetricsTeaserTitle => 'Reúne tu actividad de práctica';
 
   @override
   String get recoveryMetricsCalmTeaserBody =>
-      'Consulta exposiciones, sesiones de práctica y cambios registrados en la urgencia en tus herramientas de ERP. Desbloquéalo con Patterns Pro.';
+      'Consulta exposiciones, sesiones de práctica y cambios registrados en el impulso en tus herramientas de EPR. Desbloquéalo con Patterns Pro.';
 
   @override
   String get recoveryMetricsDetailedTeaserBody =>
-      'Consulta rachas de práctica, exposiciones completadas y cambios registrados en la urgencia en tus herramientas de ERP. Desbloquéalo con Patterns Pro.';
+      'Consulta rachas de práctica, exposiciones completadas y cambios registrados en el impulso en tus herramientas de EPR. Desbloquéalo con Patterns Pro.';
 
   @override
   String get recoveryMetricsUnlockPro => 'Desbloquear Patterns Pro';
 
   @override
   String get recoveryMetricsEmptyTitle =>
-      'Tu actividad de recuperación aparecerá aquí';
+      'Tu actividad de práctica aparecerá aquí';
 
   @override
   String get recoveryMetricsCalmEmptyBody =>
-      'Practica un retraso, una sesión de ERP o un paso de exposición para ver aquí recuentos objetivos de actividad.';
+      'Practica un retraso, una sesión de EPR o un paso de exposición para ver aquí recuentos objetivos de actividad.';
 
   @override
   String get recoveryMetricsDetailedEmptyBody =>
-      'Practica un retraso, una sesión de ERP o un paso de exposición para empezar tu historial de actividad y tu racha de práctica.';
+      'Practica un retraso, una sesión de EPR o un paso de exposición para empezar tu historial de actividad y tu racha de práctica.';
 
   @override
   String get recoveryMetricsExposuresDone => 'Exposiciones completadas';
@@ -265,7 +265,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get recoveryMetricsAverageUrgeDrop =>
-      'Cambio medio registrado en la urgencia';
+      'Cambio medio registrado en el impulso';
 
   @override
   String get recoveryMetricsThisWeek => 'Esta semana';
@@ -316,7 +316,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'La práctica de aplazamiento de la compulsión se registró.';
 
   @override
-  String get completionErpBody => 'La práctica de ERP se registró.';
+  String get completionErpBody => 'La práctica de EPR se registró.';
 
   @override
   String get notificationOpenAction => 'Abrir notificación';
@@ -333,7 +333,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get dailyReminderBody =>
-      'Tómese un momento tranquilo con Patterns cuando esté preparado.';
+      'Tómate un momento tranquilo con Patterns cuando estés listo.';
 
   @override
   String get practiceTimerChannelName => 'Temporizador de práctica';
@@ -347,28 +347,28 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get appUpdatesChannelDescription =>
-      'Avisos ocasionales cuando Patterns incorpore herramientas de recuperación importantes.';
+      'Avisos ocasionales cuando Patterns incorpore herramientas de autoayuda importantes.';
 
   @override
   String get updateAnnouncementTitle => 'Patterns ha mejorado';
 
   @override
   String get updateAnnouncementBody =>
-      'Ya están disponibles nuevas herramientas de recuperación, información sobre el progreso y un inicio más tranquilo.';
+      'Ya están disponibles nuevas herramientas de autoayuda, resúmenes objetivos de actividad y un inicio más tranquilo.';
 
   @override
   String get practiceWindowCompleteTitle => 'Tiempo de práctica finalizado';
 
   @override
   String get practiceWindowCompleteBody =>
-      'Tómese un momento para observar lo que ocurrió.';
+      'Tómate un momento para observar lo que ocurrió.';
 
   @override
-  String get erpWindowCompleteTitle => 'Tiempo de práctica de ERP finalizado';
+  String get erpWindowCompleteTitle => 'Tiempo de práctica de EPR finalizado';
 
   @override
   String get erpWindowCompleteBody =>
-      'Tómese un momento para reflexionar sobre lo ocurrido.';
+      'Tómate un momento para reflexionar sobre lo ocurrido.';
 
   @override
   String get navToday => 'Hoy';
@@ -386,7 +386,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get navTracker => 'Registro';
 
   @override
-  String get navRecovery => 'Recuperación';
+  String get navRecovery => 'Práctica';
 
   @override
   String get navInsights => 'Análisis';
@@ -399,7 +399,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get exportReportDescription =>
-      'Guarda un PDF combinado de tu diario, registro de OCD y análisis. Tú eliges dónde guardarlo y si quieres compartirlo.';
+      'Guarda un PDF combinado de tu diario, registro de TOC y análisis. Tú eliges dónde guardarlo y si quieres compartirlo.';
 
   @override
   String get exportTimeWindow => 'Periodo';
@@ -420,7 +420,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get exportJournalEntries => 'Entradas del diario';
 
   @override
-  String get exportOcdEvents => 'Eventos de OCD';
+  String get exportOcdEvents => 'Eventos de TOC';
 
   @override
   String get exportYbocsSelfChecks => 'Autoevaluaciones Y-BOCS';
@@ -434,7 +434,7 @@ class AppLocalizationsEs extends AppLocalizations {
       one: '1 entrada',
       zero: 'No hay entradas',
     );
-    return '$_temp0 en este periodo ($journal diario, $ocd OCD, $selfChecks autoevaluaciones)';
+    return '$_temp0 en este periodo ($journal diario, $ocd TOC, $selfChecks autoevaluaciones)';
   }
 
   @override
@@ -511,7 +511,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get pdfJournalCount => 'Entradas del diario';
 
   @override
-  String get pdfOcdCount => 'Eventos de OCD';
+  String get pdfOcdCount => 'Eventos de TOC';
 
   @override
   String get pdfAverageDistress => 'Malestar promedio';
@@ -527,7 +527,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'No hay entradas del diario en este periodo.';
 
   @override
-  String get pdfNoOcdEvents => 'No hay eventos de OCD en este periodo.';
+  String get pdfNoOcdEvents => 'No hay eventos de TOC en este periodo.';
 
   @override
   String get pdfObsession => 'Obsesión';
@@ -558,7 +558,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get pdfYbocsDescription =>
-      'Yale-Brown Obsessive Compulsive Scale, autoevaluada en la app. El total es de 40, con 20 para obsesiones y 20 para compulsiones.';
+      'Una autoevaluación en la app basada en la Escala Obsesivo-Compulsiva de Yale-Brown (Y-BOCS). El total es de 40, con 20 para obsesiones y 20 para compulsiones.';
 
   @override
   String get pdfMostRecentTotal => 'Total más reciente';
@@ -608,7 +608,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get severityModerate => 'Moderado';
 
   @override
-  String get severitySevere => 'Severo';
+  String get severitySevere => 'Grave';
 
   @override
   String get severityExtreme => 'Extremo';
@@ -622,15 +622,15 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get onboardingHeadline =>
-      'Un lugar tranquilo para practicar con el OCD.';
+      'Un lugar tranquilo para practicar con el trastorno obsesivo-compulsivo (TOC).';
 
   @override
   String get onboardingIntroduction =>
-      'Registre el pensamiento intrusivo, retrase la compulsión y practique una respuesta diferente, paso a paso.';
+      'Registra el pensamiento intrusivo, retrasa la compulsión y practica una respuesta diferente, paso a paso.';
 
   @override
   String get onboardingPrivacy =>
-      'Sus datos de OCD permanecen en este dispositivo. Sin cuenta. Sin sincronización en la nube.';
+      'Tus datos relacionados con el TOC permanecen en este dispositivo. Sin cuenta. Sin sincronización en la nube.';
 
   @override
   String get getStartedAction => 'Comenzar';
@@ -639,34 +639,35 @@ class AppLocalizationsEs extends AppLocalizations {
   String get importExistingDataAction => 'Importar datos existentes';
 
   @override
-  String get onboardingQuestion => '¿Qué le ayudaría ahora?';
+  String get onboardingQuestion => '¿Qué te ayudaría ahora?';
 
   @override
   String get onboardingPickOne =>
-      'Elija una opción. Podrá hacer el resto cuando quiera.';
+      'Elige una opción. Podrás hacer el resto cuando quieras.';
 
   @override
   String get onboardingUrgeTitle => 'Estoy luchando contra un impulso';
 
   @override
   String get onboardingUrgeSubtitle =>
-      'Ponga algo de tiempo entre el impulso y el ritual.';
+      'Pon algo de tiempo entre el impulso y el ritual.';
 
   @override
   String get onboardingJournalTitle => 'Quiero escribir algo';
 
   @override
   String get onboardingJournalSubtitle =>
-      'Saque el pensamiento de su mente y póngalo en una página.';
+      'Saca el pensamiento de tu mente y ponlo en una página.';
 
   @override
   String get onboardingErpTitle => 'Quiero practicar no hacer una compulsión';
 
   @override
-  String get onboardingErpSubtitle => 'Una exposición breve y guiada.';
+  String get onboardingErpSubtitle =>
+      'Una práctica breve y guiada de exposición con prevención de respuesta (EPR).';
 
   @override
-  String get onboardingSelfCheckTitle => 'Quiero saber cómo está mi OCD ahora';
+  String get onboardingSelfCheckTitle => 'Quiero revisar mis patrones actuales';
 
   @override
   String get onboardingSelfCheckSubtitle =>
@@ -676,31 +677,31 @@ class AppLocalizationsEs extends AppLocalizations {
   String get onboardingExploreTitle => 'Solo estoy explorando';
 
   @override
-  String get onboardingExploreSubtitle => 'Primero eche un vistazo.';
+  String get onboardingExploreSubtitle => 'Primero echa un vistazo.';
 
   @override
-  String get whatsNewTitle => 'Practique sin presión';
+  String get whatsNewTitle => 'Practica sin presión';
 
   @override
   String get whatsNewBody =>
-      'Patterns 1.10 incorpora Insights tranquilos, finales de sesión más sencillos, mejoras de accesibilidad y selección opcional de idioma.';
+      'Patterns 1.10 incorpora análisis sin presión, finales de sesión más sencillos, mejoras de accesibilidad y selección opcional de idioma.';
 
   @override
-  String get whatsNewLanguagesTitle => 'Insights tranquilos';
+  String get whatsNewLanguagesTitle => 'Análisis sin presión';
 
   @override
   String get whatsNewLanguagesBody =>
-      'Elija resúmenes objetivos de actividad en lugar de puntuaciones, rachas y porcentajes de constancia calculados.';
+      'Elige resúmenes objetivos de actividad en lugar de puntuaciones, rachas y porcentajes de constancia calculados.';
 
   @override
   String get whatsNewPrivateTitle => 'Un final claro';
 
   @override
   String get whatsNewPrivateBody =>
-      'El diario, el seguimiento, el aplazamiento de compulsiones y las sesiones de ERP terminan con una confirmación objetiva y Terminar por ahora.';
+      'El diario, el seguimiento, el aplazamiento de compulsiones y las sesiones de EPR terminan con una confirmación objetiva y Terminar por ahora.';
 
   @override
-  String get whatsNewReportsTitle => 'Más accesible, en su idioma';
+  String get whatsNewReportsTitle => 'Más accesible, en tu idioma';
 
   @override
   String get whatsNewReportsBody =>
@@ -714,7 +715,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get whatsNewNotificationNote =>
-      'Sus entradas se conservan tal como las escribió. El idioma e Insights tranquilos permanecen en este dispositivo y no se incluyen en analíticas ni copias de seguridad.';
+      'Tus entradas se conservan tal como las escribiste. El idioma y los análisis sin presión permanecen en este dispositivo y no se incluyen en analíticas ni copias de seguridad.';
 
   @override
   String get formatBold => 'Negrita';
@@ -727,14 +728,14 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get formatToggleHint =>
-      'Toque dos veces para activar o desactivar este formato.';
+      'Toca dos veces para activar o desactivar este formato.';
 
   @override
   String get journalEditorLabel => 'Editor del diario';
 
   @override
   String get journalEditorHint =>
-      'Introduzca el texto del diario. Los controles de formato aparecen después del editor.';
+      'Introduce el texto del diario. Los controles de formato aparecen después del editor.';
 
   @override
   String timerRemaining(String time) {
@@ -743,7 +744,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String recoveryScoreSemantics(int score) {
-    return 'Puntuación de recuperación: $score de 100.';
+    return 'Puntuación de práctica: $score de 100.';
   }
 
   @override
@@ -751,23 +752,23 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get privacyLocalContent =>
-      'Las entradas del diario, eventos de OCD, niveles de malestar, reflexiones y preferencias se guardan localmente en este dispositivo.';
+      'Las entradas del diario, los eventos relacionados con el TOC, los niveles de malestar, las reflexiones y las preferencias se guardan localmente en este dispositivo.';
 
   @override
   String get privacyPurchases =>
-      'Patterns Pro y las propinas se procesan en la tienda de apps. Patterns no recibe los datos de su tarjeta de pago.';
+      'Patterns Pro y las propinas se procesan en la tienda de apps. Patterns no recibe los datos de tu tarjeta de pago.';
 
   @override
   String get privacyExports =>
-      'Una exportación manual crea una copia JSON o un informe PDF sin cifrar solo donde usted decide guardarlo o compartirlo.';
+      'Una exportación manual crea una copia JSON o un informe PDF sin cifrar solo donde tú decidas guardarlo o compartirlo.';
 
   @override
   String get privacyAnalytics =>
-      'Las analíticas anónimas están desactivadas salvo que usted las active. Si lo hace, Patterns envía eventos de uso con nombre, un identificador aleatorio de instalación, plataforma, versión y hora al servicio propio. Nunca incluye entradas, datos de OCD, resúmenes generados, configuración regional ni idioma elegido. Al desactivarlas se borran los eventos pendientes y el identificador local.';
+      'Las analíticas anónimas están desactivadas salvo que tú las actives. Si lo haces, Patterns envía al servicio propio eventos de uso con nombre, un identificador aleatorio de instalación, la plataforma, la versión y la hora. Nunca incluyen entradas, datos relacionados con el TOC, resúmenes generados, configuración regional ni idioma elegido. Al desactivarlas se borran los eventos pendientes y el identificador local.';
 
   @override
   String get privacyClinicalBoundary =>
-      'Patterns es una herramienta de autoayuda para la reflexión personal y la práctica de ERP. No diagnostica ni trata el OCD, no sustituye la atención de un profesional cualificado y no ofrece asistencia de emergencia.';
+      'Patterns es una herramienta de autoayuda para la reflexión personal y la práctica de exposición con prevención de respuesta (EPR). No diagnostica ni trata el TOC, no sustituye la atención de un profesional cualificado y no ofrece asistencia de emergencia.';
 
   @override
   String get viewPrivacyPolicyAction => 'Ver la Política de Privacidad';
@@ -842,7 +843,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get proPaywallUnlockedBody =>
-      'Patterns Pro está desbloqueado. Todas las herramientas de recuperación ya están disponibles.';
+      'Patterns Pro está desbloqueado. Todas las herramientas de autoayuda ya están disponibles.';
 
   @override
   String get proPaywallContinueAction => 'Continuar';
@@ -851,15 +852,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get proPaywallLoadingLabel => 'Cargando Patterns Pro';
 
   @override
-  String get proHeadlineSettings =>
-      'Pasar del registro a la práctica de recuperación';
+  String get proHeadlineSettings => 'Pasar del registro a la práctica';
 
   @override
   String get proHeadlineTodayNextStep => 'Continuar con la práctica de hoy';
 
   @override
-  String get proHeadlineRecoveryMetrics =>
-      'Revisar la actividad de recuperación';
+  String get proHeadlineRecoveryMetrics => 'Revisar la actividad de práctica';
 
   @override
   String get proHeadlineExposureHierarchy =>
@@ -871,7 +870,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get proHeadlineStructuredPrograms =>
-      'Convertir la recuperación en una rutina';
+      'Convertir la práctica en una rutina';
 
   @override
   String get proHeadlineActionPlanner =>
@@ -909,7 +908,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get proBenefitGeneralReview =>
-      'Revisar la actividad de recuperación y las reflexiones';
+      'Revisar la actividad de práctica y las reflexiones';
 
   @override
   String get proBenefitMetricsActivity =>
@@ -921,7 +920,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get proBenefitMetricsPatterns =>
-      'Explorar patrones objetivos de recuperación';
+      'Explorar patrones objetivos de práctica';
 
   @override
   String get proBenefitExposureLadder =>
@@ -986,7 +985,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get proRestoreSucceeded =>
-      'Patterns Pro se restauró. Todas las herramientas de recuperación vuelven a estar desbloqueadas.';
+      'Patterns Pro se restauró. Todas las herramientas de autoayuda vuelven a estar desbloqueadas.';
 
   @override
   String get tipJarTitle => 'Apoyar a Patterns';
@@ -1061,7 +1060,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get desktopProSubtitle =>
-      'Una licencia de pago único para herramientas de recuperación sin conexión y optimizadas para escritorio.';
+      'Una licencia de pago único para herramientas de autoayuda sin conexión y optimizadas para escritorio.';
 
   @override
   String get desktopFeatureHierarchyTitle => 'Creador de jerarquías';
@@ -1340,7 +1339,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get todayDelayUrgeBody => 'Crea un espacio antes de responder.';
 
   @override
-  String get todayPracticeErpTitle => 'Practicar (ERP)';
+  String get todayPracticeErpTitle => 'Practicar (EPR)';
 
   @override
   String get todayPracticeErpBody => 'Un ejercicio breve y guiado.';
@@ -1356,7 +1355,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get todayFirstErpTitle => 'Practica de nuevo';
 
   @override
-  String get todayFirstErpBody => 'Prueba otra práctica de ERP breve y guiada.';
+  String get todayFirstErpBody => 'Prueba otra práctica de EPR breve y guiada.';
 
   @override
   String get todayFirstDelayTitle => 'Prueba un retraso de dos minutos';
@@ -1480,7 +1479,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get todayNextPracticeBody =>
-      'Elige un ejercicio de ERP manejable para hoy.';
+      'Elige un ejercicio de EPR manejable para hoy.';
 
   @override
   String get todayNextPracticeAction => 'Iniciar práctica';
@@ -1509,7 +1508,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get todayCompulsionDelay => 'Retraso de compulsión';
 
   @override
-  String get todayStartErp => 'Iniciar práctica de ERP';
+  String get todayStartErp => 'Iniciar práctica de EPR';
 
   @override
   String get todayResistUrgeBody =>
@@ -1568,7 +1567,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get todayCheckInAction => 'Registrar';
 
   @override
-  String get todayRecoveryScore => 'Puntuación de recuperación';
+  String get todayRecoveryScore => 'Puntuación de práctica';
 
   @override
   String todayActivitiesLastSevenDays(int count) {
@@ -1637,7 +1636,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get todayReflectProcess => 'Reflexiona y procesa';
 
   @override
-  String get todayRecoveryTools => 'Herramientas de recuperación';
+  String get todayRecoveryTools => 'Herramientas de autoayuda';
 
   @override
   String get todaySupportPractice => 'Apoya tu práctica';
@@ -1691,7 +1690,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get trackerLoadError =>
-      'No se pudieron cargar sus momentos registrados. Inténtelo de nuevo.';
+      'No se pudieron cargar tus momentos registrados. Inténtalo de nuevo.';
 
   @override
   String get trackerEditTitle => 'Editar evento';
@@ -1715,23 +1714,23 @@ class AppLocalizationsEs extends AppLocalizations {
   String get trackerUrgeLabel => '¿Cuál era el impulso?';
 
   @override
-  String get trackerThoughtHint => 'Describa el pensamiento o la imagen.';
+  String get trackerThoughtHint => 'Describe el pensamiento o la imagen.';
 
   @override
-  String get trackerUrgeHint => 'Describa el impulso o la compulsión.';
+  String get trackerUrgeHint => 'Describe el impulso o la compulsión.';
 
   @override
-  String get trackerActionLabel => '¿Qué le llevó a hacer el TOC?';
+  String get trackerActionLabel => '¿Qué te llevó a hacer el TOC?';
 
   @override
   String get trackerActionHint => 'Una nota breve es suficiente.';
 
   @override
-  String get trackerResponseLabel => 'Lo que hizo en su lugar';
+  String get trackerResponseLabel => 'Lo que hiciste en su lugar';
 
   @override
   String get trackerResponseHint =>
-      'Registre cualquier respuesta que eligió, incluso un retraso parcial.';
+      'Registra cualquier respuesta que hayas elegido, incluso un retraso parcial.';
 
   @override
   String get trackerSavingAction => 'Guardando…';
@@ -1744,15 +1743,15 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get trackerContentRequired =>
-      'Cuando esté listo, añada unas palabras sobre lo que ocurrió.';
+      'Cuando estés listo, añade unas palabras sobre lo que ocurrió.';
 
   @override
   String get trackerSaveError =>
-      'No se pudo guardar su evento. Inténtelo de nuevo.';
+      'No se pudo guardar tu evento. Inténtalo de nuevo.';
 
   @override
   String get trackerUpdateError =>
-      'No se pudo actualizar su evento. Inténtelo de nuevo.';
+      'No se pudo actualizar tu evento. Inténtalo de nuevo.';
 
   @override
   String get trackerEditTooltip => 'Editar evento';
@@ -1789,7 +1788,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get trackerDeleteBody =>
-      'Esto elimina el evento de su historial local en este dispositivo.';
+      'Esto elimina el evento de tu historial local en este dispositivo.';
 
   @override
   String get trackerDeleteAction => 'Eliminar';
@@ -1799,7 +1798,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get trackerDeleteError =>
-      'No se pudo eliminar su evento. Inténtelo de nuevo.';
+      'No se pudo eliminar tu evento. Inténtalo de nuevo.';
 
   @override
   String get trackerDistressLabel => 'Malestar, de 0 a 10';
@@ -1809,13 +1808,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get trackerEmptyBody =>
-      'Registre solo lo que le resulte útil. Una nota breve es suficiente.';
+      'Registra solo lo que te resulte útil. Una nota breve es suficiente.';
 
   @override
   String get trackerEmptyAction => 'Registrar evento de TOC';
 
   @override
-  String get insightsTitle => 'Información';
+  String get insightsTitle => 'Análisis';
 
   @override
   String get insightsExportReport => 'Exportar informe';
@@ -1863,7 +1862,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get insightsPracticeProgressBoundary =>
-      'Refleja la frecuencia de práctica, no un diagnóstico ni su estado clínico. En una semana difícil, la cifra puede ser menor.';
+      'Refleja la frecuencia de práctica, no un diagnóstico ni tu estado clínico. En una semana difícil, la cifra puede ser menor.';
 
   @override
   String get insightsMoodOverTime => 'Estado de ánimo a lo largo del tiempo';
@@ -1882,14 +1881,14 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get insightsYbocsEmpty =>
-      'Realice la autoevaluación y el total registrado iniciará una línea aquí.';
+      'Realiza la autoevaluación y el total registrado iniciará una línea aquí.';
 
   @override
   String get insightsOutOfFortyShort => '/40';
 
   @override
   String insightsYbocsSingleResult(String severity) {
-    return 'Rango $severity. Repita la autoevaluación en unas semanas para añadir otro punto registrado.';
+    return 'Rango $severity. Repite la autoevaluación en unas semanas para añadir otro punto registrado.';
   }
 
   @override
@@ -1910,13 +1909,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get insightsYbocsBoundary =>
-      'Es una instantánea, no un diagnóstico. Los totales registrados pueden variar y un total más alto no define su progreso.';
+      'Es una instantánea, no un diagnóstico. Los totales registrados pueden variar y un total más alto no define tu progreso.';
 
   @override
   String get insightsAverageUrgeIntensity => 'Intensidad media del impulso';
 
   @override
-  String get insightsErpPractice => 'Práctica de ERP';
+  String get insightsErpPractice => 'Práctica de EPR';
 
   @override
   String insightsSessions(int count) {
@@ -1967,7 +1966,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get insightsCompulsionsTab => 'Compulsiones';
 
   @override
-  String get insightsErpTab => 'ERP';
+  String get insightsErpTab => 'EPR';
 
   @override
   String insightsDeltaIncrease(String value, String comparison) {
@@ -1988,11 +1987,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get insightsNoData => 'Aún no hay datos';
 
   @override
-  String get insightsLoading => 'Cargando información';
+  String get insightsLoading => 'Cargando análisis';
 
   @override
   String get insightsLoadError =>
-      'No se pudo cargar su información. Inténtelo de nuevo.';
+      'No se pudieron cargar los análisis. Inténtalo de nuevo.';
 
   @override
   String insightsChartPoint(String date, String value) {
@@ -2053,7 +2052,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get insightsThemeOther => 'Otro';
 
   @override
-  String get recoveryTitle => 'Recuperación';
+  String get recoveryTitle => 'Práctica';
 
   @override
   String get recoverySubtitle =>
@@ -2065,23 +2064,23 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String recoveryToolTitle(String tool) {
     String _temp0 = intl.Intl.selectLogic(tool, {
-      'emergencyToolkit': 'Kit para momentos difíciles',
+      'emergencyToolkit': 'Apoyo para momentos difíciles',
       'copingLibrary': 'Biblioteca de afrontamiento',
       'compulsionDelay': 'Pausar la compulsión',
-      'ybocsSelfCheck': 'Autoevaluación de OCD',
-      'recoveryMetrics': 'Actividad de recuperación',
+      'ybocsSelfCheck': 'Autoevaluación de TOC',
+      'recoveryMetrics': 'Actividad de práctica',
       'exposureHierarchy': 'Jerarquía de exposición',
       'exposureMaterials': 'Materiales de exposición',
       'structuredPrograms': 'Programas estructurados',
       'actionPlanner': 'Plan de acción',
       'implementationIntentions': 'Planes si-entonces',
-      'guidedErp': 'ERP guiada',
+      'guidedErp': 'EPR guiada',
       'urgeSurfing': 'Surfear el impulso',
       'responsePrevention': 'Prevención de respuesta',
       'uncertaintyTraining': 'Práctica de incertidumbre',
       'behavioralExperiments': 'Experimentos conductuales',
       'reflectionJournal': 'Diario de reflexión',
-      'other': 'Herramienta de recuperación',
+      'other': 'Herramienta de autoayuda',
     });
     return '$_temp0';
   }
@@ -2103,9 +2102,9 @@ class AppLocalizationsEs extends AppLocalizations {
       'urgeSurfing': 'Acompaña la ola.',
       'responsePrevention': 'Registra lo que hiciste en su lugar.',
       'uncertaintyTraining': 'Practica dar espacio al quizá.',
-      'behavioralExperiments': 'Pon a prueba la predicción de OCD.',
+      'behavioralExperiments': 'Pon a prueba la predicción del TOC.',
       'reflectionJournal': 'Anota lo que observaste.',
-      'other': 'Abre una herramienta de recuperación.',
+      'other': 'Abre una herramienta de autoayuda.',
     });
     return '$_temp0';
   }
@@ -2113,7 +2112,7 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String recoveryStageTitle(String stage) {
     String _temp0 = intl.Intl.selectLogic(stage, {
-      'assess': 'Evaluar',
+      'assess': 'Observar',
       'plan': 'Planificar',
       'practice': 'Practicar',
       'review': 'Revisar',
@@ -2287,7 +2286,7 @@ class AppLocalizationsEs extends AppLocalizations {
     String _temp0 = intl.Intl.selectLogic(key, {
       'outcomeValidation':
           'Cuando quieras, elige lo que ocurrió durante la práctica.',
-      'saveError': 'No se pudo guardar tu práctica de ERP. Inténtalo de nuevo.',
+      'saveError': 'No se pudo guardar tu práctica de EPR. Inténtalo de nuevo.',
       'stopTitle': '¿Terminar antes?',
       'stopBody':
           'Está bien parar. El tiempo que practicaste todavía se puede registrar.',
@@ -2309,13 +2308,14 @@ class AppLocalizationsEs extends AppLocalizations {
       'whatHappened': '¿Qué ocurrió realmente?',
       'whatHappenedHint': '¿Qué notaste durante o después de la práctica?',
       'learning': 'Para la próxima vez',
-      'learningHint': '¿Qué quieres recordar la próxima vez que OCD pregunte?',
+      'learningHint':
+          '¿Qué quieres recordar la próxima vez que el TOC pregunte?',
       'exposure': 'Exposición',
       'prediction': 'Predicción',
       'commitment': 'Compromiso',
       'saving': 'Guardando…',
       'save': 'Guardar práctica',
-      'other': 'Práctica de ERP',
+      'other': 'Práctica de EPR',
     });
     return '$_temp0';
   }
@@ -2349,11 +2349,11 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String erpPlanText(String key) {
     String _temp0 = intl.Intl.selectLogic(key, {
-      'title': 'ERP guiada',
+      'title': 'EPR guiada',
       'subtitle': 'Reutiliza un plan, practica y registra lo que ocurrió.',
-      'myPlans': 'Mis planes de ERP',
+      'myPlans': 'Mis planes de EPR',
       'newAction': 'Nuevo',
-      'plansError': 'Los planes de ERP no están disponibles ahora.',
+      'plansError': 'Los planes de EPR no están disponibles ahora.',
       'recentPractice': 'Práctica reciente',
       'historyError': 'El historial de prácticas no está disponible ahora.',
       'archiveTitle': '¿Archivar este plan?',
@@ -2365,11 +2365,11 @@ class AppLocalizationsEs extends AppLocalizations {
           'Cuando quieras, describe la situación con la que quieres practicar.',
       'commitmentValidation':
           'Elige la respuesta que quieres practicar sin realizar para poder guardar el plan.',
-      'saveError': 'No se pudo guardar tu plan de ERP. Inténtalo de nuevo.',
-      'updated': 'Plan de ERP actualizado.',
-      'created': 'Plan de ERP creado.',
-      'editTitle': 'Editar plan de ERP',
-      'createTitle': 'Crear plan de ERP',
+      'saveError': 'No se pudo guardar tu plan de EPR. Inténtalo de nuevo.',
+      'updated': 'Plan de EPR actualizado.',
+      'created': 'Plan de EPR creado.',
+      'editTitle': 'Editar plan de EPR',
+      'createTitle': 'Crear plan de EPR',
       'exerciseType': 'Tipo de ejercicio',
       'exposureTarget': 'Objetivo de exposición',
       'ocdPrediction': 'Predicción del TOC',
@@ -2378,7 +2378,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'saving': 'Guardando…',
       'saveAction': 'Guardar plan',
       'createAction': 'Crear plan',
-      'emptyTitle': 'Crea tu primer plan de ERP',
+      'emptyTitle': 'Crea tu primer plan de EPR',
       'emptyBody':
           'Escribe una vez la exposición, la predicción y la respuesta que quieres practicar sin realizar. Después podrás reutilizar el plan.',
       'moreActions': 'Más acciones del plan',
@@ -2387,7 +2387,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'practiceGuide': 'Guía de práctica',
       'historyEmpty': 'Las prácticas completadas aparecerán aquí.',
       'customDuration': 'Duración personalizada',
-      'other': 'Plan de ERP',
+      'other': 'Plan de EPR',
     });
     return '$_temp0';
   }
@@ -2410,11 +2410,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String erpTemplateTitle(String template) {
     String _temp0 = intl.Intl.selectLogic(template, {
       'delayChecking': 'Retrasar la comprobación',
-      'delayReassurance': 'Retrasar la búsqueda de tranquilidad',
+      'delayReassurance': 'Retrasar la búsqueda de confirmación',
       'delayGoogling': 'Retrasar la búsqueda en internet',
       'delayRumination': 'Retrasar la rumiación',
       'delayWashing': 'Retrasar el lavado',
-      'other': 'ERP guiada',
+      'other': 'EPR guiada',
     });
     return '$_temp0';
   }
@@ -2448,7 +2448,7 @@ class AppLocalizationsEs extends AppLocalizations {
           'Crea un plan para compulsiones mentales como repasar, demostrar, revisar o resolver.',
       'delayWashing':
           'Crea un plan para el impulso de lavar, limpiar, desinfectar o empezar de nuevo porque algo parece contaminado.',
-      'other': 'Crea un plan de práctica de ERP reutilizable.',
+      'other': 'Crea un plan de práctica de EPR reutilizable.',
     });
     return '$_temp0';
   }
@@ -2457,17 +2457,17 @@ class AppLocalizationsEs extends AppLocalizations {
   String erpTemplateWhy(String template) {
     String _temp0 = intl.Intl.selectLogic(template, {
       'delayChecking':
-          'La ERP te permite practicar con la incertidumbre presente sin hacer un ritual de inmediato.',
+          'La EPR te permite practicar con la incertidumbre presente sin hacer un ritual de inmediato.',
       'delayReassurance':
-          'La tranquilidad puede parecer útil en el momento; retrasarla te permite practicar sin saber con certeza.',
+          'La confirmación puede aliviar en el momento; retrasarla te permite practicar sin saber con certeza.',
       'delayGoogling':
           'Posponer la búsqueda interrumpe el ciclo de certeza y te permite practicar dejando una pregunta sin responder.',
       'delayRumination':
-          'La rumiación puede parecer pensamiento; la ERP te permite practicar salir del ciclo sin terminar el argumento.',
+          'La rumiación puede parecer pensamiento; la EPR te permite practicar salir del ciclo sin terminar el argumento.',
       'delayWashing':
           'Esperar te permite practicar con la sensación de contaminación presente sin hacer un ritual de inmediato.',
       'other':
-          'La ERP permite practicar con la incertidumbre sin hacer un ritual de inmediato.',
+          'La EPR permite practicar con la incertidumbre sin hacer un ritual de inmediato.',
     });
     return '$_temp0';
   }
@@ -2481,7 +2481,7 @@ class AppLocalizationsEs extends AppLocalizations {
           '¿Qué predice el TOC si no vuelves a comprobar?',
       'delayCheckingCommitment':
           '¿Qué ritual de comprobación practicarás sin realizar?',
-      'delayReassuranceExposure': '¿Qué tranquilidad quieres pedir?',
+      'delayReassuranceExposure': '¿Qué confirmación quieres pedir?',
       'delayReassurancePrediction':
           '¿Qué dice el TOC que ocurrirá si no preguntas?',
       'delayReassuranceCommitment':
@@ -2514,7 +2514,7 @@ class AppLocalizationsEs extends AppLocalizations {
           'Evita volver a comprobar mientras corre el temporizador.',
       'delayChecking4': 'Observa el impulso sin negociar con él.',
       'delayReassurance1':
-          'Define la petición de tranquilidad antes de empezar.',
+          'Define la petición de confirmación antes de empezar.',
       'delayReassurance2':
           'No envíes el mensaje ni hagas la pregunta durante el temporizador.',
       'delayReassurance3':
@@ -2999,14 +2999,15 @@ class AppLocalizationsEs extends AppLocalizations {
           'Esta autoevaluación puede ayudarte a describir tu experiencia. No diagnostica el TOC ni ofrece ayuda de emergencia. Solo un profesional cualificado puede diagnosticar el TOC.',
       'historyTitle': 'Tu historial',
       'historyBody': 'Aquí aparecen tus totales registrados anteriormente.',
-      'deleteTitle': '¿Eliminar la evaluación?',
+      'deleteTitle': '¿Eliminar la autoevaluación?',
       'deleteBody':
-          'Esto elimina permanentemente esta evaluación de este dispositivo.',
+          'Esto elimina permanentemente esta autoevaluación de este dispositivo.',
       'cancel': 'Cancelar',
       'deleteAction': 'Eliminar',
-      'deleteTooltip': 'Eliminar evaluación',
-      'deleteSuccess': 'Evaluación eliminada.',
-      'deleteError': 'No se pudo eliminar esta evaluación. Inténtalo de nuevo.',
+      'deleteTooltip': 'Eliminar autoevaluación',
+      'deleteSuccess': 'Autoevaluación eliminada.',
+      'deleteError':
+          'No se pudo eliminar esta autoevaluación. Inténtalo de nuevo.',
       'checklistTitle': '¿Qué te resulta familiar?',
       'checklistBody':
           'Selecciona cualquier experiencia actual o pasada. Omite lo que no encaje.',
@@ -3024,7 +3025,8 @@ class AppLocalizationsEs extends AppLocalizations {
       'saveHistory': 'Guardar en mi historial',
       'saving': 'Guardando…',
       'saveSuccess': 'Guardado en tu historial.',
-      'saveError': 'No se pudo guardar esta evaluación. Inténtalo de nuevo.',
+      'saveError':
+          'No se pudo guardar esta autoevaluación. Inténtalo de nuevo.',
       'breakdownTitle': 'Subtotales registrados',
       'typesTitle': 'Tipos registrados',
       'typesNone':
@@ -3149,7 +3151,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'w2a': 'Retrasa las compulsiones 5 minutos',
       'w2b': 'Prueba una vez a observar el impulso como una ola',
       'w3a': 'Retrasa la respuesta 15 minutos',
-      'w3b': 'No respondas una vez a un impulso de buscar tranquilidad',
+      'w3b': 'No respondas una vez a un impulso de buscar confirmación',
       'w4a': 'Completa una exposición cada día',
       'w4b': 'Reflexiona sobre lo que observaste',
       'u1a': 'Deja una pregunta sin responder',
@@ -3231,7 +3233,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'hm2': 'Semana 2 · Dejar de preguntar',
       'hm3': 'Semana 3 · Sin juicio interior',
       'rl1': 'Semana 1 · Dejar de poner a prueba',
-      'rl2': 'Semana 2 · Sin buscar tranquilidad',
+      'rl2': 'Semana 2 · Sin buscar confirmación',
       'rl3': 'Semana 3 · Vivir con el quizá',
       'jr1': 'Semana 1 · Dejarlo torcido',
       'jr2': 'Semana 2 · Sin repetir',
@@ -3277,7 +3279,8 @@ class AppLocalizationsEs extends AppLocalizations {
           'Deja una duda sobre la relación sin responder durante diez minutos',
       'rl2a':
           'Pasa un día sin preguntar a tu pareja, a una amistad o en internet si la relación es la adecuada',
-      'rl2b': 'Haced algo juntos sin vigilar cómo te sientes mientras ocurre',
+      'rl2b':
+          'Haz algo con esa persona sin vigilar cómo te sientes mientras ocurre',
       'rl3a':
           'Usa una respuesta de «quizá sí, quizá no» cuando aparezca la pregunta',
       'rl3b':
@@ -3460,7 +3463,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'ord_align': 'Alinear o enderezar objetos repetidamente',
       'mc_mental':
           'Rituales mentales, como oraciones silenciosas, frases o repasos',
-      'mc_reassure': 'Pedir tranquilidad o confesar repetidamente',
+      'mc_reassure': 'Pedir confirmación o confesar repetidamente',
       'mc_touch': 'Necesidad de tocar, dar golpecitos o frotar cosas',
       'mc_lists': 'Hacer listas en exceso',
       'mc_avoid': 'Evitar situaciones para impedir un impulso',
@@ -3479,9 +3482,9 @@ class AppLocalizationsEs extends AppLocalizations {
       'moderate':
           'Este total está en el rango moderado de la Y-BOCS. El resultado es una instantánea, no un diagnóstico.',
       'severe':
-          'Este total está en el rango grave de la Y-BOCS. Considera comentar el impacto con un profesional cualificado.',
+          'Este total está en el rango grave de la Y-BOCS. El resultado es una instantánea, no un diagnóstico. Considera comentar el impacto con un profesional cualificado.',
       'extreme':
-          'Este total está en el rango extremo de la Y-BOCS. Considera contactar con un profesional cualificado. Si corres peligro inmediato, contacta con los servicios de emergencia locales.',
+          'Este total está en el rango extremo de la Y-BOCS. El resultado es una instantánea, no un diagnóstico. Considera contactar con un profesional cualificado. Si corres peligro inmediato, contacta con los servicios de emergencia locales.',
       'other': 'Este total registrado es una instantánea, no un diagnóstico.',
     });
     return '$_temp0';
@@ -3493,7 +3496,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'title': 'Experimentos conductuales',
       'newAction': 'Nuevo',
       'subtitle':
-          'Compara una predicción del OCD con lo que observas después de una acción planificada.',
+          'Compara una predicción del TOC con lo que observas después de una acción planificada.',
       'loadError':
           'Tus experimentos no están disponibles en este momento. Inténtalo de nuevo.',
       'deleteTitle': '¿Eliminar este experimento?',
@@ -3512,20 +3515,20 @@ class AppLocalizationsEs extends AppLocalizations {
       'recordAction': 'Anotar lo ocurrido',
       'emptyTitle': 'Planifica un experimento conductual',
       'emptyBody':
-          'Escribe la predicción del OCD, elige una acción pequeña y después anota lo que observaste.',
+          'Escribe la predicción del TOC, elige una acción pequeña y después anota lo que observaste.',
       'emptyAction': 'Nuevo experimento',
       'outcomeEditorTitle': 'Anotar lo ocurrido',
       'newEditorTitle': 'Nuevo experimento',
-      'predictedLabel': 'El OCD predijo',
+      'predictedLabel': 'El TOC predijo',
       'testActionLabel': 'Acción planificada',
       'outcomeInputLabel': '¿Qué ocurrió realmente?',
       'outcomeInputHint': 'Anota lo que observaste, sin calificar el resultado',
       'learningInputLabel': '¿Quieres anotar algo? (opcional)',
       'learningInputHint': 'Un detalle que quieras recordar',
-      'predictionInputLabel': '¿Qué predice el OCD?',
+      'predictionInputLabel': '¿Qué predice el TOC?',
       'predictionInputHint':
           'Por ejemplo: Si no vuelvo a comprobar, la casa se inundará',
-      'confidenceQuestion': '¿Qué tan segura parece la predicción?',
+      'confidenceQuestion': '¿Cuánta certeza transmite la predicción?',
       'experimentInputLabel': '¿Qué acción pondrá a prueba la predicción?',
       'experimentInputHint':
           'Por ejemplo: Irte después de una comprobación normal y observar qué ocurre',
@@ -3533,7 +3536,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'saveExperiment': 'Guardar experimento',
       'outcomeValidation': 'Añade una nota breve sobre lo que observaste.',
       'planValidation':
-          'Añade tanto la predicción del OCD como la acción que planeas realizar.',
+          'Añade tanto la predicción del TOC como la acción que planeas realizar.',
       'outcomeSaveSuccess': 'Observación guardada.',
       'planSaveSuccess':
           'Experimento guardado. Anota lo ocurrido después de realizarlo.',
@@ -3579,13 +3582,13 @@ class AppLocalizationsEs extends AppLocalizations {
       'deleteError': 'No se pudo eliminar esta reflexión. Inténtalo de nuevo.',
       'emptyTitle': 'Reflexiona sobre una exposición',
       'emptyBody':
-          'Registra qué ocurrió, qué predijo el OCD y cualquier cosa que quieras recordar. Solo se requiere la primera pregunta.',
+          'Registra qué ocurrió, qué predijo el TOC y cualquier cosa que quieras recordar. Solo se requiere la primera pregunta.',
       'emptyAction': 'Nueva reflexión',
       'editorTitle': 'Nueva reflexión',
       'whatHappenedLabel': '¿Qué ocurrió?',
       'whatHappenedHint': 'La exposición o práctica que realizaste',
-      'predictionLabel': '¿Qué predijo el OCD?',
-      'predictionHint': 'El resultado que el OCD dijo que podría ocurrir',
+      'predictionLabel': '¿Qué predijo el TOC?',
+      'predictionHint': 'El resultado que el TOC dijo que podría ocurrir',
       'actualLabel': '¿Qué observaste?',
       'actualHint': 'Lo que ocurrió durante o después de la exposición',
       'learningLabel': '¿Hay algo que quieras recordar? (opcional)',
@@ -3633,7 +3636,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'editorTitle': 'Nuevo plan si-entonces',
       'triggerLabel': 'Si…',
       'triggerHint':
-          'La situación, por ejemplo: noto la necesidad de buscar tranquilidad',
+          'La situación, por ejemplo: noto la necesidad de buscar confirmación',
       'responseLabel': 'entonces…',
       'responseHint':
           'La respuesta que quieres probar, por ejemplo: escribir lo que estoy notando',
@@ -3660,7 +3663,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'loadError':
           'Los recuentos de prácticas no están disponibles en este momento. Puedes abrir los ejercicios de todos modos.',
       'whyLabel': 'SOBRE ESTA PRÁCTICA',
-      'willingnessLabel': '¿Qué tan dispuesto estabas a permanecer sin saber?',
+      'willingnessLabel': '¿Qué disposición tenías a permanecer sin saber?',
       'noteLabel': 'Nota (opcional)',
       'noteHint': '¿Qué notaste?',
       'saveAction': 'Registrar esta práctica',
@@ -3687,11 +3690,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String uncertaintyExerciseIntro(String exercise) {
     String _temp0 = intl.Intl.selectLogic(exercise, {
       'maybe':
-          'Cuando el OCD pida certeza, prueba a responder “quizá sí, quizá no” y vuelve a prestar atención a lo que estabas haciendo.',
+          'Cuando el TOC pida certeza, prueba a responder “quizá sí, quizá no” y vuelve a prestar atención a lo que estabas haciendo.',
       'unanswered':
           'Deja abierta una pregunta recurrente en vez de resolverla.',
       'resist':
-          'Nota el impulso de comprobar, buscar o pedir tranquilidad y elige no seguirlo durante esta práctica.',
+          'Nota el impulso de comprobar, buscar o pedir confirmación y elige no seguirlo durante esta práctica.',
       'other': 'Una práctica para permitir que la incertidumbre siga presente.',
     });
     return '$_temp0';
@@ -3701,7 +3704,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String uncertaintyExerciseWhy(String exercise) {
     String _temp0 = intl.Intl.selectLogic(exercise, {
       'maybe':
-          'Este ejercicio practica dejar una pregunta sin resolver, sin añadir tranquilidad.',
+          'Este ejercicio practica dejar una pregunta sin resolver, sin añadir confirmación.',
       'unanswered':
           'Este ejercicio practica permitir que una pregunta siga abierta.',
       'resist':
@@ -3793,7 +3796,7 @@ class AppLocalizationsEs extends AppLocalizations {
           'Escribe una situación y la respuesta que quieras probar cuando ocurra.',
       'emptyAction': 'Nuevo plan de acción',
       'editorTitle': 'Nuevo plan de acción',
-      'situationLabel': 'Cuando aparezca el OCD',
+      'situationLabel': 'Cuando aparezca el TOC',
       'situationHint':
           'Por ejemplo: noto el impulso de buscar información sobre un síntoma',
       'actionLabel': 'Respuesta que quiero probar',
@@ -3855,7 +3858,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'importSucceeded': 'Datos importados.',
       'wipePromptTitle': '¿Borrar todos los datos locales?',
       'wipePromptBody':
-          'Esto elimina permanentemente de este dispositivo las entradas del diario, los registros de OCD, el historial de prácticas de recuperación, los materiales guardados localmente y las preferencias de la aplicación. No se puede deshacer. Tu compra de Patterns Pro permanece vinculada a tu cuenta de la tienda, pero este dispositivo olvidará el desbloqueo local. Podrás restaurarlo después.',
+          'Esto elimina permanentemente de este dispositivo las entradas del diario, los registros de TOC, el historial de actividad de práctica, los materiales guardados localmente y las preferencias de la aplicación. No se puede deshacer. Tu compra de Patterns Pro permanece vinculada a tu cuenta de la tienda, pero este dispositivo olvidará el desbloqueo local. Podrás restaurarlo después.',
       'wipeAction': 'Borrar datos',
       'wipeSucceeded': 'Datos locales borrados.',
       'wipeFailed':
@@ -3904,9 +3907,9 @@ class AppLocalizationsEs extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count eventos de OCD',
-      one: '1 evento de OCD',
-      zero: 'Ningún evento de OCD',
+      other: '$count eventos de TOC',
+      one: '1 evento de TOC',
+      zero: 'Ningún evento de TOC',
     );
     return '$_temp0';
   }
@@ -3928,9 +3931,9 @@ class AppLocalizationsEs extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count planes de ERP',
-      one: '1 plan de ERP',
-      zero: 'Ningún plan de ERP',
+      other: '$count planes de EPR',
+      one: '1 plan de EPR',
+      zero: 'Ningún plan de EPR',
     );
     return '$_temp0';
   }
@@ -3940,9 +3943,9 @@ class AppLocalizationsEs extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count prácticas de ERP',
-      one: '1 práctica de ERP',
-      zero: 'Ninguna práctica de ERP',
+      other: '$count prácticas de EPR',
+      one: '1 práctica de EPR',
+      zero: 'Ninguna práctica de EPR',
     );
     return '$_temp0';
   }
@@ -3952,9 +3955,9 @@ class AppLocalizationsEs extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count registros más de herramientas de recuperación',
-      one: '1 registro más de herramientas de recuperación',
-      zero: 'Ningún otro registro de herramientas de recuperación',
+      other: '$count registros más de herramientas de autoayuda',
+      one: '1 registro más de herramientas de autoayuda',
+      zero: 'Ningún otro registro de herramientas de autoayuda',
     );
     return '$_temp0';
   }
@@ -4001,7 +4004,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get analyticsPromptBody =>
-      'Comparte eventos anónimos sobre el uso de funciones para ayudar a mejorar Patterns. Nunca se incluyen entradas del diario, contenido de OCD, valoraciones, notas, resúmenes generados, región ni idioma elegido. El envío permanece desactivado hasta que lo elijas.';
+      'Comparte eventos anónimos sobre el uso de funciones para ayudar a mejorar Patterns. Nunca se incluyen entradas del diario, contenido de TOC, valoraciones, notas, resúmenes generados, región ni idioma elegido. El envío permanece desactivado hasta que lo elijas.';
 
   @override
   String get notNowAction => 'Ahora no';
@@ -4031,8 +4034,8 @@ class AppLocalizationsEs extends AppLocalizations {
       'next': 'Siguiente',
       'addPrompt': '¿Qué te gustaría añadir?',
       'addJournal': 'Entrada del diario',
-      'addOcd': 'Evento de OCD',
-      'addErp': 'ERP guiada',
+      'addOcd': 'Evento de TOC',
+      'addErp': 'EPR guiada',
       'addDelay': 'Pausar un impulso',
       'firstSelfCheckBody':
           'Tu autoevaluación se guardó en este dispositivo. El resultado es una instantánea, no un diagnóstico.',
