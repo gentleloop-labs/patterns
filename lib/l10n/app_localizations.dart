@@ -242,7 +242,7 @@ abstract class AppLocalizations {
   /// User-facing Patterns interface copy for settings pro active subtitle.
   ///
   /// In en, this message translates to:
-  /// **'Every recovery tool is unlocked. Thank you.'**
+  /// **'Every self-help tool is unlocked. Thank you.'**
   String get settingsProActiveSubtitle;
 
   /// User-facing Patterns interface copy for settings unlock pro title.
@@ -254,7 +254,7 @@ abstract class AppLocalizations {
   /// User-facing Patterns interface copy for settings unlock pro subtitle.
   ///
   /// In en, this message translates to:
-  /// **'One-time unlock for all recovery tools'**
+  /// **'One-time unlock for all self-help tools'**
   String get settingsUnlockProSubtitle;
 
   /// User-facing Patterns interface copy for settings restore purchases title.
@@ -434,13 +434,13 @@ abstract class AppLocalizations {
   /// Title for the recovery activity and metrics screen.
   ///
   /// In en, this message translates to:
-  /// **'Recovery metrics'**
+  /// **'Practice activity'**
   String get recoveryMetricsTitle;
 
   /// Heading for the locked Recovery Metrics preview.
   ///
   /// In en, this message translates to:
-  /// **'See your recovery activity together'**
+  /// **'See your practice activity together'**
   String get recoveryMetricsTeaserTitle;
 
   /// Calm Insights preview copy; must remain factual and must not mention scores, streaks, progress, or judgments.
@@ -464,7 +464,7 @@ abstract class AppLocalizations {
   /// Heading shown before any recovery-practice data has been recorded.
   ///
   /// In en, this message translates to:
-  /// **'Your recovery activity will appear here'**
+  /// **'Your practice activity will appear here'**
   String get recoveryMetricsEmptyTitle;
 
   /// Calm Insights empty state; must not imply scoring, progress, consistency, or streaks.
@@ -626,19 +626,19 @@ abstract class AppLocalizations {
   /// Local notification or native notification-channel copy for app updates channel description. Keep it concise, gentle, and suitable outside the app.
   ///
   /// In en, this message translates to:
-  /// **'Occasional notes when Patterns gets meaningful new recovery tools.'**
+  /// **'Occasional notes when Patterns gets meaningful new self-help tools.'**
   String get appUpdatesChannelDescription;
 
   /// Local notification or native notification-channel copy for update announcement title. Keep it concise, gentle, and suitable outside the app.
   ///
   /// In en, this message translates to:
-  /// **'Patterns got better'**
+  /// **'Patterns has new tools'**
   String get updateAnnouncementTitle;
 
   /// Local notification or native notification-channel copy for update announcement body. Keep it concise, gentle, and suitable outside the app.
   ///
   /// In en, this message translates to:
-  /// **'New recovery tools, progress insights, and a calmer Home are ready.'**
+  /// **'New self-help tools, factual activity summaries, and a calmer Home are ready.'**
   String get updateAnnouncementBody;
 
   /// Local notification or native notification-channel copy for practice window complete title. Keep it concise, gentle, and suitable outside the app.
@@ -698,7 +698,7 @@ abstract class AppLocalizations {
   /// Primary navigation label for the nav recovery destination.
   ///
   /// In en, this message translates to:
-  /// **'Recovery'**
+  /// **'Practice'**
   String get navRecovery;
 
   /// Primary navigation label for the nav insights destination.
@@ -992,7 +992,7 @@ abstract class AppLocalizations {
   /// Generated personal PDF report copy for pdf ybocs description. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
   ///
   /// In en, this message translates to:
-  /// **'Yale-Brown Obsessive Compulsive Scale, self-rated in the app. Total is out of 40, with obsessions and compulsions each out of 20.'**
+  /// **'An in-app self-check based on the Yale-Brown Obsessive Compulsive Scale (Y-BOCS). The total is out of 40, with obsessions and compulsions each out of 20.'**
   String get pdfYbocsDescription;
 
   /// Generated personal PDF report copy for pdf most recent total. Preserve OCD, ERP, and Y-BOCS terminology, placeholders, and the non-diagnostic boundary.
@@ -1184,13 +1184,13 @@ abstract class AppLocalizations {
   /// Onboarding copy for onboarding erp subtitle. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure.
   ///
   /// In en, this message translates to:
-  /// **'One short, guided exposure.'**
+  /// **'One short, guided exposure and response prevention (ERP) practice.'**
   String get onboardingErpSubtitle;
 
   /// Onboarding copy for onboarding self check title. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure.
   ///
   /// In en, this message translates to:
-  /// **'I want to see where my OCD is right now'**
+  /// **'I want to check in with my current patterns'**
   String get onboardingSelfCheckTitle;
 
   /// Onboarding copy for onboarding self check subtitle. Use warm, direct self-help language without reassurance, diagnosis, treatment claims, or pressure.
@@ -1322,7 +1322,7 @@ abstract class AppLocalizations {
   /// Text alternative for the recovery score ring when Calm Insights is off.
   ///
   /// In en, this message translates to:
-  /// **'Recovery score: {score} out of 100.'**
+  /// **'Practice score: {score} out of 100.'**
   String recoveryScoreSemantics(int score);
 
   /// Heading for the privacy and clinical-safety explanation.
@@ -1484,7 +1484,7 @@ abstract class AppLocalizations {
   /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
   ///
   /// In en, this message translates to:
-  /// **'Patterns Pro is unlocked. Every recovery tool is now available.'**
+  /// **'Patterns Pro is unlocked. Every self-help tool is now available.'**
   String get proPaywallUnlockedBody;
 
   /// Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims.
@@ -1502,7 +1502,7 @@ abstract class AppLocalizations {
   /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
   ///
   /// In en, this message translates to:
-  /// **'Move beyond tracking and practise recovery'**
+  /// **'Move beyond tracking and practise'**
   String get proHeadlineSettings;
 
   /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
@@ -1514,7 +1514,7 @@ abstract class AppLocalizations {
   /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
   ///
   /// In en, this message translates to:
-  /// **'Review your recovery activity'**
+  /// **'Review your practice activity'**
   String get proHeadlineRecoveryMetrics;
 
   /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
@@ -1532,7 +1532,7 @@ abstract class AppLocalizations {
   /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
   ///
   /// In en, this message translates to:
-  /// **'Turn recovery into a routine'**
+  /// **'Turn practice into a routine'**
   String get proHeadlineStructuredPrograms;
 
   /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
@@ -1592,7 +1592,7 @@ abstract class AppLocalizations {
   /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
   ///
   /// In en, this message translates to:
-  /// **'Review recovery activity and reflections'**
+  /// **'Review practice activity and reflections'**
   String get proBenefitGeneralReview;
 
   /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
@@ -1610,7 +1610,7 @@ abstract class AppLocalizations {
   /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
   ///
   /// In en, this message translates to:
-  /// **'Explore factual recovery patterns'**
+  /// **'Explore factual practice patterns'**
   String get proBenefitMetricsPatterns;
 
   /// Patterns Pro benefit copy. Keep it factual, gentle, and non-judgmental; do not promise treatment outcomes or use scores and streaks.
@@ -1712,7 +1712,7 @@ abstract class AppLocalizations {
   /// Patterns Pro restore success confirmation. Do not imply a new charge or treatment outcome.
   ///
   /// In en, this message translates to:
-  /// **'Patterns Pro restored. Every recovery tool is unlocked again.'**
+  /// **'Patterns Pro restored. Every self-help tool is unlocked again.'**
   String get proRestoreSucceeded;
 
   /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
@@ -2726,7 +2726,7 @@ abstract class AppLocalizations {
   /// Calculated score heading shown only when Calm Insights is disabled; it is not a clinical assessment.
   ///
   /// In en, this message translates to:
-  /// **'Recovery score'**
+  /// **'Practice score'**
   String get todayRecoveryScore;
 
   /// Factual desktop Calm Insights summary for recorded activity.
@@ -2810,7 +2810,7 @@ abstract class AppLocalizations {
   /// Desktop Recovery destination title.
   ///
   /// In en, this message translates to:
-  /// **'Recovery tools'**
+  /// **'Self-help tools'**
   String get todayRecoveryTools;
 
   /// Desktop Recovery destination explanation. Avoid treatment claims.
@@ -3488,7 +3488,7 @@ abstract class AppLocalizations {
   /// Heading for the mobile Recovery Hub.
   ///
   /// In en, this message translates to:
-  /// **'Recovery'**
+  /// **'Practice'**
   String get recoveryTitle;
 
   /// Non-clinical explanation beneath the Recovery Hub heading.
@@ -3506,13 +3506,13 @@ abstract class AppLocalizations {
   /// Localized display title selected from a stable recovery-tool ID. OCD, ERP, and Y-BOCS terminology follows the release glossary.
   ///
   /// In en, this message translates to:
-  /// **'{tool, select, emergencyToolkit{Emergency Toolkit} copingLibrary{Coping Library} compulsionDelay{Compulsion Delay} ybocsSelfCheck{OCD Self-Check} recoveryMetrics{Recovery Metrics} exposureHierarchy{Exposure Hierarchy} exposureMaterials{Exposure Materials} structuredPrograms{Structured Programs} actionPlanner{Action Planner} implementationIntentions{Implementation Intentions} guidedErp{Guided ERP} urgeSurfing{Urge Surfing} responsePrevention{Response Prevention} uncertaintyTraining{Uncertainty Training} behavioralExperiments{Behavioral Experiments} reflectionJournal{Reflection Journal} other{Recovery tool}}'**
+  /// **'{tool, select, emergencyToolkit{Support in a difficult moment} copingLibrary{Coping Library} compulsionDelay{Compulsion Delay} ybocsSelfCheck{OCD Self-Check} recoveryMetrics{Practice Activity} exposureHierarchy{Exposure Hierarchy} exposureMaterials{Exposure Materials} structuredPrograms{Structured Programs} actionPlanner{Action Planner} implementationIntentions{Implementation Intentions} guidedErp{Guided ERP} urgeSurfing{Urge Surfing} responsePrevention{Response Prevention} uncertaintyTraining{Uncertainty Training} behavioralExperiments{Behavioral Experiments} reflectionJournal{Reflection Journal} other{Self-help tool}}'**
   String recoveryToolTitle(String tool);
 
   /// Short, non-judgmental explanation selected from a stable recovery-tool ID. Avoid outcome or treatment claims.
   ///
   /// In en, this message translates to:
-  /// **'{tool, select, emergencyToolkit{Fast grounding support.} copingLibrary{Ground and reset.} compulsionDelay{Create space before responding.} ybocsSelfCheck{A Y-BOCS check-in.} recoveryMetrics{Review recorded activity.} exposureHierarchy{Build your ladder.} exposureMaterials{Keep scripts and links.} structuredPrograms{Follow guided weeks.} actionPlanner{Plan responses.} implementationIntentions{Make if-then plans.} guidedErp{Practise a plan.} urgeSurfing{Ride the wave.} responsePrevention{Record what you did instead.} uncertaintyTraining{Practise making room for maybe.} behavioralExperiments{Test OCD’s prediction.} reflectionJournal{Capture what you noticed.} other{Open a recovery tool.}}'**
+  /// **'{tool, select, emergencyToolkit{Fast grounding support.} copingLibrary{Ground and reset.} compulsionDelay{Create space before responding.} ybocsSelfCheck{A Y-BOCS check-in.} recoveryMetrics{Review recorded activity.} exposureHierarchy{Build your ladder.} exposureMaterials{Keep scripts and links.} structuredPrograms{Follow guided weeks.} actionPlanner{Plan responses.} implementationIntentions{Make if-then plans.} guidedErp{Practise a plan.} urgeSurfing{Ride the wave.} responsePrevention{Record what you did instead.} uncertaintyTraining{Practise making room for maybe.} behavioralExperiments{Test OCD’s prediction.} reflectionJournal{Capture what you noticed.} other{Open a self-help tool.}}'**
   String recoveryToolSubtitle(String tool);
 
   /// Recovery Hub section title selected from a stable journey-stage ID.
@@ -3996,13 +3996,13 @@ abstract class AppLocalizations {
   /// Immediate self-help and paced-breathing copy. Never promise safety, symptom relief, urge disappearance, or replace emergency or clinical care.
   ///
   /// In en, this message translates to:
-  /// **'{key, select, title{Support right now} pauseTitle{Pause before responding} pauseBody{You do not have to respond to the urge immediately. Choose one self-help exercise below and take it slowly.} boundary{These tools do not provide emergency or clinical care. If you may be in immediate danger, contact local emergency services.} breathe{Breathe} breatheSubtitle{Follow a paced breathing cycle} delay{Delay the urge} delaySubtitle{Make space with a timer} surf{Surf the urge} surfSubtitle{Notice the urge without acting on it} coping{Coping techniques} copingSubtitle{Grounding, acceptance, and more} remindersTitle{A few reminders} reminderThought{A thought does not require a response. I can notice it without acting.} reminderUrge{An urge may change over time. I can choose what I do next.} reminderUncertainty{I can make room for uncertainty in this moment.} breatheIn{Breathe in} hold{Hold} breatheOut{Breathe out} breathingHint{Follow the circle: breathe in for 4 seconds, hold, breathe out for 4 seconds, then hold.} other{Support tool}}'**
+  /// **'{key, select, title{Support right now} pauseTitle{Pause before responding} pauseBody{You do not have to respond to the urge immediately. Choose one self-help exercise below and take it slowly.} boundary{These tools do not provide emergency or clinical care. If you are in immediate danger, contact local emergency services.} breathe{Breathe} breatheSubtitle{Follow a paced breathing cycle} delay{Delay the urge} delaySubtitle{Make space with a timer} surf{Surf the urge} surfSubtitle{Notice the urge without acting on it} coping{Coping techniques} copingSubtitle{Grounding, acceptance, and more} remindersTitle{A few reminders} reminderThought{A thought does not require a response. I can notice it without acting.} reminderUrge{An urge may change over time. I can choose what I do next.} reminderUncertainty{I can make room for uncertainty in this moment.} breatheIn{Breathe in} hold{Hold} breatheOut{Breathe out} breathingHint{Follow the circle: breathe in for 4 seconds, hold, breathe out for 4 seconds, then hold.} other{Support tool}}'**
   String emergencyToolkitText(String key);
 
   /// Y-BOCS mobile flow copy selected from a stable UI key. Keep the flow factual, non-diagnostic, non-reassuring, and explicit about local storage and emergency boundaries.
   ///
   /// In en, this message translates to:
-  /// **'{key, select, title{OCD Self-Check} introBody{A guided self-check based on the Yale-Brown Obsessive Compulsive Scale (Y-BOCS), covering the patterns you notice and how much they affect you.} spotTitle{Notice the patterns} spotBody{Select obsessions and compulsions you have experienced.} impactTitle{Record the impact} impactBody{Answer 10 questions about how much they affect your day.} resultIntroTitle{Review the result} resultIntroBody{See the recorded themes, subtotals, and severity range.} begin{Begin} retakeAction{Take it again} privacyDuration{Takes about 10 minutes. Your answers stay on this device unless you choose to export them.} disclaimer{This self-check can help you describe your experience. It does not diagnose OCD and is not emergency support. Only a qualified professional can diagnose OCD.} historyTitle{Your history} historyBody{Your previous recorded totals appear here.} deleteTitle{Delete assessment?} deleteBody{This permanently removes this assessment from this device.} cancel{Cancel} deleteAction{Delete} deleteTooltip{Delete assessment} deleteSuccess{Assessment deleted.} deleteError{This assessment could not be deleted. Please try again.} checklistTitle{What feels familiar?} checklistBody{Select anything you have experienced, now or in the past. Skip what does not fit.} obsessions{Obsessions} obsessionsDescription{Unwanted thoughts, images, or urges} compulsions{Compulsions} compulsionsDescription{Behaviours or mental acts performed in response to distress} continueAction{Continue} seeResults{See results} next{Next} resultsTitle{Your result} retake{Retake} saved{Saved} saveHistory{Save to my history} saving{Saving…} saveSuccess{Saved to your history.} saveError{This assessment could not be saved. Please try again.} breakdownTitle{Recorded subtotals} typesTitle{Types recorded} typesNone{No obsession or compulsion type was recorded in this self-check.} typesBoth{Both obsessions and compulsions were recorded in this self-check.} typesObsessions{Obsessions were recorded in this self-check.} typesCompulsions{Compulsions were recorded in this self-check.} themesTitle{Themes recorded} themesBody{The checklist categories containing the items you selected.} nextStepsTitle{About this result} nextStepsBody{This result is a self-reported snapshot, not a diagnosis or emergency support. If these patterns affect your life, you can discuss them with a qualified professional. If you may be in immediate danger, contact local emergency services.} other{Y-BOCS self-check}}'**
+  /// **'{key, select, title{OCD Self-Check} introBody{A guided self-check based on the Yale-Brown Obsessive Compulsive Scale (Y-BOCS), covering the patterns you notice and how much they affect you.} spotTitle{Notice the patterns} spotBody{Select obsessions and compulsions you have experienced.} impactTitle{Record the impact} impactBody{Answer 10 questions about how much they affect your day.} resultIntroTitle{Review the result} resultIntroBody{See the recorded themes, subtotals, and severity range.} begin{Begin} retakeAction{Take it again} privacyDuration{Takes about 10 minutes. Your answers stay on this device unless you choose to export them.} disclaimer{This self-check can help you describe your experience. It does not diagnose OCD and is not emergency support. Only a qualified professional can diagnose OCD.} historyTitle{Your history} historyBody{Your previous recorded totals appear here.} deleteTitle{Delete self-check?} deleteBody{This permanently removes this self-check from this device.} cancel{Cancel} deleteAction{Delete} deleteTooltip{Delete self-check} deleteSuccess{Self-check deleted.} deleteError{This self-check could not be deleted. Please try again.} checklistTitle{What feels familiar?} checklistBody{Select anything you have experienced, now or in the past. Skip what does not fit.} obsessions{Obsessions} obsessionsDescription{Unwanted thoughts, images, or urges} compulsions{Compulsions} compulsionsDescription{Behaviours or mental acts performed in response to distress} continueAction{Continue} seeResults{See results} next{Next} resultsTitle{Your result} retake{Retake} saved{Saved} saveHistory{Save to my history} saving{Saving…} saveSuccess{Saved to your history.} saveError{This self-check could not be saved. Please try again.} breakdownTitle{Recorded subtotals} typesTitle{Types recorded} typesNone{No obsession or compulsion type was recorded in this self-check.} typesBoth{Both obsessions and compulsions were recorded in this self-check.} typesObsessions{Obsessions were recorded in this self-check.} typesCompulsions{Compulsions were recorded in this self-check.} themesTitle{Themes recorded} themesBody{The checklist categories containing the items you selected.} nextStepsTitle{About this result} nextStepsBody{This result is a self-reported snapshot, not a diagnosis or emergency support. If these patterns affect your life, you can discuss them with a qualified professional. If you are in immediate danger, contact local emergency services.} other{Y-BOCS self-check}}'**
   String ybocsText(String key);
 
   /// Checklist continue action with the number of selected symptom items.
@@ -4144,7 +4144,7 @@ abstract class AppLocalizations {
   /// Non-diagnostic explanation selected from the saved Y-BOCS severity enum. Do not reassure, diagnose, claim outcomes, or invent regional emergency numbers.
   ///
   /// In en, this message translates to:
-  /// **'{severity, select, subclinical{This total falls in the subclinical Y-BOCS range. The result is a snapshot, not a diagnosis.} mild{This total falls in the mild Y-BOCS range. The result is a snapshot, not a diagnosis.} moderate{This total falls in the moderate Y-BOCS range. The result is a snapshot, not a diagnosis.} severe{This total falls in the severe Y-BOCS range. Consider discussing the impact with a qualified professional.} extreme{This total falls in the extreme Y-BOCS range. Consider contacting a qualified professional for support. If you may be in immediate danger, contact local emergency services.} other{This recorded total is a snapshot, not a diagnosis.}}'**
+  /// **'{severity, select, subclinical{This total falls in the subclinical Y-BOCS range. The result is a snapshot, not a diagnosis.} mild{This total falls in the mild Y-BOCS range. The result is a snapshot, not a diagnosis.} moderate{This total falls in the moderate Y-BOCS range. The result is a snapshot, not a diagnosis.} severe{This total falls in the severe Y-BOCS range. The result is a snapshot, not a diagnosis. Consider discussing the impact with a qualified professional.} extreme{This total falls in the extreme Y-BOCS range. The result is a snapshot, not a diagnosis. Consider contacting a qualified professional for support. If you are in immediate danger, contact local emergency services.} other{This recorded total is a snapshot, not a diagnosis.}}'**
   String ybocsSeverityBlurb(String severity);
 
   /// Behavioral Experiments interface copy selected from a stable UI key. Preserve OCD terminology and user text; avoid reassurance, praise, scores, and claims that a prediction was disproved.
@@ -4274,7 +4274,7 @@ abstract class AppLocalizations {
   /// Settings, privacy, backup, reminder, analytics, and App Lock interface copy selected from a stable UI key. Backup and wipe wording must distinguish local records, local preferences, app-store purchases, and unencrypted manual exports.
   ///
   /// In en, this message translates to:
-  /// **'{key, select, proActiveMessage{Patterns Pro is active on this device.} welcomeScheduled{The welcome screens will appear next time you open Patterns.} exportPromptTitle{Export data?} exportPromptBody{Patterns creates an unencrypted ZIP backup of your local records. Save it somewhere private.} exportBackupAction{Export ZIP backup} exportDialogTitle{Export Patterns data} exportSucceeded{Data exported.} exportFailed{Export failed. Your data is unchanged. Please try again.} importPromptTitle{Import data?} importPromptBody{Choose a ZIP or JSON Patterns backup. You can review its contents before replacing your current records.} chooseBackupAction{Choose backup} importDialogTitle{Select Patterns backup} backupUnreadable{Patterns could not read this backup file. Choose another file.} backupInvalid{This is not a valid Patterns backup. Your current data is unchanged.} importFailed{Import failed. Your current data is unchanged. Please try again.} importPreviewTitle{Replace current data?} importPreviewIntro{This backup contains the following local records. Importing it replaces your current records.} replaceAction{Replace data} importSucceeded{Data imported.} wipePromptTitle{Wipe all local data?} wipePromptBody{This permanently deletes local journal entries, OCD records, recovery practice history, locally stored materials, and app preferences from this device. This cannot be undone. Your Patterns Pro purchase remains with your app-store account, but this device will forget the local unlock. You can restore it afterwards.} wipeAction{Wipe data} wipeSucceeded{Local data wiped.} wipeFailed{Patterns could not finish wiping local data. Please try again.} appLockDisabled{App lock disabled.} deviceLockUnavailable{Device lock is unavailable. Set up a device passcode or biometrics, then try again.} appLockReason{Unlock Patterns to enable app lock.} appLockEnabled{App lock enabled.} appLockTemporaryLockout{Too many attempts. Try again in a moment.} appLockBiometricLockout{Biometric authentication is locked. Unlock your device with its passcode first.} appLockEnableFailed{Patterns could not change app lock. Please try again.} reminderOff{Daily reminder turned off.} notificationsUnavailable{Notifications are off for Patterns. Enable them in your device settings to receive reminders.} reminderOn{Daily reminder turned on.} reminderChangeFailed{Patterns could not change the reminder. Your previous setting is still in place.} analyticsChangeFailed{Patterns could not change anonymous usage sharing. Your previous setting is still in place.} privacyPolicyFailed{Patterns could not open the privacy policy. Please try again.} other{Settings}}'**
+  /// **'{key, select, proActiveMessage{Patterns Pro is active on this device.} welcomeScheduled{The welcome screens will appear next time you open Patterns.} exportPromptTitle{Export data?} exportPromptBody{Patterns creates an unencrypted ZIP backup of your local records. Save it somewhere private.} exportBackupAction{Export ZIP backup} exportDialogTitle{Export Patterns data} exportSucceeded{Data exported.} exportFailed{Export failed. Your data is unchanged. Please try again.} importPromptTitle{Import data?} importPromptBody{Choose a ZIP or JSON Patterns backup. You can review its contents before replacing your current records.} chooseBackupAction{Choose backup} importDialogTitle{Select Patterns backup} backupUnreadable{Patterns could not read this backup file. Choose another file.} backupInvalid{This is not a valid Patterns backup. Your current data is unchanged.} importFailed{Import failed. Your current data is unchanged. Please try again.} importPreviewTitle{Replace current data?} importPreviewIntro{This backup contains the following local records. Importing it replaces your current records.} replaceAction{Replace data} importSucceeded{Data imported.} wipePromptTitle{Wipe all local data?} wipePromptBody{This permanently deletes local journal entries, OCD records, self-help practice history, locally stored materials, and app preferences from this device. This cannot be undone. Your Patterns Pro purchase remains with your app-store account, but this device will forget the local unlock. You can restore it afterwards.} wipeAction{Wipe data} wipeSucceeded{Local data wiped.} wipeFailed{Patterns could not finish wiping local data. Please try again.} appLockDisabled{App lock disabled.} deviceLockUnavailable{Device lock is unavailable. Set up a device passcode or biometrics, then try again.} appLockReason{Unlock Patterns to enable app lock.} appLockEnabled{App lock enabled.} appLockTemporaryLockout{Too many attempts. Try again in a moment.} appLockBiometricLockout{Biometric authentication is locked. Unlock your device with its passcode first.} appLockEnableFailed{Patterns could not change app lock. Please try again.} reminderOff{Daily reminder turned off.} notificationsUnavailable{Notifications are off for Patterns. Enable them in your device settings to receive reminders.} reminderOn{Daily reminder turned on.} reminderChangeFailed{Patterns could not change the reminder. Your previous setting is still in place.} analyticsChangeFailed{Patterns could not change anonymous usage sharing. Your previous setting is still in place.} privacyPolicyFailed{Patterns could not open the privacy policy. Please try again.} other{Settings}}'**
   String settingsText(String key);
 
   /// Exact journal-entry count in a backup preview.
@@ -4310,7 +4310,7 @@ abstract class AppLocalizations {
   /// Combined exact count for the remaining recovery-tool tables in a backup preview.
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{No other recovery-tool records} =1{1 other recovery-tool record} other{{count} other recovery-tool records}}'**
+  /// **'{count, plural, =0{No other self-help-tool records} =1{1 other self-help-tool record} other{{count} other self-help-tool records}}'**
   String settingsBackupRecoveryCount(int count);
 
   /// Exact Y-BOCS self-check count in a backup preview.

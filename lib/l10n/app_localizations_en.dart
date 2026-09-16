@@ -84,14 +84,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsProActiveSubtitle =>
-      'Every recovery tool is unlocked. Thank you.';
+      'Every self-help tool is unlocked. Thank you.';
 
   @override
   String get settingsUnlockProTitle => 'Unlock Patterns Pro';
 
   @override
   String get settingsUnlockProSubtitle =>
-      'One-time unlock for all recovery tools';
+      'One-time unlock for all self-help tools';
 
   @override
   String get settingsRestorePurchasesTitle => 'Restore purchases';
@@ -228,11 +228,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get recoveryMetricsTitle => 'Recovery metrics';
+  String get recoveryMetricsTitle => 'Practice activity';
 
   @override
   String get recoveryMetricsTeaserTitle =>
-      'See your recovery activity together';
+      'See your practice activity together';
 
   @override
   String get recoveryMetricsCalmTeaserBody =>
@@ -247,7 +247,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recoveryMetricsEmptyTitle =>
-      'Your recovery activity will appear here';
+      'Your practice activity will appear here';
 
   @override
   String get recoveryMetricsCalmEmptyBody =>
@@ -346,14 +346,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get appUpdatesChannelDescription =>
-      'Occasional notes when Patterns gets meaningful new recovery tools.';
+      'Occasional notes when Patterns gets meaningful new self-help tools.';
 
   @override
-  String get updateAnnouncementTitle => 'Patterns got better';
+  String get updateAnnouncementTitle => 'Patterns has new tools';
 
   @override
   String get updateAnnouncementBody =>
-      'New recovery tools, progress insights, and a calmer Home are ready.';
+      'New self-help tools, factual activity summaries, and a calmer Home are ready.';
 
   @override
   String get practiceWindowCompleteTitle => 'Practice window complete';
@@ -385,7 +385,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navTracker => 'Tracker';
 
   @override
-  String get navRecovery => 'Recovery';
+  String get navRecovery => 'Practice';
 
   @override
   String get navInsights => 'Insights';
@@ -556,7 +556,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pdfYbocsDescription =>
-      'Yale-Brown Obsessive Compulsive Scale, self-rated in the app. Total is out of 40, with obsessions and compulsions each out of 20.';
+      'An in-app self-check based on the Yale-Brown Obsessive Compulsive Scale (Y-BOCS). The total is out of 40, with obsessions and compulsions each out of 20.';
 
   @override
   String get pdfMostRecentTotal => 'Most recent total';
@@ -661,11 +661,12 @@ class AppLocalizationsEn extends AppLocalizations {
       'I want to practise leaving a compulsion undone';
 
   @override
-  String get onboardingErpSubtitle => 'One short, guided exposure.';
+  String get onboardingErpSubtitle =>
+      'One short, guided exposure and response prevention (ERP) practice.';
 
   @override
   String get onboardingSelfCheckTitle =>
-      'I want to see where my OCD is right now';
+      'I want to check in with my current patterns';
 
   @override
   String get onboardingSelfCheckSubtitle =>
@@ -742,7 +743,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String recoveryScoreSemantics(int score) {
-    return 'Recovery score: $score out of 100.';
+    return 'Practice score: $score out of 100.';
   }
 
   @override
@@ -841,7 +842,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get proPaywallUnlockedBody =>
-      'Patterns Pro is unlocked. Every recovery tool is now available.';
+      'Patterns Pro is unlocked. Every self-help tool is now available.';
 
   @override
   String get proPaywallContinueAction => 'Continue';
@@ -850,14 +851,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get proPaywallLoadingLabel => 'Loading Patterns Pro';
 
   @override
-  String get proHeadlineSettings =>
-      'Move beyond tracking and practise recovery';
+  String get proHeadlineSettings => 'Move beyond tracking and practise';
 
   @override
   String get proHeadlineTodayNextStep => 'Build on today’s practice';
 
   @override
-  String get proHeadlineRecoveryMetrics => 'Review your recovery activity';
+  String get proHeadlineRecoveryMetrics => 'Review your practice activity';
 
   @override
   String get proHeadlineExposureHierarchy => 'Build a clear exposure ladder';
@@ -866,7 +866,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get proHeadlineExposureMaterials => 'Keep practice materials together';
 
   @override
-  String get proHeadlineStructuredPrograms => 'Turn recovery into a routine';
+  String get proHeadlineStructuredPrograms => 'Turn practice into a routine';
 
   @override
   String get proHeadlineActionPlanner =>
@@ -902,7 +902,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get proBenefitGeneralReview =>
-      'Review recovery activity and reflections';
+      'Review practice activity and reflections';
 
   @override
   String get proBenefitMetricsActivity => 'Review practice activity over time';
@@ -912,7 +912,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'See recorded activity without judging individual days';
 
   @override
-  String get proBenefitMetricsPatterns => 'Explore factual recovery patterns';
+  String get proBenefitMetricsPatterns => 'Explore factual practice patterns';
 
   @override
   String get proBenefitExposureLadder =>
@@ -974,7 +974,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get proRestoreSucceeded =>
-      'Patterns Pro restored. Every recovery tool is unlocked again.';
+      'Patterns Pro restored. Every self-help tool is unlocked again.';
 
   @override
   String get tipJarTitle => 'Support Patterns';
@@ -1552,7 +1552,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get todayCheckInAction => 'Check in';
 
   @override
-  String get todayRecoveryScore => 'Recovery score';
+  String get todayRecoveryScore => 'Practice score';
 
   @override
   String todayActivitiesLastSevenDays(int count) {
@@ -1619,7 +1619,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get todayReflectProcess => 'Reflect and process';
 
   @override
-  String get todayRecoveryTools => 'Recovery tools';
+  String get todayRecoveryTools => 'Self-help tools';
 
   @override
   String get todaySupportPractice => 'Support your practice';
@@ -2035,7 +2035,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get insightsThemeOther => 'Other';
 
   @override
-  String get recoveryTitle => 'Recovery';
+  String get recoveryTitle => 'Practice';
 
   @override
   String get recoverySubtitle =>
@@ -2047,11 +2047,11 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String recoveryToolTitle(String tool) {
     String _temp0 = intl.Intl.selectLogic(tool, {
-      'emergencyToolkit': 'Emergency Toolkit',
+      'emergencyToolkit': 'Support in a difficult moment',
       'copingLibrary': 'Coping Library',
       'compulsionDelay': 'Compulsion Delay',
       'ybocsSelfCheck': 'OCD Self-Check',
-      'recoveryMetrics': 'Recovery Metrics',
+      'recoveryMetrics': 'Practice Activity',
       'exposureHierarchy': 'Exposure Hierarchy',
       'exposureMaterials': 'Exposure Materials',
       'structuredPrograms': 'Structured Programs',
@@ -2063,7 +2063,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'uncertaintyTraining': 'Uncertainty Training',
       'behavioralExperiments': 'Behavioral Experiments',
       'reflectionJournal': 'Reflection Journal',
-      'other': 'Recovery tool',
+      'other': 'Self-help tool',
     });
     return '$_temp0';
   }
@@ -2087,7 +2087,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'uncertaintyTraining': 'Practise making room for maybe.',
       'behavioralExperiments': 'Test OCD’s prediction.',
       'reflectionJournal': 'Capture what you noticed.',
-      'other': 'Open a recovery tool.',
+      'other': 'Open a self-help tool.',
     });
     return '$_temp0';
   }
@@ -2918,7 +2918,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'pauseBody':
           'You do not have to respond to the urge immediately. Choose one self-help exercise below and take it slowly.',
       'boundary':
-          'These tools do not provide emergency or clinical care. If you may be in immediate danger, contact local emergency services.',
+          'These tools do not provide emergency or clinical care. If you are in immediate danger, contact local emergency services.',
       'breathe': 'Breathe',
       'breatheSubtitle': 'Follow a paced breathing cycle',
       'delay': 'Delay the urge',
@@ -2964,14 +2964,14 @@ class AppLocalizationsEn extends AppLocalizations {
           'This self-check can help you describe your experience. It does not diagnose OCD and is not emergency support. Only a qualified professional can diagnose OCD.',
       'historyTitle': 'Your history',
       'historyBody': 'Your previous recorded totals appear here.',
-      'deleteTitle': 'Delete assessment?',
+      'deleteTitle': 'Delete self-check?',
       'deleteBody':
-          'This permanently removes this assessment from this device.',
+          'This permanently removes this self-check from this device.',
       'cancel': 'Cancel',
       'deleteAction': 'Delete',
-      'deleteTooltip': 'Delete assessment',
-      'deleteSuccess': 'Assessment deleted.',
-      'deleteError': 'This assessment could not be deleted. Please try again.',
+      'deleteTooltip': 'Delete self-check',
+      'deleteSuccess': 'Self-check deleted.',
+      'deleteError': 'This self-check could not be deleted. Please try again.',
       'checklistTitle': 'What feels familiar?',
       'checklistBody':
           'Select anything you have experienced, now or in the past. Skip what does not fit.',
@@ -2989,7 +2989,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'saveHistory': 'Save to my history',
       'saving': 'Saving…',
       'saveSuccess': 'Saved to your history.',
-      'saveError': 'This assessment could not be saved. Please try again.',
+      'saveError': 'This self-check could not be saved. Please try again.',
       'breakdownTitle': 'Recorded subtotals',
       'typesTitle': 'Types recorded',
       'typesNone':
@@ -3003,7 +3003,7 @@ class AppLocalizationsEn extends AppLocalizations {
           'The checklist categories containing the items you selected.',
       'nextStepsTitle': 'About this result',
       'nextStepsBody':
-          'This result is a self-reported snapshot, not a diagnosis or emergency support. If these patterns affect your life, you can discuss them with a qualified professional. If you may be in immediate danger, contact local emergency services.',
+          'This result is a self-reported snapshot, not a diagnosis or emergency support. If these patterns affect your life, you can discuss them with a qualified professional. If you are in immediate danger, contact local emergency services.',
       'other': 'Y-BOCS self-check',
     });
     return '$_temp0';
@@ -3426,9 +3426,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'moderate':
           'This total falls in the moderate Y-BOCS range. The result is a snapshot, not a diagnosis.',
       'severe':
-          'This total falls in the severe Y-BOCS range. Consider discussing the impact with a qualified professional.',
+          'This total falls in the severe Y-BOCS range. The result is a snapshot, not a diagnosis. Consider discussing the impact with a qualified professional.',
       'extreme':
-          'This total falls in the extreme Y-BOCS range. Consider contacting a qualified professional for support. If you may be in immediate danger, contact local emergency services.',
+          'This total falls in the extreme Y-BOCS range. The result is a snapshot, not a diagnosis. Consider contacting a qualified professional for support. If you are in immediate danger, contact local emergency services.',
       'other': 'This recorded total is a snapshot, not a diagnosis.',
     });
     return '$_temp0';
@@ -3797,7 +3797,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'importSucceeded': 'Data imported.',
       'wipePromptTitle': 'Wipe all local data?',
       'wipePromptBody':
-          'This permanently deletes local journal entries, OCD records, recovery practice history, locally stored materials, and app preferences from this device. This cannot be undone. Your Patterns Pro purchase remains with your app-store account, but this device will forget the local unlock. You can restore it afterwards.',
+          'This permanently deletes local journal entries, OCD records, self-help practice history, locally stored materials, and app preferences from this device. This cannot be undone. Your Patterns Pro purchase remains with your app-store account, but this device will forget the local unlock. You can restore it afterwards.',
       'wipeAction': 'Wipe data',
       'wipeSucceeded': 'Local data wiped.',
       'wipeFailed':
@@ -3892,9 +3892,9 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count other recovery-tool records',
-      one: '1 other recovery-tool record',
-      zero: 'No other recovery-tool records',
+      other: '$count other self-help-tool records',
+      one: '1 other self-help-tool record',
+      zero: 'No other self-help-tool records',
     );
     return '$_temp0';
   }
