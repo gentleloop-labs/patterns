@@ -211,7 +211,7 @@ void main() {
     await tester.pump();
 
     expect(
-      find.text('Cuando esté listo, añada unas palabras sobre lo que ocurrió.'),
+      find.text('Cuando estés listo, añade unas palabras sobre lo que ocurrió.'),
       findsOneWidget,
     );
   });
