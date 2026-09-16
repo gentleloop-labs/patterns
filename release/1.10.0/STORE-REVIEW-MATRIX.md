@@ -13,7 +13,7 @@ unchanged. App Store Connect inventory and pricing checks have been read-only.
 | English | frozen, 711 messages | pending | pending | pending | pending | blocked |
 | Português (Brasil) | revised draft | 4/6 passes | pending | pending | pending | blocked |
 | Deutsch | revised draft | 4/6 passes | pending | pending | pending | blocked |
-| 日本語 | complete draft | pending | pending | pending | pending | blocked |
+| 日本語 | revised draft | 4/6 passes | pending | pending | pending | blocked |
 | Español | complete draft | pending | pending | pending | pending | blocked |
 | Français | complete draft | pending | pending | pending | pending | blocked |
 

@@ -49,9 +49,9 @@ void main() {
     await tester.pumpWidget(_host(locale: const Locale('ja'), pro: true));
     await tester.pumpAndSettle();
 
-    expect(find.text('回復'), findsOneWidget);
-    expect(find.text('つらい時のサポート'), findsOneWidget);
-    expect(find.bySemanticsLabel('つらい時のツールキット'), findsOneWidget);
+    expect(find.text('練習'), findsOneWidget);
+    expect(find.text('つらい時のサポート'), findsWidgets);
+    expect(find.bySemanticsLabel('つらい時のサポート'), findsWidgets);
     expect(find.bySemanticsLabel('対処法ライブラリ'), findsOneWidget);
     expect(find.bySemanticsLabel('強迫行為を待つ'), findsWidgets);
     expect(find.text('Recovery'), findsNothing);

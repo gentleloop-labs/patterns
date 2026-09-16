@@ -131,7 +131,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.text('インサイト'), findsOneWidget);
+      expect(find.text('分析'), findsOneWidget);
       expect(find.text('最近の記録'), findsOneWidget);
       expect(find.textContaining('日記 3件'), findsOneWidget);
       expect(find.text('練習の経過'), findsNothing);

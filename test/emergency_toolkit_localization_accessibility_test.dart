@@ -32,7 +32,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('今この時のサポート'), findsOneWidget);
-    expect(find.textContaining('緊急支援や医療ではありません'), findsOneWidget);
+    expect(find.textContaining('救急・緊急支援や医療を提供するものではありません'), findsOneWidget);
     expect(find.bySemanticsLabel('呼吸する'), findsOneWidget);
     expect(find.textContaining("You're safe"), findsNothing);
     expect(find.textContaining('Urges always pass'), findsNothing);
