@@ -11,6 +11,17 @@ void main() {
       .where((entry) => !entry.key.startsWith('@') && entry.value is String)
       .map((entry) => entry.value as String)
       .join('\n');
+  final mobileAndSharedCopy = arb.entries
+      .where(
+        (entry) =>
+            !entry.key.startsWith('@') &&
+            entry.value is String &&
+            !entry.key.startsWith('desktop') &&
+            entry.key != 'todayRecoveryScore' &&
+            entry.key != 'todayRecoveryTools',
+      )
+      .map((entry) => entry.value as String)
+      .join('\n');
 
   test('Brazilian Portuguese uses the reviewed clinical glossary', () {
     expect(productCopy, contains('TOC'));
@@ -31,6 +42,33 @@ void main() {
     expect(arb['privacyClinicalBoundary'], contains('não substitui'));
     expect(arb['tipJarBody'], contains('não desbloqueiam nada'));
     expect(arb['privacyAnalytics'], contains('escolha de idioma'));
+  });
+
+  test(
+    'Brazilian Portuguese back-translation keeps factual product framing',
+    () {
+      expect(mobileAndSharedCopy, isNot(contains('recuperação')));
+      expect(arb['navRecovery'], 'Prática');
+      expect(arb['settingsProActiveSubtitle'], contains('autoajuda'));
+      expect(arb['settingsProActiveSubtitle'], isNot(contains('Obrigado')));
+      expect(arb['onboardingErpSubtitle'], contains('(EPR)'));
+      expect(arb['onboardingSelfCheckTitle'], isNot(contains('meu TOC')));
+      expect(arb['updateAnnouncementTitle'], isNot(contains('melhorou')));
+    },
+  );
+
+  test('Brazilian Portuguese Y-BOCS copy stays explicitly non-diagnostic', () {
+    final severityCopy = arb['ybocsSeverityBlurb'] as String;
+    expect(
+      RegExp(r'severe\{[^}]*não um diagnóstico').hasMatch(severityCopy),
+      isTrue,
+    );
+    expect(
+      RegExp(r'extreme\{[^}]*não um diagnóstico').hasMatch(severityCopy),
+      isTrue,
+    );
+    expect(arb['pdfYbocsDescription'], contains('autoavaliação'));
+    expect(arb['ybocsText'], contains('Excluir autoavaliação?'));
   });
 
   test('Brazilian Portuguese iOS permission copy uses TOC', () {

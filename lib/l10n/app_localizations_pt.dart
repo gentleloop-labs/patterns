@@ -4137,14 +4137,14 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get settingsProActiveSubtitle =>
-      'Todas as ferramentas de recuperação estão desbloqueadas. Obrigado.';
+      'Todas as ferramentas de autoajuda estão desbloqueadas. Agradecemos o apoio.';
 
   @override
   String get settingsUnlockProTitle => 'Desbloquear Patterns Pro';
 
   @override
   String get settingsUnlockProSubtitle =>
-      'Compra única para todas as ferramentas de recuperação';
+      'Compra única para todas as ferramentas de autoajuda';
 
   @override
   String get settingsRestorePurchasesTitle => 'Restaurar compras';
@@ -4280,11 +4280,11 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   }
 
   @override
-  String get recoveryMetricsTitle => 'Atividade de recuperação';
+  String get recoveryMetricsTitle => 'Atividade de prática';
 
   @override
   String get recoveryMetricsTeaserTitle =>
-      'Veja sua atividade de recuperação reunida';
+      'Veja suas atividades de prática reunidas';
 
   @override
   String get recoveryMetricsCalmTeaserBody =>
@@ -4299,7 +4299,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get recoveryMetricsEmptyTitle =>
-      'Sua atividade de recuperação aparecerá aqui';
+      'Sua atividade de prática aparecerá aqui';
 
   @override
   String get recoveryMetricsCalmEmptyBody =>
@@ -4399,14 +4399,14 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get appUpdatesChannelDescription =>
-      'Avisos ocasionais quando o Patterns recebe novas ferramentas relevantes de recuperação.';
+      'Avisos ocasionais quando o Patterns recebe novas ferramentas relevantes de autoajuda.';
 
   @override
-  String get updateAnnouncementTitle => 'O Patterns melhorou';
+  String get updateAnnouncementTitle => 'O Patterns tem novas ferramentas';
 
   @override
   String get updateAnnouncementBody =>
-      'Novas ferramentas de recuperação, insights de progresso e uma tela inicial mais tranquila estão disponíveis.';
+      'Novas ferramentas de autoajuda, resumos factuais das atividades e uma tela Início mais tranquila estão disponíveis.';
 
   @override
   String get practiceWindowCompleteTitle => 'Tempo de prática concluído';
@@ -4438,7 +4438,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get navTracker => 'Registros';
 
   @override
-  String get navRecovery => 'Recuperação';
+  String get navRecovery => 'Prática';
 
   @override
   String get navInsights => 'Análises';
@@ -4609,7 +4609,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get pdfYbocsDescription =>
-      'Yale-Brown Obsessive Compulsive Scale, autoavaliada no app. O total é de 40, com 20 para obsessões e 20 para compulsões.';
+      'Uma autoavaliação no app baseada na Escala Obsessivo-Compulsiva de Yale-Brown (Y-BOCS). O total vai até 40, com até 20 para obsessões e 20 para compulsões.';
 
   @override
   String get pdfMostRecentTotal => 'Total mais recente';
@@ -4715,10 +4715,11 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       'Quero praticar deixar uma compulsão sem fazer';
 
   @override
-  String get onboardingErpSubtitle => 'Uma exposição curta e guiada.';
+  String get onboardingErpSubtitle =>
+      'Uma prática curta e guiada de exposição e prevenção de resposta (EPR).';
 
   @override
-  String get onboardingSelfCheckTitle => 'Quero ver como está meu TOC agora';
+  String get onboardingSelfCheckTitle => 'Quero observar meus padrões atuais';
 
   @override
   String get onboardingSelfCheckSubtitle =>
@@ -4795,7 +4796,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String recoveryScoreSemantics(int score) {
-    return 'Pontuação de recuperação: $score de 100.';
+    return 'Pontuação de prática: $score de 100.';
   }
 
   @override
@@ -4895,7 +4896,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get proPaywallUnlockedBody =>
-      'O Patterns Pro está desbloqueado. Todas as ferramentas de recuperação estão disponíveis.';
+      'O Patterns Pro está desbloqueado. Todas as ferramentas de autoajuda estão disponíveis.';
 
   @override
   String get proPaywallContinueAction => 'Continuar';
@@ -4904,15 +4905,13 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get proPaywallLoadingLabel => 'Carregando o Patterns Pro';
 
   @override
-  String get proHeadlineSettings =>
-      'Ir além dos registros e praticar a recuperação';
+  String get proHeadlineSettings => 'Ir além dos registros e praticar';
 
   @override
   String get proHeadlineTodayNextStep => 'Continuar a prática de hoje';
 
   @override
-  String get proHeadlineRecoveryMetrics =>
-      'Revisar sua atividade de recuperação';
+  String get proHeadlineRecoveryMetrics => 'Revisar sua atividade de prática';
 
   @override
   String get proHeadlineExposureHierarchy =>
@@ -4924,7 +4923,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get proHeadlineStructuredPrograms =>
-      'Transformar a recuperação em uma rotina';
+      'Transformar a prática em uma rotina';
 
   @override
   String get proHeadlineActionPlanner =>
@@ -4961,7 +4960,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get proBenefitGeneralReview =>
-      'Revisar a atividade de recuperação e as reflexões';
+      'Revisar as atividades de prática e as reflexões';
 
   @override
   String get proBenefitMetricsActivity =>
@@ -4973,7 +4972,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get proBenefitMetricsPatterns =>
-      'Explorar padrões objetivos de recuperação';
+      'Explorar padrões factuais de prática';
 
   @override
   String get proBenefitExposureLadder =>
@@ -5038,7 +5037,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get proRestoreSucceeded =>
-      'O Patterns Pro foi restaurado. Todas as ferramentas de recuperação estão desbloqueadas novamente.';
+      'O Patterns Pro foi restaurado. Todas as ferramentas de autoajuda estão desbloqueadas novamente.';
 
   @override
   String get tipJarTitle => 'Apoiar o Patterns';
@@ -6105,7 +6104,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get insightsThemeOther => 'Outro';
 
   @override
-  String get recoveryTitle => 'Recuperação';
+  String get recoveryTitle => 'Prática';
 
   @override
   String get recoverySubtitle =>
@@ -6117,11 +6116,11 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String recoveryToolTitle(String tool) {
     String _temp0 = intl.Intl.selectLogic(tool, {
-      'emergencyToolkit': 'Kit para momentos difíceis',
+      'emergencyToolkit': 'Apoio em um momento difícil',
       'copingLibrary': 'Biblioteca de enfrentamento',
       'compulsionDelay': 'Adiar a compulsão',
       'ybocsSelfCheck': 'Autoavaliação de TOC',
-      'recoveryMetrics': 'Atividade de recuperação',
+      'recoveryMetrics': 'Atividade de prática',
       'exposureHierarchy': 'Hierarquia de exposição',
       'exposureMaterials': 'Materiais de exposição',
       'structuredPrograms': 'Programas estruturados',
@@ -6133,7 +6132,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       'uncertaintyTraining': 'Prática da incerteza',
       'behavioralExperiments': 'Experimentos comportamentais',
       'reflectionJournal': 'Diário de reflexão',
-      'other': 'Ferramenta de recuperação',
+      'other': 'Ferramenta de autoajuda',
     });
     return '$_temp0';
   }
@@ -6157,7 +6156,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       'uncertaintyTraining': 'Pratique dar espaço ao talvez.',
       'behavioralExperiments': 'Teste a previsão do TOC.',
       'reflectionJournal': 'Registre o que você percebeu.',
-      'other': 'Abra uma ferramenta de recuperação.',
+      'other': 'Abra uma ferramenta de autoajuda.',
     });
     return '$_temp0';
   }
@@ -7053,15 +7052,15 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
           'Esta autoavaliação pode ajudar você a descrever sua experiência. Ela não diagnostica TOC nem oferece apoio de emergência. Somente um profissional qualificado pode diagnosticar TOC.',
       'historyTitle': 'Seu histórico',
       'historyBody': 'Seus totais registrados anteriormente aparecem aqui.',
-      'deleteTitle': 'Excluir avaliação?',
+      'deleteTitle': 'Excluir autoavaliação?',
       'deleteBody':
-          'Isso remove permanentemente esta avaliação deste dispositivo.',
+          'Isso remove permanentemente esta autoavaliação deste dispositivo.',
       'cancel': 'Cancelar',
       'deleteAction': 'Excluir',
-      'deleteTooltip': 'Excluir avaliação',
-      'deleteSuccess': 'Avaliação excluída.',
+      'deleteTooltip': 'Excluir autoavaliação',
+      'deleteSuccess': 'Autoavaliação excluída.',
       'deleteError':
-          'Não foi possível excluir esta avaliação. Tente novamente.',
+          'Não foi possível excluir esta autoavaliação. Tente novamente.',
       'checklistTitle': 'O que parece familiar?',
       'checklistBody':
           'Selecione qualquer experiência atual ou passada. Ignore o que não se aplica.',
@@ -7079,7 +7078,8 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       'saveHistory': 'Salvar no meu histórico',
       'saving': 'Salvando…',
       'saveSuccess': 'Salvo no seu histórico.',
-      'saveError': 'Não foi possível salvar esta avaliação. Tente novamente.',
+      'saveError':
+          'Não foi possível salvar esta autoavaliação. Tente novamente.',
       'breakdownTitle': 'Subtotais registrados',
       'typesTitle': 'Tipos registrados',
       'typesNone':
@@ -7523,9 +7523,9 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       'moderate':
           'Este total está na faixa moderada da Y-BOCS. O resultado é um retrato do momento, não um diagnóstico.',
       'severe':
-          'Este total está na faixa grave da Y-BOCS. Considere conversar sobre o impacto com um profissional qualificado.',
+          'Este total está na faixa grave da Y-BOCS. O resultado é um retrato do momento, não um diagnóstico. Considere conversar sobre o impacto com um profissional qualificado.',
       'extreme':
-          'Este total está na faixa extrema da Y-BOCS. Considere entrar em contato com um profissional qualificado. Se houver perigo imediato, contate os serviços de emergência locais.',
+          'Este total está na faixa extrema da Y-BOCS. O resultado é um retrato do momento, não um diagnóstico. Considere entrar em contato com um profissional qualificado. Se houver perigo imediato, contate os serviços de emergência locais.',
       'other':
           'Este total registrado é um retrato do momento, não um diagnóstico.',
     });
@@ -7900,7 +7900,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       'importSucceeded': 'Dados importados.',
       'wipePromptTitle': 'Apagar todos os dados locais?',
       'wipePromptBody':
-          'Isso exclui permanentemente deste dispositivo as entradas do diário, os registros de TOC, o histórico de práticas de recuperação, os materiais salvos localmente e as preferências do aplicativo. Não é possível desfazer. Sua compra do Patterns Pro continua vinculada à conta da loja, mas este dispositivo esquecerá o desbloqueio local. Você poderá restaurá-lo depois.',
+          'Isso exclui permanentemente deste dispositivo as entradas do diário, os registros de TOC, o histórico de práticas de autoajuda, os materiais salvos localmente e as preferências do aplicativo. Não é possível desfazer. Sua compra do Patterns Pro continua vinculada à conta da loja, mas este dispositivo esquecerá o desbloqueio local. Você poderá restaurá-lo depois.',
       'wipeAction': 'Apagar dados',
       'wipeSucceeded': 'Dados locais apagados.',
       'wipeFailed':
@@ -7997,9 +7997,9 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count outros registros de ferramentas de recuperação',
-      one: '1 outro registro de ferramenta de recuperação',
-      zero: 'Nenhum outro registro de ferramentas de recuperação',
+      other: '$count outros registros de ferramentas de autoajuda',
+      one: '1 outro registro de ferramenta de autoajuda',
+      zero: 'Nenhum outro registro de ferramenta de autoajuda',
     );
     return '$_temp0';
   }
