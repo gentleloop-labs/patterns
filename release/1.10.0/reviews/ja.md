@@ -1,10 +1,11 @@
 # 日本語 in-app review
 
-Status: **AI-assisted review in progress**
-Reviewed: September 16, 2026
-Frozen source: `lib/l10n/app_en.arb` at `606a985b...9074bed`
+Status: **AI-assisted linguistic and risk review complete; rendered review pending**
+Reviewed: September 17, 2026
+Frozen source: `lib/l10n/app_en.arb` at `b5813aec...139974cf`
 Draft: `lib/l10n/app_ja.arb`
-Method: context-aware AI review plus deterministic ARB integrity checks
+Method: context-aware AI review, a separate source-delta reconciliation and
+semantic back-translation pass, plus deterministic ARB integrity checks
 
 This is not native-speaker or clinician sign-off.
 
@@ -29,6 +30,27 @@ This is not native-speaker or clinician sign-off.
   labels, values, states, hints, dates, and counts remain explicit.
 - Quiet completion uses `今はここまで`, and factual completion copy remains
   non-celebratory.
+- A second pass started from every Japanese message, back-translated its
+  meaning into English, and compared it with the frozen English source. All
+  711 messages were covered by product area, with separate checks for
+  clinical, crisis, privacy, payment, accessibility, destructive-action,
+  notification, PDF, placeholder, plural, direct-address, and stable-ID
+  meaning.
+
+## Back-translation findings
+
+| Risk area | Japanese meaning recovered in the second pass | Resolution |
+| --- | --- | --- |
+| Release framing | `Patternsがより良くなりました` claimed that Patterns had become better, and `活動の振り返り` described a reflection rather than a factual summary of recorded activity. | Replaced both with factual new-tool and recorded-activity-summary wording. |
+| Onboarding | `今の強迫症のパターン` added an OCD-specific diagnosis label that the frozen source intentionally removed. | Replaced it with the neutral `今のパターン`. |
+| Y-BOCS PDF | `合計40点` and `それぞれ20点` could describe fixed scores rather than maximum possible scores. | Clarified the unchanged maximums as `40点満点` and `20点満点`. |
+| Privacy | `評価` could mean app-store reviews rather than recorded distress ratings, and `地域` was broader than locale. | Replaced them with `苦痛度` and `地域設定`; analytics remains optional and default-off. |
+
+No contradiction, omitted warning, added clinical claim, price, user-content
+rewrite, placeholder change, or stable-ID change remains in the reviewed
+mobile/shared catalog. Desktop-only `リカバリー` wording remains unchanged
+and outside the 1.10 mobile gate. This is an AI-assisted semantic review, not
+evidence of native-speaker or clinician sign-off.
 
 ## Identified revisions
 
@@ -45,6 +67,9 @@ This is not native-speaker or clinician sign-off.
   emergency support, without inventing a regional emergency number.
 - Corrected iOS permission copy from `暴露` to the clinical spelling `曝露`
   and replaced the untranslated disorder acronym.
+- Reconciled 5 Japanese messages with the September 17 English source freeze:
+  factual release wording, neutral onboarding language, exact Y-BOCS maximums,
+  and precise analytics exclusions.
 
 ## Review references
 
@@ -52,13 +77,13 @@ This is not native-speaker or clinician sign-off.
   強迫性障害（強迫症）](https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/hukushi_kaigo/shougaishahukushi/kokoro/index.html)
 - [Japan Ministry of Health, Labour and Welfare material: 曝露反応妨害法
   （ERP）, 強迫観念, and 強迫行為](https://www.mhlw.go.jp/file/06-Seisakujouhou-12200000-Shakaiengokyokushougaihokenfukushibu/0000113840.pdf)
+- [Japan Ministry of Health, Labour and Welfare: public mental-health
+  consultation services](https://www.mhlw.go.jp/kokoro/youth/consultation/window/index.html)
 
-Consulted September 16, 2026.
+Consulted September 16 and rechecked September 17, 2026.
 
 ## Open evidence
 
-- Complete the independent linguistic-consistency and full back-translation
-  pass; the changes above must be included in it.
 - Render every representative mobile flow at normal, 200%, and maximum text
   sizes, then inspect clipping, wrapping, semantics, and focus order.
 - Complete physical iPhone and Android accessibility and purchase QA.

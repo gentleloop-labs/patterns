@@ -36,7 +36,7 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 | ID | Gate | Status | Exit condition |
 | --- | --- | --- | --- |
 | COPY-01 | English copy freeze | verified | `source-freeze.json` hash-locks the 711-message canonical ARB and English iOS permission copy at source commit `b5813ae`; `tool/check_copy_freeze.dart`, zero-candidate mobile audit, translator-context gate, analysis, and 338 tests pass |
-| REVIEW-01 | Six-language guarded AI clinical, crisis, privacy, accessibility, and paywall review | in progress | Brazilian Portuguese and German have 5/6 review passes complete after source-delta reconciliation and separate full semantic back-translation passes. English, Japanese, neutral Spanish, and French each remain at 4/6. Rendered-layout review remains open for every language, followed by physical QA and release-owner approval. |
+| REVIEW-01 | Six-language guarded AI clinical, crisis, privacy, accessibility, and paywall review | in progress | Brazilian Portuguese, German, and Japanese have 5/6 review passes complete after source-delta reconciliation and separate full semantic back-translation passes. English, neutral Spanish, and French each remain at 4/6. Rendered-layout review remains open for every language, followed by physical QA and release-owner approval. |
 | A11Y-DEVICE-01 | Physical-iPhone accessibility verification | pending | Common-task VoiceOver, largest text, Reduce Motion, grayscale, and Differentiate Without Color pass |
 | A11Y-DEVICE-02 | Physical-Android accessibility verification | pending | Common-task TalkBack, largest font/display scale, Reduced Motion, non-colour, and appearance pass |
 | DATA-01 | 1.9 upgrade and import/export compatibility | pending | Real-data upgrade and round-trip evidence recorded |
@@ -49,6 +49,6 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 
 - Version: `1.10.0+32` (final build number must still be reconciled remotely).
 - Release announcement: `patterns_1_10`.
-- Full Flutter suite after the German back-translation review: 342 passing tests.
+- Full Flutter suite after the Japanese back-translation review: 344 passing tests.
 - Mobile/shared literal audit: zero unreviewed candidates; stable localization selector keys and debug-only sources are covered by documented allowlist rules.
 - Store drafts: field, locale, and character-limit validation passing; not approved or uploaded.

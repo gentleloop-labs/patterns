@@ -41,6 +41,29 @@ void main() {
     expect(arb['privacyAnalytics'], contains('言語選択'));
   });
 
+  test('Japanese keeps release, onboarding, PDF, and privacy copy factual', () {
+    expect(arb['updateAnnouncementTitle'], isNot(contains('より良く')));
+    expect(arb['updateAnnouncementBody'], contains('事実に基づく要約'));
+    expect(arb['onboardingSelfCheckTitle'], '今のパターンを確認したい');
+    expect(arb['pdfYbocsDescription'], contains('40点満点'));
+    expect(arb['pdfYbocsDescription'], contains('20点満点'));
+    expect(arb['analyticsPromptBody'], contains('苦痛度'));
+    expect(arb['analyticsPromptBody'], contains('地域設定'));
+  });
+
+  test('Japanese keeps Y-BOCS and immediate-support boundaries explicit', () {
+    expect(arb['ybocsSeverityBlurb'], contains('severe{'));
+    expect(arb['ybocsSeverityBlurb'], contains('extreme{'));
+    expect(
+      RegExp(r'(severe|extreme)\{[^}]*診断ではありません').allMatches(
+        arb['ybocsSeverityBlurb'] as String,
+      ),
+      hasLength(2),
+    );
+    expect(arb['emergencyToolkitText'], contains('差し迫った危険'));
+    expect(arb['ybocsText'], contains('差し迫った危険'));
+  });
+
   test('Japanese iOS permission copy uses localized clinical language', () {
     final permissionCopy = File(
       'ios/Runner/ja.lproj/InfoPlist.strings',

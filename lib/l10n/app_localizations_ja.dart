@@ -291,11 +291,11 @@ class AppLocalizationsJa extends AppLocalizations {
       'Patternsに大切な新しいセルフヘルプツールが追加されたときにお知らせします。';
 
   @override
-  String get updateAnnouncementTitle => 'Patternsがより良くなりました';
+  String get updateAnnouncementTitle => 'Patternsに新しいツールが加わりました';
 
   @override
   String get updateAnnouncementBody =>
-      '新しいセルフヘルプツール、事実に基づく活動の振り返り、より穏やかなホーム画面をご利用いただけます。';
+      '新しいセルフヘルプツール、記録した活動の事実に基づく要約、より穏やかなホーム画面をご利用いただけます。';
 
   @override
   String get practiceWindowCompleteTitle => '練習時間が終了しました';
@@ -485,7 +485,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get pdfYbocsDescription =>
-      'Yale-Brown Obsessive Compulsive Scale（Y-BOCS）に基づくアプリ内セルフチェックです。合計40点で、強迫観念と強迫行為はそれぞれ20点です。';
+      'Yale-Brown Obsessive Compulsive Scale（Y-BOCS）に基づくアプリ内セルフチェックです。合計は40点満点で、強迫観念と強迫行為はそれぞれ20点満点です。';
 
   @override
   String get pdfMostRecentTotal => '最新の合計';
@@ -587,7 +587,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get onboardingErpSubtitle => '短い、ガイド付きの曝露反応妨害法（ERP）の練習です。';
 
   @override
-  String get onboardingSelfCheckTitle => '今の強迫症のパターンを確認したい';
+  String get onboardingSelfCheckTitle => '今のパターンを確認したい';
 
   @override
   String get onboardingSelfCheckSubtitle => 'Y-BOCSセルフチェック。約10分です。';
@@ -3487,7 +3487,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get analyticsPromptBody =>
-      'Patternsの改善に役立てるため、機能の利用状況を匿名で共有できます。日記、強迫症の内容、評価、メモ、生成された要約、地域、選択した言語は含まれません。選択しない限り共有は無効のままです。';
+      'Patternsの改善に役立てるため、機能の利用状況を匿名で共有できます。日記、強迫症の内容、苦痛度、メモ、生成された要約、地域設定、選択した言語は含まれません。選択しない限り共有は無効のままです。';
 
   @override
   String get notNowAction => '今はしない';
