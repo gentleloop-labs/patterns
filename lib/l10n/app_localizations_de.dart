@@ -349,11 +349,11 @@ class AppLocalizationsDe extends AppLocalizations {
       'Gelegentliche Hinweise auf wichtige neue Selbsthilfeübungen in Patterns.';
 
   @override
-  String get updateAnnouncementTitle => 'Patterns wurde verbessert';
+  String get updateAnnouncementTitle => 'Neue Selbsthilfeübungen in Patterns';
 
   @override
   String get updateAnnouncementBody =>
-      'Neue Selbsthilfeübungen, sachliche Einblicke und eine ruhigere Startseite sind verfügbar.';
+      'Neue Selbsthilfeübungen, sachliche Aktivitätszusammenfassungen und eine ruhigere Startseite sind verfügbar.';
 
   @override
   String get practiceWindowCompleteTitle => 'Übungszeit beendet';
@@ -557,7 +557,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get pdfYbocsDescription =>
-      'Yale-Brown Obsessive Compulsive Scale, in der App selbst eingeschätzt. Die Gesamtpunktzahl beträgt 40; Obsessionen und Zwänge jeweils 20.';
+      'Ein Selbstcheck in der App auf Grundlage der Yale-Brown Obsessive Compulsive Scale (Y-BOCS). Der Gesamtwert reicht bis 40, mit jeweils bis zu 20 Punkten für Zwangsgedanken und Zwangshandlungen.';
 
   @override
   String get pdfMostRecentTotal => 'Neueste Gesamtpunktzahl';
@@ -668,7 +668,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get onboardingSelfCheckTitle =>
-      'Ich möchte meine Zwangsmuster einschätzen';
+      'Ich möchte meine aktuellen Muster ansehen';
 
   @override
   String get onboardingSelfCheckSubtitle =>
@@ -766,7 +766,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get privacyAnalytics =>
-      'Anonyme Nutzungsanalysen sind deaktiviert, bis Sie sie einschalten. Wenn sie aktiviert sind, sendet Patterns benannte Ereignisse zur Funktionsnutzung, eine zufällige Installations-ID, die Plattform, die App-Version und die Ereigniszeit an den eigenen Dienst. Tagebucheinträge, Daten zur Zwangsstörung, erstellte Zusammenfassungen, Region und Sprachauswahl werden nie einbezogen. Beim Ausschalten werden ausstehende Ereignisse und die lokale Analyse-ID gelöscht.';
+      'Anonyme Nutzungsanalysen sind deaktiviert, bis Sie sie einschalten. Wenn sie aktiviert sind, sendet Patterns benannte Ereignisse zur Funktionsnutzung, eine zufällige Installations-ID, die Plattform, die App-Version und die Ereigniszeit an den eigenen Dienst. Tagebucheinträge, Daten zur Zwangsstörung, erstellte Zusammenfassungen, Gebietsschema und Sprachauswahl werden nie einbezogen. Beim Ausschalten werden ausstehende Ereignisse und die lokale Analyse-ID gelöscht.';
 
   @override
   String get privacyClinicalBoundary =>
@@ -2979,7 +2979,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'pauseBody':
           'Sie müssen nicht sofort auf den Drang reagieren. Wählen Sie unten eine Selbsthilfeübung und gehen Sie langsam vor.',
       'boundary':
-          'Diese Werkzeuge bieten keine Notfall- oder klinische Versorgung. Wenn Sie möglicherweise in unmittelbarer Gefahr sind, wenden Sie sich an die örtlichen Notfalldienste.',
+          'Diese Werkzeuge bieten keine Notfall- oder klinische Versorgung. Wenn Sie in unmittelbarer Gefahr sind, wenden Sie sich an die örtlichen Notfalldienste.',
       'breathe': 'Atmen',
       'breatheSubtitle': 'Einem ruhigen Atemrhythmus folgen',
       'delay': 'Den Drang aufschieben',
@@ -3070,7 +3070,7 @@ class AppLocalizationsDe extends AppLocalizations {
           'Die Kategorien der Checkliste, in denen Sie Einträge ausgewählt haben.',
       'nextStepsTitle': 'Zu diesem Ergebnis',
       'nextStepsBody':
-          'Dieses Ergebnis ist eine selbst berichtete Momentaufnahme, keine Diagnose und keine Notfallhilfe. Wenn diese Muster Ihr Leben beeinträchtigen, können Sie sie mit einer qualifizierten Fachperson besprechen. Wenn Sie möglicherweise in unmittelbarer Gefahr sind, wenden Sie sich an die örtlichen Notfalldienste.',
+          'Dieses Ergebnis ist eine selbst berichtete Momentaufnahme, keine Diagnose und keine Notfallhilfe. Wenn diese Muster Ihr Leben beeinträchtigen, können Sie sie mit einer qualifizierten Fachperson besprechen. Wenn Sie in unmittelbarer Gefahr sind, wenden Sie sich an die örtlichen Notfalldienste.',
       'other': 'Y-BOCS-Selbstcheck',
     });
     return '$_temp0';
@@ -3512,9 +3512,9 @@ class AppLocalizationsDe extends AppLocalizations {
       'moderate':
           'Dieser Gesamtwert liegt im mittleren Y-BOCS-Bereich. Das Ergebnis ist eine Momentaufnahme, keine Diagnose.',
       'severe':
-          'Dieser Gesamtwert liegt im schweren Y-BOCS-Bereich. Erwägen Sie, die Auswirkungen mit einer qualifizierten Fachperson zu besprechen.',
+          'Dieser Gesamtwert liegt im schweren Y-BOCS-Bereich. Das Ergebnis ist eine Momentaufnahme, keine Diagnose. Erwägen Sie, die Auswirkungen mit einer qualifizierten Fachperson zu besprechen.',
       'extreme':
-          'Dieser Gesamtwert liegt im extremen Y-BOCS-Bereich. Erwägen Sie, eine qualifizierte Fachperson zu kontaktieren. Wenn Sie möglicherweise in unmittelbarer Gefahr sind, wenden Sie sich an die örtlichen Notfalldienste.',
+          'Dieser Gesamtwert liegt im extremen Y-BOCS-Bereich. Das Ergebnis ist eine Momentaufnahme, keine Diagnose. Erwägen Sie, sich zur Unterstützung an eine qualifizierte Fachperson zu wenden. Wenn Sie in unmittelbarer Gefahr sind, wenden Sie sich an die örtlichen Notfalldienste.',
       'other':
           'Dieser erfasste Gesamtwert ist eine Momentaufnahme, keine Diagnose.',
     });
@@ -4042,7 +4042,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get analyticsPromptBody =>
-      'Teilen Sie anonyme Ereignisse zur Funktionsnutzung, um Patterns zu verbessern. Tagebucheinträge, Inhalte zur Zwangsstörung, Bewertungen, Notizen, erstellte Zusammenfassungen, Region und Sprachauswahl werden nie einbezogen. Die Freigabe bleibt aus, bis Sie sich dafür entscheiden.';
+      'Teilen Sie anonyme Ereignisse zur Funktionsnutzung, um Patterns zu verbessern. Tagebucheinträge, Inhalte zur Zwangsstörung, Belastungswerte, Notizen, erstellte Zusammenfassungen, Gebietsschema und Sprachauswahl werden nie einbezogen. Die Freigabe bleibt aus, bis Sie sich dafür entscheiden.';
 
   @override
   String get notNowAction => 'Nicht jetzt';
