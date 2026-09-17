@@ -1,10 +1,11 @@
 # Español neutral: revisión dentro de la app
 
-Status: **AI-assisted review in progress**
-Reviewed: September 16, 2026
-Frozen source: `lib/l10n/app_en.arb` at `606a985b...9074bed`
+Status: **AI-assisted linguistic and risk review complete; rendered review pending**
+Reviewed: September 17, 2026
+Frozen source: `lib/l10n/app_en.arb` at `b5813aec...139974cf`
 Draft: `lib/l10n/app_es.arb`
-Method: context-aware AI review plus deterministic ARB integrity checks
+Method: context-aware AI review, a separate source-delta reconciliation and
+semantic back-translation pass, plus deterministic ARB integrity checks
 
 This is not native-speaker or clinician sign-off.
 
@@ -32,6 +33,26 @@ This is not native-speaker or clinician sign-off.
   separate review.
 - Quiet completion uses `Terminar por ahora`, and factual completion copy
   remains non-celebratory.
+- A second pass started from every Spanish message, back-translated its meaning
+  into English, and compared it with the frozen English source. All 711
+  messages were covered by product area, with separate checks for clinical,
+  crisis, privacy, payment, accessibility, destructive-action, notification,
+  PDF, placeholder, plural, neutral address, and stable-ID meaning.
+
+## Back-translation findings
+
+| Risk area | Spanish meaning recovered in the second pass | Resolution |
+| --- | --- | --- |
+| Release framing | `Patterns ha mejorado` claimed that the product had improved, while `resúmenes objetivos de actividad` was ambiguous about whether the summaries were factual or goal-based. | Replaced both with factual new-tool and descriptive recorded-activity wording. |
+| Y-BOCS PDF | `El total es de 40, con 20...` could describe fixed scores instead of maximum possible scores. | Clarified the unchanged maximum as 40 points, with up to 20 points for each subtotal. |
+| Analytics consent | `¿Ayudas...?` was unnatural as a consent question, and `valoraciones` and `región` could mean app-store ratings and geographic region. | Replaced them with an explicit optional question, `niveles de malestar`, and `configuración regional`; sharing remains default-off. |
+| Analytics detail | `eventos de uso con nombre`, `la versión` and `la hora` did not clearly identify the fixed event names, app version, and event time. | Made every transmitted field explicit while preserving the first-party, default-off, and deletion boundaries. |
+
+No contradiction, omitted warning, added clinical claim, price, user-content
+rewrite, placeholder change, or stable-ID change remains in the reviewed
+mobile/shared catalog. Desktop-only `recuperación` wording remains unchanged
+and outside the 1.10 mobile gate. This is an AI-assisted semantic review, not
+evidence of native-speaker or clinician sign-off.
 
 ## Identified revisions
 
@@ -50,6 +71,9 @@ This is not native-speaker or clinician sign-off.
   emergency care, while retaining the local-emergency-services boundary.
 - Updated iOS permission copy to the same neutral voice and clinical
   terminology.
+- Reconciled 6 Spanish messages with the September 17 English source freeze:
+  factual release wording, exact Y-BOCS maximums, and precise default-off
+  analytics consent and data-field explanations.
 
 ## Review references
 
@@ -57,13 +81,13 @@ This is not native-speaker or clinician sign-off.
   exposición con prevención de respuesta](https://www.sanidad.gob.es/biblioPublic/publicaciones/recursos_propios/resp/revista_cdrom/VOL97/REVISIONES/RS97C_202309075.pdf)
 - [GuíaSalud, Spanish National Health System: TOC and exposición con prevención
   de respuesta (EPR)](https://portal.guiasalud.es/gpc/trastorno_obsesivo_compulsivo_ninos_adolescentes/)
+- [Spanish Ministry of Health: imminent-danger and professional-care
+  boundaries](https://www.sanidad.gob.es/linea024/)
 
-Consulted September 16, 2026.
+Consulted September 16 and rechecked September 17, 2026.
 
 ## Open evidence
 
-- Complete the independent linguistic-consistency and full back-translation
-  pass; the changes above must be included in it.
 - Render every representative mobile flow at normal, 200%, and maximum text
   sizes, then inspect clipping, wrapping, semantics, and focus order.
 - Complete physical iPhone and Android accessibility and purchase QA.

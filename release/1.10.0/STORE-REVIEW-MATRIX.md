@@ -14,7 +14,7 @@ unchanged. App Store Connect inventory and pricing checks have been read-only.
 | Português (Brasil) | back-translation reviewed | 5/6 passes | pending | pending | pending | blocked |
 | Deutsch | back-translation reviewed | 5/6 passes | pending | pending | pending | blocked |
 | 日本語 | back-translation reviewed | 5/6 passes | pending | pending | pending | blocked |
-| Español | revised draft | 4/6 passes | pending | pending | pending | blocked |
+| Español | back-translation reviewed | 5/6 passes | pending | pending | pending | blocked |
 | Français | revised draft | 4/6 passes | pending | pending | pending | blocked |
 
 The frozen English source is recorded in `source-freeze.json`. The
