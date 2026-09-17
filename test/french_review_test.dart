@@ -48,6 +48,32 @@ void main() {
     expect(arb['privacyAnalytics'], contains('choix de langue'));
   });
 
+  test('French keeps release, PDF, and privacy copy factual', () {
+    expect(arb['updateAnnouncementTitle'], isNot(contains('s’est amélioré')));
+    expect(arb['updateAnnouncementTitle'], contains('nouveaux outils'));
+    expect(arb['updateAnnouncementBody'], contains('activité enregistrée'));
+    expect(arb['pdfYbocsDescription'], contains('maximal est de 40 points'));
+    expect(arb['pdfYbocsDescription'], contains('jusqu’à 20 points'));
+    expect(arb['analyticsPromptTitle'], startsWith('Souhaitez-vous'));
+    expect(arb['analyticsPromptBody'], contains('niveaux de détresse'));
+    expect(arb['analyticsPromptBody'], contains('paramètres régionaux'));
+    expect(arb['privacyAnalytics'], contains('version de l’application'));
+    expect(arb['privacyAnalytics'], contains('heure de l’événement'));
+  });
+
+  test('French keeps Y-BOCS and immediate-support boundaries explicit', () {
+    expect(arb['ybocsSeverityBlurb'], contains('severe{'));
+    expect(arb['ybocsSeverityBlurb'], contains('extreme{'));
+    expect(
+      RegExp(r'(severe|extreme)\{[^}]*pas un diagnostic').allMatches(
+        arb['ybocsSeverityBlurb'] as String,
+      ),
+      hasLength(2),
+    );
+    expect(arb['emergencyToolkitText'], contains('danger immédiat'));
+    expect(arb['ybocsText'], contains('danger immédiat'));
+  });
+
   test('French iOS permission copy uses localized clinical language', () {
     final permissionCopy = File(
       'ios/Runner/fr.lproj/InfoPlist.strings',
