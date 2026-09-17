@@ -26,7 +26,7 @@ void main() {
   ) async {
     await _pumpOnboarding(tester);
 
-    await tester.tap(find.text('Get started'));
+    await _tapVisible(tester, find.text('Get started'));
     await tester.pumpAndSettle();
 
     expect(find.text('What would help right now?'), findsOneWidget);
@@ -39,9 +39,9 @@ void main() {
     FirstRunPath? chosen;
     await _pumpOnboarding(tester, onChoose: (p) => chosen = p);
 
-    await tester.tap(find.text('Get started'));
+    await _tapVisible(tester, find.text('Get started'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text("I'm fighting an urge right now"));
+    await _tapVisible(tester, find.text("I'm fighting an urge right now"));
     await tester.pump();
 
     expect(chosen, FirstRunPath.urge);
@@ -51,7 +51,7 @@ void main() {
     var imported = false;
     await _pumpOnboarding(tester, onImport: () => imported = true);
 
-    await tester.tap(find.text('Import existing data'));
+    await _tapVisible(tester, find.text('Import existing data'));
     await tester.pump();
 
     expect(imported, isTrue);
@@ -90,4 +90,10 @@ Future<void> _pumpOnboarding(
     ),
   );
   await tester.pumpAndSettle();
+}
+
+Future<void> _tapVisible(WidgetTester tester, Finder finder) async {
+  await tester.ensureVisible(finder);
+  await tester.pump();
+  await tester.tap(finder);
 }

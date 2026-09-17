@@ -37,7 +37,6 @@ class _OcdTrackerScreenState extends ConsumerState<OcdTrackerScreen> {
     final theme = Theme.of(context);
     final strings = context.l10n;
     final entriesAsync = ref.watch(filteredOcdProvider);
-    final useStackedHeader = MediaQuery.textScalerOf(context).scale(1) > 1.3;
 
     return Scaffold(
       body: SafeArea(
@@ -47,30 +46,21 @@ class _OcdTrackerScreenState extends ConsumerState<OcdTrackerScreen> {
             FadeSlideIn(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
-                child: Flex(
-                  direction: useStackedHeader ? Axis.vertical : Axis.horizontal,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    if (useStackedHeader)
-                      Semantics(
-                        header: true,
-                        child: Text(
-                          strings.trackerTitle,
-                          style: _screenTitle(theme),
-                        ),
-                      )
-                    else
-                      Expanded(
-                        child: Semantics(
-                          header: true,
-                          child: Text(
-                            strings.trackerTitle,
-                            style: _screenTitle(theme),
-                          ),
-                        ),
+                    Semantics(
+                      header: true,
+                      child: Text(
+                        strings.trackerTitle,
+                        style: _screenTitle(theme),
                       ),
-                    if (useStackedHeader) const SizedBox(height: 12),
-                    _PauseUrgePill(onTap: widget.onDelay),
+                    ),
+                    const SizedBox(height: 12),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: _PauseUrgePill(onTap: widget.onDelay),
+                    ),
                   ],
                 ),
               ),
@@ -419,9 +409,19 @@ class _FilterBar extends StatelessWidget {
         padding: const EdgeInsets.all(4),
         decoration: _softDecoration(Theme.of(context), radius: 22),
         child: stacked
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [for (final chip in chips) chip],
+            ? SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    for (var index = 0; index < chips.length; index++) ...[
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(minWidth: 96),
+                        child: chips[index],
+                      ),
+                      if (index != chips.length - 1) const SizedBox(width: 4),
+                    ],
+                  ],
+                ),
               )
             : Row(children: [for (final chip in chips) Expanded(child: chip)]),
       ),
@@ -860,12 +860,14 @@ class _PauseUrgePill extends StatelessWidget {
                     size: 16,
                   ),
                   const SizedBox(width: 7),
-                  Text(
-                    label,
-                    style: TextStyle(
-                      color: theme.colorScheme.primary,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w800,
+                  Flexible(
+                    child: Text(
+                      label,
+                      style: TextStyle(
+                        color: theme.colorScheme.primary,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ],

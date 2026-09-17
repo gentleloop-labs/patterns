@@ -681,8 +681,10 @@ class _YbocsCard extends StatelessWidget {
         children: [
           _CardTitle(context.l10n.insightsYbocsOverTime, info: true),
           const SizedBox(height: 10),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
+          Wrap(
+            spacing: 3,
+            runSpacing: 4,
+            crossAxisAlignment: WrapCrossAlignment.end,
             children: [
               Text(
                 context.formatInteger(latest.totalScore),
@@ -692,7 +694,7 @@ class _YbocsCard extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 3, bottom: 4),
+                padding: const EdgeInsets.only(bottom: 4),
                 child: Text(
                   context.l10n.insightsOutOfFortyShort,
                   style: _mutedStyle,
@@ -761,8 +763,10 @@ class _UrgeIntensityCard extends StatelessWidget {
         children: [
           _CardTitle(context.l10n.insightsAverageUrgeIntensity, info: true),
           const SizedBox(height: 10),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
+          Wrap(
+            spacing: 5,
+            runSpacing: 4,
+            crossAxisAlignment: WrapCrossAlignment.end,
             children: [
               Text(
                 context.formatOneDecimal(summary.averageUrge),
@@ -827,8 +831,10 @@ class _ErpPracticeCard extends StatelessWidget {
         children: [
           _CardTitle(context.l10n.insightsErpPractice, info: true),
           const SizedBox(height: 10),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
+          Wrap(
+            spacing: 5,
+            runSpacing: 4,
+            crossAxisAlignment: WrapCrossAlignment.end,
             children: [
               Text(
                 context.formatInteger(summary.erpPracticeCount),
@@ -837,7 +843,7 @@ class _ErpPracticeCard extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 5, bottom: 4),
+                padding: const EdgeInsets.only(bottom: 4),
                 child: Text(
                   context.l10n.insightsSessions(summary.erpPracticeCount),
                   style: _mutedStyle,
