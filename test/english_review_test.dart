@@ -65,6 +65,32 @@ void main() {
     }
   });
 
+  test('English release, Y-BOCS, and analytics copy stays factual', () {
+    expect(arb['updateAnnouncementTitle'], 'Patterns has new tools');
+    expect(
+      arb['updateAnnouncementBody'],
+      contains('factual activity summaries'),
+    );
+    expect(arb['updateAnnouncementTitle'], isNot(contains('better')));
+    expect(arb['pdfYbocsDescription'], startsWith('An in-app self-check'));
+    expect(arb['pdfYbocsDescription'], contains('out of 40'));
+    expect(arb['pdfYbocsDescription'], contains('each out of 20'));
+    expect(arb['analyticsPromptBody'], contains('ratings'));
+    expect(arb['analyticsPromptBody'], contains('locale'));
+    expect(arb['analyticsPromptBody'], contains('language choices'));
+    expect(arb['analyticsPromptBody'], contains('stays off'));
+  });
+
+  test('English cross-language risk boundaries stay explicit', () {
+    expect(arb['onboardingSelfCheckTitle'], contains('current patterns'));
+    expect(arb['onboardingSelfCheckTitle'], isNot(contains('OCD')));
+    expect(arb['emergencyToolkitText'], contains('immediate danger'));
+    expect(arb['ybocsText'], contains('immediate danger'));
+    expect(arb['privacyAnalytics'], contains('random installation ID'));
+    expect(arb['privacyAnalytics'], contains('first-party service'));
+    expect(arb['privacyAnalytics'], contains('local analytics ID'));
+  });
+
   test('English iOS permission copy keeps data use narrow and local', () {
     final permissionCopy = File(
       'ios/Runner/en.lproj/InfoPlist.strings',
