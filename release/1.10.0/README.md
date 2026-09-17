@@ -128,6 +128,10 @@ privacy/settings, exporting data, and purchasing/restoring Pro.
 
 ### Verification gate
 
+Use `PHYSICAL-DEVICE-QA.md` to record candidate identity, device details,
+common-task results, configuration coverage, locale smoke checks, defects, and
+evidence. Simulator results never satisfy a physical-device checkbox.
+
 - Complete every common task using VoiceOver on a physical iPhone.
 - Complete every common task at 200% text and at the largest accessibility
   size on a small iPhone.
@@ -210,6 +214,11 @@ task.
 
 ## Release plumbing
 
+Compatibility note: the Xcode 27 toolchain accepts iOS deployment targets 15
+through 27. Patterns and every CocoaPod therefore use iOS 15 as the minimum
+for 1.10. Devices remaining on iOS 13 or 14 keep their last compatible app
+version and cannot install this update.
+
 - [x] Implement every P0 item and its automated acceptance coverage.
 - [x] Complete the P1 copy and privacy scope represented in the release promise.
 - [x] Bump `pubspec.yaml` to `1.10.0+32`; reconcile the final build numbers with
@@ -225,6 +234,7 @@ task.
 - [ ] Test export/import round trips, including formatted journals and all Pro
       records.
 - [ ] Complete the physical-iPhone accessibility verification gate.
+- [ ] Complete the physical-Android accessibility verification gate.
 - [ ] Update App Store accessibility declarations only for verified support.
 - [ ] Reconcile the featuring nomination if the shipped scope or date changes.
 - [ ] Prepare and verify the TestFlight build before App Review submission.

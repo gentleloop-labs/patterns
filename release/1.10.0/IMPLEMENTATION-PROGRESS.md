@@ -37,8 +37,8 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 | --- | --- | --- | --- |
 | COPY-01 | English copy freeze | verified | `source-freeze.json` hash-locks the 711-message canonical ARB and English iOS permission copy at source commit `b5813ae`; `tool/check_copy_freeze.dart`, zero-candidate mobile audit, translator-context gate, analysis, and the current 368-test suite pass |
 | REVIEW-01 | Six-language guarded AI clinical, crisis, privacy, accessibility, and paywall review | verified | All six languages have 6/6 AI-assisted review passes complete. The 288-state mobile render matrix passes at normal, 200%, and maximum stress text scales after adaptive-layout fixes. Physical-device QA and release-owner approval remain separate gates. |
-| A11Y-DEVICE-01 | Physical-iPhone accessibility verification | pending | Common-task VoiceOver, largest text, Reduce Motion, grayscale, and Differentiate Without Color pass |
-| A11Y-DEVICE-02 | Physical-Android accessibility verification | pending | Common-task TalkBack, largest font/display scale, Reduced Motion, non-colour, and appearance pass |
+| A11Y-DEVICE-01 | Physical-iPhone accessibility verification | in progress | Auditable checklist and simulator install preflight complete; physical iPhone is currently offline. Common-task VoiceOver, largest text, Reduce Motion, grayscale, and Differentiate Without Color must still pass on hardware. |
+| A11Y-DEVICE-02 | Physical-Android accessibility verification | in progress | Auditable checklist and Android 17/API 37 emulator install preflight complete; no physical Android device is connected. Common-task TalkBack, largest font/display scale, Reduced Motion, non-colour, and appearance must still pass on hardware. |
 | DATA-01 | 1.9 upgrade and import/export compatibility | pending | Real-data upgrade and round-trip evidence recorded |
 | PURCHASE-01 | Sandbox purchase, tip, and restore verification | pending | Physical iPhone and Android sandbox/test-product flows pass |
 | ASSET-01 | Localized mobile screenshots | blocked | Copy/UI freeze, then 8 iPhone and 8 Android images per storefront locale |
