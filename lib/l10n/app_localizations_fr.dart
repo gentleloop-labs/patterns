@@ -351,11 +351,11 @@ class AppLocalizationsFr extends AppLocalizations {
       'Des informations occasionnelles lorsque Patterns propose de nouveaux outils d’auto-assistance importants.';
 
   @override
-  String get updateAnnouncementTitle => 'Patterns s’est amélioré';
+  String get updateAnnouncementTitle => 'Patterns propose de nouveaux outils';
 
   @override
   String get updateAnnouncementBody =>
-      'De nouveaux outils d’auto-assistance, des résumés factuels d’activité et un accueil plus apaisé sont disponibles.';
+      'De nouveaux outils d’auto-assistance, des résumés factuels de l’activité enregistrée et un écran d’accueil plus apaisé sont disponibles.';
 
   @override
   String get practiceWindowCompleteTitle => 'Temps de pratique terminé';
@@ -559,7 +559,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get pdfYbocsDescription =>
-      'Une auto-évaluation dans l’application fondée sur l’échelle d’obsession-compulsion de Yale-Brown (Y-BOCS). Le total est sur 40, dont 20 pour les obsessions et 20 pour les compulsions.';
+      'Une auto-évaluation dans l’application fondée sur l’échelle d’obsession-compulsion de Yale-Brown (Y-BOCS). Le score total maximal est de 40 points, avec jusqu’à 20 points pour les obsessions et jusqu’à 20 points pour les compulsions.';
 
   @override
   String get pdfMostRecentTotal => 'Total le plus récent';
@@ -768,7 +768,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get privacyAnalytics =>
-      'Les analyses d’usage anonymes sont désactivées sauf si vous les activez. Patterns envoie alors à son propre service des événements de fonctionnalité nommés, un identifiant d’installation aléatoire, la plateforme, la version et l’heure. Les entrées, les données liées au TOC, les résumés générés, les paramètres régionaux et le choix de langue ne sont jamais inclus. La désactivation efface les événements en attente et l’identifiant local.';
+      'Les analyses d’usage anonymes sont désactivées sauf si vous les activez. Dans ce cas, Patterns envoie à son propre service des événements aux noms prédéfinis sur l’utilisation des fonctionnalités, un identifiant d’installation aléatoire, la plateforme, la version de l’application et l’heure de l’événement. Les entrées du journal, les données liées au TOC, les résumés générés, les paramètres régionaux et le choix de langue ne sont jamais inclus. La désactivation efface les événements en attente et l’identifiant d’analyse local.';
 
   @override
   String get privacyClinicalBoundary =>
@@ -4060,11 +4060,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get unlockAction => 'Déverrouiller';
 
   @override
-  String get analyticsPromptTitle => 'Aider à améliorer Patterns ?';
+  String get analyticsPromptTitle =>
+      'Souhaitez-vous aider à améliorer Patterns ?';
 
   @override
   String get analyticsPromptBody =>
-      'Partagez des événements anonymes sur l’utilisation des fonctions pour aider à améliorer Patterns. Les entrées du journal, le contenu lié au TOC, les évaluations, les notes, les résumés générés, la région et la langue choisie ne sont jamais inclus. Le partage reste désactivé tant que vous ne l’avez pas choisi.';
+      'Partagez des événements anonymes sur l’utilisation des fonctionnalités pour aider à améliorer Patterns. Les entrées du journal, le contenu lié au TOC, les niveaux de détresse, les notes, les résumés générés, les paramètres régionaux et le choix de langue ne sont jamais inclus. Le partage reste désactivé sauf si vous choisissez de l’activer.';
 
   @override
   String get notNowAction => 'Pas maintenant';
