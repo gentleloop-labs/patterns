@@ -1282,8 +1282,9 @@ class _TemplateSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textHeight = MediaQuery.textScalerOf(context).scale(14) * 1.3 + 24;
     return SizedBox(
-      height: 44,
+      height: math.max(44, textHeight),
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: erpExerciseTemplates.length,
@@ -1367,37 +1368,46 @@ class _SelectedTemplatePanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final stacked = MediaQuery.textScalerOf(context).scale(1) > 1.3;
+    final details = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          template.localizedTitle(context.l10n),
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          template.localizedSubtitle(context.l10n),
+          style: _muted(theme, 13).copyWith(height: 1.3),
+        ),
+      ],
+    );
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: _softDecoration(theme, radius: 22),
-      child: Row(
-        children: [
-          _IconBadge(icon: template.icon, compact: true),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
+      child: stacked
+          ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  template.localizedTitle(context.l10n),
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  template.localizedSubtitle(context.l10n),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: _muted(theme, 13).copyWith(height: 1.3),
-                ),
+                _IconBadge(icon: template.icon, compact: true),
+                const SizedBox(height: 12),
+                details,
+                const SizedBox(height: 10),
+                _DurationBadge(seconds: template.defaultSeconds),
+              ],
+            )
+          : Row(
+              children: [
+                _IconBadge(icon: template.icon, compact: true),
+                const SizedBox(width: 14),
+                Expanded(child: details),
+                const SizedBox(width: 10),
+                _DurationBadge(seconds: template.defaultSeconds),
               ],
             ),
-          ),
-          const SizedBox(width: 10),
-          _DurationBadge(seconds: template.defaultSeconds),
-        ],
-      ),
     );
   }
 }
@@ -1424,10 +1434,12 @@ class _PracticeGuidePanel extends StatelessWidget {
                 color: theme.colorScheme.primary,
               ),
               const SizedBox(width: 8),
-              Text(
-                context.l10n.erpPlanText('practiceGuide'),
-                style: theme.textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.w900,
+              Expanded(
+                child: Text(
+                  context.l10n.erpPlanText('practiceGuide'),
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ),
             ],

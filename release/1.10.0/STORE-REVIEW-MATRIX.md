@@ -10,18 +10,23 @@ unchanged. App Store Connect inventory and pricing checks have been read-only.
 
 | Language | Product copy | Guarded AI review | Rendered layouts | Physical iPhone | Physical Android | Production enablement |
 | --- | --- | --- | --- | --- | --- | --- |
-| English | linguistic consistency reviewed | 5/6 passes | pending | pending | pending | blocked |
-| Português (Brasil) | back-translation reviewed | 5/6 passes | pending | pending | pending | blocked |
-| Deutsch | back-translation reviewed | 5/6 passes | pending | pending | pending | blocked |
-| 日本語 | back-translation reviewed | 5/6 passes | pending | pending | pending | blocked |
-| Español | back-translation reviewed | 5/6 passes | pending | pending | pending | blocked |
-| Français | back-translation reviewed | 5/6 passes | pending | pending | pending | blocked |
+| English | linguistic consistency reviewed | 6/6 passes | verified | pending | pending | blocked |
+| Português (Brasil) | back-translation reviewed | 6/6 passes | verified | pending | pending | blocked |
+| Deutsch | back-translation reviewed | 6/6 passes | verified | pending | pending | blocked |
+| 日本語 | back-translation reviewed | 6/6 passes | verified | pending | pending | blocked |
+| Español | back-translation reviewed | 6/6 passes | verified | pending | pending | blocked |
+| Français | back-translation reviewed | 6/6 passes | verified | pending | pending | blocked |
 
 The frozen English source is recorded in `source-freeze.json`. The
 mobile/shared literal audit reports zero unreviewed candidates, all 711 English
 messages have translator context, and ARB key/metadata/select parity passes.
 Reviews are recorded honestly as `ai_assisted`; they are not native-speaker or
 clinician review.
+
+The renderer-level evidence is recorded in
+`RENDERED-MOBILE-LAYOUT-REVIEW.md`: 288 representative mobile states pass at
+normal, 200%, and maximum stress text scales. Physical-device QA remains a
+separate gate.
 
 ## App Store readiness
 

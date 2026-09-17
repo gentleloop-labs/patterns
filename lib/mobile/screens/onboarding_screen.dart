@@ -163,112 +163,103 @@ class _PromiseView extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Column(
-      children: [
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 20),
-                FadeSlideIn(
-                  child: Text(
-                    'PATTERNS',
-                    style: theme.textTheme.labelMedium?.copyWith(
-                      color: context.appColors.accent,
-                      letterSpacing: 3,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 26),
-                const FadeSlideIn(
-                  duration: AppMotion.slow,
-                  child: _Hero(icon: LineIcons.feather),
-                ),
-                const SizedBox(height: 30),
-                FadeSlideIn(
-                  delay: const Duration(milliseconds: 90),
-                  child: Text(
-                    context.l10n.onboardingHeadline,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: AppTheme.displayFamily,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 32,
-                      height: 1.1,
-                      color: context.appColors.textPrimary,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 14),
-                FadeSlideIn(
-                  delay: const Duration(milliseconds: 130),
-                  child: Text(
-                    context.l10n.onboardingIntroduction,
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.bodyLarge?.copyWith(
-                      color: context.appColors.textSecondary,
-                      height: 1.48,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 22),
-                FadeSlideIn(
-                  delay: const Duration(milliseconds: 170),
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(15),
-                    decoration: _glassDecoration(theme),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 34,
-                          height: 34,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: context.appColors.accent.withValues(
-                              alpha: 0.14,
-                            ),
-                          ),
-                          child: Icon(
-                            LineIcons.lock,
-                            color: context.appColors.accent,
-                            size: 17,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Text(
-                            context.l10n.onboardingPrivacy,
-                            style: TextStyle(
-                              fontSize: 13.5,
-                              height: 1.35,
-                              color: context.appColors.textPrimary,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 24),
-              ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const SizedBox(height: 20),
+          FadeSlideIn(
+            child: Text(
+              'PATTERNS',
+              style: theme.textTheme.labelMedium?.copyWith(
+                color: context.appColors.accent,
+                letterSpacing: 3,
+                fontWeight: FontWeight.w800,
+              ),
             ),
           ),
-        ),
-        const SizedBox(height: 6),
-        SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: onGetStarted,
-            child: Text(context.l10n.getStartedAction),
+          const SizedBox(height: 26),
+          const FadeSlideIn(
+            duration: AppMotion.slow,
+            child: _Hero(icon: LineIcons.feather),
           ),
-        ),
-        TextButton(
-          onPressed: onImport,
-          child: Text(context.l10n.importExistingDataAction),
-        ),
-      ],
+          const SizedBox(height: 30),
+          FadeSlideIn(
+            delay: const Duration(milliseconds: 90),
+            child: Text(
+              context.l10n.onboardingHeadline,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: AppTheme.displayFamily,
+                fontWeight: FontWeight.w600,
+                fontSize: 32,
+                height: 1.1,
+                color: context.appColors.textPrimary,
+              ),
+            ),
+          ),
+          const SizedBox(height: 14),
+          FadeSlideIn(
+            delay: const Duration(milliseconds: 130),
+            child: Text(
+              context.l10n.onboardingIntroduction,
+              textAlign: TextAlign.center,
+              style: theme.textTheme.bodyLarge?.copyWith(
+                color: context.appColors.textSecondary,
+                height: 1.48,
+              ),
+            ),
+          ),
+          const SizedBox(height: 22),
+          FadeSlideIn(
+            delay: const Duration(milliseconds: 170),
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(15),
+              decoration: _glassDecoration(theme),
+              child: Row(
+                children: [
+                  Container(
+                    width: 34,
+                    height: 34,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: context.appColors.accent.withValues(alpha: 0.14),
+                    ),
+                    child: Icon(
+                      LineIcons.lock,
+                      color: context.appColors.accent,
+                      size: 17,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      context.l10n.onboardingPrivacy,
+                      style: TextStyle(
+                        fontSize: 13.5,
+                        height: 1.35,
+                        color: context.appColors.textPrimary,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 24),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: onGetStarted,
+              child: Text(context.l10n.getStartedAction),
+            ),
+          ),
+          TextButton(
+            onPressed: onImport,
+            child: Text(context.l10n.importExistingDataAction),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -327,10 +318,9 @@ class _ChoicesView extends StatelessWidget {
     final theme = Theme.of(context);
     final choices = _choices(context);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return ListView(
+      padding: const EdgeInsets.only(top: 6, bottom: 4),
       children: [
-        const SizedBox(height: 6),
         FadeSlideIn(
           child: Text(
             context.l10n.onboardingQuestion,
@@ -355,23 +345,16 @@ class _ChoicesView extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 18),
-        Expanded(
-          child: ListView.separated(
-            padding: const EdgeInsets.only(bottom: 4),
-            itemCount: choices.length,
-            separatorBuilder: (_, _) => const SizedBox(height: 10),
-            itemBuilder: (context, i) {
-              final choice = choices[i];
-              return FadeSlideIn(
-                delay: Duration(milliseconds: 120 + i * 50),
-                child: _ChoiceCard(
-                  choice: choice,
-                  onTap: () => onChoose(choice.path),
-                ),
-              );
-            },
+        for (var i = 0; i < choices.length; i++) ...[
+          if (i > 0) const SizedBox(height: 10),
+          FadeSlideIn(
+            delay: Duration(milliseconds: 120 + i * 50),
+            child: _ChoiceCard(
+              choice: choices[i],
+              onTap: () => onChoose(choices[i].path),
+            ),
           ),
-        ),
+        ],
       ],
     );
   }

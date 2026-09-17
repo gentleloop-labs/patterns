@@ -1,6 +1,6 @@
 # Português (Brasil) in-app review
 
-Status: **AI-assisted linguistic and risk review complete; rendered review pending**
+Status: **AI-assisted linguistic, risk, and rendered-layout review complete**
 Reviewed: September 17, 2026
 Frozen source: `lib/l10n/app_en.arb` at `b5813aec...139974cf`
 Draft: `lib/l10n/app_pt_BR.arb`
@@ -53,6 +53,10 @@ rewrite, placeholder change, or stable-ID change remains in the reviewed
 mobile/shared catalog. This is an AI-assisted semantic review, not evidence of
 native-speaker or clinician sign-off.
 
+- The 288-state rendered mobile matrix passes all six languages at normal,
+  200%, and maximum stress text scales; evidence and scope are recorded in
+  `../RENDERED-MOBILE-LAYOUT-REVIEW.md`.
+
 ## Identified revisions
 
 - Replaced mixed `OCD`/`TOC` terminology with `TOC`.
@@ -85,8 +89,6 @@ Consulted September 13 and rechecked September 17, 2026.
 
 ## Open evidence
 
-- Render every representative mobile flow at normal, 200%, and maximum text
-  sizes, then inspect clipping, wrapping, semantics, and focus order.
 - Complete physical iPhone and Android accessibility and purchase QA.
 - Review and approve the separate Brazil App Store and Google Play listing,
   IAP, and screenshot copy.
