@@ -29,6 +29,7 @@ This queue supports one carefully sourced article each week. Do not publish a dr
 | 10 | How to Find an OCD Therapist: Questions to Ask Before Starting | Treatment & ERP | How can I tell whether a therapist understands ERP? | Published |
 | 11 | What to Expect in Your First ERP Sessions | Treatment & ERP | What happens before and during early ERP work? | Published |
 | 12 | OCD Flare-Up or Relapse? What Recovery Progress Really Looks Like | Living With OCD | Does a difficult week erase recovery progress? | Published |
+| 13 | OCD Medication: SSRIs, ERP, and What to Expect | Treatment & ERP | How does OCD medication fit with ERP, and how long can it take to help? | Published |
 
 ## Article acceptance checklist
 
