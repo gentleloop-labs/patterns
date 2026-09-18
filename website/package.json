@@ -11,6 +11,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "qr": "node scripts/generate-qr.mjs",
+    "og:blog": "node scripts/generate-blog-og.mjs",
     "test:e2e": "playwright test",
     "test:all": "vitest run && playwright test"
   },

@@ -1,5 +1,5 @@
 ---
-title: 'How to Find an OCD Therapist: Questions to Ask Before Starting'
+title: 'How to Find an OCD Therapist Who Understands ERP'
 description: 'Learn how to find an OCD therapist, what to ask about ERP training, which answers matter, and how to spot a poor treatment fit.'
 date: '2026-09-13'
 updated: '2026-09-13'

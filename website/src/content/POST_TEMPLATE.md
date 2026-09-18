@@ -26,6 +26,12 @@ faq:
     a: 'Short, direct, self-contained answer. Two or three sentences - this may be lifted into a search result on its own.'
 # Optional. Overrides the automatic tag-overlap related posts.
 related: [pure-o-mental-compulsions, what-is-erp-exposure-response-prevention]
+# Add only after a named professional has completed and approved the review.
+# reviewedBy:
+#   name: 'Reviewer name'
+#   credentials: 'Relevant credentials'
+#   reviewedDate: '2026-08-07'
+#   url: 'https://professional-profile.example'
 ---
 
 <!--

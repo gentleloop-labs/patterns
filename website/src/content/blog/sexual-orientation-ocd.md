@@ -1,5 +1,5 @@
 ---
-title: 'Sexual Orientation OCD (SO-OCD): What It Is and What It Isn''t'
+title: 'Sexual Orientation OCD: What SO-OCD Is and Is Not'
 description: SO-OCD is OCD that attaches to doubt about sexual orientation. It occurs in people of every orientation, and it is about uncertainty rather than sexuality.
 date: '2026-08-06'
 updated: '2026-08-06'

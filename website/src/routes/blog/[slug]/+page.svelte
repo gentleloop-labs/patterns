@@ -17,6 +17,7 @@
   const post = $derived(data.post);
   const related = $derived(data.related);
   const Body = $derived(data.body as unknown as import('svelte').Component);
+  const postImage = $derived(`${links.site}og/blog/${post.slug}.png`);
 
   const dateFmt = new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
@@ -33,7 +34,7 @@
       datePublished: post.date,
       dateModified: post.updated,
       url: `${links.site}blog/${post.slug}`,
-      image: [site.ogImage],
+      image: [postImage],
       keywords: post.tags.join(', '),
       articleSection: getBlogCategory(post.category)?.label,
       author: { '@type': 'Person', name: site.author.name, url: site.author.url },
@@ -48,7 +49,19 @@
           height: site.logoHeight
         }
       },
-      mainEntityOfPage: { '@type': 'WebPage', '@id': `${links.site}blog/${post.slug}` },
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': `${links.site}blog/${post.slug}`,
+        ...(post.reviewedBy
+          ? {
+              reviewedBy: {
+                '@type': 'Person',
+                name: `${post.reviewedBy.name}, ${post.reviewedBy.credentials}`,
+                ...(post.reviewedBy.url ? { url: post.reviewedBy.url } : {})
+              }
+            }
+          : {})
+      },
       isPartOf: { '@type': 'Blog', name: 'The Patterns Blog', url: `${links.site}blog` }
     },
     {
@@ -78,10 +91,12 @@
 </script>
 
 <Seo
-  title={`${post.title} | The Patterns Blog`}
+  title={`${post.title} | Patterns`}
   description={post.description}
   path={`blog/${post.slug}`}
   keywords={post.keywords}
+  image={postImage}
+  imageAlt={`Patterns article card: ${post.title}`}
   ogType="article"
   article={{ publishedTime: post.date, modifiedTime: post.updated, author: site.author.name }}
   {jsonLd}
@@ -103,6 +118,16 @@
           Written by <a href="/about/aftaab-siddiqui">Aftaab Siddiqui</a>, the person building
           Patterns. <a href="/editorial-policy">How this content is made</a>.
         </p>
+        {#if post.reviewedBy}
+          <p class="reviewed">
+            Clinically reviewed by
+            {#if post.reviewedBy.url}
+              <a href={post.reviewedBy.url}>{post.reviewedBy.name}</a>
+            {:else}
+              {post.reviewedBy.name}
+            {/if}, {post.reviewedBy.credentials}, on {dateFmt.format(new Date(post.reviewedBy.reviewedDate))}.
+          </p>
+        {/if}
         {#if post.tags.length}
           <ul class="tags">
             {#each post.tags as tag}
@@ -219,6 +244,18 @@
   }
 
   .byline a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .reviewed {
+    margin: 8px 0 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+
+  .reviewed a {
     color: var(--accent);
     text-decoration: underline;
     text-underline-offset: 3px;

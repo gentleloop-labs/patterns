@@ -1,6 +1,6 @@
 ---
 title: 'What Happens During an OCD Assessment?'
-description: 'What happens during an OCD assessment is a structured conversation, not a test. Learn what clinicians ask, how the Y-BOCS is used, and how to prepare.'
+description: 'An OCD assessment is a structured conversation about obsessions, compulsions, avoidance, and impact. Learn what clinicians ask and how to prepare.'
 date: '2026-08-22'
 updated: '2026-08-22'
 readingMinutes: 10
@@ -113,7 +113,7 @@ If you think you might act on a thought, or someone is in immediate danger, that
 
 ## What happens after
 
-If the pattern is OCD, the usual next conversation is treatment. [Exposure and response prevention](/blog/what-is-erp-exposure-response-prevention) is the first-line psychological treatment in guidelines from NICE and in standard OCD care. Medication, typically an SSRI at a dose used for OCD, is a first-line option as well, alone or with ERP. Assessment sometimes also clarifies that ERP is not what you have been getting, even if you have already been in therapy.
+If the pattern is OCD, the usual next conversation is treatment. [Exposure and response prevention](/blog/what-is-erp-exposure-response-prevention) is the first-line psychological treatment in guidelines from NICE and in standard OCD care. [Medication for OCD](/blog/medication-for-ocd), typically an SSRI prescribed at a dose used for OCD, is a first-line option as well, alone or with ERP. Assessment sometimes also clarifies that ERP is not what you have been getting, even if you have already been in therapy. If you need a specialist, these [questions to ask an OCD therapist](/blog/how-to-find-an-ocd-therapist) can help you assess fit.
 
 If the pattern is not OCD, that is also a result. Generalized anxiety, depression, trauma-related symptoms, and other conditions can look adjacent and need different work. A careful assessment is what prevents months of the wrong homework.
 

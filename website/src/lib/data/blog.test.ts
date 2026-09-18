@@ -61,7 +61,7 @@ describe('blog posts', () => {
 
   it('keeps meta descriptions short enough to survive a search result', () => {
     for (const post of posts) {
-      expect(post.description.length, `${post.slug} description`).toBeLessThanOrEqual(165);
+      expect(post.description.length, `${post.slug} description`).toBeLessThanOrEqual(160);
       expect(post.description.length, `${post.slug} description`).toBeGreaterThan(50);
     }
   });
@@ -69,7 +69,30 @@ describe('blog posts', () => {
   it('has a usable excerpt and title', () => {
     for (const post of posts) {
       expect(post.title.trim().length, post.slug).toBeGreaterThan(10);
+      expect(post.title.trim().length, `${post.slug} title`).toBeLessThanOrEqual(60);
       expect(post.excerpt.trim().length, post.slug).toBeGreaterThan(30);
+    }
+  });
+
+  it('ships a 1200 by 630 social image for every published article', () => {
+    for (const post of posts) {
+      const image = readFileSync(join(process.cwd(), 'static/og/blog', `${post.slug}.png`));
+      expect(image.toString('ascii', 1, 4), `${post.slug} image type`).toBe('PNG');
+      expect(image.readUInt32BE(16), `${post.slug} image width`).toBe(1200);
+      expect(image.readUInt32BE(20), `${post.slug} image height`).toBe(630);
+    }
+  });
+
+  it('only credits complete, dated clinical reviews', () => {
+    for (const post of posts) {
+      if (!post.reviewedBy) continue;
+      expect(post.reviewedBy.name.trim().length, `${post.slug} reviewer name`).toBeGreaterThan(2);
+      expect(post.reviewedBy.credentials.trim().length, `${post.slug} reviewer credentials`)
+        .toBeGreaterThan(1);
+      expect(post.reviewedBy.reviewedDate, `${post.slug} review date`)
+        .toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(post.reviewedBy.reviewedDate.localeCompare(post.updated), `${post.slug} review after update`)
+        .toBeGreaterThanOrEqual(0);
     }
   });
 

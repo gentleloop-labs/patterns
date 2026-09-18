@@ -1,5 +1,5 @@
 ---
-title: 'Compulsion Delay: Creating a Gap Between the Urge and the Ritual'
+title: 'Compulsion Delay: How to Pause Before an OCD Ritual'
 description: Delaying a compulsion is often the first workable step toward response prevention. Here is how the technique works, how to start, and where its limits are.
 date: '2026-08-06'
 updated: '2026-08-06'

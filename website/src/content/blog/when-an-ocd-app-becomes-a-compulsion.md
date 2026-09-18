@@ -1,5 +1,5 @@
 ---
-title: 'An OCD App Can Become a Compulsion - Here Is How That Changed Patterns'
+title: 'When an OCD App Becomes a Compulsion'
 description: 'Tracking can quietly become checking. I build Patterns around one difficult rule: an OCD app should help you respond, then let you leave.'
 date: '2026-09-03'
 updated: '2026-09-03'

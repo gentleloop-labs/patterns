@@ -1,6 +1,6 @@
 ---
 title: 'Contamination OCD: More Than a Fear of Germs'
-description: Contamination OCD is the most recognised presentation and the most misunderstood. It covers mental contamination and contamination by association, not just germs.
+description: Contamination OCD can involve germs, mental contamination, or association. Learn which compulsions maintain it and how ERP addresses the cycle.
 date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 7

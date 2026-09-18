@@ -1,6 +1,6 @@
 ---
-title: 'Real-Event OCD: When the Obsession Is Something You Actually Did'
-description: Real-event OCD fixes on something that genuinely happened. Here is how it differs from ordinary guilt, why mental reviewing makes it worse, and how ERP treats it.
+title: 'Real-Event OCD: When the Obsession Is Something You Did'
+description: Real-event OCD fixates on something that happened. Learn how it differs from ordinary guilt, why mental review persists, and how ERP addresses the cycle.
 date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 8
@@ -95,6 +95,8 @@ Instead:
 - **Separating genuine amends from compulsive ones.** Where a real amends is warranted, it is made once, deliberately, ideally planned with a clinician - and then not repeated.
 
 The last point matters. ERP is not asking you to pretend you did nothing wrong. It is asking you to stop using rumination as a substitute for either accepting it or acting on it.
+
+Because guilt can become evidence inside the loop, the guide to [OCD guilt and shame](/blog/ocd-guilt-and-shame) is a useful companion. If you are looking for professional support, use these [questions for an OCD therapist](/blog/how-to-find-an-ocd-therapist) to check whether they understand mental rituals and ERP.
 
 ## What this looks like from the inside
 

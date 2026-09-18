@@ -1,6 +1,6 @@
 ---
-title: 'What Is ERP? A Plain-English Guide to Exposure and Response Prevention'
-description: ERP is the therapy with the strongest evidence for OCD. Here is what exposure and response prevention actually involves, session by session, in plain language.
+title: 'What Is ERP Therapy for OCD? A Plain-English Guide'
+description: ERP therapy for OCD combines planned exposure with response prevention. Learn how it works, what sessions involve, and how treatment is structured.
 date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 8
@@ -74,7 +74,7 @@ Practically, this is good news. You do not have to stay in an exposure until you
 
 ## Where medication fits
 
-Serotonin reuptake inhibitors are the other first-line treatment for OCD, and they are frequently combined with ERP rather than chosen instead of it. That decision belongs to you and a prescriber. It is worth knowing that "I take medication" and "I do ERP" are not competing positions.
+Serotonin reuptake inhibitors are the other first-line treatment for OCD, and they are frequently combined with ERP rather than chosen instead of it. That decision belongs to you and a prescriber. Our [OCD medication guide](/blog/medication-for-ocd) explains the usual timeline and questions to ask. It is worth knowing that "I take medication" and "I do ERP" are not competing positions.
 
 ## What this looks like from the inside
 
@@ -84,7 +84,7 @@ The thing nobody could explain to me in advance was how boring successful ERP ev
 
 The other thing: my mental compulsions were invisible to me for months. I would do the exposure properly and then spend the next forty minutes reviewing whether I had done it properly, which is [reassurance seeking](/blog/reassurance-seeking-ocd) wearing a lab coat. Finding those was harder than any of the physical exposures.
 
-If you are considering ERP and it sounds unbearable, that reaction is normal and it is not a verdict on whether you can do it. A therapist who knows OCD will start you somewhere you can actually stand.
+If you are considering ERP and it sounds unbearable, that reaction is normal and it is not a verdict on whether you can do it. A therapist who knows OCD will start you somewhere you can actually stand. See [how to find an OCD therapist who understands ERP](/blog/how-to-find-an-ocd-therapist) for practical screening questions.
 
 ## Sources
 

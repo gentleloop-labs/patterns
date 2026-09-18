@@ -33,6 +33,7 @@ export const GET: RequestHandler = () => {
         `      <link>${escapeXml(`${links.site}blog/${post.slug}`)}</link>\n` +
         `      <guid isPermaLink="true">${escapeXml(`${links.site}blog/${post.slug}`)}</guid>\n` +
         `      <description>${escapeXml(post.excerpt)}</description>\n` +
+        `      <media:content url="${escapeXml(`${links.site}og/blog/${post.slug}.png`)}" type="image/png" medium="image" width="1200" height="630" />\n` +
         `      <pubDate>${toRfc822(post.date)}</pubDate>\n` +
         post.tags
           .map((tag) => `      <category>${escapeXml(tag)}</category>\n`)
@@ -43,7 +44,7 @@ export const GET: RequestHandler = () => {
 
   const body =
     `<?xml version="1.0" encoding="UTF-8"?>\n` +
-    `<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n` +
+    `<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">\n` +
     `  <channel>\n` +
     `    <title>${escapeXml(FEED_TITLE)}</title>\n` +
     `    <link>${escapeXml(`${links.site}blog`)}</link>\n` +

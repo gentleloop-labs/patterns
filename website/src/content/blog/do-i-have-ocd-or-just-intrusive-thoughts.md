@@ -1,6 +1,6 @@
 ---
-title: 'Do I Have OCD or Just Intrusive Thoughts? Understanding the Difference'
-description: 'Intrusive thoughts are common. OCD involves a recurring loop of distress, compulsions, and interference. Learn the signs and when to seek an assessment.'
+title: 'Do I Have OCD or Intrusive Thoughts?'
+description: 'Intrusive thoughts are common. OCD involves a recurring loop of distress, compulsions, and interference. Learn the difference and when to seek an assessment.'
 date: '2026-08-13'
 updated: '2026-08-13'
 readingMinutes: 9
@@ -120,6 +120,8 @@ An assessment is a conversation, not a test of whether you can describe the thou
 People sometimes omit the thoughts they fear will be misunderstood. OCD clinicians are familiar with taboo intrusive thoughts involving harm, sex, religion, identity, and relationships. The purpose of describing them is to understand the pattern, not to pass a character test.
 
 If your first clinician talks only about general stress and does not ask about compulsions, it is reasonable to ask whether they have experience assessing OCD.
+
+Our guides to [what happens during an OCD assessment](/blog/what-happens-during-an-ocd-assessment) and [finding a therapist who understands ERP](/blog/how-to-find-an-ocd-therapist) explain what the next step can look like without asking you to diagnose yourself first.
 
 ## What happens if the pattern is OCD?
 

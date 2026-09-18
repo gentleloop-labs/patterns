@@ -17,7 +17,7 @@ type Entry = {
  * Bump when any static marketing route below changes in a crawl-meaningful way
  * (copy, structure, or primary media). Blog lastmod comes from post frontmatter.
  */
-const STATIC_LASTMOD = '2026-09-03';
+const STATIC_LASTMOD = '2026-09-18';
 
 /**
  * Hand-maintained entries for the static marketing routes. Blog URLs are
@@ -141,7 +141,13 @@ export const GET: RequestHandler = () => {
       path: `blog/${post.slug}`,
       lastmod: post.updated,
       changefreq: 'monthly' as const,
-      priority: '0.6'
+      priority: '0.6',
+      images: [
+        {
+          loc: `${links.site}og/blog/${post.slug}.png`,
+          title: `${post.title} - Patterns OCD guide`
+        }
+      ]
     }))
   ];
 

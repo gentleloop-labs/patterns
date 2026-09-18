@@ -1,6 +1,6 @@
 ---
-title: 'The SUDS Scale: Rating Distress from 0 to 10 During Exposures'
-description: SUDS is the 0 to 10 distress rating used throughout ERP. Here is where it came from, how to anchor your own scale, and why the trend matters more than the number.
+title: 'SUDS Scale for ERP: How to Rate Distress During Exposure'
+description: The SUDS scale rates distress during ERP. Learn how to anchor a 0-to-10 rating, use it during exposure, and avoid turning the number into a ritual.
 date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 6
@@ -58,6 +58,8 @@ Then personalise it. Pick a specific memory for 3, one for 6, and one for 9, and
 **Tracking within an exposure.** Rate at the start, then periodically, then at the end. The classic pattern - anxiety climbs, peaks, and comes down without you doing anything - is the single most convincing piece of evidence most people ever get. You cannot be argued into believing it. Watching your own numbers do it is different.
 
 **Tracking across repetitions.** This is where the number earns its keep. Rung one on Monday might be a 7. On Friday it is a 4. Two weeks later it is a 2 and you have stopped noticing. Any single session is noise; the trend is the signal.
+
+If you are new to the process, [what to expect in your first ERP sessions](/blog/what-to-expect-first-erp-sessions) explains how assessment, hierarchy building, SUDS ratings, and early exposure practice usually fit together.
 
 ## The number matters less than you think
 

@@ -26,9 +26,9 @@ This queue supports one carefully sourced article each week. Do not publish a dr
 | 7 | Sensorimotor OCD: When You Cannot Stop Noticing Your Body | OCD Themes | Why does attention become stuck on an automatic sensation? | Published |
 | 8 | Just Right OCD: Perfectionism, Repeating, and Incompleteness | OCD Themes | What is the difference between a preference and a driven ritual? | Published |
 | 9 | Responsibility OCD: Feeling Responsible for Preventing Harm | OCD Themes | Why does possibility feel like personal responsibility? | Published |
-| 10 | How to Find an OCD Therapist: Questions to Ask Before Starting | Treatment & ERP | How can I tell whether a therapist understands ERP? | Published |
+| 10 | How to Find an OCD Therapist Who Understands ERP | Treatment & ERP | How can I tell whether a therapist understands ERP? | Published |
 | 11 | What to Expect in Your First ERP Sessions | Treatment & ERP | What happens before and during early ERP work? | Published |
-| 12 | OCD Flare-Up or Relapse? What Recovery Progress Really Looks Like | Living With OCD | Does a difficult week erase recovery progress? | Published |
+| 12 | OCD Flare-Up or Relapse? How Recovery Really Looks | Living With OCD | Does a difficult week erase recovery progress? | Published |
 | 13 | OCD Medication: SSRIs, ERP, and What to Expect | Treatment & ERP | How does OCD medication fit with ERP, and how long can it take to help? | Published |
 
 ## Article acceptance checklist

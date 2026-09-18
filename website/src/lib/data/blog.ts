@@ -23,6 +23,13 @@ export type BlogFaq = {
   a: string;
 };
 
+export type BlogReviewer = {
+  name: string;
+  credentials: string;
+  reviewedDate: string;
+  url?: string;
+};
+
 export const blogCategories = [
   {
     slug: 'recognizing-ocd',
@@ -100,6 +107,8 @@ export type BlogPost = {
   faq?: BlogFaq[];
   /** Manual related-post slugs. Falls back to tag overlap when omitted. */
   related?: string[];
+  /** Present only after a named professional has completed and approved a clinical review. */
+  reviewedBy?: BlogReviewer;
 };
 
 /** Frontmatter as authored - most fields are optional and filled in below. */
@@ -158,7 +167,8 @@ function toPost(path: string, meta: RawFrontmatter): BlogPost {
     draft: meta.draft ?? false,
     keywords: meta.keywords,
     faq: meta.faq,
-    related: meta.related
+    related: meta.related,
+    reviewedBy: meta.reviewedBy
   };
 }
 
