@@ -1,5 +1,5 @@
 ---
-title: 'Existential OCD: When Life''s Biggest Questions Become a Loop'
+title: 'Existential OCD: When Big Questions Become a Loop'
 description: 'Existential OCD attaches to unanswerable questions about life, death, and reality. Learn how it differs from philosophy and how ERP treats the loop.'
 date: '2026-08-22'
 updated: '2026-08-22'

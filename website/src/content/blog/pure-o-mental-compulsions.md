@@ -1,6 +1,6 @@
 ---
 title: 'Pure O: Why "Purely Obsessional" OCD Still Has Compulsions'
-description: Pure O describes OCD without visible rituals. But the compulsions are still there - they are just mental. Here is how to find them, and why it matters for treatment.
+description: Pure O describes OCD with hidden mental rituals such as rumination, reviewing, or neutralising. Learn how to identify them and why treatment targets them.
 date: '2026-08-06'
 updated: '2026-08-06'
 readingMinutes: 7

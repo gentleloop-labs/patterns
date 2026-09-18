@@ -1,6 +1,6 @@
 ---
 title: 'Health OCD vs Health Anxiety: What Is the Difference?'
-description: 'Health OCD and health anxiety share checking and googling. The difference is the loop: intrusive doubt plus ritual, versus a more persistent conviction of illness.'
+description: 'Health OCD and health anxiety can both involve checking and googling. Learn how their response patterns differ and when to seek an assessment.'
 date: '2026-08-28'
 updated: '2026-08-28'
 readingMinutes: 10

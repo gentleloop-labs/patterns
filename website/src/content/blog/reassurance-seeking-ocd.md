@@ -1,5 +1,5 @@
 ---
-title: 'Reassurance Seeking: The Compulsion That Hides in Plain Sight'
+title: 'Reassurance Seeking in OCD: Why It Becomes a Compulsion'
 description: Asking "are you sure?", googling symptoms, and mentally reviewing are all compulsions. Here is why reassurance feeds OCD, and how to stop giving and getting it.
 date: '2026-08-06'
 updated: '2026-08-06'

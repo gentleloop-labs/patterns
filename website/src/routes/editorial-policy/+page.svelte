@@ -84,6 +84,15 @@
         reviewed. Responsibility for the published page remains with Aftaab.
       </p>
 
+      <h2>Clinical review</h2>
+      <p>
+        When a qualified professional completes and approves a clinical review, the article shows
+        that person's name, relevant credentials, review date, and a professional profile link when
+        available. The credit applies only to the article where it appears. Patterns does not use a
+        generic site-wide “clinically reviewed” badge, and an uncredited private comment is never
+        presented as clinical endorsement.
+      </p>
+
       <h2>Safety and scope</h2>
       <ul>
         <li>Articles do not diagnose the reader or promise an outcome.</li>

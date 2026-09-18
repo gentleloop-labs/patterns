@@ -24,7 +24,8 @@
         headline: post.title,
         description: post.description,
         datePublished: post.date,
-        url: `${links.site}blog/${post.slug}`
+        url: `${links.site}blog/${post.slug}`,
+        image: `${links.site}og/blog/${post.slug}.png`
       }))
     },
     {

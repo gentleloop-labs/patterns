@@ -1,5 +1,5 @@
 ---
-title: 'OCD Flare-Up or Relapse? What Recovery Progress Really Looks Like'
+title: 'OCD Flare-Up or Relapse? How Recovery Really Looks'
 description: 'A difficult OCD week does not erase recovery. Learn how a brief flare-up differs from relapse and what meaningful progress can look like.'
 date: '2026-09-18'
 updated: '2026-09-18'
