@@ -30,6 +30,8 @@ This queue supports one carefully sourced article each week. Do not publish a dr
 | 11 | What to Expect in Your First ERP Sessions | Treatment & ERP | What happens before and during early ERP work? | Published |
 | 12 | OCD Flare-Up or Relapse? How Recovery Really Looks | Living With OCD | Does a difficult week erase recovery progress? | Published |
 | 13 | OCD Medication: SSRIs, ERP, and What to Expect | Treatment & ERP | How does OCD medication fit with ERP, and how long can it take to help? | Published |
+| 14 | Can OCD Go Away? What Recovery Actually Means | Living With OCD | Can symptoms improve or remit, and what does recovery mean? | Published |
+| 15 | How to Support Someone With OCD Without Feeding the Cycle | Living With OCD | How can supporters validate distress without joining compulsions? | Published |
 
 ## Article acceptance checklist
 

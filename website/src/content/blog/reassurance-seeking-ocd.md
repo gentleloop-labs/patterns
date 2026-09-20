@@ -73,7 +73,7 @@ Response prevention for reassurance means letting the question stand unanswered.
 
 ## If someone you love has OCD
 
-Family and partners are usually pulled into this, and refusing reassurance feels cruel from the outside. It is worth knowing that accommodating rituals - answering the questions, doing the checking, arranging life around the avoidance - is associated with worse outcomes, and that reducing it deliberately is part of standard OCD treatment.
+Family and partners are usually pulled into this, and refusing reassurance feels cruel from the outside. It is worth knowing that accommodating rituals - answering the questions, doing the checking, arranging life around the avoidance - is associated with worse outcomes, and that reducing it deliberately is part of standard OCD treatment. Our guide to [supporting someone with OCD without feeding the cycle](/blog/how-to-support-someone-with-ocd) explains how care and boundaries can coexist.
 
 A workable approach:
 
