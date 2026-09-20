@@ -141,7 +141,7 @@ If you may be in immediate danger or unable to stay safe, contact local emergenc
 
 Recovery from OCD is not invalidated by the return of a thought, an anxious week, or a compulsion you hoped was behind you. It is possible to have made real progress and still need support again.
 
-The more useful measure is often whether OCD is directing less of your life over time, whether you can recognise the loop, and whether you can return to the responses you have practised. A flare-up can be a signal to reconnect with those skills. A more sustained return of symptoms can be a signal to involve a clinician. Neither one makes the earlier work imaginary.
+The more useful measure is often whether OCD is directing less of your life over time, whether you can recognise the loop, and whether you can return to the responses you have practised. A flare-up can be a signal to reconnect with those skills. A more sustained return of symptoms can be a signal to involve a clinician. Neither one makes the earlier work imaginary. For the wider view, read [what recovery and remission can mean when someone asks whether OCD can go away](/blog/can-ocd-go-away).
 
 If you use a journal or tracker between appointments, keep it in service of that wider view. Record enough to notice the pattern and bring useful context to care, then return to your day. Our guide to [using an OCD app without turning it into a compulsion](/blog/when-an-ocd-app-becomes-a-compulsion) explains how to set that boundary.
 

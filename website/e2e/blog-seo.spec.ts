@@ -4,6 +4,19 @@ const slug = 'what-is-erp-exposure-response-prevention';
 const title = 'What Is ERP Therapy for OCD? A Plain-English Guide';
 const imagePath = `/og/blog/${slug}.png`;
 
+const newArticles = [
+  {
+    slug: 'can-ocd-go-away',
+    title: 'Can OCD Go Away? What Recovery Actually Means',
+    contextualLink: '/blog/ocd-flare-up-or-relapse'
+  },
+  {
+    slug: 'how-to-support-someone-with-ocd',
+    title: 'How to Support Someone With OCD Without Feeding the Cycle',
+    contextualLink: '/blog/reassurance-seeking-ocd'
+  }
+];
+
 test.describe('blog SEO', () => {
   test('renders concise metadata and an article-specific social card', async ({ page, request }) => {
     await page.goto(`/blog/${slug}`);
@@ -47,4 +60,27 @@ test.describe('blog SEO', () => {
     expect(rssBody).toContain('xmlns:media="http://search.yahoo.com/mrss/"');
     expect(rssBody).toContain(`media:content url="https://patternsocd.com${imagePath}"`);
   });
+
+  for (const article of newArticles) {
+    test(`publishes ${article.slug} with metadata, sources, and internal links`, async ({
+      page,
+      request
+    }) => {
+      const articleImage = `/og/blog/${article.slug}.png`;
+      await page.goto(`/blog/${article.slug}`);
+
+      await expect(page).toHaveTitle(`${article.title} | Patterns`);
+      await expect(page.locator('h1')).toHaveText(article.title);
+      await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+        'content',
+        `https://patternsocd.com${articleImage}`
+      );
+      await expect(page.getByRole('heading', { name: 'Sources' })).toBeVisible();
+      await expect(page.locator(`a[href="${article.contextualLink}"]`).first()).toBeVisible();
+
+      const image = await request.get(articleImage);
+      expect(image.ok()).toBe(true);
+      expect(image.headers()['content-type']).toContain('image/png');
+    });
+  }
 });
