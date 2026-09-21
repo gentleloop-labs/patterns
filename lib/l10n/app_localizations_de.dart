@@ -4079,7 +4079,7 @@ class AppLocalizationsDe extends AppLocalizations {
           'Ihr Selbstcheck ist auf diesem Gerät gespeichert. Das Ergebnis ist eine Momentaufnahme, keine Diagnose.',
       'firstExploreTitle': 'Willkommen bei Patterns',
       'firstExploreBody': 'Sehen Sie sich in Ihrem eigenen Tempo um.',
-      'setReminder': 'Sanfte Erinnerung einstellen',
+      'setReminder': 'Sanfte Erinnerung',
       'goToSpace': 'Zu meinem Bereich',
       'reminderPrompt': 'Wann soll Patterns Sie erinnern?',
       'notificationsOff':

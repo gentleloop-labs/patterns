@@ -1823,7 +1823,7 @@ class AppLocalizationsFr extends AppLocalizations {
       'Notez seulement ce qui vous semble utile. Une courte note suffit.';
 
   @override
-  String get trackerEmptyAction => 'Enregistrer un événement de TOC';
+  String get trackerEmptyAction => 'Noter un événement TOC';
 
   @override
   String get insightsTitle => 'Analyses';
@@ -3052,7 +3052,7 @@ class AppLocalizationsFr extends AppLocalizations {
       'resultsTitle': 'Votre résultat',
       'retake': 'Recommencer',
       'saved': 'Enregistré',
-      'saveHistory': 'Enregistrer dans mon historique',
+      'saveHistory': 'Ajouter à l’historique',
       'saving': 'Enregistrement…',
       'saveSuccess': 'Enregistré dans votre historique.',
       'saveError': 'Impossible d’enregistrer cette auto-évaluation. Réessayez.',

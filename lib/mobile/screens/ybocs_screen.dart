@@ -1084,7 +1084,9 @@ class _ResultsView extends StatelessWidget {
         _BottomBar(
           child: LayoutBuilder(
             builder: (context, constraints) {
-              final stack = MediaQuery.textScalerOf(context).scale(1) >= 1.5;
+              final stack =
+                  MediaQuery.textScalerOf(context).scale(1) >= 1.5 ||
+                  constraints.maxWidth < 330;
               final retake = OutlinedButton(
                 onPressed: saving ? null : onRetake,
                 child: Text(strings.ybocsText('retake')),
