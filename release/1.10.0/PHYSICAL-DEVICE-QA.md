@@ -14,9 +14,9 @@ same commit and frozen 1.10 source.
 
 | Field | iPhone | Android |
 | --- | --- | --- |
-| Commit | `fd9cf81` |  |
-| Version/build | `1.10.0 (58)` |  |
-| Artifact/TestFlight or internal-track identifier | TestFlight build `5902eb94-c01d-4949-9167-e7597e4c2d6a`; `Patterns Internal` |  |
+| Commit | `c73edbd` |  |
+| Version/build | `1.10.0 (59)` |  |
+| Artifact/TestFlight or internal-track identifier | TestFlight build `a504b7e7-9812-4155-bb3a-735aa4a1e915`; `Patterns Internal` |  |
 | Device model | iPhone 12 (`iPhone13,2`, tester inventory) |  |
 | OS version | iOS 26.6 (tester inventory) |  |
 | Screen size | 6.1-inch |  |

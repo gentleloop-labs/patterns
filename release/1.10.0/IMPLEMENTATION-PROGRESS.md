@@ -36,20 +36,20 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 | ID | Gate | Status | Exit condition |
 | --- | --- | --- | --- |
 | COPY-01 | English copy freeze | verified | `source-freeze.json` hash-locks the 711-message canonical ARB and English iOS permission copy at source commit `b5813ae`; `tool/check_copy_freeze.dart`, zero-candidate mobile audit, translator-context gate, analysis, and the current 370-test suite pass |
-| REVIEW-01 | Six-language guarded AI clinical, crisis, privacy, accessibility, and paywall review | verified | All six languages have 6/6 AI-assisted review passes complete. The 288-state mobile render matrix passes at normal, 200%, and maximum stress text scales after adaptive-layout fixes. Physical-device QA and release-owner approval remain separate gates. |
-| A11Y-DEVICE-01 | Physical-iPhone accessibility verification | in progress | Multilingual `1.10.0 (58)` is valid in TestFlight and available to `Patterns Internal`; physical iPhone execution still must cover VoiceOver, largest text, Reduce Motion, grayscale, and Differentiate Without Color. |
+| REVIEW-01 | Six-language guarded AI clinical, crisis, privacy, accessibility, and paywall review | verified | All six languages have 6/6 AI-assisted review passes complete. The 828-state mobile render matrix passes at normal, 200%, and maximum stress text scales after adaptive-layout fixes. Physical-device QA and release-owner approval remain separate gates. |
+| A11Y-DEVICE-01 | Physical-iPhone accessibility verification | in progress | Multilingual `1.10.0 (59)` is valid in TestFlight and available to `Patterns Internal`; physical iPhone execution still must cover VoiceOver, largest text, Reduce Motion, grayscale, and Differentiate Without Color. |
 | A11Y-DEVICE-02 | Physical-Android accessibility verification | in progress | Auditable checklist and Android 17/API 37 emulator install preflight complete; no physical Android device is connected. Common-task TalkBack, largest font/display scale, Reduced Motion, non-colour, and appearance must still pass on hardware. |
 | DATA-01 | 1.9 upgrade and import/export compatibility | verified | Real `1.9.0+31` → `1.10.0+32` installed Android upgrade preserves records, stable IDs, Pro, reminders, and established-user defaults; native SQLite tests cover all 18 tables, complete replacement restore, older backups, rich journal JSON, Japanese text, and ISO storage; see `DATA-UPGRADE-AND-ROUNDTRIP.md` |
 | PURCHASE-01 | Sandbox purchase, tip, and restore verification | pending | Physical iPhone and Android sandbox/test-product flows pass |
 | ASSET-01 | Localized mobile screenshots | in progress | Existing eight-frame English Apple/Play campaign and renderer audited. Next: parameterize and review 8 iPhone and 8 Android images for each of 6 interface languages (96 unique images); regional storefront variants reuse them where their language and claims match |
-| BUILD-01 | Mobile release builds | in progress | Signed multilingual iOS QA IPA `1.10.0 (58)` is valid in TestFlight; rebuild after physical QA findings, then verify the final iOS IPA and signed Android AAB |
+| BUILD-01 | Mobile release builds | in progress | Signed multilingual iOS QA IPA `1.10.0 (59)` is valid in TestFlight; rebuild after physical QA findings, then verify the final iOS IPA and signed Android AAB |
 | STORE-01 | Coordinated App Store and Google Play 1.10 submission | blocked | Approved matrix, unchanged PPP schedules, builds/assets/IAPs/products validated and attached |
 
 ## Current metrics
 
-- Repository version: `1.10.0+32`; TestFlight QA candidate: `1.10.0 (58)`.
+- Repository version: `1.10.0+32`; TestFlight QA candidate: `1.10.0 (59)`.
 - Release announcement: `patterns_1_10`.
-- Rendered mobile-layout matrix: 288 states across 16 representative surfaces, six languages, and three text scales passing.
+- Rendered mobile-layout matrix: 828 states across 46 representative surfaces and states, six languages, and three text scales passing.
 - Full Flutter suite after DATA-01: 370 tests passing.
 - Mobile/shared literal audit: zero unreviewed candidates; stable localization selector keys and debug-only sources are covered by documented allowlist rules.
 - Store drafts: field, locale, and character-limit validation passing; not approved or uploaded.
