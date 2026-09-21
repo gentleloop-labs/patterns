@@ -1,15 +1,15 @@
 # Patterns 1.10 virtual-device QA
 
-Status: **passed after remediation — replacement physical candidate pending**
+Status: **passed after remediation — physical iPhone candidate available**
 
 Executed: September 22, 2026
-Repository HEAD: `90b9fbf`
-Application source: `c73edbd`
-TestFlight candidate: `1.10.0 (59)`
+Repository HEAD: `66184f8`
+Application source: `66184f8`
+TestFlight candidate: `1.10.0 (60)` (`ced89606-46cf-4ab8-8e06-03c4d2b86a8c`)
 
-The blocker fixes are currently in the working tree based on `90b9fbf`. The
-local Android release APK was rebuilt with them; TestFlight build 59 predates
-them and must be replaced before physical-device sign-off.
+The blocker fixes are committed in `66184f8`. The local Android release APK
+was rebuilt with them, and TestFlight build 60 contains the same iOS source for
+physical-device sign-off.
 
 This is preflight evidence for the physical-device checklist. It does not
 check any physical-device item or change `reviewed-locales.json`.
@@ -24,8 +24,8 @@ check any physical-device item or change `reviewed-locales.json`.
 Toolchain: Flutter 3.44.4 and Android platform tools 37.0.1.
 
 The iOS simulator package retains the repository build number because Flutter
-does not produce an iOS simulator release artifact. TestFlight build 59 is the
-corresponding signed device candidate. The Android APK was built and inspected
+does not produce an iOS simulator release artifact. TestFlight build 60 is the
+signed device candidate containing the remediations. The Android APK was built and inspected
 as version name `1.10.0`, version code `59`, minimum SDK 24, and target SDK 36.
 
 ## Passed virtual checks

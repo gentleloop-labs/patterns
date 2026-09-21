@@ -9,9 +9,8 @@ only observations made on physical hardware may check an item below or change
 
 The September 22 virtual-device preflight is recorded in
 `VIRTUAL-DEVICE-QA.md`. Its two maximum-scale/orientation blockers are fixed
-and pass virtual retesting in the current working tree. TestFlight build 59
-predates the fixes; install and record its replacement before beginning the
-full physical-device pass.
+and pass virtual retesting. TestFlight build 60 contains those fixes and is
+ready for the full physical-device pass.
 
 ## Candidate identity
 
@@ -20,9 +19,9 @@ same commit and frozen 1.10 source.
 
 | Field | iPhone | Android |
 | --- | --- | --- |
-| Commit | `c73edbd` |  |
-| Version/build | `1.10.0 (59)` |  |
-| Artifact/TestFlight or internal-track identifier | TestFlight build `a504b7e7-9812-4155-bb3a-735aa4a1e915`; `Patterns Internal` |  |
+| Commit | `66184f8` |  |
+| Version/build | `1.10.0 (60)` |  |
+| Artifact/TestFlight or internal-track identifier | TestFlight build `ced89606-46cf-4ab8-8e06-03c4d2b86a8c`; `Patterns Internal` |  |
 | Device model | iPhone 12 (`iPhone13,2`, tester inventory) |  |
 | OS version | iOS 26.6 (tester inventory) |  |
 | Screen size | 6.1-inch |  |
@@ -190,8 +189,8 @@ September 22, 2026:
 - Both defects were fixed in the working tree. Device-level retesting confirms
   non-overlapping body/navigation bounds, a reachable Android delay action,
   an intact iOS Journal title/date strip, and scroll access to all lower copy.
-- TestFlight build 59 remains the old candidate and is not eligible for final
-  physical sign-off; record the replacement build above when it is available.
+- TestFlight build 60 contains both blocker fixes, is valid, and is available
+  to `Patterns Internal` for physical sign-off.
 - TalkBack started successfully after its permission prompt and exposed visual
   focus, but injected traversal and audio could not establish a common-task
   pass. Quill keyboard injection was also inconclusive. Both remain hardware
