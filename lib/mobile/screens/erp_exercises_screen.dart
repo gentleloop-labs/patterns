@@ -2075,18 +2075,25 @@ class _ErpStopActions extends StatelessWidget {
       OutlinedButton(onPressed: onKeepGoing, child: Text(keepGoing)),
       ElevatedButton(onPressed: onStop, child: Text(stop)),
     ];
-    if (MediaQuery.textScalerOf(context).scale(1) > 1.3) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [buttons.first, const SizedBox(height: 12), buttons.last],
-      );
-    }
-    return Row(
-      children: [
-        Expanded(child: buttons.first),
-        const SizedBox(width: 12),
-        Expanded(child: buttons.last),
-      ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final stacked =
+            MediaQuery.textScalerOf(context).scale(1) > 1.3 ||
+            constraints.maxWidth < 300;
+        if (stacked) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [buttons.first, const SizedBox(height: 12), buttons.last],
+          );
+        }
+        return Row(
+          children: [
+            Expanded(child: buttons.first),
+            const SizedBox(width: 12),
+            Expanded(child: buttons.last),
+          ],
+        );
+      },
     );
   }
 }
@@ -2108,7 +2115,7 @@ class _BottomPanel extends StatelessWidget {
           borderRadius: BorderRadius.circular(28),
           border: Border.all(color: theme.dividerColor),
         ),
-        child: child,
+        child: SingleChildScrollView(child: child),
       ),
     );
   }

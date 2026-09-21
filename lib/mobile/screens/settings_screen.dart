@@ -1205,7 +1205,6 @@ class _PanelActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final stacked = MediaQuery.textScalerOf(context).scale(1) > 1.3;
     final cancel = OutlinedButton(
       onPressed: onCancel,
       child: Text(cancelLabel),
@@ -1214,18 +1213,25 @@ class _PanelActions extends StatelessWidget {
       onPressed: onConfirm,
       child: Text(confirmLabel),
     );
-    if (stacked) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [confirm, const SizedBox(height: 10), cancel],
-      );
-    }
-    return Row(
-      children: [
-        Expanded(child: cancel),
-        const SizedBox(width: 12),
-        Expanded(child: confirm),
-      ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final stacked =
+            MediaQuery.textScalerOf(context).scale(1) > 1.3 ||
+            constraints.maxWidth < 300;
+        if (stacked) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [confirm, const SizedBox(height: 10), cancel],
+          );
+        }
+        return Row(
+          children: [
+            Expanded(child: cancel),
+            const SizedBox(width: 12),
+            Expanded(child: confirm),
+          ],
+        );
+      },
     );
   }
 }

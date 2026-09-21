@@ -79,7 +79,7 @@ void main() {
 
     expect(tester.takeException(), isNull);
     expect(find.text('Übung erfasst'), findsOneWidget);
-    expect(find.text('Sanfte Erinnerung einstellen'), findsOneWidget);
+    expect(find.text('Sanfte Erinnerung'), findsOneWidget);
   });
 
   testWidgets('spotlight tour localizes controls and blocks background copy', (

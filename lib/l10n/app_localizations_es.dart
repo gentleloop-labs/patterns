@@ -4041,7 +4041,7 @@ class AppLocalizationsEs extends AppLocalizations {
           'Tu autoevaluación se guardó en este dispositivo. El resultado es una instantánea, no un diagnóstico.',
       'firstExploreTitle': 'Te damos la bienvenida a Patterns',
       'firstExploreBody': 'Explora a tu propio ritmo.',
-      'setReminder': 'Programar un recordatorio suave',
+      'setReminder': 'Recordatorio suave',
       'goToSpace': 'Ir a mi espacio',
       'reminderPrompt': '¿Cuándo quieres que Patterns te lo recuerde?',
       'notificationsOff':
