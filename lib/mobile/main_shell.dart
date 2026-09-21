@@ -911,82 +911,73 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
       _Tab.insights: const AnalyticsScreen(),
     };
 
-    final showFab = _selectedTab == _Tab.journal || _selectedTab == _Tab.track;
+    final textScale = MediaQuery.textScalerOf(context).scale(1);
+    final showFab =
+        (_selectedTab == _Tab.journal || _selectedTab == _Tab.track) &&
+        textScale < 2;
     final reduceMotion = motionDisabled(context);
 
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: PageTransitionSwitcher(
-              duration: AppMotion.medium,
-              reverse: false,
-              transitionBuilder: (child, primary, secondary) {
-                if (motionDisabled(context)) return child;
-                return FadeThroughTransition(
-                  animation: primary,
-                  secondaryAnimation: secondary,
-                  fillColor: Colors.transparent,
-                  child: child,
-                );
+      body: KeyedSubtree(
+        key: const ValueKey('mobile-page-body'),
+        child: PageTransitionSwitcher(
+          duration: AppMotion.medium,
+          reverse: false,
+          transitionBuilder: (child, primary, secondary) {
+            if (motionDisabled(context)) return child;
+            return FadeThroughTransition(
+              animation: primary,
+              secondaryAnimation: secondary,
+              fillColor: Colors.transparent,
+              child: child,
+            );
+          },
+          child: KeyedSubtree(
+            key: ValueKey(_selectedTab.name),
+            child: pages[_selectedTab]!,
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: AnimatedSlide(
+        offset: showFab ? Offset.zero : const Offset(0, 1.6),
+        duration: reduceMotion ? Duration.zero : AppMotion.medium,
+        curve: Curves.easeOutCubic,
+        child: AnimatedOpacity(
+          opacity: showFab ? 1 : 0,
+          duration: reduceMotion
+              ? Duration.zero
+              : const Duration(milliseconds: 220),
+          child: IgnorePointer(
+            ignoring: !showFab,
+            child: _FloatingPenButton(
+              icon: _selectedTab == _Tab.track
+                  ? Icons.add_rounded
+                  : LineIcons.penNib,
+              semanticLabel: _selectedTab == _Tab.track
+                  ? context.l10n.trackerEmptyAction
+                  : context.l10n.journalNewEntryAction,
+              onTap: switch (_selectedTab) {
+                _Tab.journal => () => _openJournalEditor(context),
+                _Tab.track => () => _openOcdFlow(context),
+                _ => () => _showAddSheet(context),
               },
-              child: KeyedSubtree(
-                key: ValueKey(_selectedTab.name),
-                child: pages[_selectedTab]!,
-              ),
             ),
           ),
-          Positioned(
-            left: 20,
-            right: 20,
-            bottom: 8,
-            child: SafeArea(
-              minimum: EdgeInsets.zero,
-              child: _FloatingTabBar(
-                selectedTab: _selectedTab,
-                tabKeys: _tabKeys,
-                onSelected: (tab) {
-                  if (tab == _selectedTab) return;
-                  _selectTab(tab);
-                },
-              ),
-            ),
-          ),
-          Positioned(
-            right: 28,
-            bottom: 92,
-            child: SafeArea(
-              minimum: EdgeInsets.zero,
-              child: AnimatedSlide(
-                offset: showFab ? Offset.zero : const Offset(0, 1.6),
-                duration: reduceMotion ? Duration.zero : AppMotion.medium,
-                curve: Curves.easeOutCubic,
-                child: AnimatedOpacity(
-                  opacity: showFab ? 1 : 0,
-                  duration: reduceMotion
-                      ? Duration.zero
-                      : const Duration(milliseconds: 220),
-                  child: IgnorePointer(
-                    ignoring: !showFab,
-                    child: _FloatingPenButton(
-                      icon: _selectedTab == _Tab.track
-                          ? Icons.add_rounded
-                          : LineIcons.penNib,
-                      semanticLabel: _selectedTab == _Tab.track
-                          ? context.l10n.trackerEmptyAction
-                          : context.l10n.journalNewEntryAction,
-                      onTap: switch (_selectedTab) {
-                        _Tab.journal => () => _openJournalEditor(context),
-                        _Tab.track => () => _openOcdFlow(context),
-                        _ => () => _showAddSheet(context),
-                      },
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        key: const ValueKey('mobile-bottom-navigation'),
+        top: false,
+        minimum: const EdgeInsets.fromLTRB(20, 0, 20, 8),
+        child: _FloatingTabBar(
+          selectedTab: _selectedTab,
+          tabKeys: _tabKeys,
+          onSelected: (tab) {
+            if (tab == _selectedTab) return;
+            _selectTab(tab);
+          },
+        ),
       ),
     );
   }
@@ -1221,6 +1212,8 @@ class _FloatingTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textScale = MediaQuery.textScalerOf(context).scale(1);
+    final compactTextScale = textScale.clamp(1.0, 1.5).toDouble();
     final items = [
       _DockTabSpec(
         tab: _Tab.home,
@@ -1262,7 +1255,7 @@ class _FloatingTabBar extends StatelessWidget {
         ),
       ],
       child: SizedBox(
-        height: 74,
+        height: 74 + ((compactTextScale - 1) * 20),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(28),
           child: Row(
@@ -1379,6 +1372,8 @@ class _SegmentTabItem extends StatelessWidget {
     final theme = Theme.of(context);
     final inactiveColor = context.appColors.textSecondary;
     final activeColor = theme.colorScheme.primary;
+    final textScale = MediaQuery.textScalerOf(context).scale(1);
+    final compactTextScale = textScale.clamp(1.0, 1.5).toDouble();
     final activeBackground = activeColor.withValues(alpha: 0.14);
     final duration = motionDisabled(context)
         ? Duration.zero
@@ -1469,6 +1464,7 @@ class _SegmentTabItem extends StatelessWidget {
                                 spec.label,
                                 maxLines: 1,
                                 softWrap: false,
+                                textScaler: TextScaler.linear(compactTextScale),
                               ),
                             ),
                           ),

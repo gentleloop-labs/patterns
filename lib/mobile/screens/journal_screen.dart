@@ -1712,148 +1712,216 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
     final entriesAsync = ref.watch(filteredJournalProvider);
     final reduceMotion = motionDisabled(context);
     final textScale = MediaQuery.textScalerOf(context).scale(1);
+    final compactTextScale = textScale.clamp(1.0, 2.0).toDouble();
+    final useScrollableChrome = textScale >= 1.5;
+    final query = ref.watch(journalSearchQueryProvider);
+
+    final header = Padding(
+      padding: const EdgeInsets.fromLTRB(20, 18, 20, 10),
+      child: AnimatedSwitcher(
+        duration: reduceMotion ? Duration.zero : AppMotion.fast,
+        switchInCurve: Curves.easeOutCubic,
+        switchOutCurve: Curves.easeInCubic,
+        transitionBuilder: (child, animation) =>
+            FadeTransition(opacity: animation, child: child),
+        child: _isSearching
+            ? _InlineSearchBar(
+                key: const ValueKey('search'),
+                controller: _searchController,
+                focusNode: _searchFocus,
+                onChanged: (value) =>
+                    ref.read(journalSearchQueryProvider.notifier).query = value,
+                onCancel: _exitSearch,
+              )
+            : useScrollableChrome
+            ? Column(
+                key: const ValueKey('accessible-header'),
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Semantics(
+                    header: true,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Text(
+                        strings.journalTitle,
+                        maxLines: 1,
+                        softWrap: false,
+                        textScaler: TextScaler.linear(compactTextScale),
+                        style: _screenTitle(theme),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      _RoundIconButton(
+                        icon: LineIcons.search,
+                        semanticLabel: strings.journalSearchAction,
+                        onTap: _enterSearch,
+                      ),
+                      const SizedBox(width: 10),
+                      _RoundIconButton(
+                        icon: LineIcons.calendar,
+                        semanticLabel: strings.journalChooseDateAction,
+                        onTap: () => _pickDate(context),
+                      ),
+                    ],
+                  ),
+                ],
+              )
+            : Row(
+                key: const ValueKey('header'),
+                children: [
+                  Expanded(
+                    child: Text(
+                      strings.journalTitle,
+                      style: _screenTitle(theme),
+                    ),
+                  ),
+                  _RoundIconButton(
+                    icon: LineIcons.search,
+                    semanticLabel: strings.journalSearchAction,
+                    onTap: _enterSearch,
+                  ),
+                  const SizedBox(width: 10),
+                  _RoundIconButton(
+                    icon: LineIcons.calendar,
+                    semanticLabel: strings.journalChooseDateAction,
+                    onTap: () => _pickDate(context),
+                  ),
+                ],
+              ),
+      ),
+    );
+
+    final dateStrip = AnimatedSize(
+      duration: reduceMotion ? Duration.zero : AppMotion.fast,
+      curve: Curves.easeOutCubic,
+      child: _isSearching
+          ? const SizedBox.shrink()
+          : SizedBox(
+              height: 64 + ((compactTextScale - 1) * 48),
+              child: ListView.separated(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  final date = DateTime.now().subtract(Duration(days: index));
+                  return _DatePill(
+                    date: date,
+                    isToday: index == 0,
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => JournalEntryEditor(date: date),
+                      ),
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) => const SizedBox(width: 8),
+                itemCount: 10,
+              ),
+            ),
+    );
+
+    List<Widget> entryChildren(List<JournalEntry> entries) {
+      final sorted = List<JournalEntry>.from(entries)
+        ..sort((a, b) => b.date.compareTo(a.date));
+      final todayKey = DateFormat('yyyy-MM-dd').format(DateTime.now());
+      final hasTodayEntry = entries.any((entry) => entry.date == todayKey);
+      return <Widget>[
+        if (!_isSearching && !hasTodayEntry) ...[
+          _TodayEntryCard(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => JournalEntryEditor(date: DateTime.now()),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+        ],
+        if (sorted.isEmpty)
+          _EmptyState(
+            icon: _isSearching && query.isNotEmpty
+                ? LineIcons.search
+                : LineIcons.penNib,
+            title: _isSearching && query.isNotEmpty
+                ? strings.journalNoMatchesTitle
+                : strings.journalEmptyTitle,
+            body: _isSearching && query.isNotEmpty
+                ? strings.journalNoMatchesBody(query)
+                : strings.journalEmptyBody,
+          )
+        else
+          ...sorted.map((entry) => _JournalListCard(entry: entry)),
+      ];
+    }
+
+    final loading = Center(
+      child: Semantics(
+        liveRegion: true,
+        label: strings.journalLoadingLabel,
+        child: const CircularProgressIndicator(),
+      ),
+    );
+    final error = Center(
+      child: Semantics(liveRegion: true, child: Text(strings.journalLoadError)),
+    );
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 18, 20, 10),
-              child: AnimatedSwitcher(
-                duration: reduceMotion ? Duration.zero : AppMotion.fast,
-                switchInCurve: Curves.easeOutCubic,
-                switchOutCurve: Curves.easeInCubic,
-                transitionBuilder: (child, animation) =>
-                    FadeTransition(opacity: animation, child: child),
-                child: _isSearching
-                    ? _InlineSearchBar(
-                        key: const ValueKey('search'),
-                        controller: _searchController,
-                        focusNode: _searchFocus,
-                        onChanged: (value) =>
-                            ref
-                                    .read(journalSearchQueryProvider.notifier)
-                                    .query =
-                                value,
-                        onCancel: _exitSearch,
-                      )
-                    : Row(
-                        key: const ValueKey('header'),
-                        children: [
-                          Expanded(
-                            child: Text(
-                              strings.journalTitle,
-                              style: _screenTitle(theme),
-                            ),
-                          ),
-                          _RoundIconButton(
-                            icon: LineIcons.search,
-                            semanticLabel: strings.journalSearchAction,
-                            onTap: _enterSearch,
-                          ),
-                          const SizedBox(width: 10),
-                          _RoundIconButton(
-                            icon: LineIcons.calendar,
-                            semanticLabel: strings.journalChooseDateAction,
-                            onTap: () => _pickDate(context),
-                          ),
-                        ],
-                      ),
-              ),
-            ),
-            AnimatedSize(
-              duration: reduceMotion ? Duration.zero : AppMotion.fast,
-              curve: Curves.easeOutCubic,
-              child: _isSearching
-                  ? const SizedBox.shrink()
-                  : SizedBox(
-                      height: 64 + ((textScale - 1).clamp(0, 1) * 32),
-                      child: ListView.separated(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          final date = DateTime.now().subtract(
-                            Duration(days: index),
-                          );
-                          return _DatePill(
-                            date: date,
-                            isToday: index == 0,
-                            onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute<void>(
-                                builder: (_) => JournalEntryEditor(date: date),
-                              ),
-                            ),
-                          );
-                        },
-                        separatorBuilder: (context, index) =>
-                            const SizedBox(width: 8),
-                        itemCount: 10,
+        child: useScrollableChrome
+            ? entriesAsync.when(
+                data: (entries) => ListView(
+                  padding: const EdgeInsets.only(bottom: 28),
+                  children: [
+                    header,
+                    dateStrip,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
+                      child: Column(
+                        children: staggered(entryChildren(entries)),
                       ),
                     ),
-            ),
-            Expanded(
-              child: entriesAsync.when(
-                data: (entries) {
-                  final sorted = List<JournalEntry>.from(entries)
-                    ..sort((a, b) => b.date.compareTo(a.date));
-                  final query = ref.watch(journalSearchQueryProvider);
-                  final todayKey = DateFormat(
-                    'yyyy-MM-dd',
-                  ).format(DateTime.now());
-                  final hasTodayEntry = entries.any(
-                    (entry) => entry.date == todayKey,
-                  );
-                  final children = <Widget>[
-                    // The shortcut card is only useful before today's entry
-                    // exists - once saved, it sits at the top of the list.
-                    if (!_isSearching && !hasTodayEntry) ...[
-                      _TodayEntryCard(
-                        onTap: () => Navigator.of(context).push(
-                          MaterialPageRoute<void>(
-                            builder: (_) =>
-                                JournalEntryEditor(date: DateTime.now()),
-                          ),
-                        ),
+                  ],
+                ),
+                loading: () => ListView(
+                  children: [
+                    header,
+                    dateStrip,
+                    const SizedBox(height: 48),
+                    loading,
+                  ],
+                ),
+                error: (loadError, _) => ListView(
+                  padding: const EdgeInsets.only(bottom: 28),
+                  children: [
+                    header,
+                    dateStrip,
+                    const SizedBox(height: 48),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: error,
+                    ),
+                  ],
+                ),
+              )
+            : Column(
+                children: [
+                  header,
+                  dateStrip,
+                  Expanded(
+                    child: entriesAsync.when(
+                      data: (entries) => ListView(
+                        padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
+                        children: staggered(entryChildren(entries)),
                       ),
-                      const SizedBox(height: 16),
-                    ],
-                    if (sorted.isEmpty)
-                      _EmptyState(
-                        icon: _isSearching && query.isNotEmpty
-                            ? LineIcons.search
-                            : LineIcons.penNib,
-                        title: _isSearching && query.isNotEmpty
-                            ? strings.journalNoMatchesTitle
-                            : strings.journalEmptyTitle,
-                        body: _isSearching && query.isNotEmpty
-                            ? strings.journalNoMatchesBody(query)
-                            : strings.journalEmptyBody,
-                      )
-                    else
-                      ...sorted.map((entry) => _JournalListCard(entry: entry)),
-                  ];
-                  return ListView(
-                    padding: const EdgeInsets.fromLTRB(20, 12, 20, 116),
-                    children: staggered(children),
-                  );
-                },
-                loading: () => Center(
-                  child: Semantics(
-                    liveRegion: true,
-                    label: strings.journalLoadingLabel,
-                    child: const CircularProgressIndicator(),
+                      loading: () => loading,
+                      error: (loadError, _) => error,
+                    ),
                   ),
-                ),
-                error: (error, _) => Center(
-                  child: Semantics(
-                    liveRegion: true,
-                    child: Text(strings.journalLoadError),
-                  ),
-                ),
+                ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -2465,6 +2533,7 @@ class _DatePill extends StatelessWidget {
     final monthDay = context.formatMonthDay(date);
     final formattedDate = context.formatFullDate(date);
     final textScale = MediaQuery.textScalerOf(context).scale(1);
+    final compactTextScale = textScale.clamp(1.0, 2.0).toDouble();
 
     final fillColor = isToday
         ? accent.withValues(alpha: 0.18)
@@ -2485,7 +2554,7 @@ class _DatePill extends StatelessWidget {
       child: PressScale(
         onTap: onTap,
         child: Container(
-          width: 88 + ((textScale - 1).clamp(0, 1) * 32),
+          width: 88 + ((compactTextScale - 1) * 48),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: fillColor,
@@ -2500,6 +2569,7 @@ class _DatePill extends StatelessWidget {
                 isToday ? context.l10n.navToday : weekday,
                 maxLines: 1,
                 softWrap: false,
+                textScaler: TextScaler.linear(compactTextScale),
                 style: TextStyle(
                   fontFamily: AppTheme.sansFamily,
                   fontSize: 10,
@@ -2514,6 +2584,7 @@ class _DatePill extends StatelessWidget {
                 monthDay,
                 maxLines: 1,
                 softWrap: false,
+                textScaler: TextScaler.linear(compactTextScale),
                 style: TextStyle(
                   fontFamily: AppTheme.sansFamily,
                   fontSize: 13,

@@ -128,4 +128,43 @@ void main() {
       expect(tester.takeException(), isNull);
     },
   );
+
+  testWidgets(
+    'journal chrome remains scrollable at maximum text in landscape',
+    (tester) async {
+      tester.view.physicalSize = const Size(844, 390);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await tester.pumpWidget(
+        _localizedHost(
+          notifier: () => _FakeJournalNotifier(const []),
+          textScaler: const TextScaler.linear(3.2),
+          disableAnimations: true,
+          home: const JournalScreen(),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final title = tester.widget<Text>(find.text('Journal'));
+      expect(title.maxLines, 1);
+      expect(title.softWrap, isFalse);
+
+      final todayEntry = lookupAppLocalizations(
+        const Locale('en'),
+      ).journalTodayEntry;
+      for (var attempt = 0; attempt < 4; attempt++) {
+        final entryRect = tester.getRect(find.text(todayEntry));
+        if (entryRect.top >= 0 && entryRect.bottom <= 390) break;
+        await tester.drag(find.byType(ListView).first, const Offset(0, -120));
+        await tester.pump();
+      }
+
+      final entryRect = tester.getRect(find.text(todayEntry));
+      expect(entryRect.top, greaterThanOrEqualTo(0));
+      expect(entryRect.bottom, lessThanOrEqualTo(390));
+      expect(tester.takeException(), isNull);
+    },
+  );
 }
