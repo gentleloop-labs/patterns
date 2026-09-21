@@ -84,8 +84,11 @@ The eight-frame iPhone source campaign depicts Calm Insights without a score,
 streak, delta, or consistency percentage. The final App Store campaign must
 contain eight 1290×2796 images per locale. The final Google Play campaign must
 contain eight 1080×1920 images per locale. Neither set may contain prices.
-Localized capture is blocked until the guarded language review settles all
-copy revisions.
+The guarded language review and English copy freeze are complete. Localized
+campaign production is now in progress. The six interface-language sets create
+96 unique assets: 6 languages × 8 frames × 2 stores. Matching regional
+storefronts reuse a language set where its interface copy and claims are
+identical; they are still reviewed and uploaded per storefront.
 
 Desktop screenshots and desktop storefront metadata are outside the 1.10
 mobile release scope.
@@ -112,7 +115,8 @@ approval are complete.
 
 Final approval happens only after both signed mobile builds pass, physical
 iPhone and Android checklists pass, upgrade/data and sandbox purchase evidence
-is recorded, all 176 localized screenshots are reviewed, the App Store and
-Google Play matrices are complete, and a second PPP drift check passes.
+is recorded, all 96 unique localized screenshots and their regional reuse are
+reviewed, the App Store and Google Play matrices are complete, and a second PPP
+drift check passes.
 Approval authorizes guarded metadata, product, screenshot, build attachment,
 and submission operations. It never authorizes a price-schedule write.
