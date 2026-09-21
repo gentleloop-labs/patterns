@@ -24,7 +24,7 @@ Reviews are recorded honestly as `ai_assisted`; they are not native-speaker or
 clinician review.
 
 The renderer-level evidence is recorded in
-`RENDERED-MOBILE-LAYOUT-REVIEW.md`: 288 representative mobile states pass at
+`RENDERED-MOBILE-LAYOUT-REVIEW.md`: 828 representative mobile states pass at
 normal, 200%, and maximum stress text scales. Physical-device QA remains a
 separate gate.
 

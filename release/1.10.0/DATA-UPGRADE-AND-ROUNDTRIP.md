@@ -59,7 +59,7 @@ flutter test test/data_upgrade_roundtrip_test.dart \
 20 tests passed
 ```
 
-The complete Flutter suite also passes with 370 tests, `flutter analyze`
+The complete Flutter suite also passes with 372 tests, `flutter analyze`
 reports no issues, the mobile literal audit reports zero candidates, and the
 translator-context and copy-freeze gates pass.
 

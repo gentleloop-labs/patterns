@@ -8,11 +8,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:patterns/l10n/app_localizations.dart';
 import 'package:patterns/l10n/app_language.dart';
 import 'package:patterns/mobile/first_run.dart';
+import 'package:patterns/mobile/main_shell.dart';
 import 'package:patterns/mobile/preferences.dart';
 import 'package:patterns/mobile/screens/first_run_result_screen.dart';
 import 'package:patterns/mobile/widgets/spotlight_tour.dart';
+import 'package:patterns/models/models.dart';
+import 'package:patterns/providers/providers.dart';
 import 'package:patterns/theme/app_theme.dart';
 import 'package:patterns/widgets/section_intro.dart';
+
+class _EmptyJournals extends JournalNotifier {
+  @override
+  Future<List<JournalEntry>> build() async => const [];
+}
 
 void main() {
   setUp(() async {
@@ -113,6 +121,54 @@ void main() {
     );
     semantics.dispose();
   });
+
+  testWidgets(
+    'mobile navigation reserves layout space at maximum landscape text',
+    (tester) async {
+      tester.view.physicalSize = const Size(844, 390);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      await mobilePreferences!.setString(mobileSelectedTabKey, 'journal');
+      await mobilePreferences!.setBool(tabTourSeenKey, true);
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [journalProvider.overrideWith(_EmptyJournals.new)],
+          child: MaterialApp(
+            locale: const Locale('en'),
+            theme: AppTheme.mobileDarkTheme,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: supportedAppLocales,
+            builder: (context, child) => MediaQuery(
+              data: MediaQuery.of(context).copyWith(
+                textScaler: const TextScaler.linear(3.2),
+                disableAnimations: true,
+              ),
+              child: child!,
+            ),
+            home: const MobileHome(),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final bodyRect = tester.getRect(
+        find.byKey(const ValueKey('mobile-page-body')),
+      );
+      final navigationRect = tester.getRect(
+        find.byKey(const ValueKey('mobile-bottom-navigation')),
+      );
+      expect(bodyRect.bottom, lessThanOrEqualTo(navigationRect.top));
+      expect(
+        find.bySemanticsLabel(
+          lookupAppLocalizations(const Locale('en')).journalNewEntryAction,
+        ),
+        findsNothing,
+      );
+      expect(tester.takeException(), isNull);
+    },
+  );
 }
 
 Widget _host({

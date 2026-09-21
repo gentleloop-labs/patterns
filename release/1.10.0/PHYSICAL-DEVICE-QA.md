@@ -7,6 +7,12 @@ This is the auditable checklist for `A11Y-DEVICE-01` and
 only observations made on physical hardware may check an item below or change
 `reviewed-locales.json`.
 
+The September 22 virtual-device preflight is recorded in
+`VIRTUAL-DEVICE-QA.md`. Its two maximum-scale/orientation blockers are fixed
+and pass virtual retesting in the current working tree. TestFlight build 59
+predates the fixes; install and record its replacement before beginning the
+full physical-device pass.
+
 ## Candidate identity
 
 Record this before testing. Both platforms must use artifacts built from the
@@ -169,3 +175,25 @@ September 17, 2026:
 - Paired physical iPhone `00008101-000A21562181001E` was offline, and ADB had
   no physical Android device. No physical checklist item was inferred from
   simulator evidence.
+
+September 22, 2026:
+
+- All 372 Flutter tests passed after remediation, including 828 deterministic
+  mobile render states across six languages and three text scales.
+- Fresh-install locale resolution and fallback passed on iOS and Android
+  virtual devices for six supported and two unsupported/regional locales.
+- Normal onboarding/navigation and representative accessibility-tree checks
+  passed on both platforms.
+- Maximum accessibility scale plus landscape exposed bottom-navigation content
+  obstruction on both platforms and additional iOS Journal clipping. See
+  `VIRTUAL-DEVICE-QA.md` (`VQA-01` and `VQA-02`).
+- Both defects were fixed in the working tree. Device-level retesting confirms
+  non-overlapping body/navigation bounds, a reachable Android delay action,
+  an intact iOS Journal title/date strip, and scroll access to all lower copy.
+- TestFlight build 59 remains the old candidate and is not eligible for final
+  physical sign-off; record the replacement build above when it is available.
+- TalkBack started successfully after its permission prompt and exposed visual
+  focus, but injected traversal and audio could not establish a common-task
+  pass. Quill keyboard injection was also inconclusive. Both remain hardware
+  gates.
+- No physical checklist item or reviewed-locale boolean was changed.
