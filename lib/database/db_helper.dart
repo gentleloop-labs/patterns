@@ -55,6 +55,8 @@ class BackupSummary {
 class DbHelper {
   static final DbHelper instance = DbHelper._init();
   static Database? _database;
+  static DatabaseFactory? _testingDatabaseFactory;
+  static String? _testingDatabasePath;
 
   DbHelper._init();
 
@@ -65,8 +67,9 @@ class DbHelper {
   }
 
   Future<Database> _initDB(String filePath) async {
-    final dbPath = await getApplicationSupportDirectory();
-    final path = join(dbPath.path, filePath);
+    final path =
+        _testingDatabasePath ??
+        join((await getApplicationSupportDirectory()).path, filePath);
 
     return await _databaseFactory.openDatabase(
       path,
@@ -78,7 +81,28 @@ class DbHelper {
     );
   }
 
-  DatabaseFactory get _databaseFactory => mobile_sqflite.databaseFactory;
+  DatabaseFactory get _databaseFactory =>
+      _testingDatabaseFactory ?? mobile_sqflite.databaseFactory;
+
+  /// Points the singleton at an isolated SQLite database for integration
+  /// tests. Production callers must use the default configuration.
+  static Future<void> configureDatabaseForTesting({
+    required DatabaseFactory factory,
+    required String path,
+  }) async {
+    await _database?.close();
+    _database = null;
+    _testingDatabaseFactory = factory;
+    _testingDatabasePath = path;
+  }
+
+  /// Closes the isolated test database and restores production configuration.
+  static Future<void> resetDatabaseAfterTesting() async {
+    await _database?.close();
+    _database = null;
+    _testingDatabaseFactory = null;
+    _testingDatabasePath = null;
+  }
 
   Future _createDB(Database db, int version) async {
     await db.execute('''
@@ -959,6 +983,19 @@ class DbHelper {
       await txn.delete('delay_sessions');
       await txn.delete('erp_exercise_plans');
       await txn.delete('erp_exercise_sessions');
+      await txn.delete('exposure_hierarchies');
+      await txn.delete('exposure_steps');
+      await txn.delete('response_prevention_logs');
+      await txn.delete('urge_surf_sessions');
+      await txn.delete('program_enrollments');
+      await txn.delete('program_task_progress');
+      await txn.delete('behavioral_experiments');
+      await txn.delete('exposure_reflections');
+      await txn.delete('action_plans');
+      await txn.delete('implementation_intentions');
+      await txn.delete('uncertainty_log');
+      await txn.delete('exposure_materials');
+      await txn.delete('ybocs_assessments');
       for (final item in _backupList(data, 'journal')) {
         await txn.insert('journal', Map<String, dynamic>.from(item));
       }

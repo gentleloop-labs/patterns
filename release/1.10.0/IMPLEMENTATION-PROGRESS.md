@@ -1,6 +1,6 @@
 # Patterns 1.10.0 implementation progress
 
-Last updated: September 17, 2026
+Last updated: September 21, 2026
 
 This is the working ledger for completing the unified 1.10 release plan. A
 unit moves to **complete** only when its scoped implementation, focused tests,
@@ -39,9 +39,9 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 | REVIEW-01 | Six-language guarded AI clinical, crisis, privacy, accessibility, and paywall review | verified | All six languages have 6/6 AI-assisted review passes complete. The 288-state mobile render matrix passes at normal, 200%, and maximum stress text scales after adaptive-layout fixes. Physical-device QA and release-owner approval remain separate gates. |
 | A11Y-DEVICE-01 | Physical-iPhone accessibility verification | in progress | Auditable checklist and simulator install preflight complete; physical iPhone is currently offline. Common-task VoiceOver, largest text, Reduce Motion, grayscale, and Differentiate Without Color must still pass on hardware. |
 | A11Y-DEVICE-02 | Physical-Android accessibility verification | in progress | Auditable checklist and Android 17/API 37 emulator install preflight complete; no physical Android device is connected. Common-task TalkBack, largest font/display scale, Reduced Motion, non-colour, and appearance must still pass on hardware. |
-| DATA-01 | 1.9 upgrade and import/export compatibility | pending | Real-data upgrade and round-trip evidence recorded |
+| DATA-01 | 1.9 upgrade and import/export compatibility | verified | Real `1.9.0+31` → `1.10.0+32` installed Android upgrade preserves records, stable IDs, Pro, reminders, and established-user defaults; native SQLite tests cover all 18 tables, complete replacement restore, older backups, rich journal JSON, Japanese text, and ISO storage; see `DATA-UPGRADE-AND-ROUNDTRIP.md` |
 | PURCHASE-01 | Sandbox purchase, tip, and restore verification | pending | Physical iPhone and Android sandbox/test-product flows pass |
-| ASSET-01 | Localized mobile screenshots | blocked | Copy/UI freeze, then 8 iPhone and 8 Android images per storefront locale |
+| ASSET-01 | Localized mobile screenshots | blocked | Produce 8 iPhone and 8 Android images for each of 6 interface languages (96 unique images); regional storefront variants reuse them where their language and claims match |
 | BUILD-01 | Mobile release builds | pending | Signed iOS IPA and Android AAB pass with the multilingual gate enabled |
 | STORE-01 | Coordinated App Store and Google Play 1.10 submission | blocked | Approved matrix, unchanged PPP schedules, builds/assets/IAPs/products validated and attached |
 
@@ -50,6 +50,6 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 - Version: `1.10.0+32` (final build number must still be reconciled remotely).
 - Release announcement: `patterns_1_10`.
 - Rendered mobile-layout matrix: 288 states across 16 representative surfaces, six languages, and three text scales passing.
-- Full Flutter suite after the rendered-layout review: 368 tests passing.
+- Full Flutter suite after DATA-01: 370 tests passing.
 - Mobile/shared literal audit: zero unreviewed candidates; stable localization selector keys and debug-only sources are covered by documented allowlist rules.
 - Store drafts: field, locale, and character-limit validation passing; not approved or uploaded.
