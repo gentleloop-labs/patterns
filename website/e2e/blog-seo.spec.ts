@@ -14,6 +14,16 @@ const newArticles = [
     slug: 'how-to-support-someone-with-ocd',
     title: 'How to Support Someone With OCD Without Feeding the Cycle',
     contextualLink: '/blog/reassurance-seeking-ocd'
+  },
+  {
+    slug: 'what-causes-ocd',
+    title: 'What Causes OCD? Genetics, Brain, Learning, and Stress',
+    contextualLink: '/blog/what-happens-during-an-ocd-assessment'
+  },
+  {
+    slug: 'ocd-at-work',
+    title: 'OCD at Work: Symptoms, Disclosure, and Helpful Support',
+    contextualLink: '/blog/checking-ocd'
   }
 ];
 

@@ -119,6 +119,8 @@ If the pattern is not OCD, that is also a result. Generalized anxiety, depressio
 
 A diagnosis is a map, not a sentence. It does not require you to accept every label at once. It does give you and a clinician a shared language for the loop, which is the thing that can be worked on.
 
+You do not need a complete origin story before that conversation. Our guide to [what causes OCD](/blog/what-causes-ocd) separates possible risk factors from triggers and the habits that can maintain symptoms.
+
 ## What assessment was like for me
 
 I put it off because I thought I needed a cleaner story. I could describe the thoughts. I could not, for a long time, describe what I did with them, because what I did looked like thinking. I expected the appointment to be a test of whether I was making it up.

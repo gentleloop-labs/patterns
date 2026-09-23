@@ -32,6 +32,8 @@ This queue supports one carefully sourced article each week. Do not publish a dr
 | 13 | OCD Medication: SSRIs, ERP, and What to Expect | Treatment & ERP | How does OCD medication fit with ERP, and how long can it take to help? | Published |
 | 14 | Can OCD Go Away? What Recovery Actually Means | Living With OCD | Can symptoms improve or remit, and what does recovery mean? | Published |
 | 15 | How to Support Someone With OCD Without Feeding the Cycle | Living With OCD | How can supporters validate distress without joining compulsions? | Published |
+| 16 | What Causes OCD? Genetics, Brain, Learning, and Stress | Recognizing OCD | What is known about OCD causes, risks, triggers, and maintenance? | Published |
+| 17 | OCD at Work: Symptoms, Disclosure, and Helpful Support | Living With OCD | How can OCD affect work, and what support can help? | Published |
 
 ## Article acceptance checklist
 

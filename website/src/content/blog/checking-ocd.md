@@ -35,6 +35,8 @@ Checking OCD is a presentation in which compulsions centre on verifying that som
 
 The last one matters, because someone who has stopped walking back upstairs but is still mentally reviewing the stove has not stopped checking.
 
+When this loop attaches to emails, decisions, or job responsibilities, [our guide to OCD at work](/blog/ocd-at-work) explains how to distinguish extra certainty-seeking from a role's genuine checking requirements.
+
 ## The memory distrust finding
 
 This is the part worth understanding properly.
