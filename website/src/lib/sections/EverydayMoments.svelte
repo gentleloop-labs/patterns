@@ -22,14 +22,14 @@
           <picture>
             <source
               type="image/webp"
-              srcset="/assets/people/reflection-v4-640.webp 640w, /assets/people/reflection-v4-1024.webp 1024w, /assets/people/reflection-v4-1536.webp 1536w"
+              srcset="/assets/people/reflection-cafe-640.webp 640w, /assets/people/reflection-cafe-1024.webp 1024w, /assets/people/reflection-cafe-1536.webp 1536w"
               sizes="(max-width: 759px) calc(100vw - 32px), 42vw"
             />
             <img
-              src="/assets/people/reflection-v4-1024.jpg"
-              srcset="/assets/people/reflection-v4-640.jpg 640w, /assets/people/reflection-v4-1024.jpg 1024w, /assets/people/reflection-v4-1536.jpg 1536w"
+              src="/assets/people/reflection-cafe-1024.jpg"
+              srcset="/assets/people/reflection-cafe-640.jpg 640w, /assets/people/reflection-cafe-1024.jpg 1024w, /assets/people/reflection-cafe-1536.jpg 1536w"
               sizes="(max-width: 759px) calc(100vw - 32px), 42vw"
-              alt="A person writing in a notebook at a kitchen table with a phone nearby"
+              alt="A woman writing in a notebook at a café table"
               width="1536"
               height="1024"
               loading="lazy"
@@ -48,14 +48,14 @@
           <picture>
             <source
               type="image/webp"
-              srcset="/assets/people/everyday-pause-v2-640.webp 640w, /assets/people/everyday-pause-v2-1024.webp 1024w, /assets/people/everyday-pause-v2-1536.webp 1536w"
+              srcset="/assets/people/everyday-pause-park-640.webp 640w, /assets/people/everyday-pause-park-1024.webp 1024w, /assets/people/everyday-pause-park-1536.webp 1536w"
               sizes="(max-width: 759px) calc(100vw - 32px), 42vw"
             />
             <img
-              src="/assets/people/everyday-pause-v2-1024.jpg"
-              srcset="/assets/people/everyday-pause-v2-640.jpg 640w, /assets/people/everyday-pause-v2-1024.jpg 1024w, /assets/people/everyday-pause-v2-1536.jpg 1536w"
+              src="/assets/people/everyday-pause-park-1024.jpg"
+              srcset="/assets/people/everyday-pause-park-640.jpg 640w, /assets/people/everyday-pause-park-1024.jpg 1024w, /assets/people/everyday-pause-park-1536.jpg 1536w"
               sizes="(max-width: 759px) calc(100vw - 32px), 42vw"
-              alt="A person taking a quiet pause with a phone while travelling on a city tram"
+              alt="A woman sitting on a park bench with her phone"
               width="1536"
               height="1024"
               loading="lazy"
