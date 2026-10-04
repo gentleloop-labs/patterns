@@ -64,6 +64,44 @@ void main() {
     semantics.dispose();
   });
 
+  testWidgets('export action dismisses only its confirmation sheet', (
+    tester,
+  ) async {
+    await _pumpSettings(tester, locale: const Locale('en'));
+
+    await tester.tap(find.text('Export data'));
+    await tester.pumpAndSettle();
+    expect(find.text('Export data?'), findsOneWidget);
+
+    await tester.tap(find.text('Export ZIP backup'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Export data?'), findsNothing);
+    expect(find.byType(SettingsScreen), findsOneWidget);
+    expect(find.text('Settings'), findsOneWidget);
+  });
+
+  testWidgets('import action dismisses only its confirmation sheet', (
+    tester,
+  ) async {
+    await _pumpSettings(tester, locale: const Locale('en'));
+
+    await tester.scrollUntilVisible(
+      find.text('Import data'),
+      250,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.tap(find.text('Import data'));
+    await tester.pumpAndSettle();
+    expect(find.text('Import data?'), findsOneWidget);
+
+    await tester.tap(find.text('Choose backup'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Import data?'), findsNothing);
+    expect(find.byType(SettingsScreen), findsOneWidget);
+  });
+
   testWidgets('destructive copy reflows at 200 percent German text', (
     tester,
   ) async {
