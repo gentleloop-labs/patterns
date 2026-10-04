@@ -1,0 +1,18 @@
+{
+  "status": "ai_assisted_review_ready_not_approved",
+  "canonical": true,
+  "source": "release/1.10.0/store-metadata-drafts.json",
+  "locales": {
+    "en-US": {"sourceLocale": "en-US", "title": "Patterns: OCD & ERP Journal", "shortDescription": "Private journal & ERP tools for OCD, anxiety & intrusive thoughts."},
+    "en-GB": {"sourceLocale": "en-GB", "title": "Patterns: OCD & ERP Journal", "shortDescription": "Private diary & ERP tools for OCD, anxiety & intrusive thoughts."},
+    "en-CA": {"sourceLocale": "en-CA", "title": "Patterns: OCD & ERP Journal", "shortDescription": "Private journal & ERP tools for OCD, anxiety & intrusive thoughts."},
+    "en-AU": {"sourceLocale": "en-AU", "title": "Patterns: OCD & ERP Journal", "shortDescription": "Private diary & ERP tools for OCD, anxiety & intrusive thoughts."},
+    "pt-BR": {"sourceLocale": "pt-BR", "title": "Patterns: Diário TOC e EPR", "shortDescription": "Diário privado e ferramentas EPR para TOC, ansiedade e pensamentos intrusivos."},
+    "de-DE": {"sourceLocale": "de-DE", "title": "Patterns: OCD & ERP Tagebuch", "shortDescription": "Privates Tagebuch und ERP-Tools für Zwang, Angst und aufdringliche Gedanken."},
+    "ja-JP": {"sourceLocale": "ja", "title": "Patterns: OCD・ERP日記", "shortDescription": "OCD、強迫行為、侵入思考を記録する非公開の日記とERPツール。"},
+    "es-419": {"sourceLocale": "es-MX", "title": "Patterns: Diario TOC y EPR", "shortDescription": "Diario privado y herramientas EPR para TOC, ansiedad y pensamientos intrusivos."},
+    "es-ES": {"sourceLocale": "es-ES", "title": "Patterns: Diario TOC y EPR", "shortDescription": "Diario privado y herramientas EPR para TOC, ansiedad y pensamientos intrusivos."},
+    "fr-FR": {"sourceLocale": "fr-FR", "title": "Patterns : Journal TOC et EPR", "shortDescription": "Journal privé et outils EPR pour TOC, anxiété et pensées intrusives."},
+    "fr-CA": {"sourceLocale": "fr-CA", "title": "Patterns : Journal TOC et EPR", "shortDescription": "Journal privé et outils EPR pour TOC, anxiété et pensées intrusives."}
+  }
+}

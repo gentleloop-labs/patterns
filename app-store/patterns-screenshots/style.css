@@ -96,10 +96,18 @@ body[data-mode=play] .detail-header h2{font-size:26px}body[data-mode=play] .clim
 }
 
 .shot-1 .home-score {
-  grid-template-columns: 190px 1fr;
+  grid-template-columns: 1fr;
   gap: 31px;
   padding: 37px;
   border-radius: 34px;
+}
+
+.shot-1 .home-score-copy {
+  grid-column: 1 / -1;
+}
+
+.insights-shot .score-overview {
+  grid-template-columns: 1fr;
 }
 
 .shot-1 .home-ring {

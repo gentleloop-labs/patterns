@@ -1,0 +1,8 @@
+{
+  "description": "Patterns is a private OCD journal and self-help practice companion. Record intrusive thoughts and compulsions, write journal entries, delay an urge, and practise exposure and response prevention (ERP). Calm Insights can replace calculated scores and streaks with factual activity counts. Personal content stays on your device unless you choose to export an unencrypted JSON backup or PDF. Optional anonymous usage analytics are off by default and never include OCD content, summaries, locale or language choice. Patterns does not diagnose or treat OCD and is not a replacement for qualified care or emergency support.",
+  "keywords": "compulsion,intrusive,thoughts,obsession,exposure,rumination,reassurance,reflect,therapy,cbt,log,dbt",
+  "marketingUrl": "https://www.patternsocd.com/",
+  "promotionalText": "Private OCD journaling, factual Calm Insights and guided ERP practice. No account, no ads and one optional lifetime Pro unlock.",
+  "supportUrl": "https://github.com/maskedsyntax/patterns/issues",
+  "whatsNew": "Patterns 1.10 introduces optional Calm Insights, quieter endings after journal and practice sessions, and optional English, Brazilian Portuguese, German, Japanese, Spanish and French interfaces. Your entries stay as written and your language choice remains on this device."
+}

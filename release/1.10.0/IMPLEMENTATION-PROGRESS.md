@@ -1,6 +1,6 @@
 # Patterns 1.10.0 implementation progress
 
-Last updated: September 22, 2026
+Last updated: October 4, 2026
 
 This is the working ledger for completing the unified 1.10 release plan. A
 unit moves to **complete** only when its scoped implementation, focused tests,
@@ -41,18 +41,18 @@ Status values: `pending`, `in progress`, `code complete`, `verified`,
 | A11Y-DEVICE-02 | Physical-Android accessibility verification | in progress | The rebuilt local release APK passes maximum font/display landscape retesting with non-overlapping navigation and reachable content. A signed/internal-track replacement is still needed before the physical TalkBack gate. |
 | DATA-01 | 1.9 upgrade and import/export compatibility | verified | Real `1.9.0+31` → `1.10.0+32` installed Android upgrade preserves records, stable IDs, Pro, reminders, and established-user defaults; native SQLite tests cover all 18 tables, complete replacement restore, older backups, rich journal JSON, Japanese text, and ISO storage; see `DATA-UPGRADE-AND-ROUNDTRIP.md` |
 | PURCHASE-01 | Sandbox purchase, tip, and restore verification | pending | Physical iPhone and Android sandbox/test-product flows pass |
-| ASSET-01 | Localized mobile screenshots | in progress | Existing eight-frame English Apple/Play campaign and renderer audited. Next: parameterize and review 8 iPhone and 8 Android images for each of 6 interface languages (96 unique images); regional storefront variants reuse them where their language and claims match |
-| BUILD-01 | Mobile release builds | in progress | Signed multilingual iOS QA IPA `1.10.0 (60)` from `66184f8` is valid in TestFlight and available to `Patterns Internal`; rebuild after any physical-QA findings, then verify the final iOS IPA and signed Android AAB |
-| STORE-01 | Coordinated App Store and Google Play 1.10 submission | blocked | Approved matrix, unchanged PPP schedules, builds/assets/IAPs/products validated and attached |
+| ASSET-01 | Localized mobile screenshots | verified | Six reviewed language sets produce 48 unique Apple images, 48 unique Play images, and 6 Play feature graphics. Dimension, alpha, clipping, Japanese-font, accent, contrast, and search-grid review artifacts pass; 11 regional storefronts reuse the matching language set. |
+| BUILD-01 | Mobile release builds | in progress | Multilingual iOS build `1.10.0 (61)` is valid, in beta testing, and available to `Patterns Internal`; its test note identifies the final JSON/ZIP import-preview fix. The Play API identity, next unused Android version code, same-source signed AAB, and internal-track upload remain pending. |
+| STORE-01 | Coordinated App Store and Google Play 1.10 submission | in progress | Eleven-locale Apple and Play copy, 44 localized product records per store, assets, validators, approval matrix, and guarded Play plan/apply tooling are ready. Release-owner approval is required before any remote metadata, IAP, or screenshot write. |
 
 ## Current metrics
 
-- Repository version: `1.10.0+32`; TestFlight QA candidate: `1.10.0 (60)` (`ced89606-46cf-4ab8-8e06-03c4d2b86a8c`).
+- Repository version: `1.10.0+32`; TestFlight final iOS candidate: `1.10.0 (61)` (`d92a6d25-aa98-44e0-b7b8-1978b2a61f70`).
 - Release announcement: `patterns_1_10`.
 - Rendered mobile-layout matrix: 828 states across 46 representative surfaces and states, six languages, and three text scales passing.
-- Full Flutter suite after accessibility remediation: 372 tests passing.
+- Full Flutter suite after the Settings import/export regression fix: 374 tests passing.
 - Mobile/shared literal audit: zero unreviewed candidates; stable localization selector keys and debug-only sources are covered by documented allowlist rules.
-- Store drafts: field, locale, and character-limit validation passing; not approved or uploaded.
+- Store package: 11 locales per store, 44 localized product records per store, 48 unique screenshots per store, and 6 Play feature graphics pass field, locale, claim, character-limit, asset, and review validation; not approved or uploaded.
 - Virtual-device QA: locale resolution, normal navigation, and remediated
   maximum-scale portrait/landscape layouts pass on iOS and Android. The iOS
   physical candidate is available in TestFlight; see `VIRTUAL-DEVICE-QA.md`.

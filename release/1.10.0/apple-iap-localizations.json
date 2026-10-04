@@ -1,0 +1,73 @@
+{
+  "status": "ai_assisted_review_ready_not_approved",
+  "limits": {"name": 30, "description": 45},
+  "products": {
+    "com.maskedsyntax.patterns.pro": {
+      "iapId": "6785513588",
+      "versionId": "a08dbd2f-033d-42e6-875a-c7844019a602",
+      "versionAction": "reuse",
+      "kind": "pro",
+      "localizations": {
+        "en-US": {"name": "Patterns Pro", "description": "One-time unlock for every Pro tool."},
+        "en-GB": {"name": "Patterns Pro", "description": "One-time unlock for every Pro tool."},
+        "en-CA": {"name": "Patterns Pro", "description": "One-time unlock for every Pro tool."},
+        "en-AU": {"name": "Patterns Pro", "description": "One-time unlock for every Pro tool."},
+        "pt-BR": {"name": "Patterns Pro", "description": "Compra única: todas as ferramentas Pro."},
+        "de-DE": {"name": "Patterns Pro", "description": "Einmalkauf für alle Pro-Werkzeuge."},
+        "ja": {"name": "Patterns Pro", "description": "すべてのProツールを買い切りで利用。"},
+        "es-MX": {"name": "Patterns Pro", "description": "Compra única para todas las herramientas Pro."},
+        "es-ES": {"name": "Patterns Pro", "description": "Compra única para todas las herramientas Pro."},
+        "fr-FR": {"name": "Patterns Pro", "description": "Achat unique pour tous les outils Pro."},
+        "fr-CA": {"name": "Patterns Pro", "description": "Achat unique pour tous les outils Pro."}
+      }
+    },
+    "com.maskedsyntax.patterns.tip.small": {
+      "iapId": "6770887482", "versionId": null, "versionAction": "create_exactly_one_after_approval", "kind": "tip",
+      "localizations": {
+        "en-US": {"name": "Small tip", "description": "Optional tip. Unlocks no features."},
+        "en-GB": {"name": "Small tip", "description": "Optional tip. Unlocks no features."},
+        "en-CA": {"name": "Small tip", "description": "Optional tip. Unlocks no features."},
+        "en-AU": {"name": "Small tip", "description": "Optional tip. Unlocks no features."},
+        "pt-BR": {"name": "Gorjeta pequena", "description": "Gorjeta opcional. Não libera recursos."},
+        "de-DE": {"name": "Kleines Trinkgeld", "description": "Optionales Trinkgeld. Keine neuen Funktionen."},
+        "ja": {"name": "小さなチップ", "description": "任意のチップです。機能は追加されません。"},
+        "es-MX": {"name": "Propina pequeña", "description": "Propina opcional. No desbloquea funciones."},
+        "es-ES": {"name": "Propina pequeña", "description": "Propina opcional. No desbloquea funciones."},
+        "fr-FR": {"name": "Petit pourboire", "description": "Pourboire. Ne débloque aucune fonction."},
+        "fr-CA": {"name": "Petit pourboire", "description": "Pourboire. Ne débloque aucune fonction."}
+      }
+    },
+    "com.maskedsyntax.patterns.tip.medium": {
+      "iapId": "6770892197", "versionId": null, "versionAction": "create_exactly_one_after_approval", "kind": "tip",
+      "localizations": {
+        "en-US": {"name": "Medium tip", "description": "Optional tip. Unlocks no features."},
+        "en-GB": {"name": "Medium tip", "description": "Optional tip. Unlocks no features."},
+        "en-CA": {"name": "Medium tip", "description": "Optional tip. Unlocks no features."},
+        "en-AU": {"name": "Medium tip", "description": "Optional tip. Unlocks no features."},
+        "pt-BR": {"name": "Gorjeta média", "description": "Gorjeta opcional. Não libera recursos."},
+        "de-DE": {"name": "Mittleres Trinkgeld", "description": "Optionales Trinkgeld. Keine neuen Funktionen."},
+        "ja": {"name": "中くらいのチップ", "description": "任意のチップです。機能は追加されません。"},
+        "es-MX": {"name": "Propina mediana", "description": "Propina opcional. No desbloquea funciones."},
+        "es-ES": {"name": "Propina mediana", "description": "Propina opcional. No desbloquea funciones."},
+        "fr-FR": {"name": "Pourboire moyen", "description": "Pourboire. Ne débloque aucune fonction."},
+        "fr-CA": {"name": "Pourboire moyen", "description": "Pourboire. Ne débloque aucune fonction."}
+      }
+    },
+    "com.maskedsyntax.patterns.tip.large": {
+      "iapId": "6770892883", "versionId": null, "versionAction": "create_exactly_one_after_approval", "kind": "tip",
+      "localizations": {
+        "en-US": {"name": "Large tip", "description": "Optional tip. Unlocks no features."},
+        "en-GB": {"name": "Large tip", "description": "Optional tip. Unlocks no features."},
+        "en-CA": {"name": "Large tip", "description": "Optional tip. Unlocks no features."},
+        "en-AU": {"name": "Large tip", "description": "Optional tip. Unlocks no features."},
+        "pt-BR": {"name": "Gorjeta grande", "description": "Gorjeta opcional. Não libera recursos."},
+        "de-DE": {"name": "Großes Trinkgeld", "description": "Optionales Trinkgeld. Keine neuen Funktionen."},
+        "ja": {"name": "大きなチップ", "description": "任意のチップです。機能は追加されません。"},
+        "es-MX": {"name": "Propina grande", "description": "Propina opcional. No desbloquea funciones."},
+        "es-ES": {"name": "Propina grande", "description": "Propina opcional. No desbloquea funciones."},
+        "fr-FR": {"name": "Grand pourboire", "description": "Pourboire. Ne débloque aucune fonction."},
+        "fr-CA": {"name": "Grand pourboire", "description": "Pourboire. Ne débloque aucune fonction."}
+      }
+    }
+  }
+}

@@ -20,9 +20,18 @@ and a full-slot proof card. The Patterns lockup appears only in slot 1.
 
 ## Exports
 
-- `exports/app-store-1290x2796/`: Apple `APP_IPHONE_69` portrait screenshots.
-- `exports/play-store-1080x1920/`: Google Play 9:16 phone screenshots.
-- `exports/play-store-feature/`: Google Play 1024x500 feature graphic.
+- `exports/localized/apple/<language>/`: Apple `APP_IPHONE_67` portrait
+  screenshots at 1290x2796.
+- `exports/localized/play/<language>/`: Google Play 9:16 phone screenshots at
+  1080x1920.
+- `exports/localized/feature/<language>/`: Google Play 1024x500 feature
+  graphics.
+- `exports/localized/review/<language>/`: full-size and search-grid HTML/PNG
+  review sheets.
+
+The six generated language sets are English, Brazilian Portuguese, German,
+Japanese, neutral Spanish, and French. Regional storefronts reuse the matching
+language set through `release/1.10.0/screenshot-locale-manifest.json`.
 
 All assets use the real Patterns logo and the app's current Manrope/Fraunces
 typography and mobile color palette. In-frame UI follows the production Flutter
@@ -40,11 +49,11 @@ node render.js
 ## Suggested Google Play alt text
 
 1. Today screen recommending a two-minute compulsion delay as one clear next step.
-2. Compulsion-delay setup with an urge field, intensity slider, wait duration, and a post-wait reflection showing before/now intensity and outcome.
-3. No-chatbot claim poster explaining that reassurance is the compulsion and the question can stay open.
-4. Exposure hierarchy with three large, readable rungs, ratings for each practice step, and a compact ladder-progress summary.
-5. Privacy proof stating that OCD content stays on-device, with no account or cloud sync and optional anonymous usage analytics.
-6. Calm Insights overview showing factual journal, tracked-moment, delay, and ERP counts while retaining user-recorded urge intensity.
+2. Compulsion-delay setup with an urge field, recorded intensity, and a wait duration.
+3. Exposure hierarchy with three readable rungs, ratings for each practice step, and clear text states.
+4. Calm Insights overview showing factual journal, tracked-moment, delay, and ERP counts without scores or streaks.
+5. No-chatbot claim poster explaining that reassurance can become a compulsion and the question can stay open.
+6. Privacy proof stating that journal and ERP records stay on-device unless manually exported, with optional anonymous usage sharing.
 7. Full-screen private journal editor with a reflective entry and formatting controls.
 8. Patterns Pro poster showing the one-time unlock, all six Pro tools, offline access, and no recurring charge without hardcoding a price.
 

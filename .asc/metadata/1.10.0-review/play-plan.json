@@ -1,0 +1,23 @@
+{
+  "status": "approval_and_api_identity_required",
+  "packageName": "com.maskedsyntax.patterns",
+  "versionName": "1.10.0",
+  "locales": [
+    "en-US",
+    "en-GB",
+    "en-CA",
+    "en-AU",
+    "pt-BR",
+    "de-DE",
+    "ja-JP",
+    "es-419",
+    "es-ES",
+    "fr-FR",
+    "fr-CA"
+  ],
+  "screenshotsPerLocale": 8,
+  "featureGraphicsPerLocale": 1,
+  "transactionalEdit": true,
+  "productUpdateMask": "listings",
+  "remoteWritesAuthorized": false
+}

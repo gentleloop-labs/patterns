@@ -1,0 +1,8 @@
+{
+  "description": "Patterns es un diario privado para el trastorno obsesivo-compulsivo (TOC) y una herramienta de autoayuda. Registra pensamientos intrusivos y compulsiones, escribe en el diario, retrasa un impulso y practica exposición con prevención de respuesta (EPR). Insights tranquilos puede reemplazar puntuaciones y rachas calculadas por recuentos objetivos de actividad. El contenido personal permanece en el dispositivo salvo que exportes una copia JSON o PDF sin cifrar. Las analíticas anónimas son opcionales, están desactivadas por defecto y nunca incluyen contenido de TOC, resúmenes, región ni idioma. Patterns no diagnostica ni trata el TOC y no sustituye la atención profesional ni la ayuda de emergencia.",
+  "keywords": "pensamientos intrusivos,compulsiones,exposición,rituales,rumiación,confirmación,obsesión,autoayuda",
+  "marketingUrl": "https://www.patternsocd.com/",
+  "promotionalText": "Diario privado para TOC, Insights tranquilos objetivos y práctica guiada de EPR. Sin cuenta ni anuncios, con compra Pro opcional.",
+  "supportUrl": "https://github.com/maskedsyntax/patterns/issues",
+  "whatsNew": "Patterns 1.10 incorpora Insights tranquilos opcionales, finales más sencillos para el diario y las prácticas, e interfaces opcionales en inglés, portugués de Brasil, alemán, japonés, español y francés. Sus entradas no cambian y el idioma elegido permanece en el dispositivo."
+}

@@ -1,0 +1,23 @@
+{
+  "status": "approval_required",
+  "appId": "6762611172",
+  "version": "1.10.0",
+  "buildNumber": "61",
+  "releaseType": "MANUAL",
+  "locales": [
+    "en-US",
+    "en-GB",
+    "en-CA",
+    "en-AU",
+    "pt-BR",
+    "de-DE",
+    "ja",
+    "es-MX",
+    "es-ES",
+    "fr-FR",
+    "fr-CA"
+  ],
+  "screenshotsPerLocale": 8,
+  "displayType": "APP_IPHONE_67",
+  "remoteWritesAuthorized": false
+}

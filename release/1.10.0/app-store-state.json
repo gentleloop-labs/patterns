@@ -1,12 +1,21 @@
 {
-  "observedAt": "2026-09-09",
+  "observedAt": "2026-10-04",
   "readOnlyInspection": true,
   "app": {
     "id": "6762611172",
     "bundleId": "com.maskedsyntax.patterns",
     "name": "Patterns: OCD & ERP Journal",
     "version110Exists": false,
-    "build110Exists": false
+    "build110Exists": true,
+    "build110": {
+      "buildNumber": "61",
+      "buildId": "d92a6d25-aa98-44e0-b7b8-1978b2a61f70",
+      "processingState": "VALID",
+      "internalBuildState": "IN_BETA_TESTING",
+      "betaGroup": "Patterns Internal",
+      "uploadedAt": "2026-10-01T12:53:54-07:00",
+      "whatToTest": "Fixes JSON and ZIP backup import preview so a selected backup can be reviewed and restored."
+    }
   },
   "inAppPurchases": [
     {
@@ -44,11 +53,31 @@
   ],
   "ppp": {
     "snapshot": "app-store/patterns-pro-ppp-2026-09-08.json",
-    "verifiedAt": "2026-09-09",
+    "verifiedAt": "2026-10-04",
     "verifiedTerritories": 12,
     "drift": false,
     "priceWritesMade": false,
     "note": "Apple currently reports automatic future adjustments in COG, ISR, and MAR. None affects the nine manual PPP pilot territories or the three unchanged spot checks."
   },
-  "remoteWritesMade": false
+  "remoteWritesMade": false,
+  "storePackage": {
+    "metadataStatus": "ai_assisted_review_ready_not_approved",
+    "appleLocales": 11,
+    "googlePlayLocales": 11,
+    "appleProductLocalizations": 44,
+    "googlePlayProductLocalizations": 44,
+    "uniqueAppleScreenshots": 48,
+    "uniqueGooglePlayScreenshots": 48,
+    "googlePlayFeatureGraphics": 6,
+    "approvalPending": true,
+    "remoteMetadataOrAssetWritesMade": false
+  },
+  "googlePlay": {
+    "publishingApiIdentityConfigured": false,
+    "catalogueSnapshotCaptured": false,
+    "nextUnusedVersionCodeResolved": false,
+    "signedCandidateBuilt": false,
+    "internalTestingUploadComplete": false,
+    "priceWritesMade": false
+  }
 }

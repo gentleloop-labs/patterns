@@ -1,0 +1,71 @@
+{
+  "status": "ai_assisted_review_ready_not_approved",
+  "limits": {"title": 55, "description": 200},
+  "updateMask": "listings",
+  "products": {
+    "com.maskedsyntax.patterns.pro": {
+      "kind": "pro",
+      "localizations": {
+        "en-US": {"title": "Patterns Pro", "description": "One-time purchase that unlocks every Patterns Pro self-help and reflection tool."},
+        "en-GB": {"title": "Patterns Pro", "description": "One-time purchase that unlocks every Patterns Pro self-help and reflection tool."},
+        "en-CA": {"title": "Patterns Pro", "description": "One-time purchase that unlocks every Patterns Pro self-help and reflection tool."},
+        "en-AU": {"title": "Patterns Pro", "description": "One-time purchase that unlocks every Patterns Pro self-help and reflection tool."},
+        "pt-BR": {"title": "Patterns Pro", "description": "Compra única que libera todas as ferramentas Pro de autoajuda e reflexão do Patterns."},
+        "de-DE": {"title": "Patterns Pro", "description": "Einmalkauf zum Freischalten aller Pro-Werkzeuge für Selbsthilfe und Reflexion in Patterns."},
+        "ja-JP": {"title": "Patterns Pro", "description": "PatternsのすべてのProセルフヘルプ・振り返りツールを利用できる買い切り購入です。"},
+        "es-419": {"title": "Patterns Pro", "description": "Compra única que desbloquea todas las herramientas Pro de autoayuda y reflexión de Patterns."},
+        "es-ES": {"title": "Patterns Pro", "description": "Compra única que desbloquea todas las herramientas Pro de autoayuda y reflexión de Patterns."},
+        "fr-FR": {"title": "Patterns Pro", "description": "Achat unique qui débloque tous les outils Pro d’auto-assistance et de réflexion de Patterns."},
+        "fr-CA": {"title": "Patterns Pro", "description": "Achat unique qui débloque tous les outils Pro d’auto-assistance et de réflexion de Patterns."}
+      }
+    },
+    "com.maskedsyntax.patterns.tip.small": {
+      "kind": "tip",
+      "localizations": {
+        "en-US": {"title": "Small tip", "description": "An optional small tip to support Patterns development. It unlocks no features."},
+        "en-GB": {"title": "Small tip", "description": "An optional small tip to support Patterns development. It unlocks no features."},
+        "en-CA": {"title": "Small tip", "description": "An optional small tip to support Patterns development. It unlocks no features."},
+        "en-AU": {"title": "Small tip", "description": "An optional small tip to support Patterns development. It unlocks no features."},
+        "pt-BR": {"title": "Gorjeta pequena", "description": "Uma pequena gorjeta opcional para apoiar o desenvolvimento do Patterns. Não libera recursos."},
+        "de-DE": {"title": "Kleines Trinkgeld", "description": "Ein optionales kleines Trinkgeld für die Entwicklung von Patterns. Es schaltet keine Funktionen frei."},
+        "ja-JP": {"title": "小さなチップ", "description": "Patternsの開発を支援する任意の小さなチップです。機能は追加されません。"},
+        "es-419": {"title": "Propina pequeña", "description": "Una propina pequeña y opcional para apoyar el desarrollo de Patterns. No desbloquea funciones."},
+        "es-ES": {"title": "Propina pequeña", "description": "Una propina pequeña y opcional para apoyar el desarrollo de Patterns. No desbloquea funciones."},
+        "fr-FR": {"title": "Petit pourboire", "description": "Un petit pourboire facultatif pour soutenir le développement de Patterns. Il ne débloque aucune fonction."},
+        "fr-CA": {"title": "Petit pourboire", "description": "Un petit pourboire facultatif pour soutenir le développement de Patterns. Il ne débloque aucune fonction."}
+      }
+    },
+    "com.maskedsyntax.patterns.tip.medium": {
+      "kind": "tip",
+      "localizations": {
+        "en-US": {"title": "Medium tip", "description": "An optional medium tip to support Patterns development. It unlocks no features."},
+        "en-GB": {"title": "Medium tip", "description": "An optional medium tip to support Patterns development. It unlocks no features."},
+        "en-CA": {"title": "Medium tip", "description": "An optional medium tip to support Patterns development. It unlocks no features."},
+        "en-AU": {"title": "Medium tip", "description": "An optional medium tip to support Patterns development. It unlocks no features."},
+        "pt-BR": {"title": "Gorjeta média", "description": "Uma gorjeta média e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos."},
+        "de-DE": {"title": "Mittleres Trinkgeld", "description": "Ein optionales mittleres Trinkgeld für die Entwicklung von Patterns. Es schaltet keine Funktionen frei."},
+        "ja-JP": {"title": "中くらいのチップ", "description": "Patternsの開発を支援する任意のチップです。機能は追加されません。"},
+        "es-419": {"title": "Propina mediana", "description": "Una propina mediana y opcional para apoyar el desarrollo de Patterns. No desbloquea funciones."},
+        "es-ES": {"title": "Propina mediana", "description": "Una propina mediana y opcional para apoyar el desarrollo de Patterns. No desbloquea funciones."},
+        "fr-FR": {"title": "Pourboire moyen", "description": "Un pourboire facultatif pour soutenir le développement de Patterns. Il ne débloque aucune fonction."},
+        "fr-CA": {"title": "Pourboire moyen", "description": "Un pourboire facultatif pour soutenir le développement de Patterns. Il ne débloque aucune fonction."}
+      }
+    },
+    "com.maskedsyntax.patterns.tip.large": {
+      "kind": "tip",
+      "localizations": {
+        "en-US": {"title": "Large tip", "description": "An optional large tip to support Patterns development. It unlocks no features."},
+        "en-GB": {"title": "Large tip", "description": "An optional large tip to support Patterns development. It unlocks no features."},
+        "en-CA": {"title": "Large tip", "description": "An optional large tip to support Patterns development. It unlocks no features."},
+        "en-AU": {"title": "Large tip", "description": "An optional large tip to support Patterns development. It unlocks no features."},
+        "pt-BR": {"title": "Gorjeta grande", "description": "Uma gorjeta grande e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos."},
+        "de-DE": {"title": "Großes Trinkgeld", "description": "Ein optionales großes Trinkgeld für die Entwicklung von Patterns. Es schaltet keine Funktionen frei."},
+        "ja-JP": {"title": "大きなチップ", "description": "Patternsの開発を支援する任意の大きなチップです。機能は追加されません。"},
+        "es-419": {"title": "Propina grande", "description": "Una propina grande y opcional para apoyar el desarrollo de Patterns. No desbloquea funciones."},
+        "es-ES": {"title": "Propina grande", "description": "Una propina grande y opcional para apoyar el desarrollo de Patterns. No desbloquea funciones."},
+        "fr-FR": {"title": "Grand pourboire", "description": "Un grand pourboire facultatif pour soutenir le développement de Patterns. Il ne débloque aucune fonction."},
+        "fr-CA": {"title": "Grand pourboire", "description": "Un grand pourboire facultatif pour soutenir le développement de Patterns. Il ne débloque aucune fonction."}
+      }
+    }
+  }
+}

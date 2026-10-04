@@ -1,0 +1,88 @@
+{
+  "status": "ai_assisted_review_ready_not_approved",
+  "languageSets": ["en", "pt-BR", "de", "ja", "es", "fr"],
+  "storefronts": {
+    "apple": {"en-US": "en", "en-GB": "en", "en-CA": "en", "en-AU": "en", "pt-BR": "pt-BR", "de-DE": "de", "ja": "ja", "es-MX": "es", "es-ES": "es", "fr-FR": "fr", "fr-CA": "fr"},
+    "play": {"en-US": "en", "en-GB": "en", "en-CA": "en", "en-AU": "en", "pt-BR": "pt-BR", "de-DE": "de", "ja-JP": "ja", "es-419": "es", "es-ES": "es", "fr-FR": "fr", "fr-CA": "fr"}
+  },
+  "frames": [
+    {"id": "shot-1", "file": "01-calm-today"},
+    {"id": "shot-2", "file": "02-delay-the-urge"},
+    {"id": "shot-4", "file": "03-build-your-exposure-ladder"},
+    {"id": "shot-6", "file": "04-see-patterns-not-judgments"},
+    {"id": "shot-3", "file": "05-no-ai-to-ask"},
+    {"id": "shot-5", "file": "06-nothing-leaves-your-phone"},
+    {"id": "shot-7", "file": "07-private-journaling"},
+    {"id": "shot-8", "file": "08-patterns-pro"}
+  ],
+  "feature": {
+    "en": {"eyebrow": "JOURNAL · TRACK · PRACTISE", "headline": "A quieter way through OCD.", "subhead": "Private, practical, and built around one clear next step.", "cardLabel": "YOUR NEXT STEP", "cardTitle": "Try a two-minute delay", "cardAction": "Start a delay →"},
+    "pt-BR": {"eyebrow": "DIÁRIO · REGISTRO · PRÁTICA", "headline": "Um caminho mais tranquilo com o TOC.", "subhead": "Privado, prático e centrado em um próximo passo claro.", "cardLabel": "SEU PRÓXIMO PASSO", "cardTitle": "Tente adiar por dois minutos", "cardAction": "Iniciar adiamento →"},
+    "de": {"eyebrow": "TAGEBUCH · ERFASSEN · ÜBEN", "headline": "Ein ruhigerer Umgang mit Zwang.", "subhead": "Privat, praktisch und auf einen klaren nächsten Schritt ausgerichtet.", "cardLabel": "IHR NÄCHSTER SCHRITT", "cardTitle": "Zwei Minuten aufschieben", "cardAction": "Aufschub starten →"},
+    "ja": {"eyebrow": "日記 · 記録 · 練習", "headline": "強迫症と向き合う、より静かな方法。", "subhead": "プライベートで実用的。次の一歩をひとつだけ。", "cardLabel": "次の一歩", "cardTitle": "2分だけ遅らせてみる", "cardAction": "先延ばしを開始 →"},
+    "es": {"eyebrow": "DIARIO · REGISTRO · PRÁCTICA", "headline": "Una forma más tranquila de afrontar el TOC.", "subhead": "Privada, práctica y centrada en un siguiente paso claro.", "cardLabel": "TU SIGUIENTE PASO", "cardTitle": "Prueba a retrasarlo dos minutos", "cardAction": "Iniciar retraso →"},
+    "fr": {"eyebrow": "JOURNAL · SUIVI · EXERCICE", "headline": "Une approche plus calme du TOC.", "subhead": "Privée, pratique et centrée sur une prochaine étape claire.", "cardLabel": "VOTRE PROCHAINE ÉTAPE", "cardTitle": "Essayez un retard de deux minutes", "cardAction": "Commencer le retard →"}
+  },
+  "copy": {
+    "en": [
+      {"badge": "LIGHT + DARK", "eyebrow": "A CALMER FIRST STEP", "headline": "When OCD feels <em>urgent,</em> start here.", "subhead": "One clear next step.", "alt": "Patterns Today screen with factual activity counts and a two-minute compulsion delay action."},
+      {"badge": "RESPONSE PREVENTION TOOL", "eyebrow": "COMPULSION DELAY", "headline": "Delay the urge. <em>Watch it change.</em>", "subhead": "Create space before you respond.", "alt": "Compulsion Delay setup with an urge description, user-recorded intensity, and wait duration."},
+      {"badge": "PATTERNS PRO · ERP LADDER", "eyebrow": "EXPOSURE & RESPONSE PREVENTION", "headline": "Build the ladder. <em>Take the next step.</em>", "subhead": "Turn hard moments into a practice you control.", "alt": "Exposure ladder with three user-created steps and text labels for each practice state."},
+      {"badge": "PATTERNS PRO · ACTIVITY SUMMARY", "eyebrow": "PRIVATE INSIGHTS", "headline": "See patterns. <em>Not judgments.</em>", "subhead": "See what you recorded, without a score.", "alt": "Calm Insights with factual journal, delay, and ERP activity counts and no score or streak."},
+      {"badge": "NO CHATBOT", "headline": "No AI to ask. <em>No answer to chase.</em>", "body": "Reassurance can become a compulsion. Practise letting the question stay open.", "alt": "No chatbot message explaining that Patterns does not provide reassurance on demand."},
+      {"badge": "PRIVACY-FIRST BY DESIGN", "headline": "Your OCD data stays <em>on your phone.</em>", "alt": "Privacy card stating that journal and ERP records stay on the device unless manually exported."},
+      {"badge": "ON-DEVICE JOURNAL", "eyebrow": "PRIVATE JOURNALING", "headline": "A journal for thoughts <em>you don’t say out loud.</em>", "subhead": "Write freely. Keep it yours.", "alt": "Private on-device journal editor with saved status and formatting controls."},
+      {"badge": "ONE-TIME PURCHASE", "eyebrow": "PATTERNS PRO", "headline": "One unlock. <em>Not another subscription.</em>", "subhead": "Pay once. Unlock every Pro tool.", "alt": "Patterns Pro one-time purchase with a list of included self-help and reflection tools."}
+    ],
+    "pt-BR": [
+      {"badge": "CLARO + ESCURO", "eyebrow": "UM PRIMEIRO PASSO MAIS CALMO", "headline": "Quando o TOC parecer <em>urgente,</em> comece aqui.", "subhead": "Um próximo passo claro.", "alt": "Tela Hoje do Patterns com contagens factuais e uma ação para adiar uma compulsão por dois minutos."},
+      {"badge": "FERRAMENTA DE PREVENÇÃO DE RESPOSTA", "eyebrow": "ADIAR A COMPULSÃO", "headline": "Adie o impulso. <em>Observe a mudança.</em>", "subhead": "Crie espaço antes de responder.", "alt": "Configuração para adiar a compulsão com descrição, intensidade registrada e tempo de espera."},
+      {"badge": "PATTERNS PRO · HIERARQUIA EPR", "eyebrow": "EXPOSIÇÃO E PREVENÇÃO DE RESPOSTA", "headline": "Monte a hierarquia. <em>Dê o próximo passo.</em>", "subhead": "Transforme momentos difíceis em uma prática escolhida por você.", "alt": "Hierarquia de exposição com três etapas e rótulos de texto para cada estado da prática."},
+      {"badge": "PATTERNS PRO · RESUMO DE ATIVIDADES", "eyebrow": "INSIGHTS PRIVADOS", "headline": "Veja padrões. <em>Sem julgamentos.</em>", "subhead": "Veja o que registrou, sem pontuação.", "alt": "Insights tranquilos com contagens factuais de diário, adiamentos e práticas EPR, sem pontuação ou sequência."},
+      {"badge": "SEM CHATBOT", "headline": "Sem IA para perguntar. <em>Sem resposta para perseguir.</em>", "body": "Buscar reasseguramento pode virar compulsão. Pratique deixar a pergunta em aberto.", "alt": "Mensagem que explica que o Patterns não oferece um chatbot para reasseguramento imediato."},
+      {"badge": "PRIVACIDADE DESDE O INÍCIO", "headline": "Seus dados de TOC ficam <em>no celular.</em>", "alt": "Cartão de privacidade informando que diário e práticas EPR ficam no aparelho salvo exportação manual."},
+      {"badge": "DIÁRIO NO APARELHO", "eyebrow": "DIÁRIO PRIVADO", "headline": "Um diário para pensamentos <em>que você não diz em voz alta.</em>", "subhead": "Escreva livremente. Mantenha privado.", "alt": "Editor de diário privado no aparelho com estado salvo e controles de formatação."},
+      {"badge": "COMPRA ÚNICA", "eyebrow": "PATTERNS PRO", "headline": "Um desbloqueio. <em>Sem outra assinatura.</em>", "subhead": "Pague uma vez. Libere todas as ferramentas Pro.", "alt": "Compra única do Patterns Pro com a lista de ferramentas de autoajuda e reflexão incluídas."}
+    ],
+    "de": [
+      {"badge": "HELL + DUNKEL", "eyebrow": "EIN RUHIGERER ERSTER SCHRITT", "headline": "Wenn der Zwang <em>dringend</em> wirkt, beginnen Sie hier.", "subhead": "Ein klarer nächster Schritt.", "alt": "Patterns Heute mit sachlichen Aktivitätszahlen und einer zweiminütigen Zwangsaufschub-Aktion."},
+      {"badge": "REAKTIONSVERHINDERUNG", "eyebrow": "ZWANG AUFSCHIEBEN", "headline": "Schieben Sie den Drang auf. <em>Beobachten Sie ihn.</em>", "subhead": "Schaffen Sie Raum vor der Reaktion.", "alt": "Zwangsaufschub mit Beschreibung, selbst erfasster Intensität und gewählter Wartezeit."},
+      {"badge": "PATTERNS PRO · ERP-HIERARCHIE", "eyebrow": "EXPOSITION UND REAKTIONSVERHINDERUNG", "headline": "Bauen Sie die Leiter. <em>Nehmen Sie die nächste Stufe.</em>", "subhead": "Machen Sie schwere Momente zu einer selbst gewählten Übung.", "alt": "Expositionshierarchie mit drei eigenen Stufen und Textbezeichnungen für jeden Übungsstatus."},
+      {"badge": "PATTERNS PRO · AKTIVITÄTSÜBERSICHT", "eyebrow": "PRIVATE EINBLICKE", "headline": "Muster sehen. <em>Nicht urteilen.</em>", "subhead": "Sehen Sie Ihre Einträge, ohne Punktzahl.", "alt": "Ruhige Einblicke mit sachlichen Zahlen für Tagebuch, Aufschub und ERP ohne Punktzahl oder Serie."},
+      {"badge": "KEIN CHATBOT", "headline": "Keine KI zum Fragen. <em>Keine Antwort zum Jagen.</em>", "body": "Rückversicherung kann zum Zwang werden. Üben Sie, die Frage offen zu lassen.", "alt": "Hinweis, dass Patterns keinen Chatbot für sofortige Rückversicherung anbietet."},
+      {"badge": "DATENSCHUTZ VON ANFANG AN", "headline": "Ihre Zwangsdaten bleiben <em>auf dem Smartphone.</em>", "alt": "Datenschutzkarte: Tagebuch- und ERP-Daten bleiben ohne manuellen Export auf dem Gerät."},
+      {"badge": "TAGEBUCH AUF DEM GERÄT", "eyebrow": "PRIVATES TAGEBUCH", "headline": "Ein Tagebuch für Gedanken, <em>die Sie nicht laut sagen.</em>", "subhead": "Frei schreiben. Privat behalten.", "alt": "Privater Tagebucheditor auf dem Gerät mit Speicherstatus und Formatierungssteuerung."},
+      {"badge": "EINMALKAUF", "eyebrow": "PATTERNS PRO", "headline": "Einmal freischalten. <em>Kein weiteres Abo.</em>", "subhead": "Einmal zahlen. Alle Pro-Werkzeuge nutzen.", "alt": "Patterns Pro als Einmalkauf mit enthaltenen Werkzeugen für Selbsthilfe und Reflexion."}
+    ],
+    "ja": [
+      {"badge": "ライト＋ダーク", "eyebrow": "落ち着いた最初の一歩", "headline": "強迫症が<em>切迫して</em>感じたら、ここから。", "subhead": "次の一歩をひとつだけ。", "alt": "事実に基づく活動回数と2分間の強迫行為の先延ばしを表示したPatternsの「今日」画面。"},
+      {"badge": "反応妨害ツール", "eyebrow": "強迫行為を遅らせる", "headline": "衝動を遅らせて、<em>変化を観察。</em>", "subhead": "反応する前に少し間をつくります。", "alt": "衝動の内容、本人が記録した強さ、待つ時間を設定する強迫行為の先延ばし画面。"},
+      {"badge": "PATTERNS PRO · ERP階層", "eyebrow": "曝露反応妨害法", "headline": "階層をつくり、<em>次の一段へ。</em>", "subhead": "難しい場面を自分で選ぶ練習に変えます。", "alt": "3つの曝露ステップと各練習状態を文字で示した曝露階層。"},
+      {"badge": "PATTERNS PRO · 活動サマリー", "eyebrow": "プライベートなインサイト", "headline": "パターンを見る。<em>評価はしない。</em>", "subhead": "スコアではなく、記録した事実を表示。", "alt": "日記、先延ばし、ERPの事実に基づく回数を表示し、スコアや連続記録を使わない穏やかなインサイト。"},
+      {"badge": "チャットボットなし", "headline": "AIに尋ねない。<em>答えを追わない。</em>", "body": "安心を求め続けることが強迫行為になる場合があります。問いを開いたままにする練習を。", "alt": "Patternsがすぐに安心を与えるチャットボットを提供しないことを説明する画面。"},
+      {"badge": "プライバシーを最初から", "headline": "強迫症のデータは<em>端末内に保存。</em>", "alt": "手動で書き出さない限り、日記とERPの記録が端末内に残ることを示すプライバシーカード。"},
+      {"badge": "端末内の日記", "eyebrow": "プライベートな日記", "headline": "声に出せない思いを<em>書ける日記。</em>", "subhead": "自由に書いて、自分だけのものに。", "alt": "保存状態と書式設定を表示した、端末内のプライベート日記エディター。"},
+      {"badge": "買い切り", "eyebrow": "PATTERNS PRO", "headline": "一度の購入。<em>新たな定期購入なし。</em>", "subhead": "一度の支払いですべてのProツールを利用。", "alt": "セルフヘルプと振り返りのツール一覧を示したPatterns Proの買い切り購入画面。"}
+    ],
+    "es": [
+      {"badge": "CLARO + OSCURO", "eyebrow": "UN PRIMER PASO MÁS TRANQUILO", "headline": "Cuando el TOC parezca <em>urgente,</em> empieza aquí.", "subhead": "Un siguiente paso claro.", "alt": "Pantalla Hoy de Patterns con recuentos objetivos y una acción para retrasar una compulsión dos minutos."},
+      {"badge": "PREVENCIÓN DE RESPUESTA", "eyebrow": "RETRASAR LA COMPULSIÓN", "headline": "Retrasa el impulso. <em>Observa el cambio.</em>", "subhead": "Crea espacio antes de responder.", "alt": "Configuración para retrasar una compulsión con descripción, intensidad registrada y tiempo de espera."},
+      {"badge": "PATTERNS PRO · JERARQUÍA EPR", "eyebrow": "EXPOSICIÓN CON PREVENCIÓN DE RESPUESTA", "headline": "Crea la jerarquía. <em>Da el siguiente paso.</em>", "subhead": "Convierte momentos difíciles en una práctica elegida por ti.", "alt": "Jerarquía de exposición con tres pasos propios y etiquetas de texto para cada estado de práctica."},
+      {"badge": "PATTERNS PRO · RESUMEN DE ACTIVIDAD", "eyebrow": "INSIGHTS PRIVADOS", "headline": "Observa patrones. <em>Sin juzgar.</em>", "subhead": "Mira lo que registraste, sin puntuación.", "alt": "Insights tranquilos con recuentos objetivos de diario, retrasos y EPR, sin puntuación ni racha."},
+      {"badge": "SIN CHATBOT", "headline": "Sin IA a la que preguntar. <em>Sin respuesta que perseguir.</em>", "body": "Buscar confirmación puede convertirse en compulsión. Practica dejar la pregunta abierta.", "alt": "Mensaje que explica que Patterns no ofrece un chatbot para obtener confirmación inmediata."},
+      {"badge": "PRIVACIDAD DESDE EL DISEÑO", "headline": "Tus datos de TOC se quedan <em>en el teléfono.</em>", "alt": "Tarjeta de privacidad que indica que diario y EPR permanecen en el dispositivo salvo exportación manual."},
+      {"badge": "DIARIO EN EL DISPOSITIVO", "eyebrow": "DIARIO PRIVADO", "headline": "Un diario para pensamientos <em>que no dices en voz alta.</em>", "subhead": "Escribe con libertad. Consérvalo para ti.", "alt": "Editor de diario privado en el dispositivo con estado guardado y controles de formato."},
+      {"badge": "COMPRA ÚNICA", "eyebrow": "PATTERNS PRO", "headline": "Un desbloqueo. <em>Sin otra suscripción.</em>", "subhead": "Paga una vez. Desbloquea todas las herramientas Pro.", "alt": "Compra única de Patterns Pro con la lista de herramientas de autoayuda y reflexión incluidas."}
+    ],
+    "fr": [
+      {"badge": "CLAIR + SOMBRE", "eyebrow": "UN PREMIER PAS PLUS CALME", "headline": "Quand le TOC semble <em>urgent,</em> commencez ici.", "subhead": "Une prochaine étape claire.", "alt": "Écran Aujourd’hui de Patterns avec des nombres factuels et une action pour retarder une compulsion de deux minutes."},
+      {"badge": "PRÉVENTION DE LA RÉPONSE", "eyebrow": "RETARDER LA COMPULSION", "headline": "Retardez l’envie. <em>Observez son évolution.</em>", "subhead": "Créez un espace avant de réagir.", "alt": "Réglage du retard d’une compulsion avec description, intensité saisie et durée d’attente."},
+      {"badge": "PATTERNS PRO · HIÉRARCHIE EPR", "eyebrow": "EXPOSITION AVEC PRÉVENTION DE LA RÉPONSE", "headline": "Créez la hiérarchie. <em>Passez à l’étape suivante.</em>", "subhead": "Transformez les moments difficiles en exercice choisi.", "alt": "Hiérarchie d’exposition avec trois étapes personnelles et des libellés pour chaque état d’exercice."},
+      {"badge": "PATTERNS PRO · RÉSUMÉ D’ACTIVITÉ", "eyebrow": "INSIGHTS PRIVÉS", "headline": "Voyez les schémas. <em>Pas les jugements.</em>", "subhead": "Voyez vos données, sans score.", "alt": "Insights apaisés avec nombres factuels du journal, des retards et de l’EPR, sans score ni série."},
+      {"badge": "SANS CHATBOT", "headline": "Pas d’IA à interroger. <em>Pas de réponse à poursuivre.</em>", "body": "La recherche de réassurance peut devenir une compulsion. Exercez-vous à laisser la question ouverte.", "alt": "Message expliquant que Patterns ne propose pas de chatbot pour obtenir une réassurance immédiate."},
+      {"badge": "CONFIDENTIALITÉ DÈS LA CONCEPTION", "headline": "Vos données sur le TOC restent <em>sur le téléphone.</em>", "alt": "Carte indiquant que journal et EPR restent sur l’appareil sauf en cas d’exportation manuelle."},
+      {"badge": "JOURNAL SUR L’APPAREIL", "eyebrow": "JOURNAL PRIVÉ", "headline": "Un journal pour les pensées <em>que vous ne dites pas tout haut.</em>", "subhead": "Écrivez librement. Gardez-le pour vous.", "alt": "Éditeur de journal privé sur l’appareil avec état enregistré et commandes de mise en forme."},
+      {"badge": "ACHAT UNIQUE", "eyebrow": "PATTERNS PRO", "headline": "Un déverrouillage. <em>Pas un autre abonnement.</em>", "subhead": "Payez une fois. Débloquez tous les outils Pro.", "alt": "Achat unique Patterns Pro avec la liste des outils d’auto-assistance et de réflexion inclus."}
+    ]
+  }
+}

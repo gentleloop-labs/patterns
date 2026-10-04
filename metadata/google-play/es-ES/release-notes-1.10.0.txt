@@ -1,0 +1,1 @@
+Patterns 1.10 incorpora Insights tranquilos opcionales, finales más sencillos para el diario y las prácticas, e interfaces opcionales en inglés, portugués de Brasil, alemán, japonés, español y francés. Sus entradas no cambian y el idioma elegido permanece en el dispositivo.

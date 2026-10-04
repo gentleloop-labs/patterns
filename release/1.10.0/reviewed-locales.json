@@ -14,7 +14,48 @@
     "es": {"reviewMethod": "ai_assisted", "passes": {"copyFrozen": true, "contextAwareTranslation": true, "linguisticConsistencyAndBackTranslation": true, "clinicalCrisisPrivacyPaymentAccessibility": true, "placeholdersPluralsFormattingTerminology": true, "renderedMobileLayout": true}, "identifiedRevisions": ["2026-09-13: Restored 133 missing ARB placeholder metadata declarations; no user-visible copy changed.", "2026-09-16: Standardized neutral Spanish address, TOC/EPR clinical terminology, factual self-help labels, Y-BOCS self-check boundaries, privacy/payment language, emergency boundaries, and quiet-completion copy.", "2026-09-17: Reconciled 6 messages with the frozen English source through a separate semantic back-translation pass, correcting factual release framing, exact Y-BOCS maximums, and precise default-off analytics consent and data-field explanations."], "unresolvedRisks": ["Physical iPhone and Android QA are pending."], "physicalDeviceQa": {"ios": false, "android": false}, "releaseOwnerApproved": false},
     "fr": {"reviewMethod": "ai_assisted", "passes": {"copyFrozen": true, "contextAwareTranslation": true, "linguisticConsistencyAndBackTranslation": true, "clinicalCrisisPrivacyPaymentAccessibility": true, "placeholdersPluralsFormattingTerminology": true, "renderedMobileLayout": true}, "identifiedRevisions": ["2026-09-13: Restored 133 missing ARB placeholder metadata declarations; no user-visible copy changed.", "2026-09-16: Standardized polite French address, TOC/EPR clinical terminology, factual self-help labels, Y-BOCS self-check boundaries, privacy/payment language, emergency boundaries, and quiet-completion copy.", "2026-09-17: Reconciled 6 messages with the frozen English source through a separate semantic back-translation pass, correcting factual release framing, exact Y-BOCS maximums, and precise default-off analytics consent and data-field explanations."], "unresolvedRisks": ["Physical iPhone and Android QA are pending."], "physicalDeviceQa": {"ios": false, "android": false}, "releaseOwnerApproved": false}
   },
-  "storefrontReviews": {"appStore": {}, "googlePlay": {}},
+  "storefrontReviews": {
+    "reviewMethod": "ai_assisted",
+    "reviewedAt": "2026-10-04",
+    "passes": {
+      "marketTerminology": true,
+      "clinicalCrisisPrivacyPaymentAccessibility": true,
+      "characterLimitsAndProhibitedClaims": true,
+      "productCopyAndNoFeatureTipBoundary": true,
+      "renderedScreenshotLayout": true
+    },
+    "appStore": {
+      "en-US": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "en-GB": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "en-CA": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "en-AU": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "pt-BR": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "de-DE": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "ja": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "es-MX": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "es-ES": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "fr-FR": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "fr-CA": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false}
+    },
+    "googlePlay": {
+      "en-US": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "en-GB": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "en-CA": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "en-AU": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "pt-BR": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "de-DE": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "ja-JP": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "es-419": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "es-ES": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "fr-FR": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
+      "fr-CA": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false}
+    },
+    "unresolvedRisks": [
+      "Release-owner approval is pending.",
+      "Human linguistic review was not performed.",
+      "Remote storefront verification is pending."
+    ]
+  },
   "physicalDeviceQa": {
     "ios": {"voiceOver": false, "maximumTextAndDisplayScale": false, "reducedMotion": false, "nonColour": false, "lightDarkPortraitLandscape": false, "purchasesAndRestore": false},
     "android": {"talkBack": false, "maximumFontAndDisplayScale": false, "reducedMotion": false, "nonColour": false, "lightDarkPortraitLandscape": false, "purchasesAndRestore": false}

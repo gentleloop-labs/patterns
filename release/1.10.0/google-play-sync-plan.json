@@ -1,0 +1,930 @@
+{
+  "schemaVersion": 1,
+  "mode": "local_plan_no_remote_writes",
+  "packageName": "com.maskedsyntax.patterns",
+  "releaseVersion": "1.10.0",
+  "track": "internal",
+  "transaction": {
+    "listingChangesUseSingleEdit": true,
+    "editContains": [
+      "signed AAB",
+      "11 localized listings",
+      "11 localized release notes",
+      "88 phone screenshot slots",
+      "11 feature graphics",
+      "internal track assignment"
+    ],
+    "productPatchTiming": "after successful edit commit",
+    "productPatchUpdateMask": "listings"
+  },
+  "aab": {
+    "path": "build/app/outputs/bundle/release/app-release.aab",
+    "exists": true,
+    "expectedVersionCode": null,
+    "candidateReady": false,
+    "notReadyReason": "Resolve the next unused version code through read-only inventory, then build the same-source signed AAB."
+  },
+  "listings": [
+    {
+      "locale": "en-US",
+      "languageSet": "en",
+      "titlePath": "metadata/google-play/en-US/title.txt",
+      "shortDescriptionPath": "metadata/google-play/en-US/short-description.txt",
+      "fullDescriptionPath": "metadata/google-play/en-US/full-description.txt",
+      "releaseNotesPath": "metadata/google-play/en-US/release-notes-1.10.0.txt",
+      "phoneScreenshots": [
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/01-calm-today.png",
+          "bytes": 225677,
+          "sha256": "76988aea058b40dfaf0473c0b506d3de1e9a6c9cd0b32219ce7f04bc67aa966b"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/02-delay-the-urge.png",
+          "bytes": 161507,
+          "sha256": "805b3f88b347044847fd3ea2e9672a2671896caa30c9f5b2e0e8f2b8459cf1b7"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/03-build-your-exposure-ladder.png",
+          "bytes": 246417,
+          "sha256": "447fd8c6f2fa9f14ce869f66533daed0ba977a5b756beeaf4cc01aecd7c415ad"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/04-see-patterns-not-judgments.png",
+          "bytes": 178186,
+          "sha256": "bd82131bea7efea1b705012cb3d49f8f45adf420fee7f80904e45fa6c3affedc"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/05-no-ai-to-ask.png",
+          "bytes": 83929,
+          "sha256": "6ae7ac05bc23a2be384df3ab71f329c9f1171d5a4deba05ed09f33f2631d59d8"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/06-nothing-leaves-your-phone.png",
+          "bytes": 199975,
+          "sha256": "c7a2ebc5e2143c4a807d8f3c73e8a67f0877b4e94cd380fc06365c21c2dcec6f"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/07-private-journaling.png",
+          "bytes": 223878,
+          "sha256": "5cd29f2b72b370641e766524feb6267fe1367129eecaac74811216febd89a1c3"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/08-patterns-pro.png",
+          "bytes": 203091,
+          "sha256": "fb8681c05f142d9f165c40405442b19308791809e5cfc76b987c0a209dd35814"
+        }
+      ],
+      "featureGraphic": {
+        "path": "app-store/patterns-screenshots/exports/localized/feature/en/patterns-feature-graphic-1024x500.png",
+        "bytes": 65067,
+        "sha256": "e77578fca66f045470a040572c32fa3321daa6cc3f83745ce24f5d4d1bd379d5"
+      }
+    },
+    {
+      "locale": "en-GB",
+      "languageSet": "en",
+      "titlePath": "metadata/google-play/en-GB/title.txt",
+      "shortDescriptionPath": "metadata/google-play/en-GB/short-description.txt",
+      "fullDescriptionPath": "metadata/google-play/en-GB/full-description.txt",
+      "releaseNotesPath": "metadata/google-play/en-GB/release-notes-1.10.0.txt",
+      "phoneScreenshots": [
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/01-calm-today.png",
+          "bytes": 225677,
+          "sha256": "76988aea058b40dfaf0473c0b506d3de1e9a6c9cd0b32219ce7f04bc67aa966b"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/02-delay-the-urge.png",
+          "bytes": 161507,
+          "sha256": "805b3f88b347044847fd3ea2e9672a2671896caa30c9f5b2e0e8f2b8459cf1b7"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/03-build-your-exposure-ladder.png",
+          "bytes": 246417,
+          "sha256": "447fd8c6f2fa9f14ce869f66533daed0ba977a5b756beeaf4cc01aecd7c415ad"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/04-see-patterns-not-judgments.png",
+          "bytes": 178186,
+          "sha256": "bd82131bea7efea1b705012cb3d49f8f45adf420fee7f80904e45fa6c3affedc"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/05-no-ai-to-ask.png",
+          "bytes": 83929,
+          "sha256": "6ae7ac05bc23a2be384df3ab71f329c9f1171d5a4deba05ed09f33f2631d59d8"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/06-nothing-leaves-your-phone.png",
+          "bytes": 199975,
+          "sha256": "c7a2ebc5e2143c4a807d8f3c73e8a67f0877b4e94cd380fc06365c21c2dcec6f"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/07-private-journaling.png",
+          "bytes": 223878,
+          "sha256": "5cd29f2b72b370641e766524feb6267fe1367129eecaac74811216febd89a1c3"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/08-patterns-pro.png",
+          "bytes": 203091,
+          "sha256": "fb8681c05f142d9f165c40405442b19308791809e5cfc76b987c0a209dd35814"
+        }
+      ],
+      "featureGraphic": {
+        "path": "app-store/patterns-screenshots/exports/localized/feature/en/patterns-feature-graphic-1024x500.png",
+        "bytes": 65067,
+        "sha256": "e77578fca66f045470a040572c32fa3321daa6cc3f83745ce24f5d4d1bd379d5"
+      }
+    },
+    {
+      "locale": "en-CA",
+      "languageSet": "en",
+      "titlePath": "metadata/google-play/en-CA/title.txt",
+      "shortDescriptionPath": "metadata/google-play/en-CA/short-description.txt",
+      "fullDescriptionPath": "metadata/google-play/en-CA/full-description.txt",
+      "releaseNotesPath": "metadata/google-play/en-CA/release-notes-1.10.0.txt",
+      "phoneScreenshots": [
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/01-calm-today.png",
+          "bytes": 225677,
+          "sha256": "76988aea058b40dfaf0473c0b506d3de1e9a6c9cd0b32219ce7f04bc67aa966b"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/02-delay-the-urge.png",
+          "bytes": 161507,
+          "sha256": "805b3f88b347044847fd3ea2e9672a2671896caa30c9f5b2e0e8f2b8459cf1b7"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/03-build-your-exposure-ladder.png",
+          "bytes": 246417,
+          "sha256": "447fd8c6f2fa9f14ce869f66533daed0ba977a5b756beeaf4cc01aecd7c415ad"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/04-see-patterns-not-judgments.png",
+          "bytes": 178186,
+          "sha256": "bd82131bea7efea1b705012cb3d49f8f45adf420fee7f80904e45fa6c3affedc"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/05-no-ai-to-ask.png",
+          "bytes": 83929,
+          "sha256": "6ae7ac05bc23a2be384df3ab71f329c9f1171d5a4deba05ed09f33f2631d59d8"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/06-nothing-leaves-your-phone.png",
+          "bytes": 199975,
+          "sha256": "c7a2ebc5e2143c4a807d8f3c73e8a67f0877b4e94cd380fc06365c21c2dcec6f"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/07-private-journaling.png",
+          "bytes": 223878,
+          "sha256": "5cd29f2b72b370641e766524feb6267fe1367129eecaac74811216febd89a1c3"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/08-patterns-pro.png",
+          "bytes": 203091,
+          "sha256": "fb8681c05f142d9f165c40405442b19308791809e5cfc76b987c0a209dd35814"
+        }
+      ],
+      "featureGraphic": {
+        "path": "app-store/patterns-screenshots/exports/localized/feature/en/patterns-feature-graphic-1024x500.png",
+        "bytes": 65067,
+        "sha256": "e77578fca66f045470a040572c32fa3321daa6cc3f83745ce24f5d4d1bd379d5"
+      }
+    },
+    {
+      "locale": "en-AU",
+      "languageSet": "en",
+      "titlePath": "metadata/google-play/en-AU/title.txt",
+      "shortDescriptionPath": "metadata/google-play/en-AU/short-description.txt",
+      "fullDescriptionPath": "metadata/google-play/en-AU/full-description.txt",
+      "releaseNotesPath": "metadata/google-play/en-AU/release-notes-1.10.0.txt",
+      "phoneScreenshots": [
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/01-calm-today.png",
+          "bytes": 225677,
+          "sha256": "76988aea058b40dfaf0473c0b506d3de1e9a6c9cd0b32219ce7f04bc67aa966b"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/02-delay-the-urge.png",
+          "bytes": 161507,
+          "sha256": "805b3f88b347044847fd3ea2e9672a2671896caa30c9f5b2e0e8f2b8459cf1b7"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/03-build-your-exposure-ladder.png",
+          "bytes": 246417,
+          "sha256": "447fd8c6f2fa9f14ce869f66533daed0ba977a5b756beeaf4cc01aecd7c415ad"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/04-see-patterns-not-judgments.png",
+          "bytes": 178186,
+          "sha256": "bd82131bea7efea1b705012cb3d49f8f45adf420fee7f80904e45fa6c3affedc"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/05-no-ai-to-ask.png",
+          "bytes": 83929,
+          "sha256": "6ae7ac05bc23a2be384df3ab71f329c9f1171d5a4deba05ed09f33f2631d59d8"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/06-nothing-leaves-your-phone.png",
+          "bytes": 199975,
+          "sha256": "c7a2ebc5e2143c4a807d8f3c73e8a67f0877b4e94cd380fc06365c21c2dcec6f"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/07-private-journaling.png",
+          "bytes": 223878,
+          "sha256": "5cd29f2b72b370641e766524feb6267fe1367129eecaac74811216febd89a1c3"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/en/08-patterns-pro.png",
+          "bytes": 203091,
+          "sha256": "fb8681c05f142d9f165c40405442b19308791809e5cfc76b987c0a209dd35814"
+        }
+      ],
+      "featureGraphic": {
+        "path": "app-store/patterns-screenshots/exports/localized/feature/en/patterns-feature-graphic-1024x500.png",
+        "bytes": 65067,
+        "sha256": "e77578fca66f045470a040572c32fa3321daa6cc3f83745ce24f5d4d1bd379d5"
+      }
+    },
+    {
+      "locale": "pt-BR",
+      "languageSet": "pt-BR",
+      "titlePath": "metadata/google-play/pt-BR/title.txt",
+      "shortDescriptionPath": "metadata/google-play/pt-BR/short-description.txt",
+      "fullDescriptionPath": "metadata/google-play/pt-BR/full-description.txt",
+      "releaseNotesPath": "metadata/google-play/pt-BR/release-notes-1.10.0.txt",
+      "phoneScreenshots": [
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/pt-BR/01-calm-today.png",
+          "bytes": 242703,
+          "sha256": "73f9c1200ceb7ce08ded12b096ae888c31c7b75f5fc94813fa390f15548dca7d"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/pt-BR/02-delay-the-urge.png",
+          "bytes": 176419,
+          "sha256": "2031df689e290396ed638a2dc70d7353e796b291dee0ca035467e84dda62ff30"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/pt-BR/03-build-your-exposure-ladder.png",
+          "bytes": 266329,
+          "sha256": "c331b3e8e8964dc21adb6d416499d232e09b56242defac5db4d7b301401f639b"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/pt-BR/04-see-patterns-not-judgments.png",
+          "bytes": 183672,
+          "sha256": "00c5dc4b1b668b83e419c86cea2f10064a773d288c2e5abc7d96af9383386024"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/pt-BR/05-no-ai-to-ask.png",
+          "bytes": 104244,
+          "sha256": "323a4a41bbb08cad138d9a8c96b09dc46fbabc9c467c6e8b7ba2171f1419aa94"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/pt-BR/06-nothing-leaves-your-phone.png",
+          "bytes": 214164,
+          "sha256": "a32feff5a1460b5f0c4f9991db0deeab688e5ad2561b0255bd78d511ff81069c"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/pt-BR/07-private-journaling.png",
+          "bytes": 236325,
+          "sha256": "d3251dcafc846253edf998db932bcba2c0a0340e71f5b6f0a626d2a121d61e40"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/pt-BR/08-patterns-pro.png",
+          "bytes": 211208,
+          "sha256": "ca867bb071f37a40e934e6dc9558301299f43d7ce7149697d32f3f779bd82798"
+        }
+      ],
+      "featureGraphic": {
+        "path": "app-store/patterns-screenshots/exports/localized/feature/pt-BR/patterns-feature-graphic-1024x500.png",
+        "bytes": 69940,
+        "sha256": "42f9ff4d31cb31494d9951c8f35036d59973f3969362ef5d1123f80bde1a985c"
+      }
+    },
+    {
+      "locale": "de-DE",
+      "languageSet": "de",
+      "titlePath": "metadata/google-play/de-DE/title.txt",
+      "shortDescriptionPath": "metadata/google-play/de-DE/short-description.txt",
+      "fullDescriptionPath": "metadata/google-play/de-DE/full-description.txt",
+      "releaseNotesPath": "metadata/google-play/de-DE/release-notes-1.10.0.txt",
+      "phoneScreenshots": [
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/de/01-calm-today.png",
+          "bytes": 244905,
+          "sha256": "828d21db431080c86a724ee519fbeb432f7d85a72d3fd593d4b494f049514633"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/de/02-delay-the-urge.png",
+          "bytes": 185164,
+          "sha256": "7e321bac87599588c13619c7365f5652c28fb235dbf4b5f212af0d0c4dc301eb"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/de/03-build-your-exposure-ladder.png",
+          "bytes": 256253,
+          "sha256": "caf953593867d7b80f4062b8f582eaa58cbba58d44540f1a321dd37108e94617"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/de/04-see-patterns-not-judgments.png",
+          "bytes": 176786,
+          "sha256": "a0cdf5dd902d1951dc89569234cf26177cd57b223d8c838482314c984e319a81"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/de/05-no-ai-to-ask.png",
+          "bytes": 96021,
+          "sha256": "545508d85574a119ae87c635ded9f8ebf5af3615666ac9fb468d318f7f2fdd86"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/de/06-nothing-leaves-your-phone.png",
+          "bytes": 240713,
+          "sha256": "099ad6124eee19c5cfa3aac7b365c9e054e259e2c42427196e3eb0a1805d3cef"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/de/07-private-journaling.png",
+          "bytes": 240853,
+          "sha256": "4b89adc81cecf727c0e811ec94223ac576fe646aee16fa2fc856603209211df7"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/de/08-patterns-pro.png",
+          "bytes": 206331,
+          "sha256": "bb2c8ef206b1a43b3ad91bcf7daa517d74acc88a165c79662598ced23a8dcb67"
+        }
+      ],
+      "featureGraphic": {
+        "path": "app-store/patterns-screenshots/exports/localized/feature/de/patterns-feature-graphic-1024x500.png",
+        "bytes": 71418,
+        "sha256": "05b82ac806d7162910375f6ae3c8107e7e5c05cc8f4c6e2427f8bb5d7e7f8f6a"
+      }
+    },
+    {
+      "locale": "ja-JP",
+      "languageSet": "ja",
+      "titlePath": "metadata/google-play/ja-JP/title.txt",
+      "shortDescriptionPath": "metadata/google-play/ja-JP/short-description.txt",
+      "fullDescriptionPath": "metadata/google-play/ja-JP/full-description.txt",
+      "releaseNotesPath": "metadata/google-play/ja-JP/release-notes-1.10.0.txt",
+      "phoneScreenshots": [
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/ja/01-calm-today.png",
+          "bytes": 257115,
+          "sha256": "1afa475df30a7fdc1fd81f64800c32e3e9324876d6a1569d10c3cad25825c1ba"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/ja/02-delay-the-urge.png",
+          "bytes": 191289,
+          "sha256": "303a986aa6ead020d45473c3308abc8a99a059972876cb6b11eceb812a6a80a6"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/ja/03-build-your-exposure-ladder.png",
+          "bytes": 257011,
+          "sha256": "8a58e6e970356892a01cbc89c4ce2e0ab84a3e82f685bdc4a48bc26954da0a06"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/ja/04-see-patterns-not-judgments.png",
+          "bytes": 188909,
+          "sha256": "a690f5d35c8cf5a81fdfd7035b452f85ad9d23230437e71f01e54f13f4c08e05"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/ja/05-no-ai-to-ask.png",
+          "bytes": 118396,
+          "sha256": "e7e04076009796d1f67f3c3a7a5357c7bb5f340a029e0a5ebfddcb0906e2c64e"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/ja/06-nothing-leaves-your-phone.png",
+          "bytes": 243557,
+          "sha256": "11d302e708ed5221b943edf79ae8b13dfe086dd4dcfe6112ade8f349e4a363ec"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/ja/07-private-journaling.png",
+          "bytes": 251966,
+          "sha256": "3a1701e33486775cb16b9b423fde21b2090972651b0260516b662881e071890a"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/ja/08-patterns-pro.png",
+          "bytes": 224068,
+          "sha256": "9bddf91a1b329cbeb0b2bc8ecff9a87a05a2148ad740dd3295581b9fda611769"
+        }
+      ],
+      "featureGraphic": {
+        "path": "app-store/patterns-screenshots/exports/localized/feature/ja/patterns-feature-graphic-1024x500.png",
+        "bytes": 72490,
+        "sha256": "c8126d2542debc6d357a8678ac6d5d4c866336cd6cc346f66404127876ae0508"
+      }
+    },
+    {
+      "locale": "es-419",
+      "languageSet": "es",
+      "titlePath": "metadata/google-play/es-419/title.txt",
+      "shortDescriptionPath": "metadata/google-play/es-419/short-description.txt",
+      "fullDescriptionPath": "metadata/google-play/es-419/full-description.txt",
+      "releaseNotesPath": "metadata/google-play/es-419/release-notes-1.10.0.txt",
+      "phoneScreenshots": [
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/es/01-calm-today.png",
+          "bytes": 237807,
+          "sha256": "fc1df2b79e63721760e890a9a3326c2045d11c5d01aca17bee248c932eac8111"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/es/02-delay-the-urge.png",
+          "bytes": 177546,
+          "sha256": "55db194b8e31756e49da60d32c00bf565aca6b8aa637a4af8f4245a9a5a0979d"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/es/03-build-your-exposure-ladder.png",
+          "bytes": 260232,
+          "sha256": "da55df7f5e93d3ccbbb8a6aecdd97a06e2f0e19257995a62b09741b1b46045a8"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/es/04-see-patterns-not-judgments.png",
+          "bytes": 180394,
+          "sha256": "663f6941be32ee368dd1ee1c22a991a974de67f2b8316b4996208a0ec86c0dbc"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/es/05-no-ai-to-ask.png",
+          "bytes": 100918,
+          "sha256": "8e0b4f4c054671dad7313589852f45b7c3972127cee696e64035a753d0602462"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/es/06-nothing-leaves-your-phone.png",
+          "bytes": 214134,
+          "sha256": "b09d131f29ac47dfb6c2c04b99d60fa872b30ef517dfcd2e06e82c9f4c0ecce1"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/es/07-private-journaling.png",
+          "bytes": 235307,
+          "sha256": "aee418a340f3d1660e0939dd474eca437354d86f6d2ae4bf6ac1c7c885fd4e1a"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/es/08-patterns-pro.png",
+          "bytes": 212869,
+          "sha256": "58051104e4b908172adbba160930463365a6acd3a8bea2eb39f79d7ef72a29b9"
+        }
+      ],
+      "featureGraphic": {
+        "path": "app-store/patterns-screenshots/exports/localized/feature/es/patterns-feature-graphic-1024x500.png",
+        "bytes": 73830,
+        "sha256": "0043be20f40ad74493e1cea0b7c3b1b582b272d9cf099b8b67d34712cd1c90cd"
+      }
+    },
+    {
+      "locale": "es-ES",
+      "languageSet": "es",
+      "titlePath": "metadata/google-play/es-ES/title.txt",
+      "shortDescriptionPath": "metadata/google-play/es-ES/short-description.txt",
+      "fullDescriptionPath": "metadata/google-play/es-ES/full-description.txt",
+      "releaseNotesPath": "metadata/google-play/es-ES/release-notes-1.10.0.txt",
+      "phoneScreenshots": [
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/es/01-calm-today.png",
+          "bytes": 237807,
+          "sha256": "fc1df2b79e63721760e890a9a3326c2045d11c5d01aca17bee248c932eac8111"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/es/02-delay-the-urge.png",
+          "bytes": 177546,
+          "sha256": "55db194b8e31756e49da60d32c00bf565aca6b8aa637a4af8f4245a9a5a0979d"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/es/03-build-your-exposure-ladder.png",
+          "bytes": 260232,
+          "sha256": "da55df7f5e93d3ccbbb8a6aecdd97a06e2f0e19257995a62b09741b1b46045a8"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/es/04-see-patterns-not-judgments.png",
+          "bytes": 180394,
+          "sha256": "663f6941be32ee368dd1ee1c22a991a974de67f2b8316b4996208a0ec86c0dbc"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/es/05-no-ai-to-ask.png",
+          "bytes": 100918,
+          "sha256": "8e0b4f4c054671dad7313589852f45b7c3972127cee696e64035a753d0602462"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/es/06-nothing-leaves-your-phone.png",
+          "bytes": 214134,
+          "sha256": "b09d131f29ac47dfb6c2c04b99d60fa872b30ef517dfcd2e06e82c9f4c0ecce1"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/es/07-private-journaling.png",
+          "bytes": 235307,
+          "sha256": "aee418a340f3d1660e0939dd474eca437354d86f6d2ae4bf6ac1c7c885fd4e1a"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/es/08-patterns-pro.png",
+          "bytes": 212869,
+          "sha256": "58051104e4b908172adbba160930463365a6acd3a8bea2eb39f79d7ef72a29b9"
+        }
+      ],
+      "featureGraphic": {
+        "path": "app-store/patterns-screenshots/exports/localized/feature/es/patterns-feature-graphic-1024x500.png",
+        "bytes": 73830,
+        "sha256": "0043be20f40ad74493e1cea0b7c3b1b582b272d9cf099b8b67d34712cd1c90cd"
+      }
+    },
+    {
+      "locale": "fr-FR",
+      "languageSet": "fr",
+      "titlePath": "metadata/google-play/fr-FR/title.txt",
+      "shortDescriptionPath": "metadata/google-play/fr-FR/short-description.txt",
+      "fullDescriptionPath": "metadata/google-play/fr-FR/full-description.txt",
+      "releaseNotesPath": "metadata/google-play/fr-FR/release-notes-1.10.0.txt",
+      "phoneScreenshots": [
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/fr/01-calm-today.png",
+          "bytes": 237987,
+          "sha256": "aba49206e81f5475162592a760df17c8fb473244ff8f3f78e56b3e6d043c587e"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/fr/02-delay-the-urge.png",
+          "bytes": 176272,
+          "sha256": "b35b5d2c204b9d1af2c433285bdd6223f1db47e1db9c812d0f914dbd5fe04259"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/fr/03-build-your-exposure-ladder.png",
+          "bytes": 259559,
+          "sha256": "4fc8e6430842fdb0e80a1045de672a5430159b735c85739d918e702591122670"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/fr/04-see-patterns-not-judgments.png",
+          "bytes": 182343,
+          "sha256": "499ea48491e53745b708c587f786633a96c2a166c9b0f8cd38cb125a85781e2a"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/fr/05-no-ai-to-ask.png",
+          "bytes": 102926,
+          "sha256": "82acb8fcabc8080637eacc34feacf27575c5c7d784e2f64f95aed837cbd0c719"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/fr/06-nothing-leaves-your-phone.png",
+          "bytes": 224226,
+          "sha256": "5814bcf62609a8873589c1a391d78a6877df52c9cfad07a5ae1cc3cc06d3b39f"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/fr/07-private-journaling.png",
+          "bytes": 237793,
+          "sha256": "18ca46a69b5ecf2b1d16e75d0d5798789593e693af2067529d8d9ed18ec30b95"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/fr/08-patterns-pro.png",
+          "bytes": 212767,
+          "sha256": "8bf35caded2325d422e88b35a23df8069a1cfbb33bdd8c9c9757e00310258c68"
+        }
+      ],
+      "featureGraphic": {
+        "path": "app-store/patterns-screenshots/exports/localized/feature/fr/patterns-feature-graphic-1024x500.png",
+        "bytes": 70657,
+        "sha256": "24a04710f1e0fe7e1c68882996d2186398ecd049202dd831bf0f94f20d6237f1"
+      }
+    },
+    {
+      "locale": "fr-CA",
+      "languageSet": "fr",
+      "titlePath": "metadata/google-play/fr-CA/title.txt",
+      "shortDescriptionPath": "metadata/google-play/fr-CA/short-description.txt",
+      "fullDescriptionPath": "metadata/google-play/fr-CA/full-description.txt",
+      "releaseNotesPath": "metadata/google-play/fr-CA/release-notes-1.10.0.txt",
+      "phoneScreenshots": [
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/fr/01-calm-today.png",
+          "bytes": 237987,
+          "sha256": "aba49206e81f5475162592a760df17c8fb473244ff8f3f78e56b3e6d043c587e"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/fr/02-delay-the-urge.png",
+          "bytes": 176272,
+          "sha256": "b35b5d2c204b9d1af2c433285bdd6223f1db47e1db9c812d0f914dbd5fe04259"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/fr/03-build-your-exposure-ladder.png",
+          "bytes": 259559,
+          "sha256": "4fc8e6430842fdb0e80a1045de672a5430159b735c85739d918e702591122670"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/fr/04-see-patterns-not-judgments.png",
+          "bytes": 182343,
+          "sha256": "499ea48491e53745b708c587f786633a96c2a166c9b0f8cd38cb125a85781e2a"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/fr/05-no-ai-to-ask.png",
+          "bytes": 102926,
+          "sha256": "82acb8fcabc8080637eacc34feacf27575c5c7d784e2f64f95aed837cbd0c719"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/fr/06-nothing-leaves-your-phone.png",
+          "bytes": 224226,
+          "sha256": "5814bcf62609a8873589c1a391d78a6877df52c9cfad07a5ae1cc3cc06d3b39f"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/fr/07-private-journaling.png",
+          "bytes": 237793,
+          "sha256": "18ca46a69b5ecf2b1d16e75d0d5798789593e693af2067529d8d9ed18ec30b95"
+        },
+        {
+          "path": "app-store/patterns-screenshots/exports/localized/play/fr/08-patterns-pro.png",
+          "bytes": 212767,
+          "sha256": "8bf35caded2325d422e88b35a23df8069a1cfbb33bdd8c9c9757e00310258c68"
+        }
+      ],
+      "featureGraphic": {
+        "path": "app-store/patterns-screenshots/exports/localized/feature/fr/patterns-feature-graphic-1024x500.png",
+        "bytes": 70657,
+        "sha256": "24a04710f1e0fe7e1c68882996d2186398ecd049202dd831bf0f94f20d6237f1"
+      }
+    }
+  ],
+  "products": [
+    {
+      "productId": "com.maskedsyntax.patterns.pro",
+      "kind": "pro",
+      "httpMethod": "PATCH",
+      "updateMask": "listings",
+      "listings": [
+        {
+          "languageCode": "en-US",
+          "title": "Patterns Pro",
+          "description": "One-time purchase that unlocks every Patterns Pro self-help and reflection tool."
+        },
+        {
+          "languageCode": "en-GB",
+          "title": "Patterns Pro",
+          "description": "One-time purchase that unlocks every Patterns Pro self-help and reflection tool."
+        },
+        {
+          "languageCode": "en-CA",
+          "title": "Patterns Pro",
+          "description": "One-time purchase that unlocks every Patterns Pro self-help and reflection tool."
+        },
+        {
+          "languageCode": "en-AU",
+          "title": "Patterns Pro",
+          "description": "One-time purchase that unlocks every Patterns Pro self-help and reflection tool."
+        },
+        {
+          "languageCode": "pt-BR",
+          "title": "Patterns Pro",
+          "description": "Compra única que libera todas as ferramentas Pro de autoajuda e reflexão do Patterns."
+        },
+        {
+          "languageCode": "de-DE",
+          "title": "Patterns Pro",
+          "description": "Einmalkauf zum Freischalten aller Pro-Werkzeuge für Selbsthilfe und Reflexion in Patterns."
+        },
+        {
+          "languageCode": "ja-JP",
+          "title": "Patterns Pro",
+          "description": "PatternsのすべてのProセルフヘルプ・振り返りツールを利用できる買い切り購入です。"
+        },
+        {
+          "languageCode": "es-419",
+          "title": "Patterns Pro",
+          "description": "Compra única que desbloquea todas las herramientas Pro de autoayuda y reflexión de Patterns."
+        },
+        {
+          "languageCode": "es-ES",
+          "title": "Patterns Pro",
+          "description": "Compra única que desbloquea todas las herramientas Pro de autoayuda y reflexión de Patterns."
+        },
+        {
+          "languageCode": "fr-FR",
+          "title": "Patterns Pro",
+          "description": "Achat unique qui débloque tous les outils Pro d’auto-assistance et de réflexion de Patterns."
+        },
+        {
+          "languageCode": "fr-CA",
+          "title": "Patterns Pro",
+          "description": "Achat unique qui débloque tous les outils Pro d’auto-assistance et de réflexion de Patterns."
+        }
+      ],
+      "preservedFields": [
+        "purchaseOptions",
+        "regionalPricingAndAvailabilityConfigs",
+        "taxAndComplianceSettings",
+        "restrictedPaymentCountries",
+        "offerTags"
+      ]
+    },
+    {
+      "productId": "com.maskedsyntax.patterns.tip.small",
+      "kind": "tip",
+      "httpMethod": "PATCH",
+      "updateMask": "listings",
+      "listings": [
+        {
+          "languageCode": "en-US",
+          "title": "Small tip",
+          "description": "An optional small tip to support Patterns development. It unlocks no features."
+        },
+        {
+          "languageCode": "en-GB",
+          "title": "Small tip",
+          "description": "An optional small tip to support Patterns development. It unlocks no features."
+        },
+        {
+          "languageCode": "en-CA",
+          "title": "Small tip",
+          "description": "An optional small tip to support Patterns development. It unlocks no features."
+        },
+        {
+          "languageCode": "en-AU",
+          "title": "Small tip",
+          "description": "An optional small tip to support Patterns development. It unlocks no features."
+        },
+        {
+          "languageCode": "pt-BR",
+          "title": "Gorjeta pequena",
+          "description": "Uma pequena gorjeta opcional para apoiar o desenvolvimento do Patterns. Não libera recursos."
+        },
+        {
+          "languageCode": "de-DE",
+          "title": "Kleines Trinkgeld",
+          "description": "Ein optionales kleines Trinkgeld für die Entwicklung von Patterns. Es schaltet keine Funktionen frei."
+        },
+        {
+          "languageCode": "ja-JP",
+          "title": "小さなチップ",
+          "description": "Patternsの開発を支援する任意の小さなチップです。機能は追加されません。"
+        },
+        {
+          "languageCode": "es-419",
+          "title": "Propina pequeña",
+          "description": "Una propina pequeña y opcional para apoyar el desarrollo de Patterns. No desbloquea funciones."
+        },
+        {
+          "languageCode": "es-ES",
+          "title": "Propina pequeña",
+          "description": "Una propina pequeña y opcional para apoyar el desarrollo de Patterns. No desbloquea funciones."
+        },
+        {
+          "languageCode": "fr-FR",
+          "title": "Petit pourboire",
+          "description": "Un petit pourboire facultatif pour soutenir le développement de Patterns. Il ne débloque aucune fonction."
+        },
+        {
+          "languageCode": "fr-CA",
+          "title": "Petit pourboire",
+          "description": "Un petit pourboire facultatif pour soutenir le développement de Patterns. Il ne débloque aucune fonction."
+        }
+      ],
+      "preservedFields": [
+        "purchaseOptions",
+        "regionalPricingAndAvailabilityConfigs",
+        "taxAndComplianceSettings",
+        "restrictedPaymentCountries",
+        "offerTags"
+      ]
+    },
+    {
+      "productId": "com.maskedsyntax.patterns.tip.medium",
+      "kind": "tip",
+      "httpMethod": "PATCH",
+      "updateMask": "listings",
+      "listings": [
+        {
+          "languageCode": "en-US",
+          "title": "Medium tip",
+          "description": "An optional medium tip to support Patterns development. It unlocks no features."
+        },
+        {
+          "languageCode": "en-GB",
+          "title": "Medium tip",
+          "description": "An optional medium tip to support Patterns development. It unlocks no features."
+        },
+        {
+          "languageCode": "en-CA",
+          "title": "Medium tip",
+          "description": "An optional medium tip to support Patterns development. It unlocks no features."
+        },
+        {
+          "languageCode": "en-AU",
+          "title": "Medium tip",
+          "description": "An optional medium tip to support Patterns development. It unlocks no features."
+        },
+        {
+          "languageCode": "pt-BR",
+          "title": "Gorjeta média",
+          "description": "Uma gorjeta média e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos."
+        },
+        {
+          "languageCode": "de-DE",
+          "title": "Mittleres Trinkgeld",
+          "description": "Ein optionales mittleres Trinkgeld für die Entwicklung von Patterns. Es schaltet keine Funktionen frei."
+        },
+        {
+          "languageCode": "ja-JP",
+          "title": "中くらいのチップ",
+          "description": "Patternsの開発を支援する任意のチップです。機能は追加されません。"
+        },
+        {
+          "languageCode": "es-419",
+          "title": "Propina mediana",
+          "description": "Una propina mediana y opcional para apoyar el desarrollo de Patterns. No desbloquea funciones."
+        },
+        {
+          "languageCode": "es-ES",
+          "title": "Propina mediana",
+          "description": "Una propina mediana y opcional para apoyar el desarrollo de Patterns. No desbloquea funciones."
+        },
+        {
+          "languageCode": "fr-FR",
+          "title": "Pourboire moyen",
+          "description": "Un pourboire facultatif pour soutenir le développement de Patterns. Il ne débloque aucune fonction."
+        },
+        {
+          "languageCode": "fr-CA",
+          "title": "Pourboire moyen",
+          "description": "Un pourboire facultatif pour soutenir le développement de Patterns. Il ne débloque aucune fonction."
+        }
+      ],
+      "preservedFields": [
+        "purchaseOptions",
+        "regionalPricingAndAvailabilityConfigs",
+        "taxAndComplianceSettings",
+        "restrictedPaymentCountries",
+        "offerTags"
+      ]
+    },
+    {
+      "productId": "com.maskedsyntax.patterns.tip.large",
+      "kind": "tip",
+      "httpMethod": "PATCH",
+      "updateMask": "listings",
+      "listings": [
+        {
+          "languageCode": "en-US",
+          "title": "Large tip",
+          "description": "An optional large tip to support Patterns development. It unlocks no features."
+        },
+        {
+          "languageCode": "en-GB",
+          "title": "Large tip",
+          "description": "An optional large tip to support Patterns development. It unlocks no features."
+        },
+        {
+          "languageCode": "en-CA",
+          "title": "Large tip",
+          "description": "An optional large tip to support Patterns development. It unlocks no features."
+        },
+        {
+          "languageCode": "en-AU",
+          "title": "Large tip",
+          "description": "An optional large tip to support Patterns development. It unlocks no features."
+        },
+        {
+          "languageCode": "pt-BR",
+          "title": "Gorjeta grande",
+          "description": "Uma gorjeta grande e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos."
+        },
+        {
+          "languageCode": "de-DE",
+          "title": "Großes Trinkgeld",
+          "description": "Ein optionales großes Trinkgeld für die Entwicklung von Patterns. Es schaltet keine Funktionen frei."
+        },
+        {
+          "languageCode": "ja-JP",
+          "title": "大きなチップ",
+          "description": "Patternsの開発を支援する任意の大きなチップです。機能は追加されません。"
+        },
+        {
+          "languageCode": "es-419",
+          "title": "Propina grande",
+          "description": "Una propina grande y opcional para apoyar el desarrollo de Patterns. No desbloquea funciones."
+        },
+        {
+          "languageCode": "es-ES",
+          "title": "Propina grande",
+          "description": "Una propina grande y opcional para apoyar el desarrollo de Patterns. No desbloquea funciones."
+        },
+        {
+          "languageCode": "fr-FR",
+          "title": "Grand pourboire",
+          "description": "Un grand pourboire facultatif pour soutenir le développement de Patterns. Il ne débloque aucune fonction."
+        },
+        {
+          "languageCode": "fr-CA",
+          "title": "Grand pourboire",
+          "description": "Un grand pourboire facultatif pour soutenir le développement de Patterns. Il ne débloque aucune fonction."
+        }
+      ],
+      "preservedFields": [
+        "purchaseOptions",
+        "regionalPricingAndAvailabilityConfigs",
+        "taxAndComplianceSettings",
+        "restrictedPaymentCountries",
+        "offerTags"
+      ]
+    }
+  ],
+  "assets": {
+    "uniqueLanguageSets": 6,
+    "remoteLocaleCount": 11,
+    "phoneScreenshotCount": 88,
+    "featureGraphicCount": 11
+  },
+  "safety": {
+    "approvalRequired": true,
+    "approvalToken": "STORE_PACKAGE_APPROVED_1_10",
+    "priceWrites": false,
+    "purchaseOptionWrites": false,
+    "availabilityWrites": false,
+    "taxWrites": false
+  }
+}

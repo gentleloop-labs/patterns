@@ -225,19 +225,23 @@ version and cannot install this update.
       each store before the signed candidates are built.
 - [x] Change `currentReleaseId` and replace the 1.9 What's New screen.
 - [x] Clear the mobile/shared localization audit and freeze the English source.
-- [ ] Add canonical App Store and Google Play 1.10 metadata.
-- [ ] Update screenshots to show Calm Insights and accessibility improvements.
+- [x] Add canonical App Store and Google Play 1.10 metadata; keep remote writes
+      blocked until release-owner approval.
+- [x] Update and validate the six-language Apple and Play screenshot campaign
+      to show Calm Insights and the final 1.10 behaviour.
 - [x] Run `flutter analyze` with no issues.
 - [x] Run the complete Flutter test suite with no failures.
-- [ ] Test upgrade/migration from 1.9 with real existing data.
+- [x] Test upgrade/migration from 1.9 with real existing data.
 - [ ] Test purchase and restore on sandbox accounts.
-- [ ] Test export/import round trips, including formatted journals and all Pro
-      records.
+- [x] Test automated export/import round trips, including formatted journals
+      and all Pro records; repeat the final sheet-context flow on physical
+      devices before submission.
 - [ ] Complete the physical-iPhone accessibility verification gate.
 - [ ] Complete the physical-Android accessibility verification gate.
 - [ ] Update App Store accessibility declarations only for verified support.
 - [ ] Reconcile the featuring nomination if the shipped scope or date changes.
-- [ ] Prepare and verify the TestFlight build before App Review submission.
+- [x] Prepare and verify TestFlight build 61 in `Patterns Internal` before App
+      Review submission.
 
 ## Submitted nomination promise
 
