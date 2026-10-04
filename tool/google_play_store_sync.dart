@@ -40,7 +40,10 @@ Future<void> main(List<String> arguments) async {
       );
       return;
     case 'inventory':
-      final client = PlayClient(await _accessToken());
+      final client = PlayClient(
+        await _accessToken(),
+        quotaProject: await _quotaProject(),
+      );
       final snapshot = await _inventory(client);
       final output = File(
         options['output'] ?? 'release/1.10.0/google-play-catalog-before.json',
@@ -61,7 +64,10 @@ Future<void> main(List<String> arguments) async {
       }
       final plan = await _buildPlan(repository, options);
       _requireApplyReady(plan, options);
-      final client = PlayClient(await _accessToken());
+      final client = PlayClient(
+        await _accessToken(),
+        quotaProject: await _quotaProject(),
+      );
       await _apply(
         client,
         plan,
@@ -76,7 +82,10 @@ Future<void> main(List<String> arguments) async {
         'aab': '${_map(state['aab'])['path']}',
         'version-code': '${state['versionCode']}',
       });
-      final client = PlayClient(await _accessToken());
+      final client = PlayClient(
+        await _accessToken(),
+        quotaProject: await _quotaProject(),
+      );
       final verification = await _verifyStaged(client, plan, state);
       state['lastVerifiedAt'] = DateTime.now().toUtc().toIso8601String();
       state['verification'] = verification;
@@ -102,7 +111,10 @@ Future<void> main(List<String> arguments) async {
         'aab': '${_map(state['aab'])['path']}',
         'version-code': '${state['versionCode']}',
       });
-      final client = PlayClient(await _accessToken());
+      final client = PlayClient(
+        await _accessToken(),
+        quotaProject: await _quotaProject(),
+      );
       await _commitStaged(client, plan, state, stateFile);
       return;
     default:
@@ -668,14 +680,16 @@ Future<void> _commitStaged(
 }
 
 class PlayClient {
-  PlayClient(this.token);
+  PlayClient(this.token, {this.quotaProject});
 
   final String token;
+  final String? quotaProject;
   final http.Client _client = http.Client();
 
   Map<String, String> get _headers => {
     HttpHeaders.authorizationHeader: 'Bearer $token',
     HttpHeaders.acceptHeader: 'application/json',
+    if (quotaProject != null) 'x-goog-user-project': quotaProject!,
   };
 
   Future<String> insertEdit() async {
@@ -803,6 +817,39 @@ Future<String> _accessToken() async {
     'Publishing API identity outside this repository, then set '
     'GOOGLE_PLAY_ACCESS_TOKEN or authenticate gcloud.',
   );
+}
+
+Future<String?> _quotaProject() async {
+  final environmentProject = Platform.environment['GOOGLE_CLOUD_QUOTA_PROJECT'];
+  if (environmentProject != null && environmentProject.trim().isNotEmpty) {
+    return environmentProject.trim();
+  }
+  final configDirectory =
+      Platform.environment['CLOUDSDK_CONFIG'] ??
+      '${Platform.environment['HOME']}/.config/gcloud';
+  final adcFile = File('$configDirectory/application_default_credentials.json');
+  if (await adcFile.exists()) {
+    final quotaProject = _map(
+      jsonDecode(await adcFile.readAsString()),
+    )['quota_project_id'];
+    if (quotaProject is String && quotaProject.trim().isNotEmpty) {
+      return quotaProject.trim();
+    }
+  }
+  try {
+    final result = await Process.run('gcloud', [
+      'config',
+      'get-value',
+      'project',
+    ]);
+    final project = '${result.stdout}'.trim();
+    if (result.exitCode == 0 && project.isNotEmpty && project != '(unset)') {
+      return project;
+    }
+  } on ProcessException {
+    // A quota project is optional for service-account access.
+  }
+  return null;
 }
 
 Map<String, dynamic> _readJson(File file) {
