@@ -59,7 +59,7 @@
     "priceWritesMade": false,
     "note": "Apple currently reports automatic future adjustments in COG, ISR, and MAR. None affects the nine manual PPP pilot territories or the three unchanged spot checks."
   },
-  "remoteWritesMade": false,
+  "remoteWritesMade": true,
   "storePackage": {
     "metadataStatus": "google_play_approved_apple_review_ready_not_approved",
     "appleLocales": 11,
@@ -72,14 +72,25 @@
     "approvalPending": true,
     "googlePlayApprovedAt": "2026-10-05",
     "appStoreApprovalPending": true,
-    "remoteMetadataOrAssetWritesMade": false
+    "remoteMetadataOrAssetWritesMade": true
   },
   "googlePlay": {
-    "publishingApiIdentityConfigured": false,
-    "catalogueSnapshotCaptured": false,
-    "nextUnusedVersionCodeResolved": false,
-    "signedCandidateBuilt": false,
-    "internalTestingUploadComplete": false,
-    "priceWritesMade": false
+    "publishingApiIdentityConfigured": true,
+    "catalogueSnapshotCaptured": true,
+    "nextUnusedVersionCodeResolved": true,
+    "versionCode": 32,
+    "signedCandidateBuilt": true,
+    "aabSha256": "14b889bf328c2c20d3c4df60f9dc06ac4c7cc7d14be622699725220e47bf1a97",
+    "internalTestingUploadComplete": true,
+    "internalTrackStatus": "completed",
+    "managedPublishing": true,
+    "storefrontReviewStatus": "in_review",
+    "verifiedListingLocales": 11,
+    "verifiedPhoneScreenshotSlots": 88,
+    "verifiedFeatureGraphicSlots": 11,
+    "verifiedProductLocalizations": 44,
+    "priceWritesMade": false,
+    "commerceDrift": false,
+    "verifiedAt": "2026-10-05"
   }
 }

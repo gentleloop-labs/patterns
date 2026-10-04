@@ -359,6 +359,30 @@ Future<Map<String, dynamic>> _inventory(PlayClient client) async {
     final apks = await client.getJson(
       '/applications/$packageName/edits/$editId/apks',
     );
+    final internalTrack = await client.getJson(
+      '/applications/$packageName/edits/$editId/tracks/internal',
+    );
+    final listingAssets = <Map<String, dynamic>>[];
+    for (final listing in _list(listings['listings']).map(_map)) {
+      final locale = '${listing['language']}';
+      final phoneImages = _list(
+        (await client.getJson(
+          '/applications/$packageName/edits/$editId/listings/$locale/'
+          'phoneScreenshots',
+        ))['images'],
+      );
+      final featureImages = _list(
+        (await client.getJson(
+          '/applications/$packageName/edits/$editId/listings/$locale/'
+          'featureGraphic',
+        ))['images'],
+      );
+      listingAssets.add({
+        'language': locale,
+        'phoneScreenshotCount': phoneImages.length,
+        'featureGraphicCount': featureImages.length,
+      });
+    }
     final versionCodes = <int>{};
     for (final source in [bundles['bundles'], apks['apks']]) {
       for (final item in _list(source)) {
@@ -375,6 +399,8 @@ Future<Map<String, dynamic>> _inventory(PlayClient client) async {
       'nextUnusedVersionCode': sortedCodes.isEmpty ? 1 : sortedCodes.last + 1,
       'existingVersionCodes': sortedCodes,
       'listings': listings['listings'] ?? const [],
+      'listingAssets': listingAssets,
+      'internalTrack': internalTrack,
       'oneTimeProducts': products,
       'priceWritesMade': false,
     };

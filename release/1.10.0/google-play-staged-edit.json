@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "packageName": "com.maskedsyntax.patterns",
+  "releaseVersion": "1.10.0",
+  "editId": "18167304150854944726",
+  "status": "committed",
+  "stagedAt": "2026-10-04T19:31:00.037611Z",
+  "versionCode": 32,
+  "aab": {
+    "path": "build/app/outputs/bundle/release/app-release.aab",
+    "exists": true,
+    "bytes": 80649536,
+    "sha256": "14b889bf328c2c20d3c4df60f9dc06ac4c7cc7d14be622699725220e47bf1a97",
+    "expectedVersionCode": 32,
+    "candidateReady": true
+  },
+  "localeCount": 11,
+  "phoneScreenshotCount": 88,
+  "featureGraphicCount": 11,
+  "priceWritesMade": false,
+  "purchaseOptionWritesMade": false,
+  "lastVerifiedAt": "2026-10-04T19:33:20.562988Z",
+  "verification": {
+    "localeCount": 11,
+    "phoneScreenshotCount": 88,
+    "featureGraphicCount": 11,
+    "bundleVersionCode": 32,
+    "internalTrackStatus": "verified"
+  },
+  "editCommittedAt": "2026-10-04T19:33:23.012557Z",
+  "patchedProductIds": [
+    "com.maskedsyntax.patterns.pro",
+    "com.maskedsyntax.patterns.tip.large",
+    "com.maskedsyntax.patterns.tip.medium",
+    "com.maskedsyntax.patterns.tip.small"
+  ],
+  "completedAt": "2026-10-04T19:33:28.450242Z",
+  "productLocalizationCount": 44
+}

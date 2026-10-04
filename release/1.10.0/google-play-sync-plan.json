@@ -20,9 +20,10 @@
   "aab": {
     "path": "build/app/outputs/bundle/release/app-release.aab",
     "exists": true,
-    "expectedVersionCode": null,
-    "candidateReady": false,
-    "notReadyReason": "Resolve the next unused version code through read-only inventory, then build the same-source signed AAB."
+    "bytes": 80649536,
+    "sha256": "14b889bf328c2c20d3c4df60f9dc06ac4c7cc7d14be622699725220e47bf1a97",
+    "expectedVersionCode": 32,
+    "candidateReady": true
   },
   "listings": [
     {
@@ -330,8 +331,8 @@
         },
         {
           "path": "app-store/patterns-screenshots/exports/localized/play/de/05-no-ai-to-ask.png",
-          "bytes": 96021,
-          "sha256": "545508d85574a119ae87c635ded9f8ebf5af3615666ac9fb468d318f7f2fdd86"
+          "bytes": 96023,
+          "sha256": "ab87db10d6c4b48ca91f848c1622e3ac8de6fcbf13b77ad1894ce4fc278d30c6"
         },
         {
           "path": "app-store/patterns-screenshots/exports/localized/play/de/06-nothing-leaves-your-phone.png",
@@ -441,7 +442,7 @@
         {
           "path": "app-store/patterns-screenshots/exports/localized/play/es/05-no-ai-to-ask.png",
           "bytes": 100918,
-          "sha256": "8e0b4f4c054671dad7313589852f45b7c3972127cee696e64035a753d0602462"
+          "sha256": "1673c3acc2a0a85ca362b8a77ea67317ef3c895e21a67dfa62ff529d091b0c37"
         },
         {
           "path": "app-store/patterns-screenshots/exports/localized/play/es/06-nothing-leaves-your-phone.png",
@@ -496,7 +497,7 @@
         {
           "path": "app-store/patterns-screenshots/exports/localized/play/es/05-no-ai-to-ask.png",
           "bytes": 100918,
-          "sha256": "8e0b4f4c054671dad7313589852f45b7c3972127cee696e64035a753d0602462"
+          "sha256": "1673c3acc2a0a85ca362b8a77ea67317ef3c895e21a67dfa62ff529d091b0c37"
         },
         {
           "path": "app-store/patterns-screenshots/exports/localized/play/es/06-nothing-leaves-your-phone.png",
@@ -550,8 +551,8 @@
         },
         {
           "path": "app-store/patterns-screenshots/exports/localized/play/fr/05-no-ai-to-ask.png",
-          "bytes": 102926,
-          "sha256": "82acb8fcabc8080637eacc34feacf27575c5c7d784e2f64f95aed837cbd0c719"
+          "bytes": 102928,
+          "sha256": "1ad7fd1faf65e421ac8c5224b7d25b59393cc0569a40738d413d39ab5c4291cf"
         },
         {
           "path": "app-store/patterns-screenshots/exports/localized/play/fr/06-nothing-leaves-your-phone.png",
@@ -605,8 +606,8 @@
         },
         {
           "path": "app-store/patterns-screenshots/exports/localized/play/fr/05-no-ai-to-ask.png",
-          "bytes": 102926,
-          "sha256": "82acb8fcabc8080637eacc34feacf27575c5c7d784e2f64f95aed837cbd0c719"
+          "bytes": 102928,
+          "sha256": "1ad7fd1faf65e421ac8c5224b7d25b59393cc0569a40738d413d39ab5c4291cf"
         },
         {
           "path": "app-store/patterns-screenshots/exports/localized/play/fr/06-nothing-leaves-your-phone.png",
