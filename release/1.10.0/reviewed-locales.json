@@ -38,20 +38,20 @@
       "fr-CA": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false}
     },
     "googlePlay": {
-      "en-US": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
-      "en-GB": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
-      "en-CA": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
-      "en-AU": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
-      "pt-BR": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
-      "de-DE": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
-      "ja-JP": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
-      "es-419": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
-      "es-ES": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
-      "fr-FR": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false},
-      "fr-CA": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": false}
+      "en-US": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": true},
+      "en-GB": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": true},
+      "en-CA": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": true},
+      "en-AU": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": true},
+      "pt-BR": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": true},
+      "de-DE": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": true},
+      "ja-JP": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": true},
+      "es-419": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": true},
+      "es-ES": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": true},
+      "fr-FR": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": true},
+      "fr-CA": {"copyReady": true, "productsReady": true, "screenshotsReady": true, "releaseOwnerApproved": true}
     },
     "unresolvedRisks": [
-      "Release-owner approval is pending.",
+      "App Store release-owner approval is pending; Google Play was approved on 2026-10-05.",
       "Human linguistic review was not performed.",
       "Remote storefront verification is pending."
     ]
@@ -59,6 +59,11 @@
   "physicalDeviceQa": {
     "ios": {"voiceOver": false, "maximumTextAndDisplayScale": false, "reducedMotion": false, "nonColour": false, "lightDarkPortraitLandscape": false, "purchasesAndRestore": false},
     "android": {"talkBack": false, "maximumFontAndDisplayScale": false, "reducedMotion": false, "nonColour": false, "lightDarkPortraitLandscape": false, "purchasesAndRestore": false}
+  },
+  "storefrontReleaseOwnerApproval": {
+    "appStore": false,
+    "googlePlay": true,
+    "googlePlayApprovedAt": "2026-10-05"
   },
   "releaseOwnerApproval": false
 }

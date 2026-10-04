@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 const packageName = 'com.maskedsyntax.patterns';
 const releaseVersion = '1.10.0';
 const approvalToken = 'STORE_PACKAGE_APPROVED_1_10';
+const stagedStatePath = 'release/1.10.0/google-play-staged-edit.json';
 const apiRoot = 'https://androidpublisher.googleapis.com/androidpublisher/v3';
 const uploadRoot =
     'https://androidpublisher.googleapis.com/upload/androidpublisher/v3';
@@ -61,7 +62,48 @@ Future<void> main(List<String> arguments) async {
       final plan = await _buildPlan(repository, options);
       _requireApplyReady(plan, options);
       final client = PlayClient(await _accessToken());
-      await _apply(client, plan, commit: options.containsKey('commit'));
+      await _apply(
+        client,
+        plan,
+        stateFile: File(options['state'] ?? stagedStatePath),
+        commit: options.containsKey('commit'),
+      );
+      return;
+    case 'verify-staged':
+      final stateFile = File(options['state'] ?? stagedStatePath);
+      final state = _readJson(stateFile);
+      final plan = await _buildPlan(repository, {
+        'aab': '${_map(state['aab'])['path']}',
+        'version-code': '${state['versionCode']}',
+      });
+      final client = PlayClient(await _accessToken());
+      final verification = await _verifyStaged(client, plan, state);
+      state['lastVerifiedAt'] = DateTime.now().toUtc().toIso8601String();
+      state['verification'] = verification;
+      await _writeJson(stateFile, state);
+      stdout.writeln(
+        'Verified staged Google Play edit ${state['editId']}: '
+        '11 listings, 88 phone screenshots, 11 feature graphics, and '
+        'version code ${state['versionCode']}.',
+      );
+      return;
+    case 'commit-staged':
+      if (options['confirm'] != approvalToken) {
+        stderr.writeln(
+          'Refusing remote writes. Pass --confirm=$approvalToken only after '
+          'the release owner approves the review matrix.',
+        );
+        exitCode = 64;
+        return;
+      }
+      final stateFile = File(options['state'] ?? stagedStatePath);
+      final state = _readJson(stateFile);
+      final plan = await _buildPlan(repository, {
+        'aab': '${_map(state['aab'])['path']}',
+        'version-code': '${state['versionCode']}',
+      });
+      final client = PlayClient(await _accessToken());
+      await _commitStaged(client, plan, state, stateFile);
       return;
     default:
       stderr.writeln('Unknown command: $command');
@@ -332,6 +374,7 @@ Future<Map<String, dynamic>> _inventory(PlayClient client) async {
 Future<void> _apply(
   PlayClient client,
   Map<String, dynamic> plan, {
+  required File stateFile,
   required bool commit,
 }) async {
   final editId = await client.insertEdit();
@@ -418,49 +461,210 @@ Future<void> _apply(
       const {},
     );
 
+    final stagedState = <String, dynamic>{
+      'schemaVersion': 1,
+      'packageName': packageName,
+      'releaseVersion': releaseVersion,
+      'editId': editId,
+      'status': 'staged_validated',
+      'stagedAt': DateTime.now().toUtc().toIso8601String(),
+      'versionCode': uploadedCode,
+      'aab': aab,
+      'localeCount': listingPlans.length,
+      'phoneScreenshotCount': _map(plan['assets'])['phoneScreenshotCount'],
+      'featureGraphicCount': _map(plan['assets'])['featureGraphicCount'],
+      'priceWritesMade': false,
+      'purchaseOptionWritesMade': false,
+    };
+    await _writeJson(stateFile, stagedState);
+
     if (!commit) {
       keepEdit = true;
       stdout.writeln(
         'Validated Google Play edit $editId. It is staged but not committed; '
-        'product localizations and published state are unchanged.',
+        'product localizations and published state are unchanged. Resume from '
+        '${stateFile.path}.',
       );
       return;
     }
-
-    await client.postJson(
-      '/applications/$packageName/edits/$editId:commit',
-      const {},
-    );
+    keepEdit = true;
+    await _commitStaged(client, plan, stagedState, stateFile);
     committed = true;
-    for (final productPlan in _list(plan['products']).map(_map)) {
-      final productId = productPlan['productId'] as String;
-      final current = await client.getJson(
-        '/applications/$packageName/oneTimeProducts/$productId',
-      );
-      final regionsVersion = _map(current['regionsVersion'])['version'];
-      if (regionsVersion == null) {
-        throw StateError('Missing regionsVersion for $productId.');
-      }
-      await client.patchJson(
-        '/applications/$packageName/onetimeproducts/$productId',
-        {
-          'packageName': packageName,
-          'productId': productId,
-          'listings': productPlan['listings'],
-        },
-        query: {
-          'updateMask': 'listings',
-          'regionsVersion.version': '$regionsVersion',
-        },
-      );
-    }
-    stdout.writeln(
-      'Committed Google Play 1.10 edit and patched four products with '
-      'updateMask=listings. No pricing or purchase-option fields were sent.',
-    );
   } finally {
     if (!keepEdit && !committed) await client.deleteEdit(editId);
   }
+}
+
+Future<Map<String, dynamic>> _verifyStaged(
+  PlayClient client,
+  Map<String, dynamic> plan,
+  Map<String, dynamic> state,
+) async {
+  if (state['status'] != 'staged_validated') {
+    throw StateError(
+      'Expected staged_validated state, found ${state['status']}.',
+    );
+  }
+  final editId = state['editId'] as String;
+  final listingPlans = _list(plan['listings']).map(_map).toList();
+  final remoteListings = _list(
+    (await client.getJson(
+      '/applications/$packageName/edits/$editId/listings',
+    ))['listings'],
+  ).map(_map).toList();
+  final byLanguage = {
+    for (final listing in remoteListings) '${listing['language']}': listing,
+  };
+  final expectedLanguages = {
+    for (final listing in listingPlans) '${listing['locale']}',
+  };
+  if (byLanguage.keys.toSet().difference(expectedLanguages).isNotEmpty ||
+      expectedLanguages.difference(byLanguage.keys.toSet()).isNotEmpty) {
+    throw StateError(
+      'Staged listing locales do not match the approved 11-locale set.',
+    );
+  }
+
+  var phoneScreenshotCount = 0;
+  var featureGraphicCount = 0;
+  for (final listing in listingPlans) {
+    final locale = listing['locale'] as String;
+    final remote = byLanguage[locale]!;
+    final expectedFields = {
+      'title': _readText(listing['titlePath'] as String),
+      'shortDescription': _readText(listing['shortDescriptionPath'] as String),
+      'fullDescription': _readText(listing['fullDescriptionPath'] as String),
+    };
+    for (final entry in expectedFields.entries) {
+      if (remote[entry.key] != entry.value) {
+        throw StateError('$locale ${entry.key} differs from approved copy.');
+      }
+    }
+    final phoneImages = _list(
+      (await client.getJson(
+        '/applications/$packageName/edits/$editId/listings/$locale/'
+        'phoneScreenshots',
+      ))['images'],
+    );
+    final featureImages = _list(
+      (await client.getJson(
+        '/applications/$packageName/edits/$editId/listings/$locale/'
+        'featureGraphic',
+      ))['images'],
+    );
+    if (phoneImages.length != 8 || featureImages.length != 1) {
+      throw StateError(
+        '$locale has ${phoneImages.length} phone screenshots and '
+        '${featureImages.length} feature graphics; expected 8 and 1.',
+      );
+    }
+    phoneScreenshotCount += phoneImages.length;
+    featureGraphicCount += featureImages.length;
+  }
+
+  final bundles = _list(
+    (await client.getJson(
+      '/applications/$packageName/edits/$editId/bundles',
+    ))['bundles'],
+  ).map(_map).toList();
+  final expectedVersionCode = state['versionCode'];
+  if (!bundles.any(
+    (bundle) => '${bundle['versionCode']}' == '$expectedVersionCode',
+  )) {
+    throw StateError(
+      'Version code $expectedVersionCode is absent from staged bundles.',
+    );
+  }
+  final track = await client.getJson(
+    '/applications/$packageName/edits/$editId/tracks/internal',
+  );
+  final releases = _list(track['releases']).map(_map).toList();
+  if (!releases.any(
+    (release) => _list(
+      release['versionCodes'],
+    ).any((code) => '$code' == '$expectedVersionCode'),
+  )) {
+    throw StateError(
+      'Version code $expectedVersionCode is absent from the internal track.',
+    );
+  }
+  await client.postJson(
+    '/applications/$packageName/edits/$editId:validate',
+    const {},
+  );
+  return {
+    'localeCount': byLanguage.length,
+    'phoneScreenshotCount': phoneScreenshotCount,
+    'featureGraphicCount': featureGraphicCount,
+    'bundleVersionCode': expectedVersionCode,
+    'internalTrackStatus': 'verified',
+  };
+}
+
+Future<void> _commitStaged(
+  PlayClient client,
+  Map<String, dynamic> plan,
+  Map<String, dynamic> state,
+  File stateFile,
+) async {
+  final status = '${state['status']}';
+  if (status == 'committed') {
+    stdout.writeln('Google Play edit ${state['editId']} is already committed.');
+    return;
+  }
+  if (status == 'staged_validated') {
+    state['verification'] = await _verifyStaged(client, plan, state);
+    state['lastVerifiedAt'] = DateTime.now().toUtc().toIso8601String();
+    await _writeJson(stateFile, state);
+    await client.postJson(
+      '/applications/$packageName/edits/${state['editId']}:commit',
+      const {},
+    );
+    state['status'] = 'edit_committed_product_patch_pending';
+    state['editCommittedAt'] = DateTime.now().toUtc().toIso8601String();
+    state['patchedProductIds'] = <String>[];
+    await _writeJson(stateFile, state);
+  } else if (status != 'edit_committed_product_patch_pending') {
+    throw StateError('Cannot resume Google Play state $status.');
+  }
+
+  final patched = <String>{
+    for (final id in _list(state['patchedProductIds'])) '$id',
+  };
+  for (final productPlan in _list(plan['products']).map(_map)) {
+    final productId = productPlan['productId'] as String;
+    if (patched.contains(productId)) continue;
+    final current = await client.getJson(
+      '/applications/$packageName/oneTimeProducts/$productId',
+    );
+    final regionsVersion = _map(current['regionsVersion'])['version'];
+    if (regionsVersion == null) {
+      throw StateError('Missing regionsVersion for $productId.');
+    }
+    await client.patchJson(
+      '/applications/$packageName/onetimeproducts/$productId',
+      {
+        'packageName': packageName,
+        'productId': productId,
+        'listings': productPlan['listings'],
+      },
+      query: {
+        'updateMask': 'listings',
+        'regionsVersion.version': '$regionsVersion',
+      },
+    );
+    patched.add(productId);
+    state['patchedProductIds'] = patched.toList()..sort();
+    await _writeJson(stateFile, state);
+  }
+  state['status'] = 'committed';
+  state['completedAt'] = DateTime.now().toUtc().toIso8601String();
+  state['productLocalizationCount'] = 44;
+  await _writeJson(stateFile, state);
+  stdout.writeln(
+    'Committed Google Play 1.10 edit and patched four products with '
+    'updateMask=listings. No pricing or purchase-option fields were sent.',
+  );
 }
 
 class PlayClient {
