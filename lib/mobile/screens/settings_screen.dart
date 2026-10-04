@@ -306,7 +306,7 @@ class SettingsScreen extends ConsumerWidget {
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
-      builder: (context) => _BottomPanel(
+      builder: (sheetContext) => _BottomPanel(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -333,7 +333,7 @@ class SettingsScreen extends ConsumerWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pop(sheetContext);
                   _exportData(context);
                 },
                 child: Text(strings.settingsText('exportBackupAction')),
@@ -377,7 +377,7 @@ class SettingsScreen extends ConsumerWidget {
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
-      builder: (context) => _BottomPanel(
+      builder: (sheetContext) => _BottomPanel(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -404,7 +404,7 @@ class SettingsScreen extends ConsumerWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pop(sheetContext);
                   _importData(context, ref);
                 },
                 child: Text(strings.settingsText('chooseBackupAction')),
@@ -489,7 +489,7 @@ class SettingsScreen extends ConsumerWidget {
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
-      builder: (context) => _BottomPanel(
+      builder: (sheetContext) => _BottomPanel(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -533,9 +533,9 @@ class SettingsScreen extends ConsumerWidget {
             _PanelActions(
               cancelLabel: strings.cancelAction,
               confirmLabel: strings.settingsText('replaceAction'),
-              onCancel: () => Navigator.pop(context),
+              onCancel: () => Navigator.pop(sheetContext),
               onConfirm: () async {
-                Navigator.pop(context);
+                Navigator.pop(sheetContext);
                 await _finishImport(context, ref, bytes, isZip);
               },
             ),
