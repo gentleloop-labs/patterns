@@ -42,8 +42,9 @@
     "versionCode": 33,
     "releaseStatus": "completed",
     "releaseNoteCount": 11,
-    "managedPublishingStatus": "review_in_progress",
-    "readyChangeCount": 13,
-    "published": false
+    "managedPublishingStatus": "published",
+    "publishedChangeCount": 14,
+    "publishedAt": "2026-10-06T14:57:18Z",
+    "published": true
   }
 }

@@ -53,7 +53,7 @@
     "unresolvedRisks": [
       "App Store release-owner approval is pending; Google Play was approved on 2026-10-05.",
       "Human linguistic review was not performed.",
-      "App Store remote verification is pending; Google Play is verified, approved, and held under Managed Publishing."
+      "App Store remote verification is pending; Google Play was verified and published on 2026-10-06."
     ]
   },
   "physicalDeviceQa": {
