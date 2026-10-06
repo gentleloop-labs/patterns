@@ -694,16 +694,26 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
   };
   bool _tourRunning = false;
   bool _analyticsConsentShowing = false;
+  late final bool _offerAnalyticsConsentThisSession;
 
   @override
   void initState() {
     super.initState();
+    // A meaningful action may finish by opening a quiet completion sheet. Do
+    // not let the analytics choice race that sheet. Eligibility is captured
+    // once when Home mounts, so an action recorded later in this session can
+    // only make the prompt eligible after the app is opened again.
+    _offerAnalyticsConsentThisSession =
+        widget.firstRunPath == null &&
+        analyticsConsentDecision == AnalyticsConsentDecision.undecided &&
+        (mobilePreferences?.getInt(meaningfulActionCountKey) ?? 0) > 0;
     neutralHomeNavigation.addListener(_returnToToday);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _seedDemoData();
       _logTabOpened(_selectedTab);
       final path = widget.firstRunPath;
       if (path != null) _startFirstRun(path);
+      if (_offerAnalyticsConsentThisSession) _maybeAskAnalyticsConsent();
     });
   }
 
@@ -885,9 +895,6 @@ class _MobileHomeState extends ConsumerState<MobileHome> {
   Widget build(BuildContext context) {
     // Replay requests (from Settings) re-run the tour on the live app.
     ref.listen<int>(tourRequestProvider, (_, _) => _startTour(force: true));
-    ref.listen<int>(meaningfulActionCountProvider, (previous, next) {
-      if (next > (previous ?? 0)) _maybeAskAnalyticsConsent();
-    });
 
     final today = TodayScreen(
       onJournal: () => _openJournalEditor(context),
