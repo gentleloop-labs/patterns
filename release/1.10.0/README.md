@@ -221,7 +221,7 @@ version and cannot install this update.
 
 - [x] Implement every P0 item and its automated acceptance coverage.
 - [x] Complete the P1 copy and privacy scope represented in the release promise.
-- [x] Bump `pubspec.yaml` to `1.10.0+32`; reconcile the final build numbers with
+- [x] Bump `pubspec.yaml` to `1.10.0+33`; reconcile the final build numbers with
       each store before the signed candidates are built.
 - [x] Change `currentReleaseId` and replace the 1.9 What's New screen.
 - [x] Clear the mobile/shared localization audit and freeze the English source.

@@ -1,10 +1,10 @@
 # Patterns 1.10 virtual-device QA
 
-Status: **passed after remediation — physical iPhone candidate available**
+Status: **VQA-03 remediated and emulator-verified — Play replacement pending**
 
-Executed: September 22, 2026
-Repository HEAD: `66184f8`
-Application source: `66184f8`
+Executed: September 22 and October 5, 2026
+Current repository HEAD: `ed30b17`
+Current Android application source: `ed30b17`
 TestFlight candidate: `1.10.0 (60)` (`ced89606-46cf-4ab8-8e06-03c4d2b86a8c`)
 
 The blocker fixes are committed in `66184f8`. The local Android release APK
@@ -13,6 +13,120 @@ physical-device sign-off.
 
 This is preflight evidence for the physical-device checklist. It does not
 check any physical-device item or change `reviewed-locales.json`.
+
+## October 5 Android candidate-32 retest
+
+The release owner directed the remaining Android product and accessibility
+checks to run on the emulator and accepted the existing physical purchase
+history rather than requiring another real purchase. This section records
+emulator-assisted evidence honestly; it does not relabel emulator observations
+as physical-device QA.
+
+Candidate:
+
+- source commit: `ed30b17`;
+- package: `com.maskedsyntax.patterns`;
+- version: `1.10.0` (`versionCode 32`);
+- build define: `PATTERNS_ENABLE_MULTILINGUAL=true`;
+- release APK SHA-256:
+  `a970b5752190ce034e068980f23f905c345e9566eb65e79737eab3e0bd53b36f`;
+- device: `Medium_Phone`, Android 17/API 37, 1080×2400 at 420 dpi.
+
+Passed observations:
+
+- The current release APK built, installed, launched, and reported the expected
+  package/version identity.
+- `flutter analyze` completed with no issues. All 374 Flutter tests passed,
+  including the 828-state six-language layout matrix. The mobile literal,
+  translator-context, and ARB review-integrity gates passed for all 711
+  messages in six languages.
+- English, Brazilian Portuguese, German, Japanese, Spanish, and French each
+  applied immediately, survived a process restart, and exposed localized
+  Today, Journal, Tracker, Practice, Insights, and Settings semantics.
+- Fresh onboarding, all primary tabs, Journal save, Tracker validation/save,
+  the complete one-minute compulsion-delay flow, optional-reflection skip,
+  Recovery immediate-support boundaries, and Y-BOCS non-diagnostic and
+  non-emergency boundaries were exercised with synthetic data.
+- Journal, tracked moment, and compulsion-delay completion data were saved
+  before their factual completion presentation. Each presentation exposed a
+  prominent **Done for now** action.
+- At font scale 2.0, 560 dpi, and landscape, Japanese Today, Journal, and
+  Insights remained scrollable. Body content ended where navigation began;
+  the delay action and Journal content could be scrolled above navigation.
+- With all three Android animation scales set to zero, navigation and the
+  tested task flows remained usable. Dark mode and the Android monochromacy
+  setting retained explicit labels, legends, icons, and chart text
+  alternatives instead of depending on colour alone.
+- TalkBack bound successfully with touch exploration enabled. Touch focus and
+  external-keyboard traversal reached Today summaries and Insights. The rich
+  Journal editor accepted external-keyboard input, exposed Bold, Italic, and
+  Bulleted-list controls, saved successfully, and moved accessibility focus to
+  the factual **Saved** confirmation.
+- The Android notification permission dialog returned to the running delay
+  timer. Export and import opened the Android document picker and returned to
+  Settings after cancellation without a crash or lost records.
+- Enabling the daily reminder scheduled the expected 8:00 PM alarm. Changing
+  the app to Spanish kept the reminder enabled, rescheduled the alarm, and
+  changed its visible time copy to locale-appropriate `20:00`. The reminder
+  was disabled and emulator accessibility/display overrides were reset after
+  testing.
+- The Pro and tip sheets opened, reflowed, described restore behaviour and the
+  no-feature-unlock tip boundary, and handled the expected sideloaded-build
+  `purchases unavailable` state without crashing. A sideloaded APK cannot
+  exercise a real Google Play purchase sheet.
+
+### VQA-03 — analytics consent interrupts first quiet completion
+
+Severity: **resolved after Android build 32; build 32 remains affected**
+Platform: Android, with shared Flutter behaviour
+
+Reproduction:
+
+1. Start from an installation whose analytics-consent decision is undecided.
+2. Create and save the first Journal entry.
+3. Observe the route before the factual completion sheet can be used.
+
+Observed: the **Help improve Patterns?** anonymous-usage dialog appears over
+the Journal completion. Dismissing it reveals the correct **Saved** and
+**Done for now** presentation.
+
+Expected: a completion path presents only the saved factual confirmation and
+**Done for now**. Analytics consent should be deferred to a later neutral
+session, just like other non-essential prompts.
+
+No data loss, analytics opt-in, or crash occurred. The dialog accurately says
+collection remains off unless chosen, but its timing conflicts with the 1.10
+quiet-completion contract.
+
+Resolution:
+
+- Analytics-consent eligibility is captured once when Home mounts. A meaningful
+  action recorded later in that Home session cannot open the prompt over its
+  completion presentation.
+- An undecided installation with an already-recorded meaningful action remains
+  eligible on a later neutral Home mount, so consent is deferred rather than
+  removed.
+- `test/analytics_consent_timing_test.dart` covers both guarantees. The focused
+  quiet-completion suite, `flutter analyze`, and all 376 Flutter tests pass.
+- A multilingual `1.10.0` release APK with version code 33 was built from the
+  patched source. Its SHA-256 is
+  `2a98940939a6ed1663832c6f5546bc1d5312306f904bd777fd4b5f808a442116`.
+- Build 33 was installed on the Android 17/API 37 emulator. A first regular
+  Journal save retained the uninterrupted **Saved** / **Done for now** result,
+  no consent dialog appeared later in that session, and the dialog appeared
+  after the next full app launch.
+- The patch was made after Android build 32. Build 33 still needs to replace it
+  on the Play track before release.
+
+Still not established by this emulator pass:
+
+- audible TalkBack wording, pronunciation, and live-region quality;
+- haptics and real touch-target feel;
+- biometric return focus because the emulator has no enrolled device
+  credential;
+- real Google Play purchase, cancellation, and restore surfaces. The release
+  owner accepted previously completed physical purchase testing for this
+  unchanged billing engine.
 
 ## Environments
 
