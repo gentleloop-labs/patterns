@@ -2,16 +2,16 @@
   "schemaVersion": 1,
   "packageName": "com.maskedsyntax.patterns",
   "releaseVersion": "1.10.0",
-  "editId": "18167304150854944726",
+  "editId": "16766688203743516343",
   "status": "committed",
-  "stagedAt": "2026-10-04T19:31:00.037611Z",
-  "versionCode": 32,
+  "stagedAt": "2026-10-06T13:01:54.236489Z",
+  "versionCode": 33,
   "aab": {
     "path": "build/app/outputs/bundle/release/app-release.aab",
     "exists": true,
-    "bytes": 80649536,
-    "sha256": "14b889bf328c2c20d3c4df60f9dc06ac4c7cc7d14be622699725220e47bf1a97",
-    "expectedVersionCode": 32,
+    "bytes": 80647965,
+    "sha256": "b637b2f39c340211e7f79442d97e15f26da13385f87f31d319ddd84895be9772",
+    "expectedVersionCode": 33,
     "candidateReady": true
   },
   "localeCount": 11,
@@ -19,21 +19,31 @@
   "featureGraphicCount": 11,
   "priceWritesMade": false,
   "purchaseOptionWritesMade": false,
-  "lastVerifiedAt": "2026-10-04T19:33:20.562988Z",
+  "lastVerifiedAt": "2026-10-06T13:03:40.632131Z",
   "verification": {
     "localeCount": 11,
     "phoneScreenshotCount": 88,
     "featureGraphicCount": 11,
-    "bundleVersionCode": 32,
+    "bundleVersionCode": 33,
     "internalTrackStatus": "verified"
   },
-  "editCommittedAt": "2026-10-04T19:33:23.012557Z",
+  "editCommittedAt": "2026-10-06T13:03:43.412754Z",
   "patchedProductIds": [
     "com.maskedsyntax.patterns.pro",
     "com.maskedsyntax.patterns.tip.large",
     "com.maskedsyntax.patterns.tip.medium",
     "com.maskedsyntax.patterns.tip.small"
   ],
-  "completedAt": "2026-10-04T19:33:28.450242Z",
-  "productLocalizationCount": 44
+  "completedAt": "2026-10-06T13:03:49.482859Z",
+  "productLocalizationCount": 44,
+  "productionSubmission": {
+    "editId": "07879120491441155896",
+    "committedAt": "2026-10-06T13:09:56Z",
+    "versionCode": 33,
+    "releaseStatus": "completed",
+    "releaseNoteCount": 11,
+    "managedPublishingStatus": "review_in_progress",
+    "readyChangeCount": 13,
+    "published": false
+  }
 }
