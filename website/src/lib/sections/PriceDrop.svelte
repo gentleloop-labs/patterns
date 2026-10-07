@@ -40,7 +40,7 @@
           <span class="badge" aria-hidden="true">{percentOff}% off</span>
         </div>
 
-        <p class="unit">Patterns Pro, one time, in the US</p>
+        <p class="unit">Patterns Pro, one time. Prices vary by country.</p>
 
         <ul class="promises">
           {#each promises as promise}

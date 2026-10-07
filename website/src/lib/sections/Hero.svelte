@@ -4,8 +4,9 @@
   import SecondaryButton from '$lib/components/SecondaryButton.svelte';
   import StoreLink from '$lib/components/StoreLink.svelte';
   import { links } from '$lib/data/links';
+  import { site } from '$lib/data/site';
   import { logEvent, logGitHubClick } from '$lib/utils/analytics';
-  import { Download, Github } from 'lucide-svelte';
+  import { ArrowRight, Download, Github } from 'lucide-svelte';
 
   let { onDownload }: { onDownload: () => void } = $props();
 
@@ -24,6 +25,10 @@
     onDownload();
   }
 
+  function handleRelease() {
+    logEvent('hero_release_click', { version: site.latestRelease.version });
+  }
+
   function handleGitHub() {
     logGitHubClick();
     window.open(links.github, '_blank', 'noopener');
@@ -39,10 +44,11 @@
   <ContentContainer padding={isMobile ? '56px 0 56px' : '92px 0 96px'}>
     <div class="hero-content">
       <div class="hook">
-        <div class="badge">
+        <a class="badge" href={site.latestRelease.href} onclick={handleRelease}>
           <span class="dot"></span>
-          <span>The private OCD app for journaling & ERP</span>
-        </div>
+          <span><strong>New in {site.latestRelease.version}:</strong> {site.latestRelease.summary}</span>
+          <ArrowRight size={14} strokeWidth={2.25} />
+        </a>
 
         <h1 id="hero-title" class="headline serif">
           See the loop.<br />Choose your next response.
@@ -136,6 +142,29 @@
     font-weight: 600;
     color: var(--accent);
     letter-spacing: 0.03em;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .badge strong {
+    font-weight: 800;
+  }
+
+  .badge :global(svg) {
+    transition: transform 0.2s;
+  }
+
+  .badge:hover {
+    border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+    background: color-mix(in srgb, var(--accent) 16%, transparent);
+  }
+
+  .badge:hover :global(svg) {
+    transform: translateX(2px);
+  }
+
+  .badge:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
   }
 
   .dot {
