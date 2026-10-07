@@ -19,41 +19,71 @@
     MonitorSmartphone,
     Sparkles,
     Sun,
-    GitBranch,
     Brain,
     Eraser,
     HeartHandshake,
     Compass,
-    BookOpen,
-    ChevronRight
+    ChevronRight,
+    Languages,
+    Leaf,
+    Accessibility,
+    Smartphone,
+    BookOpenText,
+    PersonStanding,
+    LineChart
   } from 'lucide-svelte';
 
-  // Shipped in the current release - kept expanded so the newest work reads first.
+  // Shipped in the current release (1.10) - kept expanded so the newest work reads first.
   const releasedRecent = [
     {
-      icon: MonitorSmartphone,
-      title: 'Patterns on Android',
-      body: 'New: Patterns is on the Play Store now. Same app, same tools, and the same promise that nothing you write leaves your device. If you have been waiting on an Android phone, this is it.'
-    },
-    {
-      icon: Sparkles,
-      title: 'A gentler first few minutes',
-      body: 'New on phones: instead of swiping through a slideshow, the app asks what would help right now and takes you straight there. You can start delaying a compulsion, or writing, within a minute of opening it.'
+      icon: Leaf,
+      title: 'Calm Insights',
+      body: 'An optional way to use Patterns without streaks or calculated scores. Instead you get plain counts of what you did, like "3 journal entries, 1 ERP practice". It is on for new installs. If you already use Patterns, nothing changes until you switch it on in Settings, and nothing you recorded is hidden or deleted.'
     },
     {
       icon: CheckCircle2,
-      title: 'A soft landing afterwards',
-      body: 'New on phones: when you finish that first exercise, there is a quiet screen to notice how it went instead of being dropped back at a menu. The app also waits to ask about notifications until it has a reason to.'
+      title: 'Quieter endings',
+      body: 'When you finish a journal entry or a practice session, Patterns says it is saved and then gets out of the way. No praise to live up to, no follow-up prompt, nothing extra to check.'
     },
     {
-      icon: BarChart3,
-      title: 'A home screen that keeps up',
-      body: 'New on phones: your practice shows up the moment you do it. The old "recovery score" is gone, replaced by practice progress, because recovery is not a number you can be graded on.'
+      icon: Languages,
+      title: 'Patterns in six languages',
+      body: 'The app now comes in English, Brazilian Portuguese, German, Japanese, Spanish, and French. Pick one in Settings. Your entries stay exactly as you wrote them, and the choice stays on your phone.'
     },
     {
-      icon: FolderLock,
-      title: 'Counting that stays on your phone',
-      body: 'New everywhere: the app keeps a small private tally of which features get used, so I can tell what is worth building next. Those numbers never leave your device and never reach me.'
+      icon: Accessibility,
+      title: 'Easier with VoiceOver and larger text',
+      body: 'Clearer screen reader labels, charts that come with a spoken description, layouts that hold together at the largest text sizes, and less movement when Reduce Motion is on. Colour is no longer the only way a screen tells you something.'
+    }
+  ];
+
+  // Everything shipped before the current release, newest first. Collapsed by
+  // default so the Released column does not tower over the other two.
+  const releasedEarlier = [
+    {
+      icon: Sun,
+      title: 'A light theme',
+      body: 'A proper light mode, made with the same care as the dark one. Choose System, Light, or Dark in Settings and the whole app follows.'
+    },
+    {
+      icon: MonitorSmartphone,
+      title: 'Patterns on Android',
+      body: 'Patterns is on the Play Store. Same app, same tools, and the same promise that nothing you write leaves your device unless you choose to export it.'
+    },
+    {
+      icon: LineChart,
+      title: 'Your Y-BOCS scores over time',
+      body: 'The self-check is no longer a one-off number. Every result you save builds a history you can follow across months, and the scores go into the PDF you can take to a therapist.'
+    },
+    {
+      icon: Compass,
+      title: 'Tracks for your kind of OCD',
+      body: 'Contamination, checking, harm and taboo thoughts, relationship doubt, and just-right. Each one is a few weeks of exposures written for that theme, instead of a blank ladder to fill in yourself. Part of Pro.'
+    },
+    {
+      icon: HeartHandshake,
+      title: 'Kinder wording when something is missing',
+      body: 'Every screen that can stop you saving was rewritten, so the message reads like a nudge rather than a telling-off. Nobody needs that from an app about OCD.'
     },
     {
       icon: Eraser,
@@ -61,19 +91,29 @@
       body: 'If an entry went onto the wrong date, open that day, tap the bin, and confirm. The day goes blank again and nothing else is touched.'
     },
     {
+      icon: Sparkles,
+      title: 'A gentler first few minutes',
+      body: 'Instead of swiping through a slideshow, the app asks what would help right now and takes you straight there. You can start delaying a compulsion, or writing, within a minute of opening it.'
+    },
+    {
+      icon: CheckCircle2,
+      title: 'A soft landing afterwards',
+      body: 'When you finish that first exercise, there is a quiet screen to notice how it went instead of being dropped back at a menu. The app also waits to ask about notifications until it has a reason to.'
+    },
+    {
+      icon: BarChart3,
+      title: 'A home screen that keeps up',
+      body: 'Today shows what you have done the moment you do it, and suggests one next step, so you never open Patterns and wonder where to start.'
+    },
+    {
       icon: Crown,
       title: 'Pro is $19.99 again',
-      body: 'Pro has come back down to $19.99 in the US from $39.99, with local pricing elsewhere. Still one payment, still lifetime, still no subscription. If you already own Pro, nothing changes and you pay nothing again.'
-    }
-  ];
-
-  // The foundation, shipped across earlier versions. Collapsed by default so the
-  // Released column does not tower over the other two.
-  const releasedEarlier = [
+      body: 'Pro has come back down to $19.99 from $39.99. Prices vary by country, and your app store always shows yours. Still one payment, still lifetime, still no subscription. If you already own Pro, nothing changes and you pay nothing again.'
+    },
     {
       icon: PenLine,
       title: 'A private daily journal',
-      body: 'Somewhere to write, one day at a time, with bold and italic when a word needs the weight. On the days a blank page feels like too much, there are prompts to write against instead.'
+      body: 'Somewhere to write, one day at a time, with bold, italics, and lists when you need them. Search back through old entries, and set a gentle daily reminder if that helps.'
     },
     {
       icon: ListChecks,
@@ -83,7 +123,7 @@
     {
       icon: Flame,
       title: 'Tools for practising ERP',
-      body: 'Build a fear ladder and climb it a rung at a time. Delay a compulsion, ride out an urge, sit with not knowing, and test what OCD swears will happen.'
+      body: 'Delay a compulsion and see what happens to the urge. Guided practice for checking, reassurance seeking, googling, rumination, and washing. With Pro, build a fear ladder, keep scripts, loop tapes, and images next to it, follow a week-by-week program, ride out an urge, sit with not knowing, and test what OCD swears will happen.'
     },
     {
       icon: Brain,
@@ -93,7 +133,7 @@
     {
       icon: HeartHandshake,
       title: 'Help for the hard moments',
-      body: 'Coping strategies, a panic-button toolkit, and space to decide in advance what you will do the next time a trigger lands, so you are not deciding while flooded.'
+      body: 'Breathing, grounding, and other coping strategies, a toolkit for when things spike, and space to decide in advance what you will do the next time a trigger lands, so you are not deciding while flooded.'
     },
     {
       icon: BarChart3,
@@ -103,48 +143,38 @@
     {
       icon: FolderLock,
       title: 'Private by design',
-      body: 'Your journal and OCD records stay on your device. No account or cloud sync. Optional anonymous feature-use analytics never include personal OCD content.'
+      body: 'Your journal and OCD records stay on your device. No account or cloud sync. Lock the app behind Face ID or your passcode, and keep your own backup as a single file. Optional anonymous feature-use analytics stay off unless you turn them on, and never include personal OCD content.'
     },
     {
       icon: Crown,
       title: 'Patterns Pro',
-      body: 'Pay once, keep it. No subscription, no renewal. Scan a code to carry it across to your other devices.'
-    },
+      body: 'Pay once, keep it. No subscription, no renewal. If you change phones, restore it from Settings.'
+    }
   ];
 
   const comingSoon = [
     {
-      icon: Brain,
-      title: 'Your Y-BOCS scores over time',
-      body: 'The self-check stops being a one-off number. You get a line you can follow across months, and the scores land in the PDF you take to a therapist.'
-    },
-    {
-      icon: Compass,
-      title: 'Tracks for your kind of OCD',
-      body: 'Contamination, checking, harm and taboo thoughts, relationship doubt, and just-right. Each one is a few weeks of exposures written for that theme, instead of a blank ladder to fill in yourself.'
-    },
-    {
-      icon: HeartHandshake,
-      title: 'Kinder wording when something is missing',
-      body: 'A pass over every screen that can stop you saving, so the message reads like a nudge rather than a telling-off. Nobody needs that from an app about OCD.'
+      icon: Accessibility,
+      title: 'Accessibility, checked on real phones',
+      body: 'The 1.10 changes were tested at every text size before release. Now I am going through every common task on a real iPhone with VoiceOver and a real Android phone with TalkBack, and fixing whatever still gets in the way.'
     }
   ];
 
   const exploring = [
     {
-      icon: Sun,
-      title: 'A light theme',
-      body: 'A proper light mode, made with the same care as the dark one. Calm, easy to read, and kinder on tired eyes.'
+      icon: Smartphone,
+      title: 'A native iPhone app',
+      body: 'Rebuilding the iPhone version in Swift, Apple’s own language, so it feels completely at home on iOS and can use more of what the system offers.'
     },
     {
-      icon: GitBranch,
-      title: 'A clearer path through the app',
-      body: 'Reworking how it all fits together so the next useful thing is always obvious, and you never open Patterns and wonder where to start.'
+      icon: BookOpenText,
+      title: 'Room to spread out on iPhone Duo',
+      body: 'Apple’s foldable has a much bigger screen when it is open. Rather than stretching the phone layout, I would like Patterns to use that space properly, like keeping your notes beside the exercise you are doing.'
     },
     {
-      icon: BookOpen,
-      title: 'More to read about OCD itself',
-      body: 'The themed tracks cover the practice. What is still missing is the reading around it: why ERP works the way it does, and what to expect from it, written plainly.'
+      icon: PersonStanding,
+      title: 'Guided progressive muscle relaxation',
+      body: 'The Coping Library has a short note on it today. The idea is a full guided session of Jacobson’s progressive muscle relaxation that walks you through each muscle group at your own pace.'
     },
     {
       icon: Sparkles,
@@ -157,7 +187,7 @@
     {
       id: 'released',
       title: 'In the app now',
-      caption: 'You can open Patterns and use all of this today',
+      caption: 'New in 1.10 at the top. All of it is in the app today',
       icon: CheckCircle2,
       items: releasedRecent,
       more: releasedEarlier,
@@ -166,7 +196,7 @@
     {
       id: 'coming',
       title: 'Almost ready',
-      caption: 'Finished and being tested, coming in the next update',
+      caption: 'Being worked on now, for the next update',
       icon: Rocket,
       items: comingSoon
     },
@@ -185,7 +215,7 @@
       '@type': 'WebPage',
       name: 'Patterns roadmap - shipped, coming soon, and what\u2019s next',
       description:
-        'The Patterns roadmap: what the OCD and ERP app can do today, what is almost ready in the next update including Y-BOCS scores over time and ERP tracks for specific OCD themes, and the ideas being considered after that.',
+        'The Patterns roadmap: what the OCD and ERP app can do today, including Calm Insights, six languages, Y-BOCS scores over time, and ERP tracks for specific OCD themes, what is being worked on for the next update, and the ideas being considered after that.',
       url: `${links.site}roadmap`,
       isPartOf: { '@type': 'WebSite', name: 'Patterns', url: links.site }
     },
@@ -202,7 +232,7 @@
 
 <Seo
   title="Patterns Roadmap - Shipped, Coming Soon & What's Next"
-  description="The Patterns roadmap: what this OCD and ERP app can do today (journaling, ERP tools, Y-BOCS, private tracking), what is almost ready in the next update (Y-BOCS scores over time, ERP tracks for specific OCD themes), and the ideas being considered after that."
+  description="The Patterns roadmap: what this OCD and ERP app can do today (Calm Insights, six languages, ERP tools, Y-BOCS scores over time, private tracking), what is being worked on next, and the ideas being considered after that."
   path="roadmap"
   keywords="Patterns roadmap, OCD app roadmap, ERP app updates, Patterns Pro, OCD tracker features, coming soon"
   {jsonLd}
@@ -230,7 +260,7 @@
       <div class="board" role="list" aria-label="Roadmap board">
         {#each columns as column}
           {@const ColumnIcon = column.icon}
-          <section class="column {column.id}" role="listitem" aria-labelledby="{column.id}-title">
+          <section id={column.id} class="column {column.id}" role="listitem" aria-labelledby="{column.id}-title">
             <header class="column-head">
               <div class="column-title-row">
                 <span class="dot" aria-hidden="true"></span>
@@ -289,8 +319,8 @@
       <section class="cta-banner" aria-labelledby="cta-title">
         <h2 id="cta-title">Try what is already here</h2>
         <p>
-          Everything in the first column is free to start with today. No account, no cloud,
-          no ads. You can be writing or delaying an urge a minute after you open it.
+          Everything in the first column is in the app today, and most of it is free. No
+          account, no cloud, no ads. You can be writing or delaying an urge a minute after you open it.
         </p>
         <div class="actions">
           <a href="/#download" class="link-pill">Download Patterns <ArrowRight size={16} /></a>
@@ -362,6 +392,8 @@
   }
 
   .column {
+    /* Clears the fixed navbar when the hero links to /roadmap#released. */
+    scroll-margin-top: 96px;
     display: flex;
     flex-direction: column;
     border-radius: 18px;

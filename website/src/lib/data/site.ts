@@ -8,7 +8,13 @@ import { links } from './links';
 export const site = {
   name: 'Patterns',
   /** Keep in sync with the Flutter app's pubspec version (marketing version). */
-  appVersion: '1.5.0',
+  appVersion: '1.10.0',
+  /** Announced in the homepage hero; links to the release's roadmap column. */
+  latestRelease: {
+    version: '1.10',
+    summary: 'Calm Insights and six languages',
+    href: '/roadmap#released'
+  },
   /** Preferred host is the apex domain (no www). See website/README.md. */
   url: links.site,
   /** Purpose-built 1200×630 social share image. */

@@ -10,6 +10,8 @@
   --text: #f5f5f7;
   --text-secondary: #86868b;
   --border: #2c2c2e;
+  --selection: color-mix(in srgb, #ffd700 32%, transparent);
+  color-scheme: dark;
   --hero-gradient: linear-gradient(
     180deg,
     #0a0a0a 0%,
@@ -26,12 +28,21 @@
   --text: #1d1d1f;
   --text-secondary: #6e6e73;
   --border: #e5e5ea;
+  --selection: color-mix(in srgb, #f5d547 55%, transparent);
+  color-scheme: light;
   --hero-gradient: linear-gradient(
     180deg,
     #fafafa 0%,
     #fffdf0 50%,
     #fafafa 100%
   );
+}
+
+/* Explicit so selected text keeps its own colour and stays readable in both
+   themes, rather than inheriting a browser default tuned for the other one. */
+::selection {
+  background: var(--selection);
+  color: var(--text);
 }
 
 *,

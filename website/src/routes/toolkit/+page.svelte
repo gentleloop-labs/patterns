@@ -156,11 +156,11 @@
         <p class="price-line">
           <span class="was">{proPricing.previousUsd}</span>
           <span class="now">{proPricing.currentUsd}</span>
-          <span class="once">one time, in the US</span>
+          <span class="once">one time</span>
         </p>
         <p>
-          Pro has come back down from {proPricing.previousUsd} to {proPricing.currentUsd}, with
-          local pricing elsewhere. Patterns Pro is a single purchase - not a subscription. You own it, it works
+          Pro has come back down from {proPricing.previousUsd} to {proPricing.currentUsd}. Prices
+          vary by country, and your app store always shows yours. Patterns Pro is a single purchase - not a subscription. You own it, it works
           offline, and it keeps the same privacy promise as the rest of the app: nothing
           leaves your device. Buying Pro is also how a person with OCD gets to keep
           building this for everyone else, without ever turning your hardest moments into
