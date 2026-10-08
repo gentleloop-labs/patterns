@@ -24,6 +24,21 @@ const newArticles = [
     slug: 'ocd-at-work',
     title: 'OCD at Work: Symptoms, Disclosure, and Helpful Support',
     contextualLink: '/blog/checking-ocd'
+  },
+  {
+    slug: 'ocd-and-sleep-bedtime-rituals',
+    title: 'OCD and Sleep: When Bedtime Becomes a Ritual',
+    contextualLink: '/blog/checking-ocd'
+  },
+  {
+    slug: 'ocd-or-adhd',
+    title: 'OCD or ADHD? Understanding the Overlap and Differences',
+    contextualLink: '/blog/what-happens-during-an-ocd-assessment'
+  },
+  {
+    slug: 'ocd-and-depression',
+    title: 'OCD and Depression: When Both Need Attention',
+    contextualLink: '/blog/ocd-flare-up-or-relapse'
   }
 ];
 
