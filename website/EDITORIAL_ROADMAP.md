@@ -34,6 +34,9 @@ This queue supports one carefully sourced article each week. Do not publish a dr
 | 15 | How to Support Someone With OCD Without Feeding the Cycle | Living With OCD | How can supporters validate distress without joining compulsions? | Published |
 | 16 | What Causes OCD? Genetics, Brain, Learning, and Stress | Recognizing OCD | What is known about OCD causes, risks, triggers, and maintenance? | Published |
 | 17 | OCD at Work: Symptoms, Disclosure, and Helpful Support | Living With OCD | How can OCD affect work, and what support can help? | Published |
+| 18 | OCD and Sleep: When Bedtime Becomes a Ritual | Living With OCD | When is a bedtime routine part of an OCD cycle? | Published 2026-10-08 (October 4 editorial slot) |
+| 19 | OCD or ADHD? Understanding the Overlap and Differences | Recognizing OCD | How can attention difficulties be assessed without assuming one diagnosis? | Published 2026-10-08 (October 6 editorial slot) |
+| 20 | OCD and Depression: When Both Need Attention | Living With OCD | When might both OCD and low mood need care? | Published 2026-10-08 |
 
 ## Article acceptance checklist
 

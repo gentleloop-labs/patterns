@@ -37,6 +37,8 @@ The last one matters, because someone who has stopped walking back upstairs but 
 
 When this loop attaches to emails, decisions, or job responsibilities, [our guide to OCD at work](/blog/ocd-at-work) explains how to distinguish extra certainty-seeking from a role's genuine checking requirements.
 
+When the loop waits until the lights are out, [OCD and sleep](/blog/ocd-and-sleep-bedtime-rituals) can help distinguish an ordinary bedtime routine from a ritual that keeps expanding.
+
 ## The memory distrust finding
 
 This is the part worth understanding properly.

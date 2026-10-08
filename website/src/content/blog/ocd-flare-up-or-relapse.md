@@ -133,6 +133,8 @@ You do not need to wait until you are certain the word *relapse* applies. Consid
 - You are considering changing or stopping medication.
 - Depression, substance use, trauma symptoms, or another mental health concern is growing alongside OCD.
 
+If low mood or loss of interest continues beyond an OCD spike, [our guide to OCD and depression](/blog/ocd-and-depression) explains why both patterns deserve assessment rather than being reduced to one label.
+
 Further assessment does not cancel the work you have already done. Treatment can be adjusted, refreshed, or intensified. NICE recommends matching treatment intensity to impairment, response, preference, and clinical context, and the NHS notes that specialist care may be appropriate when standard talking therapy and medication have not brought symptoms under control.
 
 If you may be in immediate danger or unable to stay safe, contact local emergency services or use [Find A Helpline](https://findahelpline.com/) to locate crisis support in your country. Patterns is not a crisis service.

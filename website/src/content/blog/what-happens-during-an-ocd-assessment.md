@@ -70,7 +70,7 @@ Appointments vary. A typical first visit is a conversation of about an hour. Som
 
 **Time, distress, and interference.** How much of a typical day the cycle occupies, how intense the distress gets, and which parts of life have shrunk around it.
 
-**Differential questions.** General worry, low mood, trauma symptoms, health anxiety, eating-related rituals, tics, and reality testing may be asked about so that OCD is not confused with something that needs a different treatment. The distinction between [OCD and anxiety](/blog/ocd-vs-anxiety-difference) is one piece of that, not the whole assessment.
+**Differential questions.** General worry, low mood, attention difficulties, trauma symptoms, health anxiety, eating-related rituals, tics, and reality testing may be asked about so that OCD is not confused with something that needs a different treatment. The distinctions between [OCD and anxiety](/blog/ocd-vs-anxiety-difference), [OCD and ADHD](/blog/ocd-or-adhd), and [OCD and depression](/blog/ocd-and-depression) are pieces of that, not the whole assessment.
 
 **Measures.** Many clinicians then use a structured interview or a rating scale. This is the part that can feel like a form. It is there to make the picture comparable over time, not to catch you out.
 

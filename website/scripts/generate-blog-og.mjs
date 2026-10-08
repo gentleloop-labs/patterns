@@ -111,6 +111,7 @@ function motif(slug, palette) {
 
 function renderCard({ slug, title, category, logoDataUrl }) {
   const palette = categories[category] ?? categories['recognizing-ocd'];
+  const headlineSize = slug === 'ocd-and-depression' ? 54 : titleSize(title);
   return `<!doctype html>
   <html lang="en">
     <head><meta charset="utf-8" /><style>
@@ -137,7 +138,7 @@ function renderCard({ slug, title, category, logoDataUrl }) {
       .copy { position: relative; z-index: 2; width: 785px; margin-top: 72px; }
       h1 {
         margin: 0; color: #fffdf7; font-family: Georgia, "Times New Roman", serif;
-        font-size: ${titleSize(title)}px; line-height: 1.03; letter-spacing: -2.2px;
+        font-size: ${headlineSize}px; line-height: 1.03; letter-spacing: -2.2px;
         text-wrap: balance;
       }
       .rule { width: 84px; height: 6px; margin-top: 32px; border-radius: 6px; background: ${palette.accent}; }
