@@ -44,14 +44,14 @@ Requires iOS 14 or later, or Android 8 or later.
 ## A look inside
 
 <p align="center">
-  <img src="app-store/patterns-screenshots/exports/app-store-1290x2796/02-delay-the-urge.png" width="32%" alt="Compulsion delay: put a pause between the urge and the action">
-  <img src="app-store/patterns-screenshots/exports/app-store-1290x2796/03-build-your-exposure-ladder.png" width="32%" alt="Exposure hierarchy: build a ladder and take the next step">
-  <img src="app-store/patterns-screenshots/exports/app-store-1290x2796/05-private-journaling.png" width="32%" alt="Private journal: write the thoughts you do not say out loud">
+  <img src="app-store/patterns-screenshots/exports/app-store-1284x2778/02-delay-the-urge.png" width="32%" alt="Compulsion delay: put a pause between the urge and the action">
+  <img src="app-store/patterns-screenshots/exports/app-store-1284x2778/03-build-your-exposure-ladder.png" width="32%" alt="Exposure hierarchy: build a ladder and take the next step">
+  <img src="app-store/patterns-screenshots/exports/app-store-1284x2778/07-private-journaling.png" width="32%" alt="Private journal: write the thoughts you do not say out loud">
 </p>
 
 <p align="center">
-  <img src="app-store/patterns-screenshots/exports/app-store-1290x2796/04-see-patterns-not-judgments.png" width="32%" alt="Insights: practice progress, mood, and consistency over time">
-  <img src="app-store/patterns-screenshots/exports/app-store-1290x2796/06-private-by-design.png" width="32%" alt="Settings: local-first privacy, app lock, and export">
+  <img src="app-store/patterns-screenshots/exports/app-store-1284x2778/04-see-patterns-not-judgments.png" width="32%" alt="Insights: practice progress, mood, and consistency over time">
+  <img src="app-store/patterns-screenshots/exports/app-store-1284x2778/06-nothing-leaves-your-phone.png" width="32%" alt="Settings: local-first privacy, app lock, and export">
 </p>
 
 ## What you can do
