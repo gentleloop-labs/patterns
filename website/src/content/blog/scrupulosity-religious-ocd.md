@@ -49,6 +49,7 @@ It is also one of the hardest to recognise from the inside, because the compulsi
 - **Seeking rulings.** Asking a religious leader the same question, rephrased, or searching for the answer online.
 - **Mental review** of past actions to determine sinfulness. See [mental compulsions](/blog/pure-o-mental-compulsions).
 - **Neutralising.** Cancelling a blasphemous thought with a good one, or a specific phrase.
+- **Magical rules.** Feeling that a thought or unrelated action could bring about harm, then following a private rule to prevent it. Our [magical thinking OCD guide](/blog/magical-thinking-ocd) explains this pattern without equating it with faith.
 - **Avoidance.** Of places of worship, religious texts, certain words, or situations where an intrusive thought might arrive.
 - **Excessive restitution.** Apologising far beyond what the situation calls for; giving away money to correct an imagined wrong.
 

@@ -39,6 +39,21 @@ const newArticles = [
     slug: 'ocd-and-depression',
     title: 'OCD and Depression: When Both Need Attention',
     contextualLink: '/blog/ocd-flare-up-or-relapse'
+  },
+  {
+    slug: 'magical-thinking-ocd',
+    title: 'Magical Thinking OCD: When Thoughts Feel Like Actions',
+    contextualLink: '/blog/scrupulosity-religious-ocd'
+  },
+  {
+    slug: 'ocd-and-social-media',
+    title: 'OCD and Social Media: When Scrolling Becomes Reassurance',
+    contextualLink: '/blog/reassurance-seeking-ocd'
+  },
+  {
+    slug: 'can-ocd-themes-change',
+    title: 'Can OCD Themes Change? What Stays the Same',
+    contextualLink: '/blog/ocd-flare-up-or-relapse'
   }
 ];
 

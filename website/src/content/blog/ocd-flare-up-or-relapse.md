@@ -43,6 +43,8 @@ There is no single number of difficult days that separates a flare-up from a rel
 
 A bad afternoon can feel enormous from inside it. That does not make it unimportant, but intensity in one moment is not the same as the overall course of recovery.
 
+Sometimes the subject of a worry changes as well. A [new OCD theme](/blog/can-ocd-themes-change) does not by itself establish a relapse; the broader pattern of rituals, avoidance, and impairment matters more than the label.
+
 ## A difficult week does not erase OCD recovery progress
 
 OCD can turn symptom return into an all-or-nothing verdict: *I checked again, so treatment failed. I felt this anxious, so I am back at the beginning.* That conclusion measures recovery by whether distress appeared, not by how you related to it.
