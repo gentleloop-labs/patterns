@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:local_auth/local_auth.dart'
     show LocalAuthException, LocalAuthExceptionCode;
 import 'package:url_launcher/url_launcher.dart';
@@ -203,7 +204,7 @@ class SettingsScreen extends ConsumerWidget {
                     type: ToastType.success,
                   ),
                 ),
-              ] else
+              ] else ...[
                 _SettingsItem(
                   icon: LineIcons.unlock,
                   title: strings.settingsUnlockProTitle,
@@ -213,6 +214,16 @@ class SettingsScreen extends ConsumerWidget {
                     entryPoint: ProEntryPoint.settings,
                   ),
                 ),
+                if (ProService.canRedeemCodes) ...[
+                  const SizedBox(height: 10),
+                  _SettingsItem(
+                    icon: LineIcons.gift,
+                    title: strings.settingsRedeemCodeTitle,
+                    subtitle: strings.settingsRedeemCodeSubtitle,
+                    onTap: () => _redeemCode(context, ref),
+                  ),
+                ],
+              ],
               const SizedBox(height: 10),
               _SettingsItem(
                 icon: LineIcons.syncIcon,
@@ -279,6 +290,8 @@ class SettingsScreen extends ConsumerWidget {
                 onTap: () => TipJarSheet.show(context),
               ),
             ],
+            const SizedBox(height: 28),
+            const _AppVersionLabel(),
             if (kDebugMode) ...[
               const SizedBox(height: 28),
               _sectionHeading(context, 'Debug'),
@@ -649,6 +662,41 @@ class SettingsScreen extends ConsumerWidget {
     } finally {
       await sub.cancel();
     }
+  }
+
+  /// Opens the store's offer-code sheet. The unlock itself arrives later on
+  /// [ProService.events] (the sheet reports nothing back), so this listens
+  /// long enough for someone to type a code and confirms the unlock.
+  Future<void> _redeemCode(BuildContext context, WidgetRef ref) async {
+    final strings = context.l10n;
+    final messenger = ScaffoldMessenger.of(context);
+    late final StreamSubscription<ProEvent> sub;
+    sub = ProService.events.listen((event) {
+      if (event is! ProSuccess) return;
+      sub.cancel();
+      ref.read(proProvider.notifier).refresh();
+      if (!context.mounted) return;
+      messenger.hideCurrentSnackBar();
+      showAppSnackBar(
+        context,
+        strings.proPaywallUnlockedBody,
+        type: ToastType.success,
+      );
+    });
+    Timer(const Duration(minutes: 10), sub.cancel);
+
+    try {
+      if (await ProService.presentCodeRedemption()) return;
+    } catch (_) {
+      // Reported below.
+    }
+    await sub.cancel();
+    if (!context.mounted) return;
+    showAppSnackBar(
+      context,
+      strings.settingsRedeemCodeFailed,
+      type: ToastType.error,
+    );
   }
 
   void _confirmWipeData(BuildContext context, WidgetRef ref) {
@@ -1153,6 +1201,34 @@ class _SettingsItem extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// "Version 1.10.1 (34)" footer, so support requests can name the exact build.
+class _AppVersionLabel extends StatelessWidget {
+  const _AppVersionLabel();
+
+  static final Future<PackageInfo> _packageInfo = PackageInfo.fromPlatform();
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<PackageInfo>(
+      future: _packageInfo,
+      builder: (context, snapshot) {
+        final info = snapshot.data;
+        if (info == null) return const SizedBox.shrink();
+        final build = info.buildNumber.isEmpty ? '' : ' (${info.buildNumber})';
+        return Center(
+          child: SelectableText(
+            '${context.l10n.settingsVersionLabel} ${info.version}$build',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: context.appColors.textSecondary,
+            ),
+          ),
+        );
+      },
     );
   }
 }

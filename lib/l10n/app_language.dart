@@ -1,12 +1,12 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
-/// Unreviewed translations are available in debug/profile QA builds, but are
-/// deliberately excluded from ordinary release builds. The release pipeline
-/// must opt in only after the locale review manifest has passed.
+/// Every translated language ships in all builds. Translations keep improving
+/// from user feedback after release rather than waiting behind a review gate.
+/// Pass `--dart-define=PATTERNS_ENABLE_MULTILINGUAL=false` to build an
+/// English-only binary.
 const multilingualReleaseEnabled = bool.fromEnvironment(
   'PATTERNS_ENABLE_MULTILINGUAL',
-  defaultValue: !kReleaseMode,
+  defaultValue: true,
 );
 
 /// Languages that Patterns can render.

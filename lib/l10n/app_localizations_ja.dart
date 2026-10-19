@@ -93,6 +93,18 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settingsRestorePurchasesSubtitle => '以前購入したPatterns Proを復元します';
 
   @override
+  String get settingsRedeemCodeTitle => 'コードを使用';
+
+  @override
+  String get settingsRedeemCodeSubtitle => 'オファーコードでPatterns Proのロックを解除します';
+
+  @override
+  String get settingsRedeemCodeFailed => 'コードの入力画面を開けませんでした。もう一度お試しください。';
+
+  @override
+  String get settingsVersionLabel => 'バージョン';
+
+  @override
   String get settingsHelpSection => 'ヘルプ';
 
   @override

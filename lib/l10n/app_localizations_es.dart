@@ -102,6 +102,20 @@ class AppLocalizationsEs extends AppLocalizations {
       'Restaura un desbloqueo anterior de Patterns Pro';
 
   @override
+  String get settingsRedeemCodeTitle => 'Canjear un código';
+
+  @override
+  String get settingsRedeemCodeSubtitle =>
+      'Desbloquea Patterns Pro con un código de oferta';
+
+  @override
+  String get settingsRedeemCodeFailed =>
+      'No se pudo abrir el canje de códigos. Inténtalo de nuevo.';
+
+  @override
+  String get settingsVersionLabel => 'Versión';
+
+  @override
   String get settingsHelpSection => 'Ayuda';
 
   @override

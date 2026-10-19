@@ -7,11 +7,13 @@ release. Do not ship 1.10.0, or claim an accessibility feature in either
 store, until the corresponding acceptance criteria below have been verified
 on physical iPhone and Android devices.
 
-The production multilingual build is fail-closed. Draft languages remain
-available in debug/profile builds, but `tool/build_multilingual_release.sh`
-will stop unless every AI-assisted review pass, physical-device gate, store
-review, and release-owner approval in `reviewed-locales.json` is complete. Do
-not set `PATTERNS_ENABLE_MULTILINGUAL=true` in another release workflow.
+Update (October 19, 2026): the release owner decided to ship every
+translated language without waiting for the review gate and to improve
+translations from user feedback. `PATTERNS_ENABLE_MULTILINGUAL` now defaults
+to true, so an ordinary `flutter build ipa` or `flutter build appbundle`
+offers all six languages. `reviewed-locales.json` still records the review
+work that remains open; it no longer blocks a release. The 1.10.0 App Store
+build 61 shipped English-only because it was built without the define.
 
 Release CI must also run `tool/localization_audit.sh --scope mobile` and
 `dart run tool/check_arb_translator_context.dart`. Translator context is

@@ -101,6 +101,20 @@ class AppLocalizationsEn extends AppLocalizations {
       'Restore a previous Patterns Pro unlock';
 
   @override
+  String get settingsRedeemCodeTitle => 'Redeem a code';
+
+  @override
+  String get settingsRedeemCodeSubtitle =>
+      'Unlock Patterns Pro with an offer code';
+
+  @override
+  String get settingsRedeemCodeFailed =>
+      'The code redemption screen could not open. Please try again.';
+
+  @override
+  String get settingsVersionLabel => 'Version';
+
+  @override
   String get settingsHelpSection => 'Help';
 
   @override
