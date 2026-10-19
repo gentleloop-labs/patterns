@@ -102,6 +102,20 @@ class AppLocalizationsDe extends AppLocalizations {
       'Eine frühere Patterns-Pro-Freischaltung wiederherstellen';
 
   @override
+  String get settingsRedeemCodeTitle => 'Code einlösen';
+
+  @override
+  String get settingsRedeemCodeSubtitle =>
+      'Patterns Pro mit einem Angebotscode freischalten';
+
+  @override
+  String get settingsRedeemCodeFailed =>
+      'Die Codeeinlösung konnte nicht geöffnet werden. Bitte versuchen Sie es erneut.';
+
+  @override
+  String get settingsVersionLabel => 'Version';
+
+  @override
   String get settingsHelpSection => 'Hilfe';
 
   @override

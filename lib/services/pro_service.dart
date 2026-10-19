@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:io' show Platform;
 
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/services.dart' show MethodChannel;
 import 'package:flutter/widgets.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../app_preferences.dart';
 
@@ -20,6 +22,9 @@ class ProService {
   static const Set<String> _productIds = {productIdPro};
 
   static final InAppPurchase _iap = InAppPurchase.instance;
+  static const MethodChannel _offerCodeChannel = MethodChannel(
+    'patterns/offer_codes',
+  );
   static StreamSubscription<List<PurchaseDetails>>? _subscription;
   static final StreamController<ProEvent> _events =
       StreamController<ProEvent>.broadcast();
@@ -122,6 +127,30 @@ class ProService {
     if (!isPlatformSupported) return;
     init();
     await _iap.restorePurchases();
+  }
+
+  /// Offer codes need the native App Store sheet or the Play Store redeem page.
+  static bool get canRedeemCodes {
+    if (kIsWeb) return false;
+    return Platform.isIOS || Platform.isAndroid;
+  }
+
+  /// Opens the store's code redemption UI. A redeemed Pro offer code arrives
+  /// as an ordinary store-signed purchase on [events]: on iOS through StoreKit
+  /// transaction updates, on Android through the purchase query that runs when
+  /// the app resumes from the Play Store.
+  static Future<bool> presentCodeRedemption() async {
+    if (!canRedeemCodes) return false;
+    init();
+    _lastReconciliation = null;
+    if (Platform.isIOS) {
+      await _offerCodeChannel.invokeMethod<void>('presentRedeemSheet');
+      return true;
+    }
+    return launchUrl(
+      Uri.parse('https://play.google.com/redeem'),
+      mode: LaunchMode.externalApplication,
+    );
   }
 
   static Future<void> _onPurchaseUpdates(

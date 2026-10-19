@@ -269,6 +269,30 @@ abstract class AppLocalizations {
   /// **'Restore a previous Patterns Pro unlock'**
   String get settingsRestorePurchasesSubtitle;
 
+  /// Settings row title that opens the store's offer-code redemption sheet so a person can unlock Patterns Pro with a code they were given.
+  ///
+  /// In en, this message translates to:
+  /// **'Redeem a code'**
+  String get settingsRedeemCodeTitle;
+
+  /// Settings row subtitle explaining that an offer code (from App Store Connect or a Google Play promo code) unlocks Patterns Pro.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock Patterns Pro with an offer code'**
+  String get settingsRedeemCodeSubtitle;
+
+  /// Error toast shown when the store's code redemption screen could not be opened.
+  ///
+  /// In en, this message translates to:
+  /// **'The code redemption screen could not open. Please try again.'**
+  String get settingsRedeemCodeFailed;
+
+  /// Label shown before the app version and build number at the bottom of Settings, for example 'Version 1.10.1 (34)'.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get settingsVersionLabel;
+
   /// User-facing Patterns interface copy for settings help section.
   ///
   /// In en, this message translates to:

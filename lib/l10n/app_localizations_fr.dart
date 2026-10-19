@@ -103,6 +103,20 @@ class AppLocalizationsFr extends AppLocalizations {
       'Restaurer un déverrouillage antérieur de Patterns Pro';
 
   @override
+  String get settingsRedeemCodeTitle => 'Utiliser un code';
+
+  @override
+  String get settingsRedeemCodeSubtitle =>
+      'Débloquer Patterns Pro avec un code promotionnel';
+
+  @override
+  String get settingsRedeemCodeFailed =>
+      'Impossible d’ouvrir l’écran d’utilisation du code. Veuillez réessayer.';
+
+  @override
+  String get settingsVersionLabel => 'Version';
+
+  @override
   String get settingsHelpSection => 'Aide';
 
   @override

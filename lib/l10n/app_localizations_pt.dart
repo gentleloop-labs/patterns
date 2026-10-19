@@ -102,6 +102,20 @@ class AppLocalizationsPt extends AppLocalizations {
       'Restaure uma compra anterior do Patterns Pro';
 
   @override
+  String get settingsRedeemCodeTitle => 'Resgatar código';
+
+  @override
+  String get settingsRedeemCodeSubtitle =>
+      'Desbloqueie o Patterns Pro com um código promocional';
+
+  @override
+  String get settingsRedeemCodeFailed =>
+      'Não foi possível abrir o resgate de código. Tente novamente.';
+
+  @override
+  String get settingsVersionLabel => 'Versão';
+
+  @override
   String get settingsHelpSection => 'Ajuda';
 
   @override
@@ -4152,6 +4166,20 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String get settingsRestorePurchasesSubtitle =>
       'Restaure uma compra anterior do Patterns Pro';
+
+  @override
+  String get settingsRedeemCodeTitle => 'Resgatar código';
+
+  @override
+  String get settingsRedeemCodeSubtitle =>
+      'Desbloqueie o Patterns Pro com um código promocional';
+
+  @override
+  String get settingsRedeemCodeFailed =>
+      'Não foi possível abrir o resgate de código. Tente novamente.';
+
+  @override
+  String get settingsVersionLabel => 'Versão';
 
   @override
   String get settingsHelpSection => 'Ajuda';
