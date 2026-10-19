@@ -1,0 +1,8 @@
+{
+  "description": "Patterns é um diário privado para transtorno obsessivo-compulsivo (TOC) e uma ferramenta de autoajuda. Registre pensamentos intrusivos e compulsões, escreva no diário, adie um impulso e pratique exposição e prevenção de resposta (EPR). Os Insights tranquilos podem trocar pontuações e sequências calculadas por contagens factuais de atividade. O conteúdo pessoal fica no dispositivo, a menos que você exporte um backup JSON ou PDF sem criptografia. A análise anônima é opcional, fica desativada por padrão e nunca inclui conteúdo de TOC, resumos, localidade ou idioma. Patterns não diagnostica nem trata TOC e não substitui cuidado qualificado nem suporte de emergência.",
+  "keywords": "pensamentos intrusivos,compulsão,exposição,rituais,ruminação,reasseguramento,obsessão,autoajuda",
+  "marketingUrl": "https://www.patternsocd.com/",
+  "promotionalText": "Diário privado para TOC, Insights tranquilos factuais e prática guiada de EPR. Sem conta, sem anúncios e com desbloqueio Pro opcional.",
+  "supportUrl": "https://github.com/maskedsyntax/patterns/issues",
+  "whatsNew": "A escolha de idioma agora funciona como prometido: mude o Patterns para inglês, português do Brasil, alemão, japonês, espanhol ou francês em Configurações. Você também pode resgatar um código promocional do Patterns Pro em Configurações, e a versão do app agora aparece no fim de Configurações."
+}

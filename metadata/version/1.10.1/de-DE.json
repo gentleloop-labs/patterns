@@ -1,0 +1,8 @@
+{
+  "description": "Patterns ist ein privates Tagebuch bei Zwangsstörung und ein Selbsthilfetool. Erfassen Sie Zwangsgedanken und Zwangshandlungen, schreiben Sie Tagebuch, schieben Sie einen Drang auf und üben Sie Reizkonfrontation mit Reaktionsverhinderung (ERP). Ruhige Einblicke können berechnete Punktzahlen und Serien durch sachliche Aktivitätszahlen ersetzen. Persönliche Inhalte bleiben auf dem Gerät, außer Sie exportieren selbst eine unverschlüsselte JSON-Sicherung oder PDF. Anonyme Nutzungsanalysen sind standardmäßig aus und enthalten nie persönliche Inhalte, Zusammenfassungen, Region oder Sprachauswahl. Patterns diagnostiziert oder behandelt keine Zwangsstörung und ersetzt keine qualifizierte Betreuung oder Notfallhilfe.",
+  "keywords": "zwangsgedanken,zwangshandlung,exposition,rituale,grübeln,rückversicherung,selbsthilfe,reflexion",
+  "marketingUrl": "https://www.patternsocd.com/",
+  "promotionalText": "Privates Tagebuch bei Zwangsstörung, sachliche Ruhige Einblicke und geführte ERP-Übungen. Ohne Konto oder Werbung, mit Pro-Einmalkauf.",
+  "supportUrl": "https://github.com/maskedsyntax/patterns/issues",
+  "whatsNew": "Die Sprachauswahl funktioniert jetzt wie angekündigt: Stellen Sie Patterns in den Einstellungen auf Englisch, brasilianisches Portugiesisch, Deutsch, Japanisch, Spanisch oder Französisch um. Außerdem können Sie in den Einstellungen einen Angebotscode für Patterns Pro einlösen, und die App-Version wird jetzt unten in den Einstellungen angezeigt."
+}
