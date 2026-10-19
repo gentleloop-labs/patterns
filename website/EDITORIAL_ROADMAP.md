@@ -37,6 +37,9 @@ This queue supports one carefully sourced article each week. Do not publish a dr
 | 18 | OCD and Sleep: When Bedtime Becomes a Ritual | Living With OCD | When is a bedtime routine part of an OCD cycle? | Published 2026-10-08 (October 4 editorial slot) |
 | 19 | OCD or ADHD? Understanding the Overlap and Differences | Recognizing OCD | How can attention difficulties be assessed without assuming one diagnosis? | Published 2026-10-08 (October 6 editorial slot) |
 | 20 | OCD and Depression: When Both Need Attention | Living With OCD | When might both OCD and low mood need care? | Published 2026-10-08 |
+| 21 | Magical Thinking OCD: When Thoughts Feel Like Actions | OCD Themes | When can a thought or coincidence become part of a ritual? | Published 2026-10-19 |
+| 22 | OCD and Social Media: When Scrolling Becomes Reassurance | Living With OCD | When does online searching or checking reinforce OCD doubt? | Published 2026-10-19 |
+| 23 | Can OCD Themes Change? What Stays the Same | Recognizing OCD | Can the subject of OCD concerns change over time? | Published 2026-10-19 |
 
 ## Article acceptance checklist
 
