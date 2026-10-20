@@ -62,7 +62,7 @@ const staticEntries: Entry[] = [
   { path: 'erp', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.8' },
   { path: 'cbt', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.8' },
   { path: 'toolkit', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.8' },
-  { path: 'learn', lastmod: STATIC_LASTMOD, changefreq: 'weekly', priority: '0.9' },
+  { path: 'learn', lastmod: '2026-10-20', changefreq: 'weekly', priority: '0.9' },
   {
     path: 'about/aftaab-siddiqui',
     lastmod: STATIC_LASTMOD,

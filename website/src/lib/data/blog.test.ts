@@ -136,7 +136,16 @@ describe('blog posts', () => {
       expect(getBlogCategory(post.category), post.slug).toBeDefined();
       expect(['evidence-guide', 'personal-essay'], post.slug).toContain(post.contentType);
     }
-    expect(blogCategories.map((category) => category.slug)).toHaveLength(5);
+    expect(blogCategories.map((category) => category.slug)).toHaveLength(6);
+    expect(blogCategories.map((category) => category.slug)).toContain('getting-help');
+    for (const slug of [
+      'what-happens-during-an-ocd-assessment',
+      'how-to-find-an-ocd-therapist',
+      'medication-for-ocd',
+      'what-to-expect-first-erp-sessions'
+    ]) {
+      expect(getPost(slug)?.category, slug).toBe('getting-help');
+    }
   });
 
   it('resolves every manually listed related slug', () => {

@@ -5,7 +5,7 @@ date: '2026-09-18'
 updated: '2026-09-18'
 readingMinutes: 10
 excerpt: 'Medication for OCD is usually a gradual, clinician-guided process rather than a quick test. Here is how SSRIs fit with ERP, what an adequate trial can involve, and what to discuss with a prescriber.'
-category: treatment-erp
+category: getting-help
 contentType: evidence-guide
 draft: false
 tags: [ocd-basics, erp]

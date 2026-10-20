@@ -5,7 +5,7 @@ date: '2026-09-13'
 updated: '2026-09-13'
 readingMinutes: 9
 excerpt: 'Early ERP is usually quieter than people imagine: mapping the loop, agreeing on goals, building a hierarchy, and trying a planned first exercise together.'
-category: treatment-erp
+category: getting-help
 contentType: evidence-guide
 draft: false
 tags: [erp, ocd-basics]
