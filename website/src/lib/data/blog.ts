@@ -48,6 +48,14 @@ export const blogCategories = [
       'OCD can attach to almost anything a person values. These guides focus on the shared cycle underneath different themes, including the compulsions that are easy to miss.'
   },
   {
+    slug: 'getting-help',
+    label: 'Getting Help',
+    description:
+      'Find out what an OCD assessment involves, how to choose informed care, and what early treatment may look like.',
+    intro:
+      'Considering professional support? These guides cover assessment, finding an OCD-informed therapist, discussing medication, and starting ERP. They can help you prepare questions, not diagnose you or choose treatment for you.'
+  },
+  {
     slug: 'treatment-erp',
     label: 'Treatment & ERP',
     description:

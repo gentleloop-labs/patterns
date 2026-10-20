@@ -20,6 +20,12 @@ const categories = {
     accentSoft: '#674729',
     backdrop: '#19130F'
   },
+  'getting-help': {
+    label: 'Getting Help',
+    accent: '#C9D0A0',
+    accentSoft: '#50573C',
+    backdrop: '#141710'
+  },
   'treatment-erp': {
     label: 'Treatment & ERP',
     accent: '#E9C867',

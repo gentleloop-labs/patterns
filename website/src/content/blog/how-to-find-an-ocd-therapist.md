@@ -5,7 +5,7 @@ date: '2026-09-13'
 updated: '2026-09-13'
 readingMinutes: 9
 excerpt: 'A licence tells you someone can practise therapy. A few direct questions can tell you whether they understand OCD and actually use ERP.'
-category: treatment-erp
+category: getting-help
 contentType: evidence-guide
 draft: false
 tags: [erp, ocd-basics]

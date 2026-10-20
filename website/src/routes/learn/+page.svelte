@@ -13,7 +13,7 @@
       '@type': 'CollectionPage',
       name: 'OCD Information Library',
       description:
-        'Evidence-led OCD guides and lived-experience essays organized around recognizing OCD, themes, treatment, daily life, and personal stories.',
+        'Evidence-led OCD guides and lived-experience essays organized around recognizing OCD, themes, getting help, treatment, daily life, and personal stories.',
       url: links.library,
       isPartOf: { '@type': 'WebSite', name: 'Patterns', url: links.site },
       mainEntity: {
@@ -164,10 +164,6 @@
     background: var(--bg);
   }
 
-  .category-card:last-child {
-    grid-column: 1 / -1;
-  }
-
   .card-head {
     display: flex;
     align-items: flex-start;
@@ -274,8 +270,5 @@
       grid-template-columns: 1fr;
     }
 
-    .category-card:last-child {
-      grid-column: auto;
-    }
   }
 </style>
