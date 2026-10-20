@@ -54,6 +54,11 @@ const newArticles = [
     slug: 'can-ocd-themes-change',
     title: 'Can OCD Themes Change? What Stays the Same',
     contextualLink: '/blog/ocd-flare-up-or-relapse'
+  },
+  {
+    slug: 'mindfulness-for-ocd',
+    title: 'Mindfulness for OCD: Helpful Practice or Another Ritual?',
+    contextualLink: '/blog/pure-o-mental-compulsions'
   }
 ];
 
