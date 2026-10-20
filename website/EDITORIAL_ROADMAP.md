@@ -40,6 +40,7 @@ This queue supports one carefully sourced article each week. Do not publish a dr
 | 21 | Magical Thinking OCD: When Thoughts Feel Like Actions | OCD Themes | When can a thought or coincidence become part of a ritual? | Published 2026-10-19 |
 | 22 | OCD and Social Media: When Scrolling Becomes Reassurance | Living With OCD | When does online searching or checking reinforce OCD doubt? | Published 2026-10-19 |
 | 23 | Can OCD Themes Change? What Stays the Same | Recognizing OCD | Can the subject of OCD concerns change over time? | Published 2026-10-19 |
+| 24 | Mindfulness for OCD: Helpful Practice or Another Ritual? | Treatment & ERP | When does mindful attention support ERP, and when can it become a ritual? | Published 2026-10-20 |
 
 ## Article acceptance checklist
 
