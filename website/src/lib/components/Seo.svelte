@@ -8,7 +8,7 @@
     /** Path relative to the site root, no leading slash. '' for the homepage. */
     path = '',
     image = site.ogImage,
-    imageAlt = 'Patterns - a private OCD tracker and journaling app',
+    imageAlt = 'Patterns private OCD journal and ERP app share preview',
     ogType = 'website',
     twitterCard = 'summary_large_image',
     keywords,

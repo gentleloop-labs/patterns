@@ -18,7 +18,7 @@ export const site = {
   /** Preferred host is the apex domain (no www). See website/README.md. */
   url: links.site,
   /** Purpose-built 1200×630 social share image. */
-  ogImage: `${links.site}og/patterns-og.png`,
+  ogImage: `${links.site}og/patterns-share-v2.png`,
   ogImageWidth: 1200,
   ogImageHeight: 630,
   logoUrl: `${links.site}assets/logo.png`,
