@@ -41,6 +41,11 @@ npm run preview
 
 Static output is written to `build/`.
 
+The shared social preview image is generated from existing product artwork with
+`npm run og:site`. Keep its URL versioned when replacing it so social platforms
+can fetch the new card instead of a cached older image. Blog articles use their
+own cards, generated with `npm run og:blog`.
+
 ## Deploy
 
 Production deploys via Vercel. Pushes that change `website/**` should rebuild

@@ -17,7 +17,7 @@ type Entry = {
  * Bump when any static marketing route below changes in a crawl-meaningful way
  * (copy, structure, or primary media). Blog lastmod comes from post frontmatter.
  */
-const STATIC_LASTMOD = '2026-09-18';
+const STATIC_LASTMOD = '2026-10-21';
 
 /**
  * Hand-maintained entries for the static marketing routes. Blog URLs are
@@ -52,8 +52,8 @@ const staticEntries: Entry[] = [
         title: 'A person pausing with a phone during an everyday journey'
       },
       {
-        loc: `${links.site}og/patterns-og.png`,
-        title: 'Patterns private OCD tracker and ERP journal app'
+        loc: `${links.site}og/patterns-share-v2.png`,
+        title: 'Patterns private OCD journal and ERP app share preview'
       }
     ]
   },
@@ -62,7 +62,7 @@ const staticEntries: Entry[] = [
   { path: 'erp', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.8' },
   { path: 'cbt', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.8' },
   { path: 'toolkit', lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.8' },
-  { path: 'learn', lastmod: '2026-10-20', changefreq: 'weekly', priority: '0.9' },
+  { path: 'learn', lastmod: STATIC_LASTMOD, changefreq: 'weekly', priority: '0.9' },
   {
     path: 'about/aftaab-siddiqui',
     lastmod: STATIC_LASTMOD,
@@ -82,6 +82,7 @@ const staticEntries: Entry[] = [
 
 /** The blog index moves whenever a post lands, so it tracks the newest post. */
 const newestPostDate = postsByDate[0]?.updated ?? STATIC_LASTMOD;
+const collectionLastmod = newestPostDate > STATIC_LASTMOD ? newestPostDate : STATIC_LASTMOD;
 
 function escapeXml(value: string): string {
   return value
@@ -117,23 +118,23 @@ function renderEntry(entry: Entry): string {
 export const GET: RequestHandler = () => {
   const entries: Entry[] = [
     ...staticEntries,
-    { path: 'blog', lastmod: newestPostDate, changefreq: 'daily', priority: '0.7' },
+    { path: 'blog', lastmod: collectionLastmod, changefreq: 'daily', priority: '0.7' },
     // Page 1 is /blog, so paginated pages start at 2.
     ...Array.from({ length: Math.max(0, totalPages - 1) }, (_, i) => ({
       path: `blog/page/${i + 2}`,
-      lastmod: newestPostDate,
+      lastmod: collectionLastmod,
       changefreq: 'weekly' as const,
       priority: '0.4'
     })),
     ...allTags.map(({ tag }) => ({
       path: `blog/tag/${tag}`,
-      lastmod: newestPostDate,
+      lastmod: collectionLastmod,
       changefreq: 'weekly' as const,
       priority: '0.5'
     })),
     ...blogCategories.map((category) => ({
       path: `learn/${category.slug}`,
-      lastmod: newestPostDate,
+      lastmod: collectionLastmod,
       changefreq: 'weekly' as const,
       priority: '0.7'
     })),
