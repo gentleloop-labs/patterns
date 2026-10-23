@@ -69,6 +69,11 @@ const newArticles = [
     slug: 'mental-review-ocd',
     title: 'Mental Review in OCD: When Replaying Becomes a Ritual',
     contextualLink: '/blog/pure-o-mental-compulsions'
+  },
+  {
+    slug: 'what-is-patterns-ocd-app',
+    title: 'What Is Patterns? An OCD App for Noticing the Loop',
+    contextualLink: '/blog/when-an-ocd-app-becomes-a-compulsion'
   }
 ];
 
