@@ -59,6 +59,16 @@ const newArticles = [
     slug: 'mindfulness-for-ocd',
     title: 'Mindfulness for OCD: Helpful Practice or Another Ritual?',
     contextualLink: '/blog/pure-o-mental-compulsions'
+  },
+  {
+    slug: 'ocd-and-uncertainty',
+    title: 'OCD and Uncertainty: Why Certainty Never Feels Like Enough',
+    contextualLink: '/blog/reassurance-seeking-ocd'
+  },
+  {
+    slug: 'mental-review-ocd',
+    title: 'Mental Review in OCD: When Replaying Becomes a Ritual',
+    contextualLink: '/blog/pure-o-mental-compulsions'
   }
 ];
 
