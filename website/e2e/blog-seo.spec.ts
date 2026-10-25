@@ -74,6 +74,11 @@ const newArticles = [
     slug: 'what-is-patterns-ocd-app',
     title: 'What Is Patterns? An OCD App for Noticing the Loop',
     contextualLink: '/blog/when-an-ocd-app-becomes-a-compulsion'
+  },
+  {
+    slug: 'ocd-and-indecision',
+    title: 'OCD and Indecision: When a Choice Becomes a Ritual',
+    contextualLink: '/blog/ocd-and-uncertainty'
   }
 ];
 
