@@ -79,6 +79,11 @@ const newArticles = [
     slug: 'ocd-and-indecision',
     title: 'OCD and Indecision: When a Choice Becomes a Ritual',
     contextualLink: '/blog/ocd-and-uncertainty'
+  },
+  {
+    slug: 'ocd-and-ai-chatbots',
+    title: 'OCD and AI Chatbots: When Answers Become Reassurance',
+    contextualLink: '/blog/reassurance-seeking-ocd'
   }
 ];
 

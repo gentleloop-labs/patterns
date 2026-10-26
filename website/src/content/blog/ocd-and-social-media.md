@@ -2,7 +2,7 @@
 title: 'OCD and Social Media: When Scrolling Becomes Reassurance'
 description: 'Social media can turn OCD doubt into repeated searching, checking, and comparing. Learn to spot a reassurance loop without treating every scroll as a symptom.'
 date: '2026-10-19'
-updated: '2026-10-19'
+updated: '2026-10-26'
 readingMinutes: 7
 excerpt: 'A feed can supply endless answers to a question that never feels settled. The issue is not screen time alone, but what you are asking the next post to do.'
 category: living-with-ocd
@@ -60,7 +60,7 @@ These questions are prompts for observation, not a self-diagnosis. Someone can u
 
 Other people's accounts can reduce isolation. They can also become a comparison test: *Their thought sounds like mine, but not exactly; does that mean mine is different?* The next story never has every detail. Trying to find a perfect match can turn a supportive community into an endless diagnostic exercise.
 
-The same applies to AI chatbots. A fluent answer may sound certain, but it cannot know your full situation, examine risk, or provide a clinical assessment. Rephrasing a feared question repeatedly until an AI response feels relieving is still a reassurance loop. For medical, safety, or treatment decisions, seek a qualified professional rather than relying on a feed or chatbot.
+The same applies to AI chatbots. A fluent answer may sound certain, but it cannot know your full situation, examine risk, or provide a clinical assessment. Rephrasing a feared question repeatedly until an AI response feels relieving can serve the same reassurance function. Our guide to [OCD and AI chatbots](/blog/ocd-and-ai-chatbots) looks more closely at that conversational loop and the limits of current evidence. For medical, safety, or treatment decisions, seek a qualified professional rather than relying on a feed or chatbot.
 
 If content genuinely informs a practical next step, take that step and let the search end. If the next step is asking a clinician about symptoms, write down the broad pattern once. You do not need to collect every post that seems to prove or disprove your fear before the appointment.
 
