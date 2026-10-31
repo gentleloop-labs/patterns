@@ -84,6 +84,16 @@ const newArticles = [
     slug: 'ocd-and-ai-chatbots',
     title: 'OCD and AI Chatbots: When Answers Become Reassurance',
     contextualLink: '/blog/reassurance-seeking-ocd'
+  },
+  {
+    slug: 'compulsive-confessing-ocd',
+    title: 'Compulsive Confessing in OCD: When Honesty Becomes a Ritual',
+    contextualLink: '/blog/reassurance-seeking-ocd'
+  },
+  {
+    slug: 'false-memory-ocd',
+    title: 'False Memory OCD: When Doubt About the Past Takes Over',
+    contextualLink: '/blog/checking-ocd'
   }
 ];
 

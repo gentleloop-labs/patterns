@@ -44,6 +44,7 @@ Reassurance seeking is unusually good at disguise. Some of the common shapes:
 - **Direct asking.** "Are you sure I locked it?" "You would tell me if I said something awful, right?"
 - **Repeated asking, rephrased.** The same question in new words so it does not feel like repetition.
 - **Confession.** Telling someone the intrusive thought in order to be told it is fine. Common in [scrupulosity](/blog/scrupulosity-religious-ocd) and [harm OCD](/blog/harm-ocd-intrusive-thoughts).
+
 - **Googling.** Symptom searches, forum threads, reading other people's accounts to find one that matches yours closely enough to count.
 - **Social feeds.** Rechecking comments, posts, likes, or other people's stories for a reassuring answer. See [OCD and social media](/blog/ocd-and-social-media) for the online version of this loop.
 - **Checking your own reaction.** Monitoring your body or your feelings for evidence about what you "really" want. Central to [ROCD](/blog/relationship-ocd-rocd) and [sexual orientation OCD](/blog/sexual-orientation-ocd).
@@ -51,6 +52,8 @@ Reassurance seeking is unusually good at disguise. Some of the common shapes:
 - **Self-reassurance.** Silently telling yourself it is fine, that you would never, that you are a good person. Still a compulsion.
 
 The last two matter most, because removing the external sources of reassurance without touching the internal ones changes very little.
+
+Our guide to [compulsive confessing](/blog/compulsive-confessing-ocd) looks more closely at when a disclosure becomes a repeated request for certainty and when honest repair may still be needed.
 
 ## Compulsion or ordinary question?
 

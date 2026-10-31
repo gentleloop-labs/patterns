@@ -39,6 +39,8 @@ When this loop attaches to emails, decisions, or job responsibilities, [our guid
 
 When the loop waits until the lights are out, [OCD and sleep](/blog/ocd-and-sleep-bedtime-rituals) can help distinguish an ordinary bedtime routine from a ritual that keeps expanding.
 
+If your doubt centers on whether a past event happened at all, see our guide to [false memory OCD](/blog/false-memory-ocd). The label describes an OCD pattern, not a way to determine whether a memory is true.
+
 ## The memory distrust finding
 
 This is the part worth understanding properly.
