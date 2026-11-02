@@ -42,6 +42,15 @@ This queue supports one carefully sourced article each week. Do not publish a dr
 | 23 | Can OCD Themes Change? What Stays the Same | Recognizing OCD | Can the subject of OCD concerns change over time? | Published 2026-10-19 |
 | 24 | Mindfulness for OCD: Helpful Practice or Another Ritual? | Treatment & ERP | When does mindful attention support ERP, and when can it become a ritual? | Published 2026-10-20 |
 
+## November 2026 additions
+
+| Requested date | Working title | Category | Status |
+| --- | --- | --- | --- |
+| 2026-11-01 | OCD Rumination vs Problem-Solving: What Is the Difference? | Recognizing OCD | Draft prepared 2026-11-02; private factual review pending |
+| 2026-11-02 | OCD vs OCPD: What Is the Difference? | Recognizing OCD | Draft prepared 2026-11-02; private factual review pending |
+
+These are requested editorial dates, not a record of live publication. Keep both articles as drafts until the private factual-review gate is complete.
+
 ## Article acceptance checklist
 
 - The title, introduction, and meta description answer one distinct search intent.
