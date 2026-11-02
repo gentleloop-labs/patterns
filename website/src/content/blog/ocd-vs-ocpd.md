@@ -7,7 +7,7 @@ readingMinutes: 5
 excerpt: 'Similar names do not mean the same diagnosis. Understanding the pattern behind perfectionism or repetition matters more than how tidy someone appears.'
 category: recognizing-ocd
 contentType: evidence-guide
-draft: true
+draft: false
 tags: [ocd-basics, compulsions, erp]
 keywords: 'OCD vs OCPD, difference between OCD and OCPD, obsessive compulsive personality disorder, OCD perfectionism'
 faq:

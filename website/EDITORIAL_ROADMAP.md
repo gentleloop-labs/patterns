@@ -46,10 +46,10 @@ This queue supports one carefully sourced article each week. Do not publish a dr
 
 | Requested date | Working title | Category | Status |
 | --- | --- | --- | --- |
-| 2026-11-01 | OCD Rumination vs Problem-Solving: What Is the Difference? | Recognizing OCD | Draft prepared 2026-11-02; private factual review pending |
-| 2026-11-02 | OCD vs OCPD: What Is the Difference? | Recognizing OCD | Draft prepared 2026-11-02; private factual review pending |
+| 2026-11-01 | OCD Rumination vs Problem-Solving: What Is the Difference? | Recognizing OCD | Enabled for publication 2026-11-02 at user request |
+| 2026-11-02 | OCD vs OCPD: What Is the Difference? | Recognizing OCD | Enabled for publication 2026-11-02 at user request |
 
-These are requested editorial dates, not a record of live publication. Keep both articles as drafts until the private factual-review gate is complete.
+The requested editorial dates are preserved. Both articles were enabled for publication at the user’s explicit request on 2026-11-02; this does not record completion of a private clinical review or verification of deployment.
 
 ## Article acceptance checklist
 

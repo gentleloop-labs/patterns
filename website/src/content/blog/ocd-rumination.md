@@ -7,7 +7,7 @@ readingMinutes: 6
 excerpt: 'An internal debate can feel urgent without moving you toward a decision. The difference is often what the thinking is trying to achieve.'
 category: recognizing-ocd
 contentType: evidence-guide
-draft: true
+draft: false
 tags: [compulsions, intrusive-thoughts, erp, reassurance]
 keywords: 'OCD rumination, OCD rumination vs problem solving, mental compulsions, compulsive thinking'
 faq:
