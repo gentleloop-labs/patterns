@@ -38,6 +38,8 @@ The obsessions usually take one of a few forms:
 
 The content clusters around whoever you are closest to. New parents get thoughts about their infants. People with a new partner get thoughts about their partner. This is not a coincidence and it is not a signal. Intrusive thoughts go where they will hurt most, which is exactly where the love is.
 
+For thoughts arising during pregnancy or after a baby is born, see our guide to [postpartum OCD](/blog/postpartum-ocd), including when a parent should seek urgent assessment.
+
 ## The compulsions that follow
 
 Harm OCD compulsions are often invisible, which is one reason it goes unrecognised for so long.
