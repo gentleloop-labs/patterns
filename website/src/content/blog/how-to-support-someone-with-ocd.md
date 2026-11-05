@@ -75,6 +75,8 @@ Clinical guidance reflects this evidence. NICE recommends that when family membe
 
 The words *sensitive* and *supportive* matter. Withdrawing every accommodation without discussion is not the same as a planned therapeutic change.
 
+Parents and carers can also read our guide to [OCD in children and teens](/blog/ocd-in-children-and-teens), which covers age-appropriate assessment, school support, and family involvement in treatment.
+
 ## Make the plan outside the difficult moment
 
 The middle of an OCD spike is usually a poor time to negotiate a completely new family policy. Choose a calmer time and ask whether the person is willing to discuss how OCD recruits both of you.
