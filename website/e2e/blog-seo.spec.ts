@@ -94,6 +94,16 @@ const newArticles = [
     slug: 'false-memory-ocd',
     title: 'False Memory OCD: When Doubt About the Past Takes Over',
     contextualLink: '/blog/checking-ocd'
+  },
+  {
+    slug: 'ocd-in-children-and-teens',
+    title: 'OCD in Children and Teens: Signs and How to Help',
+    contextualLink: '/blog/how-to-support-someone-with-ocd'
+  },
+  {
+    slug: 'postpartum-ocd',
+    title: 'Postpartum OCD: Intrusive Thoughts and Getting Help',
+    contextualLink: '/blog/do-i-have-ocd-or-just-intrusive-thoughts'
   }
 ];
 
