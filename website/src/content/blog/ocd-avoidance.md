@@ -28,6 +28,8 @@ OCD avoidance is staying away from a person, place, object, word, thought, or si
 
 Most descriptions of OCD lead with the rituals people can see. Avoidance is quieter. It does not announce itself, it rarely feels like a symptom in the moment, and it often gets described as a preference. Recognizing it matters because it can carry more of the loop than the visible compulsions do.
 
+For the broader picture of visible, mental, and interpersonal rituals, see [what a compulsion is in OCD](/blog/what-is-a-compulsion-in-ocd).
+
 ## What OCD avoidance is
 
 The International OCD Foundation describes avoidance as a common feature of OCD, alongside obsessions and compulsions, and treatment guidance from NICE includes avoided situations in the work of therapy rather than treating them as a separate issue. Avoidance is defined by function, not by appearance: a step taken so that an obsession does not get triggered, or so that a feared outcome cannot happen.
