@@ -104,6 +104,11 @@ const newArticles = [
     slug: 'postpartum-ocd',
     title: 'Postpartum OCD: Intrusive Thoughts and Getting Help',
     contextualLink: '/blog/do-i-have-ocd-or-just-intrusive-thoughts'
+  },
+  {
+    slug: 'what-is-a-compulsion-in-ocd',
+    title: 'What Is a Compulsion in OCD? Visible and Mental Rituals',
+    contextualLink: '/blog/pure-o-mental-compulsions'
   }
 ];
 
