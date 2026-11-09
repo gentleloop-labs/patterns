@@ -54,6 +54,7 @@ enum AppBootstrap {
                 supportDirectory: support
             )
             Task { await Reminders.rescheduleOnLaunch(prefs: prefs, strings: model.strings) }
+            model.store.start()
             return .success(model)
         } catch let PatternsDatabase.OpenError.newerSchema(found, supported) {
             return .failure(.newerData(found: found, supported: supported))

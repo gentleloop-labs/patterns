@@ -105,3 +105,141 @@ struct CompletionSheet: View {
         }
     }
 }
+
+/// Shows the current toast. The root view hosts one, and so does every
+/// bottom panel, since a sheet covers the root's.
+struct ToastHost: View {
+    var bottomPadding: CGFloat = 96
+    @Environment(AppNavigation.self) private var navigation
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        ZStack {
+            if let toast = navigation.toast {
+                ToastView(toast: toast)
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, bottomPadding)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                    .id(toast.id)
+                    .onTapGesture { navigation.dismissToast() }
+            }
+        }
+        .animation(reduceMotion ? nil : .easeOut(duration: 0.22), value: navigation.toast)
+    }
+}
+
+/// Flutter's centred `Dialog` cards: a dimmed backdrop that closes on tap,
+/// and a card with an icon, a title, a message and one button.
+struct DialogHost: View {
+    @Environment(AppModel.self) private var model
+    @Environment(AppNavigation.self) private var navigation
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        ZStack {
+            if let dialog = navigation.dialog {
+                Color.black.opacity(0.45)
+                    .ignoresSafeArea()
+                    .onTapGesture { navigation.dialog = nil }
+                    .accessibilityHidden(true)
+                    .transition(.opacity)
+                DialogCard(content: content(dialog, model.strings)) { navigation.dialog = nil }
+                    .padding(.horizontal, 28)
+                    .padding(.vertical, 24)
+                    .transition(.opacity.combined(with: .scale(scale: reduceMotion ? 1 : 0.96)))
+            }
+        }
+        .animation(reduceMotion ? nil : .easeOut(duration: 0.2), value: navigation.dialog)
+    }
+
+    private func content(_ dialog: AppDialog, _ strings: Strings) -> DialogCard.Content {
+        switch dialog {
+        case let .proUnlocked(restored):
+            DialogCard.Content(
+                systemImage: "lock.open",
+                title: restored ? strings.proPaywallWelcomeBack : strings.proPaywallAllSet,
+                message: restored ? strings.proPaywallRestoredBody : strings.proPaywallUnlockedBody,
+                action: strings.proPaywallContinueAction
+            )
+        case .tipThanks:
+            DialogCard.Content(
+                systemImage: "heart",
+                title: strings.tipThanksTitle,
+                message: strings.tipThanksBody,
+                action: strings.tipThanksAction
+            )
+        }
+    }
+}
+
+private struct DialogCard: View {
+    struct Content {
+        let systemImage: String
+        let title: String
+        let message: String
+        let action: String
+    }
+
+    let content: Content
+    let onClose: () -> Void
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 0) {
+                AccentIconBadge(systemImage: content.systemImage)
+                Text(content.title)
+                    .textRole(.titleLarge, size: 20, weight: .heavy, color: AppColors.textPrimary)
+                    .accessibilityAddTraits(.isHeader)
+                    .padding(.top, 16)
+                Text(content.message)
+                    .textRole(.bodyMedium, color: AppColors.textSecondary)
+                    .padding(.top, 8)
+                Button(content.action, action: onClose)
+                    .buttonStyle(PrimaryButtonStyle(fullWidth: true))
+                    .padding(.top, 20)
+            }
+            .padding(EdgeInsets(top: 22, leading: 22, bottom: 18, trailing: 22))
+            .background(AppColors.card, in: .rect(cornerRadius: 24))
+            .overlay(RoundedRectangle(cornerRadius: 24).strokeBorder(AppColors.border))
+        }
+        .scrollBounceBehavior(.basedOnSize)
+        .fixedSize(horizontal: false, vertical: true)
+        .frame(maxWidth: 420)
+        .accessibilityElement(children: .contain)
+        .accessibilityAddTraits(.isModal)
+        .onAppear {
+            UIAccessibility.post(notification: .screenChanged, argument: content.title)
+        }
+    }
+}
+
+/// The 44pt tinted circle with an accent icon at the top of the Pro and tip
+/// panels.
+struct AccentIconBadge: View {
+    let systemImage: String
+
+    var body: some View {
+        Image(systemName: systemImage)
+            .font(.system(size: 20, weight: .medium))
+            .foregroundStyle(AppColors.accent)
+            .frame(width: 44, height: 44)
+            .background(AppColors.accent.opacity(0.14), in: .circle)
+            .accessibilityHidden(true)
+    }
+}
+
+/// Material's default `TextButton`: accent label, 44pt tall.
+struct TextLinkButtonStyle: ButtonStyle {
+    @Environment(\.isEnabled) private var isEnabled
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.custom(AppFont.sans, size: 14, relativeTo: .callout).weight(.semibold))
+            .foregroundStyle(AppColors.accent.opacity(isEnabled ? 1 : 0.45))
+            .multilineTextAlignment(.center)
+            .padding(.horizontal, 10)
+            .frame(minHeight: 44)
+            .contentShape(.rect)
+            .opacity(configuration.isPressed ? 0.6 : 1)
+    }
+}

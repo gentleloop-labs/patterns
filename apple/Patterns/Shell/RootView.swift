@@ -6,6 +6,7 @@ import SwiftUI
 struct RootView: View {
     @Environment(AppModel.self) private var model
     @Environment(AppNavigation.self) private var navigation
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         @Bindable var navigation = navigation
@@ -19,6 +20,7 @@ struct RootView: View {
             }
             .background(AppColors.surface.ignoresSafeArea())
             .overlay(alignment: .bottom) { ToastHost() }
+            .overlay { DialogHost() }
             .sheet(item: $navigation.completion.identified) { item in
                 CompletionSheet(kind: item.kind) {
                     navigation.completion = nil
@@ -28,6 +30,10 @@ struct RootView: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: NSLocale.currentLocaleDidChangeNotification)) { _ in
             model.refreshSystemLanguage()
+        }
+        .onChange(of: scenePhase) { _, phase in
+            // `_ProLifecycleObserver`: re-check the Pro entitlement on resume.
+            if phase == .active { Task { await model.store.reconcile() } }
         }
     }
 }
@@ -41,25 +47,6 @@ private extension Optional where Wrapped == CompletionKind {
     var identified: IdentifiedCompletion? {
         get { map(IdentifiedCompletion.init) }
         set { self = newValue?.kind }
-    }
-}
-
-private struct ToastHost: View {
-    @Environment(AppNavigation.self) private var navigation
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-
-    var body: some View {
-        ZStack {
-            if let toast = navigation.toast {
-                ToastView(toast: toast)
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 96)
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
-                    .id(toast.id)
-                    .onTapGesture { navigation.dismissToast() }
-            }
-        }
-        .animation(reduceMotion ? nil : .easeOut(duration: 0.22), value: navigation.toast)
     }
 }
 

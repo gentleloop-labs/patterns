@@ -1,5 +1,6 @@
 import LocalAuthentication
 import PatternsCore
+import StoreKit
 import SwiftUI
 import UniformTypeIdentifiers
 
@@ -14,6 +15,10 @@ struct SettingsScreen: View {
     @State private var exporting = false
     @State private var importing = false
     @State private var pickingTime = false
+    @State private var redeeming = false
+    /// Offer-code redemptions report nothing back; the unlock arrives later
+    /// as a transaction. Flutter listened for 10 minutes.
+    @State private var redeemWatchUntil: Date?
 
     var body: some View {
         let strings = model.strings
@@ -77,16 +82,17 @@ struct SettingsScreen: View {
                         navigation.showToast(strings.settingsText(key: "proActiveMessage"), kind: .success)
                     }
                 } else {
-                    // Paywall, offer codes and restore are wired with StoreKit
-                    // in the next step.
                     SettingsItem(icon: "lock.open", title: strings.settingsUnlockProTitle,
-                                 subtitle: strings.settingsUnlockProSubtitle) {}
+                                 subtitle: strings.settingsUnlockProSubtitle) { panel = .paywall }
                     SettingsItem(icon: "gift", title: strings.settingsRedeemCodeTitle,
-                                 subtitle: strings.settingsRedeemCodeSubtitle) {}
+                                 subtitle: strings.settingsRedeemCodeSubtitle) {
+                        redeemWatchUntil = Date().addingTimeInterval(10 * 60)
+                        redeeming = true
+                    }
                         .padding(.top, 10)
                 }
                 SettingsItem(icon: "arrow.triangle.2.circlepath", title: strings.settingsRestorePurchasesTitle,
-                             subtitle: strings.settingsRestorePurchasesSubtitle) {}
+                             subtitle: strings.settingsRestorePurchasesSubtitle) { Task { await restorePurchases() } }
                     .padding(.top, 10)
 
                 section(strings.settingsHelpSection).padding(.top, 28)
@@ -111,7 +117,9 @@ struct SettingsScreen: View {
                 SettingsItem(icon: "envelope", title: strings.settingsSendFeedbackTitle,
                              subtitle: strings.settingsSendFeedbackSubtitle) { sendFeedback() }
                     .padding(.top, 10)
-                SettingsItem(icon: "heart", title: strings.settingsSupportTitle, subtitle: strings.settingsSupportSubtitle) {}
+                SettingsItem(icon: "heart", title: strings.settingsSupportTitle, subtitle: strings.settingsSupportSubtitle) {
+                    panel = .tipJar
+                }
                     .padding(.top, 10)
 
                 Text("\(strings.settingsVersionLabel) \(Self.versionText)")
@@ -147,6 +155,17 @@ struct SettingsScreen: View {
         .fileImporter(isPresented: $importing, allowedContentTypes: [.zip, .json]) { result in
             if case let .success(url) = result { Task { await readBackup(url) } }
         }
+        .offerCodeRedemption(isPresented: $redeeming) { result in
+            if case .failure = result {
+                redeemWatchUntil = nil
+                navigation.showToast(strings.settingsRedeemCodeFailed, kind: .error)
+            }
+        }
+        .onChange(of: model.store.backgroundUnlockCount) {
+            guard let until = redeemWatchUntil, Date() < until, model.proUnlocked else { return }
+            redeemWatchUntil = nil
+            navigation.showToast(strings.proPaywallUnlockedBody, kind: .success)
+        }
     }
 
     // MARK: Layout
@@ -180,6 +199,10 @@ struct SettingsScreen: View {
     private func panelContent(_ panel: SettingsPanel) -> some View {
         let strings = model.strings
         switch panel {
+        case .paywall:
+            PaywallSheet(entryPoint: .settings)
+        case .tipJar:
+            TipJarSheet()
         case .language:
             LanguagePanel(current: model.language) { language in
                 self.panel = nil
@@ -267,6 +290,19 @@ struct SettingsScreen: View {
             navigation.showToast(strings.settingsText(key: "backupInvalid"), kind: .error)
         } catch {
             navigation.showToast(strings.settingsText(key: "importFailed"), kind: .error)
+        }
+    }
+
+    /// `_restorePurchases`: says what actually happened, not just that a
+    /// restore started.
+    private func restorePurchases() async {
+        let strings = model.strings
+        navigation.showToast(strings.proRestoreChecking, kind: .info)
+        switch await model.store.restore() {
+        case .restored: navigation.showToast(strings.proRestoreSucceeded, kind: .success)
+        case .notFound: navigation.showToast(strings.proPaywallRestoreNotFound, kind: .info)
+        case .failed: navigation.showToast(strings.proPaywallRestoreFailed, kind: .error)
+        case .cancelled: navigation.dismissToast()
         }
     }
 
@@ -426,7 +462,7 @@ struct SettingsScreen: View {
 // MARK: - Panels
 
 private enum SettingsPanel: Identifiable {
-    case language, export, importPrompt, wipe, privacy
+    case language, export, importPrompt, wipe, privacy, paywall, tipJar
     case importPreview(PendingBackup)
 
     var id: String {
@@ -436,6 +472,8 @@ private enum SettingsPanel: Identifiable {
         case .importPrompt: "import"
         case .wipe: "wipe"
         case .privacy: "privacy"
+        case .paywall: "paywall"
+        case .tipJar: "tipJar"
         case .importPreview: "preview"
         }
     }
