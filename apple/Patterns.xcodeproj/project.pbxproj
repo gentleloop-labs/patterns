@@ -10,6 +10,7 @@
 		00E1CAE50C3869148397AE90 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864D26DF4D3118C7B9C84E07 /* Typography.swift */; };
 		01A1B6DB1404EB90D4D3CC6A /* JournalScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8902A086B89E76876E9797F /* JournalScreen.swift */; };
 		077833F7718036827B6FC20A /* Manrope-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4380C83508D9F9F99520190 /* Manrope-Medium.ttf */; };
+		17C1EED9F41E391E7AE0CC15 /* OcdEventFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABEB3027917461578D4D4C5 /* OcdEventFlow.swift */; };
 		1C13A642C299CF87BAE5D83B /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955878D92E42BFE33692EE4F /* AppModel.swift */; };
 		27C5E552EF2AAADD2675B8FA /* LiveQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B717ABFD1F24505CBF59A7 /* LiveQuery.swift */; };
 		2B2DF8D3F1D1863DBEA93C8F /* PatternsCore in Frameworks */ = {isa = PBXBuildFile; productRef = CD44B31BEFCDA34C6B1321C8 /* PatternsCore */; };
@@ -35,6 +36,7 @@
 		C37740F53E1E5A513AF832B7 /* PatternsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF4079B1712B2F651ABABD9 /* PatternsApp.swift */; };
 		CEE92CE5E7FD61E27EAF7C46 /* Manrope-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4047FD32E3FA75C9BED658AB /* Manrope-Semibold.ttf */; };
 		D65B1288AE34DBF42CBCF966 /* app_ja.arb in Resources */ = {isa = PBXBuildFile; fileRef = CD7947BD48C81F2074A3595A /* app_ja.arb */; };
+		D8A4A87605B9FC79C6F2E151 /* OcdTrackerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B5046B23593A2AC04D8EE /* OcdTrackerScreen.swift */; };
 		DCDA9970BEFA74882DFA0F69 /* StringsBundleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54C15B9184654102BEBDF20 /* StringsBundleTests.swift */; };
 		E052D083D8FB179B955E3641 /* AppBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36014D42BDD96B61BC861A /* AppBootstrap.swift */; };
 		E6DF390A3684A1D1F0156A16 /* BootstrapFailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209719E14F36231CCC89044E /* BootstrapFailureView.swift */; };
@@ -64,6 +66,7 @@
 		2DF4079B1712B2F651ABABD9 /* PatternsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternsApp.swift; sourceTree = "<group>"; };
 		30DB6DBDFC0B4A16295CB597 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		33E402D0811CDA29727E2946 /* app_fr.arb */ = {isa = PBXFileReference; path = app_fr.arb; sourceTree = "<group>"; };
+		3ABEB3027917461578D4D4C5 /* OcdEventFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OcdEventFlow.swift; sourceTree = "<group>"; };
 		4047FD32E3FA75C9BED658AB /* Manrope-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Semibold.ttf"; sourceTree = "<group>"; };
 		417A11411524241B657BEA5D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		44B717ABFD1F24505CBF59A7 /* LiveQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveQuery.swift; sourceTree = "<group>"; };
@@ -83,6 +86,7 @@
 		A3092641A860C97C57B80F50 /* Manrope-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Bold.ttf"; sourceTree = "<group>"; };
 		A54C15B9184654102BEBDF20 /* StringsBundleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsBundleTests.swift; sourceTree = "<group>"; };
 		AE36014D42BDD96B61BC861A /* AppBootstrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBootstrap.swift; sourceTree = "<group>"; };
+		B39B5046B23593A2AC04D8EE /* OcdTrackerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OcdTrackerScreen.swift; sourceTree = "<group>"; };
 		B6D7640F2D7FB221EC7A288D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B7A078C60A88D8D7A31A6C2D /* RichTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextEditor.swift; sourceTree = "<group>"; };
 		BC4EFE44480E0A9DF85659DC /* PatternsAppTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PatternsAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +117,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02058BB810188793D22A73CC /* Track */ = {
+			isa = PBXGroup;
+			children = (
+				3ABEB3027917461578D4D4C5 /* OcdEventFlow.swift */,
+				B39B5046B23593A2AC04D8EE /* OcdTrackerScreen.swift */,
+			);
+			path = Track;
+			sourceTree = "<group>";
+		};
 		09D5DF7F788F9AB7E98BEB39 /* patterns */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				65E7CE592CA40751C8AC6260 /* Journal */,
+				02058BB810188793D22A73CC /* Track */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -421,6 +435,8 @@
 				FF9F7E239E3D4241F2760E54 /* JournalEntryEditor.swift in Sources */,
 				01A1B6DB1404EB90D4D3CC6A /* JournalScreen.swift in Sources */,
 				27C5E552EF2AAADD2675B8FA /* LiveQuery.swift in Sources */,
+				17C1EED9F41E391E7AE0CC15 /* OcdEventFlow.swift in Sources */,
+				D8A4A87605B9FC79C6F2E151 /* OcdTrackerScreen.swift in Sources */,
 				48B16FCA10C91366DA25BFFB /* Overlays.swift in Sources */,
 				C37740F53E1E5A513AF832B7 /* PatternsApp.swift in Sources */,
 				F1C06D7FA9C6B2103FF7D362 /* PrivacyGate.swift in Sources */,

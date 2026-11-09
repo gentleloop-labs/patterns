@@ -14,6 +14,10 @@ enum AppTab: String, CaseIterable, Identifiable {
 enum Route: Hashable {
     /// A journal day, by its stored `yyyy-MM-dd` key.
     case journalEntry(day: String)
+    /// `OcdEventFlow`: a new event (`entryID` nil) or an edit.
+    case ocdEvent(entryID: Int64?, type: OcdType)
+    /// `CompulsionDelayFlow`.
+    case compulsionDelay
     case settings
 }
 
