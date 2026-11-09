@@ -24,8 +24,9 @@ final class AppModel {
     private(set) var calmInsightsEnabled: Bool
     private(set) var usageAnalyticsEnabled: Bool
     private(set) var reminder: ReminderSettings
+    let store: PurchaseStore
     /// The cached unlock (`proUnlocked`), honoured offline as Flutter does.
-    private(set) var proUnlocked: Bool
+    var proUnlocked: Bool { store.proUnlocked }
 
     /// Bumped after a restore or wipe so every screen reloads its data.
     private(set) var dataRevision = 0
@@ -45,7 +46,7 @@ final class AppModel {
         calmInsightsEnabled = prefs.bool(PreferenceKey.calmInsightsEnabled) ?? false
         usageAnalyticsEnabled = prefs.bool(PreferenceKey.usageAnalyticsEnabled) ?? false
         reminder = ReminderSettings(prefs: prefs)
-        proUnlocked = prefs.bool(PreferenceKey.proUnlocked) ?? false
+        store = PurchaseStore(prefs: prefs)
     }
 
     /// Re-reads every setting after the preferences were cleared, as the
@@ -63,7 +64,7 @@ final class AppModel {
         calmInsightsEnabled = prefs.bool(PreferenceKey.calmInsightsEnabled) ?? false
         usageAnalyticsEnabled = prefs.bool(PreferenceKey.usageAnalyticsEnabled) ?? false
         reminder = ReminderSettings(prefs: prefs)
-        proUnlocked = prefs.bool(PreferenceKey.proUnlocked) ?? false
+        store.reloadCachedUnlock()
     }
 
     func setCalmInsights(_ enabled: Bool) {
@@ -90,11 +91,6 @@ final class AppModel {
         prefs.set(minute, for: PreferenceKey.reminderMinute)
         reminder.hour = hour
         reminder.minute = minute
-    }
-
-    func setProUnlocked(_ unlocked: Bool) {
-        prefs.set(unlocked, for: PreferenceKey.proUnlocked)
-        proUnlocked = unlocked
     }
 
     var colorScheme: ColorScheme? {

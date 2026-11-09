@@ -29,6 +29,14 @@ enum CompletionKind: Equatable {
     case erp
 }
 
+/// Centred confirmation dialogs (Flutter's `showDialog` cards).
+enum AppDialog: Equatable {
+    /// `_showUnlockedDialog`.
+    case proUnlocked(restored: Bool)
+    /// `TipThanksDialog`.
+    case tipThanks
+}
+
 /// `ToastType` from `lib/widgets/app_snack_bar.dart`.
 enum ToastKind: Equatable {
     case neutral, success, error, info
@@ -49,6 +57,7 @@ final class AppNavigation {
     var path: [Route] = []
     private(set) var toast: Toast?
     var completion: CompletionKind?
+    var dialog: AppDialog?
 
     private let prefs: FlutterPreferences
     private var toastTask: Task<Void, Never>?
