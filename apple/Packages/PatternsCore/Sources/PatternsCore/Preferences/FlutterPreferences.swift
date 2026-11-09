@@ -201,3 +201,34 @@ extension FlutterPreferences {
         }
     }
 }
+
+/// `MeaningfulAction` from `lib/app_preferences.dart`, stored by enum name.
+public enum MeaningfulAction: String, Sendable, CaseIterable {
+    case journal, compulsionDelay, guidedErp, selfCheck
+}
+
+extension FlutterPreferences {
+    /// `MeaningfulActionNotifier.record`: drives the Pro card and the
+    /// analytics consent prompt.
+    public func recordMeaningfulAction(_ action: MeaningfulAction) {
+        set((int(PreferenceKey.meaningfulActionCount) ?? 0) + 1, for: PreferenceKey.meaningfulActionCount)
+        set(action.rawValue, for: PreferenceKey.lastMeaningfulAction)
+    }
+
+    /// `ReviewPromptService.recordJournalSaved`: counters only. Asking for a
+    /// review is ported with the rest of the review prompt.
+    public func recordReviewJournalSaved() {
+        increment(PreferenceKey.ratingJournalCount)
+        increment(PreferenceKey.ratingMeaningfulActionCount)
+    }
+
+    /// `ReviewPromptService.recordOcdSaved`.
+    public func recordReviewOcdSaved() {
+        increment(PreferenceKey.ratingOcdCount)
+        increment(PreferenceKey.ratingMeaningfulActionCount)
+    }
+
+    private func increment(_ key: String) {
+        set((int(key) ?? 0) + 1, for: key)
+    }
+}

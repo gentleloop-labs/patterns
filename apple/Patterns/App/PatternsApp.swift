@@ -14,6 +14,7 @@ struct PatternsApp: App {
             case let .success(model):
                 RootView()
                     .environment(model)
+                    .environment(model.navigation)
                     .preferredColorScheme(model.colorScheme)
                     .environment(\.locale, model.strings.locale)
             case let .failure(failure):

@@ -14,6 +14,7 @@ final class AppModel {
     let database: PatternsDatabase
     let materials: MaterialFileStore
     let supportDirectory: URL
+    let navigation: AppNavigation
 
     private(set) var strings: Strings
     private(set) var language: AppLanguage
@@ -29,6 +30,7 @@ final class AppModel {
         self.database = database
         self.materials = materials
         self.supportDirectory = supportDirectory
+        navigation = AppNavigation(prefs: prefs)
         let language = prefs.string(PreferenceKey.appLanguage).flatMap(AppLanguage.init(rawValue:)) ?? .english
         self.language = language
         strings = Strings.load(locale: LocaleResolver.effectiveLocale(language: language))

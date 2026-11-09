@@ -862,6 +862,8 @@ List<Map<String, dynamic>> _journalCases() {
       {
         'content': content,
         'plainText': plainTextFromStored(content),
+        // What the editor saves when the entry is opened and saved unedited.
+        'resaved': storedFromDocument(documentFromStored(content)),
         'runs': [
           for (final run in richRunsFromStored(content))
             {'text': run.text, 'bold': run.bold, 'italic': run.italic},
