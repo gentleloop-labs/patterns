@@ -86,3 +86,7 @@ website/playwright-report/
 /social/x-threads/
 /social/youtube/
 .vercel
+
+# Native Apple rewrite
+apple/Fixtures/swift-out/
+apple/**/.build/
