@@ -16,8 +16,10 @@ repo="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$repo"
 
 echo "==> 1/3 Flutter writes fixtures"
+python3 apple/scripts/gen_strings.py
 PATTERNS_WRITE_NATIVE_FIXTURES=1 flutter test test/native_fixtures_test.dart \
   --plain-name 'Flutter -> native fixtures'
+PATTERNS_WRITE_NATIVE_FIXTURES=1 flutter test test/native_l10n_fixture_test.dart
 
 echo "==> 2/3 Swift reads fixtures and writes its own output"
 (cd apple/Packages/PatternsCore && PATTERNS_WRITE_SWIFT_OUT=1 swift test)
