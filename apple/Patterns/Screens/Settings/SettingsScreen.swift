@@ -98,9 +98,9 @@ struct SettingsScreen: View {
                 section(strings.settingsHelpSection).padding(.top, 28)
                 SettingsItem(icon: "safari", title: strings.settingsReplayTourTitle,
                              subtitle: strings.settingsReplayTourSubtitle) {
-                    // The tour itself arrives with the onboarding port.
                     model.prefs.set(false, for: PreferenceKey.tabTourSeen)
                     navigation.pop()
+                    navigation.requestTour()
                 }
                 SettingsItem(icon: "lightbulb", title: strings.settingsShowWelcomeTitle,
                              subtitle: strings.settingsShowWelcomeSubtitle) {
@@ -600,15 +600,18 @@ private struct LanguagePanel: View {
 }
 
 /// Flutter's time picker dialog, as a wheel in a panel.
-private struct ReminderTimePicker: View {
+/// A wheel time picker in a sheet sized to its content.
+struct ReminderTimePicker: View {
     let initial: Date
+    var title: String?
     let onFinish: (Date?) -> Void
     @State private var time: Date
     @Environment(AppModel.self) private var model
     @State private var height: CGFloat = 360
 
-    init(initial: Date, onFinish: @escaping (Date?) -> Void) {
+    init(initial: Date, title: String? = nil, onFinish: @escaping (Date?) -> Void) {
         self.initial = initial
+        self.title = title
         self.onFinish = onFinish
         _time = State(initialValue: initial)
     }
@@ -616,7 +619,7 @@ private struct ReminderTimePicker: View {
     var body: some View {
         let strings = model.strings
         VStack(alignment: .leading, spacing: 12) {
-            Text(strings.settingsReminderTimeTitle)
+            Text(title ?? strings.settingsReminderTimeTitle)
                 .textRole(.titleLarge, weight: .heavy, color: AppColors.textPrimary)
                 .accessibilityAddTraits(.isHeader)
             DatePicker(strings.settingsReminderTimeTitle, selection: $time, displayedComponents: .hourAndMinute)

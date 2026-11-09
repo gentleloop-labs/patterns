@@ -1,7 +1,7 @@
 /// `ProEntryPoint` from `lib/services/pro_entry_point.dart`: where the
 /// paywall was opened from, which picks its headline and benefits. Wire
 /// names match the Flutter analytics events.
-enum ProEntryPoint: String {
+enum ProEntryPoint: String, Identifiable {
     case settings
     case todayNextStep = "today_next_step"
     case recoveryMetrics = "recovery_metrics"
@@ -17,6 +17,7 @@ enum ProEntryPoint: String {
     case reflectionJournal = "reflection_journal"
 
     var wireName: String { rawValue }
+    var id: String { rawValue }
 
     func headline(_ strings: Strings) -> String {
         switch self {

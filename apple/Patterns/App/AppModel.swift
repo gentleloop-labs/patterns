@@ -21,6 +21,9 @@ final class AppModel {
     private(set) var appearance: AppAppearance
     private(set) var appLockEnabled: Bool
     private(set) var hasStarted: Bool
+    /// `_hasSeenCurrentRelease`, captured at launch: an upgraded user who has
+    /// not seen this release's What's New gets it before the home screen.
+    private(set) var hasSeenCurrentRelease: Bool
     private(set) var calmInsightsEnabled: Bool
     private(set) var usageAnalyticsEnabled: Bool
     private(set) var reminder: ReminderSettings
@@ -42,7 +45,9 @@ final class AppModel {
         strings = Strings.load(locale: LocaleResolver.effectiveLocale(language: language))
         appearance = prefs.string(PreferenceKey.appearance).flatMap(AppAppearance.init(rawValue:)) ?? .system
         appLockEnabled = prefs.bool(PreferenceKey.appLockEnabled) ?? false
-        hasStarted = prefs.bool(PreferenceKey.hasStarted) ?? false
+        let hasStarted = prefs.bool(PreferenceKey.hasStarted) ?? false
+        self.hasStarted = hasStarted
+        hasSeenCurrentRelease = !hasStarted || prefs.string(PreferenceKey.lastSeenReleaseId) == AppRelease.currentID
         calmInsightsEnabled = prefs.bool(PreferenceKey.calmInsightsEnabled) ?? false
         usageAnalyticsEnabled = prefs.bool(PreferenceKey.usageAnalyticsEnabled) ?? false
         reminder = ReminderSettings(prefs: prefs)
@@ -124,9 +129,30 @@ final class AppModel {
         appLockEnabled = enabled
     }
 
-    func markStarted() {
+    /// `_onChoosePath` and the welcome screen's import shortcut: onboarding
+    /// is done, and this release counts as seen.
+    func completeOnboarding(path: FirstRunPath) {
         prefs.set(true, for: PreferenceKey.hasStarted)
+        prefs.set(path.rawValue, for: PreferenceKey.firstRunPath)
+        prefs.set(AppRelease.currentID, for: PreferenceKey.lastSeenReleaseId)
         hasStarted = true
+        hasSeenCurrentRelease = true
+    }
+
+    /// `_markReleaseSeen`: closes What's New and cancels its notification.
+    func markReleaseSeen(showHome: Bool) {
+        prefs.set(AppRelease.currentID, for: PreferenceKey.lastSeenReleaseId)
+        if showHome {
+            prefs.set(AppTab.home.rawValue, for: PreferenceKey.mobileSelectedTab)
+            navigation.select(.home)
+        }
+        Reminders.cancelReleaseAnnouncement()
+        hasSeenCurrentRelease = true
+    }
+
+    var analyticsConsentUndecided: Bool {
+        (prefs.string(PreferenceKey.analyticsConsentDecision).flatMap(AnalyticsConsentDecision.init(rawValue:)) ?? .undecided)
+            == .undecided
     }
 
     /// Settings ▸ Wipe: every data table, every exposure material file and

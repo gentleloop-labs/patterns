@@ -36,6 +36,37 @@ enum Reminders {
         try await center.add(UNNotificationRequest(identifier: dailyReminderID, content: content, trigger: trigger))
     }
 
+    /// `scheduleUpdateAnnouncement`: a one-off note about a new release for
+    /// people who already allowed reminders. Never asks for permission.
+    static func scheduleReleaseAnnouncement(at date: Date, strings: Strings) async throws {
+        guard date > Date() else { return }
+        center.removePendingNotificationRequests(withIdentifiers: [releaseAnnouncementID])
+        let content = UNMutableNotificationContent()
+        content.title = strings.updateAnnouncementTitle
+        content.body = strings.updateAnnouncementBody
+        content.sound = .default
+        let parts = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: parts, repeats: false)
+        try await center.add(UNNotificationRequest(identifier: releaseAnnouncementID, content: content, trigger: trigger))
+    }
+
+    static func cancelReleaseAnnouncement() {
+        center.removePendingNotificationRequests(withIdentifiers: [releaseAnnouncementID])
+    }
+
+    /// `main.dart`: an upgraded user who has not opened this release and
+    /// already allowed reminders gets one note six hours later.
+    static func scheduleReleaseAnnouncementIfNeeded(prefs: FlutterPreferences, strings: Strings) async {
+        let hasStarted = prefs.bool(PreferenceKey.hasStarted) ?? false
+        let seen = prefs.string(PreferenceKey.lastSeenReleaseId) == AppRelease.currentID
+        let scheduled = prefs.string(PreferenceKey.releaseAnnouncementScheduledId) == AppRelease.currentID
+        let canNotify = prefs.bool(PreferenceKey.reminderEnabled) ?? false
+        guard hasStarted, !seen, !scheduled, canNotify else { return }
+        guard (try? await scheduleReleaseAnnouncement(at: Date().addingTimeInterval(6 * 60 * 60), strings: strings)) != nil
+        else { return }
+        prefs.set(AppRelease.currentID, for: PreferenceKey.releaseAnnouncementScheduledId)
+    }
+
     static func cancelDaily() {
         center.removePendingNotificationRequests(withIdentifiers: [dailyReminderID])
     }
