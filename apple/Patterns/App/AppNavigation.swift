@@ -19,6 +19,15 @@ enum Route: Hashable {
     /// `CompulsionDelayFlow`.
     case compulsionDelay
     case settings
+    /// Screens not ported yet; each opens a placeholder until its phase.
+    case selfCheck
+    case exposureHierarchy
+    case erpExercises
+    case exposureReflection
+    /// The activity a new user picked on the welcome screen.
+    case firstRunActivity(FirstRunPath)
+    /// `FirstRunResultScreen`.
+    case firstRunResult(FirstRunPath)
 }
 
 /// What `showQuietCompletion` says after an activity is saved.
@@ -58,6 +67,14 @@ final class AppNavigation {
     private(set) var toast: Toast?
     var completion: CompletionKind?
     var dialog: AppDialog?
+    /// The paywall, opened from anywhere but Settings (which has its own).
+    var paywall: ProEntryPoint?
+    /// Set when onboarding finishes; the home routes into it once.
+    var pendingFirstRun: FirstRunPath?
+    /// Bumped by Settings to replay the tab tour on the home screen.
+    private(set) var tourRequest = 0
+
+    func requestTour() { tourRequest += 1 }
 
     private let prefs: FlutterPreferences
     private var toastTask: Task<Void, Never>?
@@ -99,6 +116,25 @@ final class AppNavigation {
     }
 
     func dismissToast() { toast = nil }
+
+    func presentPaywall(_ entryPoint: ProEntryPoint) { paywall = entryPoint }
+
+    /// A first-run activity was completed: record it and swap the activity
+    /// for the result screen, as Flutter pops one and pushes the other.
+    func finishFirstRun(_ path: FirstRunPath) {
+        prefs.set(true, for: PreferenceKey.firstActivityDone)
+        if case .firstRunActivity = self.path.last {
+            self.path[self.path.count - 1] = .firstRunResult(path)
+        } else {
+            push(.firstRunResult(path))
+        }
+    }
+
+    /// `requirePro`: true when Pro is unlocked; otherwise opens the paywall.
+    func requirePro(_ unlocked: Bool, _ entryPoint: ProEntryPoint) -> Bool {
+        if !unlocked { presentPaywall(entryPoint) }
+        return unlocked
+    }
 
     /// `showQuietCompletion` followed by `returnToNeutralHome`, as the
     /// Flutter flows do after a save.

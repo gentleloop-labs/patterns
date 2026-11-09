@@ -54,3 +54,33 @@ struct CardBackground: ViewModifier {
 extension View {
     func card(padding: CGFloat = 20) -> some View { modifier(CardBackground(padding: padding)) }
 }
+
+/// The compact `ElevatedButton` the Today cards use: 44pt tall, smaller
+/// radius and padding than the full-width primary button.
+struct CompactPrimaryButtonStyle: ButtonStyle {
+    var radius: CGFloat = 14
+    var horizontalPadding: CGFloat = 16
+    var fullWidth = false
+    @Environment(\.isEnabled) private var isEnabled
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.custom(AppFont.sans, size: 15, relativeTo: .body).weight(.bold))
+            .foregroundStyle(AppColors.onAccent)
+            .multilineTextAlignment(.center)
+            .padding(.horizontal, horizontalPadding)
+            .padding(.vertical, 8)
+            .frame(minHeight: 44)
+            .frame(maxWidth: fullWidth ? .infinity : nil)
+            .background(AppColors.accent.opacity(isEnabled ? 1 : 0.45), in: .rect(cornerRadius: radius))
+            .opacity(configuration.isPressed ? 0.85 : 1)
+            .contentShape(.rect(cornerRadius: radius))
+    }
+}
+
+extension Font {
+    /// Manrope at a Flutter point size, scaling with Dynamic Type.
+    static func sans(_ size: CGFloat, _ weight: Font.Weight = .regular, relativeTo style: Font.TextStyle = .body) -> Font {
+        .custom(AppFont.sans, size: size, relativeTo: style).weight(weight)
+    }
+}

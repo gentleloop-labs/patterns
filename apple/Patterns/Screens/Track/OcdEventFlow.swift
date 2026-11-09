@@ -5,6 +5,9 @@ import SwiftUI
 struct OcdEventFlow: View {
     let entryID: Int64?
     let initialType: OcdType
+    /// The first-run path: a save leads to the first-run result screen
+    /// instead of the usual completion sheet.
+    var firstRun = false
 
     @Environment(AppModel.self) private var model
     @Environment(AppNavigation.self) private var navigation
@@ -127,7 +130,11 @@ struct OcdEventFlow: View {
         }
         model.prefs.recordReviewOcdSaved()
         saving = false
-        navigation.completeActivity(.trackedMoment(updated: isEditing))
+        if firstRun {
+            navigation.finishFirstRun(.journal)
+        } else {
+            navigation.completeActivity(.trackedMoment(updated: isEditing))
+        }
     }
 }
 
