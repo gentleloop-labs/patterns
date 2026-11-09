@@ -87,3 +87,17 @@ extension PatternsDatabase {
         _ = try queue.write { db in try OcdEntry.deleteOne(db, key: id) }
     }
 }
+
+// MARK: - Wipe
+
+extension PatternsDatabase {
+    /// `DbHelper.clearAll`: empties every data table in one transaction. The
+    /// schema and `user_version` stay as they are.
+    public func clearAll() throws {
+        try queue.write { db in
+            for table in PatternsSchema.dataTables {
+                try db.execute(sql: "DELETE FROM \(table.quotedDatabaseIdentifier)")
+            }
+        }
+    }
+}

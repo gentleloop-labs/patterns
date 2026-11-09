@@ -31,6 +31,8 @@ struct JournalScreen: View {
             .animation(.easeOut(duration: 0.18), value: isSearching)
         }
         .scrollDismissesKeyboard(.interactively)
+        // Content stops at the status bar, as Flutter's SafeArea does.
+        .clipped()
         .background(AppColors.surface)
         .liveQuery(model.database, into: $entries) { db in try JournalEntry.all().fetchAll(db) }
         .sheet(isPresented: $pickingDate) {

@@ -46,6 +46,32 @@ import Testing
         #expect(rows.map(\.distressLevel) == [2])
     }
 
+    @Test func clearAllEmptiesDataButKeepsSchema() throws {
+        let db = try PatternsDatabase.inMemory()
+        _ = try db.saveJournalEntry(date: "2026-11-09", content: "[]")
+        _ = try db.insertOcdEntry(OcdEntry(type: .obsession, datetime: .now(), content: "x", distressLevel: 1,
+                                           response: "", createdAt: .now()))
+        try db.clearAll()
+        let counts = try db.queue.read { db in
+            try PatternsSchema.dataTables.map { try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM \($0)") ?? -1 }
+        }
+        #expect(counts.allSatisfy { $0 == 0 })
+        #expect(try db.schemaVersion() == PatternsSchema.currentVersion)
+    }
+
+    /// The wipe copy tells people the device forgets the local unlock, so
+    /// every `flutter.` key goes, `proUnlocked` included, and nothing else.
+    @Test func wipeClearsOnlyFlutterKeys() throws {
+        let defaults = try #require(UserDefaults(suiteName: "test.\(UUID())"))
+        let prefs = FlutterPreferences(defaults: defaults)
+        prefs.set(true, for: PreferenceKey.proUnlocked)
+        prefs.set("dark", for: PreferenceKey.appearance)
+        defaults.set("x", forKey: "not_flutter")
+        prefs.clear()
+        #expect(prefs.keys.isEmpty)
+        #expect(defaults.string(forKey: "not_flutter") == "x")
+    }
+
     @Test func meaningfulActionCounters() throws {
         let defaults = try #require(UserDefaults(suiteName: "test.\(UUID())"))
         let prefs = FlutterPreferences(defaults: defaults)

@@ -102,6 +102,15 @@ struct MainShell: View {
         switch tab {
         case .journal: JournalScreen()
         case .track: OcdTrackerScreen()
+        case .home:
+            // Temporary until the Today port: its header opens Settings.
+            PlaceholderScreen(title: tab.title(model.strings))
+                .overlay(alignment: .topTrailing) {
+                    RoundIconButton(systemImage: "gearshape", label: model.strings.settingsTitle) {
+                        navigation.push(.settings)
+                    }
+                    .padding(20)
+                }
         default: PlaceholderScreen(title: tab.title(model.strings))
         }
     }
@@ -112,7 +121,7 @@ struct MainShell: View {
         case let .journalEntry(day): JournalEntryEditor(day: day).id(day)
         case let .ocdEvent(entryID, type): OcdEventFlow(entryID: entryID, initialType: type)
         case .compulsionDelay: PlaceholderScreen(title: model.strings.trackerPauseUrgeAction)
-        case .settings: PlaceholderScreen(title: model.strings.settingsTitle)
+        case .settings: SettingsScreen()
         }
     }
 
