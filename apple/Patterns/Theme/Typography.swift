@@ -46,25 +46,36 @@ enum TextRole {
 
 private struct TextRoleModifier: ViewModifier {
     let role: TextRole
+    let weight: Font.Weight?
+    let color: Color?
     @ScaledMetric private var size: CGFloat
 
-    init(role: TextRole) {
+    init(role: TextRole, size: CGFloat?, weight: Font.Weight?, color: Color?) {
         self.role = role
-        _size = ScaledMetric(wrappedValue: role.spec.size, relativeTo: role.spec.relativeTo)
+        self.weight = weight
+        self.color = color
+        _size = ScaledMetric(wrappedValue: size ?? role.spec.size, relativeTo: role.spec.relativeTo)
     }
 
+    @ViewBuilder
     func body(content: Content) -> some View {
         let spec = role.spec
-        content
-            .font(.custom(spec.family, fixedSize: size).weight(spec.weight))
+        let styled = content
+            .font(.custom(spec.family, fixedSize: size).weight(weight ?? spec.weight))
             .tracking(spec.tracking)
             .lineSpacing(max(0, size * (spec.lineHeight - 1.2)))
+        if let color {
+            styled.foregroundStyle(color)
+        } else {
+            styled
+        }
     }
 }
 
 extension View {
-    /// Applies a Flutter text-theme role, scaled with Dynamic Type.
-    func textRole(_ role: TextRole) -> some View {
-        modifier(TextRoleModifier(role: role))
+    /// Applies a Flutter text-theme role, scaled with Dynamic Type. `size`
+    /// and `weight` mirror Flutter's `copyWith` overrides.
+    func textRole(_ role: TextRole, size: CGFloat? = nil, weight: Font.Weight? = nil, color: Color? = nil) -> some View {
+        modifier(TextRoleModifier(role: role, size: size, weight: weight, color: color))
     }
 }
