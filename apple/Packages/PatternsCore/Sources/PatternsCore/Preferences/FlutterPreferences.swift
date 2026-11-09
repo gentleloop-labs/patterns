@@ -137,7 +137,8 @@ public enum PreferenceKey {
     public static let ratingOcdCount = "rating_ocd_count"
     public static let ratingOptedOut = "rating_opted_out"
 
-    // telemetry.dart
+    // telemetry.dart. Also writes dynamic `tel_count_<event>` and
+    // `tel_once_<event>` keys; native leaves those untouched.
     public static let telemetryLog = "tel_log"
     public static let telemetryInstallDay = "tel_install_day"
     public static let telemetryReturnedDays = "tel_returned_days"
