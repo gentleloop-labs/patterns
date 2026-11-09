@@ -225,11 +225,13 @@ struct MainShell: View {
             }
         }
         .padding(.trailing, 16)
-        .padding(.bottom, 74 + 8 + 16)
-        .offset(y: show ? 0 : 160)
+        .padding(.bottom, 74 + (min(max(typeSize.flutterTextScale, 1), 1.5) - 1) * 20 + 8 + 16)
+        // `AnimatedSlide` by 1.6 heights, with a quicker fade.
+        .offset(y: show ? 0 : 52 * 1.6)
+        .animation(reduceMotion ? nil : .timingCurve(0.215, 0.61, 0.355, 1, duration: 0.26), value: show)
         .opacity(show ? 1 : 0)
+        .animation(reduceMotion ? nil : .easeOut(duration: 0.22), value: show)
         .allowsHitTesting(show)
-        .animation(reduceMotion ? nil : .easeOut(duration: 0.26), value: show)
     }
 }
 
@@ -256,29 +258,27 @@ extension AppTab {
     }
 }
 
-/// `_FloatingTabBar`: a frosted pill with five segments.
+/// `_FloatingTabBar`: a liquid-glass pill with five segments. It grows a
+/// little with larger text (up to 150%), as Flutter's does.
 private struct FloatingTabBar: View {
     @Environment(AppModel.self) private var model
+    @Environment(\.dynamicTypeSize) private var typeSize
     let selected: AppTab
     let onSelect: (AppTab) -> Void
 
     var body: some View {
+        let scale = min(max(typeSize.flutterTextScale, 1), 1.5)
         HStack(spacing: 0) {
             ForEach(AppTab.allCases) { tab in
-                TabSegment(tab: tab, title: tab.title(model.strings), active: tab == selected) { onSelect(tab) }
+                TabSegment(tab: tab, title: tab.title(model.strings), active: tab == selected,
+                           labelScale: scale) { onSelect(tab) }
                     .anchorPreference(key: TabAnchorKey.self, value: .bounds) { [tab: $0] }
             }
         }
-        .frame(height: 74)
-        .background {
-            RoundedRectangle(cornerRadius: 28)
-                .fill(.ultraThinMaterial)
-                .overlay(RoundedRectangle(cornerRadius: 28).fill(AppColors.card.opacity(0.58)))
-                .overlay(RoundedRectangle(cornerRadius: 28).strokeBorder(AppColors.border.opacity(0.5)))
-                .shadow(color: .black.opacity(0.3), radius: 15, y: 14)
-        }
-        .clipShape(.rect(cornerRadius: 28))
-        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+        .frame(height: 74 + (scale - 1) * 20)
+        .liquidGlass(RoundedRectangle(cornerRadius: 28), tint: AppColors.card, opacity: 0.58,
+                     saturation: 1.25, shadow: .init(color: .black.opacity(0.30), radius: 15, y: 14))
+        .accessibilityElement(children: .contain)
     }
 }
 
@@ -286,6 +286,9 @@ private struct TabSegment: View {
     let tab: AppTab
     let title: String
     let active: Bool
+    /// Flutter's text scale clamped to 1...1.5; labels stay this size
+    /// instead of following Dynamic Type all the way up.
+    let labelScale: CGFloat
     let action: () -> Void
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -298,19 +301,21 @@ private struct TabSegment: View {
                     .fill(active ? accent.opacity(0.14) : .clear)
                     .overlay(RoundedRectangle(cornerRadius: 20).strokeBorder(active ? accent.opacity(0.1) : .clear))
                     .padding(EdgeInsets(top: 5, leading: 4, bottom: 5, trailing: 4))
-                UnevenRoundedRectangle(bottomLeadingRadius: 3, bottomTrailingRadius: 3)
+                // The indicator hangs from the pill's top edge.
+                UnevenRoundedRectangle(bottomLeadingRadius: 1.5, bottomTrailingRadius: 1.5)
                     .fill(accent)
                     .frame(height: 3)
                     .padding(.horizontal, active ? 18 : 28)
                     .opacity(active ? 1 : 0)
                 VStack(spacing: 5) {
                     Image(systemName: tab.systemImage)
-                        .font(.system(size: 20))
+                        .font(.system(size: 21))
+                        .frame(width: 26, height: 23)
                         .scaleEffect(active ? 1.05 : 1)
                     Text(title)
-                        .font(.custom(AppFont.sans, size: 10.5, relativeTo: .caption2).weight(active ? .black : .bold))
+                        .font(.custom(AppFont.sans, fixedSize: 10.5 * labelScale).weight(active ? .black : .bold))
                         .lineLimit(1)
-                        .minimumScaleFactor(0.6)
+                        .minimumScaleFactor(0.5)
                 }
                 .foregroundStyle(color)
                 .padding(EdgeInsets(top: 9, leading: 4, bottom: 6, trailing: 4))
@@ -323,25 +328,38 @@ private struct TabSegment: View {
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(title)
         .accessibilityAddTraits(active ? [.isSelected, .isButton] : .isButton)
+        // Labels stop growing at 150%, so long-press shows them large.
+        .accessibilityShowsLargeContentViewer {
+            Label(title, systemImage: tab.systemImage)
+        }
     }
 }
 
-/// `_FloatingPenButton`.
+/// `_FloatingPenButton`: an amber glass disc whose icon swaps with a
+/// scale and fade when the tab changes.
 private struct FloatingAddButton: View {
     let systemImage: String
     let label: String
     let action: () -> Void
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         Button(action: action) {
-            Image(systemName: systemImage)
-                .font(.system(size: 22, weight: .semibold))
-                .foregroundStyle(AppColors.onAccent)
-                .contentTransition(.symbolEffect(.replace))
-                .frame(width: 52, height: 52)
-                .background(AppColors.accent, in: .circle)
-                .shadow(color: .black.opacity(0.28), radius: 9, y: 8)
-                .shadow(color: AppColors.accent.opacity(0.25), radius: 8, y: 4)
+            ZStack {
+                Image(systemName: systemImage)
+                    .font(.system(size: 23, weight: .semibold))
+                    .foregroundStyle(AppColors.onAccent)
+                    .id(systemImage)
+                    .transition(reduceMotion ? .identity : .scale(scale: 0.4).combined(with: .opacity))
+            }
+            .animation(reduceMotion ? nil : .spring(duration: 0.26, bounce: 0.35), value: systemImage)
+            .frame(width: 52, height: 52)
+            .liquidGlass(Circle(), tint: AppColors.accent, saturation: 1.6,
+                         shadow: .init(color: .black.opacity(0.28), radius: 9, y: 8))
+            .background {
+                Circle().fill(AppColors.accent.opacity(0.001))
+                    .shadow(color: AppColors.accent.opacity(0.25), radius: 8, y: 4)
+            }
         }
         .buttonStyle(PressScaleStyle(scale: 0.9))
         .accessibilityLabel(label)
