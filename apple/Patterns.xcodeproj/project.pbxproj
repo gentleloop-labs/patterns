@@ -52,6 +52,7 @@
 		D8A4A87605B9FC79C6F2E151 /* OcdTrackerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B5046B23593A2AC04D8EE /* OcdTrackerScreen.swift */; };
 		DCDA9970BEFA74882DFA0F69 /* StringsBundleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54C15B9184654102BEBDF20 /* StringsBundleTests.swift */; };
 		E052D083D8FB179B955E3641 /* AppBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36014D42BDD96B61BC861A /* AppBootstrap.swift */; };
+		E5C8F662A04EB59C3A279EC0 /* LiquidGlass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381C36115CBBD83138559D7 /* LiquidGlass.swift */; };
 		E6DF390A3684A1D1F0156A16 /* BootstrapFailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209719E14F36231CCC89044E /* BootstrapFailureView.swift */; };
 		F055777E26F2618039C07C94 /* app_en.arb in Resources */ = {isa = PBXBuildFile; fileRef = A1EFCC447DD48D7821564A8D /* app_en.arb */; };
 		F1C06D7FA9C6B2103FF7D362 /* PrivacyGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661D0928067F4A3D279A40FF /* PrivacyGate.swift */; };
@@ -93,6 +94,7 @@
 		671F379C1F0E71DAE4F3321A /* JournalEntryEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryEditor.swift; sourceTree = "<group>"; };
 		6A7E9BC0D071DB7C89ED0011 /* AppNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigation.swift; sourceTree = "<group>"; };
 		71C4BC4ED78128C2E73AFE81 /* SpotlightTour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotlightTour.swift; sourceTree = "<group>"; };
+		7381C36115CBBD83138559D7 /* LiquidGlass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidGlass.swift; sourceTree = "<group>"; };
 		74A5080E42D9D507F85A86DD /* app_es.arb */ = {isa = PBXFileReference; path = app_es.arb; sourceTree = "<group>"; };
 		775ED638CB144FD396E63640 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		852B066D8EA46ACFCBD49EC2 /* WhatsNewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewScreen.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				BEBBD283E6E0710D3F9BF767 /* Buttons.swift */,
+				7381C36115CBBD83138559D7 /* LiquidGlass.swift */,
 				D6D6B1CE2328E6D825AD0637 /* Overlays.swift */,
 				ECCBD59B6C35CABF538B31AF /* Surfaces.swift */,
 			);
@@ -520,6 +523,7 @@
 				A35891DAFC303EC52F6F816B /* Formatting.swift in Sources */,
 				FF9F7E239E3D4241F2760E54 /* JournalEntryEditor.swift in Sources */,
 				01A1B6DB1404EB90D4D3CC6A /* JournalScreen.swift in Sources */,
+				E5C8F662A04EB59C3A279EC0 /* LiquidGlass.swift in Sources */,
 				27C5E552EF2AAADD2675B8FA /* LiveQuery.swift in Sources */,
 				17C1EED9F41E391E7AE0CC15 /* OcdEventFlow.swift in Sources */,
 				D8A4A87605B9FC79C6F2E151 /* OcdTrackerScreen.swift in Sources */,

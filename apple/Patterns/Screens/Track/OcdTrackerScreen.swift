@@ -76,6 +76,8 @@ struct OcdTrackerScreen: View {
                         }
                         .padding(EdgeInsets(top: 8, leading: 20, bottom: 84, trailing: 20))
                     }
+                    // Stops above the tab bar, as Flutter's Scaffold body does.
+                    .clipped()
                 }
             }
             .id(filter.map { "\($0.rawValue)" } ?? "all")
