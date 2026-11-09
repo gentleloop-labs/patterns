@@ -96,17 +96,31 @@ private struct BottomPanelContent<Content: View>: View {
     @State private var height: CGFloat = 300
 
     var body: some View {
-        content
-            .padding(20)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(AppColors.card, in: .rect(cornerRadius: 28))
-            .overlay(RoundedRectangle(cornerRadius: 28).strokeBorder(AppColors.border))
-            .padding(14)
-            .fixedSize(horizontal: false, vertical: true)
-            .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { height = $0 }
-            .presentationDetents([.height(height)])
-            .presentationBackground(.clear)
-            .presentationDragIndicator(.hidden)
+        if #available(iOS 26, *) {
+            // iOS 26 already floats partial sheets as an inset rounded card,
+            // so the sheet itself becomes the panel. A clear background
+            // there would leave an empty glass shell around our own card.
+            content
+                .padding(EdgeInsets(top: 28, leading: 26, bottom: 14, trailing: 26))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .fixedSize(horizontal: false, vertical: true)
+                .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { height = $0 }
+                .presentationDetents([.height(height)])
+                .presentationBackground(AppColors.card)
+                .presentationDragIndicator(.hidden)
+        } else {
+            content
+                .padding(20)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(AppColors.card, in: .rect(cornerRadius: 28))
+                .overlay(RoundedRectangle(cornerRadius: 28).strokeBorder(AppColors.border))
+                .padding(14)
+                .fixedSize(horizontal: false, vertical: true)
+                .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { height = $0 }
+                .presentationDetents([.height(height)])
+                .presentationBackground(.clear)
+                .presentationDragIndicator(.hidden)
+        }
     }
 }
 

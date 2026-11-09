@@ -101,6 +101,7 @@ struct MainShell: View {
     private func page(_ tab: AppTab) -> some View {
         switch tab {
         case .journal: JournalScreen()
+        case .track: OcdTrackerScreen()
         default: PlaceholderScreen(title: tab.title(model.strings))
         }
     }
@@ -109,6 +110,8 @@ struct MainShell: View {
     private func destination(_ route: Route) -> some View {
         switch route {
         case let .journalEntry(day): JournalEntryEditor(day: day).id(day)
+        case let .ocdEvent(entryID, type): OcdEventFlow(entryID: entryID, initialType: type)
+        case .compulsionDelay: PlaceholderScreen(title: model.strings.trackerPauseUrgeAction)
         case .settings: PlaceholderScreen(title: model.strings.settingsTitle)
         }
     }
@@ -123,7 +126,8 @@ struct MainShell: View {
         ) {
             switch tab {
             case .journal: navigation.push(.journalEntry(day: JournalEntry.dayKey(for: Date())))
-            default: break // Track's add flow arrives with the tracker port.
+            case .track: navigation.push(.ocdEvent(entryID: nil, type: .obsession))
+            default: break
             }
         }
         .padding(.trailing, 16)
