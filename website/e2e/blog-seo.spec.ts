@@ -109,6 +109,11 @@ const newArticles = [
     slug: 'what-is-a-compulsion-in-ocd',
     title: 'What Is a Compulsion in OCD? Visible and Mental Rituals',
     contextualLink: '/blog/pure-o-mental-compulsions'
+  },
+  {
+    slug: 'hit-and-run-ocd',
+    title: 'Hit-and-Run OCD: When Driving Triggers Doubt',
+    contextualLink: '/blog/checking-ocd'
   }
 ];
 
