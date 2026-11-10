@@ -121,3 +121,57 @@ extension PatternsDatabase {
         }
     }
 }
+
+extension ErpExercisePlan {
+    /// `getActiveErpExercisePlans`: unarchived plans, most recently changed
+    /// first.
+    public static func active() -> QueryInterfaceRequest<ErpExercisePlan> {
+        ErpExercisePlan.filter(Column("archived") == 0).order(Column("updated_at").desc)
+    }
+}
+
+extension ErpExerciseSession {
+    /// `getErpExerciseSessions`: newest first.
+    public static func all() -> QueryInterfaceRequest<ErpExerciseSession> {
+        ErpExerciseSession.order(Column("created_at").desc)
+    }
+}
+
+extension PatternsDatabase {
+    @discardableResult
+    public func insertErpPlan(_ plan: ErpExercisePlan) throws -> ErpExercisePlan {
+        try queue.write { db in
+            var plan = plan
+            plan.id = nil
+            try plan.insert(db)
+            return plan
+        }
+    }
+
+    /// `updateErpExercisePlan`: rewrites every column except `id`.
+    public func updateErpPlan(_ plan: ErpExercisePlan) throws {
+        guard plan.id != nil else {
+            throw PersistenceError.recordNotFound(databaseTableName: ErpExercisePlan.databaseTableName, key: [:])
+        }
+        try queue.write { db in try plan.update(db) }
+    }
+
+    /// `archiveErpExercisePlan`: hides the plan but keeps it and its
+    /// practice history.
+    public func archiveErpPlan(id: Int64) throws {
+        try queue.write { db in
+            try db.execute(sql: "UPDATE erp_exercise_plans SET archived = 1, updated_at = ? WHERE id = ?",
+                           arguments: [DartTimestamp.now().raw, id])
+        }
+    }
+
+    @discardableResult
+    public func insertErpSession(_ session: ErpExerciseSession) throws -> ErpExerciseSession {
+        try queue.write { db in
+            var session = session
+            session.id = nil
+            try session.insert(db)
+            return session
+        }
+    }
+}

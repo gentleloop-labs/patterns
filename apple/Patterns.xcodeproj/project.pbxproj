@@ -13,6 +13,7 @@
 		09C0CF369FF2F53BB338B27B /* WhatsNewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852B066D8EA46ACFCBD49EC2 /* WhatsNewScreen.swift */; };
 		17C1EED9F41E391E7AE0CC15 /* OcdEventFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABEB3027917461578D4D4C5 /* OcdEventFlow.swift */; };
 		1C13A642C299CF87BAE5D83B /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955878D92E42BFE33692EE4F /* AppModel.swift */; };
+		1FDDD0F4392DCF6D4696DD99 /* CountdownRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECEF9BF5CA0FA298909798F /* CountdownRing.swift */; };
 		27C5E552EF2AAADD2675B8FA /* LiveQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B717ABFD1F24505CBF59A7 /* LiveQuery.swift */; };
 		2B2DF8D3F1D1863DBEA93C8F /* PatternsCore in Frameworks */ = {isa = PBXBuildFile; productRef = CD44B31BEFCDA34C6B1321C8 /* PatternsCore */; };
 		367E53D76F99B0E807758262 /* PurchaseStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E6449DA6DAA6A033700FEC /* PurchaseStoreTests.swift */; };
@@ -25,6 +26,7 @@
 		54DF8A1B405443E3F34D7B20 /* AppRelease.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92865C7223A9295056A6BDA3 /* AppRelease.swift */; };
 		5D0D7FB3CF1DB11006AA9D50 /* app_de.arb in Resources */ = {isa = PBXBuildFile; fileRef = C13020A06D2451B773818F16 /* app_de.arb */; };
 		616BFCE84011999950614E68 /* AppNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7E9BC0D071DB7C89ED0011 /* AppNavigation.swift */; };
+		6198B1C4BB95773732201395 /* ErpExercisesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3688651AC8464EBD096CC3 /* ErpExercisesScreen.swift */; };
 		6AEFA893BC57BF110ADA0B2D /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D10226571BE65D69C9EA88 /* Strings.swift */; };
 		6E6BE7C431DFEAB2FD83453F /* TourSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9105EE5616FE9BD1A3526498 /* TourSheet.swift */; };
 		723DB1DE81D66474B780A582 /* FirstRunResultScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BE940171DF2A35DBF77B63 /* FirstRunResultScreen.swift */; };
@@ -43,6 +45,7 @@
 		A362C0E98285949099AF40CC /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4CE0871D7D8A67865649224 /* SettingsScreen.swift */; };
 		AB45CA1CBB395B693680E0F1 /* ProEntryPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4301AE61884F33B4578561AD /* ProEntryPoint.swift */; };
 		ADA5B7CE5167BFBAFAC45F70 /* TipJarSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1D9B7A70B26D53ADAD4E1 /* TipJarSheet.swift */; };
+		B0251831399230C62D17F5D3 /* ErpPracticeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA48A24778B4D98882804ED /* ErpPracticeFlow.swift */; };
 		B9D0636FC37F3AF6B7CC9CC4 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9B93E6C75E7D6969DBF805 /* AppColors.swift */; };
 		BD4FA17C5DDFEA40495F5BB8 /* FormSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F19A0BA78ADE70EEE74E42 /* FormSections.swift */; };
 		BE1A1082411CBB43BC3862F4 /* Manrope-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A3092641A860C97C57B80F50 /* Manrope-Bold.ttf */; };
@@ -79,6 +82,7 @@
 		26BFBDD7BA8E3FA55ADF75CF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		27905171586DBED956C48D1E /* Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatting.swift; sourceTree = "<group>"; };
 		2DF4079B1712B2F651ABABD9 /* PatternsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternsApp.swift; sourceTree = "<group>"; };
+		2FA48A24778B4D98882804ED /* ErpPracticeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErpPracticeFlow.swift; sourceTree = "<group>"; };
 		30DB6DBDFC0B4A16295CB597 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		33E402D0811CDA29727E2946 /* app_fr.arb */ = {isa = PBXFileReference; path = app_fr.arb; sourceTree = "<group>"; };
 		37BE940171DF2A35DBF77B63 /* FirstRunResultScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRunResultScreen.swift; sourceTree = "<group>"; };
@@ -88,6 +92,7 @@
 		4301AE61884F33B4578561AD /* ProEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProEntryPoint.swift; sourceTree = "<group>"; };
 		44B717ABFD1F24505CBF59A7 /* LiveQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveQuery.swift; sourceTree = "<group>"; };
 		4CD1D9B7A70B26D53ADAD4E1 /* TipJarSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarSheet.swift; sourceTree = "<group>"; };
+		4E3688651AC8464EBD096CC3 /* ErpExercisesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErpExercisesScreen.swift; sourceTree = "<group>"; };
 		539F7DF21F3A517F143E13AF /* CompulsionDelayFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompulsionDelayFlow.swift; sourceTree = "<group>"; };
 		590AED5E127F54075865EFFC /* PatternsCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PatternsCore; path = Packages/PatternsCore; sourceTree = SOURCE_ROOT; };
 		5A9B93E6C75E7D6969DBF805 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
@@ -99,6 +104,7 @@
 		852B066D8EA46ACFCBD49EC2 /* WhatsNewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewScreen.swift; sourceTree = "<group>"; };
 		864D26DF4D3118C7B9C84E07 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		8832714EDCA6F6B3A98FA917 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		8ECEF9BF5CA0FA298909798F /* CountdownRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownRing.swift; sourceTree = "<group>"; };
 		9105EE5616FE9BD1A3526498 /* TourSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourSheet.swift; sourceTree = "<group>"; };
 		9218D8D46B7BFFBB9E0C5C2E /* Fraunces-Variable.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Fraunces-Variable.ttf"; sourceTree = "<group>"; };
 		92865C7223A9295056A6BDA3 /* AppRelease.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRelease.swift; sourceTree = "<group>"; };
@@ -242,6 +248,7 @@
 		51A281F9C35A5EB5BE804990 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				8ECEF9BF5CA0FA298909798F /* CountdownRing.swift */,
 				96F19A0BA78ADE70EEE74E42 /* FormSections.swift */,
 				D6D6B1CE2328E6D825AD0637 /* Overlays.swift */,
 				ECCBD59B6C35CABF538B31AF /* Surfaces.swift */,
@@ -320,6 +327,8 @@
 			isa = PBXGroup;
 			children = (
 				539F7DF21F3A517F143E13AF /* CompulsionDelayFlow.swift */,
+				4E3688651AC8464EBD096CC3 /* ErpExercisesScreen.swift */,
+				2FA48A24778B4D98882804ED /* ErpPracticeFlow.swift */,
 			);
 			path = Practice;
 			sourceTree = "<group>";
@@ -527,6 +536,9 @@
 				54DF8A1B405443E3F34D7B20 /* AppRelease.swift in Sources */,
 				E6DF390A3684A1D1F0156A16 /* BootstrapFailureView.swift in Sources */,
 				8D76D59CF7F93C08D89348C6 /* CompulsionDelayFlow.swift in Sources */,
+				1FDDD0F4392DCF6D4696DD99 /* CountdownRing.swift in Sources */,
+				6198B1C4BB95773732201395 /* ErpExercisesScreen.swift in Sources */,
+				B0251831399230C62D17F5D3 /* ErpPracticeFlow.swift in Sources */,
 				723DB1DE81D66474B780A582 /* FirstRunResultScreen.swift in Sources */,
 				BD4FA17C5DDFEA40495F5BB8 /* FormSections.swift in Sources */,
 				A35891DAFC303EC52F6F816B /* Formatting.swift in Sources */,
