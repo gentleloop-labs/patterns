@@ -31,6 +31,7 @@
 		6AEFA893BC57BF110ADA0B2D /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D10226571BE65D69C9EA88 /* Strings.swift */; };
 		6E6BE7C431DFEAB2FD83453F /* TourSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9105EE5616FE9BD1A3526498 /* TourSheet.swift */; };
 		723DB1DE81D66474B780A582 /* FirstRunResultScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BE940171DF2A35DBF77B63 /* FirstRunResultScreen.swift */; };
+		7741447480CA0E9ACE13F7CF /* YbocsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF99028C6DCFA95CD6B2D3A6 /* YbocsScreen.swift */; };
 		78E5FA76736F666154C6C058 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 26BFBDD7BA8E3FA55ADF75CF /* PrivacyInfo.xcprivacy */; };
 		79CC27387890DB5EA1CE596F /* app_es.arb in Resources */ = {isa = PBXBuildFile; fileRef = 74A5080E42D9D507F85A86DD /* app_es.arb */; };
 		7D1B4D66FD919A7594F1DC78 /* Fraunces-Variable.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9218D8D46B7BFFBB9E0C5C2E /* Fraunces-Variable.ttf */; };
@@ -133,6 +134,7 @@
 		D8902A086B89E76876E9797F /* JournalScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalScreen.swift; sourceTree = "<group>"; };
 		DC3DAC8ECFA133B743985146 /* Patterns.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Patterns.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE80BF419E9D72E822A74A0E /* TodayScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayScreen.swift; sourceTree = "<group>"; };
+		DF99028C6DCFA95CD6B2D3A6 /* YbocsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YbocsScreen.swift; sourceTree = "<group>"; };
 		E3956FFE7D99CE38E5DDFE59 /* Patterns.storekit */ = {isa = PBXFileReference; path = Patterns.storekit; sourceTree = "<group>"; };
 		E4E6449DA6DAA6A033700FEC /* PurchaseStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseStoreTests.swift; sourceTree = "<group>"; };
 		EAF15B83B11BEF63C3BCF3DF /* app_pt.arb */ = {isa = PBXFileReference; path = app_pt.arb; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 				4E3688651AC8464EBD096CC3 /* ErpExercisesScreen.swift */,
 				2FA48A24778B4D98882804ED /* ErpPracticeFlow.swift */,
 				94598BBBF25094970AA4D702 /* RecoveryHubScreen.swift */,
+				DF99028C6DCFA95CD6B2D3A6 /* YbocsScreen.swift */,
 			);
 			path = Practice;
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				00E1CAE50C3869148397AE90 /* Typography.swift in Sources */,
 				97FE0F9AD6B3FFA8848EB5A9 /* WelcomeScreen.swift in Sources */,
 				09C0CF369FF2F53BB338B27B /* WhatsNewScreen.swift in Sources */,
+				7741447480CA0E9ACE13F7CF /* YbocsScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

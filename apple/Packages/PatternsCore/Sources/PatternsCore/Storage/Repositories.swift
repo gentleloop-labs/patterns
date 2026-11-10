@@ -175,3 +175,26 @@ extension PatternsDatabase {
         }
     }
 }
+
+extension YbocsAssessment {
+    /// `getYbocsAssessments`: newest first.
+    public static func all() -> QueryInterfaceRequest<YbocsAssessment> {
+        YbocsAssessment.order(Column("datetime").desc)
+    }
+}
+
+extension PatternsDatabase {
+    @discardableResult
+    public func insertYbocsAssessment(_ assessment: YbocsAssessment) throws -> YbocsAssessment {
+        try queue.write { db in
+            var assessment = assessment
+            assessment.id = nil
+            try assessment.insert(db)
+            return assessment
+        }
+    }
+
+    public func deleteYbocsAssessment(id: Int64) throws {
+        _ = try queue.write { db in try YbocsAssessment.deleteOne(db, key: id) }
+    }
+}

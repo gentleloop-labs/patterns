@@ -82,12 +82,15 @@ struct ErpExercisesScreen: View {
     var body: some View {
         let strings = model.strings
         List {
+            // An intro paragraph as a header: a row would clip it to the
+            // rounded corners.
             Section {
+            } header: {
                 Text(strings.erpPlanText(key: "subtitle"))
                     .font(.subheadline)
                     .foregroundStyle(Color(.secondaryLabel))
-                    .listRowBackground(Color.clear)
-                    .listRowInsets(EdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4))
+                    .textCase(nil)
+                    .padding(.leading, -4)
             }
             SectionIntroSection(id: "guidedErp")
             plansSection(strings)
