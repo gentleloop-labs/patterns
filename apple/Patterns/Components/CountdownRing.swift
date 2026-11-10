@@ -26,6 +26,8 @@ struct CountdownRing: View {
                     Text(display)
                         .font(.system(size: 60, weight: .light, design: .rounded).monospacedDigit())
                         .contentTransition(.numericText(countsDown: true))
+                        // Explicit, so a list header's grey never applies.
+                        .foregroundStyle(Color(.label))
                     if let caption {
                         Text(caption)
                             .font(.subheadline)
