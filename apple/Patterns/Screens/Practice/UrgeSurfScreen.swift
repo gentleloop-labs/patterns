@@ -42,7 +42,7 @@ struct UrgeSurfScreen: View {
             Button { navigation.push(.urgeSurfFlow(record: true)) } label: {
                 Label(text("startAction"), systemImage: "water.waves").frame(maxWidth: .infinity)
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.accentProminent)
             .controlSize(.large)
             .padding(.horizontal, 20)
             .padding(.vertical, 10)
@@ -145,7 +145,7 @@ struct UrgeSurfFlow: View {
             Button(action: begin) {
                 Text(text("begin")).frame(maxWidth: .infinity)
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.accentProminent)
             .controlSize(.large)
             .padding(.horizontal, 20)
             .padding(.vertical, 10)

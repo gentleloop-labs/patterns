@@ -25,7 +25,7 @@ struct BootstrapFailureView: View {
                 .multilineTextAlignment(.center)
             if case .unreadable = failure {
                 Button("Try again", action: retry)
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(.accentProminent)
                     .controlSize(.large)
             }
             Link("Get help", destination: URL(string: "https://patternsocd.com")!)

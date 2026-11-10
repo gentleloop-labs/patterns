@@ -55,7 +55,7 @@ struct WhatsNewScreen: View {
                 Button(action: onShowHome) {
                     Text(strings.whatsNewExploreAction).frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.accentProminent)
                 .controlSize(.large)
                 Button(strings.continueToPatternsAction, action: onContinue)
                     .padding(.vertical, 6)

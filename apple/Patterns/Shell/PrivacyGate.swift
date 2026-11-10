@@ -128,7 +128,7 @@ private struct PrivacyCover: View {
                 .accessibilityLabel(model.strings.privacyScreenLabel)
             if showUnlock {
                 Button(unlockBusy ? model.strings.unlockingAction : model.strings.unlockAction, action: onUnlock)
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(.accentProminent)
                     .buttonBorderShape(.capsule)
                     .controlSize(.large)
                     .disabled(unlockBusy)

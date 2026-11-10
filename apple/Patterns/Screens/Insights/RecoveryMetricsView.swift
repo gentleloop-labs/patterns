@@ -21,7 +21,7 @@ struct RecoveryMetricsSection: View {
                         .font(.subheadline)
                         .foregroundStyle(Color(.secondaryLabel))
                     Button(strings.recoveryMetricsUnlockPro) { navigation.presentPaywall(.recoveryMetrics) }
-                        .buttonStyle(.borderedProminent)
+                        .buttonStyle(.accentProminent)
                         .buttonBorderShape(.capsule)
                         .padding(.top, 4)
                 }

@@ -92,7 +92,7 @@ struct ErpPracticeFlow: View {
             Button(action: begin) {
                 Text(strings.erpFlowText(key: "start")).frame(maxWidth: .infinity)
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.accentProminent)
             .controlSize(.large)
             .padding(.horizontal, 20)
             .padding(.vertical, 10)

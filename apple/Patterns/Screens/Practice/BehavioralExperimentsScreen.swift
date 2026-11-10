@@ -37,7 +37,7 @@ struct BehavioralExperimentsScreen: View {
                         Text(text("emptyTitle")).font(.headline).accessibilityAddTraits(.isHeader)
                         Text(text("emptyBody")).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
                         Button(text("emptyAction")) { editing = ExperimentEditorItem(existing: nil) }
-                            .buttonStyle(.borderedProminent)
+                            .buttonStyle(.accentProminent)
                             .buttonBorderShape(.capsule)
                             .padding(.top, 6)
                     }

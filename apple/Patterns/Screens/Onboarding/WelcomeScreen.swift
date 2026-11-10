@@ -68,7 +68,7 @@ private struct PromiseView: View {
                 Button(action: onGetStarted) {
                     Text(strings.getStartedAction).frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.accentProminent)
                 .controlSize(.large)
                 Button(strings.importExistingDataAction, action: onImport)
                     .padding(.vertical, 8)

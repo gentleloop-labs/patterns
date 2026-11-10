@@ -36,7 +36,7 @@ struct ExposureHierarchyScreen: View {
                         Text(text("emptyTitle")).font(.headline).accessibilityAddTraits(.isHeader)
                         Text(text("emptyBody")).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
                         Button(text("buildAction")) { building = true }
-                            .buttonStyle(.borderedProminent)
+                            .buttonStyle(.accentProminent)
                             .buttonBorderShape(.capsule)
                             .padding(.top, 6)
                     }

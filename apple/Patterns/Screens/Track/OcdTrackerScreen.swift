@@ -84,7 +84,7 @@ struct OcdTrackerScreen: View {
                         Text(strings.trackerEmptyBody)
                     } actions: {
                         Button(strings.trackerEmptyAction) { navigation.push(.ocdEvent(entryID: nil, type: .obsession)) }
-                            .buttonStyle(.borderedProminent)
+                            .buttonStyle(.accentProminent)
                     }
                     .padding(.top, 140)
                 }

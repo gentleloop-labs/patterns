@@ -50,7 +50,7 @@ struct FirstRunResultScreen: View {
             Button { navigation.returnToNeutralHome() } label: {
                 Text(strings.shellText(key: "goToSpace")).frame(maxWidth: .infinity)
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.accentProminent)
             .controlSize(.large)
             .padding(.top, 10)
         }

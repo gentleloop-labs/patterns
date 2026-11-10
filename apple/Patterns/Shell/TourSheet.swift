@@ -41,7 +41,7 @@ struct TourSheet: View {
                         Button { finish(runCta: true) } label: {
                             Text(cta).frame(maxWidth: .infinity)
                         }
-                        .buttonStyle(.borderedProminent)
+                        .buttonStyle(.accentProminent)
                         .controlSize(.large)
                     } else {
                         Button {
@@ -49,7 +49,7 @@ struct TourSheet: View {
                         } label: {
                             Text(strings.shellText(key: "next")).frame(maxWidth: .infinity)
                         }
-                        .buttonStyle(.borderedProminent)
+                        .buttonStyle(.accentProminent)
                         .controlSize(.large)
                     }
                 }
