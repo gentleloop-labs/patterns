@@ -37,23 +37,3 @@ extension UIColor {
         )
     }
 }
-
-/// Corner radii used across the Flutter theme.
-enum AppRadius {
-    /// Cards and sheets.
-    static let card: CGFloat = 24
-    /// Buttons and text fields.
-    static let control: CGFloat = 18
-}
-
-extension UIColor {
-    /// `Color.alphaBlend(self.withValues(alpha:), background)`.
-    func blended(over background: UIColor, alpha: CGFloat) -> UIColor {
-        var (r1, g1, b1, a1): (CGFloat, CGFloat, CGFloat, CGFloat) = (0, 0, 0, 0)
-        var (r2, g2, b2, a2): (CGFloat, CGFloat, CGFloat, CGFloat) = (0, 0, 0, 0)
-        getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
-        background.getRed(&r2, green: &g2, blue: &b2, alpha: &a2)
-        return UIColor(red: r1 * alpha + r2 * (1 - alpha), green: g1 * alpha + g2 * (1 - alpha),
-                       blue: b1 * alpha + b2 * (1 - alpha), alpha: 1)
-    }
-}

@@ -18,9 +18,9 @@ struct FirstRunResultScreen: View {
             ScrollView {
                 VStack(spacing: 0) {
                     Image(systemName: copy.icon)
-                        .font(.system(size: 30))
+                        .font(.system(size: 34, weight: .medium))
                         .foregroundStyle(AppColors.accent)
-                        .frame(width: 76, height: 76)
+                        .frame(width: 80, height: 80)
                         .background(AppColors.accent.opacity(0.15), in: .circle)
                         .accessibilityHidden(true)
                     Text(copy.headline)
@@ -42,16 +42,22 @@ struct FirstRunResultScreen: View {
             if !reminderSet {
                 Button { pickingTime = true } label: {
                     Label(strings.shellText(key: "setReminder"), systemImage: "bell")
+                        .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(SecondaryButtonStyle(fullWidth: true))
+                .buttonStyle(.bordered)
+                .controlSize(.large)
             }
-            Button(strings.shellText(key: "goToSpace")) { navigation.returnToNeutralHome() }
-                .buttonStyle(PrimaryButtonStyle(fullWidth: true))
-                .padding(.top, 10)
+            Button { navigation.returnToNeutralHome() } label: {
+                Text(strings.shellText(key: "goToSpace")).frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
+            .padding(.top, 10)
         }
         .padding(EdgeInsets(top: 24, leading: 24, bottom: 20, trailing: 24))
         .background(AppColors.surface)
         .toolbar(.hidden, for: .navigationBar)
+        .toolbar(.hidden, for: .tabBar)
         .sheet(isPresented: $pickingTime) {
             ReminderTimePicker(initial: model.reminder.date, title: strings.shellText(key: "reminderPrompt")) { picked in
                 pickingTime = false

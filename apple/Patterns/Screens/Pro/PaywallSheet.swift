@@ -75,6 +75,7 @@ struct PaywallSheet: View {
                 }
             }
         }
+        .overlay(alignment: .top) { ToastHost() }
         .task { await loadProduct() }
         .onChange(of: model.store.backgroundUnlockCount) {
             // An Ask to Buy approval or a purchase finished on another
