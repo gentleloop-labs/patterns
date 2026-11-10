@@ -113,8 +113,7 @@ struct MainShell: View {
         case .journal: JournalScreen()
         case .track: OcdTrackerScreen()
         case .home: TodayScreen()
-        // Until the Practice hub is ported, its tab opens ERP exercises.
-        case .erp: ErpExercisesScreen()
+        case .erp: RecoveryHubScreen()
         default: PlaceholderScreen(title: tab.title(model.strings))
         }
     }
@@ -131,6 +130,7 @@ struct MainShell: View {
         case .exposureHierarchy: PlaceholderScreen(title: model.strings.todayNextHierarchyTitle)
         case .erpExercises: ErpExercisesScreen()
         case .exposureReflection: PlaceholderScreen(title: model.strings.todayNextReflectTitle)
+        case let .recoveryTool(tool): PlaceholderScreen(title: tool.title(model.strings))
         case let .firstRunActivity(path): firstRunActivity(path)
         case let .firstRunResult(path): FirstRunResultScreen(kind: path)
         }
