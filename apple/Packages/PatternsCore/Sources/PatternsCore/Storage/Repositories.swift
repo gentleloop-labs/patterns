@@ -392,3 +392,34 @@ extension PatternsDatabase {
         _ = try queue.write { db in try ImplementationIntention.deleteOne(db, key: id) }
     }
 }
+
+extension BehavioralExperiment {
+    /// `getBehavioralExperiments`: newest first.
+    public static func all() -> QueryInterfaceRequest<BehavioralExperiment> {
+        BehavioralExperiment.order(Column("datetime").desc)
+    }
+}
+
+extension PatternsDatabase {
+    @discardableResult
+    public func insertBehavioralExperiment(_ experiment: BehavioralExperiment) throws -> BehavioralExperiment {
+        try queue.write { db in
+            var experiment = experiment
+            experiment.id = nil
+            try experiment.insert(db)
+            return experiment
+        }
+    }
+
+    /// `updateBehavioralExperiment`: rewrites every column except `id`.
+    public func updateBehavioralExperiment(_ experiment: BehavioralExperiment) throws {
+        guard experiment.id != nil else {
+            throw PersistenceError.recordNotFound(databaseTableName: BehavioralExperiment.databaseTableName, key: [:])
+        }
+        try queue.write { db in try experiment.update(db) }
+    }
+
+    public func deleteBehavioralExperiment(id: Int64) throws {
+        _ = try queue.write { db in try BehavioralExperiment.deleteOne(db, key: id) }
+    }
+}
