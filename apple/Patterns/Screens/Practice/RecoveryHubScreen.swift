@@ -82,6 +82,7 @@ enum RecoveryDestination: String, CaseIterable, Hashable {
         case .uncertaintyTraining: .uncertaintyTraining
         case .actionPlanner: .actionPlanner
         case .implementationIntentions: .implementationIntentions
+        case .behavioralExperiments: .behavioralExperiments
         default: .recoveryTool(self)
         }
     }

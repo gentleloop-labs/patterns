@@ -24,6 +24,15 @@ struct AppDateFormat {
     func time(_ date: Date) -> String { format(date, skeleton: "jm") }
     /// `formatMonthDayTime`: `MMMd` + `jm`.
     func monthDayTime(_ date: Date) -> String { "\(monthDay(date)) \(time(date))" }
+
+    /// `formatWholePercent`: 70 becomes "70%" in the app language.
+    func wholePercent(_ value: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.locale = locale
+        formatter.numberStyle = .percent
+        formatter.maximumFractionDigits = 0
+        return formatter.string(from: NSNumber(value: Double(value) / 100)) ?? "\(value)%"
+    }
 }
 
 extension Strings {
