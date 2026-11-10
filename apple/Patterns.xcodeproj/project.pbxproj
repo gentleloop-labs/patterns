@@ -32,6 +32,7 @@
 		79CC27387890DB5EA1CE596F /* app_es.arb in Resources */ = {isa = PBXBuildFile; fileRef = 74A5080E42D9D507F85A86DD /* app_es.arb */; };
 		7D1B4D66FD919A7594F1DC78 /* Fraunces-Variable.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9218D8D46B7BFFBB9E0C5C2E /* Fraunces-Variable.ttf */; };
 		845EDC0D2AE9DFA3D7FDAF75 /* PurchaseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBA13261333949A1E67920A /* PurchaseStore.swift */; };
+		8D76D59CF7F93C08D89348C6 /* CompulsionDelayFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539F7DF21F3A517F143E13AF /* CompulsionDelayFlow.swift */; };
 		8ED271F9DE3CDBD048F1E5B2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7797A35A3A677FB6C2279A38 /* InfoPlist.strings */; };
 		8F3C8C20227648E6603FC339 /* Reminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C16877156BD676CB093DBE /* Reminders.swift */; };
 		8FD1F5D6E69C7F3542650E63 /* TodayScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE80BF419E9D72E822A74A0E /* TodayScreen.swift */; };
@@ -43,6 +44,7 @@
 		AB45CA1CBB395B693680E0F1 /* ProEntryPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4301AE61884F33B4578561AD /* ProEntryPoint.swift */; };
 		ADA5B7CE5167BFBAFAC45F70 /* TipJarSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1D9B7A70B26D53ADAD4E1 /* TipJarSheet.swift */; };
 		B9D0636FC37F3AF6B7CC9CC4 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9B93E6C75E7D6969DBF805 /* AppColors.swift */; };
+		BD4FA17C5DDFEA40495F5BB8 /* FormSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F19A0BA78ADE70EEE74E42 /* FormSections.swift */; };
 		BE1A1082411CBB43BC3862F4 /* Manrope-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A3092641A860C97C57B80F50 /* Manrope-Bold.ttf */; };
 		C31D71185E829E0975352006 /* Manrope-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 940AFFEBC658717844A87DCF /* Manrope-Regular.ttf */; };
 		C37740F53E1E5A513AF832B7 /* PatternsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF4079B1712B2F651ABABD9 /* PatternsApp.swift */; };
@@ -86,6 +88,7 @@
 		4301AE61884F33B4578561AD /* ProEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProEntryPoint.swift; sourceTree = "<group>"; };
 		44B717ABFD1F24505CBF59A7 /* LiveQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveQuery.swift; sourceTree = "<group>"; };
 		4CD1D9B7A70B26D53ADAD4E1 /* TipJarSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarSheet.swift; sourceTree = "<group>"; };
+		539F7DF21F3A517F143E13AF /* CompulsionDelayFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompulsionDelayFlow.swift; sourceTree = "<group>"; };
 		590AED5E127F54075865EFFC /* PatternsCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PatternsCore; path = Packages/PatternsCore; sourceTree = SOURCE_ROOT; };
 		5A9B93E6C75E7D6969DBF805 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		661D0928067F4A3D279A40FF /* PrivacyGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyGate.swift; sourceTree = "<group>"; };
@@ -101,6 +104,7 @@
 		92865C7223A9295056A6BDA3 /* AppRelease.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRelease.swift; sourceTree = "<group>"; };
 		940AFFEBC658717844A87DCF /* Manrope-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Regular.ttf"; sourceTree = "<group>"; };
 		955878D92E42BFE33692EE4F /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		96F19A0BA78ADE70EEE74E42 /* FormSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSections.swift; sourceTree = "<group>"; };
 		9BE5D4C0AE6ABCB5B6021C4C /* PaywallSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallSheet.swift; sourceTree = "<group>"; };
 		A1EFCC447DD48D7821564A8D /* app_en.arb */ = {isa = PBXFileReference; path = app_en.arb; sourceTree = "<group>"; };
 		A3092641A860C97C57B80F50 /* Manrope-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Bold.ttf"; sourceTree = "<group>"; };
@@ -238,6 +242,7 @@
 		51A281F9C35A5EB5BE804990 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				96F19A0BA78ADE70EEE74E42 /* FormSections.swift */,
 				D6D6B1CE2328E6D825AD0637 /* Overlays.swift */,
 				ECCBD59B6C35CABF538B31AF /* Surfaces.swift */,
 			);
@@ -311,6 +316,14 @@
 			path = Patterns;
 			sourceTree = "<group>";
 		};
+		86AAFD6783E25C520F081BC6 /* Practice */ = {
+			isa = PBXGroup;
+			children = (
+				539F7DF21F3A517F143E13AF /* CompulsionDelayFlow.swift */,
+			);
+			path = Practice;
+			sourceTree = "<group>";
+		};
 		A04A9223A093AE34C19BF6DB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -353,6 +366,7 @@
 			children = (
 				65E7CE592CA40751C8AC6260 /* Journal */,
 				C2F2B150DF4342AF81FF8F22 /* Onboarding */,
+				86AAFD6783E25C520F081BC6 /* Practice */,
 				C5C5934C14AC184B192DBBCF /* Pro */,
 				BC9B352249216539D1125FBE /* Settings */,
 				54462B89AE4E850525FB5AB1 /* Today */,
@@ -512,7 +526,9 @@
 				616BFCE84011999950614E68 /* AppNavigation.swift in Sources */,
 				54DF8A1B405443E3F34D7B20 /* AppRelease.swift in Sources */,
 				E6DF390A3684A1D1F0156A16 /* BootstrapFailureView.swift in Sources */,
+				8D76D59CF7F93C08D89348C6 /* CompulsionDelayFlow.swift in Sources */,
 				723DB1DE81D66474B780A582 /* FirstRunResultScreen.swift in Sources */,
+				BD4FA17C5DDFEA40495F5BB8 /* FormSections.swift in Sources */,
 				A35891DAFC303EC52F6F816B /* Formatting.swift in Sources */,
 				FF9F7E239E3D4241F2760E54 /* JournalEntryEditor.swift in Sources */,
 				01A1B6DB1404EB90D4D3CC6A /* JournalScreen.swift in Sources */,

@@ -228,6 +228,12 @@ extension FlutterPreferences {
         increment(PreferenceKey.ratingMeaningfulActionCount)
     }
 
+    /// `ReviewPromptService.recordUrgePracticeCompleted` and
+    /// `recordErpPracticeCompleted`.
+    public func recordReviewPracticeCompleted() {
+        increment(PreferenceKey.ratingMeaningfulActionCount)
+    }
+
     private func increment(_ key: String) {
         set((int(key) ?? 0) + 1, for: key)
     }

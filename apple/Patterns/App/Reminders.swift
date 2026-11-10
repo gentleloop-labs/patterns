@@ -50,6 +50,32 @@ enum Reminders {
         try await center.add(UNNotificationRequest(identifier: releaseAnnouncementID, content: content, trigger: trigger))
     }
 
+    /// `schedulePracticeTimerCompletion`: tells someone who left the app
+    /// that their practice timer ended. Returns false when nothing was
+    /// scheduled (the end has passed, or notifications are off).
+    @discardableResult
+    static func schedulePracticeTimer(id: String, endsAt: Date, title: String, body: String) async -> Bool {
+        let interval = endsAt.timeIntervalSinceNow
+        guard interval > 0 else { return false }
+        center.removePendingNotificationRequests(withIdentifiers: [id])
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.sound = .default
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: false)
+        do {
+            try await center.add(UNNotificationRequest(identifier: id, content: content, trigger: trigger))
+            return true
+        } catch {
+            return false
+        }
+    }
+
+    static func cancelPracticeTimer(id: String) {
+        center.removePendingNotificationRequests(withIdentifiers: [id])
+        center.removeDeliveredNotifications(withIdentifiers: [id])
+    }
+
     static func cancelReleaseAnnouncement() {
         center.removePendingNotificationRequests(withIdentifiers: [releaseAnnouncementID])
     }
