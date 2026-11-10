@@ -461,3 +461,26 @@ extension PatternsDatabase {
         }
     }
 }
+
+extension ExposureMaterial {
+    /// `getExposureMaterials`: newest first.
+    public static func all() -> QueryInterfaceRequest<ExposureMaterial> {
+        ExposureMaterial.order(Column("created_at").desc)
+    }
+}
+
+extension PatternsDatabase {
+    @discardableResult
+    public func insertExposureMaterial(_ material: ExposureMaterial) throws -> ExposureMaterial {
+        try queue.write { db in
+            var material = material
+            material.id = nil
+            try material.insert(db)
+            return material
+        }
+    }
+
+    public func deleteExposureMaterial(id: Int64) throws {
+        _ = try queue.write { db in try ExposureMaterial.deleteOne(db, key: id) }
+    }
+}

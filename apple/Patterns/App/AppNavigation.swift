@@ -39,6 +39,8 @@ enum Route: Hashable {
     case implementationIntentions
     case behavioralExperiments
     case structuredPrograms
+    /// The materials library; with a step, that step's materials.
+    case exposureMaterials(stepID: Int64?, hierarchyID: Int64?)
     case programDetail(programID: String, enrollmentID: Int64)
     case uncertaintyPractice(exercise: String)
     /// One exposure ladder, by id.

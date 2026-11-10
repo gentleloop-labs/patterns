@@ -324,13 +324,14 @@ private struct HierarchyBuilder: View {
 // MARK: - Climb
 
 /// `ExposureHierarchyDetailScreen`: the steps in order, each with its
-/// status. Linked exposure materials arrive with the materials port.
+/// status and the materials linked to it.
 struct ExposureHierarchyDetail: View {
     let hierarchyID: Int64
     @Environment(AppModel.self) private var model
     @Environment(AppNavigation.self) private var navigation
     @State private var hierarchy: ExposureHierarchy?
     @State private var steps: Loadable<[ExposureStep]> = .loading
+    @State private var materials: Loadable<[ExposureMaterial]> = .loading
 
     var body: some View {
         let strings = model.strings
@@ -354,6 +355,15 @@ struct ExposureHierarchyDetail: View {
             ForEach(Array(items.enumerated()), id: \.element.id) { index, step in
                 Section {
                     ClimbStep(number: index + 1, step: step) { status in update(step, status) }
+                    ForEach((materials.value ?? []).filter { $0.linkedStepId == step.id }, id: \.id) { MaterialRow(material: $0) }
+                    if let stepID = step.id {
+                        Button {
+                            navigation.push(.exposureMaterials(stepID: stepID, hierarchyID: hierarchyID))
+                        } label: {
+                            Label(strings.exposureHierarchyText(key: "materialAction"), systemImage: "plus")
+                                .font(.subheadline.weight(.semibold))
+                        }
+                    }
                 }
                 .listRowBackground(AppColors.card)
             }
@@ -364,6 +374,7 @@ struct ExposureHierarchyDetail: View {
         .task {
             hierarchy = try? model.database.queue.read { try ExposureHierarchy.fetchOne($0, key: hierarchyID) }
         }
+        .liveQuery(model.database, into: $materials) { db in try ExposureMaterial.all().fetchAll(db) }
         .liveQuery(model.database, into: $steps) { [hierarchyID] db in
             try ExposureStep.forHierarchy(hierarchyID).fetchAll(db)
         }
