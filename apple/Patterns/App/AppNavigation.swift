@@ -35,6 +35,7 @@ enum Route: Hashable {
     case urgeSurfFlow(record: Bool)
     case responsePrevention
     case uncertaintyTraining
+    case actionPlanner
     case uncertaintyPractice(exercise: String)
     /// One exposure ladder, by id.
     case exposureHierarchyDetail(id: Int64)

@@ -339,3 +339,33 @@ extension PatternsDatabase {
         }
     }
 }
+
+extension ActionPlan {
+    /// `getActionPlans`: newest first.
+    public static func all() -> QueryInterfaceRequest<ActionPlan> {
+        ActionPlan.order(Column("created_at").desc)
+    }
+}
+
+extension PatternsDatabase {
+    @discardableResult
+    public func insertActionPlan(_ plan: ActionPlan) throws -> ActionPlan {
+        try queue.write { db in
+            var plan = plan
+            plan.id = nil
+            try plan.insert(db)
+            return plan
+        }
+    }
+
+    /// `updateActionPlan` with only the completed flag changed.
+    public func setActionPlanCompleted(id: Int64, _ completed: Bool) throws {
+        try queue.write { db in
+            try db.execute(sql: "UPDATE action_plans SET completed = ? WHERE id = ?", arguments: [completed ? 1 : 0, id])
+        }
+    }
+
+    public func deleteActionPlan(id: Int64) throws {
+        _ = try queue.write { db in try ActionPlan.deleteOne(db, key: id) }
+    }
+}
