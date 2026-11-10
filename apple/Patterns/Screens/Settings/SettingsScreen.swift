@@ -52,7 +52,9 @@ struct SettingsScreen: View {
                 Button { prompt = .export } label: {
                     RowLabel(strings.settingsExportDataTitle, subtitle: strings.settingsExportDataSubtitle, icon: "square.and.arrow.up")
                 }
-                // The PDF report row arrives with the Insights port.
+                Button { sheet = .report } label: {
+                    RowLabel(strings.exportReportTitle, subtitle: strings.exportReportDescription, icon: "doc.richtext")
+                }
                 Button { prompt = .importPrompt } label: {
                     RowLabel(strings.settingsImportDataTitle, subtitle: strings.settingsImportDataSubtitle, icon: "square.and.arrow.down")
                 }
@@ -156,6 +158,7 @@ struct SettingsScreen: View {
             case .paywall: PaywallSheet(entryPoint: .settings)
             case .tipJar: TipJarSheet()
             case .privacy: PrivacySheet(onPolicy: openPrivacyPolicy)
+            case .report: ExportReportSheet()
             }
         }
         .alert(prompt.map { title(for: $0, strings) } ?? "",
@@ -443,7 +446,7 @@ struct SettingsScreen: View {
 // MARK: - Sheets and prompts
 
 private enum SettingsSheet: String, Identifiable {
-    case paywall, tipJar, privacy
+    case paywall, tipJar, privacy, report
     var id: String { rawValue }
 }
 
