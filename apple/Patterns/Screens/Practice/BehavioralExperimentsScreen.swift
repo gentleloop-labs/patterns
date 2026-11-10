@@ -51,7 +51,7 @@ struct BehavioralExperimentsScreen: View {
                     Section {
                         ExperimentRow(experiment: experiment) { editing = ExperimentEditorItem(existing: experiment) }
                             .swipeActions {
-                                Button(text("deleteAction"), systemImage: "trash", role: .destructive) { deleting = experiment }
+                                Button(text("deleteAction"), systemImage: "trash") { deleting = experiment }
                                     .tint(.red)
                             }
                             .contextMenu {

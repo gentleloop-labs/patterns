@@ -65,7 +65,7 @@ struct ResponsePreventionScreen: View {
                     ForEach(items, id: \.id) { log in
                         LogRow(log: log)
                             .swipeActions {
-                                Button(text("deleteAction"), systemImage: "trash", role: .destructive) { deleting = log }
+                                Button(text("deleteAction"), systemImage: "trash") { deleting = log }
                                     .tint(.red)
                             }
                             .contextMenu {

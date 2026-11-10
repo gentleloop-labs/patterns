@@ -151,7 +151,9 @@ private struct OcdEventRow: View {
         if let id = entry.id {
             NavigationLink(value: Route.ocdEvent(entryID: id, type: type)) { row }
                 .swipeActions {
-                    Button(strings.trackerDeleteTooltip, systemImage: "trash", role: .destructive, action: onDelete)
+                    // No destructive role: that would hide the row before the
+                    // confirmation, and keep it hidden after Cancel.
+                    Button(strings.trackerDeleteTooltip, systemImage: "trash", action: onDelete)
                         .tint(.red)
                 }
                 .contextMenu {
