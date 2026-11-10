@@ -130,7 +130,7 @@ struct MainShell: View {
         case .exposureHierarchy: ExposureHierarchyScreen()
         case let .exposureHierarchyDetail(id): ExposureHierarchyDetail(hierarchyID: id)
         case .erpExercises: ErpExercisesScreen()
-        case .exposureReflection: PlaceholderScreen(title: model.strings.todayNextReflectTitle)
+        case .exposureReflection: ExposureReflectionScreen()
         case .emergencyToolkit: EmergencyToolkitScreen()
         case .breathing: BreathingScreen()
         case .copingLibrary: CopingLibraryScreen()

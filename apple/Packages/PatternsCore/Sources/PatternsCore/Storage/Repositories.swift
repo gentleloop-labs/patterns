@@ -274,3 +274,26 @@ extension PatternsDatabase {
         try queue.write { db in try step.update(db) }
     }
 }
+
+extension ExposureReflection {
+    /// `getExposureReflections`: newest first.
+    public static func all() -> QueryInterfaceRequest<ExposureReflection> {
+        ExposureReflection.order(Column("datetime").desc)
+    }
+}
+
+extension PatternsDatabase {
+    @discardableResult
+    public func insertExposureReflection(_ reflection: ExposureReflection) throws -> ExposureReflection {
+        try queue.write { db in
+            var reflection = reflection
+            reflection.id = nil
+            try reflection.insert(db)
+            return reflection
+        }
+    }
+
+    public func deleteExposureReflection(id: Int64) throws {
+        _ = try queue.write { db in try ExposureReflection.deleteOne(db, key: id) }
+    }
+}
