@@ -15,20 +15,48 @@ struct TodayScreen: View {
     @State private var proCardRevision = 0
 
     var body: some View {
+        let strings = model.strings
         let data = snapshot.value ?? ActivitySnapshot()
+        let streak = RecoveryInsights.metrics(data).practiceStreakDays
+        let showStreak = data.hasActivity && !model.calmInsightsEnabled && streak > 0
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
+                Text(strings.todayEncouragement)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
                 if data.hasActivity {
                     established(data)
                 } else {
                     firstRun(data)
                 }
             }
-            .padding(EdgeInsets(top: 18, leading: 20, bottom: 112, trailing: 20))
+            .padding(EdgeInsets(top: 0, leading: 20, bottom: 24, trailing: 20))
         }
-        .clipped()
         .background(AppColors.surface)
+        .navigationTitle(greeting(strings))
+        .toolbar {
+            if showStreak {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Label("\(streak)", systemImage: "flame.fill")
+                        .labelStyle(.titleAndIcon)
+                        .font(.subheadline.weight(.bold))
+                        .foregroundStyle(AppColors.accent)
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel(strings.recoveryMetricsDayStreak(days: streak))
+                }
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(strings.settingsTitle, systemImage: "gearshape") { navigation.push(.settings) }
+            }
+        }
         .liveQuery(model.database, into: $snapshot) { db in try ActivitySnapshot.fetch(db) }
+    }
+
+    private func greeting(_ strings: Strings) -> String {
+        let hour = Calendar.current.component(.hour, from: Date())
+        if hour < 12 { return strings.todayGreetingMorning }
+        if hour < 17 { return strings.todayGreetingAfternoon }
+        return strings.todayGreetingEvening
     }
 
     // MARK: Layouts
@@ -36,11 +64,7 @@ struct TodayScreen: View {
     @ViewBuilder
     private func established(_ data: ActivitySnapshot) -> some View {
         let strings = model.strings
-        let metrics = RecoveryInsights.metrics(data)
         let calm = model.calmInsightsEnabled
-        HomeHeader(streak: metrics.practiceStreakDays, showStreak: !calm && metrics.practiceStreakDays > 0) {
-            navigation.push(.settings)
-        }
         Group {
             if calm {
                 CalmActivityCard(summary: RecoveryInsights.calmInsights(data)) { navigation.select(.insights) }
@@ -93,7 +117,6 @@ struct TodayScreen: View {
     private func firstRun(_ data: ActivitySnapshot) -> some View {
         let strings = model.strings
         let primary = firstRunPrimary(strings)
-        HomeHeader(streak: 0, showStreak: false) { navigation.push(.settings) }
         NextStepCard(copy: primary.copy, action: primary.action)
             .padding(.top, 18)
         HomeSectionHeader(title: strings.todayChooseActivity)
@@ -199,69 +222,6 @@ private extension View {
 private struct UsesLargeText {
     /// Flutter's `_usesLargeText`: text scale of 1.5 or more.
     static func check(_ size: DynamicTypeSize) -> Bool { size >= .accessibility1 }
-}
-
-private struct HomeHeader: View {
-    let streak: Int
-    let showStreak: Bool
-    let onSettings: () -> Void
-    @Environment(AppModel.self) private var model
-    @Environment(\.dynamicTypeSize) private var typeSize
-
-    var body: some View {
-        let strings = model.strings
-        let heading = VStack(alignment: .leading, spacing: 6) {
-            Text(greeting(strings))
-                .font(.sans(23, .black, relativeTo: .title2))
-                .tracking(-0.4)
-                .foregroundStyle(AppColors.accent)
-                .accessibilityAddTraits(.isHeader)
-            Text(strings.todayEncouragement)
-                .font(.sans(14, relativeTo: .callout))
-                .foregroundStyle(AppColors.textSecondary)
-        }
-        let actions = HStack(spacing: 10) {
-            if showStreak {
-                HStack(spacing: 6) {
-                    Image(systemName: "flame.fill").font(.system(size: 16))
-                    Text("\(streak)").font(.sans(14, .black, relativeTo: .callout))
-                }
-                .foregroundStyle(AppColors.accent)
-                .padding(.horizontal, 12)
-                .frame(minHeight: 44)
-                .homeCard(radius: 16)
-                .accessibilityElement(children: .ignore)
-                .accessibilityLabel(strings.recoveryMetricsDayStreak(days: streak))
-            }
-            Button(action: onSettings) {
-                Image(systemName: "gearshape")
-                    .font(.system(size: 17))
-                    .foregroundStyle(AppColors.textSecondary)
-                    .frame(width: 44, height: 44)
-                    .homeCard(radius: 16)
-            }
-            .buttonStyle(PressScaleStyle())
-            .accessibilityLabel(strings.settingsTitle)
-        }
-        if UsesLargeText.check(typeSize) {
-            VStack(alignment: .leading, spacing: 12) {
-                heading
-                actions.frame(maxWidth: .infinity, alignment: .trailing)
-            }
-        } else {
-            HStack(alignment: .top, spacing: 12) {
-                heading.frame(maxWidth: .infinity, alignment: .leading)
-                actions
-            }
-        }
-    }
-
-    private func greeting(_ strings: Strings) -> String {
-        let hour = Calendar.current.component(.hour, from: Date())
-        if hour < 12 { return strings.todayGreetingMorning }
-        if hour < 17 { return strings.todayGreetingAfternoon }
-        return strings.todayGreetingEvening
-    }
 }
 
 private struct CalmActivityCard: View {

@@ -15,7 +15,7 @@ struct ToastView: View {
                     .accessibilityHidden(true)
             }
             Text(toast.message)
-                .font(.custom(AppFont.sans, size: 14, relativeTo: .callout).weight(.semibold))
+                .font(.system(.callout).weight(.semibold))
                 .foregroundStyle(AppColors.textPrimary)
                 .lineSpacing(2)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -234,7 +234,7 @@ struct TextLinkButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.custom(AppFont.sans, size: 14, relativeTo: .callout).weight(.semibold))
+            .font(.system(.callout).weight(.semibold))
             .foregroundStyle(AppColors.accent.opacity(isEnabled ? 1 : 0.45))
             .multilineTextAlignment(.center)
             .padding(.horizontal, 10)

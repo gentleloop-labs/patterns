@@ -11,7 +11,6 @@ struct OcdEventFlow: View {
 
     @Environment(AppModel.self) private var model
     @Environment(AppNavigation.self) private var navigation
-    @Environment(\.dynamicTypeSize) private var typeSize
 
     @State private var existing: OcdEntry?
     @State private var type: OcdType = .obsession
@@ -26,62 +25,39 @@ struct OcdEventFlow: View {
 
     var body: some View {
         let strings = model.strings
-        VStack(spacing: 0) {
-            HStack(spacing: 4) {
-                Button { navigation.pop() } label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 18, weight: .medium))
-                        .foregroundStyle(AppColors.textPrimary)
-                        .frame(width: 44, height: 44)
+        Form {
+            Section {
+                Picker(strings.trackerTypeGroupLabel, selection: $type) {
+                    Text(strings.trackerTypeObsession).tag(OcdType.obsession)
+                    Text(strings.trackerTypeCompulsion).tag(OcdType.compulsion)
                 }
-                .accessibilityLabel(strings.backAction)
-                Text(isEditing ? strings.trackerEditTitle : strings.trackerAddTitle)
-                    .textRole(.titleLarge, weight: .heavy, color: AppColors.textPrimary)
-                    .accessibilityAddTraits(.isHeader)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                .pickerStyle(.segmented)
+                .listRowInsets(EdgeInsets())
+                .listRowBackground(Color.clear)
             }
-            .padding(EdgeInsets(top: 12, leading: 12, bottom: 8, trailing: 16))
-
-            ScrollView {
-                VStack(alignment: .leading, spacing: 0) {
-                    typeToggle(strings)
-                    FlowField(text: $content,
-                              label: type == .obsession ? strings.trackerThoughtLabel : strings.trackerUrgeLabel,
-                              hint: type == .obsession ? strings.trackerThoughtHint : strings.trackerUrgeHint,
-                              minLines: 4)
-                        .padding(.top, 22)
-                    FlowField(text: $action, label: strings.trackerActionLabel, hint: strings.trackerActionHint, minLines: 3)
-                        .padding(.top, 16)
-                    FlowField(text: $response, label: strings.trackerResponseLabel, hint: strings.trackerResponseHint, minLines: 3)
-                        .padding(.top, 16)
-                    DistressCard(value: $distress)
-                        .padding(.top, 22)
-                    Button(saving ? strings.trackerSavingAction : isEditing ? strings.trackerUpdateAction : strings.trackerSaveAction) {
-                        save()
-                    }
-                    .buttonStyle(PrimaryButtonStyle(fullWidth: true))
-                    .disabled(saving || (isEditing && !loaded))
-                    .padding(.top, 28)
-                }
-                .padding(EdgeInsets(top: 10, leading: 20, bottom: 28, trailing: 20))
-            }
-            .scrollDismissesKeyboard(.interactively)
+            FlowField(text: $content,
+                      label: type == .obsession ? strings.trackerThoughtLabel : strings.trackerUrgeLabel,
+                      hint: type == .obsession ? strings.trackerThoughtHint : strings.trackerUrgeHint,
+                      minLines: 4)
+            FlowField(text: $action, label: strings.trackerActionLabel, hint: strings.trackerActionHint, minLines: 3)
+            FlowField(text: $response, label: strings.trackerResponseLabel, hint: strings.trackerResponseHint, minLines: 3)
+            DistressSection(value: $distress)
         }
-        .background(AppColors.surface)
-        .toolbar(.hidden, for: .navigationBar)
+        .appListBackground()
+        .scrollDismissesKeyboard(.interactively)
+        .navigationTitle(isEditing ? strings.trackerEditTitle : strings.trackerAddTitle)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.hidden, for: .tabBar)
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button(saving ? strings.trackerSavingAction : isEditing ? strings.trackerUpdateAction : strings.trackerSaveAction) {
+                    save()
+                }
+                .fontWeight(.semibold)
+                .disabled(saving || (isEditing && !loaded))
+            }
+        }
         .task { load() }
-    }
-
-    private func typeToggle(_ strings: Strings) -> some View {
-        let layout = typeSize >= .xxxLarge ? AnyLayout(VStackLayout(spacing: 0)) : AnyLayout(HStackLayout(spacing: 0))
-        return layout {
-            TrackerChip(label: strings.trackerTypeObsession, selected: type == .obsession) { type = .obsession }
-            TrackerChip(label: strings.trackerTypeCompulsion, selected: type == .compulsion) { type = .compulsion }
-        }
-        .padding(5)
-        .softSurface(radius: 24)
-        .accessibilityElement(children: .contain)
-        .accessibilityLabel(strings.trackerTypeGroupLabel)
     }
 
     private func load() {
@@ -138,67 +114,54 @@ struct OcdEventFlow: View {
     }
 }
 
-/// `_FlowField`: a label above a filled, growing text field.
+/// `_FlowField`: a form section with a growing text field.
 private struct FlowField: View {
     @Binding var text: String
     let label: String
     let hint: String
     let minLines: Int
-    @FocusState private var focused: Bool
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 9) {
-            Text(label)
-                .textRole(.titleSmall, weight: .heavy, color: AppColors.textPrimary)
-                .accessibilityHidden(true)
-            TextField("", text: $text, prompt: Text(hint).foregroundStyle(AppColors.textSecondary.opacity(0.7)), axis: .vertical)
-                .lineLimit(minLines...(minLines + 2))
-                .textRole(.bodyLarge, color: AppColors.textPrimary)
-                .focused($focused)
-                .padding(16)
-                .background(AppColors.input, in: .rect(cornerRadius: 18))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 18)
-                        .strokeBorder(focused ? AppColors.accent : AppColors.border, lineWidth: focused ? 1.5 : 1)
-                )
-                .contentShape(.rect)
-                .onTapGesture { focused = true }
-                .accessibilityLabel(label)
+        Section(label) {
+            TextField(label, text: $text, prompt: Text(hint), axis: .vertical)
+                .lineLimit(minLines...(minLines + 4))
+                .listRowBackground(AppColors.card)
         }
     }
 }
 
 /// `_DistressCard`: a 0 to 10 slider with the value shown in its colour.
-private struct DistressCard: View {
+private struct DistressSection: View {
     @Binding var value: Double
     @Environment(AppModel.self) private var model
 
     var body: some View {
         let strings = model.strings
         let rounded = Int(value.rounded())
-        VStack(alignment: .leading, spacing: 14) {
-            HStack(alignment: .firstTextBaseline, spacing: 12) {
-                Text(strings.trackerDistressLabel)
-                    .textRole(.titleSmall, weight: .heavy, color: AppColors.textPrimary)
-                Text(strings.trackerDistressShortValue(value: rounded))
-                    .font(.custom(AppFont.sans, size: 22, relativeTo: .title2).weight(.black))
-                    .foregroundStyle(distressColor(rounded))
-                    .contentTransition(.numericText(value: value))
-            }
-            .accessibilityHidden(true)
-            Slider(value: $value, in: 0...10, step: 1)
-                .tint(AppColors.accent)
-                .accessibilityLabel(strings.trackerDistressLabel)
-                .accessibilityValue(strings.trackerDistressValue(value: rounded))
-                .accessibilityAdjustableAction { direction in
-                    switch direction {
-                    case .increment: if rounded < 10 { value = Double(rounded + 1) }
-                    case .decrement: if rounded > 0 { value = Double(rounded - 1) }
-                    @unknown default: break
-                    }
+        Section {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack(alignment: .firstTextBaseline) {
+                    Text(strings.trackerDistressLabel)
+                    Spacer()
+                    Text(strings.trackerDistressShortValue(value: rounded))
+                        .font(.title3.weight(.bold).monospacedDigit())
+                        .foregroundStyle(distressColor(rounded))
+                        .contentTransition(.numericText(value: value))
                 }
+                .accessibilityHidden(true)
+                Slider(value: $value, in: 0...10, step: 1)
+                    .accessibilityLabel(strings.trackerDistressLabel)
+                    .accessibilityValue(strings.trackerDistressValue(value: rounded))
+                    .accessibilityAdjustableAction { direction in
+                        switch direction {
+                        case .increment: if rounded < 10 { value = Double(rounded + 1) }
+                        case .decrement: if rounded > 0 { value = Double(rounded - 1) }
+                        @unknown default: break
+                        }
+                    }
+            }
+            .padding(.vertical, 4)
+            .listRowBackground(AppColors.card)
         }
-        .padding(18)
-        .softSurface(radius: 22)
     }
 }

@@ -180,7 +180,7 @@ struct SettingsScreen: View {
             }
             .accessibilityLabel(strings.backAction)
             Text(strings.settingsTitle)
-                .font(.custom(AppFont.sans, size: 28, relativeTo: .title).weight(.heavy))
+                .font(.system(.title).weight(.heavy))
                 .tracking(-0.5)
                 .foregroundStyle(AppColors.textPrimary)
                 .accessibilityAddTraits(.isHeader)
@@ -708,7 +708,7 @@ private struct SettingsLabels: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title).textRole(.titleMedium, weight: .heavy, color: AppColors.textPrimary)
             Text(subtitle)
-                .font(.custom(AppFont.sans, size: 13, relativeTo: .footnote))
+                .font(.system(.footnote))
                 .foregroundStyle(AppColors.textSecondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -737,7 +737,7 @@ private struct AppearancePicker: View {
                 Button { onChange(option) } label: {
                     HStack(spacing: 6) {
                         Image(systemName: icon).font(.system(size: 15)).accessibilityHidden(true)
-                        Text(label).font(.custom(AppFont.sans, size: 14, relativeTo: .callout).weight(.bold))
+                        Text(label).font(.system(.callout).weight(.bold))
                     }
                     .foregroundStyle(selected ? AppColors.onAccent : AppColors.textPrimary)
                     .frame(maxWidth: .infinity, minHeight: 44)
