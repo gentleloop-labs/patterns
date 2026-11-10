@@ -58,6 +58,7 @@
 		BE1A1082411CBB43BC3862F4 /* Manrope-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A3092641A860C97C57B80F50 /* Manrope-Bold.ttf */; };
 		C31D71185E829E0975352006 /* Manrope-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 940AFFEBC658717844A87DCF /* Manrope-Regular.ttf */; };
 		C37740F53E1E5A513AF832B7 /* PatternsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF4079B1712B2F651ABABD9 /* PatternsApp.swift */; };
+		C7BA43B803332CA59B6AF61D /* ImplementationIntentionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890C6CDEC18AACF3EDB66DAA /* ImplementationIntentionsScreen.swift */; };
 		CEE92CE5E7FD61E27EAF7C46 /* Manrope-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4047FD32E3FA75C9BED658AB /* Manrope-Semibold.ttf */; };
 		D65B1288AE34DBF42CBCF966 /* app_ja.arb in Resources */ = {isa = PBXBuildFile; fileRef = CD7947BD48C81F2074A3595A /* app_ja.arb */; };
 		D8A4A87605B9FC79C6F2E151 /* OcdTrackerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B5046B23593A2AC04D8EE /* OcdTrackerScreen.swift */; };
@@ -114,6 +115,7 @@
 		852B066D8EA46ACFCBD49EC2 /* WhatsNewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewScreen.swift; sourceTree = "<group>"; };
 		864D26DF4D3118C7B9C84E07 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		8832714EDCA6F6B3A98FA917 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		890C6CDEC18AACF3EDB66DAA /* ImplementationIntentionsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplementationIntentionsScreen.swift; sourceTree = "<group>"; };
 		8DEDCD3658F16C517CFEEA18 /* EmergencyToolkitScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyToolkitScreen.swift; sourceTree = "<group>"; };
 		8ECEF9BF5CA0FA298909798F /* CountdownRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownRing.swift; sourceTree = "<group>"; };
 		9105EE5616FE9BD1A3526498 /* TourSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourSheet.swift; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 				2FA48A24778B4D98882804ED /* ErpPracticeFlow.swift */,
 				F47E0E5CF57B1837A34371DF /* ExposureHierarchyScreen.swift */,
 				CD937ACC154DD12AD9768555 /* ExposureReflectionScreen.swift */,
+				890C6CDEC18AACF3EDB66DAA /* ImplementationIntentionsScreen.swift */,
 				94598BBBF25094970AA4D702 /* RecoveryHubScreen.swift */,
 				C8FD51A40F54FD817C9ED5AE /* ResponsePreventionScreen.swift */,
 				1B83324665715BED560CBC08 /* UncertaintyTrainingScreen.swift */,
@@ -573,6 +576,7 @@
 				723DB1DE81D66474B780A582 /* FirstRunResultScreen.swift in Sources */,
 				BD4FA17C5DDFEA40495F5BB8 /* FormSections.swift in Sources */,
 				A35891DAFC303EC52F6F816B /* Formatting.swift in Sources */,
+				C7BA43B803332CA59B6AF61D /* ImplementationIntentionsScreen.swift in Sources */,
 				FF9F7E239E3D4241F2760E54 /* JournalEntryEditor.swift in Sources */,
 				01A1B6DB1404EB90D4D3CC6A /* JournalScreen.swift in Sources */,
 				27C5E552EF2AAADD2675B8FA /* LiveQuery.swift in Sources */,

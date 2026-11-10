@@ -369,3 +369,26 @@ extension PatternsDatabase {
         _ = try queue.write { db in try ActionPlan.deleteOne(db, key: id) }
     }
 }
+
+extension ImplementationIntention {
+    /// `getImplementationIntentions`: newest first.
+    public static func all() -> QueryInterfaceRequest<ImplementationIntention> {
+        ImplementationIntention.order(Column("created_at").desc)
+    }
+}
+
+extension PatternsDatabase {
+    @discardableResult
+    public func insertImplementationIntention(_ intention: ImplementationIntention) throws -> ImplementationIntention {
+        try queue.write { db in
+            var intention = intention
+            intention.id = nil
+            try intention.insert(db)
+            return intention
+        }
+    }
+
+    public func deleteImplementationIntention(id: Int64) throws {
+        _ = try queue.write { db in try ImplementationIntention.deleteOne(db, key: id) }
+    }
+}
