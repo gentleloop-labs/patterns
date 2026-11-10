@@ -23,84 +23,47 @@ struct JournalEntryEditor: View {
     var body: some View {
         let strings = model.strings
         VStack(spacing: 0) {
-            header(strings)
-                .padding(EdgeInsets(top: 12, leading: 12, bottom: 8, trailing: 16))
             RichTextEditor(controller: controller, placeholder: strings.journalStartWritingPlaceholder)
                 .accessibilityLabel(strings.journalEditorLabel)
                 .accessibilityHint(strings.journalEditorHint)
-                .padding(EdgeInsets(top: 18, leading: 22, bottom: 22, trailing: 22))
+                .padding(EdgeInsets(top: 8, leading: 20, bottom: 16, trailing: 20))
             formatBar(strings)
         }
         .background(AppColors.surface)
-        .toolbar(.hidden, for: .navigationBar)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.hidden, for: .tabBar)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack(spacing: 0) {
+                    Text(strings.dates.fullDate(date))
+                        .font(.headline)
+                    Text(saving ? strings.journalSavingStatus : saved ? strings.journalSavedStatus : strings.journalUnsavedStatus)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .contentTransition(.opacity)
+                        .animation(.easeOut(duration: 0.18), value: saved)
+                        .accessibilityAddTraits(.updatesFrequently)
+                }
+                .accessibilityElement(children: .combine)
+            }
+            ToolbarItemGroup(placement: .primaryAction) {
+                if existing != nil {
+                    Button(strings.journalClearDayAction, systemImage: "trash") { confirmingClear = true }
+                        .disabled(saving)
+                }
+                Button(strings.journalSaveAction, action: save)
+                    .fontWeight(.semibold)
+                    .disabled(saving || saved)
+            }
+        }
         .liveQuery(model.database, into: $entries) { db in try JournalEntry.all().fetchAll(db) }
         .onChange(of: entries.value?.count, initial: true) { _, _ in loadIfReady() }
-        .bottomPanel(isPresented: $confirmingClear) {
-            ClearJournalDayPanel(date: date) {
-                confirmingClear = false
-            } onClear: {
-                confirmingClear = false
-                clear()
-            }
+        .confirmationDialog(strings.journalClearDayTitle, isPresented: $confirmingClear, titleVisibility: .visible) {
+            Button(strings.journalClearDayAction, role: .destructive, action: clear)
+            Button(strings.journalKeepEntryAction, role: .cancel) {}
+        } message: {
+            Text(strings.journalClearDayBody(date: strings.dates.fullDate(date)))
         }
-    }
-
-    // MARK: Header
-
-    @ViewBuilder
-    private func header(_ strings: Strings) -> some View {
-        let back = Button { navigation.pop() } label: {
-            Image(systemName: "chevron.left")
-                .font(.system(size: 18, weight: .medium))
-                .foregroundStyle(AppColors.textPrimary)
-                .frame(width: 44, height: 44)
-        }
-        .accessibilityLabel(strings.backAction)
-
-        let title = VStack(alignment: .leading, spacing: 2) {
-            Text(strings.dates.fullDate(date))
-                .textRole(.titleMedium, weight: .heavy, color: AppColors.textPrimary)
-            Text(saving ? strings.journalSavingStatus : saved ? strings.journalSavedStatus : strings.journalUnsavedStatus)
-                .font(.custom(AppFont.sans, size: 12, relativeTo: .caption))
-                .foregroundStyle(AppColors.textSecondary)
-                .contentTransition(.opacity)
-                .animation(.easeOut(duration: 0.18), value: saved)
-                .accessibilityAddTraits(.updatesFrequently)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-
-        if typeSize > .xxLarge {
-            VStack(alignment: .trailing, spacing: 4) {
-                HStack(spacing: 4) { back; title }
-                HStack(spacing: 8) { actions(strings) }
-            }
-        } else {
-            HStack(spacing: 4) {
-                back
-                title
-                actions(strings)
-            }
-        }
-    }
-
-    @ViewBuilder
-    private func actions(_ strings: Strings) -> some View {
-        if existing != nil {
-            Button { confirmingClear = true } label: {
-                Image(systemName: "trash")
-                    .font(.system(size: 17))
-                    .foregroundStyle(AppColors.textSecondary)
-                    .frame(width: 44, height: 44)
-            }
-            .disabled(saving)
-            .accessibilityLabel(strings.journalClearDayAction)
-        }
-        Button(strings.journalSaveAction, action: save)
-            .font(.custom(AppFont.sans, size: 14, relativeTo: .callout).weight(.semibold))
-            .foregroundStyle(saving || saved ? AppColors.textSecondary.opacity(0.5) : AppColors.accent)
-            .frame(minWidth: 44, minHeight: 44)
-            .padding(.horizontal, 8)
-            .disabled(saving || saved)
     }
 
     // MARK: Format bar
@@ -121,7 +84,7 @@ struct JournalEntryEditor: View {
             }
         }
         let guidance = Text(strings.journalFormatSelectionHint)
-            .font(.custom(AppFont.sans, size: 11, relativeTo: .caption2))
+            .font(.system(.caption2))
             .foregroundStyle(AppColors.textSecondary)
 
         return Group {
@@ -137,10 +100,9 @@ struct JournalEntryEditor: View {
             }
         }
         .padding(.horizontal, 14)
-        .padding(.vertical, 4)
-        .overlay(alignment: .top) {
-            Rectangle().fill(AppColors.border.opacity(0.6)).frame(height: 1)
-        }
+        .padding(.vertical, 6)
+        .background(.bar)
+        .overlay(alignment: .top) { Divider() }
     }
 
     // MARK: Actions
@@ -189,7 +151,8 @@ struct JournalEntryEditor: View {
     }
 }
 
-/// `_FormatButton`: a 44pt toggle, tinted while its style is active.
+/// A 44pt format toggle, filled like the Notes format buttons and tinted
+/// while its style is active.
 private struct FormatButton<Label: View>: View {
     let label: String
     let hint: String
@@ -200,11 +163,9 @@ private struct FormatButton<Label: View>: View {
     var body: some View {
         Button(action: action) {
             content
-                .foregroundStyle(active ? AppColors.accent : AppColors.textPrimary.opacity(0.75))
+                .foregroundStyle(active ? AppColors.accent : Color.primary)
                 .frame(width: 44, height: 44)
-                .background(active ? AppColors.accent.opacity(0.14) : .clear, in: .rect(cornerRadius: 10))
-                .overlay(RoundedRectangle(cornerRadius: 10)
-                    .strokeBorder(active ? AppColors.accent : AppColors.border.opacity(0.7)))
+                .background(active ? AppColors.accent.opacity(0.16) : Color(.tertiarySystemFill), in: .rect(cornerRadius: 10))
         }
         .buttonStyle(.plain)
         .accessibilityLabel(label)

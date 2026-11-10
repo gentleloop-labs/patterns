@@ -1,8 +1,8 @@
 import SwiftUI
 
-/// The Flutter mobile text theme (`AppTheme._buildMobileTextTheme`): Fraunces
-/// for display and headline roles, Manrope for everything else. Sizes scale
-/// with Dynamic Type relative to the closest system style.
+/// Text roles named after Flutter's text theme. Display roles keep the
+/// Fraunces serif as the brand voice for big headlines; everything else is
+/// the system font at the matching Dynamic Type style, as native apps use.
 enum AppFont {
     static let display = "Fraunces"
     static let sans = "Manrope"
@@ -60,10 +60,16 @@ private struct TextRoleModifier: ViewModifier {
     @ViewBuilder
     func body(content: Content) -> some View {
         let spec = role.spec
-        let styled = content
-            .font(.custom(spec.family, fixedSize: size).weight(weight ?? spec.weight))
-            .tracking(spec.tracking)
-            .lineSpacing(max(0, size * (spec.lineHeight - 1.2)))
+        let styled = Group {
+            if spec.family == AppFont.display {
+                content
+                    .font(.custom(spec.family, fixedSize: size).weight(weight ?? spec.weight))
+                    .tracking(spec.tracking)
+                    .lineSpacing(max(0, size * (spec.lineHeight - 1.2)))
+            } else {
+                content.font(.system(spec.relativeTo, weight: weight ?? spec.weight))
+            }
+        }
         if let color {
             styled.foregroundStyle(color)
         } else {

@@ -8,7 +8,7 @@ struct PrimaryButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.custom(AppFont.sans, size: 15, relativeTo: .body).weight(.bold))
+            .font(.system(.body).weight(.bold))
             .tracking(-0.1)
             .foregroundStyle(AppColors.onAccent)
             .padding(.horizontal, 22)
@@ -27,7 +27,7 @@ struct SecondaryButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.custom(AppFont.sans, size: 15, relativeTo: .body).weight(.bold))
+            .font(.system(.body).weight(.bold))
             .tracking(-0.1)
             .foregroundStyle(AppColors.textPrimary.opacity(isEnabled ? 1 : 0.45))
             .padding(.horizontal, 22)
@@ -65,7 +65,7 @@ struct CompactPrimaryButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.custom(AppFont.sans, size: 15, relativeTo: .body).weight(.bold))
+            .font(.system(.body).weight(.bold))
             .foregroundStyle(AppColors.onAccent)
             .multilineTextAlignment(.center)
             .padding(.horizontal, horizontalPadding)
@@ -79,8 +79,9 @@ struct CompactPrimaryButtonStyle: ButtonStyle {
 }
 
 extension Font {
-    /// Manrope at a Flutter point size, scaling with Dynamic Type.
+    /// The system font at a Dynamic Type style. `size` is the old Flutter
+    /// point size, kept at call sites for reference; the text style decides.
     static func sans(_ size: CGFloat, _ weight: Font.Weight = .regular, relativeTo style: Font.TextStyle = .body) -> Font {
-        .custom(AppFont.sans, size: size, relativeTo: style).weight(weight)
+        .system(style, weight: weight)
     }
 }

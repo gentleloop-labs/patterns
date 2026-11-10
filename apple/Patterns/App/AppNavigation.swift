@@ -9,8 +9,7 @@ enum AppTab: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 }
 
-/// Full-screen pages pushed over the tabs, as Flutter's `MaterialPageRoute`
-/// pushes cover the floating tab bar.
+/// Pages pushed onto a tab's navigation stack.
 enum Route: Hashable {
     /// A journal day, by its stored `yyyy-MM-dd` key.
     case journalEntry(day: String)
@@ -63,7 +62,13 @@ struct Toast: Equatable, Identifiable {
 @Observable
 final class AppNavigation {
     var selectedTab: AppTab
-    var path: [Route] = []
+    /// Each tab keeps its own stack, as native tab apps do.
+    var paths: [AppTab: [Route]] = [:]
+    /// The selected tab's stack.
+    var path: [Route] {
+        get { paths[selectedTab] ?? [] }
+        set { paths[selectedTab] = newValue }
+    }
     private(set) var toast: Toast?
     var completion: CompletionKind?
     var dialog: AppDialog?
@@ -98,7 +103,7 @@ final class AppNavigation {
 
     /// `returnToNeutralHome`: closes every pushed page and selects Today.
     func returnToNeutralHome() {
-        path.removeAll()
+        paths.removeAll()
         select(.home)
     }
 

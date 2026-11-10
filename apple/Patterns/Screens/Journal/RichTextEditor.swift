@@ -335,17 +335,17 @@ final class RichEditorController {
     }
 
     static func style(traits: UITraitCollection) -> Style {
-        // Flutter: Manrope 19, height 1.65, onSurface.
+        // The system body font, a little larger for writing, with roomy lines.
         let metrics = UIFontMetrics(forTextStyle: .body)
-        let size = metrics.scaledValue(for: 19, compatibleWith: traits)
-        let regular = UIFont(name: "Manrope-Regular", size: size) ?? .systemFont(ofSize: size)
-        let bold = UIFont(name: "Manrope-Bold", size: size) ?? .boldSystemFont(ofSize: size)
-        return Style(regular: regular, bold: bold, lineHeight: (size * 1.65).rounded(), color: UIColor(AppColors.textPrimary))
+        let size = metrics.scaledValue(for: 18, compatibleWith: traits)
+        let regular = UIFont.systemFont(ofSize: size)
+        let bold = UIFont.systemFont(ofSize: size, weight: .bold)
+        return Style(regular: regular, bold: bold, lineHeight: (size * 1.5).rounded(), color: UIColor(AppColors.textPrimary))
     }
 
     static func applyInlineVisuals(to attrs: inout [NSAttributedString.Key: Any], inline: JSONValue?, style: Style) {
         attrs[.font] = inline?["bold"] == .bool(true) ? style.bold : style.regular
-        // Manrope has no italic face; Flutter synthesizes a slant too.
+        // Italic is drawn as a slant so bold and italic combine freely.
         attrs[.obliqueness] = inline?["italic"] == .bool(true) ? 0.2 : 0
         attrs[.foregroundColor] = style.color
         attrs[.baselineOffset] = style.baselineOffset
@@ -506,7 +506,7 @@ struct RichTextEditor: UIViewRepresentable {
             else { return NSTextLayoutFragment(textElement: textElement, range: textElement.elementRange) }
             let fragment = BulletLayoutFragment(textElement: textElement, range: textElement.elementRange)
             if let font = paragraph.attributedString.attribute(.font, at: 0, effectiveRange: nil) as? UIFont {
-                fragment.font = font.fontName.contains("Bold") ? UIFont(name: "Manrope-Regular", size: font.pointSize) ?? font : font
+                fragment.font = .systemFont(ofSize: font.pointSize)
             }
             fragment.color = UIColor(AppColors.textPrimary)
             fragment.baselineOffset = paragraph.attributedString.attribute(.baselineOffset, at: 0, effectiveRange: nil) as? CGFloat ?? 0
