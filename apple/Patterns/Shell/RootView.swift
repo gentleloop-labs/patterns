@@ -133,6 +133,8 @@ struct MainShell: View {
         case .emergencyToolkit: EmergencyToolkitScreen()
         case .breathing: BreathingScreen()
         case .copingLibrary: CopingLibraryScreen()
+        case .urgeSurf: UrgeSurfScreen()
+        case let .urgeSurfFlow(record): UrgeSurfFlow(record: record)
         case let .recoveryTool(tool): PlaceholderScreen(title: tool.title(model.strings))
         case let .firstRunActivity(path): firstRunActivity(path)
         case let .firstRunResult(path): FirstRunResultScreen(kind: path)

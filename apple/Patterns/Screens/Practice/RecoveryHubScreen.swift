@@ -77,6 +77,7 @@ enum RecoveryDestination: String, CaseIterable, Hashable {
         case .reflectionJournal: .exposureReflection
         case .emergencyToolkit: .emergencyToolkit
         case .copingLibrary: .copingLibrary
+        case .urgeSurfing: .urgeSurf
         default: .recoveryTool(self)
         }
     }

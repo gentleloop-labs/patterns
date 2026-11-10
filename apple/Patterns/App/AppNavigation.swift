@@ -29,6 +29,10 @@ enum Route: Hashable {
     case emergencyToolkit
     case breathing
     case copingLibrary
+    /// `UrgeSurfScreen` (Pro) and `UrgeSurfFlow`; the flow records only
+    /// when opened from the Pro screen.
+    case urgeSurf
+    case urgeSurfFlow(record: Bool)
     /// A Practice hub tool not ported yet; opens a placeholder.
     case recoveryTool(RecoveryDestination)
     /// The activity a new user picked on the welcome screen.
