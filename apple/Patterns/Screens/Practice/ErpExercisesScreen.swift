@@ -134,7 +134,7 @@ struct ErpExercisesScreen: View {
                         .font(.subheadline)
                         .foregroundStyle(Color(.secondaryLabel))
                     Button(strings.erpPlanText(key: "createAction")) { editing = PlanEditorItem(plan: nil) }
-                        .buttonStyle(.borderedProminent)
+                        .buttonStyle(.accentProminent)
                         .buttonBorderShape(.capsule)
                         .padding(.top, 6)
                 }

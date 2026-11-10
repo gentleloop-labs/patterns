@@ -124,7 +124,7 @@ struct CompulsionDelayFlow: View {
             Button(action: begin) {
                 Text(strings.delayBeginAction).frame(maxWidth: .infinity)
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.accentProminent)
             .controlSize(.large)
             .padding(.horizontal, 20)
             .padding(.vertical, 10)

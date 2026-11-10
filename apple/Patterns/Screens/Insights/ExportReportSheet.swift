@@ -99,11 +99,11 @@ struct ExportReportSheet: View {
                     generate(data, filter: filter)
                 } label: {
                     Group {
-                        if generating { ProgressView() } else { Text(strings.exportSavePdf) }
+                        if generating { ProgressView().tint(AppColors.onAccent) } else { Text(strings.exportSavePdf) }
                     }
                     .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.accentProminent)
                 .controlSize(.large)
                 .disabled(data == nil || !sections.hasAny || !hasContent || generating)
                 .padding(.horizontal, 20)

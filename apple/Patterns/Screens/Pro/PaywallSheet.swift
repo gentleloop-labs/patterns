@@ -109,7 +109,7 @@ struct PaywallSheet: View {
                 Button { Task { await buy() } } label: {
                     Group {
                         if purchaseInFlight {
-                            ProgressView()
+                            ProgressView().tint(AppColors.onAccent)
                         } else {
                             Text(product.map { strings.proPaywallUnlockWithPrice(price: $0.displayPrice) }
                                 ?? strings.proPaywallUnlockAction)
@@ -117,7 +117,7 @@ struct PaywallSheet: View {
                     }
                     .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.accentProminent)
                 .controlSize(.large)
                 .disabled(purchaseInFlight)
                 Button(strings.proPaywallRestorePurchasesAction) { Task { await restore() } }

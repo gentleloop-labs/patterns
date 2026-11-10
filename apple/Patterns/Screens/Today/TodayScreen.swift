@@ -488,7 +488,7 @@ private struct NextStepRow: View {
                 .font(.subheadline)
                 .foregroundStyle(Color(.secondaryLabel))
             Button(copy.cta, action: action)
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.accentProminent)
                 .buttonBorderShape(.capsule)
                 .padding(.top, 10)
                 // The whole row is the button for VoiceOver.
@@ -592,7 +592,7 @@ private struct ContinuePracticeRow: View {
             .padding(.top, 10)
         }
         let action = Button(session == nil ? strings.todayStartAction : strings.todayResumeAction, action: onResume)
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.accentProminent)
             .buttonBorderShape(.capsule)
 
         Group {

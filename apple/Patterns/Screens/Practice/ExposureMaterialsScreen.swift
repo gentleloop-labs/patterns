@@ -62,7 +62,7 @@ struct ExposureMaterialsScreen: View {
                         addMenu(strings) {
                             Text(text("addAction"))
                         }
-                        .buttonStyle(.borderedProminent)
+                        .buttonStyle(.accentProminent)
                         .buttonBorderShape(.capsule)
                         .padding(.top, 6)
                     }
@@ -391,7 +391,7 @@ private struct MaterialEditor: View {
                     Button { recorder.stop() } label: {
                         Label(text("stop"), systemImage: "stop.fill").frame(maxWidth: .infinity)
                     }
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(.accentProminent)
                 } else if let url = recorder.url {
                     LoopTapePlayer(url: url)
                     Button { Task { await startRecording() } } label: {
@@ -403,7 +403,7 @@ private struct MaterialEditor: View {
                     Button { Task { await startRecording() } } label: {
                         Label(text("record"), systemImage: "record.circle").frame(maxWidth: .infinity)
                     }
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(.accentProminent)
                 }
             }
             .listRowBackground(AppColors.card)

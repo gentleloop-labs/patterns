@@ -70,7 +70,7 @@ struct CompletionSheet: View {
             Button(action: onDone) {
                 Text(strings.doneForNowAction).frame(maxWidth: .infinity)
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.accentProminent)
             .controlSize(.large)
             .padding(.top, 24)
         }

@@ -77,7 +77,7 @@ struct YbocsScreen: View {
                 Button { taking = true } label: {
                     Text(strings.ybocsText(key: past.isEmpty ? "begin" : "retakeAction")).frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.accentProminent)
                 .controlSize(.large)
                 Text(strings.ybocsText(key: "privacyDuration"))
                     .font(.caption)
@@ -290,7 +290,7 @@ private struct YbocsChecklist: View {
             Button(action: onContinue) {
                 Text(strings.ybocsSelectedCount(count: draft.symptoms.count)).frame(maxWidth: .infinity)
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.accentProminent)
             .controlSize(.large)
             .padding(.horizontal, 20)
             .padding(.vertical, 10)
@@ -408,7 +408,7 @@ private struct YbocsQuestionPage: View {
             Button(action: onNext) {
                 Text(strings.ybocsText(key: isLast ? "seeResults" : "next")).frame(maxWidth: .infinity)
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.accentProminent)
             .controlSize(.large)
             .disabled(draft.answers[index] == nil)
             .padding(.horizontal, 20)
@@ -513,7 +513,7 @@ private struct YbocsResults: View {
                     Text(strings.ybocsText(key: draft.saving ? "saving" : draft.saved ? "saved" : "saveHistory"))
                         .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.accentProminent)
                 .disabled(draft.saved || draft.saving)
             }
             .controlSize(.large)
