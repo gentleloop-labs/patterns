@@ -33,6 +33,7 @@ enum Route: Hashable {
     /// when opened from the Pro screen.
     case urgeSurf
     case urgeSurfFlow(record: Bool)
+    case responsePrevention
     /// One exposure ladder, by id.
     case exposureHierarchyDetail(id: Int64)
     /// A Practice hub tool not ported yet; opens a placeholder.

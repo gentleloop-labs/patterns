@@ -48,6 +48,7 @@
 		97FE0F9AD6B3FFA8848EB5A9 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F731F782028A167C44190AC9 /* WelcomeScreen.swift */; };
 		A35891DAFC303EC52F6F816B /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27905171586DBED956C48D1E /* Formatting.swift */; };
 		A362C0E98285949099AF40CC /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4CE0871D7D8A67865649224 /* SettingsScreen.swift */; };
+		A6505651674FFEC1AB54E483 /* ResponsePreventionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FD51A40F54FD817C9ED5AE /* ResponsePreventionScreen.swift */; };
 		AB45CA1CBB395B693680E0F1 /* ProEntryPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4301AE61884F33B4578561AD /* ProEntryPoint.swift */; };
 		ADA5B7CE5167BFBAFAC45F70 /* TipJarSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1D9B7A70B26D53ADAD4E1 /* TipJarSheet.swift */; };
 		B0251831399230C62D17F5D3 /* ErpPracticeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA48A24778B4D98882804ED /* ErpPracticeFlow.swift */; };
@@ -133,6 +134,7 @@
 		C4380C83508D9F9F99520190 /* Manrope-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Medium.ttf"; sourceTree = "<group>"; };
 		C615FF7C1EEA187649CCB739 /* Strings+Generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Strings+Generated.swift"; sourceTree = "<group>"; };
 		C8C16877156BD676CB093DBE /* Reminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminders.swift; sourceTree = "<group>"; };
+		C8FD51A40F54FD817C9ED5AE /* ResponsePreventionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponsePreventionScreen.swift; sourceTree = "<group>"; };
 		CD7947BD48C81F2074A3595A /* app_ja.arb */ = {isa = PBXFileReference; path = app_ja.arb; sourceTree = "<group>"; };
 		CD937ACC154DD12AD9768555 /* ExposureReflectionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureReflectionScreen.swift; sourceTree = "<group>"; };
 		D3800B0E62222D354D234CA0 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 				F47E0E5CF57B1837A34371DF /* ExposureHierarchyScreen.swift */,
 				CD937ACC154DD12AD9768555 /* ExposureReflectionScreen.swift */,
 				94598BBBF25094970AA4D702 /* RecoveryHubScreen.swift */,
+				C8FD51A40F54FD817C9ED5AE /* ResponsePreventionScreen.swift */,
 				E139512B476BC27347B51B79 /* UrgeSurfScreen.swift */,
 				DF99028C6DCFA95CD6B2D3A6 /* YbocsScreen.swift */,
 			);
@@ -576,6 +579,7 @@
 				845EDC0D2AE9DFA3D7FDAF75 /* PurchaseStore.swift in Sources */,
 				44D970C75B9A90A5A00B17DA /* RecoveryHubScreen.swift in Sources */,
 				8F3C8C20227648E6603FC339 /* Reminders.swift in Sources */,
+				A6505651674FFEC1AB54E483 /* ResponsePreventionScreen.swift in Sources */,
 				944B044649CF198B5311B163 /* RichTextEditor.swift in Sources */,
 				FFE5DB862EA166BC5F791DED /* RootView.swift in Sources */,
 				A362C0E98285949099AF40CC /* SettingsScreen.swift in Sources */,
