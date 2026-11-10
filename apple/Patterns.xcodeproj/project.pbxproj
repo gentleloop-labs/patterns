@@ -68,6 +68,7 @@
 		DFD619E01BB2C6B56ECE96A4 /* ExposureReflectionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD937ACC154DD12AD9768555 /* ExposureReflectionScreen.swift */; };
 		E052D083D8FB179B955E3641 /* AppBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36014D42BDD96B61BC861A /* AppBootstrap.swift */; };
 		E6DF390A3684A1D1F0156A16 /* BootstrapFailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209719E14F36231CCC89044E /* BootstrapFailureView.swift */; };
+		E7F7E344F4CE3051E81B9435 /* ExposureMaterialsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FB148B70EBAF9E8505EB60 /* ExposureMaterialsScreen.swift */; };
 		F055777E26F2618039C07C94 /* app_en.arb in Resources */ = {isa = PBXBuildFile; fileRef = A1EFCC447DD48D7821564A8D /* app_en.arb */; };
 		F1C06D7FA9C6B2103FF7D362 /* PrivacyGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661D0928067F4A3D279A40FF /* PrivacyGate.swift */; };
 		F31165EB84E4ABE286BA42F2 /* PaywallSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5D4C0AE6ABCB5B6021C4C /* PaywallSheet.swift */; };
@@ -120,6 +121,7 @@
 		890C6CDEC18AACF3EDB66DAA /* ImplementationIntentionsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplementationIntentionsScreen.swift; sourceTree = "<group>"; };
 		8DEDCD3658F16C517CFEEA18 /* EmergencyToolkitScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyToolkitScreen.swift; sourceTree = "<group>"; };
 		8ECEF9BF5CA0FA298909798F /* CountdownRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownRing.swift; sourceTree = "<group>"; };
+		90FB148B70EBAF9E8505EB60 /* ExposureMaterialsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureMaterialsScreen.swift; sourceTree = "<group>"; };
 		9105EE5616FE9BD1A3526498 /* TourSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourSheet.swift; sourceTree = "<group>"; };
 		9218D8D46B7BFFBB9E0C5C2E /* Fraunces-Variable.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Fraunces-Variable.ttf"; sourceTree = "<group>"; };
 		92865C7223A9295056A6BDA3 /* AppRelease.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRelease.swift; sourceTree = "<group>"; };
@@ -357,6 +359,7 @@
 				4E3688651AC8464EBD096CC3 /* ErpExercisesScreen.swift */,
 				2FA48A24778B4D98882804ED /* ErpPracticeFlow.swift */,
 				F47E0E5CF57B1837A34371DF /* ExposureHierarchyScreen.swift */,
+				90FB148B70EBAF9E8505EB60 /* ExposureMaterialsScreen.swift */,
 				CD937ACC154DD12AD9768555 /* ExposureReflectionScreen.swift */,
 				890C6CDEC18AACF3EDB66DAA /* ImplementationIntentionsScreen.swift */,
 				94598BBBF25094970AA4D702 /* RecoveryHubScreen.swift */,
@@ -579,6 +582,7 @@
 				6198B1C4BB95773732201395 /* ErpExercisesScreen.swift in Sources */,
 				B0251831399230C62D17F5D3 /* ErpPracticeFlow.swift in Sources */,
 				95192B4477EE928DBF67AFBA /* ExposureHierarchyScreen.swift in Sources */,
+				E7F7E344F4CE3051E81B9435 /* ExposureMaterialsScreen.swift in Sources */,
 				DFD619E01BB2C6B56ECE96A4 /* ExposureReflectionScreen.swift in Sources */,
 				723DB1DE81D66474B780A582 /* FirstRunResultScreen.swift in Sources */,
 				BD4FA17C5DDFEA40495F5BB8 /* FormSections.swift in Sources */,

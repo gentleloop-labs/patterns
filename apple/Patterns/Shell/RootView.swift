@@ -141,6 +141,8 @@ struct MainShell: View {
         case .implementationIntentions: ImplementationIntentionsScreen()
         case .behavioralExperiments: BehavioralExperimentsScreen()
         case .structuredPrograms: StructuredProgramsScreen()
+        case let .exposureMaterials(stepID, hierarchyID):
+            ExposureMaterialsScreen(linkedStepID: stepID, linkedHierarchyID: hierarchyID)
         case let .programDetail(programID, enrollmentID): ProgramDetailScreen(programID: programID, enrollmentID: enrollmentID)
         case let .uncertaintyPractice(exercise): UncertaintyPracticeScreen(exercise: exercise)
         case let .urgeSurfFlow(record): UrgeSurfFlow(record: record)
