@@ -53,7 +53,7 @@ Information is useful when it informs a reasonable decision. But if the task has
 
 That does not mean facts are unimportant, or that a person should ignore genuine safety instructions. It means the *function* of an action matters. Is a check proportionate to the situation and followed by moving on? Or is it repeated to reach a feeling of absolute certainty that never quite lasts? An OCD-informed clinician can help distinguish those cases in context.
 
-Trying to prove that a particular thought is “definitely OCD” can become another version of the same search. If this question keeps looping, our guide to [what happens during an OCD assessment](/blog/what-happens-during-an-ocd-assessment) explains how a professional evaluates the wider picture.
+Trying to prove that a particular thought is “definitely OCD” can become another version of the same search. Our guide to [doubting whether you have OCD](/blog/doubting-you-have-ocd) looks at this specific loop. If you need a clinical answer, [what happens during an OCD assessment](/blog/what-happens-during-an-ocd-assessment) explains how a professional evaluates the wider picture.
 
 ## How ERP approaches uncertainty
 
