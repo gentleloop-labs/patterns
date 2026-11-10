@@ -60,6 +60,7 @@
 		D65B1288AE34DBF42CBCF966 /* app_ja.arb in Resources */ = {isa = PBXBuildFile; fileRef = CD7947BD48C81F2074A3595A /* app_ja.arb */; };
 		D8A4A87605B9FC79C6F2E151 /* OcdTrackerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B5046B23593A2AC04D8EE /* OcdTrackerScreen.swift */; };
 		DCDA9970BEFA74882DFA0F69 /* StringsBundleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54C15B9184654102BEBDF20 /* StringsBundleTests.swift */; };
+		DFD619E01BB2C6B56ECE96A4 /* ExposureReflectionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD937ACC154DD12AD9768555 /* ExposureReflectionScreen.swift */; };
 		E052D083D8FB179B955E3641 /* AppBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36014D42BDD96B61BC861A /* AppBootstrap.swift */; };
 		E6DF390A3684A1D1F0156A16 /* BootstrapFailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209719E14F36231CCC89044E /* BootstrapFailureView.swift */; };
 		F055777E26F2618039C07C94 /* app_en.arb in Resources */ = {isa = PBXBuildFile; fileRef = A1EFCC447DD48D7821564A8D /* app_en.arb */; };
@@ -133,6 +134,7 @@
 		C615FF7C1EEA187649CCB739 /* Strings+Generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Strings+Generated.swift"; sourceTree = "<group>"; };
 		C8C16877156BD676CB093DBE /* Reminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminders.swift; sourceTree = "<group>"; };
 		CD7947BD48C81F2074A3595A /* app_ja.arb */ = {isa = PBXFileReference; path = app_ja.arb; sourceTree = "<group>"; };
+		CD937ACC154DD12AD9768555 /* ExposureReflectionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureReflectionScreen.swift; sourceTree = "<group>"; };
 		D3800B0E62222D354D234CA0 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D6D6B1CE2328E6D825AD0637 /* Overlays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlays.swift; sourceTree = "<group>"; };
 		D8902A086B89E76876E9797F /* JournalScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalScreen.swift; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 				4E3688651AC8464EBD096CC3 /* ErpExercisesScreen.swift */,
 				2FA48A24778B4D98882804ED /* ErpPracticeFlow.swift */,
 				F47E0E5CF57B1837A34371DF /* ExposureHierarchyScreen.swift */,
+				CD937ACC154DD12AD9768555 /* ExposureReflectionScreen.swift */,
 				94598BBBF25094970AA4D702 /* RecoveryHubScreen.swift */,
 				E139512B476BC27347B51B79 /* UrgeSurfScreen.swift */,
 				DF99028C6DCFA95CD6B2D3A6 /* YbocsScreen.swift */,
@@ -556,6 +559,7 @@
 				6198B1C4BB95773732201395 /* ErpExercisesScreen.swift in Sources */,
 				B0251831399230C62D17F5D3 /* ErpPracticeFlow.swift in Sources */,
 				95192B4477EE928DBF67AFBA /* ExposureHierarchyScreen.swift in Sources */,
+				DFD619E01BB2C6B56ECE96A4 /* ExposureReflectionScreen.swift in Sources */,
 				723DB1DE81D66474B780A582 /* FirstRunResultScreen.swift in Sources */,
 				BD4FA17C5DDFEA40495F5BB8 /* FormSections.swift in Sources */,
 				A35891DAFC303EC52F6F816B /* Formatting.swift in Sources */,
