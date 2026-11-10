@@ -24,7 +24,18 @@ extension PatternsRecord {
 // MARK: - Enums (stored as Dart `.index`)
 
 public enum OcdType: Int, Sendable, CaseIterable { case obsession, compulsion }
-public enum DelayOutcome: Int, Sendable, CaseIterable { case resisted, delayed, performed }
+public enum DelayOutcome: Int, Sendable, CaseIterable {
+    case resisted, delayed, performed
+
+    /// The Dart enum name, used to pick localized copy.
+    public var wireName: String {
+        switch self {
+        case .resisted: "resisted"
+        case .delayed: "delayed"
+        case .performed: "performed"
+        }
+    }
+}
 public enum ExposureStepStatus: Int, Sendable, CaseIterable { case notStarted, inProgress, completed }
 public enum ResponseOutcome: Int, Sendable, CaseIterable { case resisted, delayed, partial, performed }
 public enum ExperimentStatus: Int, Sendable, CaseIterable { case planned, completed }

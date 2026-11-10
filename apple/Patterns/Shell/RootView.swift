@@ -122,7 +122,7 @@ struct MainShell: View {
         switch route {
         case let .journalEntry(day): JournalEntryEditor(day: day).id(day)
         case let .ocdEvent(entryID, type): OcdEventFlow(entryID: entryID, initialType: type)
-        case .compulsionDelay: PlaceholderScreen(title: model.strings.trackerPauseUrgeAction)
+        case .compulsionDelay: CompulsionDelayFlow()
         case .settings: SettingsScreen()
         case .selfCheck: PlaceholderScreen(title: model.strings.todaySelfCheckTitle)
         case .exposureHierarchy: PlaceholderScreen(title: model.strings.todayNextHierarchyTitle)
@@ -139,7 +139,7 @@ struct MainShell: View {
     private func firstRunActivity(_ path: FirstRunPath) -> some View {
         switch path {
         case .journal: OcdEventFlow(entryID: nil, initialType: .obsession, firstRun: true)
-        case .urge: PlaceholderScreen(title: model.strings.todayDelayUrgeTitle)
+        case .urge: CompulsionDelayFlow(firstRun: true)
         case .erp: PlaceholderScreen(title: model.strings.todayPracticeErpTitle)
         case .selfcheck: PlaceholderScreen(title: model.strings.todaySelfCheckTitle)
         case .explore: EmptyView()

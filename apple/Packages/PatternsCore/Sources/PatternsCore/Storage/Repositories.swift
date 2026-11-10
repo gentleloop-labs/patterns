@@ -101,3 +101,23 @@ extension PatternsDatabase {
         }
     }
 }
+
+extension DelaySession {
+    /// `getDelaySessions`: newest first.
+    public static func all() -> QueryInterfaceRequest<DelaySession> {
+        DelaySession.order(Column("created_at").desc)
+    }
+}
+
+extension PatternsDatabase {
+    /// `insertDelaySession`.
+    @discardableResult
+    public func insertDelaySession(_ session: DelaySession) throws -> DelaySession {
+        try queue.write { db in
+            var session = session
+            session.id = nil
+            try session.insert(db)
+            return session
+        }
+    }
+}
