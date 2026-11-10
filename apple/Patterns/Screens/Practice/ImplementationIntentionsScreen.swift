@@ -47,7 +47,7 @@ struct ImplementationIntentionsScreen: View {
                             .font(.body)
                             .padding(.vertical, 4)
                             .swipeActions {
-                                Button(text("deleteAction"), systemImage: "trash", role: .destructive) { deleting = intention }
+                                Button(text("deleteAction"), systemImage: "trash") { deleting = intention }
                                     .tint(.red)
                             }
                             .contextMenu {

@@ -170,7 +170,9 @@ private struct JournalRow: View {
         }
         .accessibilityHint(strings.journalOpenEntryHint(date: strings.dates.fullDate(date)))
         .swipeActions {
-            Button(strings.journalClearDayAction, systemImage: "trash", role: .destructive, action: onClear)
+            // No destructive role: that would hide the row before the
+            // confirmation, and keep it hidden after Cancel.
+            Button(strings.journalClearDayAction, systemImage: "trash", action: onClear)
                 .tint(.red)
         }
         .contextMenu {

@@ -45,7 +45,7 @@ struct ExposureReflectionScreen: View {
                     ForEach(items, id: \.id) { reflection in
                         ReflectionRow(reflection: reflection)
                             .swipeActions {
-                                Button(text("deleteAction"), systemImage: "trash", role: .destructive) {
+                                Button(text("deleteAction"), systemImage: "trash") {
                                     deleting = reflection
                                 }
                                 .tint(.red)

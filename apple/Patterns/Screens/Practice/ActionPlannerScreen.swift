@@ -44,7 +44,7 @@ struct ActionPlannerScreen: View {
                     ForEach(items, id: \.id) { plan in
                         PlanRow(plan: plan) { setCompleted(plan, $0) }
                             .swipeActions {
-                                Button(text("deleteAction"), systemImage: "trash", role: .destructive) { deleting = plan }
+                                Button(text("deleteAction"), systemImage: "trash") { deleting = plan }
                                     .tint(.red)
                             }
                             .contextMenu {

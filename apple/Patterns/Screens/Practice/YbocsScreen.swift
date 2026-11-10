@@ -50,7 +50,7 @@ struct YbocsScreen: View {
                     ForEach(past.prefix(5), id: \.id) { assessment in
                         HistoryRow(assessment: assessment)
                             .swipeActions {
-                                Button(strings.ybocsText(key: "deleteAction"), systemImage: "trash", role: .destructive) {
+                                Button(strings.ybocsText(key: "deleteAction"), systemImage: "trash") {
                                     deleting = assessment
                                 }
                                 .tint(.red)
