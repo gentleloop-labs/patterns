@@ -2,7 +2,7 @@ import StoreKit
 import SwiftUI
 
 /// `PaywallSheet` from `lib/widgets/paywall_sheet.dart`: sells the one-time
-/// Patterns Pro unlock. Present it with `bottomPanel`.
+/// Patterns Pro unlock, as a native sheet.
 struct PaywallSheet: View {
     var entryPoint: ProEntryPoint = .settings
 
@@ -18,33 +18,62 @@ struct PaywallSheet: View {
 
     var body: some View {
         let strings = model.strings
-        VStack(alignment: .leading, spacing: 0) {
-            HStack(spacing: 12) {
-                AccentIconBadge(systemImage: "lock.open")
-                Text(strings.proPaywallTitle)
-                    .textRole(.titleLarge, weight: .heavy, color: AppColors.textPrimary)
-                    .accessibilityAddTraits(.isHeader)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    Image(systemName: "lock.open.fill")
+                        .font(.system(size: 34, weight: .semibold))
+                        .foregroundStyle(AppColors.accent)
+                        .frame(width: 72, height: 72)
+                        .background(AppColors.accent.opacity(0.14), in: .rect(cornerRadius: 18))
+                        .accessibilityHidden(true)
+                    Text(strings.proPaywallTitle)
+                        .textRole(.displaySmall, color: AppColors.textPrimary)
+                        .accessibilityAddTraits(.isHeader)
+                        .padding(.top, 16)
+                    Text(entryPoint.headline(strings))
+                        .font(.body)
+                        .foregroundStyle(.secondary)
+                        .padding(.top, 8)
+                    VStack(alignment: .leading, spacing: 12) {
+                        ForEach(entryPoint.benefits(strings), id: \.self) { point in
+                            Label {
+                                Text(point)
+                            } icon: {
+                                Image(systemName: "checkmark.circle.fill").foregroundStyle(AppColors.accent)
+                            }
+                        }
+                    }
+                    .padding(.top, 22)
+                    Text(strings.proPaywallIncludedTools)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .padding(.top, 18)
+                    // Someone who already bought Pro and reinstalled arrives
+                    // here looking at a price they have already paid. Say so
+                    // before the price, not in a quiet button underneath it.
+                    AlreadyPurchasedRow(disabled: purchaseInFlight) { Task { await restore() } }
+                        .padding(.top, 22)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 24)
+                .padding(.top, 8)
+                .padding(.bottom, 20)
             }
-            Text(entryPoint.headline(strings))
-                .textRole(.bodyMedium, color: AppColors.textSecondary)
-                .padding(.top, 12)
-            // Someone who already bought Pro and reinstalled arrives here
-            // looking at a price they have already paid. Say so before the
-            // price, not in a quiet button underneath it.
-            AlreadyPurchasedRow(disabled: purchaseInFlight) { Task { await restore() } }
-                .padding(.top, 12)
-            VStack(alignment: .leading, spacing: 10) {
-                ForEach(entryPoint.benefits(strings), id: \.self) { point in
-                    ProPoint(text: point)
+            .safeAreaInset(edge: .bottom) {
+                purchaseArea(strings)
+                    .padding(.horizontal, 24)
+                    .padding(.top, 12)
+                    .padding(.bottom, 8)
+                    .background(.bar)
+            }
+            .background(AppColors.surface)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(strings.closeAction, systemImage: "xmark") { dismiss() }
+                        .disabled(purchaseInFlight)
                 }
             }
-            .padding(.top, 18)
-            Text(strings.proPaywallIncludedTools)
-                .textRole(.bodySmall, color: AppColors.textSecondary)
-                .padding(.top, 16)
-            purchaseArea(strings)
-                .padding(.top, 10)
         }
         .task { await loadProduct() }
         .onChange(of: model.store.backgroundUnlockCount) {
@@ -57,37 +86,41 @@ struct PaywallSheet: View {
     @ViewBuilder private func purchaseArea(_ strings: Strings) -> some View {
         if loading {
             ProgressView()
-                .tint(AppColors.accent)
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 24)
+                .padding(.vertical, 16)
                 .accessibilityLabel(strings.proPaywallLoadingLabel)
         } else if let loadError {
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(spacing: 10) {
                 Text(message(for: loadError, strings))
-                    .textRole(.bodyMedium, color: AppColors.textSecondary)
-                Button(strings.proPaywallTryAgainAction) { Task { await loadProduct() } }
-                    .buttonStyle(SecondaryButtonStyle(fullWidth: true))
-                    .padding(.top, 16)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Button { Task { await loadProduct() } } label: {
+                    Text(strings.proPaywallTryAgainAction).frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.bordered)
+                .controlSize(.large)
                 Button(strings.proPaywallRestorePurchasesAction) { Task { await restore() } }
-                    .buttonStyle(TextLinkButtonStyle())
-                    .frame(maxWidth: .infinity)
                     .disabled(purchaseInFlight)
-                    .padding(.top, 8)
             }
         } else {
-            VStack(spacing: 8) {
+            VStack(spacing: 10) {
                 Button { Task { await buy() } } label: {
-                    if purchaseInFlight {
-                        ProgressView().tint(AppColors.onAccent)
-                    } else {
-                        Text(product.map { strings.proPaywallUnlockWithPrice(price: $0.displayPrice) }
-                            ?? strings.proPaywallUnlockAction)
+                    Group {
+                        if purchaseInFlight {
+                            ProgressView()
+                        } else {
+                            Text(product.map { strings.proPaywallUnlockWithPrice(price: $0.displayPrice) }
+                                ?? strings.proPaywallUnlockAction)
+                        }
                     }
+                    .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(PrimaryButtonStyle(fullWidth: true))
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
                 .disabled(purchaseInFlight)
                 Button(strings.proPaywallRestorePurchasesAction) { Task { await restore() } }
-                    .buttonStyle(TextLinkButtonStyle())
+                    .font(.subheadline)
                     .disabled(purchaseInFlight)
             }
         }
@@ -165,56 +198,34 @@ struct PaywallSheet: View {
     }
 }
 
-/// `_AlreadyPurchasedRow`: reassurance for a returning purchaser, above the
-/// price.
+/// `_AlreadyPurchasedRow`: reassurance for a returning purchaser.
 private struct AlreadyPurchasedRow: View {
     let disabled: Bool
     let onRestore: () -> Void
     @Environment(AppModel.self) private var model
-    @Environment(\.dynamicTypeSize) private var typeSize
-    @State private var width: CGFloat = 320
 
     var body: some View {
         let strings = model.strings
-        let message = Text(strings.proPaywallAlreadyPurchased)
-            .textRole(.bodySmall, size: 13, color: AppColors.textSecondary)
-        let button = Button(strings.proPaywallRestoreShortAction, action: onRestore)
-            .buttonStyle(TextLinkButtonStyle())
-            .disabled(disabled)
-        Group {
-            if typeSize >= .xxxLarge || width < 300 {
-                VStack(alignment: .leading, spacing: 4) {
-                    message
-                    button.frame(maxWidth: .infinity, alignment: .trailing)
-                }
-            } else {
-                HStack(spacing: 8) {
-                    message.frame(maxWidth: .infinity, alignment: .leading)
-                    button
-                }
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 8) {
+                Text(strings.proPaywallAlreadyPurchased)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Button(strings.proPaywallRestoreShortAction, action: onRestore)
+                    .fontWeight(.semibold)
+                    .disabled(disabled)
+            }
+            VStack(alignment: .leading, spacing: 6) {
+                Text(strings.proPaywallAlreadyPurchased)
+                    .foregroundStyle(.secondary)
+                Button(strings.proPaywallRestoreShortAction, action: onRestore)
+                    .fontWeight(.semibold)
+                    .disabled(disabled)
             }
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 10)
+        .font(.subheadline)
+        .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .overlay(RoundedRectangle(cornerRadius: 14).strokeBorder(AppColors.border))
-        .onGeometryChange(for: CGFloat.self) { $0.size.width - 24 } action: { width = $0 }
-    }
-}
-
-/// `_ProPoint`: a check mark and one benefit.
-private struct ProPoint: View {
-    let text: String
-
-    var body: some View {
-        HStack(alignment: .firstTextBaseline, spacing: 10) {
-            Image(systemName: "checkmark")
-                .font(.system(size: 15, weight: .semibold))
-                .foregroundStyle(AppColors.accent)
-                .accessibilityHidden(true)
-            Text(text)
-                .textRole(.bodyMedium, color: AppColors.textPrimary)
-                .frame(maxWidth: .infinity, alignment: .leading)
-        }
+        .background(AppColors.card, in: .rect(cornerRadius: 12))
     }
 }
