@@ -152,4 +152,21 @@ struct RecoveryInsightsTests {
         #expect(d.ybocsDelta.tone == .positive)
         #expect(d.hasYbocsTrend)
     }
+
+    @Test("report ranges keep what Flutter's DateRangeFilter keeps")
+    func reportFilter() {
+        let snapshot = ActivitySnapshot(journals: [journal(2), journal(40)], ocds: [ocd(1, distress: 6), ocd(10, distress: 2)])
+        let week = ReportData(snapshot: snapshot, filter: ReportFilter(range: .seven, now: now))
+        #expect(week.journals.count == 1)
+        #expect(week.ocds.map(\.distressLevel) == [6])
+        let all = ReportData(snapshot: snapshot, filter: ReportFilter(range: .allTime, now: now))
+        #expect(all.journals.count == 2)
+        #expect(all.averageDistress == 4)
+        let start = calendar.date(byAdding: .day, value: -10, to: now)!
+        let custom = ReportData(snapshot: snapshot,
+                                filter: ReportFilter(range: .custom, customStart: start, customEnd: start, now: now))
+        #expect(custom.ocds.map(\.distressLevel) == [2])
+        #expect(ReportFilter(range: .custom, customStart: start, customEnd: now, now: now).suggestedFileName(now: now)
+            == "patterns_report_2026-10-30_to_2026-11-09.pdf")
+    }
 }

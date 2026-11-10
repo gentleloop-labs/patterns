@@ -13,6 +13,7 @@ struct InsightsScreen: View {
     @State private var snapshot: Loadable<ActivitySnapshot> = .loading
     @State private var range = RecoveryInsights.Range.thirty
     @State private var tab = Tab.overview
+    @State private var exporting = false
 
     var body: some View {
         let strings = model.strings
@@ -45,6 +46,9 @@ struct InsightsScreen: View {
         .navigationTitle(strings.insightsTitle)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
+                Button(strings.insightsExportReport, systemImage: "square.and.arrow.up") { exporting = true }
+            }
+            ToolbarItem(placement: .topBarTrailing) {
                 Menu {
                     Picker(strings.insightsChangeRange, selection: $range) {
                         Text(strings.rangeLastSevenDays).tag(RecoveryInsights.Range.seven)
@@ -64,6 +68,17 @@ struct InsightsScreen: View {
             }
         }
         .liveQuery(model.database, into: $snapshot) { db in try ActivitySnapshot.fetch(db) }
+        .sheet(isPresented: $exporting) { ExportReportSheet(initialRange: reportRange) }
+    }
+
+    /// The report opens on the range Insights is showing.
+    private var reportRange: ReportRange {
+        switch range {
+        case .seven: .seven
+        case .thirty: .thirty
+        case .ninety: .ninety
+        case .year: .year
+        }
     }
 
     private func rangeLabel(_ s: Strings) -> String {
