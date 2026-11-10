@@ -140,6 +140,8 @@ struct MainShell: View {
         case .actionPlanner: ActionPlannerScreen()
         case .implementationIntentions: ImplementationIntentionsScreen()
         case .behavioralExperiments: BehavioralExperimentsScreen()
+        case .structuredPrograms: StructuredProgramsScreen()
+        case let .programDetail(programID, enrollmentID): ProgramDetailScreen(programID: programID, enrollmentID: enrollmentID)
         case let .uncertaintyPractice(exercise): UncertaintyPracticeScreen(exercise: exercise)
         case let .urgeSurfFlow(record): UrgeSurfFlow(record: record)
         case let .recoveryTool(tool): PlaceholderScreen(title: tool.title(model.strings))
