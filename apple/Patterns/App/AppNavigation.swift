@@ -38,6 +38,8 @@ enum Route: Hashable {
     case actionPlanner
     case implementationIntentions
     case behavioralExperiments
+    case structuredPrograms
+    case programDetail(programID: String, enrollmentID: Int64)
     case uncertaintyPractice(exercise: String)
     /// One exposure ladder, by id.
     case exposureHierarchyDetail(id: Int64)

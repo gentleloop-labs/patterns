@@ -423,3 +423,41 @@ extension PatternsDatabase {
         _ = try queue.write { db in try BehavioralExperiment.deleteOne(db, key: id) }
     }
 }
+
+extension ProgramEnrollment {
+    /// `getProgramEnrollments`: newest first.
+    public static func all() -> QueryInterfaceRequest<ProgramEnrollment> {
+        ProgramEnrollment.order(Column("created_at").desc)
+    }
+}
+
+extension PatternsDatabase {
+    /// `ProgramEnrollmentNotifier.enroll`: the existing enrollment for the
+    /// program, or a new one.
+    public func enroll(programID: String) throws -> Int64 {
+        try queue.write { db in
+            if let existing = try ProgramEnrollment.all().filter(Column("program_id") == programID).fetchOne(db),
+               let id = existing.id {
+                return id
+            }
+            var enrollment = ProgramEnrollment(programId: programID, createdAt: DartTimestamp.now())
+            try enrollment.insert(db)
+            return db.lastInsertedRowID
+        }
+    }
+
+    /// `toggleTask`: a completed task is a progress row; undoing it
+    /// deletes that row.
+    public func setProgramTask(enrollmentID: Int64, weekIndex: Int, taskID: String, completed: Bool) throws {
+        try queue.write { db in
+            if completed {
+                var progress = ProgramTaskProgress(enrollmentId: enrollmentID, weekIndex: weekIndex, taskId: taskID,
+                                                   completedAt: DartTimestamp.now())
+                try progress.insert(db)
+            } else {
+                try db.execute(sql: "DELETE FROM program_task_progress WHERE enrollment_id = ? AND week_index = ? AND task_id = ?",
+                               arguments: [enrollmentID, weekIndex, taskID])
+            }
+        }
+    }
+}
