@@ -25,6 +25,8 @@ enum Route: Hashable {
     case exposureHierarchy
     case erpExercises
     case exposureReflection
+    /// A Practice hub tool not ported yet; opens a placeholder.
+    case recoveryTool(RecoveryDestination)
     /// The activity a new user picked on the welcome screen.
     case firstRunActivity(FirstRunPath)
     /// `FirstRunResultScreen`.
