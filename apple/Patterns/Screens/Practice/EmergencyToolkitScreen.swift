@@ -31,7 +31,7 @@ struct EmergencyToolkitScreen: View {
                 row("wind", text("breathe"), text("breatheSubtitle")) { navigation.push(.breathing) }
                 row("hourglass", text("delay"), text("delaySubtitle")) { navigation.push(.compulsionDelay) }
                 // Flutter opens urge surfing here without recording, free.
-                row("water.waves", text("surf"), text("surfSubtitle")) { navigation.push(.recoveryTool(.urgeSurfing)) }
+                row("water.waves", text("surf"), text("surfSubtitle")) { navigation.push(.urgeSurfFlow(record: false)) }
                 row("leaf", text("coping"), text("copingSubtitle")) { navigation.push(.copingLibrary) }
             }
             .listRowBackground(AppColors.card)

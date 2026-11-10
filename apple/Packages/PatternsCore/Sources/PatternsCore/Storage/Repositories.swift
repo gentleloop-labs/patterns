@@ -198,3 +198,22 @@ extension PatternsDatabase {
         _ = try queue.write { db in try YbocsAssessment.deleteOne(db, key: id) }
     }
 }
+
+extension UrgeSurfSession {
+    /// `getUrgeSurfSessions`: newest first.
+    public static func all() -> QueryInterfaceRequest<UrgeSurfSession> {
+        UrgeSurfSession.order(Column("datetime").desc)
+    }
+}
+
+extension PatternsDatabase {
+    @discardableResult
+    public func insertUrgeSurfSession(_ session: UrgeSurfSession) throws -> UrgeSurfSession {
+        try queue.write { db in
+            var session = session
+            session.id = nil
+            try session.insert(db)
+            return session
+        }
+    }
+}
