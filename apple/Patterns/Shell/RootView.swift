@@ -126,7 +126,7 @@ struct MainShell: View {
         case .compulsionDelay: CompulsionDelayFlow()
         case let .erpPractice(planID): ErpPracticeLoader(planID: planID)
         case .settings: SettingsScreen()
-        case .selfCheck: PlaceholderScreen(title: model.strings.todaySelfCheckTitle)
+        case .selfCheck: YbocsScreen()
         case .exposureHierarchy: PlaceholderScreen(title: model.strings.todayNextHierarchyTitle)
         case .erpExercises: ErpExercisesScreen()
         case .exposureReflection: PlaceholderScreen(title: model.strings.todayNextReflectTitle)
@@ -144,7 +144,7 @@ struct MainShell: View {
         case .journal: OcdEventFlow(entryID: nil, initialType: .obsession, firstRun: true)
         case .urge: CompulsionDelayFlow(firstRun: true)
         case .erp: ErpPracticeFlow(plan: ErpTemplate.firstRunPlan(model.strings), firstRun: true)
-        case .selfcheck: PlaceholderScreen(title: model.strings.todaySelfCheckTitle)
+        case .selfcheck: YbocsScreen(firstRun: true)
         case .explore: EmptyView()
         }
     }
