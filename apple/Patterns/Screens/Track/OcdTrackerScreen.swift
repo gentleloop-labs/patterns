@@ -152,6 +152,7 @@ private struct OcdEventRow: View {
             NavigationLink(value: Route.ocdEvent(entryID: id, type: type)) { row }
                 .swipeActions {
                     Button(strings.trackerDeleteTooltip, systemImage: "trash", role: .destructive, action: onDelete)
+                        .tint(.red)
                 }
                 .contextMenu {
                     NavigationLink(value: Route.ocdEvent(entryID: id, type: type)) {

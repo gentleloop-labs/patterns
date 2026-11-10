@@ -171,6 +171,7 @@ private struct JournalRow: View {
         .accessibilityHint(strings.journalOpenEntryHint(date: strings.dates.fullDate(date)))
         .swipeActions {
             Button(strings.journalClearDayAction, systemImage: "trash", role: .destructive, action: onClear)
+                .tint(.red)
         }
         .contextMenu {
             Button(strings.journalClearDayAction, systemImage: "trash", role: .destructive, action: onClear)
