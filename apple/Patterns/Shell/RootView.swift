@@ -114,7 +114,7 @@ struct MainShell: View {
         case .track: OcdTrackerScreen()
         case .home: TodayScreen()
         case .erp: RecoveryHubScreen()
-        default: PlaceholderScreen(title: tab.title(model.strings))
+        case .insights: InsightsScreen()
         }
     }
 
@@ -141,6 +141,7 @@ struct MainShell: View {
         case .implementationIntentions: ImplementationIntentionsScreen()
         case .behavioralExperiments: BehavioralExperimentsScreen()
         case .structuredPrograms: StructuredProgramsScreen()
+        case .recoveryMetrics: RecoveryMetricsScreen()
         case let .exposureMaterials(stepID, hierarchyID):
             ExposureMaterialsScreen(linkedStepID: stepID, linkedHierarchyID: hierarchyID)
         case let .programDetail(programID, enrollmentID): ProgramDetailScreen(programID: programID, enrollmentID: enrollmentID)

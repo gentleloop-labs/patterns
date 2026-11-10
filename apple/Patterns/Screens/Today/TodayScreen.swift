@@ -418,7 +418,7 @@ private struct HomeScoreRow: View {
 
     private func deltaText(_ strings: Strings) -> String {
         if !summary.hasAnyData { return strings.todayBeginCheckIn }
-        let rounded = Int(summary.scoreDelta.rounded())
+        let rounded = Int(summary.scoreDelta.value.rounded())
         if rounded == 0 { return strings.todayNoChange }
         return rounded > 0 ? strings.todayPointsUp(points: abs(rounded)) : strings.todayPointsDown(points: abs(rounded))
     }

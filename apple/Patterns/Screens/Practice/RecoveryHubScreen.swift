@@ -85,6 +85,7 @@ enum RecoveryDestination: String, CaseIterable, Hashable {
         case .behavioralExperiments: .behavioralExperiments
         case .structuredPrograms: .structuredPrograms
         case .exposureMaterials: .exposureMaterials(stepID: nil, hierarchyID: nil)
+        case .recoveryMetrics: .recoveryMetrics
         default: .recoveryTool(self)
         }
     }

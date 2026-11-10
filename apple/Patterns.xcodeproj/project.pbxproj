@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		005D4DBBED7A8DC70E2CF424 /* RecoveryMetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4983838F274F71584DBBCE84 /* RecoveryMetricsView.swift */; };
 		00E1CAE50C3869148397AE90 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864D26DF4D3118C7B9C84E07 /* Typography.swift */; };
 		01A1B6DB1404EB90D4D3CC6A /* JournalScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8902A086B89E76876E9797F /* JournalScreen.swift */; };
 		077833F7718036827B6FC20A /* Manrope-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4380C83508D9F9F99520190 /* Manrope-Medium.ttf */; };
@@ -55,6 +56,7 @@
 		ADA5B7CE5167BFBAFAC45F70 /* TipJarSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1D9B7A70B26D53ADAD4E1 /* TipJarSheet.swift */; };
 		B0251831399230C62D17F5D3 /* ErpPracticeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA48A24778B4D98882804ED /* ErpPracticeFlow.swift */; };
 		B9D0636FC37F3AF6B7CC9CC4 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9B93E6C75E7D6969DBF805 /* AppColors.swift */; };
+		BD1BB0D33809E1739379DAB7 /* InsightsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04804DE23050C170865B4A26 /* InsightsScreen.swift */; };
 		BD4FA17C5DDFEA40495F5BB8 /* FormSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F19A0BA78ADE70EEE74E42 /* FormSections.swift */; };
 		BE1A1082411CBB43BC3862F4 /* Manrope-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A3092641A860C97C57B80F50 /* Manrope-Bold.ttf */; };
 		C31D71185E829E0975352006 /* Manrope-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 940AFFEBC658717844A87DCF /* Manrope-Regular.ttf */; };
@@ -90,6 +92,7 @@
 
 /* Begin PBXFileReference section */
 		02D10226571BE65D69C9EA88 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		04804DE23050C170865B4A26 /* InsightsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsScreen.swift; sourceTree = "<group>"; };
 		1B83324665715BED560CBC08 /* UncertaintyTrainingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UncertaintyTrainingScreen.swift; sourceTree = "<group>"; };
 		1F966E4E9B767758E429AED5 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		209719E14F36231CCC89044E /* BootstrapFailureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BootstrapFailureView.swift; sourceTree = "<group>"; };
@@ -105,6 +108,7 @@
 		417A11411524241B657BEA5D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4301AE61884F33B4578561AD /* ProEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProEntryPoint.swift; sourceTree = "<group>"; };
 		44B717ABFD1F24505CBF59A7 /* LiveQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveQuery.swift; sourceTree = "<group>"; };
+		4983838F274F71584DBBCE84 /* RecoveryMetricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryMetricsView.swift; sourceTree = "<group>"; };
 		4CD1D9B7A70B26D53ADAD4E1 /* TipJarSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarSheet.swift; sourceTree = "<group>"; };
 		4E3688651AC8464EBD096CC3 /* ErpExercisesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErpExercisesScreen.swift; sourceTree = "<group>"; };
 		539F7DF21F3A517F143E13AF /* CompulsionDelayFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompulsionDelayFlow.swift; sourceTree = "<group>"; };
@@ -326,6 +330,15 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		733EBC0F43A1EF60062E50E6 /* Insights */ = {
+			isa = PBXGroup;
+			children = (
+				04804DE23050C170865B4A26 /* InsightsScreen.swift */,
+				4983838F274F71584DBBCE84 /* RecoveryMetricsView.swift */,
+			);
+			path = Insights;
+			sourceTree = "<group>";
+		};
 		75BF295CC9B03B30ED479925 /* Theme */ = {
 			isa = PBXGroup;
 			children = (
@@ -412,6 +425,7 @@
 		C4BC19B893FE738480E51567 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				733EBC0F43A1EF60062E50E6 /* Insights */,
 				65E7CE592CA40751C8AC6260 /* Journal */,
 				C2F2B150DF4342AF81FF8F22 /* Onboarding */,
 				86AAFD6783E25C520F081BC6 /* Practice */,
@@ -588,6 +602,7 @@
 				BD4FA17C5DDFEA40495F5BB8 /* FormSections.swift in Sources */,
 				A35891DAFC303EC52F6F816B /* Formatting.swift in Sources */,
 				C7BA43B803332CA59B6AF61D /* ImplementationIntentionsScreen.swift in Sources */,
+				BD1BB0D33809E1739379DAB7 /* InsightsScreen.swift in Sources */,
 				FF9F7E239E3D4241F2760E54 /* JournalEntryEditor.swift in Sources */,
 				01A1B6DB1404EB90D4D3CC6A /* JournalScreen.swift in Sources */,
 				27C5E552EF2AAADD2675B8FA /* LiveQuery.swift in Sources */,
@@ -600,6 +615,7 @@
 				AB45CA1CBB395B693680E0F1 /* ProEntryPoint.swift in Sources */,
 				845EDC0D2AE9DFA3D7FDAF75 /* PurchaseStore.swift in Sources */,
 				44D970C75B9A90A5A00B17DA /* RecoveryHubScreen.swift in Sources */,
+				005D4DBBED7A8DC70E2CF424 /* RecoveryMetricsView.swift in Sources */,
 				8F3C8C20227648E6603FC339 /* Reminders.swift in Sources */,
 				A6505651674FFEC1AB54E483 /* ResponsePreventionScreen.swift in Sources */,
 				944B044649CF198B5311B163 /* RichTextEditor.swift in Sources */,

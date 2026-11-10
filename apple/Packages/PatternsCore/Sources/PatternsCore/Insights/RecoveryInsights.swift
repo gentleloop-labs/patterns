@@ -81,17 +81,83 @@ public struct RecoveryMetrics: Sendable, Equatable {
     public var hasAnyData: Bool
 }
 
-/// The headline numbers of `RecoveryDashboardSummary`. Trends and themes
-/// arrive with the Insights port.
+/// `InsightDelta`: a change between two periods.
+public struct InsightDelta: Sendable, Equatable {
+    public enum Tone: Sendable { case positive, neutral, negative }
+
+    public var value: Double
+    public var lowerIsBetter: Bool
+
+    public init(value: Double, lowerIsBetter: Bool = false) {
+        self.value = value
+        self.lowerIsBetter = lowerIsBetter
+    }
+
+    public var tone: Tone {
+        if abs(value) < 0.05 { return .neutral }
+        let improved = lowerIsBetter ? value < 0 : value > 0
+        return improved ? .positive : .negative
+    }
+
+    /// The arrow follows the number; the tone follows the meaning. For a
+    /// lower-is-better measure they disagree on purpose: a falling Y-BOCS
+    /// or urge score is a green down arrow, never a green up arrow.
+    public var arrow: String {
+        if tone == .neutral { return "→" }
+        return value > 0 ? "↑" : "↓"
+    }
+}
+
+/// `DashboardPoint`.
+public struct DashboardPoint: Sendable, Equatable {
+    public var date: Date
+    public var value: Double
+}
+
+/// `ThemeInsight`. `label` is an internal theme id ("Contamination", or
+/// `RecoveryInsights.uncategorizedTheme`), localized at display time.
+public struct ThemeInsight: Sendable, Equatable {
+    public var label: String
+    public var percent: Double
+    public var count: Int
+}
+
+/// `RecoveryDashboardSummary`.
 public struct RecoveryDashboard: Sendable, Equatable {
     public var rangeDays: Int
     public var recoveryScore: Int
-    public var scoreDelta: Double
+    public var scoreDelta: InsightDelta
     public var averageUrge: Double
+    public var urgeDelta: InsightDelta
     public var erpPracticeCount: Int
+    public var erpDelta: InsightDelta
     public var consistencyPercent: Int
     public var activeDays: Int
+    /// Up to the last 30 days of the range, oldest first.
+    public var consistencyHeatmap: [Bool]
+    public var scoreTrend: [DashboardPoint]
+    public var moodTrend: [DashboardPoint]
+    public var urgeTrend: [DashboardPoint]
+    public var erpTrend: [DashboardPoint]
+    public var topThemes: [ThemeInsight]
+    public var thoughts: Int
+    public var compulsions: Int
     public var hasAnyData: Bool
+    /// Self-check totals in the range, oldest first.
+    public var ybocsTrend: [DashboardPoint]
+    public var latestYbocs: YbocsAssessment?
+    /// First to latest self-check in the range; a fall is an improvement.
+    public var ybocsDelta: InsightDelta
+
+    /// Two points is the least that says anything about direction.
+    public var hasYbocsTrend: Bool { ybocsTrend.count >= 2 }
+
+    public static func == (a: RecoveryDashboard, b: RecoveryDashboard) -> Bool {
+        a.rangeDays == b.rangeDays && a.recoveryScore == b.recoveryScore && a.scoreDelta == b.scoreDelta
+            && a.averageUrge == b.averageUrge && a.erpPracticeCount == b.erpPracticeCount
+            && a.consistencyPercent == b.consistencyPercent && a.consistencyHeatmap == b.consistencyHeatmap
+            && a.scoreTrend == b.scoreTrend && a.topThemes == b.topThemes && a.ybocsTrend == b.ybocsTrend
+    }
 }
 
 /// `AnalyticsService` from `lib/services/analytics_service.dart`. The
@@ -181,7 +247,12 @@ public enum RecoveryInsights {
         )
     }
 
-    /// `buildRecoveryDashboard` for a preset range (30 days on Today).
+    /// `AnalyticsDateRange` presets and their day counts.
+    public enum Range: Int, Sendable, CaseIterable {
+        case seven = 7, thirty = 30, ninety = 90, year = 365
+    }
+
+    /// `buildRecoveryDashboard`: this period against the one before it.
     public static func dashboard(_ snapshot: ActivitySnapshot, rangeDays: Int = 30, now: Date = Date(),
                                  calendar: Calendar = .current) -> RecoveryDashboard {
         let days = min(max(rangeDays, 7), 365)
@@ -192,16 +263,115 @@ public enum RecoveryInsights {
 
         let current = PeriodData(snapshot, start: currentStart, end: currentEnd, days: days, calendar: calendar)
         let previous = PeriodData(snapshot, start: previousStart, end: previousEnd, days: days, calendar: calendar)
+
+        // `consistencyHeatmap`: the last min(days, 30) days, oldest first.
+        let heatmapDays = min(days, 30)
+        let heatmap = (0..<heatmapDays).reversed().map { offset in
+            current.activeDays.contains(dayKey(calendar.date(byAdding: .day, value: -offset, to: currentEnd)!, calendar))
+        }
+
+        // Up to seven buckets across the range, each scored on its own.
+        let bucketCount = days <= 7 ? days : 7
+        var scoreTrend: [DashboardPoint] = [], moodTrend: [DashboardPoint] = []
+        var urgeTrend: [DashboardPoint] = [], erpTrend: [DashboardPoint] = []
+        for bucket in 0..<bucketCount {
+            let startOffset = Int((Double(days * bucket) / Double(bucketCount)).rounded(.down))
+            let endOffset = Int((Double(days * (bucket + 1)) / Double(bucketCount)).rounded(.down)) - 1
+            let bucketStart = calendar.startOfDay(for: calendar.date(byAdding: .day, value: startOffset, to: currentStart)!)
+            let bucketEnd = endOfDay(calendar.date(byAdding: .day, value: endOffset, to: currentStart)!, calendar)
+            let bucketDays = (calendar.dateComponents([.day], from: bucketStart, to: calendar.startOfDay(for: bucketEnd)).day ?? 0) + 1
+            let data = PeriodData(snapshot, start: bucketStart, end: bucketEnd, days: bucketDays, calendar: calendar)
+            scoreTrend.append(DashboardPoint(date: bucketEnd, value: Double(data.recoveryScore)))
+            moodTrend.append(DashboardPoint(date: bucketEnd, value: data.mood))
+            urgeTrend.append(DashboardPoint(date: bucketEnd, value: data.averageUrge))
+            erpTrend.append(DashboardPoint(date: bucketEnd, value: Double(data.erpPracticeCount)))
+        }
+
+        let ybocs = snapshot.ybocsAssessments
+            .compactMap { a in a.datetime.date.map { (a, $0) } }
+            .filter { $0.1 >= currentStart && $0.1 <= currentEnd }
+            .sorted { $0.1 < $1.1 }
+
         return RecoveryDashboard(
             rangeDays: days,
             recoveryScore: current.recoveryScore,
-            scoreDelta: Double(current.recoveryScore - previous.recoveryScore),
+            scoreDelta: InsightDelta(value: Double(current.recoveryScore - previous.recoveryScore)),
             averageUrge: current.averageUrge,
+            urgeDelta: InsightDelta(value: current.averageUrge - previous.averageUrge, lowerIsBetter: true),
             erpPracticeCount: current.erpPracticeCount,
+            erpDelta: InsightDelta(value: Double(current.erpPracticeCount - previous.erpPracticeCount)),
             consistencyPercent: current.consistencyPercent,
             activeDays: current.activeDays.count,
-            hasAnyData: current.hasAnyData
+            consistencyHeatmap: heatmap,
+            scoreTrend: scoreTrend,
+            moodTrend: moodTrend,
+            urgeTrend: urgeTrend,
+            erpTrend: erpTrend,
+            topThemes: topThemes(journals: current.journalEntries, ocds: current.ocds),
+            thoughts: current.ocds.filter { $0.type == .obsession }.count,
+            compulsions: current.ocds.filter { $0.type == .compulsion }.count,
+            hasAnyData: current.hasAnyData,
+            ybocsTrend: ybocs.map { DashboardPoint(date: $0.1, value: Double($0.0.totalScore)) },
+            latestYbocs: ybocs.last?.0,
+            ybocsDelta: InsightDelta(
+                value: ybocs.count < 2 ? 0 : Double(ybocs.last!.0.totalScore - ybocs.first!.0.totalScore),
+                lowerIsBetter: true
+            )
         )
+    }
+
+    // MARK: Themes
+
+    /// `uncategorizedThemeId`: shown as "Other".
+    public static let uncategorizedTheme = "uncategorized"
+
+    /// `_themeRules`: English keyword matching, in Flutter's order. Ids are
+    /// localized at display time.
+    public static let themeRules: [(id: String, keywords: [String])] = [
+        ("Contamination", ["contamination", "contaminated", "dirty", "germs", "germ", "wash", "clean", "hygiene", "infect"]),
+        ("Harm", ["harm", "hurt", "violent", "attack", "kill", "knife", "danger", "injure"]),
+        ("Checking", ["check", "checking", "lock", "stove", "door", "switch", "recheck"]),
+        ("Reassurance", ["reassurance", "reassure", "ask again", "asked", "confirm", "certainty"]),
+        ("Health", ["health", "illness", "symptom", "disease", "doctor", "cancer", "heart", "medical"]),
+        ("Relationship", ["relationship", "partner", "love", "break up", "cheat", "dating", "marriage"]),
+        ("Symmetry", ["symmetry", "even", "order", "arrange", "aligned", "just right", "perfect"]),
+        ("Moral", ["moral", "religious", "sin", "blasphemy", "guilt", "confess", "wrong person"]),
+        ("Rumination", ["ruminate", "rumination", "analyze", "mental review", "figure out", "replay", "solve"]),
+        ("Uncertainty", ["uncertain", "uncertainty", "what if", "doubt", "maybe", "not sure", "unknown"]),
+    ]
+
+    /// `_topThemes`: the four most frequent themes. Journal text is matched
+    /// as stored, as Flutter does.
+    static func topThemes(journals: [JournalEntry], ocds: [OcdEntry]) -> [ThemeInsight] {
+        var counts: [String: Int] = [:]
+        var order: [String] = []
+        var categorized = 0, uncategorized = 0
+        func classify(_ text: String) {
+            let lower = text.lowercased()
+            let matches = themeRules.filter { rule in rule.keywords.contains { lower.contains($0) } }.map(\.id)
+            if matches.isEmpty { uncategorized += 1; return }
+            categorized += 1
+            for theme in matches {
+                if counts[theme] == nil { order.append(theme) }
+                counts[theme, default: 0] += 1
+            }
+        }
+        journals.forEach { classify($0.content) }
+        ocds.forEach { classify("\($0.content) \($0.response) \($0.actionTaken ?? "")") }
+
+        if counts.isEmpty && uncategorized > 0 {
+            return [ThemeInsight(label: uncategorizedTheme, percent: 1, count: uncategorized)]
+        }
+        let denominator = Double(max(categorized, 1))
+        // Dart's sort is not stable either, but ties keep first-seen order
+        // here so the list does not jump between renders.
+        return order.enumerated()
+            .sorted { lhs, rhs in
+                let a = counts[lhs.element]!, b = counts[rhs.element]!
+                return a != b ? a > b : lhs.offset < rhs.offset
+            }
+            .prefix(4)
+            .map { ThemeInsight(label: $0.element, percent: Double(counts[$0.element]!) / denominator, count: counts[$0.element]!) }
     }
 
     // MARK: Helpers
@@ -222,9 +392,9 @@ public enum RecoveryInsights {
     }
 }
 
-/// `_DashboardPeriodData` without the trend buckets.
+/// `_DashboardPeriodData`: one window's activity and score.
 private struct PeriodData {
-    var journals = 0
+    var journalEntries: [JournalEntry] = []
     var ocds: [OcdEntry] = []
     var activeDays = Set<String>()
     var erpPracticeCount = 0
@@ -232,7 +402,13 @@ private struct PeriodData {
     var consistencyPercent = 0
     var recoveryScore = 0
 
-    var hasAnyData: Bool { journals > 0 || !ocds.isEmpty || erpPracticeCount > 0 }
+    var hasAnyData: Bool { !journalEntries.isEmpty || !ocds.isEmpty || erpPracticeCount > 0 }
+
+    /// `mood`: steady when there is nothing to go on.
+    var mood: Double {
+        if ocds.isEmpty { return journalEntries.isEmpty ? 5 : 6 }
+        return min(max(10 - averageUrge, 0), 10)
+    }
 
     init(_ s: ActivitySnapshot, start: Date, end: Date, days: Int, calendar: Calendar) {
         let inRange = { (t: DartTimestamp) -> Bool in
@@ -240,8 +416,8 @@ private struct PeriodData {
             return d >= start && d <= end
         }
         // Journal days are stored as `yyyy-MM-dd` and parse to local midnight.
-        let journalDays = s.journals.map(\.date).filter { day in
-            guard let d = DartDateTime.parse(day) else { return false }
+        let journals = s.journals.filter { entry in
+            guard let d = DartDateTime.parse(entry.date) else { return false }
             return d >= start && d <= end
         }
         let periodOcds = s.ocds.filter { inRange($0.datetime) }
@@ -251,7 +427,7 @@ private struct PeriodData {
         let responses = s.responsePreventionLogs.filter { inRange($0.createdAt) }
         let surfs = s.urgeSurfSessions.filter { inRange($0.createdAt) }
 
-        var active = Set(journalDays)
+        var active = Set(journals.map(\.date))
         periodOcds.forEach { active.insert(RecoveryInsights.dayKey($0.datetime)) }
         delays.forEach { active.insert(RecoveryInsights.dayKey($0.createdAt)) }
         erp.forEach { active.insert(RecoveryInsights.dayKey($0.createdAt)) }
@@ -263,14 +439,14 @@ private struct PeriodData {
         let urges = periodOcds.map(\.distressLevel) + delays.map(\.urgeAfter) + erp.map(\.anxietyAfter)
             + responses.map(\.anxietyLevel) + surfs.map(\.finalUrge)
         let averageUrge = urges.isEmpty ? 0 : Double(urges.reduce(0, +)) / Double(urges.count)
-        let consistency = min(max(Int((Double(active.count) / Double(days) * 100).rounded()), 0), 100)
-        let journalScore = min(max(Double(journalDays.count) / Double(days) * 100, 0), 100)
+        let consistency = min(max(Int((Double(active.count) / Double(days) * 100).dartRounded), 0), 100)
+        let journalScore = min(max(Double(journals.count) / Double(days) * 100, 0), 100)
         let erpWindow = (Double(days) / 3).rounded(.up)
         let erpScore = min(max(Double(practice) / erpWindow * 100, 0), 100)
         let urgeScore = urges.isEmpty ? 50 : min(max((10 - averageUrge) / 10 * 100, 0), 100)
         let raw = Double(consistency) * 0.30 + erpScore * 0.30 + urgeScore * 0.25 + journalScore * 0.15
 
-        journals = journalDays.count
+        journalEntries = journals
         ocds = periodOcds
         activeDays = active
         erpPracticeCount = practice
