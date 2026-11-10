@@ -2,65 +2,24 @@ import PatternsCore
 import SwiftUI
 
 /// `WelcomeScreen` from `lib/mobile/screens/onboarding_screen.dart`: two
-/// calm screens. The first states the promise and privacy; the second asks
-/// what would help right now and routes straight into that activity.
+/// calm screens in a navigation stack. The first states the promise and
+/// privacy; the second asks what would help right now and routes straight
+/// into that activity.
 struct WelcomeScreen: View {
     let onChoosePath: (FirstRunPath) -> Void
     let onImport: () -> Void
 
     @Environment(AppModel.self) private var model
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @State private var page = 0
+    @State private var choosing = false
 
     var body: some View {
-        let strings = model.strings
-        VStack(spacing: 0) {
-            HStack {
-                if page == 1 {
-                    Button { setPage(0) } label: {
-                        Image(systemName: "chevron.left")
-                            .font(.system(size: 18, weight: .medium))
-                            .foregroundStyle(AppColors.textPrimary)
-                            .frame(width: 44, height: 44)
-                    }
-                    .accessibilityLabel(strings.backAction)
-                    .transition(.opacity)
-                }
-                Spacer()
-            }
-            .frame(height: 44)
-
-            ZStack {
-                if page == 0 {
-                    PromiseView(onGetStarted: { setPage(1) }, onImport: onImport)
-                        .transition(slide(forward: false))
-                } else {
+        NavigationStack {
+            PromiseView(onGetStarted: { choosing = true }, onImport: onImport)
+                .toolbar(.hidden, for: .navigationBar)
+                .navigationDestination(isPresented: $choosing) {
                     ChoicesView(onChoose: onChoosePath)
-                        .transition(slide(forward: true))
                 }
-            }
-            .frame(maxHeight: .infinity)
-            // Pages scroll edge to edge so card shadows are not clipped.
-            .padding(.horizontal, -22)
-
-            Text(strings.onboardingSafetyFootnote)
-                .textRole(.bodySmall, color: AppColors.textSecondary)
-                .multilineTextAlignment(.center)
-                .padding(.top, 10)
         }
-        .padding(EdgeInsets(top: 12, leading: 22, bottom: 18, trailing: 22))
-        .background(AppColors.surface.ignoresSafeArea())
-    }
-
-    private func setPage(_ value: Int) {
-        withAnimation(reduceMotion ? nil : .easeOut(duration: 0.3)) { page = value }
-    }
-
-    private func slide(forward: Bool) -> AnyTransition {
-        reduceMotion ? .identity : .asymmetric(
-            insertion: .move(edge: forward ? .trailing : .leading).combined(with: .opacity),
-            removal: .move(edge: forward ? .trailing : .leading).combined(with: .opacity)
-        )
     }
 }
 
@@ -75,48 +34,54 @@ private struct PromiseView: View {
         let strings = model.strings
         ScrollView {
             VStack(spacing: 0) {
-                Text(verbatim: "PATTERNS")
-                    .font(.sans(12, .heavy, relativeTo: .caption))
-                    .tracking(3)
-                    .foregroundStyle(AppColors.accent)
-                    .padding(.top, 20)
-                    .accessibilityHidden(true)
                 SignalHero()
-                    .padding(.top, 26)
+                    .padding(.top, 36)
                 Text(strings.onboardingHeadline)
-                    .font(.custom(AppFont.display, size: 32, relativeTo: .largeTitle).weight(.semibold))
+                    .font(.custom(AppFont.display, size: 34, relativeTo: .largeTitle).weight(.semibold))
                     .foregroundStyle(AppColors.textPrimary)
                     .multilineTextAlignment(.center)
                     .accessibilityAddTraits(.isHeader)
-                    .padding(.top, 30)
+                    .padding(.top, 28)
                 Text(strings.onboardingIntroduction)
-                    .textRole(.bodyLarge, color: AppColors.textSecondary)
+                    .font(.body)
+                    .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
-                    .padding(.top, 14)
-                HStack(spacing: 12) {
-                    Image(systemName: "lock")
-                        .font(.system(size: 15))
-                        .foregroundStyle(AppColors.accent)
-                        .frame(width: 34, height: 34)
-                        .background(AppColors.accent.opacity(0.14), in: .circle)
-                        .accessibilityHidden(true)
+                    .padding(.top, 12)
+                Label {
                     Text(strings.onboardingPrivacy)
-                        .font(.sans(13.5, relativeTo: .footnote))
-                        .foregroundStyle(AppColors.textPrimary)
+                        .font(.subheadline)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                } icon: {
+                    Image(systemName: "lock.fill").foregroundStyle(AppColors.accent)
                 }
-                .padding(15)
-                .modifier(GlassCard())
-                .padding(.top, 22)
-                Button(strings.getStartedAction, action: onGetStarted)
-                    .buttonStyle(PrimaryButtonStyle(fullWidth: true))
-                    .padding(.top, 24)
-                Button(strings.importExistingDataAction, action: onImport)
-                    .buttonStyle(TextLinkButtonStyle())
+                .padding(16)
+                .background(AppColors.card, in: .rect(cornerRadius: 14))
+                .padding(.top, 28)
             }
-            .padding(.horizontal, 22)
+            .padding(.horizontal, 28)
+            .frame(maxWidth: 560)
+            .frame(maxWidth: .infinity)
         }
         .scrollBounceBehavior(.basedOnSize)
+        .safeAreaInset(edge: .bottom) {
+            VStack(spacing: 6) {
+                Button(action: onGetStarted) {
+                    Text(strings.getStartedAction).frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                Button(strings.importExistingDataAction, action: onImport)
+                    .padding(.vertical, 8)
+                Text(strings.onboardingSafetyFootnote)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+            }
+            .padding(.horizontal, 28)
+            .padding(.top, 12)
+            .background(AppColors.surface)
+        }
+        .background(AppColors.surface.ignoresSafeArea())
     }
 }
 
@@ -130,84 +95,52 @@ private struct ChoicesView: View {
         let strings = model.strings
         let choices: [(FirstRunPath, String, String, String)] = [
             (.urge, "hourglass", strings.onboardingUrgeTitle, strings.onboardingUrgeSubtitle),
-            (.journal, "pencil", strings.onboardingJournalTitle, strings.onboardingJournalSubtitle),
+            (.journal, "square.and.pencil", strings.onboardingJournalTitle, strings.onboardingJournalSubtitle),
             (.erp, "leaf", strings.onboardingErpTitle, strings.onboardingErpSubtitle),
             (.selfcheck, "list.clipboard", strings.onboardingSelfCheckTitle, strings.onboardingSelfCheckSubtitle),
             (.explore, "safari", strings.onboardingExploreTitle, strings.onboardingExploreSubtitle),
         ]
-        ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
-                Text(strings.onboardingQuestion)
-                    .font(.custom(AppFont.display, size: 28, relativeTo: .largeTitle).weight(.semibold))
-                    .foregroundStyle(AppColors.textPrimary)
-                    .accessibilityAddTraits(.isHeader)
-                Text(strings.onboardingPickOne)
-                    .textRole(.bodyMedium, color: AppColors.textSecondary)
-                    .padding(.top, 8)
-                VStack(spacing: 10) {
-                    ForEach(choices, id: \.0) { path, icon, title, subtitle in
-                        ChoiceCard(systemImage: icon, title: title, subtitle: subtitle) { onChoose(path) }
+        List {
+            Section {
+                ForEach(choices, id: \.0) { path, icon, title, subtitle in
+                    Button { onChoose(path) } label: {
+                        HStack(spacing: 14) {
+                            Image(systemName: icon)
+                                .font(.title3)
+                                .foregroundStyle(AppColors.accent)
+                                .frame(width: 30)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(title).font(.body.weight(.semibold)).foregroundStyle(Color(.label))
+                                Text(subtitle).font(.footnote).foregroundStyle(Color(.secondaryLabel))
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            Image(systemName: "chevron.right")
+                                .font(.footnote.weight(.semibold))
+                                .foregroundStyle(Color(.tertiaryLabel))
+                        }
+                        .padding(.vertical, 6)
+                        .contentShape(.rect)
                     }
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(title)
+                    .accessibilityHint(subtitle)
+                    .accessibilityAddTraits(.isButton)
+                    .listRowBackground(AppColors.card)
                 }
-                .padding(.top, 18)
+            } header: {
+                Text(strings.onboardingPickOne)
+                    .font(.subheadline)
+                    .foregroundStyle(Color(.secondaryLabel))
+                    .textCase(nil)
+                    .padding(.leading, -4)
+            } footer: {
+                Text(strings.onboardingSafetyFootnote)
+                    .padding(.top, 8)
             }
-            .padding(.top, 6)
-            .padding(.bottom, 4)
-            .padding(.horizontal, 22)
         }
-        .scrollBounceBehavior(.basedOnSize)
-    }
-}
-
-private struct ChoiceCard: View {
-    let systemImage: String
-    let title: String
-    let subtitle: String
-    let action: () -> Void
-
-    var body: some View {
-        Button(action: action) {
-            HStack(spacing: 14) {
-                Image(systemName: systemImage)
-                    .font(.system(size: 18))
-                    .foregroundStyle(AppColors.accent)
-                    .frame(width: 42, height: 42)
-                    .background(AppColors.accent.opacity(0.13), in: .circle)
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(title)
-                        .font(.sans(15.5, .bold, relativeTo: .subheadline))
-                        .foregroundStyle(AppColors.textPrimary)
-                    Text(subtitle)
-                        .font(.sans(12.5, relativeTo: .footnote))
-                        .foregroundStyle(AppColors.textSecondary)
-                }
-                .multilineTextAlignment(.leading)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundStyle(AppColors.textSecondary)
-            }
-            .padding(16)
-            .modifier(GlassCard())
-        }
-        .buttonStyle(PressScaleStyle())
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(title)
-        .accessibilityHint(subtitle)
-        .accessibilityAddTraits(.isButton)
-    }
-}
-
-/// `_glassDecoration`: card, hairline and a soft shadow.
-struct GlassCard: ViewModifier {
-    @Environment(\.colorScheme) private var scheme
-
-    func body(content: Content) -> some View {
-        content
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(AppColors.card, in: .rect(cornerRadius: 18))
-            .overlay(RoundedRectangle(cornerRadius: 18).strokeBorder(AppColors.border))
-            .shadow(color: .black.opacity(scheme == .dark ? 0.22 : 0.07), radius: 10, y: 10)
+        .listStyle(.insetGrouped)
+        .appListBackground()
+        .navigationTitle(strings.onboardingQuestion)
     }
 }
 

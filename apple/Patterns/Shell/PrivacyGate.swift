@@ -121,24 +121,23 @@ private struct PrivacyCover: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Image(systemName: "lock")
-                .font(.system(size: 30, weight: .medium))
-                .foregroundStyle(AppColors.accent)
-                .frame(width: 96, height: 96)
-                .background(AppColors.card, in: .circle)
-                .overlay(Circle().strokeBorder(AppColors.border))
+            Image(systemName: "lock.fill")
+                .font(.system(size: 44))
+                .foregroundStyle(.secondary)
                 .accessibilityElement()
                 .accessibilityLabel(model.strings.privacyScreenLabel)
             if showUnlock {
                 Button(unlockBusy ? model.strings.unlockingAction : model.strings.unlockAction, action: onUnlock)
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.capsule)
+                    .controlSize(.large)
                     .disabled(unlockBusy)
-                    .padding(.top, 20)
+                    .padding(.top, 24)
             }
             if let message {
                 Text(message)
-                    .textRole(.bodyMedium)
-                    .foregroundStyle(AppColors.textSecondary)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
                     .padding(.top, 16)

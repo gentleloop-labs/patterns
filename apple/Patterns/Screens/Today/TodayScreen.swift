@@ -19,20 +19,16 @@ struct TodayScreen: View {
         let data = snapshot.value ?? ActivitySnapshot()
         let streak = RecoveryInsights.metrics(data).practiceStreakDays
         let showStreak = data.hasActivity && !model.calmInsightsEnabled && streak > 0
-        ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
-                Text(strings.todayEncouragement)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                if data.hasActivity {
-                    established(data)
-                } else {
-                    firstRun(data)
-                }
+        List {
+            if data.hasActivity {
+                established(data)
+            } else {
+                firstRun(data)
             }
-            .padding(EdgeInsets(top: 0, leading: 20, bottom: 24, trailing: 20))
         }
-        .background(AppColors.surface)
+        .listStyle(.insetGrouped)
+        .listSectionSpacing(20)
+        .appListBackground()
         .navigationTitle(greeting(strings))
         .toolbar {
             if showStreak {
@@ -61,21 +57,31 @@ struct TodayScreen: View {
 
     // MARK: Layouts
 
+    /// The encouragement line sits above the first card, under the title.
+    private var encouragement: some View {
+        Text(model.strings.todayEncouragement)
+            .font(.subheadline)
+            .foregroundStyle(Color(.secondaryLabel))
+            .textCase(nil)
+            .padding(.leading, -4)
+    }
+
     @ViewBuilder
     private func established(_ data: ActivitySnapshot) -> some View {
         let strings = model.strings
-        let calm = model.calmInsightsEnabled
-        Group {
-            if calm {
-                CalmActivityCard(summary: RecoveryInsights.calmInsights(data)) { navigation.select(.insights) }
+        Section {
+            if model.calmInsightsEnabled {
+                CalmActivityRow(summary: RecoveryInsights.calmInsights(data)) { navigation.select(.insights) }
             } else {
-                HomeScoreCard(summary: RecoveryInsights.dashboard(data),
-                              enoughData: RecoveryInsights.hasEnoughForProgress(data)) {
+                HomeScoreRow(summary: RecoveryInsights.dashboard(data),
+                             enoughData: RecoveryInsights.hasEnoughForProgress(data)) {
                     navigation.select(.insights)
                 }
             }
+        } header: {
+            encouragement
         }
-        .padding(.top, 18)
+        .listRowBackground(AppColors.card)
 
         let step = RecoveryInsights.nextStep(
             isPro: model.proUnlocked,
@@ -83,61 +89,84 @@ struct TodayScreen: View {
             hasHierarchy: !data.exposureSteps.isEmpty,
             practicedToday: RecoveryInsights.practicedToday(data)
         )
-        NextStepCard(copy: NextStepCopy(step, strings)) { openNextStep(step) }
-            .padding(.top, 16)
-        if showProCard {
-            ProProgressionCard(onTap: { navigation.presentPaywall(.todayNextStep) }, onDismiss: hideProCard)
-                .padding(.top, 12)
+        Section(strings.todayNextStep) {
+            NextStepRow(copy: NextStepCopy(step, strings)) { openNextStep(step) }
+            if showProCard {
+                ProProgressionRow(onTap: { navigation.presentPaywall(.todayNextStep) }, onDismiss: hideProCard)
+            }
         }
+        .listRowBackground(AppColors.card)
 
-        HomeSectionHeader(title: strings.todayContinuePractice, actionLabel: strings.todaySeeAllAction) {
-            navigation.select(.erp)
+        Section {
+            ContinuePracticeRow(recentDelay: data.latestDelay) {
+                if data.latestDelay == nil { navigation.select(.erp) } else { navigation.push(.compulsionDelay) }
+            }
+        } header: {
+            HStack {
+                Text(strings.todayContinuePractice)
+                Spacer()
+                Button(strings.todaySeeAllAction) { navigation.select(.erp) }
+                    .font(.subheadline.weight(.semibold))
+                    .textCase(nil)
+            }
         }
-        .padding(.top, 20)
-        ContinuePracticeCard(recentDelay: data.latestDelay) {
-            if data.latestDelay == nil { navigation.select(.erp) } else { navigation.push(.compulsionDelay) }
-        }
-        .padding(.top, 10)
+        .listRowBackground(AppColors.card)
 
-        HomeSectionHeader(title: strings.todayQuickActions)
-            .padding(.top, 22)
-        QuickActionGrid(
-            onJournal: openJournal,
-            onErp: { navigation.select(.erp) },
-            onExposureTools: { navigation.select(.erp) },
-            onInsights: { navigation.select(.insights) }
-        )
-        .padding(.top, 10)
-        DailyCheckInCard(checkedIn: data.journals.contains { $0.date == JournalEntry.dayKey(for: Date()) },
-                         onTap: openJournal)
-            .padding(.top, 14)
+        Section(strings.todayQuickActions) {
+            ActionRow(systemImage: "square.and.pencil", title: strings.navJournal, subtitle: strings.todayJournalBody,
+                      action: openJournal)
+            ActionRow(systemImage: "scope", title: strings.todayStartErp, subtitle: strings.todayBuildToleranceBody) {
+                navigation.select(.erp)
+            }
+            ActionRow(systemImage: "square.3.layers.3d", title: strings.todayExposureTools,
+                      subtitle: strings.todayExposureToolsBody) { navigation.select(.erp) }
+            ActionRow(systemImage: "chart.bar", title: strings.navInsights, subtitle: strings.todayInsightsBody) {
+                navigation.select(.insights)
+            }
+        }
+        .listRowBackground(AppColors.card)
+
+        Section {
+            DailyCheckInRow(checkedIn: data.journals.contains { $0.date == JournalEntry.dayKey(for: Date()) },
+                            onTap: openJournal)
+        }
+        .listRowBackground(AppColors.card)
     }
 
     @ViewBuilder
     private func firstRun(_ data: ActivitySnapshot) -> some View {
         let strings = model.strings
         let primary = firstRunPrimary(strings)
-        NextStepCard(copy: primary.copy, action: primary.action)
-            .padding(.top, 18)
-        HomeSectionHeader(title: strings.todayChooseActivity)
-            .padding(.top, 22)
-        VStack(spacing: 10) {
-            QuickActionTile(systemImage: "square.and.pencil", title: strings.todayWriteSomethingTitle,
-                            subtitle: strings.todayWriteSomethingBody) {
+        Section {
+            NextStepRow(copy: primary.copy, action: primary.action)
+        } header: {
+            encouragement
+        }
+        .listRowBackground(AppColors.card)
+
+        Section(strings.todayChooseActivity) {
+            ActionRow(systemImage: "square.and.pencil", title: strings.todayWriteSomethingTitle,
+                      subtitle: strings.todayWriteSomethingBody) {
                 navigation.push(.ocdEvent(entryID: nil, type: .obsession))
             }
-            QuickActionTile(systemImage: "hourglass", title: strings.todayDelayUrgeTitle,
-                            subtitle: strings.todayDelayUrgeBody) { navigation.push(.compulsionDelay) }
-            QuickActionTile(systemImage: "leaf", title: strings.todayPracticeErpTitle,
-                            subtitle: strings.todayPracticeErpBody) { navigation.select(.erp) }
+            ActionRow(systemImage: "hourglass", title: strings.todayDelayUrgeTitle,
+                      subtitle: strings.todayDelayUrgeBody) { navigation.push(.compulsionDelay) }
+            ActionRow(systemImage: "leaf", title: strings.todayPracticeErpTitle,
+                      subtitle: strings.todayPracticeErpBody) { navigation.select(.erp) }
         }
-        .padding(.top, 10)
-        if data.ybocsAssessments.isEmpty {
-            SelfCheckRow { openNextStep(.selfCheck) }
-                .padding(.top, 18)
+        .listRowBackground(AppColors.card)
+
+        Section {
+            if data.ybocsAssessments.isEmpty {
+                ActionRow(systemImage: "list.clipboard", title: strings.todaySelfCheckTitle,
+                          subtitle: strings.todaySelfCheckDuration) { openNextStep(.selfCheck) }
+            }
+        } footer: {
+            Label(strings.todayInsightsPlaceholder, systemImage: "chart.xyaxis.line")
+                .font(.footnote)
+                .padding(.top, 4)
         }
-        InsightsPlaceholder()
-            .padding(.top, 18)
+        .listRowBackground(AppColors.card)
     }
 
     /// The first-run suggestion echoes what the user picked on the welcome
@@ -200,23 +229,45 @@ enum FirstRunPath: String, CaseIterable {
     case urge, journal, erp, selfcheck, explore
 }
 
-// MARK: - Cards
+// MARK: - Rows
 
-/// `_homeCardDecoration`: card fill, hairline and a soft drop shadow.
-private struct HomeCard: ViewModifier {
-    var radius: CGFloat
-    @Environment(\.colorScheme) private var scheme
+/// A tappable list row: icon, title, an explanation and a chevron, the
+/// shape of a navigation row.
+private struct ActionRow: View {
+    let systemImage: String
+    let title: String
+    let subtitle: String
+    let action: () -> Void
 
-    func body(content: Content) -> some View {
-        content
-            .background(AppColors.card, in: .rect(cornerRadius: radius))
-            .overlay(RoundedRectangle(cornerRadius: radius).strokeBorder(AppColors.border))
-            .shadow(color: .black.opacity(scheme == .dark ? 0.28 : 0.08), radius: 12, y: 12)
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 14) {
+                Image(systemName: systemImage)
+                    .font(.title3)
+                    .foregroundStyle(AppColors.accent)
+                    .frame(width: 30)
+                    .accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title)
+                        .font(.body.weight(.semibold))
+                        .foregroundStyle(Color(.label))
+                    Text(subtitle)
+                        .font(.footnote)
+                        .foregroundStyle(Color(.secondaryLabel))
+                }
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                Image(systemName: "chevron.right")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(Color(.tertiaryLabel))
+                    .accessibilityHidden(true)
+            }
+            .padding(.vertical, 4)
+            .contentShape(.rect)
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityHint(subtitle)
     }
-}
-
-private extension View {
-    func homeCard(radius: CGFloat = 20) -> some View { modifier(HomeCard(radius: radius)) }
 }
 
 private struct UsesLargeText {
@@ -224,7 +275,7 @@ private struct UsesLargeText {
     static func check(_ size: DynamicTypeSize) -> Bool { size >= .accessibility1 }
 }
 
-private struct CalmActivityCard: View {
+private struct CalmActivityRow: View {
     let summary: CalmInsightsSummary
     let onTap: () -> Void
     @Environment(AppModel.self) private var model
@@ -239,34 +290,32 @@ private struct CalmActivityCard: View {
             summary.exposureCount > 0 ? strings.calmExposureActivity(count: summary.exposureCount) : nil,
         ].compactMap { $0 }
         Button(action: onTap) {
-            VStack(alignment: .leading, spacing: 12) {
-                HStack(spacing: 10) {
-                    Image(systemName: "leaf").foregroundStyle(AppColors.accent)
-                    Text(strings.calmRecentActivityTitle)
-                        .textRole(.titleMedium, weight: .heavy, color: AppColors.textPrimary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Image(systemName: "chevron.right").foregroundStyle(AppColors.textSecondary)
-                }
-                if facts.isEmpty {
-                    Text(strings.calmNoRecentActivity).textRole(.bodyMedium, color: AppColors.textPrimary)
-                } else {
-                    VStack(alignment: .leading, spacing: 6) {
-                        ForEach(facts, id: \.self) { fact in
-                            HStack(alignment: .firstTextBaseline, spacing: 8) {
-                                Circle().fill(AppColors.textPrimary).frame(width: 5, height: 5)
-                                    .alignmentGuide(.firstTextBaseline) { $0[.bottom] + 4 }
-                                Text(fact).textRole(.bodyMedium, color: AppColors.textPrimary)
+            HStack(alignment: .top, spacing: 14) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Label(strings.calmRecentActivityTitle, systemImage: "leaf")
+                        .font(.headline)
+                        .foregroundStyle(Color(.label))
+                    if facts.isEmpty {
+                        Text(strings.calmNoRecentActivity)
+                            .foregroundStyle(Color(.secondaryLabel))
+                    } else {
+                        VStack(alignment: .leading, spacing: 4) {
+                            ForEach(facts, id: \.self) { fact in
+                                Text(fact).foregroundStyle(Color(.secondaryLabel))
                             }
                         }
+                        .font(.subheadline)
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                Image(systemName: "chevron.right")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(Color(.tertiaryLabel))
             }
             .multilineTextAlignment(.leading)
-            .padding(20)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(AppColors.card, in: .rect(cornerRadius: 24))
+            .padding(.vertical, 6)
+            .contentShape(.rect)
         }
-        .buttonStyle(PressScaleStyle(scale: 0.98))
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(strings.calmRecentActivityTitle)
         .accessibilityValue(facts.isEmpty ? strings.calmNoRecentActivity : facts.joined(separator: ", "))
@@ -274,7 +323,7 @@ private struct CalmActivityCard: View {
     }
 }
 
-private struct HomeScoreCard: View {
+private struct HomeScoreRow: View {
     let summary: RecoveryDashboard
     let enoughData: Bool
     let onTap: () -> Void
@@ -284,9 +333,11 @@ private struct HomeScoreCard: View {
     var body: some View {
         let strings = model.strings
         Button(action: onTap) {
-            if enoughData { scored(strings) } else { placeholder(strings) }
+            Group {
+                if enoughData { scored(strings) } else { placeholder(strings) }
+            }
+            .contentShape(.rect)
         }
-        .buttonStyle(PressScaleStyle(scale: 0.98))
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(enoughData
             ? strings.todayScoreA11y(score: summary.recoveryScore, label: label(strings))
@@ -296,9 +347,8 @@ private struct HomeScoreCard: View {
     }
 
     private func eyebrow(_ strings: Strings) -> some View {
-        Text(strings.todayPracticeProgress.uppercased(with: strings.locale))
-            .font(.sans(11, .black, relativeTo: .caption))
-            .tracking(0.6)
+        Text(strings.todayPracticeProgress)
+            .font(.subheadline.weight(.semibold))
             .foregroundStyle(AppColors.accent)
     }
 
@@ -306,17 +356,17 @@ private struct HomeScoreCard: View {
         let details = VStack(alignment: .leading, spacing: 0) {
             eyebrow(strings)
             Text(summary.hasAnyData ? strings.todaySteadyPractice : strings.todayStartGently)
-                .font(.sans(18, .heavy, relativeTo: .headline))
-                .foregroundStyle(AppColors.textPrimary)
-                .padding(.top, 12)
-            Text(summary.hasAnyData ? strings.todayPracticeActiveBody : strings.todayPracticeEmptyBody)
-                .font(.sans(13, relativeTo: .footnote))
-                .foregroundStyle(AppColors.textSecondary)
+                .font(.headline)
+                .foregroundStyle(Color(.label))
                 .padding(.top, 6)
+            Text(summary.hasAnyData ? strings.todayPracticeActiveBody : strings.todayPracticeEmptyBody)
+                .font(.footnote)
+                .foregroundStyle(Color(.secondaryLabel))
+                .padding(.top, 2)
             Text(deltaText(strings))
-                .font(.sans(12, .heavy, relativeTo: .caption))
+                .font(.footnote.weight(.semibold))
                 .foregroundStyle(AppColors.accent)
-                .padding(.top, 14)
+                .padding(.top, 8)
         }
         let ring = ScoreRing(score: summary.recoveryScore, label: label(strings))
         return VStack(alignment: .leading, spacing: 14) {
@@ -326,35 +376,35 @@ private struct HomeScoreCard: View {
                 HStack(spacing: 18) {
                     ring
                     details.frame(maxWidth: .infinity, alignment: .leading)
-                    Image(systemName: "chevron.right").foregroundStyle(AppColors.textSecondary)
+                    Image(systemName: "chevron.right")
+                        .font(.footnote.weight(.semibold))
+                        .foregroundStyle(Color(.tertiaryLabel))
                 }
             }
             Text(strings.todayProgressDisclaimer)
-                .font(.sans(11, relativeTo: .caption2))
-                .foregroundStyle(AppColors.textSecondary.opacity(0.8))
+                .font(.caption)
+                .foregroundStyle(Color(.secondaryLabel))
         }
         .multilineTextAlignment(.leading)
-        .padding(18)
+        .padding(.vertical, 6)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .homeCard(radius: 22)
     }
 
     private func placeholder(_ strings: Strings) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             eyebrow(strings)
             Text(strings.todayProgressStartedTitle)
-                .font(.sans(18, .heavy, relativeTo: .headline))
-                .foregroundStyle(AppColors.textPrimary)
-                .padding(.top, 12)
-            Text(strings.todayProgressPendingBody)
-                .font(.sans(13, relativeTo: .footnote))
-                .foregroundStyle(AppColors.textSecondary)
+                .font(.headline)
+                .foregroundStyle(Color(.label))
                 .padding(.top, 6)
+            Text(strings.todayProgressPendingBody)
+                .font(.footnote)
+                .foregroundStyle(Color(.secondaryLabel))
+                .padding(.top, 2)
         }
         .multilineTextAlignment(.leading)
-        .padding(18)
+        .padding(.vertical, 6)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .homeCard(radius: 22)
     }
 
     private func label(_ strings: Strings) -> String {
@@ -381,7 +431,7 @@ private struct ScoreRing: View {
 
     var body: some View {
         ZStack {
-            Circle().stroke(AppColors.border, lineWidth: 8)
+            Circle().stroke(Color(.systemFill), lineWidth: 8)
             Circle()
                 .trim(from: 0, to: CGFloat(min(max(score, 0), 100)) / 100)
                 .stroke(AngularGradient(colors: [AppColors.accent, Color(red: 1, green: 0.914, blue: 0.58), AppColors.accent],
@@ -389,8 +439,8 @@ private struct ScoreRing: View {
                         style: StrokeStyle(lineWidth: 8, lineCap: .round))
                 .rotationEffect(.degrees(-90))
             VStack(spacing: 4) {
-                Text("\(score)").font(.system(size: 31, weight: .heavy)).foregroundStyle(AppColors.textPrimary)
-                Text(label).font(.sans(11, .heavy)).foregroundStyle(AppColors.accent)
+                Text("\(score)").font(.system(size: 31, weight: .bold, design: .rounded)).foregroundStyle(Color(.label))
+                Text(label).font(.caption2.weight(.semibold)).foregroundStyle(AppColors.accent)
             }
             .dynamicTypeSize(...DynamicTypeSize.xLarge)
         }
@@ -426,40 +476,27 @@ struct NextStepCopy {
     }
 }
 
-private struct NextStepCard: View {
+private struct NextStepRow: View {
     let copy: NextStepCopy
     let action: () -> Void
-    @Environment(AppModel.self) private var model
-    @Environment(\.colorScheme) private var scheme
-    @Environment(\.dynamicTypeSize) private var typeSize
 
     var body: some View {
-        let large = UsesLargeText.check(typeSize)
-        VStack(alignment: .leading, spacing: 0) {
-            Text(model.strings.todayNextStep.uppercased(with: model.strings.locale))
-                .font(.sans(11, .black, relativeTo: .caption))
-                .tracking(0.6)
-                .foregroundStyle(AppColors.accent)
+        VStack(alignment: .leading, spacing: 4) {
             Text(copy.title)
-                .font(.sans(18, .heavy, relativeTo: .headline))
-                .foregroundStyle(AppColors.textPrimary)
-                .padding(.top, 10)
+                .font(.title3.weight(.semibold))
             Text(copy.subtitle)
-                .font(.sans(13, relativeTo: .footnote))
-                .foregroundStyle(AppColors.textSecondary)
-                .padding(.top, 6)
+                .font(.subheadline)
+                .foregroundStyle(Color(.secondaryLabel))
             Button(copy.cta, action: action)
-                .buttonStyle(CompactPrimaryButtonStyle(radius: 16, horizontalPadding: large ? 12 : 18, fullWidth: large))
-                .padding(.top, 14)
-                // The whole card is the button for VoiceOver.
+                .buttonStyle(.borderedProminent)
+                .buttonBorderShape(.capsule)
+                .padding(.top, 10)
+                // The whole row is the button for VoiceOver.
                 .accessibilityHidden(true)
         }
-        .padding(18)
+        .padding(.vertical, 8)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(LinearGradient(colors: gradient, startPoint: .topLeading, endPoint: .bottomTrailing),
-                    in: .rect(cornerRadius: 22))
-        .overlay(RoundedRectangle(cornerRadius: 22).strokeBorder(AppColors.accent.opacity(0.35)))
-        .contentShape(.rect(cornerRadius: 22))
+        .contentShape(.rect)
         .onTapGesture(perform: action)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(copy.title)
@@ -467,19 +504,9 @@ private struct NextStepCard: View {
         .accessibilityAddTraits(.isButton)
         .accessibilityAction(.default, action)
     }
-
-    /// `nextStepCardGradientColors`.
-    private var gradient: [Color] {
-        if scheme == .dark {
-            return [Color(red: 0x23 / 255, green: 0x20 / 255, blue: 0x0F / 255),
-                    Color(red: 0x15 / 255, green: 0x14 / 255, blue: 0x0F / 255)]
-        }
-        let accent = UIColor(rgb: 0x8A6500), card = UIColor(rgb: 0xFFFCF6)
-        return [Color(accent.blended(over: card, alpha: 0.12)), AppColors.card]
-    }
 }
 
-private struct ProProgressionCard: View {
+private struct ProProgressionRow: View {
     let onTap: () -> Void
     let onDismiss: () -> Void
     @Environment(AppModel.self) private var model
@@ -488,60 +515,31 @@ private struct ProProgressionCard: View {
         let strings = model.strings
         HStack(spacing: 12) {
             Button(action: onTap) {
-                HStack(spacing: 12) {
-                    Image(systemName: "leaf")
-                        .font(.system(size: 18))
-                        .foregroundStyle(AppColors.accent)
-                        .frame(width: 42, height: 42)
-                        .background(AppColors.accent.opacity(0.14), in: .circle)
-                    VStack(alignment: .leading, spacing: 3) {
-                        Text(strings.todayProTitle).textRole(.titleSmall, weight: .heavy, color: AppColors.textPrimary)
-                        Text(strings.todayProBody)
-                            .font(.sans(12.5, relativeTo: .footnote))
-                            .foregroundStyle(AppColors.textSecondary)
+                Label {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(strings.todayProTitle).font(.subheadline.weight(.semibold)).foregroundStyle(Color(.label))
+                        Text(strings.todayProBody).font(.footnote).foregroundStyle(Color(.secondaryLabel))
                     }
                     .multilineTextAlignment(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                } icon: {
+                    Image(systemName: "sparkles").foregroundStyle(AppColors.accent)
                 }
-            }
-            .buttonStyle(PressScaleStyle(scale: 0.98))
-            Button(action: onDismiss) {
-                Image(systemName: "xmark")
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundStyle(AppColors.textSecondary)
-                    .frame(width: 44, height: 44)
-            }
-            .accessibilityLabel(strings.todayHideSevenDays)
-        }
-        .padding(EdgeInsets(top: 14, leading: 16, bottom: 14, trailing: 8))
-        .background(AppColors.card, in: .rect(cornerRadius: 18))
-        .overlay(RoundedRectangle(cornerRadius: 18).strokeBorder(AppColors.accent.opacity(0.55)))
-    }
-}
-
-private struct HomeSectionHeader: View {
-    let title: String
-    var actionLabel: String?
-    var onAction: (() -> Void)?
-
-    var body: some View {
-        HStack {
-            Text(title)
-                .font(.sans(17, .heavy, relativeTo: .headline))
-                .foregroundStyle(AppColors.textPrimary)
-                .accessibilityAddTraits(.isHeader)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            if let actionLabel, let onAction {
-                Button(actionLabel, action: onAction)
-                    .font(.sans(12, .heavy, relativeTo: .caption))
-                    .foregroundStyle(AppColors.accent)
-                    .frame(minWidth: 44, minHeight: 44)
+                .contentShape(.rect)
             }
+            .buttonStyle(.plain)
+            Button(strings.todayHideSevenDays, systemImage: "xmark", action: onDismiss)
+                .labelStyle(.iconOnly)
+                .buttonStyle(.borderless)
+                .foregroundStyle(Color(.tertiaryLabel))
+        }
+        .swipeActions {
+            Button(strings.todayHideSevenDays, action: onDismiss)
         }
     }
 }
 
-private struct ContinuePracticeCard: View {
+private struct ContinuePracticeRow: View {
     let recentDelay: DelaySession?
     let onResume: () -> Void
     @Environment(AppModel.self) private var model
@@ -558,7 +556,7 @@ private struct ContinuePracticeCard: View {
         let large = UsesLargeText.check(typeSize)
 
         let graphic = ZStack {
-            Circle().stroke(AppColors.border, lineWidth: 5)
+            Circle().stroke(Color(.systemFill), lineWidth: 5)
             Circle().trim(from: 0, to: progress)
                 .stroke(AppColors.accent, style: StrokeStyle(lineWidth: 5, lineCap: .round))
                 .rotationEffect(.degrees(-90))
@@ -570,20 +568,18 @@ private struct ContinuePracticeCard: View {
         .accessibilityLabel(timerLabel)
 
         let bar = ProgressView(value: progress)
-            .tint(AppColors.accent)
-            .scaleEffect(y: 1.5)
         let timeText = Text("\(elapsed) / \(planned)")
-            .font(.sans(12, .bold, relativeTo: .caption))
-            .foregroundStyle(AppColors.textSecondary)
+            .font(.caption.monospacedDigit())
+            .foregroundStyle(Color(.secondaryLabel))
+            .fixedSize()
 
         let details = VStack(alignment: .leading, spacing: 0) {
             Text(session == nil ? strings.todayStartErp : strings.todayCompulsionDelay)
-                .font(.sans(16, .heavy, relativeTo: .headline))
-                .foregroundStyle(AppColors.textPrimary)
+                .font(.headline)
             Text(session == nil ? strings.todayBuildToleranceBody : strings.todayResistUrgeBody)
-                .font(.sans(12, relativeTo: .caption))
-                .foregroundStyle(AppColors.textSecondary)
-                .padding(.top, 4)
+                .font(.footnote)
+                .foregroundStyle(Color(.secondaryLabel))
+                .padding(.top, 2)
             Group {
                 if large {
                     VStack(alignment: .leading, spacing: 8) { bar; timeText }
@@ -596,7 +592,8 @@ private struct ContinuePracticeCard: View {
             .padding(.top, 10)
         }
         let action = Button(session == nil ? strings.todayStartAction : strings.todayResumeAction, action: onResume)
-            .buttonStyle(CompactPrimaryButtonStyle(fullWidth: large))
+            .buttonStyle(.borderedProminent)
+            .buttonBorderShape(.capsule)
 
         Group {
             if large {
@@ -612,8 +609,7 @@ private struct ContinuePracticeCard: View {
                 }
             }
         }
-        .padding(16)
-        .homeCard(radius: 18)
+        .padding(.vertical, 6)
     }
 
     static func format(_ seconds: Int) -> String {
@@ -621,122 +617,7 @@ private struct ContinuePracticeCard: View {
     }
 }
 
-private struct QuickActionGrid: View {
-    let onJournal: () -> Void
-    let onErp: () -> Void
-    let onExposureTools: () -> Void
-    let onInsights: () -> Void
-    @Environment(AppModel.self) private var model
-    @Environment(\.dynamicTypeSize) private var typeSize
-
-    var body: some View {
-        let s = model.strings
-        let journal = QuickActionTile(systemImage: "square.and.pencil", title: s.navJournal, subtitle: s.todayJournalBody, action: onJournal)
-        let erp = QuickActionTile(systemImage: "scope", title: s.todayStartErp, subtitle: s.todayBuildToleranceBody, action: onErp)
-        let exposure = QuickActionTile(systemImage: "square.3.layers.3d", title: s.todayExposureTools,
-                                       subtitle: s.todayExposureToolsBody, action: onExposureTools)
-        let insights = QuickActionTile(systemImage: "chart.bar", title: s.navInsights, subtitle: s.todayInsightsBody, action: onInsights)
-        if UsesLargeText.check(typeSize) {
-            VStack(spacing: 10) { journal; erp; exposure; insights }
-        } else {
-            Grid(horizontalSpacing: 10, verticalSpacing: 10) {
-                GridRow { journal; erp }
-                GridRow { exposure; insights }
-            }
-        }
-    }
-}
-
-private struct QuickActionTile: View {
-    let systemImage: String
-    let title: String
-    let subtitle: String
-    let action: () -> Void
-
-    var body: some View {
-        Button(action: action) {
-            HStack(alignment: .top, spacing: 12) {
-                Image(systemName: systemImage)
-                    .font(.system(size: 22))
-                    .foregroundStyle(AppColors.accent)
-                    .frame(width: 27)
-                VStack(alignment: .leading, spacing: 7) {
-                    Text(title)
-                        .font(.sans(14, .heavy, relativeTo: .subheadline))
-                        .foregroundStyle(AppColors.textPrimary)
-                    Text(subtitle)
-                        .font(.sans(11.5, relativeTo: .caption))
-                        .foregroundStyle(AppColors.textSecondary)
-                }
-                .multilineTextAlignment(.leading)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(AppColors.textSecondary)
-            }
-            .padding(14)
-            .frame(maxWidth: .infinity, minHeight: 98, alignment: .topLeading)
-            .homeCard(radius: 16)
-        }
-        .buttonStyle(PressScaleStyle())
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(title)
-        .accessibilityHint(subtitle)
-        .accessibilityAddTraits(.isButton)
-    }
-}
-
-/// `_SelfCheckRow`: the optional self-check on the first-run Today.
-private struct SelfCheckRow: View {
-    let action: () -> Void
-    @Environment(AppModel.self) private var model
-
-    var body: some View {
-        let strings = model.strings
-        Button(action: action) {
-            HStack(spacing: 12) {
-                Image(systemName: "list.clipboard").font(.system(size: 19)).foregroundStyle(AppColors.textSecondary)
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(strings.todaySelfCheckTitle).font(.sans(14, .bold, relativeTo: .subheadline))
-                        .foregroundStyle(AppColors.textPrimary)
-                    Text(strings.todaySelfCheckDuration).font(.sans(12, relativeTo: .caption))
-                        .foregroundStyle(AppColors.textSecondary)
-                }
-                .multilineTextAlignment(.leading)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                Image(systemName: "chevron.right").font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(AppColors.textSecondary)
-            }
-            .padding(14)
-            .homeCard(radius: 16)
-        }
-        .buttonStyle(PressScaleStyle())
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(strings.todaySelfCheckTitle)
-        .accessibilityHint(strings.todaySelfCheckDuration)
-        .accessibilityAddTraits(.isButton)
-    }
-}
-
-private struct InsightsPlaceholder: View {
-    @Environment(AppModel.self) private var model
-
-    var body: some View {
-        HStack(spacing: 12) {
-            Image(systemName: "chart.xyaxis.line").font(.system(size: 18))
-                .foregroundStyle(AppColors.textSecondary.opacity(0.8))
-                .accessibilityHidden(true)
-            Text(model.strings.todayInsightsPlaceholder)
-                .font(.sans(13, relativeTo: .footnote))
-                .foregroundStyle(AppColors.textSecondary)
-                .frame(maxWidth: .infinity, alignment: .leading)
-        }
-        .padding(16)
-        .homeCard(radius: 16)
-    }
-}
-
-private struct DailyCheckInCard: View {
+private struct DailyCheckInRow: View {
     let checkedIn: Bool
     let onTap: () -> Void
     @Environment(AppModel.self) private var model
@@ -747,14 +628,14 @@ private struct DailyCheckInCard: View {
         let large = UsesLargeText.check(typeSize)
         let details = VStack(alignment: .leading, spacing: 4) {
             Text(checkedIn ? strings.todayDailyCheckInComplete : strings.todayDailyCheckIn)
-                .font(.sans(16, .heavy, relativeTo: .headline))
-                .foregroundStyle(AppColors.textPrimary)
+                .font(.headline)
             Text(checkedIn ? strings.todayDailyCompleteBody : strings.todayDailyBody)
-                .font(.sans(12, relativeTo: .caption))
-                .foregroundStyle(AppColors.textSecondary)
+                .font(.footnote)
+                .foregroundStyle(Color(.secondaryLabel))
         }
         let action = Button(checkedIn ? strings.todayOpenAction : strings.todayCheckInAction, action: onTap)
-            .buttonStyle(CompactPrimaryButtonStyle(horizontalPadding: 14, fullWidth: large))
+            .buttonStyle(.bordered)
+            .buttonBorderShape(.capsule)
         Group {
             if large {
                 VStack(alignment: .leading, spacing: 14) { details; action }
@@ -762,7 +643,7 @@ private struct DailyCheckInCard: View {
                 HStack(spacing: 14) {
                     Image(systemName: "leaf.fill")
                         .foregroundStyle(AppColors.positive)
-                        .frame(width: 52, height: 52)
+                        .frame(width: 44, height: 44)
                         .background(AppColors.positive.opacity(0.12), in: .circle)
                         .accessibilityHidden(true)
                     details.frame(maxWidth: .infinity, alignment: .leading)
@@ -770,7 +651,6 @@ private struct DailyCheckInCard: View {
                 }
             }
         }
-        .padding(16)
-        .homeCard(radius: 18)
+        .padding(.vertical, 6)
     }
 }

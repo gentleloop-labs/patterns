@@ -37,6 +37,7 @@ struct TipJarSheet: View {
                 }
             }
         }
+        .overlay(alignment: .top) { ToastHost() }
         .presentationDetents([.medium, .large])
         .task { await loadProducts() }
     }
