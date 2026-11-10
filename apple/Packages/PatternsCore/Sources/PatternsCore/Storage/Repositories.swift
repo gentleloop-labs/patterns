@@ -297,3 +297,26 @@ extension PatternsDatabase {
         _ = try queue.write { db in try ExposureReflection.deleteOne(db, key: id) }
     }
 }
+
+extension ResponsePreventionLog {
+    /// `getResponsePreventionLogs`: newest first.
+    public static func all() -> QueryInterfaceRequest<ResponsePreventionLog> {
+        ResponsePreventionLog.order(Column("datetime").desc)
+    }
+}
+
+extension PatternsDatabase {
+    @discardableResult
+    public func insertResponsePreventionLog(_ log: ResponsePreventionLog) throws -> ResponsePreventionLog {
+        try queue.write { db in
+            var log = log
+            log.id = nil
+            try log.insert(db)
+            return log
+        }
+    }
+
+    public func deleteResponsePreventionLog(id: Int64) throws {
+        _ = try queue.write { db in try ResponsePreventionLog.deleteOne(db, key: id) }
+    }
+}
