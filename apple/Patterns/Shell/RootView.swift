@@ -113,6 +113,8 @@ struct MainShell: View {
         case .journal: JournalScreen()
         case .track: OcdTrackerScreen()
         case .home: TodayScreen()
+        // Until the Practice hub is ported, its tab opens ERP exercises.
+        case .erp: ErpExercisesScreen()
         default: PlaceholderScreen(title: tab.title(model.strings))
         }
     }
@@ -123,10 +125,11 @@ struct MainShell: View {
         case let .journalEntry(day): JournalEntryEditor(day: day).id(day)
         case let .ocdEvent(entryID, type): OcdEventFlow(entryID: entryID, initialType: type)
         case .compulsionDelay: CompulsionDelayFlow()
+        case let .erpPractice(planID): ErpPracticeLoader(planID: planID)
         case .settings: SettingsScreen()
         case .selfCheck: PlaceholderScreen(title: model.strings.todaySelfCheckTitle)
         case .exposureHierarchy: PlaceholderScreen(title: model.strings.todayNextHierarchyTitle)
-        case .erpExercises: PlaceholderScreen(title: model.strings.todayStartErp)
+        case .erpExercises: ErpExercisesScreen()
         case .exposureReflection: PlaceholderScreen(title: model.strings.todayNextReflectTitle)
         case let .firstRunActivity(path): firstRunActivity(path)
         case let .firstRunResult(path): FirstRunResultScreen(kind: path)
@@ -140,7 +143,7 @@ struct MainShell: View {
         switch path {
         case .journal: OcdEventFlow(entryID: nil, initialType: .obsession, firstRun: true)
         case .urge: CompulsionDelayFlow(firstRun: true)
-        case .erp: PlaceholderScreen(title: model.strings.todayPracticeErpTitle)
+        case .erp: ErpPracticeFlow(plan: ErpTemplate.firstRunPlan(model.strings), firstRun: true)
         case .selfcheck: PlaceholderScreen(title: model.strings.todaySelfCheckTitle)
         case .explore: EmptyView()
         }

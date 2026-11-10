@@ -17,6 +17,8 @@ enum Route: Hashable {
     case ocdEvent(entryID: Int64?, type: OcdType)
     /// `CompulsionDelayFlow`.
     case compulsionDelay
+    /// `ErpPlanPracticeFlow` for a saved plan.
+    case erpPractice(planID: Int64)
     case settings
     /// Screens not ported yet; each opens a placeholder until its phase.
     case selfCheck
