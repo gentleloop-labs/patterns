@@ -217,3 +217,60 @@ extension PatternsDatabase {
         }
     }
 }
+
+extension ExposureHierarchy {
+    /// `getActiveExposureHierarchies`: unarchived, most recently changed first.
+    public static func active() -> QueryInterfaceRequest<ExposureHierarchy> {
+        ExposureHierarchy.filter(Column("archived") == 0).order(Column("updated_at").desc)
+    }
+}
+
+extension ExposureStep {
+    /// `getExposureSteps`: grouped by ladder, in climbing order.
+    public static func all() -> QueryInterfaceRequest<ExposureStep> {
+        ExposureStep.order(Column("hierarchy_id").asc, Column("order_index").asc)
+    }
+
+    /// One ladder's steps in climbing order.
+    public static func forHierarchy(_ id: Int64) -> QueryInterfaceRequest<ExposureStep> {
+        ExposureStep.filter(Column("hierarchy_id") == id).order(Column("order_index").asc)
+    }
+}
+
+extension PatternsDatabase {
+    /// `insertExposureHierarchyWithSteps`: the ladder and its steps in one
+    /// transaction, steps numbered in the order given.
+    @discardableResult
+    public func insertExposureHierarchy(_ hierarchy: ExposureHierarchy, steps: [ExposureStep]) throws -> Int64 {
+        try queue.write { db in
+            var hierarchy = hierarchy
+            hierarchy.id = nil
+            try hierarchy.insert(db)
+            let id = db.lastInsertedRowID
+            for (index, step) in steps.enumerated() {
+                var step = step
+                step.id = nil
+                step.hierarchyId = id
+                step.orderIndex = index
+                try step.insert(db)
+            }
+            return id
+        }
+    }
+
+    /// `archiveExposureHierarchy`.
+    public func archiveExposureHierarchy(id: Int64) throws {
+        try queue.write { db in
+            try db.execute(sql: "UPDATE exposure_hierarchies SET archived = 1, updated_at = ? WHERE id = ?",
+                           arguments: [DartTimestamp.now().raw, id])
+        }
+    }
+
+    /// `updateExposureStep`: rewrites every column except `id`.
+    public func updateExposureStep(_ step: ExposureStep) throws {
+        guard step.id != nil else {
+            throw PersistenceError.recordNotFound(databaseTableName: ExposureStep.databaseTableName, key: [:])
+        }
+        try queue.write { db in try step.update(db) }
+    }
+}
