@@ -75,6 +75,8 @@ enum RecoveryDestination: String, CaseIterable, Hashable {
         case .ybocsSelfCheck: .selfCheck
         case .exposureHierarchy: .exposureHierarchy
         case .reflectionJournal: .exposureReflection
+        case .emergencyToolkit: .emergencyToolkit
+        case .copingLibrary: .copingLibrary
         default: .recoveryTool(self)
         }
     }

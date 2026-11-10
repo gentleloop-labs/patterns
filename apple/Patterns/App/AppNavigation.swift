@@ -25,6 +25,10 @@ enum Route: Hashable {
     case exposureHierarchy
     case erpExercises
     case exposureReflection
+    /// `EmergencyToolkitScreen` and the screens it opens.
+    case emergencyToolkit
+    case breathing
+    case copingLibrary
     /// A Practice hub tool not ported yet; opens a placeholder.
     case recoveryTool(RecoveryDestination)
     /// The activity a new user picked on the welcome screen.
