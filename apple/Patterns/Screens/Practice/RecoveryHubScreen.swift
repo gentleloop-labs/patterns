@@ -79,6 +79,7 @@ enum RecoveryDestination: String, CaseIterable, Hashable {
         case .copingLibrary: .copingLibrary
         case .urgeSurfing: .urgeSurf
         case .responsePrevention: .responsePrevention
+        case .uncertaintyTraining: .uncertaintyTraining
         default: .recoveryTool(self)
         }
     }

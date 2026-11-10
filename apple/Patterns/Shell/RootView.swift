@@ -136,6 +136,8 @@ struct MainShell: View {
         case .copingLibrary: CopingLibraryScreen()
         case .urgeSurf: UrgeSurfScreen()
         case .responsePrevention: ResponsePreventionScreen()
+        case .uncertaintyTraining: UncertaintyTrainingScreen()
+        case let .uncertaintyPractice(exercise): UncertaintyPracticeScreen(exercise: exercise)
         case let .urgeSurfFlow(record): UrgeSurfFlow(record: record)
         case let .recoveryTool(tool): PlaceholderScreen(title: tool.title(model.strings))
         case let .firstRunActivity(path): firstRunActivity(path)

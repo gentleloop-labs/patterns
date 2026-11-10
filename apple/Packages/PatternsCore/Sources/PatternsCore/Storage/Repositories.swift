@@ -320,3 +320,22 @@ extension PatternsDatabase {
         _ = try queue.write { db in try ResponsePreventionLog.deleteOne(db, key: id) }
     }
 }
+
+extension UncertaintyLog {
+    /// `getUncertaintyLogs`: newest first.
+    public static func all() -> QueryInterfaceRequest<UncertaintyLog> {
+        UncertaintyLog.order(Column("datetime").desc)
+    }
+}
+
+extension PatternsDatabase {
+    @discardableResult
+    public func insertUncertaintyLog(_ log: UncertaintyLog) throws -> UncertaintyLog {
+        try queue.write { db in
+            var log = log
+            log.id = nil
+            try log.insert(db)
+            return log
+        }
+    }
+}
