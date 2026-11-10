@@ -35,7 +35,7 @@ struct RootView: View {
             .background(AppColors.surface.ignoresSafeArea())
             .overlay(alignment: .bottom) { ToastHost() }
             .overlay { DialogHost() }
-            .bottomPanel(item: $navigation.paywall) { entry in PaywallSheet(entryPoint: entry) }
+            .sheet(item: $navigation.paywall) { entry in PaywallSheet(entryPoint: entry) }
             .sheet(item: $navigation.completion.identified) { item in
                 CompletionSheet(kind: item.kind) {
                     navigation.completion = nil

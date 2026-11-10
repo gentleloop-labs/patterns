@@ -10,11 +10,11 @@ struct SettingsScreen: View {
     @Environment(AppNavigation.self) private var navigation
     @Environment(\.openURL) private var openURL
 
-    @State private var panel: SettingsPanel?
+    @State private var sheet: SettingsSheet?
+    @State private var prompt: SettingsPrompt?
     @State private var exportDocument: BackupDocument?
     @State private var exporting = false
     @State private var importing = false
-    @State private var pickingTime = false
     @State private var redeeming = false
     /// Offer-code redemptions report nothing back; the unlock arrives later
     /// as a transaction. Flutter listened for 10 minutes.
@@ -22,124 +22,148 @@ struct SettingsScreen: View {
 
     var body: some View {
         let strings = model.strings
-        ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
-                header(strings)
-                    .padding(.bottom, 22)
-
-                section(strings.appearanceTitle)
-                AppearancePicker(value: model.appearance) { model.setAppearance($0) }
-                SettingsItem(icon: "character.bubble", title: strings.languageTitle,
-                             subtitle: model.language == .system ? strings.systemDefault : model.language.nativeName) {
-                    panel = .language
+        Form {
+            Section(strings.appearanceTitle) {
+                Picker(strings.appearanceTitle, selection: Binding(get: { model.appearance }, set: { model.setAppearance($0) })) {
+                    Text(strings.appearanceSystem).tag(AppAppearance.system)
+                    Text(strings.appearanceLight).tag(AppAppearance.light)
+                    Text(strings.appearanceDark).tag(AppAppearance.dark)
                 }
-                .padding(.top, 12)
-                SettingsSwitchItem(icon: "leaf", title: strings.calmInsightsTitle, subtitle: strings.calmInsightsSubtitle,
-                                   value: model.calmInsightsEnabled) { model.setCalmInsights($0) }
-                    .padding(.top, 10)
-
-                section(strings.settingsDataSection).padding(.top, 28)
-                SettingsItem(icon: "arrow.down.circle", title: strings.settingsExportDataTitle,
-                             subtitle: strings.settingsExportDataSubtitle) { panel = .export }
-                // The PDF report row arrives with the Insights port.
-                SettingsItem(icon: "arrow.up.circle", title: strings.settingsImportDataTitle,
-                             subtitle: strings.settingsImportDataSubtitle) { panel = .importPrompt }
-                    .padding(.top, 10)
-
-                section(strings.settingsRemindersSection).padding(.top, 28)
-                SettingsSwitchItem(
-                    icon: "bell", title: strings.settingsDailyReminderTitle,
-                    subtitle: model.reminder.enabled
-                        ? strings.settingsDailyReminderAt(time: strings.dates.time(model.reminder.date))
-                        : strings.settingsDailyReminderOff,
-                    value: model.reminder.enabled
-                ) { enabled in Task { await setReminderEnabled(enabled) } }
-                if model.reminder.enabled {
-                    SettingsItem(icon: "clock", title: strings.settingsReminderTimeTitle,
-                                 subtitle: strings.dates.time(model.reminder.date)) { pickingTime = true }
-                        .padding(.top, 10)
-                }
-
-                section(strings.settingsPrivacySection).padding(.top, 28)
-                SettingsItem(icon: "lock", title: strings.privacySafetyTitle,
-                             subtitle: strings.settingsPrivacySafetySubtitle) { panel = .privacy }
-                SettingsSwitchItem(icon: "chart.bar", title: strings.settingsAnalyticsTitle,
-                                   subtitle: strings.settingsAnalyticsSubtitle,
-                                   value: model.usageAnalyticsEnabled) { model.setUsageAnalytics($0) }
-                    .padding(.top, 10)
-                SettingsSwitchItem(icon: "person.badge.key", title: strings.settingsAppLockTitle,
-                                   subtitle: strings.settingsAppLockSubtitle,
-                                   value: model.appLockEnabled) { enabled in Task { await setAppLock(enabled) } }
-                    .padding(.top, 10)
-                SettingsItem(icon: "trash", title: strings.settingsWipeTitle,
-                             subtitle: strings.settingsWipeSubtitle) { panel = .wipe }
-                    .padding(.top, 10)
-
-                section(strings.settingsProSection).padding(.top, 28)
-                if model.proUnlocked {
-                    SettingsItem(icon: "checkmark.circle", title: strings.settingsProActiveTitle,
-                                 subtitle: strings.settingsProActiveSubtitle) {
-                        navigation.showToast(strings.settingsText(key: "proActiveMessage"), kind: .success)
+                .pickerStyle(.segmented)
+                .listRowBackground(Color.clear)
+                .listRowInsets(EdgeInsets())
+            }
+            Section {
+                Picker(selection: Binding(get: { model.language }, set: setLanguage)) {
+                    ForEach(AppLanguage.pickerOrder, id: \.self) { language in
+                        Text(language == .system ? strings.systemDefault : language.nativeName).tag(language)
                     }
+                } label: {
+                    Label(strings.languageTitle, systemImage: "character.bubble")
+                }
+                .pickerStyle(.navigationLink)
+                Toggle(isOn: Binding(get: { model.calmInsightsEnabled }, set: { model.setCalmInsights($0) })) {
+                    RowLabel(strings.calmInsightsTitle, subtitle: strings.calmInsightsSubtitle, icon: "leaf")
+                }
+            }
+            .listRowBackground(AppColors.card)
+
+            Section(strings.settingsDataSection) {
+                Button { prompt = .export } label: {
+                    RowLabel(strings.settingsExportDataTitle, subtitle: strings.settingsExportDataSubtitle, icon: "square.and.arrow.up")
+                }
+                // The PDF report row arrives with the Insights port.
+                Button { prompt = .importPrompt } label: {
+                    RowLabel(strings.settingsImportDataTitle, subtitle: strings.settingsImportDataSubtitle, icon: "square.and.arrow.down")
+                }
+            }
+            .listRowBackground(AppColors.card)
+
+            Section(strings.settingsRemindersSection) {
+                Toggle(isOn: Binding(get: { model.reminder.enabled }, set: { enabled in Task { await setReminderEnabled(enabled) } })) {
+                    RowLabel(strings.settingsDailyReminderTitle,
+                             subtitle: model.reminder.enabled ? nil : strings.settingsDailyReminderOff, icon: "bell")
+                }
+                if model.reminder.enabled {
+                    DatePicker(selection: Binding(get: { model.reminder.date }, set: { date in Task { await setReminderTime(date) } }),
+                               displayedComponents: .hourAndMinute) {
+                        Label(strings.settingsReminderTimeTitle, systemImage: "clock")
+                    }
+                    .environment(\.locale, strings.locale)
+                }
+            }
+            .listRowBackground(AppColors.card)
+
+            Section(strings.settingsPrivacySection) {
+                Button { sheet = .privacy } label: {
+                    RowLabel(strings.privacySafetyTitle, subtitle: strings.settingsPrivacySafetySubtitle, icon: "hand.raised")
+                }
+                Toggle(isOn: Binding(get: { model.usageAnalyticsEnabled }, set: { model.setUsageAnalytics($0) })) {
+                    RowLabel(strings.settingsAnalyticsTitle, subtitle: strings.settingsAnalyticsSubtitle, icon: "chart.bar")
+                }
+                Toggle(isOn: Binding(get: { model.appLockEnabled }, set: { enabled in Task { await setAppLock(enabled) } })) {
+                    RowLabel(strings.settingsAppLockTitle, subtitle: strings.settingsAppLockSubtitle, icon: "faceid")
+                }
+                Button(role: .destructive) { prompt = .wipe } label: {
+                    RowLabel(strings.settingsWipeTitle, subtitle: strings.settingsWipeSubtitle, icon: "trash", destructive: true)
+                }
+            }
+            .listRowBackground(AppColors.card)
+
+            Section(strings.settingsProSection) {
+                if model.proUnlocked {
+                    RowLabel(strings.settingsProActiveTitle, subtitle: strings.settingsProActiveSubtitle, icon: "checkmark.seal.fill")
                 } else {
-                    SettingsItem(icon: "lock.open", title: strings.settingsUnlockProTitle,
-                                 subtitle: strings.settingsUnlockProSubtitle) { panel = .paywall }
-                    SettingsItem(icon: "gift", title: strings.settingsRedeemCodeTitle,
-                                 subtitle: strings.settingsRedeemCodeSubtitle) {
+                    Button { sheet = .paywall } label: {
+                        RowLabel(strings.settingsUnlockProTitle, subtitle: strings.settingsUnlockProSubtitle, icon: "lock.open")
+                    }
+                    Button {
                         redeemWatchUntil = Date().addingTimeInterval(10 * 60)
                         redeeming = true
+                    } label: {
+                        RowLabel(strings.settingsRedeemCodeTitle, subtitle: strings.settingsRedeemCodeSubtitle, icon: "gift")
                     }
-                        .padding(.top, 10)
                 }
-                SettingsItem(icon: "arrow.triangle.2.circlepath", title: strings.settingsRestorePurchasesTitle,
-                             subtitle: strings.settingsRestorePurchasesSubtitle) { Task { await restorePurchases() } }
-                    .padding(.top, 10)
+                Button { Task { await restorePurchases() } } label: {
+                    RowLabel(strings.settingsRestorePurchasesTitle, subtitle: strings.settingsRestorePurchasesSubtitle,
+                             icon: "arrow.clockwise")
+                }
+            }
+            .listRowBackground(AppColors.card)
 
-                section(strings.settingsHelpSection).padding(.top, 28)
-                SettingsItem(icon: "safari", title: strings.settingsReplayTourTitle,
-                             subtitle: strings.settingsReplayTourSubtitle) {
+            Section(strings.settingsHelpSection) {
+                Button {
                     model.prefs.set(false, for: PreferenceKey.tabTourSeen)
-                    navigation.pop()
                     navigation.requestTour()
+                } label: {
+                    RowLabel(strings.settingsReplayTourTitle, subtitle: strings.settingsReplayTourSubtitle, icon: "map")
                 }
-                SettingsItem(icon: "lightbulb", title: strings.settingsShowWelcomeTitle,
-                             subtitle: strings.settingsShowWelcomeSubtitle) {
+                Button {
                     // Next launch, as in Flutter: the current session carries on.
                     model.prefs.set(false, for: PreferenceKey.hasStarted)
                     navigation.showToast(strings.settingsText(key: "welcomeScheduled"), kind: .info)
+                } label: {
+                    RowLabel(strings.settingsShowWelcomeTitle, subtitle: strings.settingsShowWelcomeSubtitle, icon: "sparkles")
                 }
-                .padding(.top, 10)
+            }
+            .listRowBackground(AppColors.card)
 
-                section(strings.settingsFeedbackSection).padding(.top, 28)
-                SettingsItem(icon: "star", title: strings.settingsRateTitle, subtitle: strings.settingsRateSubtitle) {
-                    openStoreReview()
+            Section {
+                Button(action: openStoreReview) {
+                    RowLabel(strings.settingsRateTitle, subtitle: strings.settingsRateSubtitle, icon: "star")
                 }
-                SettingsItem(icon: "envelope", title: strings.settingsSendFeedbackTitle,
-                             subtitle: strings.settingsSendFeedbackSubtitle) { sendFeedback() }
-                    .padding(.top, 10)
-                SettingsItem(icon: "heart", title: strings.settingsSupportTitle, subtitle: strings.settingsSupportSubtitle) {
-                    panel = .tipJar
+                Button(action: sendFeedback) {
+                    RowLabel(strings.settingsSendFeedbackTitle, subtitle: strings.settingsSendFeedbackSubtitle, icon: "envelope")
                 }
-                    .padding(.top, 10)
-
+                Button { sheet = .tipJar } label: {
+                    RowLabel(strings.settingsSupportTitle, subtitle: strings.settingsSupportSubtitle, icon: "heart")
+                }
+            } header: {
+                Text(strings.settingsFeedbackSection)
+            } footer: {
                 Text("\(strings.settingsVersionLabel) \(Self.versionText)")
-                    .textRole(.bodySmall, color: AppColors.textSecondary)
                     .textSelection(.enabled)
                     .frame(maxWidth: .infinity)
-                    .padding(.top, 28)
+                    .padding(.top, 20)
             }
-            .padding(EdgeInsets(top: 12, leading: 20, bottom: 28, trailing: 20))
+            .listRowBackground(AppColors.card)
         }
-        // Content stops at the status bar, as Flutter's SafeArea does.
-        .clipped()
-        .background(AppColors.surface)
-        .toolbar(.hidden, for: .navigationBar)
-        .bottomPanel(item: $panel) { panel in panelContent(panel) }
-        .sheet(isPresented: $pickingTime) {
-            ReminderTimePicker(initial: model.reminder.date) { picked in
-                pickingTime = false
-                if let picked { Task { await setReminderTime(picked) } }
+        .appListBackground()
+        .navigationTitle(strings.settingsTitle)
+        .navigationBarTitleDisplayMode(.inline)
+        .sheet(item: $sheet) { sheet in
+            switch sheet {
+            case .paywall: PaywallSheet(entryPoint: .settings)
+            case .tipJar: TipJarSheet()
+            case .privacy: PrivacySheet(onPolicy: openPrivacyPolicy)
             }
+        }
+        .alert(prompt.map { title(for: $0, strings) } ?? "",
+               isPresented: Binding(get: { prompt != nil }, set: { if !$0 { prompt = nil } }),
+               presenting: prompt) { prompt in
+            promptActions(prompt, strings)
+        } message: { prompt in
+            Text(message(for: prompt, strings))
         }
         .fileExporter(isPresented: $exporting, document: exportDocument, contentType: .zip,
                       defaultFilename: "patterns_backup.zip") { result in
@@ -168,90 +192,47 @@ struct SettingsScreen: View {
         }
     }
 
-    // MARK: Layout
+    // MARK: Prompts
 
-    private func header(_ strings: Strings) -> some View {
-        HStack(spacing: 4) {
-            Button { navigation.pop() } label: {
-                Image(systemName: "chevron.left")
-                    .font(.system(size: 18, weight: .medium))
-                    .foregroundStyle(AppColors.textPrimary)
-                    .frame(width: 44, height: 44)
-            }
-            .accessibilityLabel(strings.backAction)
-            Text(strings.settingsTitle)
-                .font(.system(.title).weight(.heavy))
-                .tracking(-0.5)
-                .foregroundStyle(AppColors.textPrimary)
-                .accessibilityAddTraits(.isHeader)
-                .frame(maxWidth: .infinity, alignment: .leading)
+    private func title(for prompt: SettingsPrompt, _ strings: Strings) -> String {
+        switch prompt {
+        case .export: strings.settingsText(key: "exportPromptTitle")
+        case .importPrompt: strings.settingsText(key: "importPromptTitle")
+        case .importPreview: strings.settingsText(key: "importPreviewTitle")
+        case .wipe: strings.settingsText(key: "wipePromptTitle")
         }
     }
 
-    private func section(_ title: String) -> some View {
-        Text(title)
-            .textRole(.titleMedium, weight: .heavy, color: AppColors.textPrimary)
-            .accessibilityAddTraits(.isHeader)
-            .padding(.bottom, 12)
+    private func message(for prompt: SettingsPrompt, _ strings: Strings) -> String {
+        switch prompt {
+        case .export: strings.settingsText(key: "exportPromptBody")
+        case .importPrompt: strings.settingsText(key: "importPromptBody")
+        case let .importPreview(backup):
+            ([strings.settingsText(key: "importPreviewIntro")] + backup.summary.lines(strings)).joined(separator: "\n")
+        case .wipe: strings.settingsText(key: "wipePromptBody")
+        }
     }
 
     @ViewBuilder
-    private func panelContent(_ panel: SettingsPanel) -> some View {
-        let strings = model.strings
-        switch panel {
-        case .paywall:
-            PaywallSheet(entryPoint: .settings)
-        case .tipJar:
-            TipJarSheet()
-        case .language:
-            LanguagePanel(current: model.language) { language in
-                self.panel = nil
-                model.setLanguage(language)
-                if model.reminder.enabled {
-                    let reminder = model.reminder, strings = model.strings
-                    Task { try? await Reminders.scheduleDaily(hour: reminder.hour, minute: reminder.minute, strings: strings) }
-                }
-            }
+    private func promptActions(_ prompt: SettingsPrompt, _ strings: Strings) -> some View {
+        switch prompt {
         case .export:
-            PanelBody(title: strings.settingsText(key: "exportPromptTitle"), message: strings.settingsText(key: "exportPromptBody")) {
-                Button(strings.settingsText(key: "exportBackupAction")) {
-                    self.panel = nil
-                    Task { await prepareExport() }
-                }
-                .buttonStyle(PrimaryButtonStyle(fullWidth: true))
-            }
+            Button(strings.settingsText(key: "exportBackupAction")) { Task { await prepareExport() } }
         case .importPrompt:
-            PanelBody(title: strings.settingsText(key: "importPromptTitle"), message: strings.settingsText(key: "importPromptBody")) {
-                Button(strings.settingsText(key: "chooseBackupAction")) {
-                    self.panel = nil
-                    importing = true
-                }
-                .buttonStyle(PrimaryButtonStyle(fullWidth: true))
-            }
+            Button(strings.settingsText(key: "chooseBackupAction")) { importing = true }
         case let .importPreview(backup):
-            PanelBody(title: strings.settingsText(key: "importPreviewTitle"), message: strings.settingsText(key: "importPreviewIntro")) {
-                BackupCountList(lines: backup.summary.lines(strings))
-                    .padding(.bottom, 8)
-                PanelActions(secondaryTitle: strings.cancelAction, primaryTitle: strings.settingsText(key: "replaceAction"),
-                             onSecondary: { self.panel = nil },
-                             onPrimary: {
-                                 self.panel = nil
-                                 Task { await restore(backup) }
-                             })
-            }
+            Button(strings.settingsText(key: "replaceAction"), role: .destructive) { Task { await restore(backup) } }
         case .wipe:
-            PanelBody(title: strings.settingsText(key: "wipePromptTitle"), message: strings.settingsText(key: "wipePromptBody")) {
-                PanelActions(secondaryTitle: strings.cancelAction, primaryTitle: strings.settingsText(key: "wipeAction"),
-                             onSecondary: { self.panel = nil },
-                             onPrimary: {
-                                 self.panel = nil
-                                 Task { await wipe() }
-                             })
-            }
-        case .privacy:
-            PrivacyPanel {
-                openPrivacyPolicy()
-            }
+            Button(strings.settingsText(key: "wipeAction"), role: .destructive) { Task { await wipe() } }
+        }
+        Button(strings.cancelAction, role: .cancel) {}
+    }
+
+    private func setLanguage(_ language: AppLanguage) {
+        model.setLanguage(language)
+        if model.reminder.enabled {
+            let reminder = model.reminder, strings = model.strings
+            Task { try? await Reminders.scheduleDaily(hour: reminder.hour, minute: reminder.minute, strings: strings) }
         }
     }
 
@@ -285,7 +266,7 @@ struct SettingsScreen: View {
                 guard let text = String(data: data, encoding: .utf8) else { throw BackupFormatError("Backup is not UTF-8 text.") }
                 return try BackupCodec.preview(json: text)
             }.value
-            panel = .importPreview(PendingBackup(data: data, isZip: isZip, summary: summary))
+            prompt = .importPreview(PendingBackup(data: data, isZip: isZip, summary: summary))
         } catch is BackupFormatError {
             navigation.showToast(strings.settingsText(key: "backupInvalid"), kind: .error)
         } catch {
@@ -459,24 +440,16 @@ struct SettingsScreen: View {
     }
 }
 
-// MARK: - Panels
+// MARK: - Sheets and prompts
 
-private enum SettingsPanel: Identifiable {
-    case language, export, importPrompt, wipe, privacy, paywall, tipJar
+private enum SettingsSheet: String, Identifiable {
+    case paywall, tipJar, privacy
+    var id: String { rawValue }
+}
+
+private enum SettingsPrompt {
+    case export, importPrompt, wipe
     case importPreview(PendingBackup)
-
-    var id: String {
-        switch self {
-        case .language: "language"
-        case .export: "export"
-        case .importPrompt: "import"
-        case .wipe: "wipe"
-        case .privacy: "privacy"
-        case .paywall: "paywall"
-        case .tipJar: "tipJar"
-        case .importPreview: "preview"
-        }
-    }
 }
 
 private struct PendingBackup: Sendable {
@@ -506,108 +479,47 @@ private extension BackupSummary {
     }
 }
 
-/// A heading, a muted paragraph, then actions: the shape of every Settings
-/// confirmation panel.
-private struct PanelBody<Actions: View>: View {
-    let title: String
-    let message: String
-    @ViewBuilder var actions: Actions
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text(title)
-                .textRole(.titleLarge, weight: .heavy, color: AppColors.textPrimary)
-                .accessibilityAddTraits(.isHeader)
-            Text(message)
-                .textRole(.bodyMedium, color: AppColors.textSecondary)
-                .padding(.top, 10)
-            VStack(alignment: .leading, spacing: 12) { actions }
-                .padding(.top, 20)
-        }
-    }
-}
-
-private struct BackupCountList: View {
-    let lines: [String]
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            ForEach(lines, id: \.self) { line in
-                HStack(alignment: .firstTextBaseline, spacing: 8) {
-                    Circle().fill(AppColors.textSecondary).frame(width: 5, height: 5)
-                        .alignmentGuide(.firstTextBaseline) { $0[.bottom] + 4 }
-                        .accessibilityHidden(true)
-                    Text(line).textRole(.bodyMedium, color: AppColors.textPrimary)
-                }
-            }
-        }
-    }
-}
-
-private struct PrivacyPanel: View {
+/// Privacy and safety notes in a native sheet.
+private struct PrivacySheet: View {
     let onPolicy: () -> Void
     @Environment(AppModel.self) private var model
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         let strings = model.strings
-        VStack(alignment: .leading, spacing: 12) {
-            Text(strings.privacySafetyTitle)
-                .textRole(.titleLarge, weight: .heavy, color: AppColors.textPrimary)
-                .accessibilityAddTraits(.isHeader)
-            ForEach([strings.privacyLocalContent, strings.privacyPurchases, strings.privacyExports,
-                     strings.privacyAnalytics, strings.privacyClinicalBoundary], id: \.self) { paragraph in
-                Text(paragraph).textRole(.bodyMedium, color: AppColors.textSecondary)
-            }
-            Button(strings.viewPrivacyPolicyAction, action: onPolicy)
-                .buttonStyle(SecondaryButtonStyle(fullWidth: true))
-                .padding(.top, 8)
-        }
-    }
-}
-
-/// `showAppLanguagePicker`: every language by its own name, current ticked.
-private struct LanguagePanel: View {
-    let current: AppLanguage
-    let onSelect: (AppLanguage) -> Void
-    @Environment(AppModel.self) private var model
-
-    var body: some View {
-        let strings = model.strings
-        VStack(alignment: .leading, spacing: 0) {
-            Text(strings.languageTitle)
-                .textRole(.titleLarge, weight: .heavy, color: AppColors.textPrimary)
-                .accessibilityAddTraits(.isHeader)
-                .padding(.bottom, 12)
-            ForEach(AppLanguage.pickerOrder, id: \.self) { language in
-                Button { onSelect(language) } label: {
-                    HStack {
-                        Text(language == .system ? strings.systemDefault : language.nativeName)
-                            .textRole(.bodyLarge, weight: language == current ? .bold : nil,
-                                      color: language == current ? AppColors.accent : AppColors.textPrimary)
-                        Spacer()
-                        if language == current {
-                            Image(systemName: "checkmark").foregroundStyle(AppColors.accent)
-                        }
-                    }
-                    .frame(minHeight: 48)
-                    .contentShape(.rect)
+        NavigationStack {
+            List {
+                ForEach([strings.privacyLocalContent, strings.privacyPurchases, strings.privacyExports,
+                         strings.privacyAnalytics, strings.privacyClinicalBoundary], id: \.self) { paragraph in
+                    Text(paragraph)
+                        .font(.body)
+                        .padding(.vertical, 4)
+                        .listRowBackground(AppColors.card)
                 }
-                .buttonStyle(.plain)
-                .accessibilityAddTraits(language == current ? .isSelected : [])
+                Section {
+                    Button(strings.viewPrivacyPolicyAction, action: onPolicy)
+                        .listRowBackground(AppColors.card)
+                }
+            }
+            .appListBackground()
+            .navigationTitle(strings.privacySafetyTitle)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(strings.doneAction) { dismiss() }
+                }
             }
         }
     }
 }
 
-/// Flutter's time picker dialog, as a wheel in a panel.
-/// A wheel time picker in a sheet sized to its content.
+/// A wheel time picker in a native sheet with Cancel and Done.
 struct ReminderTimePicker: View {
     let initial: Date
     var title: String?
     let onFinish: (Date?) -> Void
     @State private var time: Date
     @Environment(AppModel.self) private var model
-    @State private var height: CGFloat = 360
 
     init(initial: Date, title: String? = nil, onFinish: @escaping (Date?) -> Void) {
         self.initial = initial
@@ -618,140 +530,62 @@ struct ReminderTimePicker: View {
 
     var body: some View {
         let strings = model.strings
-        VStack(alignment: .leading, spacing: 12) {
-            Text(title ?? strings.settingsReminderTimeTitle)
-                .textRole(.titleLarge, weight: .heavy, color: AppColors.textPrimary)
-                .accessibilityAddTraits(.isHeader)
+        NavigationStack {
             DatePicker(strings.settingsReminderTimeTitle, selection: $time, displayedComponents: .hourAndMinute)
                 .datePickerStyle(.wheel)
                 .labelsHidden()
-                .frame(maxWidth: .infinity)
-            PanelActions(secondaryTitle: strings.cancelAction, primaryTitle: strings.doneAction,
-                         onSecondary: { onFinish(nil) }, onPrimary: { onFinish(time) })
+                .environment(\.locale, strings.locale)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .navigationTitle(title ?? strings.settingsReminderTimeTitle)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button(strings.cancelAction) { onFinish(nil) }
+                    }
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button(strings.doneAction) { onFinish(time) }
+                            .fontWeight(.semibold)
+                    }
+                }
         }
-        .padding(EdgeInsets(top: 28, leading: 24, bottom: 12, trailing: 24))
-        .fixedSize(horizontal: false, vertical: true)
-        .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { height = $0 }
-        .presentationDetents([.height(height)])
-        .presentationBackground(AppColors.card)
+        .presentationDetents([.height(340)])
     }
 }
 
 // MARK: - Rows
 
-/// `_SettingsItem`: icon, title and subtitle in a soft card, with a chevron.
-private struct SettingsItem: View {
+/// A settings row: icon, title and an optional explanation underneath.
+private struct RowLabel: View {
+    let title: String
+    let subtitle: String?
     let icon: String
-    let title: String
-    let subtitle: String
-    let action: () -> Void
+    var destructive = false
 
-    var body: some View {
-        Button(action: action) {
-            HStack(spacing: 14) {
-                Image(systemName: icon)
-                    .font(.system(size: 20))
-                    .foregroundStyle(AppColors.accent)
-                    .frame(width: 26)
-                SettingsLabels(title: title, subtitle: subtitle)
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundStyle(AppColors.textSecondary)
-            }
-            .padding(18)
-            .frame(minHeight: 44)
-            .softSurface(radius: 22)
-        }
-        .buttonStyle(PressScaleStyle())
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(title)
-        .accessibilityHint(subtitle)
-        .accessibilityAddTraits(.isButton)
+    init(_ title: String, subtitle: String?, icon: String, destructive: Bool = false) {
+        self.title = title
+        self.subtitle = subtitle
+        self.icon = icon
+        self.destructive = destructive
     }
-}
-
-/// `_SettingsSwitchItem`.
-private struct SettingsSwitchItem: View {
-    let icon: String
-    let title: String
-    let subtitle: String
-    let value: Bool
-    let onChange: (Bool) -> Void
 
     var body: some View {
-        HStack(spacing: 14) {
-            Image(systemName: icon)
-                .font(.system(size: 20))
-                .foregroundStyle(AppColors.accent)
-                .frame(width: 26)
-                .accessibilityHidden(true)
-            SettingsLabels(title: title, subtitle: subtitle)
-            Toggle(title, isOn: Binding(get: { value }, set: { onChange($0) }))
-                .labelsHidden()
-                .tint(AppColors.accent)
-        }
-        .padding(18)
-        .frame(minHeight: 44)
-        .softSurface(radius: 22)
-        .contentShape(.rect)
-        .onTapGesture { onChange(!value) }
-        .accessibilityElement(children: .combine)
-        .accessibilityHint(subtitle)
-    }
-}
-
-private struct SettingsLabels: View {
-    let title: String
-    let subtitle: String
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(title).textRole(.titleMedium, weight: .heavy, color: AppColors.textPrimary)
-            Text(subtitle)
-                .font(.system(.footnote))
-                .foregroundStyle(AppColors.textSecondary)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .multilineTextAlignment(.leading)
-    }
-}
-
-/// `_AppearancePicker`: System, Light and Dark as one segmented control.
-private struct AppearancePicker: View {
-    let value: AppAppearance
-    let onChange: (AppAppearance) -> Void
-    @Environment(AppModel.self) private var model
-    @Environment(\.dynamicTypeSize) private var typeSize
-
-    var body: some View {
-        let strings = model.strings
-        let options: [(AppAppearance, String, String)] = [
-            (.system, "circle.lefthalf.filled", strings.appearanceSystem),
-            (.light, "sun.max", strings.appearanceLight),
-            (.dark, "moon", strings.appearanceDark),
-        ]
-        let layout = typeSize >= .xxxLarge ? AnyLayout(VStackLayout(spacing: 4)) : AnyLayout(HStackLayout(spacing: 4))
-        layout {
-            ForEach(options, id: \.0) { option, icon, label in
-                let selected = option == value
-                Button { onChange(option) } label: {
-                    HStack(spacing: 6) {
-                        Image(systemName: icon).font(.system(size: 15)).accessibilityHidden(true)
-                        Text(label).font(.system(.callout).weight(.bold))
-                    }
-                    .foregroundStyle(selected ? AppColors.onAccent : AppColors.textPrimary)
-                    .frame(maxWidth: .infinity, minHeight: 44)
-                    .background(selected ? AppColors.accent : .clear, in: .rect(cornerRadius: 16))
-                    .contentShape(.rect(cornerRadius: 16))
+        Label {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .foregroundStyle(destructive ? Color.red : Color.primary)
+                if let subtitle {
+                    // Not `.secondary`: inside a button that resolves
+                    // against the gold tint.
+                    Text(subtitle)
+                        .font(.footnote)
+                        .foregroundStyle(Color(.secondaryLabel))
                 }
-                .buttonStyle(.plain)
-                .accessibilityAddTraits(selected ? .isSelected : [])
             }
+        } icon: {
+            Image(systemName: icon)
+                .foregroundStyle(destructive ? Color.red : AppColors.accent)
         }
-        .padding(6)
-        .softSurface(radius: 22)
-        .accessibilityElement(children: .contain)
-        .accessibilityLabel(strings.appearanceTitle)
+        .padding(.vertical, 2)
     }
 }
 

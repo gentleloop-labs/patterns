@@ -2,7 +2,7 @@ import StoreKit
 import SwiftUI
 
 /// `TipJarSheet` from `lib/widgets/tip_jar_sheet.dart`: three optional tips
-/// that unlock nothing. Present it with `bottomPanel`.
+/// that unlock nothing, as a native sheet.
 struct TipJarSheet: View {
     @Environment(AppModel.self) private var model
     @Environment(AppNavigation.self) private var navigation
@@ -16,44 +16,50 @@ struct TipJarSheet: View {
 
     var body: some View {
         let strings = model.strings
-        VStack(alignment: .leading, spacing: 0) {
-            HStack(spacing: 12) {
-                AccentIconBadge(systemImage: "heart")
-                Text(strings.tipJarTitle)
-                    .textRole(.titleLarge, weight: .heavy, color: AppColors.textPrimary)
-                    .accessibilityAddTraits(.isHeader)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+        NavigationStack {
+            List {
+                Section {
+                    choices(strings)
+                } header: {
+                    Text(strings.tipJarBody)
+                        .font(.body)
+                        .foregroundStyle(Color(.secondaryLabel))
+                        .textCase(nil)
+                        .padding(.bottom, 8)
+                }
             }
-            Text(strings.tipJarBody)
-                .textRole(.bodyMedium, color: AppColors.textSecondary)
-                .padding(.top, 12)
-            choices(strings)
-                .padding(.top, 20)
+            .appListBackground()
+            .navigationTitle(strings.tipJarTitle)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(strings.closeAction, systemImage: "xmark") { dismiss() }
+                }
+            }
         }
+        .presentationDetents([.medium, .large])
         .task { await loadProducts() }
     }
 
     @ViewBuilder private func choices(_ strings: Strings) -> some View {
         if loading {
             ProgressView()
-                .tint(AppColors.accent)
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 32)
+                .padding(.vertical, 24)
                 .accessibilityLabel(strings.tipJarLoadingLabel)
+                .listRowBackground(AppColors.card)
         } else if let loadError {
-            VStack(alignment: .leading, spacing: 16) {
-                Text(message(for: loadError, strings))
-                    .textRole(.bodyMedium, color: AppColors.textSecondary)
-                Button(strings.tipJarTryAgainAction) { Task { await loadProducts() } }
-                    .buttonStyle(SecondaryButtonStyle(fullWidth: true))
-            }
+            Text(message(for: loadError, strings))
+                .foregroundStyle(.secondary)
+                .listRowBackground(AppColors.card)
+            Button(strings.tipJarTryAgainAction) { Task { await loadProducts() } }
+                .listRowBackground(AppColors.card)
         } else {
-            VStack(spacing: 10) {
-                ForEach(products, id: \.id) { product in
-                    TipChoice(product: product, disabled: purchaseInFlight) {
-                        Task { await tip(product) }
-                    }
+            ForEach(products, id: \.id) { product in
+                TipChoice(product: product, disabled: purchaseInFlight) {
+                    Task { await tip(product) }
                 }
+                .listRowBackground(AppColors.card)
             }
         }
     }
@@ -114,54 +120,36 @@ struct TipJarSheet: View {
     }
 }
 
-/// `_TipChoice`: one tip with its price, stacking at large text sizes.
+/// `_TipChoice`: one tip, with its price on a capsule button as the App
+/// Store shows prices.
 private struct TipChoice: View {
     let product: Product
     let disabled: Bool
     let action: () -> Void
     @Environment(AppModel.self) private var model
-    @Environment(\.dynamicTypeSize) private var typeSize
 
     var body: some View {
         let strings = model.strings
         let copy = TipJarSheet.copy(for: product.id, strings)
-        Button(action: action) {
-            let details = VStack(alignment: .leading, spacing: 4) {
-                Text(copy.title)
-                    .textRole(.titleMedium, weight: .heavy, color: AppColors.textPrimary)
+        HStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(copy.title).font(.headline)
                 if !copy.description.isEmpty {
                     Text(copy.description)
-                        .textRole(.bodySmall, size: 13, color: AppColors.textSecondary)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
                 }
             }
-            let price = Text(product.displayPrice)
-                .textRole(.titleMedium, weight: .heavy, color: AppColors.accent)
-            Group {
-                if typeSize >= .xxxLarge {
-                    VStack(alignment: .leading, spacing: 10) {
-                        details
-                        price.frame(maxWidth: .infinity, alignment: .trailing)
-                    }
-                } else {
-                    HStack(spacing: 12) {
-                        details.frame(maxWidth: .infinity, alignment: .leading)
-                        price
-                    }
-                }
-            }
-            .multilineTextAlignment(.leading)
-            .padding(.horizontal, 16)
-            .padding(.vertical, 14)
-            .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
-            .background(AppColors.card, in: .rect(cornerRadius: 18))
-            .overlay(RoundedRectangle(cornerRadius: 18).strokeBorder(AppColors.border))
+            .frame(maxWidth: .infinity, alignment: .leading)
+            Button(product.displayPrice, action: action)
+                .buttonStyle(.bordered)
+                .buttonBorderShape(.capsule)
+                .fontWeight(.semibold)
+                .disabled(disabled)
+                .accessibilityLabel(strings.tipChoiceSemantics(title: copy.title, price: product.displayPrice,
+                                                               description: copy.description))
+                .accessibilityHint(strings.tipChoiceHint)
         }
-        .buttonStyle(PressScaleStyle(scale: 0.98))
-        .disabled(disabled)
-        .opacity(disabled ? 0.5 : 1)
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(strings.tipChoiceSemantics(title: copy.title, price: product.displayPrice, description: copy.description))
-        .accessibilityHint(strings.tipChoiceHint)
-        .accessibilityAddTraits(.isButton)
+        .padding(.vertical, 4)
     }
 }
