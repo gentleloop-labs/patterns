@@ -114,6 +114,11 @@ const newArticles = [
     slug: 'hit-and-run-ocd',
     title: 'Hit-and-Run OCD: When Driving Triggers Doubt',
     contextualLink: '/blog/checking-ocd'
+  },
+  {
+    slug: 'doubting-you-have-ocd',
+    title: "What If I'm Wrong About Having OCD?",
+    contextualLink: '/blog/what-happens-during-an-ocd-assessment'
   }
 ];
 
