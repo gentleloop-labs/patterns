@@ -61,7 +61,7 @@ struct RecoveryInsightsTests {
     func emptyScore() {
         let d = RecoveryInsights.dashboard(ActivitySnapshot(), now: now)
         #expect(d.recoveryScore == 13)
-        #expect(d.scoreDelta == 0)
+        #expect(d.scoreDelta.value == 0)
         #expect(!d.hasAnyData)
     }
 
@@ -72,7 +72,7 @@ struct RecoveryInsightsTests {
         let s = ActivitySnapshot(journals: [journal(0)], ocds: [ocd(0, distress: 4)])
         let d = RecoveryInsights.dashboard(s, now: now)
         #expect(d.recoveryScore == 16)
-        #expect(d.scoreDelta == 3)
+        #expect(d.scoreDelta.value == 3)
         #expect(d.hasAnyData)
         #expect(d.activeDays == 1)
     }
@@ -84,5 +84,72 @@ struct RecoveryInsightsTests {
         let c = RecoveryInsights.calmInsights(s, now: now)
         #expect(c == CalmInsightsSummary(journalCount: 1, trackedMomentCount: 1, delayCount: 1,
                                          erpPracticeCount: 0, exposureCount: 0))
+    }
+
+    @Test("a falling lower-is-better measure is a green down arrow, never a green up arrow")
+    func deltaArrows() {
+        let fallingUrge = InsightDelta(value: -1.5, lowerIsBetter: true)
+        #expect(fallingUrge.tone == .positive)
+        #expect(fallingUrge.arrow == "↓")
+        let risingUrge = InsightDelta(value: 2, lowerIsBetter: true)
+        #expect(risingUrge.tone == .negative)
+        #expect(risingUrge.arrow == "↑")
+        let risingScore = InsightDelta(value: 4)
+        #expect(risingScore.tone == .positive)
+        #expect(risingScore.arrow == "↑")
+        let flat = InsightDelta(value: 0.04)
+        #expect(flat.tone == .neutral)
+        #expect(flat.arrow == "→")
+    }
+
+    @Test("themes count entries by keyword, top four, and fall back to Other")
+    func themes() {
+        var lock = ocd(0, distress: 5)
+        lock.content = "Did I lock the door?"
+        var wash = ocd(1, distress: 5)
+        wash.content = "My hands feel dirty"
+        wash.response = "did not wash"
+        var both = ocd(2, distress: 5)
+        both.content = "Checking if the stove is dirty"
+        let themes = RecoveryInsights.topThemes(journals: [], ocds: [lock, wash, both])
+        #expect(themes.map(\.label) == ["Checking", "Contamination"])
+        #expect(themes.map(\.count) == [2, 2])
+        #expect(themes[0].percent == 2.0 / 3.0)
+        let plain = RecoveryInsights.topThemes(journals: [], ocds: [ocd(0, distress: 3)])
+        #expect(plain == [ThemeInsight(label: RecoveryInsights.uncategorizedTheme, percent: 1, count: 1)])
+        #expect(RecoveryInsights.topThemes(journals: [], ocds: []).isEmpty)
+    }
+
+    @Test("the dashboard buckets trends, maps the last 30 days and compares to the previous period")
+    func dashboardShape() {
+        let s = ActivitySnapshot(ocds: [ocd(0, distress: 4), ocd(40, distress: 8)],
+                                 delaySessions: [delay(0), delay(3)])
+        let week = RecoveryInsights.dashboard(s, rangeDays: 7, now: now)
+        #expect(week.scoreTrend.count == 7)
+        #expect(week.consistencyHeatmap.count == 7)
+        #expect(week.consistencyHeatmap.last == true)
+        let quarter = RecoveryInsights.dashboard(s, rangeDays: 90, now: now)
+        #expect(quarter.scoreTrend.count == 7)
+        #expect(quarter.consistencyHeatmap.count == 30)
+        let month = RecoveryInsights.dashboard(s, rangeDays: 30, now: now)
+        // The 8/10 moment falls in the previous 30 days, so urges fell.
+        #expect(month.urgeDelta.lowerIsBetter)
+        #expect(month.urgeDelta.value < 0)
+        #expect(month.urgeDelta.arrow == "↓")
+        #expect(month.thoughts == 1)
+    }
+
+    @Test("self-check change runs from the first to the latest in range")
+    func ybocsTrend() {
+        let older = YbocsAssessment(datetime: daysAgo(20), obsessionScore: 12, compulsionScore: 12, totalScore: 24,
+                                    severity: .severe, itemScores: [], themes: [], symptoms: [], createdAt: daysAgo(20))
+        let newer = YbocsAssessment(datetime: daysAgo(2), obsessionScore: 9, compulsionScore: 9, totalScore: 18,
+                                    severity: .moderate, itemScores: [], themes: [], symptoms: [], createdAt: daysAgo(2))
+        let d = RecoveryInsights.dashboard(ActivitySnapshot(ybocsAssessments: [newer, older]), rangeDays: 30, now: now)
+        #expect(d.ybocsTrend.map(\.value) == [24, 18])
+        #expect(d.latestYbocs?.totalScore == 18)
+        #expect(d.ybocsDelta.value == -6)
+        #expect(d.ybocsDelta.tone == .positive)
+        #expect(d.hasYbocsTrend)
     }
 }

@@ -25,6 +25,24 @@ struct AppDateFormat {
     /// `formatMonthDayTime`: `MMMd` + `jm`.
     func monthDayTime(_ date: Date) -> String { "\(monthDay(date)) \(time(date))" }
 
+    /// `formatOneDecimal`.
+    func oneDecimal(_ value: Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.locale = locale
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 1
+        formatter.maximumFractionDigits = 1
+        return formatter.string(from: NSNumber(value: value)) ?? String(format: "%.1f", value)
+    }
+
+    /// `formatInteger`.
+    func integer(_ value: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.locale = locale
+        formatter.numberStyle = .decimal
+        return formatter.string(from: NSNumber(value: value)) ?? "\(value)"
+    }
+
     /// `formatWholePercent`: 70 becomes "70%" in the app language.
     func wholePercent(_ value: Int) -> String {
         let formatter = NumberFormatter()
