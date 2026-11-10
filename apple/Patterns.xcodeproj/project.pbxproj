@@ -68,6 +68,7 @@
 		F1C06D7FA9C6B2103FF7D362 /* PrivacyGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661D0928067F4A3D279A40FF /* PrivacyGate.swift */; };
 		F31165EB84E4ABE286BA42F2 /* PaywallSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5D4C0AE6ABCB5B6021C4C /* PaywallSheet.swift */; };
 		F3F0FBA3B730E3A39FEB490C /* Strings+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C615FF7C1EEA187649CCB739 /* Strings+Generated.swift */; };
+		FEDF4E889EB13F380F00F732 /* UncertaintyTrainingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B83324665715BED560CBC08 /* UncertaintyTrainingScreen.swift */; };
 		FF9F7E239E3D4241F2760E54 /* JournalEntryEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671F379C1F0E71DAE4F3321A /* JournalEntryEditor.swift */; };
 		FFE5DB862EA166BC5F791DED /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8832714EDCA6F6B3A98FA917 /* RootView.swift */; };
 /* End PBXBuildFile section */
@@ -84,6 +85,7 @@
 
 /* Begin PBXFileReference section */
 		02D10226571BE65D69C9EA88 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		1B83324665715BED560CBC08 /* UncertaintyTrainingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UncertaintyTrainingScreen.swift; sourceTree = "<group>"; };
 		1F966E4E9B767758E429AED5 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		209719E14F36231CCC89044E /* BootstrapFailureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BootstrapFailureView.swift; sourceTree = "<group>"; };
 		26BFBDD7BA8E3FA55ADF75CF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 				CD937ACC154DD12AD9768555 /* ExposureReflectionScreen.swift */,
 				94598BBBF25094970AA4D702 /* RecoveryHubScreen.swift */,
 				C8FD51A40F54FD817C9ED5AE /* ResponsePreventionScreen.swift */,
+				1B83324665715BED560CBC08 /* UncertaintyTrainingScreen.swift */,
 				E139512B476BC27347B51B79 /* UrgeSurfScreen.swift */,
 				DF99028C6DCFA95CD6B2D3A6 /* YbocsScreen.swift */,
 			);
@@ -590,6 +593,7 @@
 				8FD1F5D6E69C7F3542650E63 /* TodayScreen.swift in Sources */,
 				6E6BE7C431DFEAB2FD83453F /* TourSheet.swift in Sources */,
 				00E1CAE50C3869148397AE90 /* Typography.swift in Sources */,
+				FEDF4E889EB13F380F00F732 /* UncertaintyTrainingScreen.swift in Sources */,
 				0C0777966ADB8EAD62D68B95 /* UrgeSurfScreen.swift in Sources */,
 				97FE0F9AD6B3FFA8848EB5A9 /* WelcomeScreen.swift in Sources */,
 				09C0CF369FF2F53BB338B27B /* WhatsNewScreen.swift in Sources */,

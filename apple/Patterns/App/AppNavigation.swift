@@ -34,6 +34,8 @@ enum Route: Hashable {
     case urgeSurf
     case urgeSurfFlow(record: Bool)
     case responsePrevention
+    case uncertaintyTraining
+    case uncertaintyPractice(exercise: String)
     /// One exposure ladder, by id.
     case exposureHierarchyDetail(id: Int64)
     /// A Practice hub tool not ported yet; opens a placeholder.
