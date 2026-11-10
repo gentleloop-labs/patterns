@@ -28,6 +28,7 @@
 		5D0D7FB3CF1DB11006AA9D50 /* app_de.arb in Resources */ = {isa = PBXBuildFile; fileRef = C13020A06D2451B773818F16 /* app_de.arb */; };
 		616BFCE84011999950614E68 /* AppNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7E9BC0D071DB7C89ED0011 /* AppNavigation.swift */; };
 		6198B1C4BB95773732201395 /* ErpExercisesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3688651AC8464EBD096CC3 /* ErpExercisesScreen.swift */; };
+		6A01FE9853FA357B1644A060 /* EmergencyToolkitScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEDCD3658F16C517CFEEA18 /* EmergencyToolkitScreen.swift */; };
 		6AEFA893BC57BF110ADA0B2D /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D10226571BE65D69C9EA88 /* Strings.swift */; };
 		6E6BE7C431DFEAB2FD83453F /* TourSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9105EE5616FE9BD1A3526498 /* TourSheet.swift */; };
 		723DB1DE81D66474B780A582 /* FirstRunResultScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BE940171DF2A35DBF77B63 /* FirstRunResultScreen.swift */; };
@@ -106,6 +107,7 @@
 		852B066D8EA46ACFCBD49EC2 /* WhatsNewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewScreen.swift; sourceTree = "<group>"; };
 		864D26DF4D3118C7B9C84E07 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		8832714EDCA6F6B3A98FA917 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		8DEDCD3658F16C517CFEEA18 /* EmergencyToolkitScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyToolkitScreen.swift; sourceTree = "<group>"; };
 		8ECEF9BF5CA0FA298909798F /* CountdownRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownRing.swift; sourceTree = "<group>"; };
 		9105EE5616FE9BD1A3526498 /* TourSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourSheet.swift; sourceTree = "<group>"; };
 		9218D8D46B7BFFBB9E0C5C2E /* Fraunces-Variable.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Fraunces-Variable.ttf"; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 			isa = PBXGroup;
 			children = (
 				539F7DF21F3A517F143E13AF /* CompulsionDelayFlow.swift */,
+				8DEDCD3658F16C517CFEEA18 /* EmergencyToolkitScreen.swift */,
 				4E3688651AC8464EBD096CC3 /* ErpExercisesScreen.swift */,
 				2FA48A24778B4D98882804ED /* ErpPracticeFlow.swift */,
 				94598BBBF25094970AA4D702 /* RecoveryHubScreen.swift */,
@@ -543,6 +546,7 @@
 				E6DF390A3684A1D1F0156A16 /* BootstrapFailureView.swift in Sources */,
 				8D76D59CF7F93C08D89348C6 /* CompulsionDelayFlow.swift in Sources */,
 				1FDDD0F4392DCF6D4696DD99 /* CountdownRing.swift in Sources */,
+				6A01FE9853FA357B1644A060 /* EmergencyToolkitScreen.swift in Sources */,
 				6198B1C4BB95773732201395 /* ErpExercisesScreen.swift in Sources */,
 				B0251831399230C62D17F5D3 /* ErpPracticeFlow.swift in Sources */,
 				723DB1DE81D66474B780A582 /* FirstRunResultScreen.swift in Sources */,
