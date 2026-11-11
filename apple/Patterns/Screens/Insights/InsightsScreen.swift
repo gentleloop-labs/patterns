@@ -68,6 +68,13 @@ struct InsightsScreen: View {
             }
         }
         .liveQuery(model.database, into: $snapshot) { db in try ActivitySnapshot.fetch(db) }
+        .task {
+            // `analyticsLinger`: someone who stays with their progress for 20
+            // seconds is at a calm, positive moment. Leaving cancels it.
+            try? await Task.sleep(for: .seconds(20))
+            guard !Task.isCancelled else { return }
+            await model.reviews.maybeRequest(.analyticsLinger)
+        }
         .sheet(isPresented: $exporting) { ExportReportSheet(initialRange: reportRange) }
     }
 

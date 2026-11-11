@@ -66,6 +66,7 @@
 		C7BA43B803332CA59B6AF61D /* ImplementationIntentionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890C6CDEC18AACF3EDB66DAA /* ImplementationIntentionsScreen.swift */; };
 		CC0F4D6FC500F0C068CECF3F /* BehavioralExperimentsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E327DF8BD2BB727D709BC1 /* BehavioralExperimentsScreen.swift */; };
 		CEE92CE5E7FD61E27EAF7C46 /* Manrope-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4047FD32E3FA75C9BED658AB /* Manrope-Semibold.ttf */; };
+		D1B47B5700B662183CBB9CA5 /* ReviewPrompter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B5A4627C3D72B58BE89163 /* ReviewPrompter.swift */; };
 		D4796A08FEEB733378E2E971 /* ExportReportSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B75EECD2509E29FBDA9BB9 /* ExportReportSheet.swift */; };
 		D65B1288AE34DBF42CBCF966 /* app_ja.arb in Resources */ = {isa = PBXBuildFile; fileRef = CD7947BD48C81F2074A3595A /* app_ja.arb */; };
 		D8A4A87605B9FC79C6F2E151 /* OcdTrackerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B5046B23593A2AC04D8EE /* OcdTrackerScreen.swift */; };
@@ -167,6 +168,7 @@
 		CD7947BD48C81F2074A3595A /* app_ja.arb */ = {isa = PBXFileReference; path = app_ja.arb; sourceTree = "<group>"; };
 		CD937ACC154DD12AD9768555 /* ExposureReflectionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureReflectionScreen.swift; sourceTree = "<group>"; };
 		D3800B0E62222D354D234CA0 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D4B5A4627C3D72B58BE89163 /* ReviewPrompter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPrompter.swift; sourceTree = "<group>"; };
 		D6D6B1CE2328E6D825AD0637 /* Overlays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlays.swift; sourceTree = "<group>"; };
 		D8902A086B89E76876E9797F /* JournalScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalScreen.swift; sourceTree = "<group>"; };
 		DC3DAC8ECFA133B743985146 /* Patterns.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Patterns.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -352,6 +354,7 @@
 				2DF4079B1712B2F651ABABD9 /* PatternsApp.swift */,
 				EFBA13261333949A1E67920A /* PurchaseStore.swift */,
 				C8C16877156BD676CB093DBE /* Reminders.swift */,
+				D4B5A4627C3D72B58BE89163 /* ReviewPrompter.swift */,
 				02D10226571BE65D69C9EA88 /* Strings.swift */,
 			);
 			path = App;
@@ -681,6 +684,7 @@
 				8F3C8C20227648E6603FC339 /* Reminders.swift in Sources */,
 				FB66BF00ADD60938B9D3CC5D /* ReportPDF.swift in Sources */,
 				A6505651674FFEC1AB54E483 /* ResponsePreventionScreen.swift in Sources */,
+				D1B47B5700B662183CBB9CA5 /* ReviewPrompter.swift in Sources */,
 				944B044649CF198B5311B163 /* RichTextEditor.swift in Sources */,
 				FFE5DB862EA166BC5F791DED /* RootView.swift in Sources */,
 				A362C0E98285949099AF40CC /* SettingsScreen.swift in Sources */,

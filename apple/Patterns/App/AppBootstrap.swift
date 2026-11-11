@@ -59,6 +59,7 @@ enum AppBootstrap {
             }
             model.store.start()
             model.events.appLaunched()
+            model.reviews.recordSessionStart()
             model.startAnalyticsFlushing()
             return .success(model)
         } catch let PatternsDatabase.OpenError.newerSchema(found, supported) {

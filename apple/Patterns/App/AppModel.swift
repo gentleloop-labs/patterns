@@ -16,6 +16,7 @@ final class AppModel {
     let supportDirectory: URL
     let navigation: AppNavigation
     let events: AppEvents
+    let reviews: ReviewPrompter
 
     private(set) var strings: Strings
     private(set) var language: AppLanguage
@@ -42,6 +43,7 @@ final class AppModel {
         self.supportDirectory = supportDirectory
         navigation = AppNavigation(prefs: prefs)
         events = AppEvents(prefs: prefs)
+        reviews = ReviewPrompter(prefs: prefs, events: events)
         let language = prefs.string(PreferenceKey.appLanguage).flatMap(AppLanguage.init(rawValue:)) ?? .english
         self.language = language
         strings = Strings.load(locale: LocaleResolver.effectiveLocale(language: language))

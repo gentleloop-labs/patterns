@@ -415,8 +415,9 @@ struct SettingsScreen: View {
     private func openStoreReview() {
         guard let url = URL(string: "https://apps.apple.com/app/id\(Self.appStoreID)?action=write-review") else { return }
         openURL(url) { opened in
+            if opened { model.events.reviewStoreOpened() }
             // Flutter shows this English text too; it has no ARB string yet.
-            if !opened { navigation.showToast("Couldn’t open the store. Please try again.", kind: .error) }
+            else { navigation.showToast("Couldn’t open the store. Please try again.", kind: .error) }
         }
     }
 
@@ -430,7 +431,8 @@ struct SettingsScreen: View {
         ]
         guard let url = components.url else { return }
         openURL(url) { opened in
-            if !opened { navigation.showToast("Couldn’t open email. You can write to \(Self.supportEmail).", kind: .error) }
+            if opened { model.events.feedbackStarted() }
+            else { navigation.showToast("Couldn’t open email. You can write to \(Self.supportEmail).", kind: .error) }
         }
     }
 
