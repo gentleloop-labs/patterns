@@ -155,7 +155,31 @@ final class AppEvents {
         track(.activationCompleted, context: context)
     }
 
+    // MARK: Reviews and feedback (on-device only)
+
+    func reviewEligible(_ trigger: ReviewPromptPolicy.Trigger) {
+        telemetry.log("review_eligible", ["trigger": slug(trigger.rawValue), "platform": .string("ios")])
+    }
+
+    func reviewSkipped(_ trigger: ReviewPromptPolicy.Trigger, reason: ReviewPromptPolicy.Ineligibility) {
+        telemetry.log("review_request_skipped",
+                      ["trigger": slug(trigger.rawValue), "reason": slug(reason.rawValue), "platform": .string("ios")])
+    }
+
+    func reviewRequested(_ trigger: ReviewPromptPolicy.Trigger) {
+        telemetry.log("review_request_attempted", ["trigger": slug(trigger.rawValue), "platform": .string("ios")])
+    }
+
+    func reviewUnavailable(_ trigger: ReviewPromptPolicy.Trigger) {
+        telemetry.log("review_request_unavailable", ["trigger": slug(trigger.rawValue), "platform": .string("ios")])
+    }
+
+    func reviewStoreOpened() { telemetry.log("review_manual_store_opened", ["platform": .string("ios")]) }
+    func feedbackStarted() { telemetry.log("feedback_started", ["platform": .string("ios")]) }
+
     // MARK: Internals
+
+    private func slug(_ value: String) -> LocalTelemetry.Value { .string(LocalTelemetry.slug(value)) }
 
     /// `first_meaningful_action`, once per install, with whichever primary
     /// action came first.
