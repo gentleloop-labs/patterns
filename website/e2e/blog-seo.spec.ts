@@ -119,6 +119,11 @@ const newArticles = [
     slug: 'doubting-you-have-ocd',
     title: "What If I'm Wrong About Having OCD?",
     contextualLink: '/blog/what-happens-during-an-ocd-assessment'
+  },
+  {
+    slug: 'intrusive-thoughts-mean-i-want-it',
+    title: 'Does Having an Intrusive Thought Mean I Want It?',
+    contextualLink: '/blog/do-i-have-ocd-or-just-intrusive-thoughts'
   }
 ];
 
