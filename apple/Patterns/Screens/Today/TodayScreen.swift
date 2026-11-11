@@ -61,7 +61,7 @@ struct TodayScreen: View {
     private var encouragement: some View {
         Text(model.strings.todayEncouragement)
             .font(.subheadline)
-            .foregroundStyle(Color(.secondaryLabel))
+            .foregroundStyle(AppColors.textSecondary)
             .textCase(nil)
             .padding(.leading, -4)
     }
@@ -253,7 +253,7 @@ private struct ActionRow: View {
                         .foregroundStyle(Color(.label))
                     Text(subtitle)
                         .font(.footnote)
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(AppColors.textSecondary)
                 }
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -297,11 +297,11 @@ private struct CalmActivityRow: View {
                         .foregroundStyle(Color(.label))
                     if facts.isEmpty {
                         Text(strings.calmNoRecentActivity)
-                            .foregroundStyle(Color(.secondaryLabel))
+                            .foregroundStyle(AppColors.textSecondary)
                     } else {
                         VStack(alignment: .leading, spacing: 4) {
                             ForEach(facts, id: \.self) { fact in
-                                Text(fact).foregroundStyle(Color(.secondaryLabel))
+                                Text(fact).foregroundStyle(AppColors.textSecondary)
                             }
                         }
                         .font(.subheadline)
@@ -361,7 +361,7 @@ private struct HomeScoreRow: View {
                 .padding(.top, 6)
             Text(summary.hasAnyData ? strings.todayPracticeActiveBody : strings.todayPracticeEmptyBody)
                 .font(.footnote)
-                .foregroundStyle(Color(.secondaryLabel))
+                .foregroundStyle(AppColors.textSecondary)
                 .padding(.top, 2)
             Text(deltaText(strings))
                 .font(.footnote.weight(.semibold))
@@ -383,7 +383,7 @@ private struct HomeScoreRow: View {
             }
             Text(strings.todayProgressDisclaimer)
                 .font(.caption)
-                .foregroundStyle(Color(.secondaryLabel))
+                .foregroundStyle(AppColors.textSecondary)
         }
         .multilineTextAlignment(.leading)
         .padding(.vertical, 6)
@@ -399,7 +399,7 @@ private struct HomeScoreRow: View {
                 .padding(.top, 6)
             Text(strings.todayProgressPendingBody)
                 .font(.footnote)
-                .foregroundStyle(Color(.secondaryLabel))
+                .foregroundStyle(AppColors.textSecondary)
                 .padding(.top, 2)
         }
         .multilineTextAlignment(.leading)
@@ -486,7 +486,7 @@ private struct NextStepRow: View {
                 .font(.title3.weight(.semibold))
             Text(copy.subtitle)
                 .font(.subheadline)
-                .foregroundStyle(Color(.secondaryLabel))
+                .foregroundStyle(AppColors.textSecondary)
             Button(copy.cta, action: action)
                 .buttonStyle(.accentProminent)
                 .buttonBorderShape(.capsule)
@@ -518,7 +518,7 @@ private struct ProProgressionRow: View {
                 Label {
                     VStack(alignment: .leading, spacing: 2) {
                         Text(strings.todayProTitle).font(.subheadline.weight(.semibold)).foregroundStyle(Color(.label))
-                        Text(strings.todayProBody).font(.footnote).foregroundStyle(Color(.secondaryLabel))
+                        Text(strings.todayProBody).font(.footnote).foregroundStyle(AppColors.textSecondary)
                     }
                     .multilineTextAlignment(.leading)
                 } icon: {
@@ -570,7 +570,7 @@ private struct ContinuePracticeRow: View {
         let bar = ProgressView(value: progress)
         let timeText = Text("\(elapsed) / \(planned)")
             .font(.caption.monospacedDigit())
-            .foregroundStyle(Color(.secondaryLabel))
+            .foregroundStyle(AppColors.textSecondary)
             .fixedSize()
 
         let details = VStack(alignment: .leading, spacing: 0) {
@@ -578,7 +578,7 @@ private struct ContinuePracticeRow: View {
                 .font(.headline)
             Text(session == nil ? strings.todayBuildToleranceBody : strings.todayResistUrgeBody)
                 .font(.footnote)
-                .foregroundStyle(Color(.secondaryLabel))
+                .foregroundStyle(AppColors.textSecondary)
                 .padding(.top, 2)
             Group {
                 if large {
@@ -587,8 +587,9 @@ private struct ContinuePracticeRow: View {
                     HStack(spacing: 8) { bar; timeText }
                 }
             }
-            .accessibilityElement(children: .ignore)
-            .accessibilityLabel(timerLabel)
+            // The ring already reads the timer; a second, 14pt-tall copy
+            // here would be a duplicate stop with a tiny hit area.
+            .accessibilityHidden(true)
             .padding(.top, 10)
         }
         let action = Button(session == nil ? strings.todayStartAction : strings.todayResumeAction, action: onResume)
@@ -631,7 +632,7 @@ private struct DailyCheckInRow: View {
                 .font(.headline)
             Text(checkedIn ? strings.todayDailyCompleteBody : strings.todayDailyBody)
                 .font(.footnote)
-                .foregroundStyle(Color(.secondaryLabel))
+                .foregroundStyle(AppColors.textSecondary)
         }
         let action = Button(checkedIn ? strings.todayOpenAction : strings.todayCheckInAction, action: onTap)
             .buttonStyle(.bordered)

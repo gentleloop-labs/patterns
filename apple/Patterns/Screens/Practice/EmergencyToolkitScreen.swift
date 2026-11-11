@@ -16,9 +16,10 @@ struct EmergencyToolkitScreen: View {
                     Text(text("pauseTitle"))
                         .font(.headline)
                         .accessibilityAddTraits(.isHeader)
+                    // Full-strength text: the grey misses 4.5:1 on the
+                    // gold-tinted row.
                     Text(text("pauseBody"))
                         .font(.subheadline)
-                        .foregroundStyle(Color(.secondaryLabel))
                 }
                 .padding(.vertical, 6)
                 .listRowBackground(AppColors.accent.opacity(0.12))
@@ -59,7 +60,7 @@ struct EmergencyToolkitScreen: View {
                     .accessibilityHidden(true)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title).font(.body.weight(.semibold)).foregroundStyle(Color(.label))
-                    Text(subtitle).font(.footnote).foregroundStyle(Color(.secondaryLabel))
+                    Text(subtitle).font(.footnote).foregroundStyle(AppColors.textSecondary)
                 }
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -109,7 +110,7 @@ struct BreathingScreen: View {
             .accessibilityLabel(label)
             Text(strings.emergencyToolkitText(key: "breathingHint"))
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(AppColors.textSecondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
             Spacer()
@@ -170,7 +171,7 @@ struct CopingLibraryScreen: View {
             } header: {
                 Text(verbatim: "Healthy ways to ride out a hard moment.")
                     .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
                     .textCase(nil)
                     .padding(.leading, -4)
             }
@@ -181,7 +182,7 @@ struct CopingLibraryScreen: View {
                         DisclosureGroup {
                             Text(verbatim: strategy.body)
                                 .font(.subheadline)
-                                .foregroundStyle(Color(.secondaryLabel))
+                                .foregroundStyle(AppColors.textSecondary)
                                 .padding(.vertical, 4)
                         } label: {
                             Text(verbatim: strategy.title).font(.body.weight(.semibold))

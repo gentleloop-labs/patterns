@@ -18,7 +18,7 @@ struct ActionPlannerScreen: View {
             } header: {
                 Text(text("subtitle"))
                     .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
                     .textCase(nil)
                     .padding(.leading, -4)
             }
@@ -28,12 +28,12 @@ struct ActionPlannerScreen: View {
                 case .loading:
                     ProgressView().frame(maxWidth: .infinity)
                 case .failed:
-                    Text(text("loadError")).foregroundStyle(.secondary)
+                    Text(text("loadError")).foregroundStyle(AppColors.textSecondary)
                 case let .loaded(items) where items.isEmpty:
                     VStack(alignment: .leading, spacing: 6) {
-                        Image(systemName: "list.bullet.rectangle").font(.title2).foregroundStyle(AppColors.accent)
+                        Image(systemName: "list.bullet.rectangle").font(.title2).foregroundStyle(AppColors.accent).accessibilityHidden(true)
                         Text(text("emptyTitle")).font(.headline).accessibilityAddTraits(.isHeader)
-                        Text(text("emptyBody")).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
+                        Text(text("emptyBody")).font(.subheadline).foregroundStyle(AppColors.textSecondary)
                         Button(text("emptyAction")) { creating = true }
                             .buttonStyle(.accentProminent)
                             .buttonBorderShape(.capsule)
@@ -128,7 +128,7 @@ private struct PlanRow: View {
             Button { onToggle(!done) } label: {
                 Image(systemName: done ? "checkmark.circle.fill" : "circle")
                     .font(.title2)
-                    .foregroundStyle(done ? AppColors.accent : Color(.tertiaryLabel))
+                    .foregroundStyle(done ? AppColors.accent : AppColors.textSecondary)
             }
             .buttonStyle(.borderless)
             .accessibilityLabel(strings.actionPlanText(key: done ? "toggleMarkIncomplete" : "toggleMarkComplete"))
@@ -136,17 +136,17 @@ private struct PlanRow: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(plan.situation)
                     .font(.headline)
-                    .strikethrough(done, color: Color(.secondaryLabel))
-                    .foregroundStyle(done ? Color(.secondaryLabel) : Color(.label))
+                    .strikethrough(done, color: AppColors.textSecondary)
+                    .foregroundStyle(done ? AppColors.textSecondary : Color(.label))
                 Text(plan.plannedAction).font(.subheadline)
                 if let date {
                     Label(date, systemImage: "calendar")
                         .font(.footnote)
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(AppColors.textSecondary)
                         .accessibilityLabel(strings.actionPlanDateSummary(date: date))
                 }
                 if let notes = plan.notes, !notes.trimmingCharacters(in: .whitespaces).isEmpty {
-                    Text(notes).font(.footnote).foregroundStyle(Color(.secondaryLabel))
+                    Text(notes).font(.footnote).foregroundStyle(AppColors.textSecondary)
                 }
             }
             .accessibilityElement(children: .combine)

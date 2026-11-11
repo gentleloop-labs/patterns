@@ -54,6 +54,18 @@ final class RichEditorController {
         refresh()
     }
 
+    /// Lays the text out again at the current text size (after a Dynamic
+    /// Type change while the editor is open), keeping the caret in place.
+    func restyle() {
+        guard let textView else { return }
+        let selection = textView.selectedRange
+        let (text, trailing) = Self.attributedString(for: document, style: style(for: textView))
+        trailingBlock = trailing
+        textView.attributedText = text
+        textView.selectedRange = NSRange(location: min(selection.location, text.length), length: 0)
+        resetTypingAttributes()
+    }
+
     func attach(_ textView: UITextView) {
         self.textView = textView
         if let pendingDocument {
@@ -449,7 +461,7 @@ struct RichTextEditor: UIViewRepresentable {
         let label = UILabel()
         label.text = placeholder
         label.font = style.regular
-        label.textColor = UIColor(AppColors.textSecondary).withAlphaComponent(0.5)
+        label.textColor = UIColor(AppColors.textSecondary)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isAccessibilityElement = false
@@ -463,6 +475,12 @@ struct RichTextEditor: UIViewRepresentable {
 
         controller.attach(view)
         label.isHidden = !controller.isEmpty
+        // The font is scaled by hand (UIFontMetrics), so follow text size
+        // changes made while the editor is open.
+        view.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak controller, weak label] (textView: UITextView, _: UITraitCollection) in
+            label?.font = RichEditorController.style(traits: textView.traitCollection).regular
+            controller?.restyle()
+        }
         if autoFocus {
             DispatchQueue.main.async { view.becomeFirstResponder() }
         }

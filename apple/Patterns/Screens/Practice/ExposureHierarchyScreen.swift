@@ -19,7 +19,7 @@ struct ExposureHierarchyScreen: View {
             } header: {
                 Text(text("subtitle"))
                     .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
                     .textCase(nil)
                     .padding(.leading, -4)
             }
@@ -29,12 +29,12 @@ struct ExposureHierarchyScreen: View {
                 case .loading:
                     ProgressView().frame(maxWidth: .infinity)
                 case .failed:
-                    Text(text("loadError")).foregroundStyle(.secondary)
+                    Text(text("loadError")).foregroundStyle(AppColors.textSecondary)
                 case let .loaded(items) where items.isEmpty:
                     VStack(alignment: .leading, spacing: 6) {
-                        Image(systemName: "stairs").font(.title2).foregroundStyle(AppColors.accent)
+                        Image(systemName: "stairs").font(.title2).foregroundStyle(AppColors.accent).accessibilityHidden(true)
                         Text(text("emptyTitle")).font(.headline).accessibilityAddTraits(.isHeader)
-                        Text(text("emptyBody")).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
+                        Text(text("emptyBody")).font(.subheadline).foregroundStyle(AppColors.textSecondary)
                         Button(text("buildAction")) { building = true }
                             .buttonStyle(.accentProminent)
                             .buttonBorderShape(.capsule)
@@ -116,7 +116,7 @@ private struct HierarchyRow: View {
                         Text(hierarchy.title).font(.headline)
                         Text(summary)
                             .font(.subheadline)
-                            .foregroundStyle(Color(.secondaryLabel))
+                            .foregroundStyle(AppColors.textSecondary)
                             .lineLimit(2)
                     }
                 }
@@ -343,7 +343,7 @@ struct ExposureHierarchyDetail: View {
                 HStack(alignment: .center, spacing: 14) {
                     Text(hierarchy.map { displayTheme($0.theme, strings) } ?? "")
                         .font(.subheadline)
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(AppColors.textSecondary)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     if !model.calmInsightsEnabled {
                         ProgressRing(value: items.isEmpty ? 0 : Double(done) / Double(items.count))
@@ -418,7 +418,7 @@ private struct ClimbStep: View {
                     Text(step.description).font(.body.weight(.semibold))
                     Text(strings.exposureStepMetrics(difficulty: step.difficulty, anxiety: step.anxietyRating))
                         .font(.footnote)
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(AppColors.textSecondary)
                 }
             }
             .accessibilityElement(children: .combine)
@@ -431,7 +431,7 @@ private struct ClimbStep: View {
                 Text(strings.exposureHierarchyText(key: "statusInProgress")).tag(ExposureStepStatus.inProgress)
                 Text(strings.exposureHierarchyText(key: "statusDone")).tag(ExposureStepStatus.completed)
             }
-            .pickerStyle(.segmented)
+            .adaptiveSegmented()
         }
         .padding(.vertical, 6)
     }

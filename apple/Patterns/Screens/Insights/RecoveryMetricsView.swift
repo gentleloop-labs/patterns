@@ -15,11 +15,11 @@ struct RecoveryMetricsSection: View {
         } else {
             Section {
                 VStack(alignment: .leading, spacing: 8) {
-                    Image(systemName: "flame").font(.title2).foregroundStyle(AppColors.accent)
+                    Image(systemName: "flame").font(.title2).foregroundStyle(AppColors.accent).accessibilityHidden(true)
                     Text(strings.recoveryMetricsTeaserTitle).font(.headline)
                     Text(model.calmInsightsEnabled ? strings.recoveryMetricsCalmTeaserBody : strings.recoveryMetricsDetailedTeaserBody)
                         .font(.subheadline)
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(AppColors.textSecondary)
                     Button(strings.recoveryMetricsUnlockPro) { navigation.presentPaywall(.recoveryMetrics) }
                         .buttonStyle(.accentProminent)
                         .buttonBorderShape(.capsule)
@@ -55,7 +55,7 @@ struct RecoveryMetricsRows: View {
                     Text(strings.recoveryMetricsEmptyTitle).font(.headline)
                     Text(calm ? strings.recoveryMetricsCalmEmptyBody : strings.recoveryMetricsDetailedEmptyBody)
                         .font(.subheadline)
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(AppColors.textSecondary)
                 }
                 .padding(.vertical, 4)
             } else {
@@ -69,7 +69,7 @@ struct RecoveryMetricsRows: View {
                 metric("arrow.down.right", strings.recoveryMetricsAverageUrgeDrop, strings.dates.oneDecimal(metrics.avgUrgeReduction))
                 if !calm {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text(strings.recoveryMetricsThisWeek).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
+                        Text(strings.recoveryMetricsThisWeek).font(.subheadline).foregroundStyle(AppColors.textSecondary)
                         HStack(spacing: 8) {
                             ForEach(Array(metrics.weeklyActivity.enumerated()), id: \.offset) { offset, active in
                                 let day = Calendar.current.date(byAdding: .day, value: offset - 6, to: Date()) ?? Date()
@@ -77,7 +77,7 @@ struct RecoveryMetricsRows: View {
                                     Circle()
                                         .fill(active ? AppColors.accent : Color(.systemFill))
                                         .frame(width: 26, height: 26)
-                                    Text(strings.dates.shortWeekday(day)).font(.caption2).foregroundStyle(Color(.secondaryLabel))
+                                    Text(strings.dates.shortWeekday(day)).font(.caption2).foregroundStyle(AppColors.textSecondary)
                                 }
                                 .frame(maxWidth: .infinity)
                                 .accessibilityElement(children: .ignore)

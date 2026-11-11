@@ -88,7 +88,7 @@ struct ErpExercisesScreen: View {
             } header: {
                 Text(strings.erpPlanText(key: "subtitle"))
                     .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
                     .textCase(nil)
                     .padding(.leading, -4)
             }
@@ -126,13 +126,13 @@ struct ErpExercisesScreen: View {
             case .loading:
                 ProgressView().frame(maxWidth: .infinity)
             case .failed:
-                Text(strings.erpPlanText(key: "plansError")).foregroundStyle(.secondary)
+                Text(strings.erpPlanText(key: "plansError")).foregroundStyle(AppColors.textSecondary)
             case let .loaded(items) where items.isEmpty:
                 VStack(alignment: .leading, spacing: 6) {
                     Text(strings.erpPlanText(key: "emptyTitle")).font(.headline)
                     Text(strings.erpPlanText(key: "emptyBody"))
                         .font(.subheadline)
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(AppColors.textSecondary)
                     Button(strings.erpPlanText(key: "createAction")) { editing = PlanEditorItem(plan: nil) }
                         .buttonStyle(.accentProminent)
                         .buttonBorderShape(.capsule)
@@ -168,11 +168,11 @@ struct ErpExercisesScreen: View {
             case .loading:
                 ProgressView().frame(maxWidth: .infinity)
             case .failed:
-                Text(strings.erpPlanText(key: "historyError")).foregroundStyle(.secondary)
+                Text(strings.erpPlanText(key: "historyError")).foregroundStyle(AppColors.textSecondary)
             case let .loaded(items) where items.isEmpty:
                 Text(strings.erpPlanText(key: "historyEmpty"))
                     .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
             case let .loaded(items):
                 ForEach(items, id: \.id) { session in
                     RecentPracticeRow(session: session)
@@ -192,6 +192,7 @@ private struct PlanEditorItem: Identifiable {
 private struct PlanRow: View {
     let plan: ErpExercisePlan
     @Environment(AppModel.self) private var model
+    @Environment(\.dynamicTypeSize) private var typeSize
 
     var body: some View {
         let strings = model.strings
@@ -203,20 +204,20 @@ private struct PlanRow: View {
                 .frame(width: 30)
                 .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 4) {
-                HStack(alignment: .firstTextBaseline) {
+                typeSize.titleDetailLayout {
                     Text(ErpTemplate.displayTitle(exerciseID: plan.exerciseId, stored: plan.exerciseTitle, strings))
                         .font(.headline)
-                    Spacer()
+                    Spacer(minLength: 8)
                     Text(strings.delayMinutes(count: Int((Double(plan.defaultSeconds) / 60).rounded(.up))))
                         .font(.subheadline.monospacedDigit())
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(AppColors.textSecondary)
                 }
                 Text(plan.triggerOrExposure)
                     .font(.subheadline)
                     .lineLimit(2)
                 Text(strings.erpPlanResist(response: plan.preventionCommitment))
                     .font(.footnote)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
                     .lineLimit(2)
             }
         }
@@ -236,7 +237,7 @@ private struct RecentPracticeRow: View {
     var body: some View {
         let strings = model.strings
         VStack(alignment: .leading, spacing: 4) {
-            HStack(alignment: .firstTextBaseline) {
+            TitleDetail {
                 Text(ErpTemplate.displayTitle(exerciseID: session.exerciseId, stored: session.exerciseTitle, strings))
                     .font(.headline)
                 Spacer()
@@ -246,7 +247,7 @@ private struct RecentPracticeRow: View {
             }
             Text(session.learning.isEmpty ? session.triggerOrExposure : session.learning)
                 .font(.subheadline)
-                .foregroundStyle(Color(.secondaryLabel))
+                .foregroundStyle(AppColors.textSecondary)
                 .lineLimit(2)
             Text(session.createdAt.date().map(strings.dates.monthDayTime) ?? "")
                 .font(.footnote)
@@ -316,7 +317,7 @@ struct ErpPlanEditor: View {
                         ForEach(template.cues(strings), id: \.self) { cue in
                             Label(cue, systemImage: "checkmark")
                                 .font(.subheadline)
-                                .foregroundStyle(Color(.secondaryLabel))
+                                .foregroundStyle(AppColors.textSecondary)
                         }
                     }
                     .padding(.vertical, 4)
@@ -335,7 +336,7 @@ struct ErpPlanEditor: View {
                         }
                         Text(strings.delayCustomAction).tag(-1)
                     }
-                    .pickerStyle(.segmented)
+                    .adaptiveSegmented()
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
                     if custom {

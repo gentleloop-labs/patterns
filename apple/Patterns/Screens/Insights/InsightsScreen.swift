@@ -26,7 +26,7 @@ struct InsightsScreen: View {
                     Text(strings.insightsCompulsionsTab).tag(Tab.urges)
                     Text(strings.insightsErpTab).tag(Tab.erp)
                 }
-                .pickerStyle(.segmented)
+                .adaptiveSegmented()
                 .textCase(nil)
                 .padding(.horizontal, -16)
             }
@@ -35,7 +35,7 @@ struct InsightsScreen: View {
                 ProgressView().frame(maxWidth: .infinity).listRowBackground(Color.clear)
                     .accessibilityLabel(strings.insightsLoading)
             case .failed:
-                Text(strings.insightsLoadError).foregroundStyle(.secondary).listRowBackground(AppColors.card)
+                Text(strings.insightsLoadError).foregroundStyle(AppColors.textSecondary).listRowBackground(AppColors.card)
             case let .loaded(data):
                 content(data, strings)
             }
@@ -171,7 +171,7 @@ struct DeltaLabel: View {
         switch delta.tone {
         case .positive: AppColors.positive
         case .negative: AppColors.negative
-        case .neutral: Color(.secondaryLabel)
+        case .neutral: AppColors.textSecondary
         }
     }
 }
@@ -225,7 +225,7 @@ private struct KpiRow: View {
         HStack(alignment: .firstTextBaseline, spacing: 12) {
             Image(systemName: systemImage).foregroundStyle(AppColors.accent).frame(width: 26)
             VStack(alignment: .leading, spacing: 2) {
-                Text(label).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
+                Text(label).font(.subheadline).foregroundStyle(AppColors.textSecondary)
                 Text(value).font(.title2.weight(.bold).monospacedDigit())
                 if let delta { DeltaLabel(delta: delta, comparison: comparison) }
             }
@@ -253,7 +253,7 @@ private struct CalmActivitySection: View {
         Section {
             Text(facts.isEmpty ? strings.calmNoRecentActivity : facts.joined(separator: ", "))
                 .font(.subheadline)
-                .foregroundStyle(Color(.secondaryLabel))
+                .foregroundStyle(AppColors.textSecondary)
         } header: {
             CardHeader(title: strings.calmRecentActivityTitle)
         }
@@ -273,7 +273,7 @@ private struct ScoreSection: View {
             if enoughData {
                 VStack(alignment: .leading, spacing: 6) {
                     Text(strings.dates.wholePercent(summary.recoveryScore))
-                        .font(.system(size: 40, weight: .bold, design: .rounded).monospacedDigit())
+                        .font(.system(.largeTitle, design: .rounded, weight: .bold).monospacedDigit())
                     DeltaLabel(delta: summary.scoreDelta, comparison: strings.insightsComparedPreviousDays(count: summary.rangeDays))
                     TrendChart(title: strings.insightsPracticeProgress, points: summary.scoreTrend, yRange: 0...100, height: 90)
                         .padding(.top, 6)
@@ -282,7 +282,7 @@ private struct ScoreSection: View {
             } else {
                 Text(summary.hasAnyData ? strings.insightsScoreNeedsMoreActivity : strings.insightsScoreEmpty)
                     .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
             }
         } header: {
             CardHeader(title: strings.insightsPracticeProgress)
@@ -320,7 +320,7 @@ private struct MoodSection: View {
     private func legend(_ label: String, _ color: Color) -> some View {
         HStack(spacing: 5) {
             Circle().fill(color).frame(width: 8, height: 8)
-            Text(label).font(.caption).foregroundStyle(Color(.secondaryLabel))
+            Text(label).font(.caption).foregroundStyle(AppColors.textSecondary)
         }
     }
 }
@@ -338,8 +338,8 @@ private struct YbocsSection: View {
                 VStack(alignment: .leading, spacing: 6) {
                     HStack(alignment: .firstTextBaseline, spacing: 6) {
                         Text(strings.dates.integer(latest.totalScore))
-                            .font(.system(size: 34, weight: .bold, design: .rounded).monospacedDigit())
-                        Text(strings.insightsOutOfFortyShort).foregroundStyle(Color(.secondaryLabel))
+                            .font(.system(.largeTitle, design: .rounded, weight: .bold).monospacedDigit())
+                        Text(strings.insightsOutOfFortyShort).foregroundStyle(AppColors.textSecondary)
                         Circle().fill(severity.color).frame(width: 9, height: 9).padding(.leading, 6)
                         Text(summary.hasYbocsTrend
                              ? strings.insightsYbocsSeverityRange(severity: severity.label(strings), range: severity.rangeText)
@@ -357,12 +357,12 @@ private struct YbocsSection: View {
                     } else {
                         Text(strings.insightsYbocsSingleResult(severity: severity.label(strings)))
                             .font(.subheadline)
-                            .foregroundStyle(Color(.secondaryLabel))
+                            .foregroundStyle(AppColors.textSecondary)
                     }
                 }
                 .padding(.vertical, 4)
             } else {
-                Text(strings.insightsYbocsEmpty).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
+                Text(strings.insightsYbocsEmpty).font(.subheadline).foregroundStyle(AppColors.textSecondary)
             }
         } header: {
             CardHeader(title: strings.insightsYbocsOverTime)
@@ -384,8 +384,8 @@ private struct UrgeSection: View {
             VStack(alignment: .leading, spacing: 6) {
                 HStack(alignment: .firstTextBaseline, spacing: 6) {
                     Text(strings.dates.oneDecimal(summary.averageUrge))
-                        .font(.system(size: 34, weight: .bold, design: .rounded).monospacedDigit())
-                    Text(strings.insightsOutOfTenShort).foregroundStyle(Color(.secondaryLabel))
+                        .font(.system(.largeTitle, design: .rounded, weight: .bold).monospacedDigit())
+                    Text(strings.insightsOutOfTenShort).foregroundStyle(AppColors.textSecondary)
                 }
                 if !model.calmInsightsEnabled {
                     DeltaLabel(delta: summary.urgeDelta, comparison: strings.insightsComparedPreviousDays(count: summary.rangeDays))
@@ -413,8 +413,8 @@ private struct ErpSection: View {
             VStack(alignment: .leading, spacing: 6) {
                 HStack(alignment: .firstTextBaseline, spacing: 6) {
                     Text(strings.dates.integer(summary.erpPracticeCount))
-                        .font(.system(size: 34, weight: .bold, design: .rounded).monospacedDigit())
-                    Text(strings.insightsSessions(count: summary.erpPracticeCount)).foregroundStyle(Color(.secondaryLabel))
+                        .font(.system(.largeTitle, design: .rounded, weight: .bold).monospacedDigit())
+                    Text(strings.insightsSessions(count: summary.erpPracticeCount)).foregroundStyle(AppColors.textSecondary)
                 }
                 if !model.calmInsightsEnabled {
                     DeltaLabel(delta: summary.erpDelta, comparison: strings.insightsComparedPreviousDays(count: summary.rangeDays))
@@ -455,10 +455,10 @@ private struct ConsistencySection: View {
             HStack(alignment: .center, spacing: 18) {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(strings.dates.wholePercent(summary.consistencyPercent))
-                        .font(.system(size: 34, weight: .bold, design: .rounded).monospacedDigit())
+                        .font(.system(.largeTitle, design: .rounded, weight: .bold).monospacedDigit())
                     Text(strings.insightsActiveDays(active: summary.activeDays, total: summary.rangeDays))
                         .font(.footnote)
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(AppColors.textSecondary)
                 }
                 .fixedSize()
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 6), count: 10), spacing: 6) {
@@ -493,7 +493,7 @@ private struct ThemesSection: View {
         let strings = model.strings
         Section {
             if summary.topThemes.isEmpty {
-                Text(strings.insightsThemesEmpty).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
+                Text(strings.insightsThemesEmpty).font(.subheadline).foregroundStyle(AppColors.textSecondary)
             } else {
                 ForEach(Array(summary.topThemes.enumerated()), id: \.offset) { index, theme in
                     let color = Self.colors[index % Self.colors.count]

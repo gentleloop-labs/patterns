@@ -66,6 +66,7 @@ targets:
       storeKitConfiguration: Patterns.storekit
       testTargets:
         - PatternsAppTests
+        - PatternsUITests
 
   PatternsAppTests:
     type: bundle.unit-test
@@ -82,3 +83,18 @@ targets:
         GENERATE_INFOPLIST_FILE: YES
         TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Patterns.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Patterns"
         BUNDLE_LOADER: "$(TEST_HOST)"
+
+  # Accessibility audit: walks every screen with Xcode's audit in light,
+  # dark and large text. Run against a simulator that holds seeded data.
+  PatternsUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: PatternsUITests
+    dependencies:
+      - target: Patterns
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.maskedsyntax.patterns.UITests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: Patterns

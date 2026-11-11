@@ -39,7 +39,7 @@ struct JournalEntryEditor: View {
                         .font(.headline)
                     Text(saving ? strings.journalSavingStatus : saved ? strings.journalSavedStatus : strings.journalUnsavedStatus)
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(AppColors.textSecondary)
                         .contentTransition(.opacity)
                         .animation(.easeOut(duration: 0.18), value: saved)
                         .accessibilityAddTraits(.updatesFrequently)

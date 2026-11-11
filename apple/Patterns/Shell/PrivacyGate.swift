@@ -123,7 +123,7 @@ private struct PrivacyCover: View {
         VStack(spacing: 0) {
             Image(systemName: "lock.fill")
                 .font(.system(size: 44))
-                .foregroundStyle(.secondary)
+                .foregroundStyle(AppColors.textSecondary)
                 .accessibilityElement()
                 .accessibilityLabel(model.strings.privacyScreenLabel)
             if showUnlock {
@@ -137,7 +137,7 @@ private struct PrivacyCover: View {
             if let message {
                 Text(message)
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(AppColors.textSecondary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
                     .padding(.top, 16)

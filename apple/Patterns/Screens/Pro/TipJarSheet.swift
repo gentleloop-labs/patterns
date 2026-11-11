@@ -23,7 +23,7 @@ struct TipJarSheet: View {
                 } header: {
                     Text(strings.tipJarBody)
                         .font(.body)
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(AppColors.textSecondary)
                         .textCase(nil)
                         .padding(.bottom, 8)
                 }
@@ -51,7 +51,7 @@ struct TipJarSheet: View {
                 .listRowBackground(AppColors.card)
         } else if let loadError {
             Text(message(for: loadError, strings))
-                .foregroundStyle(.secondary)
+                .foregroundStyle(AppColors.textSecondary)
                 .listRowBackground(AppColors.card)
             Button(strings.tipJarTryAgainAction) { Task { await loadProducts() } }
                 .listRowBackground(AppColors.card)
@@ -138,7 +138,7 @@ private struct TipChoice: View {
                 if !copy.description.isEmpty {
                     Text(copy.description)
                         .font(.footnote)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(AppColors.textSecondary)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)

@@ -10,12 +10,13 @@ enum AppColors {
     static let border = adaptive(light: 0xD8D0C2, dark: 0x343434)
     static let textPrimary = adaptive(light: 0x201D18, dark: 0xF4F0E8)
     static let textSecondary = adaptive(light: 0x6F685F, dark: 0xA9A39A)
-    /// Darker on light surfaces so text and controls keep AA contrast.
-    static let accent = adaptive(light: 0x8A6500, dark: 0xF4C95D)
+    /// Darker on light surfaces so text and controls keep AA contrast, also
+    /// on the 10 to 16% accent tints used behind chips and pills.
+    static let accent = adaptive(light: 0x765600, dark: 0xF4C95D)
     static let positive = adaptive(light: 0x407A52, dark: 0x7BBF91)
     static let negative = adaptive(light: 0xA13F3F, dark: 0xD26A6A)
     static let obsessionChip = adaptive(light: 0x5B4B8A, dark: 0x41356A)
-    static let compulsionChip = adaptive(light: 0x8A5A18, dark: 0xB5731A)
+    static let compulsionChip = adaptive(light: 0x8A5A18, dark: 0x9A5F12)
 
     /// Text and icons drawn on top of `accent` (filled buttons).
     static let onAccent = adaptive(light: 0xFFFFFF, dark: 0x17130A)

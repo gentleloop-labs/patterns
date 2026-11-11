@@ -64,7 +64,7 @@ struct CompletionSheet: View {
                 .padding(.top, 14)
             Text(body(strings))
                 .font(.body)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(AppColors.textSecondary)
                 .multilineTextAlignment(.center)
                 .padding(.top, 6)
             Button(action: onDone) {

@@ -20,7 +20,7 @@ struct BehavioralExperimentsScreen: View {
             } header: {
                 Text(text("subtitle"))
                     .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
                     .textCase(nil)
                     .padding(.leading, -4)
             }
@@ -29,13 +29,13 @@ struct BehavioralExperimentsScreen: View {
             case .loading:
                 ProgressView().frame(maxWidth: .infinity).listRowBackground(Color.clear)
             case .failed:
-                Text(text("loadError")).foregroundStyle(.secondary).listRowBackground(AppColors.card)
+                Text(text("loadError")).foregroundStyle(AppColors.textSecondary).listRowBackground(AppColors.card)
             case let .loaded(items) where items.isEmpty:
                 Section {
                     VStack(alignment: .leading, spacing: 6) {
-                        Image(systemName: "flask").font(.title2).foregroundStyle(AppColors.accent)
+                        Image(systemName: "flask").font(.title2).foregroundStyle(AppColors.accent).accessibilityHidden(true)
                         Text(text("emptyTitle")).font(.headline).accessibilityAddTraits(.isHeader)
-                        Text(text("emptyBody")).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
+                        Text(text("emptyBody")).font(.subheadline).foregroundStyle(AppColors.textSecondary)
                         Button(text("emptyAction")) { editing = ExperimentEditorItem(existing: nil) }
                             .buttonStyle(.accentProminent)
                             .buttonBorderShape(.capsule)
@@ -122,10 +122,10 @@ private struct ExperimentRow: View {
                         .padding(.vertical, 3)
                         .background(AppColors.accent.opacity(0.14), in: .capsule)
                     Text(confidence).font(.caption.weight(.semibold))
-                    Text(date).font(.caption).foregroundStyle(Color(.secondaryLabel))
+                    Text(date).font(.caption).foregroundStyle(AppColors.textSecondary)
                 }
                 Text(experiment.fearPrediction).font(.headline)
-                Text(experiment.experiment).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
+                Text(experiment.experiment).font(.subheadline).foregroundStyle(AppColors.textSecondary)
             }
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(strings.behavioralExperimentCardSummary(
@@ -152,7 +152,7 @@ private struct ExperimentRow: View {
             Text(label)
                 .font(.caption2.weight(.semibold))
                 .textCase(.uppercase)
-                .foregroundStyle(Color(.secondaryLabel))
+                .foregroundStyle(AppColors.textSecondary)
             Text(value).font(.subheadline)
         }
         .accessibilityElement(children: .combine)
@@ -233,7 +233,7 @@ private struct ExperimentEditor: View {
             Text(label)
                 .font(.caption2.weight(.semibold))
                 .textCase(.uppercase)
-                .foregroundStyle(Color(.secondaryLabel))
+                .foregroundStyle(AppColors.textSecondary)
             Text(value)
         }
         .padding(.vertical, 2)

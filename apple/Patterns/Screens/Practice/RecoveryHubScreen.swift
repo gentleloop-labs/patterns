@@ -96,6 +96,7 @@ enum RecoveryDestination: String, CaseIterable, Hashable {
 struct RecoveryHubScreen: View {
     @Environment(AppModel.self) private var model
     @Environment(AppNavigation.self) private var navigation
+    @Environment(\.dynamicTypeSize) private var typeSize
 
     var body: some View {
         let strings = model.strings
@@ -108,7 +109,7 @@ struct RecoveryHubScreen: View {
                 VStack(alignment: .leading, spacing: 14) {
                     Text(strings.recoverySubtitle)
                         .font(.subheadline)
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(AppColors.textSecondary)
                     Label(strings.recoveryImmediateHelpTitle, systemImage: "heart.fill")
                         .font(.subheadline.weight(.semibold))
                         .foregroundStyle(AppColors.accent)
@@ -131,7 +132,7 @@ struct RecoveryHubScreen: View {
                             .foregroundStyle(Color(.label))
                         Text(strings.recoveryStageSubtitle(stage: stage.rawValue))
                             .font(.footnote)
-                            .foregroundStyle(Color(.secondaryLabel))
+                            .foregroundStyle(AppColors.textSecondary)
                     }
                     .textCase(nil)
                     .padding(.leading, -4)
@@ -147,7 +148,11 @@ struct RecoveryHubScreen: View {
     }
 
     private func immediateHelp(_ strings: Strings) -> some View {
-        HStack(spacing: 10) {
+        // Three cards side by side; stacked at accessibility text sizes so
+        // the titles wrap instead of shrinking.
+        let layout = typeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(spacing: 10)) : AnyLayout(HStackLayout(alignment: .top, spacing: 10))
+        return layout {
             ForEach(RecoveryDestination.immediateHelp, id: \.self) { tool in
                 Button { open(tool) } label: {
                     VStack(spacing: 8) {
@@ -158,9 +163,9 @@ struct RecoveryHubScreen: View {
                             .font(.footnote.weight(.semibold))
                             .foregroundStyle(Color(.label))
                             .multilineTextAlignment(.center)
-                            .lineLimit(2)
-                            .minimumScaleFactor(0.8)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
+                    .padding(.vertical, 12)
                     .frame(maxWidth: .infinity, minHeight: 92)
                     .padding(.horizontal, 6)
                     .background(AppColors.card, in: .rect(cornerRadius: 16))
@@ -202,7 +207,7 @@ private struct ToolRow: View {
                         .foregroundStyle(Color(.label))
                     Text(tool.subtitle(strings))
                         .font(.footnote)
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(AppColors.textSecondary)
                 }
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)

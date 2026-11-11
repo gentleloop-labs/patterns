@@ -185,7 +185,7 @@ private struct JournalRow: View {
 struct RichPreviewText: View {
     let content: JournalContent
     var style: Font.TextStyle = .subheadline
-    var color: Color = .secondary
+    var color: Color = AppColors.textSecondary
 
     var body: some View {
         content.richRuns.reduce(Text("")) { text, run in
@@ -215,7 +215,7 @@ private struct DatePill: View {
                 Text(isToday ? strings.navToday : dates.shortWeekday(date))
                     .font(.caption2.weight(.semibold))
                     .textCase(.uppercase)
-                    .foregroundStyle(isToday ? accent : .secondary)
+                    .foregroundStyle(isToday ? accent : AppColors.textSecondary)
                 Text(dates.monthDay(date))
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(isToday ? accent : .primary)
@@ -226,7 +226,6 @@ private struct DatePill: View {
             .background(isToday ? accent.opacity(0.16) : AppColors.card, in: .rect(cornerRadius: 12))
         }
         .buttonStyle(.plain)
-        .dynamicTypeSize(...DynamicTypeSize.accessibility2)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(isToday ? strings.journalTodayEntry : dates.fullDate(date))
         .accessibilityHint(strings.journalOpenEntryHint(date: dates.fullDate(date)))

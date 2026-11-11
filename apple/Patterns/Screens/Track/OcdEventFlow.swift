@@ -31,7 +31,7 @@ struct OcdEventFlow: View {
                     Text(strings.trackerTypeObsession).tag(OcdType.obsession)
                     Text(strings.trackerTypeCompulsion).tag(OcdType.compulsion)
                 }
-                .pickerStyle(.segmented)
+                .adaptiveSegmented()
                 .listRowInsets(EdgeInsets())
                 .listRowBackground(Color.clear)
             }

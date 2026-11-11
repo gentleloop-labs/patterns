@@ -16,7 +16,8 @@ extension ResponseOutcome {
         switch self {
         case .resisted: AppColors.positive
         case .delayed: AppColors.accent
-        case .partial: AppColors.compulsionChip
+        // Light enough in dark mode for the dark `onAccent` label.
+        case .partial: AppColors.adaptive(light: 0x8A5A18, dark: 0xE3A04F)
         case .performed: AppColors.negative
         }
     }
@@ -39,7 +40,7 @@ struct ResponsePreventionScreen: View {
             } header: {
                 Text(text("subtitle"))
                     .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
                     .textCase(nil)
                     .padding(.leading, -4)
             }
@@ -49,12 +50,12 @@ struct ResponsePreventionScreen: View {
                 case .loading:
                     ProgressView().frame(maxWidth: .infinity)
                 case .failed:
-                    Text(text("loadError")).foregroundStyle(.secondary)
+                    Text(text("loadError")).foregroundStyle(AppColors.textSecondary)
                 case let .loaded(items) where items.isEmpty:
                     VStack(alignment: .leading, spacing: 6) {
-                        Image(systemName: "shield").font(.title2).foregroundStyle(AppColors.accent)
+                        Image(systemName: "shield").font(.title2).foregroundStyle(AppColors.accent).accessibilityHidden(true)
                         Text(text("emptyTitle")).font(.headline).accessibilityAddTraits(.isHeader)
-                        Text(text("emptyBody")).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
+                        Text(text("emptyBody")).font(.subheadline).foregroundStyle(AppColors.textSecondary)
                         Button(text("emptyAction")) { logging = true }
                             .buttonStyle(.accentProminent)
                             .buttonBorderShape(.capsule)
@@ -120,18 +121,22 @@ private struct LogRow: View {
             HStack(spacing: 8) {
                 Text(outcome.label(strings))
                     .font(.caption.weight(.semibold))
-                    .foregroundStyle(.white)
+                    // White on the darker light-mode colours, near-black on
+                    // the lighter dark-mode ones.
+                    .foregroundStyle(AppColors.onAccent)
+                    .lineLimit(1)
+                    .fixedSize()
                     .padding(.horizontal, 8)
                     .padding(.vertical, 3)
                     .background(outcome.color, in: .capsule)
-                Text(date).font(.footnote).foregroundStyle(Color(.secondaryLabel))
+                Text(date).font(.footnote).foregroundStyle(AppColors.textSecondary)
             }
             Text(log.situation).font(.headline)
             Text(strings.responsePreventionDistress(value: log.anxietyLevel))
                 .font(.subheadline)
-                .foregroundStyle(Color(.secondaryLabel))
+                .foregroundStyle(AppColors.textSecondary)
             if let note = log.note, !note.trimmingCharacters(in: .whitespaces).isEmpty {
-                Text(note).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
+                Text(note).font(.subheadline).foregroundStyle(AppColors.textSecondary)
             }
         }
         .padding(.vertical, 4)

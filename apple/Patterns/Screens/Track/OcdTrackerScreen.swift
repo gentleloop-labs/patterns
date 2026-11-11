@@ -61,7 +61,7 @@ struct OcdTrackerScreen: View {
                         Text(strings.trackerFilterObsessions).tag(OcdType?.some(.obsession))
                         Text(strings.trackerFilterCompulsions).tag(OcdType?.some(.compulsion))
                     }
-                    .pickerStyle(.segmented)
+                    .adaptiveSegmented()
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
                 }
@@ -116,30 +116,37 @@ private struct OcdEventRow: View {
     let entry: OcdEntry
     let onDelete: () -> Void
     @Environment(AppModel.self) private var model
+    @Environment(\.dynamicTypeSize) private var typeSize
 
     var body: some View {
         let strings = model.strings
         let type = entry.type ?? .obsession
+        // Side by side normally; stacked at accessibility sizes so the chip
+        // and the distress line keep whole words.
+        let pair = typeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4))
+            : AnyLayout(HStackLayout(alignment: .firstTextBaseline, spacing: 8))
         let typeLabel = type == .obsession ? strings.trackerTypeObsession : strings.trackerTypeCompulsion
         let date = entry.datetime.date.map(strings.dates.monthDayTime) ?? ""
         let response = entry.response.isEmpty ? strings.trackerNoStrategy : entry.response
         let row = VStack(alignment: .leading, spacing: 6) {
-            HStack(spacing: 8) {
+            pair {
                 OcdTypeChip(type: type)
                 Text(date)
                     .font(.footnote)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(AppColors.textSecondary)
             }
             Text(entry.content)
                 .font(.headline)
                 .lineLimit(2)
-            HStack(alignment: .firstTextBaseline, spacing: 8) {
+            pair {
                 Text(strings.trackerDistressValue(value: entry.distressLevel))
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(distressColor(entry.distressLevel))
+                    .fixedSize(horizontal: false, vertical: true)
                 Text(response)
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(AppColors.textSecondary)
                     .lineLimit(1)
             }
         }
@@ -177,6 +184,8 @@ struct OcdTypeChip: View {
         Text(type == .obsession ? model.strings.trackerTypeObsession : model.strings.trackerTypeCompulsion)
             .font(.caption.weight(.semibold))
             .foregroundStyle(.white)
+            .lineLimit(1)
+            .fixedSize()
             .padding(.horizontal, 8)
             .padding(.vertical, 3)
             .background(type == .obsession ? AppColors.obsessionChip : AppColors.compulsionChip, in: .capsule)
