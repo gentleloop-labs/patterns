@@ -58,6 +58,8 @@ enum AppBootstrap {
                 await Reminders.scheduleReleaseAnnouncementIfNeeded(prefs: prefs, strings: model.strings)
             }
             model.store.start()
+            model.events.appLaunched()
+            model.startAnalyticsFlushing()
             return .success(model)
         } catch let PatternsDatabase.OpenError.newerSchema(found, supported) {
             return .failure(.newerData(found: found, supported: supported))

@@ -21,6 +21,7 @@ struct RootView: View {
                     WelcomeScreen(
                         onChoosePath: { path in
                             model.completeOnboarding(path: path)
+                            model.events.onboardingCompleted(path: path)
                             navigation.pendingFirstRun = path
                         },
                         onImport: {
@@ -30,6 +31,7 @@ struct RootView: View {
                             navigation.push(.settings)
                         }
                     )
+                    .onAppear { model.events.onboardingStarted() }
                 }
             }
             .background(AppColors.surface.ignoresSafeArea())
@@ -51,6 +53,8 @@ struct RootView: View {
         .onChange(of: scenePhase) { _, phase in
             // `_ProLifecycleObserver`: re-check the Pro entitlement on resume.
             if phase == .active { Task { await model.store.reconcile() } }
+            // Upload queued analytics as the app leaves the screen.
+            if phase == .background { Task { await model.events.flush() } }
         }
     }
 }
@@ -101,7 +105,11 @@ struct MainShell: View {
         }
         .alert(strings.analyticsPromptTitle, isPresented: $askingAnalytics) {
             Button(strings.notNowAction, role: .cancel) { model.setUsageAnalytics(false) }
-            Button(strings.shareAnonymousUsageAction) { model.setUsageAnalytics(true) }
+            Button(strings.shareAnonymousUsageAction) {
+                let action = model.prefs.string(PreferenceKey.lastMeaningfulAction)
+                    .flatMap(MeaningfulAction.init(rawValue:)) ?? .journal
+                model.setUsageAnalytics(true, fromPromptAfter: action)
+            }
         } message: {
             Text(strings.analyticsPromptBody)
         }
@@ -173,7 +181,10 @@ struct MainShell: View {
         didAppear = true
         if let path = navigation.pendingFirstRun {
             navigation.pendingFirstRun = nil
-            if path != .explore { navigation.push(.firstRunActivity(path)) }
+            if path != .explore {
+                model.events.firstRunActivityStarted(path)
+                navigation.push(.firstRunActivity(path))
+            }
             return
         }
         // Eligibility is captured once per launch, so an action recorded

@@ -214,7 +214,7 @@ struct ErpPracticeFlow: View {
     // MARK: Actions
 
     private func begin() {
-        // Phase 5: AppEvents.logErpSessionStarted.
+        model.events.erpSessionStarted()
         anxietyAfter = anxietyBefore
         let now = Date()
         startedAt = now
@@ -289,7 +289,7 @@ struct ErpPracticeFlow: View {
             return
         }
         model.prefs.recordMeaningfulAction(.guidedErp)
-        // Phase 5: AppEvents.logFirstExposureCompleted (milestone only).
+        model.events.erpSessionSaved(ranToCompletion: completed)
         model.prefs.recordReviewPracticeCompleted()
         if firstRun {
             navigation.finishFirstRun(.erp)

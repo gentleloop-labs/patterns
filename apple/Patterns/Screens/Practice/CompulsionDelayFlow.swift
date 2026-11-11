@@ -247,7 +247,7 @@ struct CompulsionDelayFlow: View {
             return
         }
         if custom { plannedSeconds = Int(customMinutes.rounded()) * 60 }
-        // Phase 5: AppEvents.logFirstCompulsionDelayStarted (the urge's text is never sent).
+        model.events.compulsionDelayStarted()
         urgeAfter = urgeBefore
         let now = Date()
         startedAt = now
@@ -327,7 +327,7 @@ struct CompulsionDelayFlow: View {
             return
         }
         model.prefs.recordMeaningfulAction(.compulsionDelay)
-        // Phase 5: AppEvents.logFirstCompulsionDelayCompleted.
+        model.events.compulsionDelaySaved(ranToCompletion: completed)
         model.prefs.recordReviewPracticeCompleted()
         if firstRun {
             navigation.finishFirstRun(.urge)
