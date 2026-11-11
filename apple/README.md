@@ -77,3 +77,35 @@ House rules that keep it clean:
   `.adaptiveSegmented()`.
 - A title with a trailing detail uses `TitleDetail`, so it stacks at large
   sizes instead of breaking mid-word.
+
+## Rollback drill
+
+2.0 stays on schema v10 so that a Flutter build can be shipped over native
+if 2.0 has a serious bug. To check that this still holds, on a simulator
+with seeded data:
+
+1. Have native write data through its own code:
+   ```sh
+   TEST_RUNNER_PATTERNS_ROLLBACK_DRILL=1 xcodebuild test -project Patterns.xcodeproj \
+     -scheme Patterns -destination 'id=<sim>' -only-testing:PatternsAppTests/RollbackDrillWriter
+   ```
+   This writes a rich journal entry (bold and a bullet), a tracker event, an
+   urge-surf session, an image material with its file, and a script.
+2. Snapshot the data: `sqlite3 patterns.db .dump`, the counts per table,
+   checksums of `materials/`, and `defaults export` of the preferences.
+3. Build Flutter with a higher build number and install it over native.
+   With Xcode 27, `flutter build ios --simulator` stops at the x86_64 check,
+   so build for Apple-silicon simulators only:
+   ```sh
+   flutter build ios --simulator --debug --build-number 101 --config-only
+   cd ios && xcodebuild -workspace Runner.xcworkspace -scheme Runner -sdk iphonesimulator \
+     -configuration Debug -destination 'id=<sim>' ARCHS=arm64 ONLY_ACTIVE_ARCH=YES \
+     -derivedDataPath ../build/flutter-rollback build
+   xcrun simctl install <sim> ../build/flutter-rollback/Build/Products/Debug-iphonesimulator/Runner.app
+   ```
+4. Open the drill entry, the materials and a Pro tool in Flutter, then
+   compare the snapshot. The dump and the files must be identical. Only
+   ordinary use settings may change (the selected tab, launch counters).
+5. Reinstall native and confirm it opens the same data unchanged.
+
+Last run on 2026-11-11 passed every step.
