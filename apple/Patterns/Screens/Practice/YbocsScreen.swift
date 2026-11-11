@@ -11,6 +11,7 @@ struct YbocsScreen: View {
 
     @Environment(AppModel.self) private var model
     @Environment(AppNavigation.self) private var navigation
+    @Environment(\.dynamicTypeSize) private var typeSize
     @State private var history: Loadable<[YbocsAssessment]> = .loading
     @State private var taking = false
     @State private var deleting: YbocsAssessment?
@@ -25,7 +26,7 @@ struct YbocsScreen: View {
             } header: {
                 Text(strings.ybocsText(key: "introBody"))
                     .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
                     .textCase(nil)
                     .padding(.leading, -4)
             }
@@ -43,6 +44,10 @@ struct YbocsScreen: View {
                 point("gauge.with.dots.needle.50percent", strings.ybocsText(key: "impactTitle"),
                       strings.ybocsText(key: "impactBody"))
                 point("chart.bar.xaxis", strings.ybocsText(key: "resultIntroTitle"), strings.ybocsText(key: "resultIntroBody"))
+            } footer: {
+                // At accessibility sizes the note scrolls with the page
+                // rather than filling the pinned bar.
+                if typeSize.isAccessibilitySize { Text(strings.ybocsText(key: "privacyDuration")) }
             }
             .listRowBackground(AppColors.card)
             if !past.isEmpty {
@@ -79,10 +84,12 @@ struct YbocsScreen: View {
                 }
                 .buttonStyle(.accentProminent)
                 .controlSize(.large)
-                Text(strings.ybocsText(key: "privacyDuration"))
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
+                if !typeSize.isAccessibilitySize {
+                    Text(strings.ybocsText(key: "privacyDuration"))
+                        .font(.caption)
+                        .foregroundStyle(AppColors.textSecondary)
+                        .multilineTextAlignment(.center)
+                }
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 10)
@@ -118,7 +125,7 @@ struct YbocsScreen: View {
                 .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 2) {
                 Text(title).font(.headline)
-                Text(body).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
+                Text(body).font(.subheadline).foregroundStyle(AppColors.textSecondary)
             }
         }
         .padding(.vertical, 4)
@@ -150,7 +157,7 @@ private struct HistoryRow: View {
             Circle().fill(severity.color).frame(width: 10, height: 10)
             VStack(alignment: .leading, spacing: 2) {
                 Text("\(label) · \(assessment.totalScore)/40").font(.body.weight(.semibold))
-                Text(date).font(.footnote).foregroundStyle(Color(.secondaryLabel))
+                Text(date).font(.footnote).foregroundStyle(AppColors.textSecondary)
             }
         }
         .padding(.vertical, 2)
@@ -270,7 +277,7 @@ private struct YbocsChecklist: View {
             } header: {
                 Text(strings.ybocsText(key: "checklistBody"))
                     .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
                     .textCase(nil)
                     .padding(.leading, -4)
             }
@@ -304,7 +311,7 @@ private struct YbocsChecklist: View {
         } header: {
             VStack(alignment: .leading, spacing: 2) {
                 Text(title).font(.title3.weight(.bold)).foregroundStyle(Color(.label))
-                Text(subtitle).font(.footnote).foregroundStyle(Color(.secondaryLabel))
+                Text(subtitle).font(.footnote).foregroundStyle(AppColors.textSecondary)
             }
             .textCase(nil)
             .padding(.leading, -4)
@@ -319,7 +326,7 @@ private struct YbocsChecklist: View {
                     Button { draft.toggle(item) } label: {
                         HStack(alignment: .firstTextBaseline, spacing: 12) {
                             Image(systemName: checked ? "checkmark.circle.fill" : "circle")
-                                .foregroundStyle(checked ? AppColors.accent : Color(.tertiaryLabel))
+                                .foregroundStyle(checked ? AppColors.accent : AppColors.textSecondary)
                                 .font(.title3)
                             Text(strings.ybocsSymptomLabel(symptom: item))
                                 .foregroundStyle(Color(.label))
@@ -442,7 +449,7 @@ private struct YbocsResults: View {
                         Text("\(total)")
                             .font(.system(size: 56, weight: .bold, design: .rounded))
                             .foregroundStyle(Color(.label))
-                        Text("/ 40").font(.title3.weight(.semibold)).foregroundStyle(.secondary)
+                        Text("/ 40").font(.title3.weight(.semibold)).foregroundStyle(AppColors.textSecondary)
                         Spacer()
                         HStack(spacing: 6) {
                             Circle().fill(severity.color).frame(width: 8, height: 8)
@@ -472,7 +479,7 @@ private struct YbocsResults: View {
             Section(strings.ybocsText(key: "typesTitle")) {
                 Text(typesText(hasObsessions, hasCompulsions, strings))
                     .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
             }
             .listRowBackground(AppColors.card)
             if !categories.isEmpty {

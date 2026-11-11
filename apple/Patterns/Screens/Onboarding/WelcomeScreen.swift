@@ -44,7 +44,7 @@ private struct PromiseView: View {
                     .padding(.top, 28)
                 Text(strings.onboardingIntroduction)
                     .font(.body)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(AppColors.textSecondary)
                     .multilineTextAlignment(.center)
                     .padding(.top, 12)
                 Label {
@@ -74,7 +74,7 @@ private struct PromiseView: View {
                     .padding(.vertical, 8)
                 Text(strings.onboardingSafetyFootnote)
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(AppColors.textSecondary)
                     .multilineTextAlignment(.center)
             }
             .padding(.horizontal, 28)
@@ -111,7 +111,7 @@ private struct ChoicesView: View {
                                 .frame(width: 30)
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(title).font(.body.weight(.semibold)).foregroundStyle(Color(.label))
-                                Text(subtitle).font(.footnote).foregroundStyle(Color(.secondaryLabel))
+                                Text(subtitle).font(.footnote).foregroundStyle(AppColors.textSecondary)
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                             Image(systemName: "chevron.right")
@@ -130,7 +130,7 @@ private struct ChoicesView: View {
             } header: {
                 Text(strings.onboardingPickOne)
                     .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
                     .textCase(nil)
                     .padding(.leading, -4)
             } footer: {

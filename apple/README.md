@@ -45,3 +45,35 @@ rules that matter day to day:
 - On the first native launch, `LegacyDataSnapshot` copies the database and
   materials to `Application Support/pre-native-backup/` before anything opens
   them.
+
+## Accessibility audit
+
+`PatternsUITests/AccessibilityAuditTests.swift` runs Xcode's accessibility
+audit (contrast, hit areas, labels, Dynamic Type, clipped text) on Today,
+Settings, the tip jar, Journal and its editor, Track and the event form, the
+Practice hub with all 16 tools, Insights and the report sheet. It does this
+in three passes: light, dark, and the Accessibility XL text size. The tests
+only navigate; they never save or delete anything.
+
+They read whatever data the simulator holds, so run them on a simulator with
+seeded data (a clone of the upgrade-test simulator works). All three passes
+should be clean before a release:
+
+```sh
+xcodebuild test -project Patterns.xcodeproj -scheme Patterns \
+  -destination 'platform=iOS Simulator,name=Patterns A11y Audit' \
+  -only-testing:PatternsUITests
+```
+
+Findings print as `A11Y|pass|screen|type|…` and fail the test. Known
+system false positives print as `A11Y-NOTE|…` and don't fail it; the test
+explains each kind.
+
+House rules that keep it clean:
+- Secondary text uses `AppColors.textSecondary`, never `.secondary` or
+  `Color(.secondaryLabel)`. The system grey is only 3.3:1 on the cream
+  background.
+- Filled buttons use `.accentProminent`, and segmented pickers use
+  `.adaptiveSegmented()`.
+- A title with a trailing detail uses `TitleDetail`, so it stacks at large
+  sizes instead of breaking mid-word.

@@ -122,7 +122,7 @@ struct ErpPracticeFlow: View {
                 .background(AppColors.card, in: .rect(cornerRadius: 14))
                 Text(strings.erpFlowText(key: "countdownBody"))
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(AppColors.textSecondary)
                     .multilineTextAlignment(.center)
             }
             .padding(.horizontal, 20)
@@ -164,7 +164,7 @@ struct ErpPracticeFlow: View {
                         .font(.title3.weight(.semibold))
                     Text(strings.erpFlowText(key: "reflectionBody"))
                         .font(.subheadline)
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(AppColors.textSecondary)
                 }
                 .padding(.vertical, 4)
                 .listRowBackground(AppColors.card)
@@ -321,7 +321,7 @@ private struct PlanReviewSection: View {
         VStack(alignment: .leading, spacing: 3) {
             Text(label)
                 .font(.footnote.weight(.semibold))
-                .foregroundStyle(Color(.secondaryLabel))
+                .foregroundStyle(AppColors.textSecondary)
             Text(value)
         }
         .padding(.vertical, 2)

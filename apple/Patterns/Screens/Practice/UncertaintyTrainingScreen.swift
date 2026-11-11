@@ -19,14 +19,14 @@ struct UncertaintyTrainingScreen: View {
             } header: {
                 Text(text("subtitle"))
                     .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
                     .textCase(nil)
                     .padding(.leading, -4)
             }
             SectionIntroSection(id: "uncertaintyTraining")
             Section {
                 if case .failed = logs {
-                    Text(text("loadError")).foregroundStyle(.secondary)
+                    Text(text("loadError")).foregroundStyle(AppColors.textSecondary)
                 }
                 ForEach(Self.exercises, id: \.self) { exercise in
                     let title = strings.uncertaintyExerciseTitle(exercise: exercise)
@@ -35,7 +35,7 @@ struct UncertaintyTrainingScreen: View {
                     let count = calm ? nil : (logs.value ?? []).filter { $0.exerciseId == exercise }.count
                     NavigationLink(value: Route.uncertaintyPractice(exercise: exercise)) {
                         VStack(alignment: .leading, spacing: 4) {
-                            HStack(alignment: .firstTextBaseline) {
+                            TitleDetail {
                                 Text(title).font(.headline)
                                 Spacer()
                                 if let count, count > 0 {
@@ -44,7 +44,7 @@ struct UncertaintyTrainingScreen: View {
                                         .foregroundStyle(AppColors.accent)
                                 }
                             }
-                            Text(intro).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
+                            Text(intro).font(.subheadline).foregroundStyle(AppColors.textSecondary)
                         }
                         .padding(.vertical, 4)
                     }
@@ -87,7 +87,7 @@ struct UncertaintyPracticeScreen: View {
                         .padding(.top, 4)
                     Text(strings.uncertaintyExerciseWhy(exercise: exercise))
                         .font(.subheadline)
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(AppColors.textSecondary)
                 }
                 .padding(.vertical, 4)
             }

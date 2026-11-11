@@ -16,7 +16,7 @@ struct UrgeSurfScreen: View {
             } header: {
                 Text(text("subtitle"))
                     .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
                     .textCase(nil)
                     .padding(.leading, -4)
             }
@@ -26,9 +26,9 @@ struct UrgeSurfScreen: View {
                 case .loading:
                     ProgressView().frame(maxWidth: .infinity)
                 case .failed:
-                    Text(text("loadError")).foregroundStyle(.secondary)
+                    Text(text("loadError")).foregroundStyle(AppColors.textSecondary)
                 case let .loaded(items) where items.isEmpty:
-                    Text(text("emptyHistory")).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
+                    Text(text("emptyHistory")).font(.subheadline).foregroundStyle(AppColors.textSecondary)
                 case let .loaded(items):
                     ForEach(items, id: \.id) { SurfRow(session: $0) }
                 }
@@ -55,6 +55,7 @@ struct UrgeSurfScreen: View {
 private struct SurfRow: View {
     let session: UrgeSurfSession
     @Environment(AppModel.self) private var model
+    @Environment(\.dynamicTypeSize) private var typeSize
 
     var body: some View {
         let strings = model.strings
@@ -64,12 +65,12 @@ private struct SurfRow: View {
                                                      finalLevel: session.finalUrge, duration: duration)
         let date = session.datetime.date().map(strings.dates.monthDay) ?? ""
         VStack(alignment: .leading, spacing: 4) {
-            HStack(alignment: .firstTextBaseline) {
+            typeSize.titleDetailLayout {
                 Text(trigger).font(.headline)
-                Spacer()
-                Text(date).font(.footnote).foregroundStyle(Color(.secondaryLabel))
+                Spacer(minLength: 8)
+                Text(date).font(.footnote).foregroundStyle(AppColors.textSecondary)
             }
-            Text(summary).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
+            Text(summary).font(.subheadline).foregroundStyle(AppColors.textSecondary)
         }
         .padding(.vertical, 4)
         .accessibilityElement(children: .ignore)
@@ -132,7 +133,7 @@ struct UrgeSurfFlow: View {
                 Picker(text("durationQuestion"), selection: $plannedSeconds) {
                     ForEach([60, 180, 300], id: \.self) { Text(strings.urgeSurfDuration(minutes: $0 / 60)).tag($0) }
                 }
-                .pickerStyle(.segmented)
+                .adaptiveSegmented()
                 .listRowInsets(EdgeInsets())
                 .listRowBackground(Color.clear)
             }
@@ -161,7 +162,7 @@ struct UrgeSurfFlow: View {
                 VStack(spacing: 18) {
                     Text(text("surfingBody"))
                         .font(.subheadline)
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(AppColors.textSecondary)
                         .multilineTextAlignment(.center)
                     if let startedAt, let endsAt {
                         CountdownRing(startedAt: startedAt, endsAt: endsAt)

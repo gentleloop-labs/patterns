@@ -33,7 +33,7 @@ struct PaywallSheet: View {
                         .padding(.top, 16)
                     Text(entryPoint.headline(strings))
                         .font(.body)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(AppColors.textSecondary)
                         .padding(.top, 8)
                     VStack(alignment: .leading, spacing: 12) {
                         ForEach(entryPoint.benefits(strings), id: \.self) { point in
@@ -47,7 +47,7 @@ struct PaywallSheet: View {
                     .padding(.top, 22)
                     Text(strings.proPaywallIncludedTools)
                         .font(.footnote)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(AppColors.textSecondary)
                         .padding(.top, 18)
                     // Someone who already bought Pro and reinstalled arrives
                     // here looking at a price they have already paid. Say so
@@ -94,7 +94,7 @@ struct PaywallSheet: View {
             VStack(spacing: 10) {
                 Text(message(for: loadError, strings))
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(AppColors.textSecondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Button { Task { await loadProduct() } } label: {
                     Text(strings.proPaywallTryAgainAction).frame(maxWidth: .infinity)
@@ -210,7 +210,7 @@ private struct AlreadyPurchasedRow: View {
         ViewThatFits(in: .horizontal) {
             HStack(spacing: 8) {
                 Text(strings.proPaywallAlreadyPurchased)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(AppColors.textSecondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Button(strings.proPaywallRestoreShortAction, action: onRestore)
                     .fontWeight(.semibold)
@@ -218,7 +218,7 @@ private struct AlreadyPurchasedRow: View {
             }
             VStack(alignment: .leading, spacing: 6) {
                 Text(strings.proPaywallAlreadyPurchased)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(AppColors.textSecondary)
                 Button(strings.proPaywallRestoreShortAction, action: onRestore)
                     .fontWeight(.semibold)
                     .disabled(disabled)

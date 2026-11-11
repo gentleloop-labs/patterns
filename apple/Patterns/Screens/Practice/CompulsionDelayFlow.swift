@@ -94,7 +94,7 @@ struct CompulsionDelayFlow: View {
                     }
                     Text(strings.delayCustomAction).tag(-1)
                 }
-                .pickerStyle(.segmented)
+                .adaptiveSegmented()
                 .listRowInsets(EdgeInsets())
                 .listRowBackground(Color.clear)
                 if custom {
@@ -163,7 +163,7 @@ struct CompulsionDelayFlow: View {
         return VStack(spacing: 0) {
             Text(strings.delayCountdownBody)
                 .font(.body)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(AppColors.textSecondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
                 .padding(.top, 8)
@@ -215,7 +215,7 @@ struct CompulsionDelayFlow: View {
                         Text(strings.delayOutcome(outcome: value.wireName)).tag(DelayOutcome?.some(value))
                     }
                 }
-                .pickerStyle(.segmented)
+                .adaptiveSegmented()
                 .listRowInsets(EdgeInsets())
                 .listRowBackground(Color.clear)
             }

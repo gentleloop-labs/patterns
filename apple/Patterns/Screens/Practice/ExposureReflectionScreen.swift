@@ -19,7 +19,7 @@ struct ExposureReflectionScreen: View {
             } header: {
                 Text(text("subtitle"))
                     .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
                     .textCase(nil)
                     .padding(.leading, -4)
             }
@@ -29,12 +29,12 @@ struct ExposureReflectionScreen: View {
                 case .loading:
                     ProgressView().frame(maxWidth: .infinity)
                 case .failed:
-                    Text(text("loadError")).foregroundStyle(.secondary)
+                    Text(text("loadError")).foregroundStyle(AppColors.textSecondary)
                 case let .loaded(items) where items.isEmpty:
                     VStack(alignment: .leading, spacing: 6) {
-                        Image(systemName: "book").font(.title2).foregroundStyle(AppColors.accent)
+                        Image(systemName: "book").font(.title2).foregroundStyle(AppColors.accent).accessibilityHidden(true)
                         Text(text("emptyTitle")).font(.headline).accessibilityAddTraits(.isHeader)
-                        Text(text("emptyBody")).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
+                        Text(text("emptyBody")).font(.subheadline).foregroundStyle(AppColors.textSecondary)
                         Button(text("emptyAction")) { writing = true }
                             .buttonStyle(.accentProminent)
                             .buttonBorderShape(.capsule)
@@ -101,11 +101,11 @@ private struct ReflectionRow: View {
         let date = reflection.datetime.date().map(strings.dates.monthDay) ?? ""
         VStack(alignment: .leading, spacing: 4) {
             Text(reflection.whatHappened).font(.headline)
-            Text(date).font(.footnote).foregroundStyle(Color(.secondaryLabel))
+            Text(date).font(.footnote).foregroundStyle(AppColors.textSecondary)
             if !reflection.whatILearned.trimmingCharacters(in: .whitespaces).isEmpty {
                 Text(reflection.whatILearned)
                     .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
                     .padding(.top, 2)
             }
         }

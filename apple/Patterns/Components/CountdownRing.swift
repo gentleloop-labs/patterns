@@ -31,7 +31,7 @@ struct CountdownRing: View {
                     if let caption {
                         Text(caption)
                             .font(.subheadline)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(AppColors.textSecondary)
                     }
                 }
             }

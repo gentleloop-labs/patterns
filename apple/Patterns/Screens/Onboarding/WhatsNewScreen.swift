@@ -22,7 +22,7 @@ struct WhatsNewScreen: View {
                     .padding(.top, 48)
                 Text(strings.whatsNewBody)
                     .font(.body)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(AppColors.textSecondary)
                     .padding(.top, 10)
                 VStack(alignment: .leading, spacing: 26) {
                     ForEach(features, id: \.1) { icon, title, body in
@@ -34,7 +34,7 @@ struct WhatsNewScreen: View {
                                 .accessibilityHidden(true)
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(title).font(.headline)
-                                Text(body).font(.subheadline).foregroundStyle(.secondary)
+                                Text(body).font(.subheadline).foregroundStyle(AppColors.textSecondary)
                             }
                         }
                         .accessibilityElement(children: .combine)
@@ -43,7 +43,7 @@ struct WhatsNewScreen: View {
                 .padding(.top, 36)
                 Text(strings.whatsNewNotificationNote)
                     .font(.footnote)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(AppColors.textSecondary)
                     .padding(.top, 32)
             }
             .padding(.horizontal, 28)

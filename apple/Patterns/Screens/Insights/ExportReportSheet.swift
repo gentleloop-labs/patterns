@@ -38,7 +38,7 @@ struct ExportReportSheet: View {
                 } header: {
                     Text(strings.exportReportDescription)
                         .font(.subheadline)
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(AppColors.textSecondary)
                         .textCase(nil)
                         .padding(.leading, -4)
                 }

@@ -19,7 +19,7 @@ struct ImplementationIntentionsScreen: View {
             } header: {
                 Text(text("subtitle"))
                     .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
                     .textCase(nil)
                     .padding(.leading, -4)
             }
@@ -29,12 +29,12 @@ struct ImplementationIntentionsScreen: View {
                 case .loading:
                     ProgressView().frame(maxWidth: .infinity)
                 case .failed:
-                    Text(text("loadError")).foregroundStyle(.secondary)
+                    Text(text("loadError")).foregroundStyle(AppColors.textSecondary)
                 case let .loaded(items) where items.isEmpty:
                     VStack(alignment: .leading, spacing: 6) {
-                        Image(systemName: "lightbulb").font(.title2).foregroundStyle(AppColors.accent)
+                        Image(systemName: "lightbulb").font(.title2).foregroundStyle(AppColors.accent).accessibilityHidden(true)
                         Text(text("emptyTitle")).font(.headline).accessibilityAddTraits(.isHeader)
-                        Text(text("emptyBody")).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
+                        Text(text("emptyBody")).font(.subheadline).foregroundStyle(AppColors.textSecondary)
                         Button(text("emptyAction")) { creating = true }
                             .buttonStyle(.accentProminent)
                             .buttonBorderShape(.capsule)

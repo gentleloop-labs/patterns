@@ -50,6 +50,17 @@
                ReferencedContainer = "container:Patterns.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E3F95AD3B21EB0C278C929CE"
+               BuildableName = "PatternsUITests.xctest"
+               BlueprintName = "PatternsUITests"
+               ReferencedContainer = "container:Patterns.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <CommandLineArguments>
       </CommandLineArguments>

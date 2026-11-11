@@ -29,7 +29,7 @@ struct SettingsScreen: View {
                     Text(strings.appearanceLight).tag(AppAppearance.light)
                     Text(strings.appearanceDark).tag(AppAppearance.dark)
                 }
-                .pickerStyle(.segmented)
+                .adaptiveSegmented()
                 .listRowBackground(Color.clear)
                 .listRowInsets(EdgeInsets())
             }
@@ -575,18 +575,18 @@ private struct RowLabel: View {
         Label {
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
-                    .foregroundStyle(destructive ? Color.red : Color.primary)
+                    .foregroundStyle(destructive ? AppColors.negative : Color.primary)
                 if let subtitle {
                     // Not `.secondary`: inside a button that resolves
                     // against the gold tint.
                     Text(subtitle)
                         .font(.footnote)
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(AppColors.textSecondary)
                 }
             }
         } icon: {
             Image(systemName: icon)
-                .foregroundStyle(destructive ? Color.red : AppColors.accent)
+                .foregroundStyle(destructive ? AppColors.negative : AppColors.accent)
         }
         .padding(.vertical, 2)
     }

@@ -20,7 +20,7 @@ struct SectionIntroSection: View {
                         ForEach(copy.points, id: \.self) { point in
                             Text(point)
                                 .font(.subheadline)
-                                .foregroundStyle(Color(.secondaryLabel))
+                                .foregroundStyle(AppColors.textSecondary)
                         }
                         Button(model.strings.shellText(key: "gotIt"), action: dismiss)
                             .buttonStyle(.bordered)

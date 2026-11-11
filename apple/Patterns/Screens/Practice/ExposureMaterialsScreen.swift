@@ -43,7 +43,7 @@ struct ExposureMaterialsScreen: View {
             } header: {
                 Text(text("subtitle"))
                     .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
                     .textCase(nil)
                     .padding(.leading, -4)
             }
@@ -52,13 +52,13 @@ struct ExposureMaterialsScreen: View {
             case .loading:
                 ProgressView().frame(maxWidth: .infinity).listRowBackground(Color.clear)
             case .failed:
-                Text(text("loadError")).foregroundStyle(.secondary).listRowBackground(AppColors.card)
+                Text(text("loadError")).foregroundStyle(AppColors.textSecondary).listRowBackground(AppColors.card)
             case .loaded where items.isEmpty:
                 Section {
                     VStack(alignment: .leading, spacing: 6) {
-                        Image(systemName: "folder").font(.title2).foregroundStyle(AppColors.accent)
+                        Image(systemName: "folder").font(.title2).foregroundStyle(AppColors.accent).accessibilityHidden(true)
                         Text(text("emptyTitle")).font(.headline).accessibilityAddTraits(.isHeader)
-                        Text(text("emptyBody")).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
+                        Text(text("emptyBody")).font(.subheadline).foregroundStyle(AppColors.textSecondary)
                         addMenu(strings) {
                             Text(text("addAction"))
                         }
@@ -399,7 +399,7 @@ private struct MaterialEditor: View {
                     }
                     .buttonStyle(.bordered)
                 } else {
-                    Text(text("recorderHint")).font(.subheadline).foregroundStyle(Color(.secondaryLabel))
+                    Text(text("recorderHint")).font(.subheadline).foregroundStyle(AppColors.textSecondary)
                     Button { Task { await startRecording() } } label: {
                         Label(text("record"), systemImage: "record.circle").frame(maxWidth: .infinity)
                     }

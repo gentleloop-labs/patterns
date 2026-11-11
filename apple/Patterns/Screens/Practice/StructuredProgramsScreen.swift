@@ -45,7 +45,7 @@ struct StructuredProgramsScreen: View {
             } header: {
                 Text(text("subtitle"))
                     .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(AppColors.textSecondary)
                     .textCase(nil)
                     .padding(.leading, -4)
             }
@@ -76,7 +76,7 @@ struct StructuredProgramsScreen: View {
     private func groupHeader(_ title: String, _ caption: String) -> some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(title).font(.headline).foregroundStyle(Color(.label))
-            Text(caption).font(.footnote).foregroundStyle(Color(.secondaryLabel))
+            Text(caption).font(.footnote).foregroundStyle(AppColors.textSecondary)
         }
         .textCase(nil)
         .padding(.leading, -4)
@@ -123,7 +123,7 @@ private struct ProgramRow: View {
         Button(action: onOpen) {
             HStack(spacing: 12) {
                 VStack(alignment: .leading, spacing: 4) {
-                    HStack(alignment: .firstTextBaseline) {
+                    TitleDetail {
                         Text(title).font(.headline).foregroundStyle(Color(.label))
                         Spacer()
                         if suggested && !started {
@@ -142,7 +142,7 @@ private struct ProgramRow: View {
                     }
                     Text(strings.structuredProgramSummary(count: program.weeks.count, subtitle: program.subtitle(strings)))
                         .font(.subheadline)
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(AppColors.textSecondary)
                         .multilineTextAlignment(.leading)
                     if started && !calm {
                         ProgressView(value: fraction).padding(.top, 4)
@@ -203,14 +203,14 @@ struct ProgramDetailScreen: View {
                             .foregroundStyle(Color(.label))
                             .accessibilityAddTraits(.isHeader)
                         if let note = program.checklistNote(strings) {
-                            Text(note).font(.footnote).foregroundStyle(Color(.secondaryLabel))
+                            Text(note).font(.footnote).foregroundStyle(AppColors.textSecondary)
                         }
                     }
                     .textCase(nil)
                     .padding(.leading, -4)
                 }
                 if case .failed = progress {
-                    Text(text("progressLoadError")).foregroundStyle(.secondary).listRowBackground(AppColors.card)
+                    Text(text("progressLoadError")).foregroundStyle(AppColors.textSecondary).listRowBackground(AppColors.card)
                 }
                 Section {
                     HStack {
@@ -241,8 +241,8 @@ struct ProgramDetailScreen: View {
                                         Image(systemName: checked ? "checkmark.square.fill" : "square")
                                             .foregroundStyle(checked ? AppColors.accent : Color(.tertiaryLabel))
                                         Text(program.taskLabel(task, strings))
-                                            .strikethrough(checked, color: Color(.secondaryLabel))
-                                            .foregroundStyle(checked ? Color(.secondaryLabel) : Color(.label))
+                                            .strikethrough(checked, color: AppColors.textSecondary)
+                                            .foregroundStyle(checked ? AppColors.textSecondary : Color(.label))
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                     }
                                     .contentShape(.rect)
@@ -261,7 +261,7 @@ struct ProgramDetailScreen: View {
                                 if !calm {
                                     Text(strings.structuredProgramCompactProgress(done: weekDone, total: week.tasks.count))
                                         .font(.subheadline.monospacedDigit())
-                                        .foregroundStyle(Color(.secondaryLabel))
+                                        .foregroundStyle(AppColors.textSecondary)
                                 }
                             }
                             .accessibilityElement(children: .ignore)

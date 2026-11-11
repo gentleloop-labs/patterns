@@ -88,7 +88,7 @@ struct TourSheet: View {
                 ForEach(step.points, id: \.self) { point in
                     Text(point)
                         .font(.body)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(AppColors.textSecondary)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
