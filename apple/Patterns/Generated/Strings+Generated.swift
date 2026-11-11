@@ -1434,4 +1434,14 @@ extension Strings {
     func tourProgress(current: Int, total: Int) -> String { string("tourProgress", ["current": .int(current), "total": .int(total)]) }
     /// {title}. {body}
     func completionAnnouncement(title: String, body: String) -> String { string("completionAnnouncement", ["title": .string(title), "body": .string(body)]) }
+    /// {key, select, intro{Healthy ways to ride out a hard moment.} duringUrges{During urges} duringAnxiety{During...
+    func copingLibraryText(key: String) -> String { string("copingLibraryText", ["key": .string(key)]) }
+    /// {key, select, newerTitle{This data needs a newer Patterns} newerBody{Your entries were saved by a newer ver...
+    func dataErrorText(key: String) -> String { string("dataErrorText", ["key": .string(key)]) }
+    /// Couldn’t open the store. Please try again.
+    var settingsStoreOpenFailed: String { string("settingsStoreOpenFailed") }
+    /// Couldn’t open email. You can write to {email}.
+    func settingsEmailOpenFailed(email: String) -> String { string("settingsEmailOpenFailed", ["email": .string(email)]) }
+    /// Your entry could not be saved. Please try again.
+    var journalSaveError: String { string("journalSaveError") }
 }

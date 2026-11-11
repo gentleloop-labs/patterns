@@ -4068,6 +4068,74 @@ class AppLocalizationsPt extends AppLocalizations {
   String completionAnnouncement(String title, String body) {
     return '$title. $body';
   }
+
+  @override
+  String copingLibraryText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'intro': 'Formas saudáveis de atravessar um momento difícil.',
+      'duringUrges': 'Durante impulsos',
+      'duringAnxiety': 'Durante a ansiedade',
+      'breathingTitle': 'Respiração profunda',
+      'breathingBody':
+          'Desacelere a expiração. Inspire contando até 4 e expire contando até 6. Uma expiração mais longa avisa ao seu corpo que ele pode se acalmar.',
+      'groundingTitle': 'Ancoragem (5-4-3-2-1)',
+      'groundingBody':
+          'Nomeie 5 coisas que você vê, 4 que você sente pelo toque, 3 que você ouve, 2 que você cheira e 1 que você saboreia. Volte para o momento presente.',
+      'urgeSurfingTitle': 'Surfar o impulso',
+      'urgeSurfingBody':
+          'Imagine o impulso como uma onda. Observe-o subir, chegar ao auge e descer sozinho. Você não precisa agir. Ele sempre passa.',
+      'acceptanceTitle': 'Frases de aceitação',
+      'acceptanceBody':
+          'Experimente: “Isto é só um pensamento intrusivo. Posso deixá-lo aqui sem responder a ele.”',
+      'observationTitle': 'Observação consciente',
+      'observationBody':
+          'Observe o pensamento como uma nuvem passando. Perceba-o, chame-o de “um pensamento” e deixe-o seguir.',
+      'relaxationTitle': 'Relaxamento muscular progressivo',
+      'relaxationBody':
+          'Contraia cada grupo muscular por cerca de 5 segundos e depois solte, dos pés até o rosto. Perceba a diferença ao soltar.',
+      'mindfulnessTitle': 'Atenção plena',
+      'mindfulnessBody':
+          'Deixe sua atenção descansar na respiração. Quando a mente se distrair, traga-a de volta com gentileza e sem julgamento.',
+      'compassionTitle': 'Autocompaixão',
+      'compassionBody':
+          'Fale consigo mesmo como falaria com um bom amigo: “Isto é difícil, e estou fazendo o meu melhor.”',
+      'walkTitle': 'Fazer uma caminhada',
+      'walkBody':
+          'Caminhe devagar e deixe sua atenção descansar em cada passo e no ar sobre a pele. O movimento ajuda a ansiedade a passar.',
+      'other': 'Estratégia de enfrentamento',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String dataErrorText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'newerTitle':
+          'Estes dados precisam de uma versão mais recente do Patterns',
+      'newerBody':
+          'Seus registros foram salvos por uma versão mais recente do Patterns. Atualize o app na App Store para abri-los. Nada foi alterado ou apagado.',
+      'unreadableTitle': 'O Patterns não conseguiu abrir seus dados',
+      'unreadableBody':
+          'Seus registros continuam neste iPhone e não foram alterados. Tente novamente. Se isso continuar acontecendo, peça ajuda em patternsocd.com.',
+      'retry': 'Tentar novamente',
+      'help': 'Obter ajuda',
+      'other': 'O Patterns não conseguiu abrir seus dados',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get settingsStoreOpenFailed =>
+      'Não foi possível abrir a loja. Tente novamente.';
+
+  @override
+  String settingsEmailOpenFailed(String email) {
+    return 'Não foi possível abrir o e-mail. Você pode escrever para $email.';
+  }
+
+  @override
+  String get journalSaveError =>
+      'Não foi possível salvar seu registro. Tente novamente.';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -8134,4 +8202,72 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String completionAnnouncement(String title, String body) {
     return '$title. $body';
   }
+
+  @override
+  String copingLibraryText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'intro': 'Formas saudáveis de atravessar um momento difícil.',
+      'duringUrges': 'Durante impulsos',
+      'duringAnxiety': 'Durante a ansiedade',
+      'breathingTitle': 'Respiração profunda',
+      'breathingBody':
+          'Desacelere a expiração. Inspire contando até 4 e expire contando até 6. Uma expiração mais longa avisa ao seu corpo que ele pode se acalmar.',
+      'groundingTitle': 'Ancoragem (5-4-3-2-1)',
+      'groundingBody':
+          'Nomeie 5 coisas que você vê, 4 que você sente pelo toque, 3 que você ouve, 2 que você cheira e 1 que você saboreia. Volte para o momento presente.',
+      'urgeSurfingTitle': 'Surfar o impulso',
+      'urgeSurfingBody':
+          'Imagine o impulso como uma onda. Observe-o subir, chegar ao auge e descer sozinho. Você não precisa agir. Ele sempre passa.',
+      'acceptanceTitle': 'Frases de aceitação',
+      'acceptanceBody':
+          'Experimente: “Isto é só um pensamento intrusivo. Posso deixá-lo aqui sem responder a ele.”',
+      'observationTitle': 'Observação consciente',
+      'observationBody':
+          'Observe o pensamento como uma nuvem passando. Perceba-o, chame-o de “um pensamento” e deixe-o seguir.',
+      'relaxationTitle': 'Relaxamento muscular progressivo',
+      'relaxationBody':
+          'Contraia cada grupo muscular por cerca de 5 segundos e depois solte, dos pés até o rosto. Perceba a diferença ao soltar.',
+      'mindfulnessTitle': 'Atenção plena',
+      'mindfulnessBody':
+          'Deixe sua atenção descansar na respiração. Quando a mente se distrair, traga-a de volta com gentileza e sem julgamento.',
+      'compassionTitle': 'Autocompaixão',
+      'compassionBody':
+          'Fale consigo mesmo como falaria com um bom amigo: “Isto é difícil, e estou fazendo o meu melhor.”',
+      'walkTitle': 'Fazer uma caminhada',
+      'walkBody':
+          'Caminhe devagar e deixe sua atenção descansar em cada passo e no ar sobre a pele. O movimento ajuda a ansiedade a passar.',
+      'other': 'Estratégia de enfrentamento',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String dataErrorText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'newerTitle':
+          'Estes dados precisam de uma versão mais recente do Patterns',
+      'newerBody':
+          'Seus registros foram salvos por uma versão mais recente do Patterns. Atualize o app na App Store para abri-los. Nada foi alterado ou apagado.',
+      'unreadableTitle': 'O Patterns não conseguiu abrir seus dados',
+      'unreadableBody':
+          'Seus registros continuam neste iPhone e não foram alterados. Tente novamente. Se isso continuar acontecendo, peça ajuda em patternsocd.com.',
+      'retry': 'Tentar novamente',
+      'help': 'Obter ajuda',
+      'other': 'O Patterns não conseguiu abrir seus dados',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get settingsStoreOpenFailed =>
+      'Não foi possível abrir a loja. Tente novamente.';
+
+  @override
+  String settingsEmailOpenFailed(String email) {
+    return 'Não foi possível abrir o e-mail. Você pode escrever para $email.';
+  }
+
+  @override
+  String get journalSaveError =>
+      'Não foi possível salvar seu registro. Tente novamente.';
 }

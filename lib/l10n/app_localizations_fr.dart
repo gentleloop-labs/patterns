@@ -4139,4 +4139,72 @@ class AppLocalizationsFr extends AppLocalizations {
   String completionAnnouncement(String title, String body) {
     return '$title. $body';
   }
+
+  @override
+  String copingLibraryText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'intro': 'Des façons saines de traverser un moment difficile.',
+      'duringUrges': 'Pendant les envies compulsives',
+      'duringAnxiety': 'Pendant l’anxiété',
+      'breathingTitle': 'Respiration profonde',
+      'breathingBody':
+          'Ralentissez votre expiration. Inspirez sur 4 temps, expirez sur 6. Une expiration plus longue signale à votre corps qu’il peut s’apaiser.',
+      'groundingTitle': 'Ancrage (5-4-3-2-1)',
+      'groundingBody':
+          'Nommez 5 choses que vous voyez, 4 que vous sentez au toucher, 3 que vous entendez, 2 que vous sentez et 1 que vous goûtez. Revenez ainsi à l’instant présent.',
+      'urgeSurfingTitle': 'Surfer sur l’envie compulsive',
+      'urgeSurfingBody':
+          'Imaginez l’envie comme une vague. Regardez-la monter, atteindre son sommet et redescendre d’elle-même. Vous n’avez pas à agir. Elle finit toujours par passer.',
+      'acceptanceTitle': 'Phrases d’acceptation',
+      'acceptanceBody':
+          'Essayez : « Ce n’est qu’une pensée intrusive. Je peux la laisser là sans y répondre. »',
+      'observationTitle': 'Observation consciente',
+      'observationBody':
+          'Regardez la pensée comme un nuage qui passe. Remarquez-la, appelez-la « une pensée » et laissez-la passer.',
+      'relaxationTitle': 'Relaxation musculaire progressive',
+      'relaxationBody':
+          'Contractez chaque groupe de muscles pendant environ 5 secondes, puis relâchez, des pieds jusqu’au visage. Remarquez la différence quand vous relâchez.',
+      'mindfulnessTitle': 'Pleine conscience',
+      'mindfulnessBody':
+          'Posez votre attention sur votre respiration. Quand votre esprit s’égare, ramenez-le doucement, sans jugement.',
+      'compassionTitle': 'Autocompassion',
+      'compassionBody':
+          'Parlez-vous comme vous parleriez à un bon ami : « C’est difficile, et je fais de mon mieux. »',
+      'walkTitle': 'Aller marcher',
+      'walkBody':
+          'Marchez lentement et laissez votre attention se poser sur chaque pas et sur l’air contre votre peau. Le mouvement aide l’anxiété à s’écouler.',
+      'other': 'Stratégie d’adaptation',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String dataErrorText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'newerTitle':
+          'Ces données nécessitent une version plus récente de Patterns',
+      'newerBody':
+          'Vos entrées ont été enregistrées par une version plus récente de Patterns. Mettez l’app à jour depuis l’App Store pour les ouvrir. Rien n’a été modifié ni supprimé.',
+      'unreadableTitle': 'Patterns n’a pas pu ouvrir vos données',
+      'unreadableBody':
+          'Vos entrées sont toujours sur cet iPhone et n’ont pas été modifiées. Réessayez. Si le problème persiste, obtenez de l’aide sur patternsocd.com.',
+      'retry': 'Réessayer',
+      'help': 'Obtenir de l’aide',
+      'other': 'Patterns n’a pas pu ouvrir vos données',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get settingsStoreOpenFailed =>
+      'Impossible d’ouvrir la boutique. Veuillez réessayer.';
+
+  @override
+  String settingsEmailOpenFailed(String email) {
+    return 'Impossible d’ouvrir l’e-mail. Vous pouvez écrire à $email.';
+  }
+
+  @override
+  String get journalSaveError =>
+      'Impossible d’enregistrer votre entrée. Veuillez réessayer.';
 }

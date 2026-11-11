@@ -132,44 +132,25 @@ struct BreathingScreen: View {
     }
 }
 
-/// `CopingLibraryScreen`. Flutter keeps this copy in English only (it has
-/// no ARB entries yet), so it is English here too until it is translated.
+/// `CopingLibraryScreen`: gentle strategies for urges and anxiety, each
+/// opening to a short how-to. Flutter shows this copy in English only; the
+/// native app has it in every language (`copingLibraryText`).
 struct CopingLibraryScreen: View {
-    private struct Strategy: Hashable {
-        let title: String
-        let body: String
-    }
+    @Environment(AppModel.self) private var model
 
-    private static let categories: [(label: String, strategies: [Strategy])] = [
-        ("During urges", [
-            Strategy(title: "Deep breathing",
-                     body: "Slow your exhale. Breathe in for 4, out for 6. A longer out-breath tells your body it is safe to settle."),
-            Strategy(title: "Grounding (5-4-3-2-1)",
-                     body: "Name 5 things you can see, 4 you can feel, 3 you can hear, 2 you can smell, and 1 you can taste. Bring yourself back to right now."),
-            Strategy(title: "Urge surfing",
-                     body: "Picture the urge as a wave. Watch it rise, crest, and fall on its own. You do not have to act. It always passes."),
-            Strategy(title: "Acceptance statements",
-                     body: "Try: \"This is just an intrusive thought. I can let it be here without responding to it.\""),
-            Strategy(title: "Mindful observation",
-                     body: "Watch the thought like a cloud drifting past. Notice it, label it \"a thought\", and let it move along."),
-        ]),
-        ("During anxiety", [
-            Strategy(title: "Progressive muscle relaxation",
-                     body: "Tense each muscle group for about 5 seconds, then release, from your feet up to your face. Notice the contrast as you let go."),
-            Strategy(title: "Mindfulness",
-                     body: "Rest your attention on your breath. When your mind wanders, gently and without judgement bring it back."),
-            Strategy(title: "Self-compassion",
-                     body: "Speak to yourself the way you would to a good friend: \"This is hard, and I am doing my best.\""),
-            Strategy(title: "Go for a walk",
-                     body: "Take a slow walk and let your attention rest on each step and the air on your skin. Movement helps anxiety move through."),
-        ]),
+    /// Category key, then each strategy's key prefix (`<prefix>Title`,
+    /// `<prefix>Body`), in Flutter's order.
+    private static let categories: [(label: String, strategies: [String])] = [
+        ("duringUrges", ["breathing", "grounding", "urgeSurfing", "acceptance", "observation"]),
+        ("duringAnxiety", ["relaxation", "mindfulness", "compassion", "walk"]),
     ]
 
     var body: some View {
+        let text = { (key: String) in model.strings.copingLibraryText(key: key) }
         List {
             Section {
             } header: {
-                Text(verbatim: "Healthy ways to ride out a hard moment.")
+                Text(text("intro"))
                     .font(.subheadline)
                     .foregroundStyle(AppColors.textSecondary)
                     .textCase(nil)
@@ -180,22 +161,22 @@ struct CopingLibraryScreen: View {
                 Section {
                     ForEach(category.strategies, id: \.self) { strategy in
                         DisclosureGroup {
-                            Text(verbatim: strategy.body)
+                            Text(text(strategy + "Body"))
                                 .font(.subheadline)
                                 .foregroundStyle(AppColors.textSecondary)
                                 .padding(.vertical, 4)
                         } label: {
-                            Text(verbatim: strategy.title).font(.body.weight(.semibold))
+                            Text(text(strategy + "Title")).font(.body.weight(.semibold))
                         }
                     }
                 } header: {
-                    Text(verbatim: category.label)
+                    Text(text(category.label))
                 }
                 .listRowBackground(AppColors.card)
             }
         }
         .listStyle(.insetGrouped)
         .appListBackground()
-        .navigationTitle(Text(verbatim: "Coping Library"))
+        .navigationTitle(model.strings.recoveryToolTitle(tool: "copingLibrary"))
     }
 }

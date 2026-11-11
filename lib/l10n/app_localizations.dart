@@ -4426,6 +4426,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{title}. {body}'**
   String completionAnnouncement(String title, String body);
+
+  /// Coping Library copy, selected by a stable key. Second-person, gentle suggestions; keep them optional and never clinical. Do not add em dashes.
+  ///
+  /// In en, this message translates to:
+  /// **'{key, select, intro{Healthy ways to ride out a hard moment.} duringUrges{During urges} duringAnxiety{During anxiety} breathingTitle{Deep breathing} breathingBody{Slow your exhale. Breathe in for 4, out for 6. A longer out-breath tells your body it is safe to settle.} groundingTitle{Grounding (5-4-3-2-1)} groundingBody{Name 5 things you can see, 4 you can feel, 3 you can hear, 2 you can smell, and 1 you can taste. Bring yourself back to right now.} urgeSurfingTitle{Urge surfing} urgeSurfingBody{Picture the urge as a wave. Watch it rise, crest, and fall on its own. You do not have to act. It always passes.} acceptanceTitle{Acceptance statements} acceptanceBody{Try: “This is just an intrusive thought. I can let it be here without responding to it.”} observationTitle{Mindful observation} observationBody{Watch the thought like a cloud drifting past. Notice it, label it “a thought”, and let it move along.} relaxationTitle{Progressive muscle relaxation} relaxationBody{Tense each muscle group for about 5 seconds, then release, from your feet up to your face. Notice the contrast as you let go.} mindfulnessTitle{Mindfulness} mindfulnessBody{Rest your attention on your breath. When your mind wanders, gently and without judgement bring it back.} compassionTitle{Self-compassion} compassionBody{Speak to yourself the way you would to a good friend: “This is hard, and I am doing my best.”} walkTitle{Go for a walk} walkBody{Take a slow walk and let your attention rest on each step and the air on your skin. Movement helps anxiety move through.} other{Coping strategy}}'**
+  String copingLibraryText(String key);
+
+  /// Shown only when the app cannot open its data safely. It must make clear nothing was changed or deleted. patternsocd.com is the help website and stays as is.
+  ///
+  /// In en, this message translates to:
+  /// **'{key, select, newerTitle{This data needs a newer Patterns} newerBody{Your entries were saved by a newer version of Patterns. Update the app from the App Store to open them. Nothing has been changed or deleted.} unreadableTitle{Patterns could not open your data} unreadableBody{Your entries are still on this iPhone and have not been changed. Try again. If this keeps happening, get help at patternsocd.com.} retry{Try again} help{Get help} other{Patterns could not open your data}}'**
+  String dataErrorText(String key);
+
+  /// Toast when the App Store page could not be opened from Settings > Rate Patterns.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t open the store. Please try again.'**
+  String get settingsStoreOpenFailed;
+
+  /// Toast when no email app could open from Settings > Send feedback. {email} is the support address.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t open email. You can write to {email}.'**
+  String settingsEmailOpenFailed(String email);
+
+  /// Toast when a journal entry could not be saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Your entry could not be saved. Please try again.'**
+  String get journalSaveError;
 }
 
 class _AppLocalizationsDelegate
