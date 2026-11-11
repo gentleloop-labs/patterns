@@ -282,10 +282,17 @@ struct SettingsScreen: View {
     private func restorePurchases() async {
         let strings = model.strings
         navigation.showToast(strings.proRestoreChecking, kind: .info)
+        model.events.restoreStarted(.settings)
         switch await model.store.restore() {
-        case .restored: navigation.showToast(strings.proRestoreSucceeded, kind: .success)
-        case .notFound: navigation.showToast(strings.proPaywallRestoreNotFound, kind: .info)
-        case .failed: navigation.showToast(strings.proPaywallRestoreFailed, kind: .error)
+        case .restored:
+            model.events.purchaseCompleted(restored: true, source: .settings)
+            navigation.showToast(strings.proRestoreSucceeded, kind: .success)
+        case .notFound:
+            model.events.restoreNotFound(.settings)
+            navigation.showToast(strings.proPaywallRestoreNotFound, kind: .info)
+        case .failed:
+            model.events.restoreFailed(.settings)
+            navigation.showToast(strings.proPaywallRestoreFailed, kind: .error)
         case .cancelled: navigation.dismissToast()
         }
     }

@@ -59,6 +59,7 @@
 		B9D0636FC37F3AF6B7CC9CC4 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9B93E6C75E7D6969DBF805 /* AppColors.swift */; };
 		BD1BB0D33809E1739379DAB7 /* InsightsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04804DE23050C170865B4A26 /* InsightsScreen.swift */; };
 		BD4FA17C5DDFEA40495F5BB8 /* FormSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F19A0BA78ADE70EEE74E42 /* FormSections.swift */; };
+		BDA20A41688B340EA78D6F0E /* AppEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2692816251E4983932D26E61 /* AppEvents.swift */; };
 		BE1A1082411CBB43BC3862F4 /* Manrope-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A3092641A860C97C57B80F50 /* Manrope-Bold.ttf */; };
 		C31D71185E829E0975352006 /* Manrope-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 940AFFEBC658717844A87DCF /* Manrope-Regular.ttf */; };
 		C37740F53E1E5A513AF832B7 /* PatternsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF4079B1712B2F651ABABD9 /* PatternsApp.swift */; };
@@ -108,6 +109,7 @@
 		1B83324665715BED560CBC08 /* UncertaintyTrainingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UncertaintyTrainingScreen.swift; sourceTree = "<group>"; };
 		1F966E4E9B767758E429AED5 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		209719E14F36231CCC89044E /* BootstrapFailureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BootstrapFailureView.swift; sourceTree = "<group>"; };
+		2692816251E4983932D26E61 /* AppEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEvents.swift; sourceTree = "<group>"; };
 		26BFBDD7BA8E3FA55ADF75CF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		27905171586DBED956C48D1E /* Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatting.swift; sourceTree = "<group>"; };
 		2DF4079B1712B2F651ABABD9 /* PatternsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternsApp.swift; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				AE36014D42BDD96B61BC861A /* AppBootstrap.swift */,
+				2692816251E4983932D26E61 /* AppEvents.swift */,
 				955878D92E42BFE33692EE4F /* AppModel.swift */,
 				6A7E9BC0D071DB7C89ED0011 /* AppNavigation.swift */,
 				92865C7223A9295056A6BDA3 /* AppRelease.swift */,
@@ -642,6 +645,7 @@
 				2DCD6DC3C0552CFA6A8D8FF0 /* ActionPlannerScreen.swift in Sources */,
 				E052D083D8FB179B955E3641 /* AppBootstrap.swift in Sources */,
 				B9D0636FC37F3AF6B7CC9CC4 /* AppColors.swift in Sources */,
+				BDA20A41688B340EA78D6F0E /* AppEvents.swift in Sources */,
 				1C13A642C299CF87BAE5D83B /* AppModel.swift in Sources */,
 				616BFCE84011999950614E68 /* AppNavigation.swift in Sources */,
 				54DF8A1B405443E3F34D7B20 /* AppRelease.swift in Sources */,

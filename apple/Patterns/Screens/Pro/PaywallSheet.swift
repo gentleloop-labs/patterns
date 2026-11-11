@@ -77,6 +77,7 @@ struct PaywallSheet: View {
         }
         .overlay(alignment: .top) { ToastHost() }
         .task { await loadProduct() }
+        .onAppear { model.events.paywallShown(entryPoint) }
         .onChange(of: model.store.backgroundUnlockCount) {
             // An Ask to Buy approval or a purchase finished on another
             // device can land while the sheet is open.
@@ -140,9 +141,14 @@ struct PaywallSheet: View {
         loadError = nil
         do {
             product = try await model.store.loadProProduct()
+            model.events.productLoadResult(.success)
         } catch {
             product = nil
             loadError = error
+            switch error {
+            case .purchasesUnavailable, .productUnavailable: model.events.productLoadResult(.unavailable)
+            case .failed: model.events.productLoadResult(.error)
+            }
         }
         loading = false
     }
@@ -151,24 +157,33 @@ struct PaywallSheet: View {
         guard let product, !purchaseInFlight else { return }
         let strings = model.strings
         purchaseInFlight = true
+        model.events.purchaseStarted(entryPoint)
         do {
             let result = try await purchase(product)
             switch await model.store.completeProPurchase(result) {
             case .unlocked:
+                model.events.purchaseCompleted(restored: false, source: entryPoint)
                 finish(restored: false)
-            case .cancelled, .pending:
+            case .cancelled:
+                model.events.purchaseCanceled(entryPoint)
+                purchaseInFlight = false
+            case .pending:
                 purchaseInFlight = false
             case .failed:
+                model.events.purchaseFailed(entryPoint)
                 purchaseInFlight = false
                 navigation.showToast(strings.proPaywallPurchaseFailed, kind: .error)
             }
         } catch StoreKitError.userCancelled {
+            model.events.purchaseCanceled(entryPoint)
             purchaseInFlight = false
         } catch is Product.PurchaseError {
             // Refused before the store sheet opened.
+            model.events.purchaseFailed(entryPoint)
             purchaseInFlight = false
             navigation.showToast(strings.proPaywallPurchaseStartFailed, kind: .error)
         } catch {
+            model.events.purchaseFailed(entryPoint)
             purchaseInFlight = false
             navigation.showToast(strings.proPaywallPurchaseFailed, kind: .error)
         }
@@ -178,14 +193,18 @@ struct PaywallSheet: View {
         guard !purchaseInFlight else { return }
         let strings = model.strings
         purchaseInFlight = true
+        model.events.restoreStarted(entryPoint)
         let outcome = await model.store.restore()
         purchaseInFlight = false
         switch outcome {
         case .restored:
+            model.events.purchaseCompleted(restored: true, source: entryPoint)
             finish(restored: true)
         case .notFound:
+            model.events.restoreNotFound(entryPoint)
             navigation.showToast(strings.proPaywallRestoreNotFound, kind: .info)
         case .failed:
+            model.events.restoreFailed(entryPoint)
             navigation.showToast(strings.proPaywallRestoreFailed, kind: .error)
         case .cancelled:
             break

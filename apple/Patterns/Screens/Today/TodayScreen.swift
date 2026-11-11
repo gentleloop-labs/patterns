@@ -205,6 +205,8 @@ struct TodayScreen: View {
     }
 
     private func openJournal() {
+        // `_openJournalEditor`: Today is never the journal tab.
+        model.events.journalOpened()
         navigation.push(.journalEntry(day: JournalEntry.dayKey(for: Date())))
     }
 
@@ -215,7 +217,9 @@ struct TodayScreen: View {
         case .selfCheck: navigation.push(.selfCheck)
         case .buildHierarchy:
             if navigation.requirePro(model.proUnlocked, .exposureHierarchy) { navigation.push(.exposureHierarchy) }
-        case .dailyPractice: navigation.push(.erpExercises)
+        case .dailyPractice:
+            model.events.erpOpened()
+            navigation.push(.erpExercises)
         case .reflect:
             if navigation.requirePro(model.proUnlocked, .reflectionJournal) { navigation.push(.exposureReflection) }
         case .journal: openJournal()

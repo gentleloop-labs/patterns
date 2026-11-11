@@ -128,7 +128,7 @@ struct JournalEntryEditor: View {
             let isNew = try model.database.saveJournalEntry(date: day, content: stored)
             if isNew {
                 model.prefs.recordMeaningfulAction(.journal)
-                // Phase 5: AppEvents.logFirstJournalEntryCreated (milestone only).
+                model.events.journalEntryCreated()
             }
             model.prefs.recordReviewJournalSaved()
             savedSnapshot = stored
@@ -136,8 +136,8 @@ struct JournalEntryEditor: View {
             navigation.completeActivity(.journal)
         } catch {
             saving = false
-            // No journal-specific save error exists in the ARB files yet.
-            // Phase 5 adds one; until then this generic retry message shows.
+            // The ARB files have no journal-specific save error, so this
+            // generic retry message shows.
             navigation.showToast(strings.journalLoadError, kind: .error)
         }
     }

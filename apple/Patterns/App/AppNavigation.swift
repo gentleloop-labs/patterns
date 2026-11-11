@@ -114,10 +114,19 @@ final class AppNavigation {
         selectedTab = prefs.string(PreferenceKey.mobileSelectedTab).flatMap(AppTab.init(rawValue:)) ?? .home
     }
 
+    /// Set by `AppModel` once both exist.
+    @ObservationIgnored var events: AppEvents?
+
     func select(_ tab: AppTab) {
         guard tab != selectedTab else { return }
         selectedTab = tab
         prefs.set(tab.rawValue, for: PreferenceKey.mobileSelectedTab)
+        // `_logTabOpened`.
+        switch tab {
+        case .journal: events?.journalOpened()
+        case .insights: events?.insightsOpened()
+        case .home, .track, .erp: break
+        }
     }
 
     func push(_ route: Route) { path.append(route) }
@@ -153,6 +162,7 @@ final class AppNavigation {
     /// for the result screen, as Flutter pops one and pushes the other.
     func finishFirstRun(_ path: FirstRunPath) {
         prefs.set(true, for: PreferenceKey.firstActivityDone)
+        events?.firstRunActivityCompleted(path)
         if case .firstRunActivity = self.path.last {
             self.path[self.path.count - 1] = .firstRunResult(path)
         } else {

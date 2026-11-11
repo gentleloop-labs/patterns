@@ -315,7 +315,7 @@ private struct HierarchyBuilder: View {
             navigation.showToast(text("createError"), kind: .error)
             return
         }
-        // Phase 5: AppEvents.logFirstExposureCreated(stepCount:).
+        model.events.exposureHierarchyCreated(stepCount: records.count)
         dismiss()
         navigation.showToast(text("createSuccess"), kind: .success)
     }

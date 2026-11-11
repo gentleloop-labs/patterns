@@ -15,6 +15,7 @@ final class AppModel {
     let materials: MaterialFileStore
     let supportDirectory: URL
     let navigation: AppNavigation
+    let events: AppEvents
 
     private(set) var strings: Strings
     private(set) var language: AppLanguage
@@ -40,6 +41,7 @@ final class AppModel {
         self.materials = materials
         self.supportDirectory = supportDirectory
         navigation = AppNavigation(prefs: prefs)
+        events = AppEvents(prefs: prefs)
         let language = prefs.string(PreferenceKey.appLanguage).flatMap(AppLanguage.init(rawValue:)) ?? .english
         self.language = language
         strings = Strings.load(locale: LocaleResolver.effectiveLocale(language: language))
@@ -52,6 +54,7 @@ final class AppModel {
         usageAnalyticsEnabled = prefs.bool(PreferenceKey.usageAnalyticsEnabled) ?? false
         reminder = ReminderSettings(prefs: prefs)
         store = PurchaseStore(prefs: prefs)
+        navigation.events = events
     }
 
     /// Re-reads every setting after the preferences were cleared, as the
@@ -78,12 +81,28 @@ final class AppModel {
     }
 
     /// Records the consent decision and the collection flag together, as
-    /// Flutter's `_setUsageAnalytics` does. Sending events arrives with the
-    /// analytics port.
-    func setUsageAnalytics(_ enabled: Bool) {
+    /// Flutter's `_setUsageAnalytics` does. Saying yes counts the consent
+    /// (and, from the prompt, the action that made it due) and uploads
+    /// straight away; saying no drops anything queued and the install id.
+    func setUsageAnalytics(_ enabled: Bool, fromPromptAfter action: MeaningfulAction? = nil) {
         prefs.set(enabled ? "granted" : "declined", for: PreferenceKey.analyticsConsentDecision)
         prefs.set(enabled, for: PreferenceKey.usageAnalyticsEnabled)
         usageAnalyticsEnabled = enabled
+        events.setCollectionEnabled(enabled)
+        if enabled {
+            events.analyticsConsentGranted(after: action)
+            Task { await events.flush() }
+        }
+    }
+
+    /// `Timer.periodic(5 minutes)`: uploads queued events while the app runs.
+    func startAnalyticsFlushing() {
+        Task { [events] in
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(300))
+                await events.flush()
+            }
+        }
     }
 
     func setReminderEnabled(_ enabled: Bool) {

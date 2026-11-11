@@ -180,7 +180,7 @@ struct RecoveryHubScreen: View {
     /// `_openTool`: a locked Pro tool opens its paywall instead.
     private func open(_ tool: RecoveryDestination) {
         if let entry = tool.proEntryPoint, !navigation.requirePro(model.proUnlocked, entry) { return }
-        // Phase 5: AppEvents.logErpOpened for guided ERP.
+        if tool == .guidedErp { model.events.erpOpened() }
         navigation.push(tool.route)
     }
 }
