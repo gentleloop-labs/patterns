@@ -43,6 +43,8 @@ Someone without OCD might notice a strange image, feel unsettled, and continue w
 
 The search for a final answer can become more disruptive than the original thought.
 
+If the question is whether a thought reveals what you want, see [does having an intrusive thought mean I want it?](/blog/intrusive-thoughts-mean-i-want-it). That guide focuses on the checking that can follow the thought.
+
 ## The pattern clinicians look for
 
 The National Institute of Mental Health describes OCD in terms of recurring, unwanted obsessions and repetitive compulsions. The International OCD Foundation summarizes diagnosis around three features: obsessions, compulsive behavior, and enough time or interference to disrupt important parts of life.
