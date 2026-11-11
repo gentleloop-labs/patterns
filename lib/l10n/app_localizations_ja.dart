@@ -3551,4 +3551,63 @@ class AppLocalizationsJa extends AppLocalizations {
   String completionAnnouncement(String title, String body) {
     return '$title。$body';
   }
+
+  @override
+  String copingLibraryText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'intro': 'つらい時をやり過ごすための、健やかな方法。',
+      'duringUrges': '衝動があるとき',
+      'duringAnxiety': '不安があるとき',
+      'breathingTitle': '深呼吸',
+      'breathingBody':
+          '息をゆっくり吐きましょう。4つ数えて吸い、6つ数えて吐きます。長く吐くことで、落ち着いても大丈夫だと体に伝わります。',
+      'groundingTitle': 'グラウンディング（5-4-3-2-1）',
+      'groundingBody':
+          '見えるものを5つ、触れて感じるものを4つ、聞こえるものを3つ、におうものを2つ、味わえるものを1つ挙げてみましょう。今この瞬間に戻ってきます。',
+      'urgeSurfingTitle': '衝動の波に乗る',
+      'urgeSurfingBody':
+          '衝動を波としてイメージしましょう。波がひとりでに高まり、頂点に達し、引いていく様子を眺めます。行動する必要はありません。衝動は必ず過ぎていきます。',
+      'acceptanceTitle': '受け入れの言葉',
+      'acceptanceBody': 'こう言ってみましょう：「これはただの侵入思考だ。反応しなくても、ここにあってかまわない。」',
+      'observationTitle': 'マインドフルな観察',
+      'observationBody': '流れていく雲のように思考を眺めましょう。気づき、「思考」と名づけて、そのまま流れていかせます。',
+      'relaxationTitle': '漸進的筋弛緩法',
+      'relaxationBody': '足から顔まで、各部位の筋肉に約5秒間力を入れてから緩めます。力を抜いたときの違いに注意を向けましょう。',
+      'mindfulnessTitle': 'マインドフルネス',
+      'mindfulnessBody': '呼吸に注意を向けましょう。気がそれたら、責めずにやさしく呼吸へ戻します。',
+      'compassionTitle': 'セルフ・コンパッション',
+      'compassionBody': '親しい友人に話しかけるように、自分に声をかけましょう：「これはつらい。それでも自分は精一杯やっている。」',
+      'walkTitle': '散歩をする',
+      'walkBody': 'ゆっくり歩きながら、一歩一歩と肌にふれる空気に注意を向けましょう。体を動かすと、不安が流れていきやすくなります。',
+      'other': '対処法',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String dataErrorText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'newerTitle': 'このデータには新しいバージョンのPatternsが必要です',
+      'newerBody':
+          '記録は新しいバージョンのPatternsで保存されています。開くにはApp Storeでアプリをアップデートしてください。何も変更・削除されていません。',
+      'unreadableTitle': 'Patternsでデータを開けませんでした',
+      'unreadableBody':
+          '記録はこのiPhoneに残っており、変更されていません。もう一度お試しください。繰り返し起こる場合は、patternsocd.comでヘルプをご覧ください。',
+      'retry': 'もう一度試す',
+      'help': 'ヘルプを見る',
+      'other': 'Patternsでデータを開けませんでした',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get settingsStoreOpenFailed => 'ストアを開けませんでした。もう一度お試しください。';
+
+  @override
+  String settingsEmailOpenFailed(String email) {
+    return 'メールを開けませんでした。$email 宛てにご連絡いただけます。';
+  }
+
+  @override
+  String get journalSaveError => '記録を保存できませんでした。もう一度お試しください。';
 }

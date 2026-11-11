@@ -4116,4 +4116,71 @@ class AppLocalizationsDe extends AppLocalizations {
   String completionAnnouncement(String title, String body) {
     return '$title. $body';
   }
+
+  @override
+  String copingLibraryText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'intro': 'Hilfreiche Wege, einen schweren Moment zu überstehen.',
+      'duringUrges': 'Bei Zwangsimpulsen',
+      'duringAnxiety': 'Bei Angst',
+      'breathingTitle': 'Tiefes Atmen',
+      'breathingBody':
+          'Atmen Sie langsamer aus. Atmen Sie 4 Sekunden ein und 6 Sekunden aus. Ein längeres Ausatmen zeigt Ihrem Körper, dass er zur Ruhe kommen darf.',
+      'groundingTitle': 'Erden (5-4-3-2-1)',
+      'groundingBody':
+          'Nennen Sie 5 Dinge, die Sie sehen, 4, die Sie fühlen, 3, die Sie hören, 2, die Sie riechen, und 1, das Sie schmecken. Kommen Sie so ins Hier und Jetzt zurück.',
+      'urgeSurfingTitle': 'Urge-Surfing',
+      'urgeSurfingBody':
+          'Stellen Sie sich den Impuls als Welle vor. Beobachten Sie, wie sie von selbst ansteigt, ihren Höhepunkt erreicht und abflacht. Sie müssen nicht handeln. Er geht immer vorüber.',
+      'acceptanceTitle': 'Akzeptierende Sätze',
+      'acceptanceBody':
+          'Versuchen Sie: „Das ist nur ein aufdringlicher Gedanke. Ich kann ihn da sein lassen, ohne darauf zu reagieren.“',
+      'observationTitle': 'Achtsames Beobachten',
+      'observationBody':
+          'Beobachten Sie den Gedanken wie eine vorüberziehende Wolke. Bemerken Sie ihn, nennen Sie ihn „einen Gedanken“ und lassen Sie ihn weiterziehen.',
+      'relaxationTitle': 'Progressive Muskelentspannung',
+      'relaxationBody':
+          'Spannen Sie jede Muskelgruppe etwa 5 Sekunden lang an und lassen Sie dann los, von den Füßen bis zum Gesicht. Spüren Sie den Unterschied beim Loslassen.',
+      'mindfulnessTitle': 'Achtsamkeit',
+      'mindfulnessBody':
+          'Lassen Sie Ihre Aufmerksamkeit auf Ihrem Atem ruhen. Wenn Ihre Gedanken abschweifen, holen Sie sie sanft und ohne Bewertung zurück.',
+      'compassionTitle': 'Selbstmitgefühl',
+      'compassionBody':
+          'Sprechen Sie mit sich selbst wie mit einem guten Freund: „Das ist schwer, und ich gebe mein Bestes.“',
+      'walkTitle': 'Spazieren gehen',
+      'walkBody':
+          'Gehen Sie langsam spazieren und lassen Sie Ihre Aufmerksamkeit auf jedem Schritt und der Luft auf Ihrer Haut ruhen. Bewegung hilft, Angst durchziehen zu lassen.',
+      'other': 'Bewältigungsstrategie',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String dataErrorText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'newerTitle': 'Diese Daten brauchen eine neuere Version von Patterns',
+      'newerBody':
+          'Ihre Einträge wurden mit einer neueren Version von Patterns gespeichert. Aktualisieren Sie die App im App Store, um sie zu öffnen. Nichts wurde geändert oder gelöscht.',
+      'unreadableTitle': 'Patterns konnte Ihre Daten nicht öffnen',
+      'unreadableBody':
+          'Ihre Einträge sind weiterhin auf diesem iPhone und wurden nicht verändert. Versuchen Sie es erneut. Wenn das weiterhin passiert, finden Sie Hilfe unter patternsocd.com.',
+      'retry': 'Erneut versuchen',
+      'help': 'Hilfe erhalten',
+      'other': 'Patterns konnte Ihre Daten nicht öffnen',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get settingsStoreOpenFailed =>
+      'Der Store konnte nicht geöffnet werden. Bitte versuchen Sie es erneut.';
+
+  @override
+  String settingsEmailOpenFailed(String email) {
+    return 'E-Mail konnte nicht geöffnet werden. Sie können an $email schreiben.';
+  }
+
+  @override
+  String get journalSaveError =>
+      'Ihr Eintrag konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.';
 }

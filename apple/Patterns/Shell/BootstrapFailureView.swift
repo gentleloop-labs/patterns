@@ -1,13 +1,21 @@
+import PatternsCore
 import SwiftUI
 
 /// Shown when the data cannot be opened safely. It never offers to reset or
 /// delete anything: the user's files stay exactly as they are, so an update
 /// or support can recover them.
 ///
-/// Copy is English-only until these strings join the ARB files.
+/// There is no `AppModel` here, so the copy comes straight from the saved
+/// language setting.
 struct BootstrapFailureView: View {
     let failure: AppBootstrap.Failure
     let retry: () -> Void
+
+    private let strings: Strings = {
+        let prefs = FlutterPreferences()
+        let language = prefs.string(PreferenceKey.appLanguage).flatMap(AppLanguage.init(rawValue:)) ?? .english
+        return Strings.load(locale: LocaleResolver.effectiveLocale(language: language))
+    }()
 
     var body: some View {
         VStack(spacing: 20) {
@@ -24,11 +32,11 @@ struct BootstrapFailureView: View {
                 .foregroundStyle(AppColors.textSecondary)
                 .multilineTextAlignment(.center)
             if case .unreadable = failure {
-                Button("Try again", action: retry)
+                Button(strings.dataErrorText(key: "retry"), action: retry)
                     .buttonStyle(.accentProminent)
                     .controlSize(.large)
             }
-            Link("Get help", destination: URL(string: "https://patternsocd.com")!)
+            Link(strings.dataErrorText(key: "help"), destination: URL(string: "https://patternsocd.com")!)
         }
         .padding(32)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -37,17 +45,15 @@ struct BootstrapFailureView: View {
 
     private var title: String {
         switch failure {
-        case .newerData: "This data needs a newer Patterns"
-        case .unreadable: "Patterns could not open your data"
+        case .newerData: strings.dataErrorText(key: "newerTitle")
+        case .unreadable: strings.dataErrorText(key: "unreadableTitle")
         }
     }
 
     private var message: String {
         switch failure {
-        case .newerData:
-            "Your entries were saved by a newer version of Patterns. Update the app from the App Store to open them. Nothing has been changed or deleted."
-        case .unreadable:
-            "Your entries are still on this iPhone and have not been changed. Try again. If this keeps happening, get help at patternsocd.com."
+        case .newerData: strings.dataErrorText(key: "newerBody")
+        case .unreadable: strings.dataErrorText(key: "unreadableBody")
         }
     }
 }

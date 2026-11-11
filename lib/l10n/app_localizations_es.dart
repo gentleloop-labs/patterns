@@ -4078,4 +4078,72 @@ class AppLocalizationsEs extends AppLocalizations {
   String completionAnnouncement(String title, String body) {
     return '$title. $body';
   }
+
+  @override
+  String copingLibraryText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'intro': 'Formas saludables de atravesar un momento difícil.',
+      'duringUrges': 'Durante los impulsos',
+      'duringAnxiety': 'Durante la ansiedad',
+      'breathingTitle': 'Respiración profunda',
+      'breathingBody':
+          'Alarga la exhalación. Inhala contando 4 y exhala contando 6. Una exhalación más larga le indica a tu cuerpo que puede calmarse.',
+      'groundingTitle': 'Anclaje (5-4-3-2-1)',
+      'groundingBody':
+          'Nombra 5 cosas que puedes ver, 4 que puedes sentir, 3 que puedes oír, 2 que puedes oler y 1 que puedes saborear. Vuelve al momento presente.',
+      'urgeSurfingTitle': 'Surfear el impulso',
+      'urgeSurfingBody':
+          'Imagina el impulso como una ola. Obsérvalo subir, llegar a su punto más alto y bajar por sí solo. No tienes que actuar. Siempre pasa.',
+      'acceptanceTitle': 'Frases de aceptación',
+      'acceptanceBody':
+          'Prueba: «Esto es solo un pensamiento intrusivo. Puedo dejar que esté aquí sin responderle».',
+      'observationTitle': 'Observación consciente',
+      'observationBody':
+          'Mira el pensamiento como una nube que pasa. Nótalo, llámalo «un pensamiento» y déjalo seguir su camino.',
+      'relaxationTitle': 'Relajación muscular progresiva',
+      'relaxationBody':
+          'Tensa cada grupo muscular unos 5 segundos y luego suéltalo, desde los pies hasta la cara. Nota el contraste al soltar.',
+      'mindfulnessTitle': 'Atención plena',
+      'mindfulnessBody':
+          'Deja que tu atención descanse en la respiración. Cuando tu mente se distraiga, tráela de vuelta con suavidad y sin juzgarte.',
+      'compassionTitle': 'Autocompasión',
+      'compassionBody':
+          'Háblate como le hablarías a una buena amiga o a un buen amigo: «Esto es difícil y estoy haciendo lo mejor que puedo».',
+      'walkTitle': 'Salir a caminar',
+      'walkBody':
+          'Camina despacio y deja que tu atención descanse en cada paso y en el aire sobre tu piel. El movimiento ayuda a que la ansiedad fluya.',
+      'other': 'Estrategia de afrontamiento',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String dataErrorText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'newerTitle':
+          'Estos datos necesitan una versión más reciente de Patterns',
+      'newerBody':
+          'Tus entradas se guardaron con una versión más reciente de Patterns. Actualiza la app desde el App Store para abrirlas. No se ha cambiado ni eliminado nada.',
+      'unreadableTitle': 'Patterns no pudo abrir tus datos',
+      'unreadableBody':
+          'Tus entradas siguen en este iPhone y no se han modificado. Inténtalo de nuevo. Si sigue ocurriendo, busca ayuda en patternsocd.com.',
+      'retry': 'Intentar de nuevo',
+      'help': 'Obtener ayuda',
+      'other': 'Patterns no pudo abrir tus datos',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get settingsStoreOpenFailed =>
+      'No se pudo abrir la tienda. Inténtalo de nuevo.';
+
+  @override
+  String settingsEmailOpenFailed(String email) {
+    return 'No se pudo abrir el correo. Puedes escribir a $email.';
+  }
+
+  @override
+  String get journalSaveError =>
+      'No se pudo guardar tu entrada. Inténtalo de nuevo.';
 }

@@ -136,9 +136,7 @@ struct JournalEntryEditor: View {
             navigation.completeActivity(.journal)
         } catch {
             saving = false
-            // The ARB files have no journal-specific save error, so this
-            // generic retry message shows.
-            navigation.showToast(strings.journalLoadError, kind: .error)
+            navigation.showToast(strings.journalSaveError, kind: .error)
         }
     }
 
