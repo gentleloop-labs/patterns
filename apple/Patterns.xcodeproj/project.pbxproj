@@ -65,6 +65,7 @@
 		C37740F53E1E5A513AF832B7 /* PatternsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF4079B1712B2F651ABABD9 /* PatternsApp.swift */; };
 		C7BA43B803332CA59B6AF61D /* ImplementationIntentionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890C6CDEC18AACF3EDB66DAA /* ImplementationIntentionsScreen.swift */; };
 		CC0F4D6FC500F0C068CECF3F /* BehavioralExperimentsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E327DF8BD2BB727D709BC1 /* BehavioralExperimentsScreen.swift */; };
+		CD85AD913CC737989AA026FD /* RollbackDrillWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C39B46F3475C2A3252AFAF5 /* RollbackDrillWriter.swift */; };
 		CEE92CE5E7FD61E27EAF7C46 /* Manrope-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4047FD32E3FA75C9BED658AB /* Manrope-Semibold.ttf */; };
 		D1B47B5700B662183CBB9CA5 /* ReviewPrompter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B5A4627C3D72B58BE89163 /* ReviewPrompter.swift */; };
 		D4796A08FEEB733378E2E971 /* ExportReportSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B75EECD2509E29FBDA9BB9 /* ExportReportSheet.swift */; };
@@ -129,6 +130,7 @@
 		539F7DF21F3A517F143E13AF /* CompulsionDelayFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompulsionDelayFlow.swift; sourceTree = "<group>"; };
 		590AED5E127F54075865EFFC /* PatternsCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PatternsCore; path = Packages/PatternsCore; sourceTree = SOURCE_ROOT; };
 		5A9B93E6C75E7D6969DBF805 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
+		5C39B46F3475C2A3252AFAF5 /* RollbackDrillWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RollbackDrillWriter.swift; sourceTree = "<group>"; };
 		661D0928067F4A3D279A40FF /* PrivacyGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyGate.swift; sourceTree = "<group>"; };
 		671F379C1F0E71DAE4F3321A /* JournalEntryEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryEditor.swift; sourceTree = "<group>"; };
 		6A7E9BC0D071DB7C89ED0011 /* AppNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigation.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 			isa = PBXGroup;
 			children = (
 				E4E6449DA6DAA6A033700FEC /* PurchaseStoreTests.swift */,
+				5C39B46F3475C2A3252AFAF5 /* RollbackDrillWriter.swift */,
 				A54C15B9184654102BEBDF20 /* StringsBundleTests.swift */,
 			);
 			path = PatternsAppTests;
@@ -637,6 +640,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				367E53D76F99B0E807758262 /* PurchaseStoreTests.swift in Sources */,
+				CD85AD913CC737989AA026FD /* RollbackDrillWriter.swift in Sources */,
 				DCDA9970BEFA74882DFA0F69 /* StringsBundleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
