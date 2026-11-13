@@ -32,6 +32,8 @@ This article cannot tell a particular reader what they intend or diagnose OCD fr
 
 An intrusive thought may be a sentence, image, or sudden “what if?” that arrives without invitation. Sometimes the content is disturbing precisely because it touches something important: safety, loyalty, morality, or a relationship. Having the mental event and deciding to act are different things. The [NHS description of OCD](https://www.nhs.uk/mental-health/conditions/obsessive-compulsive-disorder-ocd/symptoms/) distinguishes recurring unwanted thoughts from the actions or mental rituals that may follow them.
 
+Our guide to [why OCD can target what matters most](/blog/why-ocd-targets-what-you-care-about) looks at why those subjects can feel so urgent without treating the thought as a test of character.
+
 Yet the question *Why did that enter my mind?* can feel urgent. Someone may treat the thought as a hidden confession, then inspect their feelings for evidence. If they feel alarmed, they might ask whether the alarm is strong enough. If they feel numb, they might ask whether the numbness means agreement. Either answer can create another question.
 
 This is one reason a simple “Don't worry, it means nothing” often fails to settle OCD doubt. The person may briefly feel better, then return to the same thought with a stricter test. Our [OCD overview](/ocd) describes the broader pattern of obsession, distress, compulsion, relief, and renewed doubt.
