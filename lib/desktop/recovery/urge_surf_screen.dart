@@ -174,7 +174,12 @@ class _UrgeSurfFlowState extends ConsumerState<UrgeSurfFlow>
   int _plannedSeconds = 180;
   bool _saving = false;
 
-  late final AnimationController _timer = AnimationController(vsync: this);
+  // Preserve: with animations off, Android would otherwise run this
+  // timer 20x faster (a 3-minute timer would end in 9 seconds).
+  late final AnimationController _timer = AnimationController(
+    vsync: this,
+    animationBehavior: AnimationBehavior.preserve,
+  );
 
   @override
   void initState() {
