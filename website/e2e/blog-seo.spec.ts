@@ -124,6 +124,11 @@ const newArticles = [
     slug: 'intrusive-thoughts-mean-i-want-it',
     title: 'Does Having an Intrusive Thought Mean I Want It?',
     contextualLink: '/blog/do-i-have-ocd-or-just-intrusive-thoughts'
+  },
+  {
+    slug: 'why-ocd-targets-what-you-care-about',
+    title: 'Why Does OCD Target the Things I Care About Most?',
+    contextualLink: '/blog/intrusive-thoughts-mean-i-want-it'
   }
 ];
 
