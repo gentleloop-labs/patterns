@@ -48,7 +48,12 @@ class _CompulsionDelayFlowState extends ConsumerState<CompulsionDelayFlow>
   double _customMinutes = 10;
 
   // Countdown
-  late final AnimationController _timer = AnimationController(vsync: this);
+  // Preserve: with animations off, Android would otherwise run this
+  // timer 20x faster (a 3-minute timer would end in 9 seconds).
+  late final AnimationController _timer = AnimationController(
+    vsync: this,
+    animationBehavior: AnimationBehavior.preserve,
+  );
   DateTime? _timerStartedAt;
   DateTime? _timerEndsAt;
   bool _completionNotificationScheduled = false;
