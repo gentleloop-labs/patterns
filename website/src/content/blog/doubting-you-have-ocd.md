@@ -28,6 +28,8 @@ related: [do-i-have-ocd-or-just-intrusive-thoughts, what-happens-during-an-ocd-a
 
 If you are wondering about OCD for the first time, an assessment may provide useful direction. You do not have to prove the diagnosis to yourself before booking one. Our guide to [OCD versus ordinary intrusive thoughts](/blog/do-i-have-ocd-or-just-intrusive-thoughts) covers that initial question. This article focuses on what happens when *checking the label* becomes the main activity.
 
+If your doubt is specifically that you do not feel anxious, see [whether OCD can occur without feeling anxious](/blog/ocd-without-feeling-anxious). The name of an emotion cannot settle the diagnosis by itself.
+
 ## What if I'm wrong about having OCD?
 
 Being open to another explanation is sensible. OCD can overlap with other mental health concerns, and a clinician needs to consider the full picture rather than match a person to a list of online examples. The [International OCD Foundation (IOCDF)](https://iocdf.org/about-ocd/how-is-ocd-diagnosed/) explains that trained professionals assess obsessions, compulsions, and how much the pattern takes up time or interferes with life. A blog cannot do that assessment.

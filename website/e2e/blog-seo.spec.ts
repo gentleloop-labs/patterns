@@ -129,6 +129,11 @@ const newArticles = [
     slug: 'why-ocd-targets-what-you-care-about',
     title: 'Why Does OCD Target the Things I Care About Most?',
     contextualLink: '/blog/intrusive-thoughts-mean-i-want-it'
+  },
+  {
+    slug: 'ocd-without-feeling-anxious',
+    title: "Is It Still OCD If I Don't Feel Anxious?",
+    contextualLink: '/blog/just-right-ocd'
   }
 ];
 
