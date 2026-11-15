@@ -204,6 +204,8 @@
     font-size: 20px;
     font-weight: 700;
     color: var(--text);
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 
   .brand img {
@@ -217,13 +219,20 @@
   .desktop-links {
     display: none;
     align-items: center;
-    gap: 32px;
+    gap: 24px;
+    flex-shrink: 0;
+    margin-left: 24px;
+    white-space: nowrap;
   }
 
   .desktop-links button,
   .desktop-links .nav-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
     font-size: 14px;
     font-weight: 500;
+    line-height: 20px;
     color: color-mix(in srgb, var(--text) 65%, transparent);
     transition: color 0.2s;
   }
@@ -429,7 +438,7 @@
     margin-top: 0;
   }
 
-  @media (min-width: 600px) {
+  @media (min-width: 900px) {
     .desktop-links {
       display: flex;
     }
@@ -438,6 +447,12 @@
     .mobile-menu,
     .mobile-backdrop {
       display: none;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .desktop-links {
+      gap: 32px;
     }
   }
 </style>
