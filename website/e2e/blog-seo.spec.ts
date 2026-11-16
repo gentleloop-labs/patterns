@@ -134,6 +134,11 @@ const newArticles = [
     slug: 'ocd-without-feeling-anxious',
     title: "Is It Still OCD If I Don't Feel Anxious?",
     contextualLink: '/blog/just-right-ocd'
+  },
+  {
+    slug: 'track-ocd-progress-without-every-thought',
+    title: 'How to Track OCD Progress Without Tracking Every Thought',
+    contextualLink: '/blog/when-an-ocd-app-becomes-a-compulsion'
   }
 ];
 
