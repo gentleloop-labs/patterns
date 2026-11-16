@@ -49,6 +49,8 @@ The useful part is not proving whether the message was perfect. It is noticing t
 
 Across weeks, a record may help you notice that reassurance follows several different fears, or that one particular situation often leads to avoidance. It may also give you something more concrete to discuss with a therapist than “I had a difficult week.” The app cannot interpret that pattern for you or decide whether the event was OCD.
 
+For a concrete example of a short review, see [how to track OCD progress without tracking every thought](/blog/track-ocd-progress-without-every-thought).
+
 ## Where ERP fits
 
 ERP is an evidence-based psychological treatment for OCD. In therapy, a clinician helps a person identify relevant triggers and practice approaching them while reducing compulsive responses. The [International OCD Foundation's ERP guide](https://iocdf.org/about-ocd/ocd-treatment-guide/exposure-response-prevention/) describes assessment, collaborative planning, and practice between sessions. ERP is not simply trying to make anxiety vanish on demand.
