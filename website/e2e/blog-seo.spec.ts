@@ -144,6 +144,11 @@ const newArticles = [
     slug: 'traveling-with-ocd',
     title: 'Traveling With OCD: When Rituals Follow You',
     contextualLink: '/blog/checking-ocd'
+  },
+  {
+    slug: 'patterns-native-iphone-iphone-duo',
+    title: 'Patterns Is Going Native on iPhone. iPhone Duo Is Next',
+    contextualLink: '/blog/what-is-patterns-ocd-app'
   }
 ];
 

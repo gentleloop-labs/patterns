@@ -71,6 +71,8 @@ Patterns cannot diagnose OCD, decide whether a specific thought is dangerous, me
 
 If the loop described here feels familiar, you do not have to identify the “correct” theme before asking for help. You can simply describe what keeps repeating and how much time it takes. If you want a private place to notice those responses between appointments, you can [explore or download Patterns](/get). The point is not to document every thought. It is to make more room for a different response when the loop appears.
 
+For what we are building next on Apple devices, read the [native iPhone and iPhone Duo update](/blog/patterns-native-iphone-iphone-duo).
+
 ## Sources
 
 - [International OCD Foundation: The OCD Cycle](https://iocdf.org/resource/the-ocd-cycle/)
