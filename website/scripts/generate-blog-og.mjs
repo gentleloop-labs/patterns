@@ -115,7 +115,7 @@ function motif(slug, palette) {
     </svg>`;
 }
 
-function renderCard({ slug, title, category, logoDataUrl }) {
+function renderCard({ slug, title, category, logoDataUrl, subtitle }) {
   const palette = categories[category] ?? categories['recognizing-ocd'];
   const headlineSize = slug === 'ocd-and-depression' ? 54 : titleSize(title);
   return `<!doctype html>
@@ -163,7 +163,7 @@ function renderCard({ slug, title, category, logoDataUrl }) {
         <div class="copy">
           <h1>${escapeHtml(title).replaceAll('-', '&#8209;')}</h1>
           <div class="rule"></div>
-          <div class="sub">Plain-language guidance for understanding the OCD loop.</div>
+          <div class="sub">${escapeHtml(subtitle)}</div>
         </div>
         ${motif(slug, palette)}
         <div class="domain">patternsocd.com/blog</div>
@@ -189,7 +189,10 @@ try {
     const slug = file.replace(/\.md$/, '');
     const title = readField(frontmatter, 'title');
     const category = readField(frontmatter, 'category');
-    await page.setContent(renderCard({ slug, title, category, logoDataUrl }), {
+    const subtitle = frontmatter.split('\n').some((line) => line.startsWith('ogSubtitle:'))
+      ? readField(frontmatter, 'ogSubtitle')
+      : 'Plain-language guidance for understanding the OCD loop.';
+    await page.setContent(renderCard({ slug, title, category, logoDataUrl, subtitle }), {
       waitUntil: 'load'
     });
     await page.screenshot({ path: join(OUTPUT_DIR, `${slug}.png`), type: 'png' });
