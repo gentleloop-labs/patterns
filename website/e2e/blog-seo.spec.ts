@@ -139,6 +139,11 @@ const newArticles = [
     slug: 'track-ocd-progress-without-every-thought',
     title: 'How to Track OCD Progress Without Tracking Every Thought',
     contextualLink: '/blog/when-an-ocd-app-becomes-a-compulsion'
+  },
+  {
+    slug: 'traveling-with-ocd',
+    title: 'Traveling With OCD: When Rituals Follow You',
+    contextualLink: '/blog/checking-ocd'
   }
 ];
 
