@@ -78,6 +78,8 @@ Someone might notice a flare-up around:
 - Less opportunity to practise skills that had become part of daily life.
 - A medication change, missed doses, or stopping medication.
 
+If a change of place is part of the picture, our guide to [traveling with OCD](/blog/traveling-with-ocd) looks at how familiar checking or avoidance can follow someone into a new routine.
+
 This list is not a checklist for finding the one correct cause. Searching your memory until you can explain exactly why symptoms changed can itself become rumination. Sometimes the useful question is not *Why did this happen with certainty?* but *What pattern is happening now, and what support would help me respond?*
 
 Medication deserves particular care. The NHS advises not to stop an SSRI suddenly and to speak with the prescribing clinician before stopping. A randomized trial of adults who had reached wellness after exposure and response prevention found that average outcomes after supervised medication tapering were not inferior to continued medication, but clinical worsening was more common in the taper group. That does not tell an individual whether to continue, change, or stop medication. It shows why medication decisions and monitoring belong with a qualified prescriber.
