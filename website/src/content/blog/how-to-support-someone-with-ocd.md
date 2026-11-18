@@ -30,6 +30,8 @@ This distinction is difficult because accommodation usually begins as kindness. 
 
 The intention is support. The effect can still strengthen the OCD loop.
 
+If someone has just opened up to you, our guide to [talking about OCD with someone you trust](/blog/talking-about-ocd-with-someone-you-trust) describes how they may choose what to share and ask for support on their own terms.
+
 ## What “feeding the cycle” means
 
 In research, **family accommodation** describes ways relatives or other supporters change their behaviour in response to OCD symptoms. The term can apply to partners, friends, housemates, and carers too, although much of the evidence has studied families.
