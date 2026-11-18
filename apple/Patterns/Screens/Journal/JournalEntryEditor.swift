@@ -6,6 +6,7 @@ struct JournalEntryEditor: View {
     @Environment(AppModel.self) private var model
     @Environment(AppNavigation.self) private var navigation
     @Environment(\.dynamicTypeSize) private var typeSize
+    @Environment(\.scenePhase) private var scenePhase
 
     let day: String
 
@@ -15,6 +16,15 @@ struct JournalEntryEditor: View {
     @State private var saving = false
     @State private var savedSnapshot = ""
     @State private var confirmingClear = false
+    /// Pending autosave after a pause in typing.
+    @State private var autosaveTask: Task<Void, Never>?
+    /// The review counter moves once per visit, not on every autosave.
+    @State private var countedReview = false
+    /// Set once the day is cleared, so a late autosave cannot recreate it.
+    @State private var cleared = false
+
+    /// How long typing must pause before the entry saves itself.
+    static let autosaveDelay: Duration = .seconds(2)
 
     private var date: Date { JournalEntry.date(forDayKey: day) ?? Date() }
     private var existing: JournalEntry? { entries.value?.first { $0.date == day } }
@@ -58,6 +68,10 @@ struct JournalEntryEditor: View {
         }
         .liveQuery(model.database, into: $entries) { db in try JournalEntry.all().fetchAll(db) }
         .onChange(of: entries.value?.count, initial: true) { _, _ in loadIfReady() }
+        // Autosave: Flutter dropped unsaved writing on Back; native keeps it.
+        .onChange(of: controller.stored) { _, _ in scheduleAutosave() }
+        .onChange(of: scenePhase) { _, phase in if phase != .active { autosaveNow() } }
+        .onDisappear { autosaveNow() }
         .confirmationDialog(strings.journalClearDayTitle, isPresented: $confirmingClear, titleVisibility: .visible) {
             Button(strings.journalClearDayAction, role: .destructive, action: clear)
             Button(strings.journalKeepEntryAction, role: .cancel) {}
@@ -115,32 +129,61 @@ struct JournalEntryEditor: View {
         loaded = true
     }
 
+    /// The Save button: saves now and marks the activity complete.
     private func save() {
-        let strings = model.strings
-        let document = controller.document
-        guard !document.plainText.isEmpty else {
-            navigation.showToast(strings.journalNothingToSaveMessage, kind: .info)
+        autosaveTask?.cancel()
+        guard !controller.document.plainText.isEmpty else {
+            navigation.showToast(model.strings.journalNothingToSaveMessage, kind: .info)
             return
         }
+        if persist() { navigation.completeActivity(.journal) }
+    }
+
+    private func scheduleAutosave() {
+        guard loaded, !cleared, !saved else { return }
+        autosaveTask?.cancel()
+        autosaveTask = Task {
+            try? await Task.sleep(for: Self.autosaveDelay)
+            guard !Task.isCancelled else { return }
+            autosaveNow()
+        }
+    }
+
+    /// Saves quietly: no toast for an empty page (an emptied entry keeps its
+    /// stored text until Save or Clear) and no completion sheet.
+    private func autosaveNow() {
+        autosaveTask?.cancel()
+        autosaveTask = nil
+        guard loaded, !cleared, !saving, !saved, !controller.document.plainText.isEmpty else { return }
+        persist()
+    }
+
+    @discardableResult
+    private func persist() -> Bool {
+        let stored = controller.document.stored
         saving = true
-        let stored = document.stored
+        defer { saving = false }
         do {
             let isNew = try model.database.saveJournalEntry(date: day, content: stored)
             if isNew {
                 model.prefs.recordMeaningfulAction(.journal)
                 model.events.journalEntryCreated()
             }
-            model.prefs.recordReviewJournalSaved()
+            if !countedReview {
+                countedReview = true
+                model.prefs.recordReviewJournalSaved()
+            }
             savedSnapshot = stored
-            saving = false
-            navigation.completeActivity(.journal)
+            return true
         } catch {
-            saving = false
-            navigation.showToast(strings.journalSaveError, kind: .error)
+            navigation.showToast(model.strings.journalSaveError, kind: .error)
+            return false
         }
     }
 
     private func clear() {
+        autosaveTask?.cancel()
+        cleared = true
         try? model.database.deleteJournalEntry(date: day)
         controller.load(RichDocument(stored: ""))
         savedSnapshot = controller.stored
