@@ -578,11 +578,16 @@ private struct ContinuePracticeRow: View {
             .fixedSize()
 
         let details = VStack(alignment: .leading, spacing: 0) {
+            // Next to the ring and the button the column can be narrow;
+            // wrap rather than truncate (the audit caught "Compulsion delay"
+            // clipped at the default size).
             Text(session == nil ? strings.todayStartErp : strings.todayCompulsionDelay)
                 .font(.headline)
+                .fixedSize(horizontal: false, vertical: true)
             Text(session == nil ? strings.todayBuildToleranceBody : strings.todayResistUrgeBody)
                 .font(.footnote)
                 .foregroundStyle(AppColors.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, 2)
             Group {
                 if large {
@@ -610,6 +615,7 @@ private struct ContinuePracticeRow: View {
                 HStack(spacing: 16) {
                     graphic
                     details.frame(maxWidth: .infinity, alignment: .leading)
+                        .layoutPriority(1)
                     action
                 }
             }
