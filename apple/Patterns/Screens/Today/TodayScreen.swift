@@ -615,8 +615,9 @@ private struct ContinuePracticeRow: View {
                 HStack(spacing: 16) {
                     graphic
                     details.frame(maxWidth: .infinity, alignment: .leading)
-                        .layoutPriority(1)
-                    action
+                    // The button keeps its natural width; the title column
+                    // wraps instead of either one being squeezed.
+                    action.fixedSize()
                 }
             }
         }
