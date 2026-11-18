@@ -149,6 +149,11 @@ const newArticles = [
     slug: 'patterns-native-iphone-iphone-duo',
     title: 'Patterns Is Going Native on iPhone. iPhone Duo Is Next',
     contextualLink: '/blog/what-is-patterns-ocd-app'
+  },
+  {
+    slug: 'talking-about-ocd-with-someone-you-trust',
+    title: 'Talking About OCD With Someone You Trust',
+    contextualLink: '/blog/how-to-support-someone-with-ocd'
   }
 ];
 
