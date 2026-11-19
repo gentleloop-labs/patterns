@@ -101,23 +101,28 @@ struct RecoveryHubScreen: View {
     var body: some View {
         let strings = model.strings
         List {
+            // The tiles live in the header: a list row clips its content to
+            // the row's rounded shape, which rounded the outer tiles' sides.
             Section {
-                immediateHelp(strings)
-                    .listRowInsets(EdgeInsets())
-                    .listRowBackground(Color.clear)
             } header: {
-                VStack(alignment: .leading, spacing: 14) {
+                VStack(alignment: .leading, spacing: 18) {
                     Text(strings.recoverySubtitle)
                         .font(.subheadline)
                         .foregroundStyle(AppColors.textSecondary)
-                    Label(strings.recoveryImmediateHelpTitle, systemImage: "heart.fill")
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(AppColors.accent)
-                        .accessibilityAddTraits(.isHeader)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.leading, 12)
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text(strings.recoveryImmediateHelpTitle)
+                            .font(.headline)
+                            .foregroundStyle(Color(.label))
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding(.leading, 12)
+                            .accessibilityAddTraits(.isHeader)
+                        immediateHelp(strings)
+                    }
                 }
                 .textCase(nil)
-                .padding(.leading, -4)
-                .padding(.bottom, 4)
+                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 4, trailing: 0))
             }
 
             ForEach(RecoveryDestination.Stage.allCases, id: \.self) { stage in
@@ -147,34 +152,47 @@ struct RecoveryHubScreen: View {
         .navigationTitle(strings.recoveryTitle)
     }
 
+    /// The first-aid tool across the width, the other two under it, so
+    /// every name sits on one line. Stacked at accessibility sizes.
     private func immediateHelp(_ strings: Strings) -> some View {
-        // Three cards side by side; stacked at accessibility text sizes so
-        // the titles wrap instead of shrinking.
-        let layout = typeSize.isAccessibilitySize
-            ? AnyLayout(VStackLayout(spacing: 10)) : AnyLayout(HStackLayout(alignment: .top, spacing: 10))
-        return layout {
-            ForEach(RecoveryDestination.immediateHelp, id: \.self) { tool in
-                Button { open(tool) } label: {
-                    VStack(spacing: 8) {
-                        Image(systemName: tool.systemImage)
-                            .font(.title2)
-                            .foregroundStyle(AppColors.accent)
-                        Text(tool.title(strings))
-                            .font(.footnote.weight(.semibold))
-                            .foregroundStyle(Color(.label))
-                            .multilineTextAlignment(.center)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-                    .padding(.vertical, 12)
-                    .frame(maxWidth: .infinity, minHeight: 92)
-                    .padding(.horizontal, 6)
-                    .background(AppColors.card, in: .rect(cornerRadius: 16))
-                    .contentShape(.rect(cornerRadius: 16))
-                }
-                .buttonStyle(.plain)
-                .accessibilityHint(strings.recoveryOpenToolHint(title: tool.title(strings)))
+        let tools = RecoveryDestination.immediateHelp
+        let pair = typeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(spacing: 10)) : AnyLayout(HStackLayout(spacing: 10))
+        return VStack(spacing: 10) {
+            helpTile(tools[0], strings, chevron: true)
+            pair {
+                ForEach(tools.dropFirst(), id: \.self) { helpTile($0, strings, chevron: false) }
             }
+            .fixedSize(horizontal: false, vertical: true)
         }
+    }
+
+    private func helpTile(_ tool: RecoveryDestination, _ strings: Strings, chevron: Bool) -> some View {
+        Button { open(tool) } label: {
+            HStack(spacing: 8) {
+                Image(systemName: tool.systemImage)
+                    .font(.body.weight(.semibold))
+                    .foregroundStyle(AppColors.accent)
+                Text(tool.title(strings))
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Color(.label))
+                    .multilineTextAlignment(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                if chevron {
+                    Image(systemName: "chevron.right")
+                        .font(.footnote.weight(.semibold))
+                        .foregroundStyle(Color(.tertiaryLabel))
+                }
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 14)
+            .frame(maxHeight: .infinity)
+            .background(AppColors.card, in: .rect(cornerRadius: 18))
+            .contentShape(.rect(cornerRadius: 18))
+        }
+        .buttonStyle(.plain)
+        .accessibilityHint(strings.recoveryOpenToolHint(title: tool.title(strings)))
     }
 
     /// `_openTool`: a locked Pro tool opens its paywall instead.

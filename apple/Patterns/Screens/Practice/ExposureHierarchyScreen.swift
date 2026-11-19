@@ -189,18 +189,17 @@ private struct HierarchyBuilder: View {
                     TextField(text("themeLabel"), text: $theme, prompt: Text(text("themeHint")))
                     // Suggestions, not a fixed list: ladders and tracks then
                     // share the same words.
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 8) {
-                            ForEach(Self.trackKeys, id: \.self) { key in
-                                let label = strings.ocdTrackTheme(track: key)
-                                Button(label) { theme = label }
-                                    .buttonStyle(.bordered)
-                                    .buttonBorderShape(.capsule)
-                                    .tint(theme == label ? AppColors.accent : .secondary)
-                            }
+                    FlowLayout {
+                        ForEach(Self.trackKeys, id: \.self) { key in
+                            let label = strings.ocdTrackTheme(track: key)
+                            Button(label) { theme = label }
+                                .buttonStyle(.bordered)
+                                .buttonBorderShape(.capsule)
+                                .tint(theme == label ? AppColors.accent : .secondary)
+                                .accessibilityAddTraits(theme == label ? .isSelected : [])
                         }
                     }
-                    .scrollClipDisabled()
+                    .padding(.vertical, 4)
                 }
                 .listRowBackground(AppColors.card)
 

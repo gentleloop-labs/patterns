@@ -34,6 +34,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         // Present the daily reminder even while the app is open, as the
         // Flutter app did.
         UNUserNotificationCenter.current().delegate = self
+        KeyboardCaretKeeper.shared.install()
         return true
     }
 

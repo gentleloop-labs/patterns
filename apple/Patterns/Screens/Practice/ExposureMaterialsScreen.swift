@@ -121,21 +121,30 @@ struct MaterialRow: View {
         let strings = model.strings
         let text = { (key: String) in strings.exposureMaterialsText(key: key) }
         let type = material.type ?? .script
-        VStack(alignment: .leading, spacing: 10) {
-            HStack(spacing: 10) {
-                Image(systemName: type.systemImage).foregroundStyle(AppColors.accent)
-                Text(material.title)
-            }
-            .font(.headline)
-            switch type {
-            case .script:
-                action("book", text("readScript")) { showingScript = true }
-            case .link:
-                action("arrow.up.right.square", material.url ?? text("openLink")) { openLink() }
-            case .image:
-                action("eye", text("viewImage")) { showImage() }
-            case .loopTape:
-                LoopTapePlayer(url: material.fileName.flatMap { model.materials.resolve($0) })
+        Group {
+            if type == .loopTape {
+                // A recording plays in place, so its controls stay in the row.
+                VStack(alignment: .leading, spacing: 10) {
+                    header(type, strings)
+                    LoopTapePlayer(url: material.fileName.flatMap { model.materials.resolve($0) })
+                }
+            } else {
+                Button(action: open) {
+                    HStack(spacing: 12) {
+                        header(type, strings)
+                        Image(systemName: type == .link ? "arrow.up.right" : "chevron.right")
+                            .font(.footnote.weight(.semibold))
+                            .foregroundStyle(Color(.tertiaryLabel))
+                            .accessibilityHidden(true)
+                    }
+                    .contentShape(.rect)
+                }
+                .buttonStyle(.plain)
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(material.title)
+                .accessibilityValue(type.label(strings))
+                .accessibilityHint(text(type == .script ? "readScript" : type == .link ? "openLink" : "viewImage"))
+                .accessibilityAddTraits(type == .link ? .isLink : .isButton)
             }
         }
         .padding(.vertical, 6)
@@ -176,13 +185,46 @@ struct MaterialRow: View {
         }
     }
 
-    private func action(_ icon: String, _ label: String, _ perform: @escaping () -> Void) -> some View {
-        Button(action: perform) {
-            Label(label, systemImage: icon)
-                .lineLimit(1)
-                .frame(maxWidth: .infinity, alignment: .leading)
+    /// Thumbnail or type tile, the title, and a quiet line of what is inside.
+    private func header(_ type: MaterialType, _ strings: Strings) -> some View {
+        HStack(spacing: 12) {
+            MaterialThumbnail(type: type, url: type == .image ? material.fileName.flatMap { model.materials.resolve($0) } : nil)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(material.title)
+                    .font(.body.weight(.semibold))
+                    .foregroundStyle(Color(.label))
+                Text(detail(type, strings))
+                    .font(.footnote)
+                    .foregroundStyle(AppColors.textSecondary)
+            }
+            .multilineTextAlignment(.leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .buttonStyle(.bordered)
+    }
+
+    /// The script's opening words or the link's site; otherwise the type.
+    private func detail(_ type: MaterialType, _ strings: Strings) -> String {
+        switch type {
+        case .script:
+            let words = (material.text ?? "").split(whereSeparator: \.isNewline).joined(separator: " ")
+            // Shortened here, not with a line limit, so nothing is drawn clipped.
+            return words.isEmpty ? type.label(strings)
+                : words.count > 80 ? String(words.prefix(80)).trimmingCharacters(in: .whitespaces) + "…" : words
+        case .link:
+            guard let raw = material.url else { return type.label(strings) }
+            return URL(string: raw)?.host(percentEncoded: false) ?? raw
+        case .image, .loopTape:
+            return type.label(strings)
+        }
+    }
+
+    private func open() {
+        switch material.type ?? .script {
+        case .script: showingScript = true
+        case .link: openLink()
+        case .image: showImage()
+        case .loopTape: break
+        }
     }
 
     private func openLink() {
@@ -212,6 +254,42 @@ struct MaterialRow: View {
             navigation.showToast(strings.exposureMaterialsText(key: "deleteSuccess"), kind: .success)
         } catch {
             navigation.showToast(strings.exposureMaterialsText(key: "deleteError"), kind: .error)
+        }
+    }
+}
+
+/// A 44pt tile: the picture itself for an image, the type's symbol otherwise.
+private struct MaterialThumbnail: View {
+    let type: MaterialType
+    let url: URL?
+    @State private var image: UIImage?
+    @ScaledMetric(relativeTo: .body) private var size: CGFloat = 44
+
+    var body: some View {
+        ZStack {
+            if let image {
+                Image(uiImage: image).resizable().scaledToFill()
+            } else {
+                AppColors.accent.opacity(0.14)
+                Image(systemName: type.systemImage)
+                    .font(.body.weight(.semibold))
+                    .foregroundStyle(AppColors.accent)
+            }
+        }
+        .frame(width: size, height: size)
+        .clipShape(.rect(cornerRadius: 10))
+        .accessibilityHidden(true)
+        .task(id: url) {
+            guard let url else { return image = nil }
+            let side = size * 3
+            image = await Task.detached(priority: .utility) {
+                guard let full = UIImage(contentsOfFile: url.path), full.size.width > 0, full.size.height > 0 else {
+                    return nil
+                }
+                // Keep the aspect ratio; the tile crops it to a square.
+                let ratio = side / min(full.size.width, full.size.height)
+                return full.preparingThumbnail(of: CGSize(width: full.size.width * ratio, height: full.size.height * ratio))
+            }.value
         }
     }
 }
