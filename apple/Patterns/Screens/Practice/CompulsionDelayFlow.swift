@@ -67,20 +67,20 @@ struct CompulsionDelayFlow: View {
                 TextField(strings.delayUrgeQuestion, text: $compulsion, prompt: Text(strings.delayUrgeHint), axis: .vertical)
                     .lineLimit(1...3)
                 if !recentCompulsions.isEmpty {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 8) {
-                            ForEach(recentCompulsions, id: \.self) { text in
-                                let selected = compulsion.trimmingCharacters(in: .whitespaces).lowercased() == text.lowercased()
-                                Button(text) { compulsion = text }
-                                    .buttonStyle(.bordered)
-                                    .buttonBorderShape(.capsule)
-                                    .tint(selected ? AppColors.accent : .secondary)
-                                    .accessibilityAddTraits(selected ? .isSelected : [])
+                    FlowLayout {
+                        ForEach(recentCompulsions, id: \.self) { text in
+                            let selected = compulsion.trimmingCharacters(in: .whitespaces).lowercased() == text.lowercased()
+                            Button { compulsion = text } label: {
+                                // Long urges wrap inside the chip rather than being cut off.
+                                Text(text).multilineTextAlignment(.leading).fixedSize(horizontal: false, vertical: true)
                             }
+                                .buttonStyle(.bordered)
+                                .buttonBorderShape(.capsule)
+                                .tint(selected ? AppColors.accent : .secondary)
+                                .accessibilityAddTraits(selected ? .isSelected : [])
                         }
-                        .padding(.vertical, 2)
                     }
-                    .scrollClipDisabled()
+                    .padding(.vertical, 4)
                 }
             }
             .listRowBackground(AppColors.card)

@@ -283,46 +283,68 @@ private struct CalmActivityRow: View {
     let summary: CalmInsightsSummary
     let onTap: () -> Void
     @Environment(AppModel.self) private var model
+    @ScaledMetric(relativeTo: .subheadline) private var badge: CGFloat = 28
 
     var body: some View {
         let strings = model.strings
-        let facts = [
-            summary.journalCount > 0 ? strings.calmJournalActivity(count: summary.journalCount) : nil,
-            summary.trackedMomentCount > 0 ? strings.calmTrackedActivity(count: summary.trackedMomentCount) : nil,
-            summary.delayCount > 0 ? strings.calmDelayActivity(count: summary.delayCount) : nil,
-            summary.erpPracticeCount > 0 ? strings.calmErpActivity(count: summary.erpPracticeCount) : nil,
-            summary.exposureCount > 0 ? strings.calmExposureActivity(count: summary.exposureCount) : nil,
+        // Each fact with the symbol of the tool it came from, as on the
+        // Practice tab. Counts only, never a score.
+        let facts: [(icon: String, text: String)] = [
+            summary.journalCount > 0 ? ("book", strings.calmJournalActivity(count: summary.journalCount)) : nil,
+            summary.trackedMomentCount > 0 ? ("scope", strings.calmTrackedActivity(count: summary.trackedMomentCount)) : nil,
+            summary.delayCount > 0 ? ("hourglass", strings.calmDelayActivity(count: summary.delayCount)) : nil,
+            summary.erpPracticeCount > 0 ? ("figure.mind.and.body", strings.calmErpActivity(count: summary.erpPracticeCount)) : nil,
+            summary.exposureCount > 0 ? ("stairs", strings.calmExposureActivity(count: summary.exposureCount)) : nil,
         ].compactMap { $0 }
         Button(action: onTap) {
-            HStack(alignment: .top, spacing: 14) {
-                VStack(alignment: .leading, spacing: 8) {
-                    Label(strings.calmRecentActivityTitle, systemImage: "leaf")
-                        .font(.headline)
+            VStack(alignment: .leading, spacing: 12) {
+                HStack(spacing: 8) {
+                    Image(systemName: "leaf.fill")
+                        .foregroundStyle(AppColors.accent)
+                    Text(strings.calmRecentActivityTitle)
                         .foregroundStyle(Color(.label))
-                    if facts.isEmpty {
-                        Text(strings.calmNoRecentActivity)
-                            .foregroundStyle(AppColors.textSecondary)
-                    } else {
-                        VStack(alignment: .leading, spacing: 4) {
-                            ForEach(facts, id: \.self) { fact in
-                                Text(fact).foregroundStyle(AppColors.textSecondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Image(systemName: "chevron.right")
+                        .font(.footnote.weight(.semibold))
+                        .foregroundStyle(Color(.tertiaryLabel))
+                }
+                .font(.headline)
+                if facts.isEmpty {
+                    Text(strings.calmNoRecentActivity)
+                        .font(.subheadline)
+                        .foregroundStyle(AppColors.textSecondary)
+                } else {
+                    VStack(alignment: .leading, spacing: 8) {
+                        ForEach(facts, id: \.text) { fact in
+                            HStack(spacing: 10) {
+                                Image(systemName: fact.icon)
+                                    .font(.caption.weight(.semibold))
+                                    .foregroundStyle(AppColors.accent)
+                                    .frame(width: badge, height: badge)
+                                    .background(AppColors.accent.opacity(0.14), in: .circle)
+                                Text(fact.text)
+                                    .font(.subheadline)
+                                    .foregroundStyle(Color(.label))
                             }
                         }
-                        .font(.subheadline)
                     }
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                Image(systemName: "chevron.right")
-                    .font(.footnote.weight(.semibold))
-                    .foregroundStyle(Color(.tertiaryLabel))
             }
             .multilineTextAlignment(.leading)
             .padding(.vertical, 6)
             .contentShape(.rect)
         }
+        .listRowBackground(
+            // A faint warm wash from the corner: the first thing on the
+            // screen, without competing with what follows.
+            AppColors.card.overlay(
+                LinearGradient(colors: [AppColors.accent.opacity(0.10), .clear],
+                               startPoint: .topLeading, endPoint: .bottomTrailing)
+            )
+        )
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(strings.calmRecentActivityTitle)
-        .accessibilityValue(facts.isEmpty ? strings.calmNoRecentActivity : facts.joined(separator: ", "))
+        .accessibilityValue(facts.isEmpty ? strings.calmNoRecentActivity : facts.map(\.text).joined(separator: ", "))
         .accessibilityAddTraits(.isButton)
     }
 }

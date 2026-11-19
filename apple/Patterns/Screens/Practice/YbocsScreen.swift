@@ -510,22 +510,24 @@ private struct YbocsResults: View {
             }
         }
         .safeAreaInset(edge: .bottom) {
-            HStack(spacing: 12) {
-                Button(action: onRetake) {
-                    Text(strings.ybocsText(key: "retake")).frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.bordered)
-                .disabled(draft.saving)
+            // One clear primary action across the width, the retake quietly
+            // under it, so neither label has to wrap.
+            VStack(spacing: 6) {
                 Button(action: save) {
                     Text(strings.ybocsText(key: draft.saving ? "saving" : draft.saved ? "saved" : "saveHistory"))
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.accentProminent)
+                .controlSize(.large)
                 .disabled(draft.saved || draft.saving)
+                Button(strings.ybocsText(key: "retake"), action: onRetake)
+                    .font(.body.weight(.semibold))
+                    .foregroundStyle(AppColors.accent)
+                    .frame(minHeight: 44)
+                    .disabled(draft.saving)
             }
-            .controlSize(.large)
             .padding(.horizontal, 20)
-            .padding(.vertical, 10)
+            .padding(.top, 10)
             .background(AppColors.surface)
         }
     }
