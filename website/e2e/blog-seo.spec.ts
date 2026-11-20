@@ -154,6 +154,11 @@ const newArticles = [
     slug: 'talking-about-ocd-with-someone-you-trust',
     title: 'Talking About OCD With Someone You Trust',
     contextualLink: '/blog/how-to-support-someone-with-ocd'
+  },
+  {
+    slug: 'why-ocd-makes-simple-tasks-take-so-long',
+    title: 'Why Does OCD Make Simple Tasks Take So Long?',
+    contextualLink: '/blog/checking-ocd'
   }
 ];
 
