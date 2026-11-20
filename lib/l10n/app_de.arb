@@ -157,7 +157,7 @@
   "exportJournalEntries": "Tagebucheinträge",
   "exportOcdEvents": "Zwangsmomente",
   "exportYbocsSelfChecks": "Y-BOCS-Selbstchecks",
-  "exportEntrySummary": "{total, plural, =0{Keine Einträge} =1{1 Eintrag} other{{total} Einträge}} in diesem Zeitraum ({journal} Tagebuch, {ocd} Zwangsmomente, {selfChecks} Selbstchecks)",
+  "exportEntrySummary": "{total, plural, =0{Keine Einträge} =1{1 Eintrag} other{{total} Einträge}} in diesem Zeitraum ({journal} Tagebuch, {ocd} Zwangsmomente, {selfChecks, plural, =1{1 Selbstcheck} other{{selfChecks} Selbstchecks}})",
   "@exportEntrySummary": {
     "placeholders": {
       "total": {
@@ -284,6 +284,17 @@
   "onboardingSelfCheckSubtitle": "Der Y-BOCS-Selbstcheck. Etwa 10 Minuten.",
   "onboardingExploreTitle": "Ich sehe mich nur um",
   "onboardingExploreSubtitle": "Schauen Sie sich zunächst in Ruhe um.",
+  "whatsNew20Title": "Neu entwickelt für das iPhone",
+  "whatsNew20Body": "Patterns 2.0 ist jetzt eine native iPhone-App, entwickelt mit Apples eigenen Werkzeugen.",
+  "whatsNew20NativeTitle": "Wie gewohnt auf dem iPhone",
+  "whatsNew20NativeBody": "Vertraute Bedienelemente überall. Wischen Sie über einen Listeneintrag oder halten Sie ihn gedrückt, um Schnellaktionen zu sehen.",
+  "whatsNew20FastTitle": "Schneller und flüssiger",
+  "whatsNew20FastBody": "Bildschirme öffnen sich schneller und das Scrollen bleibt flüssig.",
+  "whatsNew20SettingsTitle": "Passt sich Ihren iPhone-Einstellungen an",
+  "whatsNew20SettingsBody": "Textgröße, Fetter Text, VoiceOver, Bewegung reduzieren und Dunkelmodus werden automatisch übernommen.",
+  "whatsNew20PhotosTitle": "Fotos privat hinzufügen",
+  "whatsNew20PhotosBody": "Wählen Sie Expositionsbilder direkt aus Fotos. Patterns sieht nur die Bilder, die Sie auswählen.",
+  "whatsNew20ExploreAction": "Patterns 2.0 entdecken",
   "whatsNewTitle": "Üben ohne Druck",
   "whatsNewBody": "Patterns 1.10 bietet sachliche Einblicke, ruhigere Abschlüsse, bessere Barrierefreiheit und eine optionale Sprachauswahl.",
   "whatsNewLanguagesTitle": "Sachliche Einblicke",

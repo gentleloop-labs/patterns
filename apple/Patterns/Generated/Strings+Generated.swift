@@ -380,6 +380,28 @@ extension Strings {
     var onboardingExploreTitle: String { string("onboardingExploreTitle") }
     /// Have a look around first.
     var onboardingExploreSubtitle: String { string("onboardingExploreSubtitle") }
+    /// Rebuilt for iPhone
+    var whatsNew20Title: String { string("whatsNew20Title") }
+    /// Patterns 2.0 is now a native iPhone app, built with Apple’s own tools.
+    var whatsNew20Body: String { string("whatsNew20Body") }
+    /// Looks and feels like iPhone
+    var whatsNew20NativeTitle: String { string("whatsNew20NativeTitle") }
+    /// Familiar controls throughout. Swipe a list item or press and hold it for quick actions.
+    var whatsNew20NativeBody: String { string("whatsNew20NativeBody") }
+    /// Faster and smoother
+    var whatsNew20FastTitle: String { string("whatsNew20FastTitle") }
+    /// Screens open quicker and scrolling stays smooth.
+    var whatsNew20FastBody: String { string("whatsNew20FastBody") }
+    /// Works with your iPhone settings
+    var whatsNew20SettingsTitle: String { string("whatsNew20SettingsTitle") }
+    /// Text size, Bold Text, VoiceOver, Reduce Motion and Dark Mode all apply automatically.
+    var whatsNew20SettingsBody: String { string("whatsNew20SettingsBody") }
+    /// Add photos privately
+    var whatsNew20PhotosTitle: String { string("whatsNew20PhotosTitle") }
+    /// Pick exposure images straight from Photos. Patterns sees only the ones you choose.
+    var whatsNew20PhotosBody: String { string("whatsNew20PhotosBody") }
+    /// Explore Patterns 2.0
+    var whatsNew20ExploreAction: String { string("whatsNew20ExploreAction") }
     /// Practice without pressure
     var whatsNewTitle: String { string("whatsNewTitle") }
     /// Patterns 1.10 brings calmer insights, quieter session endings, accessibility improvements, and optional lan...

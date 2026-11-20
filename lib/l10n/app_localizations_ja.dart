@@ -611,6 +611,43 @@ class AppLocalizationsJa extends AppLocalizations {
   String get onboardingExploreSubtitle => '最初にアプリ内を見て回ります。';
 
   @override
+  String get whatsNew20Title => 'iPhoneのために新しく';
+
+  @override
+  String get whatsNew20Body =>
+      'Patterns 2.0は、Appleのツールで作られたネイティブのiPhoneアプリになりました。';
+
+  @override
+  String get whatsNew20NativeTitle => 'iPhoneらしい使い心地';
+
+  @override
+  String get whatsNew20NativeBody =>
+      '見慣れた操作をアプリ全体で。リストの項目をスワイプするか長押しすると、クイックアクションが表示されます。';
+
+  @override
+  String get whatsNew20FastTitle => 'より速く、なめらかに';
+
+  @override
+  String get whatsNew20FastBody => '画面がすばやく開き、スクロールもなめらかです。';
+
+  @override
+  String get whatsNew20SettingsTitle => 'iPhoneの設定に対応';
+
+  @override
+  String get whatsNew20SettingsBody =>
+      '文字サイズ、文字を太くする、VoiceOver、視差効果を減らす、ダークモードが自動で反映されます。';
+
+  @override
+  String get whatsNew20PhotosTitle => '写真をプライベートに追加';
+
+  @override
+  String get whatsNew20PhotosBody =>
+      'エクスポージャー用の画像を写真から直接選べます。Patternsが見るのは選んだ写真だけです。';
+
+  @override
+  String get whatsNew20ExploreAction => 'Patterns 2.0を見る';
+
+  @override
   String get whatsNewTitle => 'プレッシャーのない練習';
 
   @override

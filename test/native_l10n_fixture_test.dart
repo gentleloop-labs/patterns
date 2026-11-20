@@ -270,6 +270,17 @@ void main() {
       add('onboardingSelfCheckSubtitle', const {}, l.onboardingSelfCheckSubtitle);
       add('onboardingExploreTitle', const {}, l.onboardingExploreTitle);
       add('onboardingExploreSubtitle', const {}, l.onboardingExploreSubtitle);
+      add('whatsNew20Title', const {}, l.whatsNew20Title);
+      add('whatsNew20Body', const {}, l.whatsNew20Body);
+      add('whatsNew20NativeTitle', const {}, l.whatsNew20NativeTitle);
+      add('whatsNew20NativeBody', const {}, l.whatsNew20NativeBody);
+      add('whatsNew20FastTitle', const {}, l.whatsNew20FastTitle);
+      add('whatsNew20FastBody', const {}, l.whatsNew20FastBody);
+      add('whatsNew20SettingsTitle', const {}, l.whatsNew20SettingsTitle);
+      add('whatsNew20SettingsBody', const {}, l.whatsNew20SettingsBody);
+      add('whatsNew20PhotosTitle', const {}, l.whatsNew20PhotosTitle);
+      add('whatsNew20PhotosBody', const {}, l.whatsNew20PhotosBody);
+      add('whatsNew20ExploreAction', const {}, l.whatsNew20ExploreAction);
       add('whatsNewTitle', const {}, l.whatsNewTitle);
       add('whatsNewBody', const {}, l.whatsNewBody);
       add('whatsNewLanguagesTitle', const {}, l.whatsNewLanguagesTitle);

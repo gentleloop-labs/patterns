@@ -157,7 +157,7 @@
   "exportJournalEntries": "Entradas del diario",
   "exportOcdEvents": "Eventos de TOC",
   "exportYbocsSelfChecks": "Autoevaluaciones Y-BOCS",
-  "exportEntrySummary": "{total, plural, =0{No hay entradas} =1{1 entrada} other{{total} entradas}} en este periodo ({journal} diario, {ocd} TOC, {selfChecks} autoevaluaciones)",
+  "exportEntrySummary": "{total, plural, =0{No hay entradas} =1{1 entrada} other{{total} entradas}} en este periodo ({journal} diario, {ocd} TOC, {selfChecks, plural, =1{1 autoevaluación} other{{selfChecks} autoevaluaciones}})",
   "@exportEntrySummary": {
     "placeholders": {
       "total": {
@@ -284,6 +284,17 @@
   "onboardingSelfCheckSubtitle": "La autoevaluación Y-BOCS. Unos 10 minutos.",
   "onboardingExploreTitle": "Solo estoy explorando",
   "onboardingExploreSubtitle": "Primero echa un vistazo.",
+  "whatsNew20Title": "Reconstruida para iPhone",
+  "whatsNew20Body": "Patterns 2.0 ahora es una app nativa de iPhone, creada con las herramientas de Apple.",
+  "whatsNew20NativeTitle": "Se siente como el iPhone",
+  "whatsNew20NativeBody": "Controles conocidos en toda la app. Desliza un elemento de una lista o mantenlo pulsado para ver acciones rápidas.",
+  "whatsNew20FastTitle": "Más rápida y fluida",
+  "whatsNew20FastBody": "Las pantallas se abren antes y el desplazamiento es fluido.",
+  "whatsNew20SettingsTitle": "Respeta los ajustes de tu iPhone",
+  "whatsNew20SettingsBody": "Tamaño del texto, Texto en negrita, VoiceOver, Reducir movimiento y Modo oscuro se aplican automáticamente.",
+  "whatsNew20PhotosTitle": "Añade fotos con privacidad",
+  "whatsNew20PhotosBody": "Elige imágenes de exposición directamente desde Fotos. Patterns solo ve las que eliges.",
+  "whatsNew20ExploreAction": "Explorar Patterns 2.0",
   "whatsNewTitle": "Practica sin presión",
   "whatsNewBody": "Patterns 1.10 incorpora análisis sin presión, finales de sesión más sencillos, mejoras de accesibilidad y selección opcional de idioma.",
   "whatsNewLanguagesTitle": "Análisis sin presión",

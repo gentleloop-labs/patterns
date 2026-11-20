@@ -1,7 +1,7 @@
 import SwiftUI
 
-/// `WhatsNewScreen` from `lib/mobile/main_shell.dart`: shown once to an
-/// upgraded user before the home screen.
+/// Shown once to someone updating to the native 2.0 app, before the home
+/// screen. Same layout as Flutter's `WhatsNewScreen`, with the 2.0 copy.
 struct WhatsNewScreen: View {
     let onShowHome: () -> Void
     let onContinue: () -> Void
@@ -10,17 +10,18 @@ struct WhatsNewScreen: View {
     var body: some View {
         let strings = model.strings
         let features = [
-            ("globe", strings.whatsNewLanguagesTitle, strings.whatsNewLanguagesBody),
-            ("square.3.layers.3d", strings.whatsNewPrivateTitle, strings.whatsNewPrivateBody),
-            ("heart", strings.whatsNewReportsTitle, strings.whatsNewReportsBody),
+            ("iphone", strings.whatsNew20NativeTitle, strings.whatsNew20NativeBody),
+            ("bolt", strings.whatsNew20FastTitle, strings.whatsNew20FastBody),
+            ("textformat.size", strings.whatsNew20SettingsTitle, strings.whatsNew20SettingsBody),
+            ("photo.on.rectangle", strings.whatsNew20PhotosTitle, strings.whatsNew20PhotosBody),
         ]
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                Text(strings.whatsNewTitle)
+                Text(strings.whatsNew20Title)
                     .textRole(.displaySmall, color: AppColors.textPrimary)
                     .accessibilityAddTraits(.isHeader)
                     .padding(.top, 48)
-                Text(strings.whatsNewBody)
+                Text(strings.whatsNew20Body)
                     .font(.body)
                     .foregroundStyle(AppColors.textSecondary)
                     .padding(.top, 10)
@@ -41,10 +42,7 @@ struct WhatsNewScreen: View {
                     }
                 }
                 .padding(.top, 36)
-                Text(strings.whatsNewNotificationNote)
-                    .font(.footnote)
-                    .foregroundStyle(AppColors.textSecondary)
-                    .padding(.top, 32)
+                .padding(.bottom, 24)
             }
             .padding(.horizontal, 28)
             .frame(maxWidth: 560, alignment: .leading)
@@ -53,7 +51,7 @@ struct WhatsNewScreen: View {
         .safeAreaInset(edge: .bottom) {
             VStack(spacing: 8) {
                 Button(action: onShowHome) {
-                    Text(strings.whatsNewExploreAction).frame(maxWidth: .infinity)
+                    Text(strings.whatsNew20ExploreAction).frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.accentProminent)
                 .controlSize(.large)

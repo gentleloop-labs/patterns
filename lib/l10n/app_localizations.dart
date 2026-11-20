@@ -800,7 +800,7 @@ abstract class AppLocalizations {
   /// Manual export flow copy for export entry summary. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
-  /// **'{total, plural, =0{No entries} =1{1 entry} other{{total} entries}} in this range ({journal} journal, {ocd} OCD, {selfChecks} self-checks)'**
+  /// **'{total, plural, =0{No entries} =1{1 entry} other{{total} entries}} in this range ({journal} journal, {ocd} OCD, {selfChecks, plural, =1{1 self-check} other{{selfChecks} self-checks}})'**
   String exportEntrySummary(int total, int journal, int ocd, int selfChecks);
 
   /// Manual export flow copy for export large report. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
@@ -1234,6 +1234,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Have a look around first.'**
   String get onboardingExploreSubtitle;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Rebuilt for iPhone'**
+  String get whatsNew20Title;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Patterns 2.0 is now a native iPhone app, built with Apple’s own tools.'**
+  String get whatsNew20Body;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Looks and feels like iPhone'**
+  String get whatsNew20NativeTitle;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Familiar controls throughout. Swipe a list item or press and hold it for quick actions.'**
+  String get whatsNew20NativeBody;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Faster and smoother'**
+  String get whatsNew20FastTitle;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Screens open quicker and scrolling stays smooth.'**
+  String get whatsNew20FastBody;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Works with your iPhone settings'**
+  String get whatsNew20SettingsTitle;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Text size, Bold Text, VoiceOver, Reduce Motion and Dark Mode all apply automatically.'**
+  String get whatsNew20SettingsBody;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Add photos privately'**
+  String get whatsNew20PhotosTitle;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick exposure images straight from Photos. Patterns sees only the ones you choose.'**
+  String get whatsNew20PhotosBody;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore Patterns 2.0'**
+  String get whatsNew20ExploreAction;
 
   /// Patterns 1.10 in-app announcement copy for whats new title. Mention only implemented behavior and preserve the local-data and review gates.
   ///

@@ -448,7 +448,13 @@ class AppLocalizationsEs extends AppLocalizations {
       one: '1 entrada',
       zero: 'No hay entradas',
     );
-    return '$_temp0 en este periodo ($journal diario, $ocd TOC, $selfChecks autoevaluaciones)';
+    String _temp1 = intl.Intl.pluralLogic(
+      selfChecks,
+      locale: localeName,
+      other: '$selfChecks autoevaluaciones',
+      one: '1 autoevaluación',
+    );
+    return '$_temp0 en este periodo ($journal diario, $ocd TOC, $_temp1)';
   }
 
   @override
@@ -692,6 +698,44 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get onboardingExploreSubtitle => 'Primero echa un vistazo.';
+
+  @override
+  String get whatsNew20Title => 'Reconstruida para iPhone';
+
+  @override
+  String get whatsNew20Body =>
+      'Patterns 2.0 ahora es una app nativa de iPhone, creada con las herramientas de Apple.';
+
+  @override
+  String get whatsNew20NativeTitle => 'Se siente como el iPhone';
+
+  @override
+  String get whatsNew20NativeBody =>
+      'Controles conocidos en toda la app. Desliza un elemento de una lista o mantenlo pulsado para ver acciones rápidas.';
+
+  @override
+  String get whatsNew20FastTitle => 'Más rápida y fluida';
+
+  @override
+  String get whatsNew20FastBody =>
+      'Las pantallas se abren antes y el desplazamiento es fluido.';
+
+  @override
+  String get whatsNew20SettingsTitle => 'Respeta los ajustes de tu iPhone';
+
+  @override
+  String get whatsNew20SettingsBody =>
+      'Tamaño del texto, Texto en negrita, VoiceOver, Reducir movimiento y Modo oscuro se aplican automáticamente.';
+
+  @override
+  String get whatsNew20PhotosTitle => 'Añade fotos con privacidad';
+
+  @override
+  String get whatsNew20PhotosBody =>
+      'Elige imágenes de exposición directamente desde Fotos. Patterns solo ve las que eliges.';
+
+  @override
+  String get whatsNew20ExploreAction => 'Explorar Patterns 2.0';
 
   @override
   String get whatsNewTitle => 'Practica sin presión';

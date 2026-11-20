@@ -449,7 +449,13 @@ class AppLocalizationsFr extends AppLocalizations {
       one: '1 entrée',
       zero: 'Aucune entrée',
     );
-    return '$_temp0 sur cette période ($journal journal, $ocd TOC, $selfChecks auto-évaluations)';
+    String _temp1 = intl.Intl.pluralLogic(
+      selfChecks,
+      locale: localeName,
+      other: '$selfChecks auto-évaluations',
+      one: '1 auto-évaluation',
+    );
+    return '$_temp0 sur cette période ($journal journal, $ocd TOC, $_temp1)';
   }
 
   @override
@@ -696,6 +702,45 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get onboardingExploreSubtitle =>
       'Commencez par explorer tranquillement.';
+
+  @override
+  String get whatsNew20Title => 'Repensée pour l’iPhone';
+
+  @override
+  String get whatsNew20Body =>
+      'Patterns 2.0 est désormais une app iPhone native, conçue avec les outils d’Apple.';
+
+  @override
+  String get whatsNew20NativeTitle => 'L’expérience iPhone';
+
+  @override
+  String get whatsNew20NativeBody =>
+      'Des commandes familières partout. Balayez un élément de liste ou maintenez-le appuyé pour afficher des actions rapides.';
+
+  @override
+  String get whatsNew20FastTitle => 'Plus rapide et plus fluide';
+
+  @override
+  String get whatsNew20FastBody =>
+      'Les écrans s’ouvrent plus vite et le défilement reste fluide.';
+
+  @override
+  String get whatsNew20SettingsTitle => 'Suit les réglages de votre iPhone';
+
+  @override
+  String get whatsNew20SettingsBody =>
+      'Taille du texte, Texte en gras, VoiceOver, Réduire les animations et Mode sombre s’appliquent automatiquement.';
+
+  @override
+  String get whatsNew20PhotosTitle =>
+      'Ajoutez des photos en toute confidentialité';
+
+  @override
+  String get whatsNew20PhotosBody =>
+      'Choisissez des images d’exposition directement dans Photos. Patterns ne voit que celles que vous sélectionnez.';
+
+  @override
+  String get whatsNew20ExploreAction => 'Découvrir Patterns 2.0';
 
   @override
   String get whatsNewTitle => 'Pratiquer sans pression';

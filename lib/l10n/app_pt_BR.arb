@@ -157,7 +157,7 @@
   "exportJournalEntries": "Registros do diário",
   "exportOcdEvents": "Eventos de TOC",
   "exportYbocsSelfChecks": "Autoavaliações Y-BOCS",
-  "exportEntrySummary": "{total, plural, =0{Nenhum registro} =1{1 registro} other{{total} registros}} neste período ({journal} diário, {ocd} TOC, {selfChecks} autoavaliações)",
+  "exportEntrySummary": "{total, plural, =0{Nenhum registro} =1{1 registro} other{{total} registros}} neste período ({journal} diário, {ocd} TOC, {selfChecks, plural, =1{1 autoavaliação} other{{selfChecks} autoavaliações}})",
   "@exportEntrySummary": {
     "placeholders": {
       "total": {
@@ -284,6 +284,17 @@
   "onboardingSelfCheckSubtitle": "A autoavaliação Y-BOCS. Cerca de 10 minutos.",
   "onboardingExploreTitle": "Estou apenas explorando",
   "onboardingExploreSubtitle": "Primeiro, dê uma olhada.",
+  "whatsNew20Title": "Refeito para iPhone",
+  "whatsNew20Body": "O Patterns 2.0 agora é um app nativo para iPhone, criado com as ferramentas da Apple.",
+  "whatsNew20NativeTitle": "A cara do iPhone",
+  "whatsNew20NativeBody": "Controles familiares em todo o app. Deslize um item da lista ou toque e segure para ver ações rápidas.",
+  "whatsNew20FastTitle": "Mais rápido e fluido",
+  "whatsNew20FastBody": "As telas abrem mais rápido e a rolagem continua fluida.",
+  "whatsNew20SettingsTitle": "Segue os ajustes do seu iPhone",
+  "whatsNew20SettingsBody": "Tamanho do Texto, Texto em Negrito, VoiceOver, Reduzir Movimento e Modo Escuro são aplicados automaticamente.",
+  "whatsNew20PhotosTitle": "Adicione fotos com privacidade",
+  "whatsNew20PhotosBody": "Escolha imagens de exposição direto do app Fotos. O Patterns vê apenas as que você escolher.",
+  "whatsNew20ExploreAction": "Explorar o Patterns 2.0",
   "whatsNewTitle": "Pratique sem pressão",
   "whatsNewBody": "O Patterns 1.10 traz Análises tranquilas, finais de sessão mais discretos, melhorias de acessibilidade e seleção opcional de idioma.",
   "whatsNewLanguagesTitle": "Análises tranquilas",

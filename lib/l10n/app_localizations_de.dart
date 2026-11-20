@@ -447,7 +447,13 @@ class AppLocalizationsDe extends AppLocalizations {
       one: '1 Eintrag',
       zero: 'Keine Einträge',
     );
-    return '$_temp0 in diesem Zeitraum ($journal Tagebuch, $ocd Zwangsmomente, $selfChecks Selbstchecks)';
+    String _temp1 = intl.Intl.pluralLogic(
+      selfChecks,
+      locale: localeName,
+      other: '$selfChecks Selbstchecks',
+      one: '1 Selbstcheck',
+    );
+    return '$_temp0 in diesem Zeitraum ($journal Tagebuch, $ocd Zwangsmomente, $_temp1)';
   }
 
   @override
@@ -694,6 +700,45 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get onboardingExploreSubtitle =>
       'Schauen Sie sich zunächst in Ruhe um.';
+
+  @override
+  String get whatsNew20Title => 'Neu entwickelt für das iPhone';
+
+  @override
+  String get whatsNew20Body =>
+      'Patterns 2.0 ist jetzt eine native iPhone-App, entwickelt mit Apples eigenen Werkzeugen.';
+
+  @override
+  String get whatsNew20NativeTitle => 'Wie gewohnt auf dem iPhone';
+
+  @override
+  String get whatsNew20NativeBody =>
+      'Vertraute Bedienelemente überall. Wischen Sie über einen Listeneintrag oder halten Sie ihn gedrückt, um Schnellaktionen zu sehen.';
+
+  @override
+  String get whatsNew20FastTitle => 'Schneller und flüssiger';
+
+  @override
+  String get whatsNew20FastBody =>
+      'Bildschirme öffnen sich schneller und das Scrollen bleibt flüssig.';
+
+  @override
+  String get whatsNew20SettingsTitle =>
+      'Passt sich Ihren iPhone-Einstellungen an';
+
+  @override
+  String get whatsNew20SettingsBody =>
+      'Textgröße, Fetter Text, VoiceOver, Bewegung reduzieren und Dunkelmodus werden automatisch übernommen.';
+
+  @override
+  String get whatsNew20PhotosTitle => 'Fotos privat hinzufügen';
+
+  @override
+  String get whatsNew20PhotosBody =>
+      'Wählen Sie Expositionsbilder direkt aus Fotos. Patterns sieht nur die Bilder, die Sie auswählen.';
+
+  @override
+  String get whatsNew20ExploreAction => 'Patterns 2.0 entdecken';
 
   @override
   String get whatsNewTitle => 'Üben ohne Druck';

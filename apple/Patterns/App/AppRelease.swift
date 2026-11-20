@@ -1,9 +1,8 @@
-/// `currentReleaseId` from `lib/app_preferences.dart`.
+/// The release whose What's New someone has seen, stored in
+/// `lastSeenReleaseId` (`currentReleaseId` in `lib/app_preferences.dart`).
 ///
-/// Kept at Flutter's 1.10 value for now: people who already saw the 1.10
-/// What's New are not shown it again by the native build. The native
-/// release gets its own id and copy once the 2.0 What's New text is written
-/// (in the ARB files, so Android stays in step).
+/// iOS only: Android stays on Flutter's `patterns_1_10` until it ships its
+/// own release, so everyone updating an iPhone sees the 2.0 screen once.
 enum AppRelease {
-    static let currentID = "patterns_1_10"
+    static let currentID = "patterns_2_0"
 }

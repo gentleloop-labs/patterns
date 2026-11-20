@@ -157,7 +157,7 @@
   "exportJournalEntries": "Entrées du journal",
   "exportOcdEvents": "Événements liés au TOC",
   "exportYbocsSelfChecks": "Auto-évaluations Y-BOCS",
-  "exportEntrySummary": "{total, plural, =0{Aucune entrée} =1{1 entrée} other{{total} entrées}} sur cette période ({journal} journal, {ocd} TOC, {selfChecks} auto-évaluations)",
+  "exportEntrySummary": "{total, plural, =0{Aucune entrée} =1{1 entrée} other{{total} entrées}} sur cette période ({journal} journal, {ocd} TOC, {selfChecks, plural, =1{1 auto-évaluation} other{{selfChecks} auto-évaluations}})",
   "@exportEntrySummary": {
     "placeholders": {
       "total": {
@@ -284,6 +284,17 @@
   "onboardingSelfCheckSubtitle": "L’auto-évaluation Y-BOCS. Environ 10 minutes.",
   "onboardingExploreTitle": "Je découvre simplement",
   "onboardingExploreSubtitle": "Commencez par explorer tranquillement.",
+  "whatsNew20Title": "Repensée pour l’iPhone",
+  "whatsNew20Body": "Patterns 2.0 est désormais une app iPhone native, conçue avec les outils d’Apple.",
+  "whatsNew20NativeTitle": "L’expérience iPhone",
+  "whatsNew20NativeBody": "Des commandes familières partout. Balayez un élément de liste ou maintenez-le appuyé pour afficher des actions rapides.",
+  "whatsNew20FastTitle": "Plus rapide et plus fluide",
+  "whatsNew20FastBody": "Les écrans s’ouvrent plus vite et le défilement reste fluide.",
+  "whatsNew20SettingsTitle": "Suit les réglages de votre iPhone",
+  "whatsNew20SettingsBody": "Taille du texte, Texte en gras, VoiceOver, Réduire les animations et Mode sombre s’appliquent automatiquement.",
+  "whatsNew20PhotosTitle": "Ajoutez des photos en toute confidentialité",
+  "whatsNew20PhotosBody": "Choisissez des images d’exposition directement dans Photos. Patterns ne voit que celles que vous sélectionnez.",
+  "whatsNew20ExploreAction": "Découvrir Patterns 2.0",
   "whatsNewTitle": "Pratiquer sans pression",
   "whatsNewBody": "Patterns 1.10 apporte des analyses sans pression, des fins de session plus sobres, une meilleure accessibilité et un choix de langue facultatif.",
   "whatsNewLanguagesTitle": "Analyses sans pression",

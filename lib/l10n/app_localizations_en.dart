@@ -447,7 +447,13 @@ class AppLocalizationsEn extends AppLocalizations {
       one: '1 entry',
       zero: 'No entries',
     );
-    return '$_temp0 in this range ($journal journal, $ocd OCD, $selfChecks self-checks)';
+    String _temp1 = intl.Intl.pluralLogic(
+      selfChecks,
+      locale: localeName,
+      other: '$selfChecks self-checks',
+      one: '1 self-check',
+    );
+    return '$_temp0 in this range ($journal journal, $ocd OCD, $_temp1)';
   }
 
   @override
@@ -691,6 +697,44 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingExploreSubtitle => 'Have a look around first.';
+
+  @override
+  String get whatsNew20Title => 'Rebuilt for iPhone';
+
+  @override
+  String get whatsNew20Body =>
+      'Patterns 2.0 is now a native iPhone app, built with Apple’s own tools.';
+
+  @override
+  String get whatsNew20NativeTitle => 'Looks and feels like iPhone';
+
+  @override
+  String get whatsNew20NativeBody =>
+      'Familiar controls throughout. Swipe a list item or press and hold it for quick actions.';
+
+  @override
+  String get whatsNew20FastTitle => 'Faster and smoother';
+
+  @override
+  String get whatsNew20FastBody =>
+      'Screens open quicker and scrolling stays smooth.';
+
+  @override
+  String get whatsNew20SettingsTitle => 'Works with your iPhone settings';
+
+  @override
+  String get whatsNew20SettingsBody =>
+      'Text size, Bold Text, VoiceOver, Reduce Motion and Dark Mode all apply automatically.';
+
+  @override
+  String get whatsNew20PhotosTitle => 'Add photos privately';
+
+  @override
+  String get whatsNew20PhotosBody =>
+      'Pick exposure images straight from Photos. Patterns sees only the ones you choose.';
+
+  @override
+  String get whatsNew20ExploreAction => 'Explore Patterns 2.0';
 
   @override
   String get whatsNewTitle => 'Practice without pressure';
