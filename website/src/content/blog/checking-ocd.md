@@ -35,6 +35,8 @@ Checking OCD is a presentation in which compulsions centre on verifying that som
 
 The last one matters, because someone who has stopped walking back upstairs but is still mentally reviewing the stove has not stopped checking.
 
+If ordinary jobs seem to expand around those checks, our guide to [why OCD can make simple tasks take so long](/blog/why-ocd-makes-simple-tasks-take-so-long) looks at the time spent checking, restarting, reviewing, and avoiding.
+
 For the driving-specific pattern, see our guide to [hit-and-run OCD](/blog/hit-and-run-ocd). A real road incident still requires an ordinary safety response.
 
 When this loop attaches to emails, decisions, or job responsibilities, [our guide to OCD at work](/blog/ocd-at-work) explains how to distinguish extra certainty-seeking from a role's genuine checking requirements.
