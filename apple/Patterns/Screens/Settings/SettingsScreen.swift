@@ -137,9 +137,6 @@ struct SettingsScreen: View {
                 Button(action: sendFeedback) {
                     RowLabel(strings.settingsSendFeedbackTitle, subtitle: strings.settingsSendFeedbackSubtitle, icon: "envelope")
                 }
-                Button { sheet = .tipJar } label: {
-                    RowLabel(strings.settingsSupportTitle, subtitle: strings.settingsSupportSubtitle, icon: "heart")
-                }
             } header: {
                 Text(strings.settingsFeedbackSection)
             } footer: {
@@ -156,7 +153,6 @@ struct SettingsScreen: View {
         .sheet(item: $sheet) { sheet in
             switch sheet {
             case .paywall: PaywallSheet(entryPoint: .settings)
-            case .tipJar: TipJarSheet()
             case .privacy: PrivacySheet(onPolicy: openPrivacyPolicy)
             case .report: ExportReportSheet()
             }
@@ -454,7 +450,7 @@ struct SettingsScreen: View {
 // MARK: - Sheets and prompts
 
 private enum SettingsSheet: String, Identifiable {
-    case paywall, tipJar, privacy, report
+    case paywall, privacy, report
     var id: String { rawValue }
 }
 

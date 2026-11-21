@@ -149,13 +149,6 @@ class AppLocalizationsEs extends AppLocalizations {
       'Comparte una idea o cuéntanos qué salió mal';
 
   @override
-  String get settingsSupportTitle => 'Apoyar Patterns';
-
-  @override
-  String get settingsSupportSubtitle =>
-      'Deja una propina opcional para apoyar el desarrollo';
-
-  @override
   String get appearanceTitle => 'Apariencia';
 
   @override
@@ -1044,74 +1037,6 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get proRestoreSucceeded =>
       'Patterns Pro se restauró. Todas las herramientas de autoayuda vuelven a estar desbloqueadas.';
-
-  @override
-  String get tipJarTitle => 'Apoyar a Patterns';
-
-  @override
-  String get tipJarBody =>
-      'Patterns es independiente y no tiene anuncios. Si te ha ayudado, una pequeña propina significa mucho. Las propinas son opcionales y no desbloquean nada.';
-
-  @override
-  String get tipJarLoadingLabel => 'Cargando opciones de propina';
-
-  @override
-  String get tipJarPurchasesUnavailable =>
-      'Las compras dentro de la app no están disponibles en este dispositivo.';
-
-  @override
-  String get tipJarOptionsUnavailable =>
-      'No se encontraron opciones de propina. Inténtalo de nuevo más tarde.';
-
-  @override
-  String get tipJarLoadFailed =>
-      'No se pudieron cargar las opciones de propina. Inténtalo de nuevo más tarde.';
-
-  @override
-  String get tipJarPurchaseFailed =>
-      'No se pudo completar la propina. Inténtalo de nuevo.';
-
-  @override
-  String get tipJarTryAgainAction => 'Volver a intentar';
-
-  @override
-  String get tipSmallTitle => 'Propina pequeña';
-
-  @override
-  String get tipSmallDescription =>
-      'Una propina pequeña y opcional para apoyar el desarrollo de Patterns. No desbloquea funciones.';
-
-  @override
-  String get tipMediumTitle => 'Propina mediana';
-
-  @override
-  String get tipMediumDescription =>
-      'Una propina mediana y opcional para apoyar el desarrollo de Patterns. No desbloquea funciones.';
-
-  @override
-  String get tipLargeTitle => 'Propina grande';
-
-  @override
-  String get tipLargeDescription =>
-      'Una propina grande y opcional para apoyar el desarrollo de Patterns. No desbloquea funciones.';
-
-  @override
-  String tipChoiceSemantics(String title, String price, String description) {
-    return '$title, $price. $description';
-  }
-
-  @override
-  String get tipChoiceHint => 'Envía esta propina opcional';
-
-  @override
-  String get tipThanksTitle => 'Gracias';
-
-  @override
-  String get tipThanksBody =>
-      'Tu apoyo significa mucho. Patterns sigue sin anuncios e independiente gracias a personas como tú.';
-
-  @override
-  String get tipThanksAction => 'Con gusto';
 
   @override
   String get desktopProTitle => 'Desbloquear Patterns Desktop Pro';

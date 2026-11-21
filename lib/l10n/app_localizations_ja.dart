@@ -135,12 +135,6 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settingsSendFeedbackSubtitle => 'アイデアや問題をお知らせください';
 
   @override
-  String get settingsSupportTitle => 'Patternsを支援';
-
-  @override
-  String get settingsSupportSubtitle => '任意のチップで開発を支援できます';
-
-  @override
   String get appearanceTitle => '外観';
 
   @override
@@ -642,7 +636,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get whatsNew20PhotosBody =>
-      'エクスポージャー用の画像を写真から直接選べます。Patternsが見るのは選んだ写真だけです。';
+      '曝露で使う画像を写真から直接選べます。Patternsが見るのは選んだ写真だけです。';
 
   @override
   String get whatsNew20ExploreAction => 'Patterns 2.0を見る';
@@ -918,68 +912,6 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get proRestoreSucceeded =>
       'Patterns Proを復元しました。すべてのセルフヘルプツールを再び利用できます。';
-
-  @override
-  String get tipJarTitle => 'Patternsを支援';
-
-  @override
-  String get tipJarBody =>
-      'Patternsは独立して運営され、広告はありません。役に立ったと感じた場合は、少額のチップで支援できます。チップは任意で、機能が追加されることはありません。';
-
-  @override
-  String get tipJarLoadingLabel => 'チップの選択肢を読み込み中';
-
-  @override
-  String get tipJarPurchasesUnavailable => 'このデバイスではアプリ内購入を利用できません。';
-
-  @override
-  String get tipJarOptionsUnavailable =>
-      'チップの選択肢が見つかりませんでした。しばらくしてからもう一度お試しください。';
-
-  @override
-  String get tipJarLoadFailed => 'チップの選択肢を読み込めませんでした。しばらくしてからもう一度お試しください。';
-
-  @override
-  String get tipJarPurchaseFailed => 'チップを完了できませんでした。もう一度お試しください。';
-
-  @override
-  String get tipJarTryAgainAction => 'もう一度試す';
-
-  @override
-  String get tipSmallTitle => '小さなチップ';
-
-  @override
-  String get tipSmallDescription => 'Patternsの開発を支援する任意の小さなチップです。機能は追加されません。';
-
-  @override
-  String get tipMediumTitle => '中くらいのチップ';
-
-  @override
-  String get tipMediumDescription => 'Patternsの開発を支援する任意のチップです。機能は追加されません。';
-
-  @override
-  String get tipLargeTitle => '大きなチップ';
-
-  @override
-  String get tipLargeDescription => 'Patternsの開発を支援する任意の大きなチップです。機能は追加されません。';
-
-  @override
-  String tipChoiceSemantics(String title, String price, String description) {
-    return '$title、$price。$description';
-  }
-
-  @override
-  String get tipChoiceHint => 'この任意のチップを送ります';
-
-  @override
-  String get tipThanksTitle => 'ありがとうございます';
-
-  @override
-  String get tipThanksBody =>
-      'ご支援に感謝します。皆さまの支援により、Patternsは広告なしで独立した運営を続けられます。';
-
-  @override
-  String get tipThanksAction => 'どういたしまして';
 
   @override
   String get desktopProTitle => 'Patterns Desktop Proをアンロック';

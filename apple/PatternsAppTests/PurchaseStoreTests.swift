@@ -37,7 +37,7 @@ final class PurchaseStoreTests: XCTestCase {
     /// rather than hang on a real store sheet. Run them from Xcode.
     private func requireTestSession() async throws {
         do {
-            try await session.buyProduct(identifier: PurchaseStore.tipProductIDs[0])
+            try await session.buyProduct(identifier: PurchaseStore.proProductID)
             session.clearTransactions()
         } catch {
             throw XCTSkip("StoreKit test session unavailable here: \(error)")
@@ -51,13 +51,11 @@ final class PurchaseStoreTests: XCTestCase {
         }
     }
 
-    func testLoadsProductAndTipsCheapestFirst() async throws {
+    func testLoadsProduct() async throws {
         try await requireTestSession()
         let (store, _) = makeStore()
         let pro = try await store.loadProProduct()
         XCTAssertEqual(pro.id, PurchaseStore.proProductID)
-        let tips = try await store.loadTips()
-        XCTAssertEqual(tips.map(\.id), PurchaseStore.tipProductIDs)
     }
 
     /// A cached unlock is honoured with no store entitlement at all, as when
@@ -128,18 +126,5 @@ final class PurchaseStoreTests: XCTestCase {
         XCTAssertEqual(outcome, .unlocked)
         XCTAssertTrue(store.proUnlocked)
         XCTAssertEqual(prefs.bool(PreferenceKey.proUnlocked), true)
-    }
-
-    func testTipIsFinishedAndUnlocksNothing() async throws {
-        try await requireTestSession()
-        let (store, _) = makeStore()
-        let tip = try await store.loadTips()[0]
-        let result = try await tip.purchase()
-        let outcome = await store.completeTip(result)
-        XCTAssertEqual(outcome, .unlocked)
-        XCTAssertFalse(store.proUnlocked)
-        var unfinished = 0
-        for await _ in Transaction.unfinished { unfinished += 1 }
-        XCTAssertEqual(unfinished, 0)
     }
 }

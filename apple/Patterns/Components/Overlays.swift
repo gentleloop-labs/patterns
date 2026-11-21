@@ -146,21 +146,18 @@ struct AppDialogAlert: ViewModifier {
     private func title(_ dialog: AppDialog, _ strings: Strings) -> String {
         switch dialog {
         case let .proUnlocked(restored): restored ? strings.proPaywallWelcomeBack : strings.proPaywallAllSet
-        case .tipThanks: strings.tipThanksTitle
         }
     }
 
     private func message(_ dialog: AppDialog, _ strings: Strings) -> String {
         switch dialog {
         case let .proUnlocked(restored): restored ? strings.proPaywallRestoredBody : strings.proPaywallUnlockedBody
-        case .tipThanks: strings.tipThanksBody
         }
     }
 
     private func action(_ dialog: AppDialog, _ strings: Strings) -> String {
         switch dialog {
         case .proUnlocked: strings.proPaywallContinueAction
-        case .tipThanks: strings.tipThanksAction
         }
     }
 }

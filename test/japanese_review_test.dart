@@ -36,8 +36,6 @@ void main() {
     expect(arb['privacyClinicalBoundary'], contains('代替'));
     expect(arb['privacyClinicalBoundary'], contains('緊急支援'));
     expect(arb['emergencyToolkitText'], contains('地域の緊急窓口'));
-    expect(arb['tipJarBody'], contains('任意'));
-    expect(arb['tipJarBody'], contains('機能が追加されることはありません'));
     expect(arb['privacyAnalytics'], contains('言語選択'));
   });
 

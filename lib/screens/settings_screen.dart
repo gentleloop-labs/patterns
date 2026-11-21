@@ -13,7 +13,6 @@ import '../providers/providers.dart';
 import '../services/notification_service.dart';
 import '../services/pro_service.dart';
 import '../services/review_prompt.dart';
-import '../services/tip_jar.dart';
 import '../services/usage_analytics.dart';
 import '../l10n/l10n.dart';
 import '../l10n/app_language.dart';
@@ -22,7 +21,6 @@ import '../widgets/export_report_sheet.dart';
 import '../widgets/language_picker.dart';
 import '../widgets/paywall_sheet.dart';
 import '../widgets/platform.dart';
-import '../widgets/tip_jar_sheet.dart';
 import '../widgets/window_controls.dart';
 import '../theme/app_theme.dart';
 
@@ -667,21 +665,16 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               onTap: () =>
                                   ReviewPromptService.sendFeedback(context),
                             ),
-                            Divider(
-                              height: 1,
-                              color: Colors.white.withOpacity(0.04),
-                              indent: 20,
-                              endIndent: 20,
-                            ),
-                            if (TipJarService.isPlatformSupported)
-                              _SettingsListRow(
-                                title: 'Support Patterns',
-                                subtitle:
-                                    'Leave a small tip to keep development going',
-                                icon: LineIcons.heart,
-                                onTap: () => TipJarSheet.show(context),
-                              )
-                            else
+                            // The Mac App Store build has Pro and no
+                            // external payment links; other desktops keep
+                            // GitHub Sponsors.
+                            if (!Platform.isMacOS) ...[
+                              Divider(
+                                height: 1,
+                                color: Colors.white.withOpacity(0.04),
+                                indent: 20,
+                                endIndent: 20,
+                              ),
                               _SettingsListRow(
                                 title: 'Sponsor on GitHub',
                                 subtitle:
@@ -692,6 +685,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                   mode: LaunchMode.externalApplication,
                                 ),
                               ),
+                            ],
                           ],
                         ),
                       },

@@ -86,10 +86,6 @@ extension Strings {
     var settingsSendFeedbackTitle: String { string("settingsSendFeedbackTitle") }
     /// Share an idea or tell us what went wrong
     var settingsSendFeedbackSubtitle: String { string("settingsSendFeedbackSubtitle") }
-    /// Support Patterns
-    var settingsSupportTitle: String { string("settingsSupportTitle") }
-    /// Leave an optional tip to support development
-    var settingsSupportSubtitle: String { string("settingsSupportSubtitle") }
     /// Appearance
     var appearanceTitle: String { string("appearanceTitle") }
     /// System
@@ -570,44 +566,6 @@ extension Strings {
     var proRestoreChecking: String { string("proRestoreChecking") }
     /// Patterns Pro restored. Every self-help tool is unlocked again.
     var proRestoreSucceeded: String { string("proRestoreSucceeded") }
-    /// Support Patterns
-    var tipJarTitle: String { string("tipJarTitle") }
-    /// Patterns is independent and ad-free. If it has helped you, a small tip means a lot. Tips are optional and d...
-    var tipJarBody: String { string("tipJarBody") }
-    /// Loading tip options
-    var tipJarLoadingLabel: String { string("tipJarLoadingLabel") }
-    /// In-app purchases are unavailable on this device.
-    var tipJarPurchasesUnavailable: String { string("tipJarPurchasesUnavailable") }
-    /// No tip options were found. Please try again later.
-    var tipJarOptionsUnavailable: String { string("tipJarOptionsUnavailable") }
-    /// Tip options could not be loaded. Please try again later.
-    var tipJarLoadFailed: String { string("tipJarLoadFailed") }
-    /// The tip could not be completed. Please try again.
-    var tipJarPurchaseFailed: String { string("tipJarPurchaseFailed") }
-    /// Try again
-    var tipJarTryAgainAction: String { string("tipJarTryAgainAction") }
-    /// Small tip
-    var tipSmallTitle: String { string("tipSmallTitle") }
-    /// An optional small tip to support Patterns development. Unlocks no features.
-    var tipSmallDescription: String { string("tipSmallDescription") }
-    /// Medium tip
-    var tipMediumTitle: String { string("tipMediumTitle") }
-    /// An optional medium tip to support Patterns development. Unlocks no features.
-    var tipMediumDescription: String { string("tipMediumDescription") }
-    /// Large tip
-    var tipLargeTitle: String { string("tipLargeTitle") }
-    /// An optional large tip to support Patterns development. Unlocks no features.
-    var tipLargeDescription: String { string("tipLargeDescription") }
-    /// {title}, {price}. {description}
-    func tipChoiceSemantics(title: String, price: String, description: String) -> String { string("tipChoiceSemantics", ["title": .string(title), "price": .string(price), "description": .string(description)]) }
-    /// Sends this optional tip
-    var tipChoiceHint: String { string("tipChoiceHint") }
-    /// Thank you
-    var tipThanksTitle: String { string("tipThanksTitle") }
-    /// Your support means a lot. Patterns stays ad-free and independent because of people like you.
-    var tipThanksBody: String { string("tipThanksBody") }
-    /// Glad to help
-    var tipThanksAction: String { string("tipThanksAction") }
     /// Unlock Patterns Desktop Pro
     var desktopProTitle: String { string("desktopProTitle") }
     /// A one-time license for offline, desktop-optimized recovery tools.

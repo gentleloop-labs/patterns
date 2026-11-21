@@ -66,8 +66,6 @@ enum CompletionKind: Equatable {
 enum AppDialog: Equatable {
     /// `_showUnlockedDialog`.
     case proUnlocked(restored: Bool)
-    /// `TipThanksDialog`.
-    case tipThanks
 }
 
 /// `ToastType` from `lib/widgets/app_snack_bar.dart`.

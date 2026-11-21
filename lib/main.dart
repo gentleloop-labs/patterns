@@ -20,7 +20,6 @@ import 'services/notification_service.dart';
 import 'services/pro_service.dart';
 import 'services/review_prompt.dart';
 import 'services/telemetry.dart';
-import 'services/tip_jar.dart';
 import 'services/usage_analytics.dart';
 import 'theme/app_theme.dart';
 import 'widgets/app_snack_bar.dart';
@@ -113,7 +112,6 @@ void main() async {
     }
   }
 
-  TipJarService.init();
   ProService.init();
 
   runApp(const ProviderScope(child: PatternsApp()));

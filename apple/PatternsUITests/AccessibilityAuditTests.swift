@@ -36,7 +36,6 @@ final class AccessibilityAuditTests: XCTestCase {
         check(app, "Today")
         if tap(app.buttons["Settings"]) {
             check(app, "Settings")
-            if open(app, "Support Patterns") { check(app, "Tip jar"); dismissSheet(app) }
             back(app)
         }
 
@@ -129,7 +128,6 @@ final class AccessibilityAuditTests: XCTestCase {
     /// above 20:1.
     private static let verifiedUnclipped: Set<String> = [
         "Pause an urge", "Today’s entry", "Your recent activity",
-        "Patterns is independent and ad-free. If it has helped you, a small tip means a lot. Tips are optional and do not unlock anything.",
     ]
 
     private static func name(_ type: XCUIAccessibilityAuditType) -> String {

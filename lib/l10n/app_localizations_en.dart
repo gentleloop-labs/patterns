@@ -148,13 +148,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Share an idea or tell us what went wrong';
 
   @override
-  String get settingsSupportTitle => 'Support Patterns';
-
-  @override
-  String get settingsSupportSubtitle =>
-      'Leave an optional tip to support development';
-
-  @override
   String get appearanceTitle => 'Appearance';
 
   @override
@@ -1033,74 +1026,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get proRestoreSucceeded =>
       'Patterns Pro restored. Every self-help tool is unlocked again.';
-
-  @override
-  String get tipJarTitle => 'Support Patterns';
-
-  @override
-  String get tipJarBody =>
-      'Patterns is independent and ad-free. If it has helped you, a small tip means a lot. Tips are optional and do not unlock anything.';
-
-  @override
-  String get tipJarLoadingLabel => 'Loading tip options';
-
-  @override
-  String get tipJarPurchasesUnavailable =>
-      'In-app purchases are unavailable on this device.';
-
-  @override
-  String get tipJarOptionsUnavailable =>
-      'No tip options were found. Please try again later.';
-
-  @override
-  String get tipJarLoadFailed =>
-      'Tip options could not be loaded. Please try again later.';
-
-  @override
-  String get tipJarPurchaseFailed =>
-      'The tip could not be completed. Please try again.';
-
-  @override
-  String get tipJarTryAgainAction => 'Try again';
-
-  @override
-  String get tipSmallTitle => 'Small tip';
-
-  @override
-  String get tipSmallDescription =>
-      'An optional small tip to support Patterns development. Unlocks no features.';
-
-  @override
-  String get tipMediumTitle => 'Medium tip';
-
-  @override
-  String get tipMediumDescription =>
-      'An optional medium tip to support Patterns development. Unlocks no features.';
-
-  @override
-  String get tipLargeTitle => 'Large tip';
-
-  @override
-  String get tipLargeDescription =>
-      'An optional large tip to support Patterns development. Unlocks no features.';
-
-  @override
-  String tipChoiceSemantics(String title, String price, String description) {
-    return '$title, $price. $description';
-  }
-
-  @override
-  String get tipChoiceHint => 'Sends this optional tip';
-
-  @override
-  String get tipThanksTitle => 'Thank you';
-
-  @override
-  String get tipThanksBody =>
-      'Your support means a lot. Patterns stays ad-free and independent because of people like you.';
-
-  @override
-  String get tipThanksAction => 'Glad to help';
 
   @override
   String get desktopProTitle => 'Unlock Patterns Desktop Pro';

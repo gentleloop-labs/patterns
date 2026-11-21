@@ -149,13 +149,6 @@ class AppLocalizationsDe extends AppLocalizations {
       'Teilen Sie eine Idee oder melden Sie ein Problem';
 
   @override
-  String get settingsSupportTitle => 'Patterns unterstützen';
-
-  @override
-  String get settingsSupportSubtitle =>
-      'Mit einem optionalen Trinkgeld die Entwicklung unterstützen';
-
-  @override
   String get appearanceTitle => 'Darstellung';
 
   @override
@@ -1048,74 +1041,6 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get proRestoreSucceeded =>
       'Patterns Pro wurde wiederhergestellt. Alle Selbsthilfeübungen sind wieder freigeschaltet.';
-
-  @override
-  String get tipJarTitle => 'Patterns unterstützen';
-
-  @override
-  String get tipJarBody =>
-      'Patterns ist unabhängig und werbefrei. Wenn es Ihnen geholfen hat, bedeutet ein kleines Trinkgeld viel. Trinkgelder sind freiwillig und schalten keine Funktionen frei.';
-
-  @override
-  String get tipJarLoadingLabel => 'Trinkgeldoptionen werden geladen';
-
-  @override
-  String get tipJarPurchasesUnavailable =>
-      'In-App-Käufe sind auf diesem Gerät nicht verfügbar.';
-
-  @override
-  String get tipJarOptionsUnavailable =>
-      'Es wurden keine Trinkgeldoptionen gefunden. Bitte versuchen Sie es später erneut.';
-
-  @override
-  String get tipJarLoadFailed =>
-      'Die Trinkgeldoptionen konnten nicht geladen werden. Bitte versuchen Sie es später erneut.';
-
-  @override
-  String get tipJarPurchaseFailed =>
-      'Das Trinkgeld konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut.';
-
-  @override
-  String get tipJarTryAgainAction => 'Erneut versuchen';
-
-  @override
-  String get tipSmallTitle => 'Kleines Trinkgeld';
-
-  @override
-  String get tipSmallDescription =>
-      'Ein freiwilliges kleines Trinkgeld für die Entwicklung von Patterns. Schaltet keine Funktionen frei.';
-
-  @override
-  String get tipMediumTitle => 'Mittleres Trinkgeld';
-
-  @override
-  String get tipMediumDescription =>
-      'Ein freiwilliges mittleres Trinkgeld für die Entwicklung von Patterns. Schaltet keine Funktionen frei.';
-
-  @override
-  String get tipLargeTitle => 'Großes Trinkgeld';
-
-  @override
-  String get tipLargeDescription =>
-      'Ein freiwilliges großes Trinkgeld für die Entwicklung von Patterns. Schaltet keine Funktionen frei.';
-
-  @override
-  String tipChoiceSemantics(String title, String price, String description) {
-    return '$title, $price. $description';
-  }
-
-  @override
-  String get tipChoiceHint => 'Sendet dieses freiwillige Trinkgeld';
-
-  @override
-  String get tipThanksTitle => 'Vielen Dank';
-
-  @override
-  String get tipThanksBody =>
-      'Ihre Unterstützung bedeutet viel. Dank Menschen wie Ihnen bleibt Patterns werbefrei und unabhängig.';
-
-  @override
-  String get tipThanksAction => 'Gern geschehen';
 
   @override
   String get desktopProTitle => 'Patterns Desktop Pro freischalten';

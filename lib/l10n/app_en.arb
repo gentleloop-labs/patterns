@@ -49,8 +49,6 @@
   "settingsRateSubtitle": "Tell the store what you think",
   "settingsSendFeedbackTitle": "Send feedback",
   "settingsSendFeedbackSubtitle": "Share an idea or tell us what went wrong",
-  "settingsSupportTitle": "Support Patterns",
-  "settingsSupportSubtitle": "Leave an optional tip to support development",
   "appearanceTitle": "Appearance",
   "appearanceSystem": "System",
   "appearanceLight": "Light",
@@ -952,12 +950,6 @@
   "@settingsSendFeedbackSubtitle": {
     "description": "User-facing Patterns interface copy for settings send feedback subtitle."
   },
-  "@settingsSupportTitle": {
-    "description": "User-facing Patterns interface copy for settings support title."
-  },
-  "@settingsSupportSubtitle": {
-    "description": "User-facing Patterns interface copy for settings support subtitle."
-  },
   "proPaywallTitle": "Patterns Pro",
   "@proPaywallTitle": {
     "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
@@ -1190,93 +1182,6 @@
   "proRestoreSucceeded": "Patterns Pro restored. Every self-help tool is unlocked again.",
   "@proRestoreSucceeded": {
     "description": "Patterns Pro restore success confirmation. Do not imply a new charge or treatment outcome."
-  },
-  "tipJarTitle": "Support Patterns",
-  "@tipJarTitle": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipJarBody": "Patterns is independent and ad-free. If it has helped you, a small tip means a lot. Tips are optional and do not unlock anything.",
-  "@tipJarBody": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipJarLoadingLabel": "Loading tip options",
-  "@tipJarLoadingLabel": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipJarPurchasesUnavailable": "In-app purchases are unavailable on this device.",
-  "@tipJarPurchasesUnavailable": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipJarOptionsUnavailable": "No tip options were found. Please try again later.",
-  "@tipJarOptionsUnavailable": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipJarLoadFailed": "Tip options could not be loaded. Please try again later.",
-  "@tipJarLoadFailed": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipJarPurchaseFailed": "The tip could not be completed. Please try again.",
-  "@tipJarPurchaseFailed": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipJarTryAgainAction": "Try again",
-  "@tipJarTryAgainAction": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipSmallTitle": "Small tip",
-  "@tipSmallTitle": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipSmallDescription": "An optional small tip to support Patterns development. Unlocks no features.",
-  "@tipSmallDescription": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipMediumTitle": "Medium tip",
-  "@tipMediumTitle": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipMediumDescription": "An optional medium tip to support Patterns development. Unlocks no features.",
-  "@tipMediumDescription": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipLargeTitle": "Large tip",
-  "@tipLargeTitle": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipLargeDescription": "An optional large tip to support Patterns development. Unlocks no features.",
-  "@tipLargeDescription": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipChoiceSemantics": "{title}, {price}. {description}",
-  "@tipChoiceSemantics": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.",
-    "placeholders": {
-      "title": {
-        "type": "String"
-      },
-      "price": {
-        "type": "String"
-      },
-      "description": {
-        "type": "String"
-      }
-    }
-  },
-  "tipChoiceHint": "Sends this optional tip",
-  "@tipChoiceHint": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipThanksTitle": "Thank you",
-  "@tipThanksTitle": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipThanksBody": "Your support means a lot. Patterns stays ad-free and independent because of people like you.",
-  "@tipThanksBody": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipThanksAction": "Glad to help",
-  "@tipThanksAction": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
   },
   "desktopProTitle": "Unlock Patterns Desktop Pro",
   "@desktopProTitle": {

@@ -353,18 +353,6 @@ abstract class AppLocalizations {
   /// **'Share an idea or tell us what went wrong'**
   String get settingsSendFeedbackSubtitle;
 
-  /// User-facing Patterns interface copy for settings support title.
-  ///
-  /// In en, this message translates to:
-  /// **'Support Patterns'**
-  String get settingsSupportTitle;
-
-  /// User-facing Patterns interface copy for settings support subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Leave an optional tip to support development'**
-  String get settingsSupportSubtitle;
-
   /// Appearance-setting interface copy for appearance title.
   ///
   /// In en, this message translates to:
@@ -1804,120 +1792,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Patterns Pro restored. Every self-help tool is unlocked again.'**
   String get proRestoreSucceeded;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Support Patterns'**
-  String get tipJarTitle;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Patterns is independent and ad-free. If it has helped you, a small tip means a lot. Tips are optional and do not unlock anything.'**
-  String get tipJarBody;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Loading tip options'**
-  String get tipJarLoadingLabel;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'In-app purchases are unavailable on this device.'**
-  String get tipJarPurchasesUnavailable;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'No tip options were found. Please try again later.'**
-  String get tipJarOptionsUnavailable;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Tip options could not be loaded. Please try again later.'**
-  String get tipJarLoadFailed;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'The tip could not be completed. Please try again.'**
-  String get tipJarPurchaseFailed;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Try again'**
-  String get tipJarTryAgainAction;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Small tip'**
-  String get tipSmallTitle;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'An optional small tip to support Patterns development. Unlocks no features.'**
-  String get tipSmallDescription;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Medium tip'**
-  String get tipMediumTitle;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'An optional medium tip to support Patterns development. Unlocks no features.'**
-  String get tipMediumDescription;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Large tip'**
-  String get tipLargeTitle;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'An optional large tip to support Patterns development. Unlocks no features.'**
-  String get tipLargeDescription;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'{title}, {price}. {description}'**
-  String tipChoiceSemantics(String title, String price, String description);
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Sends this optional tip'**
-  String get tipChoiceHint;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Thank you'**
-  String get tipThanksTitle;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Your support means a lot. Patterns stays ad-free and independent because of people like you.'**
-  String get tipThanksBody;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Glad to help'**
-  String get tipThanksAction;
 
   /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
   ///

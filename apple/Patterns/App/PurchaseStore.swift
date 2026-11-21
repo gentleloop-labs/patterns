@@ -3,7 +3,7 @@ import Observation
 import PatternsCore
 import StoreKit
 
-/// `ProService` and `TipJarService` on StoreKit 2.
+/// `ProService` on StoreKit 2.
 ///
 /// The Pro unlock is cached in `flutter.proUnlocked` and honoured offline, as
 /// the Flutter app does, so a paying user is never locked out because the
@@ -16,21 +16,12 @@ import StoreKit
 @Observable
 final class PurchaseStore {
     static let proProductID = "com.maskedsyntax.patterns.pro"
-    static let tipProductIDs = [
-        "com.maskedsyntax.patterns.tip.small",
-        "com.maskedsyntax.patterns.tip.medium",
-        "com.maskedsyntax.patterns.tip.large",
-    ]
 
     private(set) var proUnlocked: Bool
     /// Bumped whenever a Pro unlock arrives outside a purchase the app
     /// started, such as a redeemed offer code. Settings watches it to
     /// confirm a redemption.
     private(set) var backgroundUnlockCount = 0
-
-    /// The last products loaded this session, used as a fallback when a
-    /// later load fails.
-    private(set) var cachedTips: [Product]?
 
     private let prefs: FlutterPreferences
     private var updatesTask: Task<Void, Never>?
@@ -133,47 +124,6 @@ final class PurchaseStore {
         case .finished, .timedOut: return .notFound
         case .cancelled: return .cancelled
         case .failed: return .failed
-        }
-    }
-
-    // MARK: Tip jar
-
-    /// Loads the three tips, cheapest first. Falls back to the last loaded
-    /// list when the store fails, as the Flutter tip sheet does.
-    func loadTips() async throws(LoadError) -> [Product] {
-        guard AppStore.canMakePayments else { throw .purchasesUnavailable }
-        do throws(LoadError) {
-            let products = try await loadWithRetry(Self.tipProductIDs)
-                .filter { Self.tipProductIDs.contains($0.id) }
-                .sorted { $0.price < $1.price }
-            if !products.isEmpty {
-                cachedTips = products
-                return products
-            }
-            if let cachedTips, !cachedTips.isEmpty { return cachedTips }
-            throw LoadError.productUnavailable
-        } catch {
-            if let cachedTips, !cachedTips.isEmpty { return cachedTips }
-            throw error
-        }
-    }
-
-    /// Tips are consumables: nothing to grant, only the transaction to
-    /// finish.
-    func completeTip(_ result: Product.PurchaseResult) async -> PurchaseOutcome {
-        switch result {
-        case let .success(.verified(transaction)):
-            await transaction.finish()
-            return .unlocked
-        case let .success(.unverified(transaction, _)):
-            await transaction.finish()
-            return .failed
-        case .userCancelled:
-            return .cancelled
-        case .pending:
-            return .pending
-        @unknown default:
-            return .failed
         }
     }
 

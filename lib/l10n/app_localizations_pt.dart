@@ -148,13 +148,6 @@ class AppLocalizationsPt extends AppLocalizations {
       'Compartilhe uma ideia ou conte o que deu errado';
 
   @override
-  String get settingsSupportTitle => 'Apoiar o Patterns';
-
-  @override
-  String get settingsSupportSubtitle =>
-      'Deixe uma contribuição opcional para apoiar o desenvolvimento';
-
-  @override
   String get appearanceTitle => 'Aparência';
 
   @override
@@ -1045,74 +1038,6 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get proRestoreSucceeded =>
       'O Patterns Pro foi restaurado. Todas as ferramentas de recuperação estão desbloqueadas novamente.';
-
-  @override
-  String get tipJarTitle => 'Apoiar o Patterns';
-
-  @override
-  String get tipJarBody =>
-      'O Patterns é independente e não tem anúncios. Se ele ajudou você, uma pequena gorjeta significa muito. As gorjetas são opcionais e não desbloqueiam nada.';
-
-  @override
-  String get tipJarLoadingLabel => 'Carregando opções de gorjeta';
-
-  @override
-  String get tipJarPurchasesUnavailable =>
-      'As compras no app não estão disponíveis neste dispositivo.';
-
-  @override
-  String get tipJarOptionsUnavailable =>
-      'Nenhuma opção de gorjeta foi encontrada. Tente novamente mais tarde.';
-
-  @override
-  String get tipJarLoadFailed =>
-      'Não foi possível carregar as opções de gorjeta. Tente novamente mais tarde.';
-
-  @override
-  String get tipJarPurchaseFailed =>
-      'Não foi possível concluir a gorjeta. Tente novamente.';
-
-  @override
-  String get tipJarTryAgainAction => 'Tentar novamente';
-
-  @override
-  String get tipSmallTitle => 'Gorjeta pequena';
-
-  @override
-  String get tipSmallDescription =>
-      'Uma gorjeta pequena e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos.';
-
-  @override
-  String get tipMediumTitle => 'Gorjeta média';
-
-  @override
-  String get tipMediumDescription =>
-      'Uma gorjeta média e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos.';
-
-  @override
-  String get tipLargeTitle => 'Gorjeta grande';
-
-  @override
-  String get tipLargeDescription =>
-      'Uma gorjeta grande e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos.';
-
-  @override
-  String tipChoiceSemantics(String title, String price, String description) {
-    return '$title, $price. $description';
-  }
-
-  @override
-  String get tipChoiceHint => 'Envia esta gorjeta opcional';
-
-  @override
-  String get tipThanksTitle => 'Obrigado';
-
-  @override
-  String get tipThanksBody =>
-      'Seu apoio significa muito. Graças a pessoas como você, o Patterns continua independente e sem anúncios.';
-
-  @override
-  String get tipThanksAction => 'Foi um prazer';
 
   @override
   String get desktopProTitle => 'Desbloquear o Patterns Desktop Pro';
@@ -4326,13 +4251,6 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       'Compartilhe uma ideia ou conte o que deu errado';
 
   @override
-  String get settingsSupportTitle => 'Apoiar o Patterns';
-
-  @override
-  String get settingsSupportSubtitle =>
-      'Deixe uma contribuição opcional para apoiar o desenvolvimento';
-
-  @override
   String get appearanceTitle => 'Aparência';
 
   @override
@@ -5222,74 +5140,6 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String get proRestoreSucceeded =>
       'O Patterns Pro foi restaurado. Todas as ferramentas de autoajuda estão desbloqueadas novamente.';
-
-  @override
-  String get tipJarTitle => 'Apoiar o Patterns';
-
-  @override
-  String get tipJarBody =>
-      'O Patterns é independente e não tem anúncios. Se ele ajudou você, uma pequena gorjeta significa muito. As gorjetas são opcionais e não desbloqueiam nada.';
-
-  @override
-  String get tipJarLoadingLabel => 'Carregando opções de gorjeta';
-
-  @override
-  String get tipJarPurchasesUnavailable =>
-      'As compras no app não estão disponíveis neste dispositivo.';
-
-  @override
-  String get tipJarOptionsUnavailable =>
-      'Nenhuma opção de gorjeta foi encontrada. Tente novamente mais tarde.';
-
-  @override
-  String get tipJarLoadFailed =>
-      'Não foi possível carregar as opções de gorjeta. Tente novamente mais tarde.';
-
-  @override
-  String get tipJarPurchaseFailed =>
-      'Não foi possível concluir a gorjeta. Tente novamente.';
-
-  @override
-  String get tipJarTryAgainAction => 'Tentar novamente';
-
-  @override
-  String get tipSmallTitle => 'Gorjeta pequena';
-
-  @override
-  String get tipSmallDescription =>
-      'Uma gorjeta pequena e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos.';
-
-  @override
-  String get tipMediumTitle => 'Gorjeta média';
-
-  @override
-  String get tipMediumDescription =>
-      'Uma gorjeta média e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos.';
-
-  @override
-  String get tipLargeTitle => 'Gorjeta grande';
-
-  @override
-  String get tipLargeDescription =>
-      'Uma gorjeta grande e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos.';
-
-  @override
-  String tipChoiceSemantics(String title, String price, String description) {
-    return '$title, $price. $description';
-  }
-
-  @override
-  String get tipChoiceHint => 'Envia esta gorjeta opcional';
-
-  @override
-  String get tipThanksTitle => 'Obrigado';
-
-  @override
-  String get tipThanksBody =>
-      'Seu apoio significa muito. Graças a pessoas como você, o Patterns continua independente e sem anúncios.';
-
-  @override
-  String get tipThanksAction => 'Foi um prazer';
 
   @override
   String get desktopProTitle => 'Desbloquear o Patterns Desktop Pro';

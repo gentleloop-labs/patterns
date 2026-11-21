@@ -342,9 +342,6 @@ final class FeatureWalkthroughTests: XCTestCase {
             for _ in 0..<6 { pause(); if !tapAny(["Next", "Continue"], quiet: true) { break } }
             dismissAny()
         }
-        step("Tip jar")
-        launchTab("home"); tapLabel("Settings"); app.swipeUp(velocity: .slow); app.swipeUp(velocity: .slow)
-        if tapPrefix("Support Patterns") { pause(8); dismissAny() }
     }
 
     // MARK: Steps
