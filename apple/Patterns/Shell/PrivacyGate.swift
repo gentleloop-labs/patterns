@@ -42,6 +42,10 @@ struct PrivacyGate<Content: View>: View {
             guard !started else { return }
             started = true
             locked = model.appLockEnabled
+            #if DEBUG
+            // Store screenshots show the lock screen itself, not the prompt.
+            if ScreenshotHook.route == "locked" { return }
+            #endif
             if locked { authenticate() }
         }
         .onChange(of: scenePhase) { _, phase in

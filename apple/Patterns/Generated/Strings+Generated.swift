@@ -440,7 +440,7 @@ extension Strings {
     var privacySafetyTitle: String { string("privacySafetyTitle") }
     /// Journal entries, OCD events, distress ratings, reflections, and app preferences are stored locally on this ...
     var privacyLocalContent: String { string("privacyLocalContent") }
-    /// Patterns Pro and tips are processed by the app store. Patterns does not receive your payment-card details.
+    /// Patterns Pro is processed by the app store. Patterns does not receive your payment-card details.
     var privacyPurchases: String { string("privacyPurchases") }
     /// A manual export creates an unencrypted JSON backup or PDF report only where you choose to save or share it.
     var privacyExports: String { string("privacyExports") }

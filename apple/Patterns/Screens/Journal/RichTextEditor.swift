@@ -481,7 +481,12 @@ struct RichTextEditor: UIViewRepresentable {
             label?.font = RichEditorController.style(traits: textView.traitCollection).regular
             controller?.restyle()
         }
-        if autoFocus {
+        var focus = autoFocus
+        #if DEBUG
+        // Store screenshots show the entry without the keyboard.
+        if ScreenshotHook.route != nil { focus = false }
+        #endif
+        if focus {
             DispatchQueue.main.async { view.becomeFirstResponder() }
         }
         return view

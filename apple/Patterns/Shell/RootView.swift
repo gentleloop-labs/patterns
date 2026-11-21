@@ -179,6 +179,9 @@ struct MainShell: View {
     private func onFirstAppear() {
         guard !didAppear else { return }
         didAppear = true
+        #if DEBUG
+        if ScreenshotHook.open(navigation) { return }
+        #endif
         if let path = navigation.pendingFirstRun {
             navigation.pendingFirstRun = nil
             if path != .explore {

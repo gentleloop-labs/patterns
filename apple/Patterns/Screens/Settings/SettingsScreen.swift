@@ -148,6 +148,9 @@ struct SettingsScreen: View {
             .listRowBackground(AppColors.card)
         }
         .appListBackground()
+        #if DEBUG
+        .onAppear { if ScreenshotHook.sheet == "privacy" { sheet = .privacy } }
+        #endif
         .navigationTitle(strings.settingsTitle)
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $sheet) { sheet in

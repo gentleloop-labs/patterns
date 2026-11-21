@@ -314,7 +314,7 @@
   "recoveryScoreSemantics": "Übungswert: {score} von 100.",
   "privacySafetyTitle": "Datenschutz & Sicherheit",
   "privacyLocalContent": "Tagebucheinträge, Zwangsmomente, Belastungswerte, Reflexionen und App-Einstellungen werden lokal auf diesem Gerät gespeichert.",
-  "privacyPurchases": "Patterns Pro und Trinkgelder werden vom jeweiligen App-Store verarbeitet. Patterns erhält keine Zahlungskartendaten.",
+  "privacyPurchases": "Patterns Pro wird vom jeweiligen App-Store verarbeitet. Patterns erhält keine Zahlungskartendaten.",
   "privacyExports": "Ein manueller Export erstellt nur dort eine unverschlüsselte JSON-Sicherung oder einen PDF-Bericht, wo Sie ihn speichern oder teilen.",
   "privacyAnalytics": "Anonyme Nutzungsanalysen sind deaktiviert, bis Sie sie einschalten. Wenn sie aktiviert sind, sendet Patterns benannte Ereignisse zur Funktionsnutzung, eine zufällige Installations-ID, die Plattform, die App-Version und die Ereigniszeit an den eigenen Dienst. Tagebucheinträge, Daten zur Zwangsstörung, erstellte Zusammenfassungen, Gebietsschema und Sprachauswahl werden nie einbezogen. Beim Ausschalten werden ausstehende Ereignisse und die lokale Analyse-ID gelöscht.",
   "privacyClinicalBoundary": "Patterns ist ein Selbsthilfetool für persönliche Reflexion und Übungen zur Reizkonfrontation mit Reaktionsverhinderung (ERP). Es diagnostiziert oder behandelt keine Zwangsstörung, ersetzt keine qualifizierte fachliche Betreuung und bietet keine Notfallhilfe.",

@@ -807,7 +807,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get privacyPurchases =>
-      'Patterns Pro y las propinas se procesan en la tienda de apps. Patterns no recibe los datos de tu tarjeta de pago.';
+      'Patterns Pro se procesa en la tienda de apps. Patterns no recibe los datos de tu tarjeta de pago.';
 
   @override
   String get privacyExports =>

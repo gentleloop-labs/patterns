@@ -715,7 +715,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get privacyPurchases =>
-      'Patterns Proとチップの購入はアプリストアが処理します。Patternsが決済カード情報を受け取ることはありません。';
+      'Patterns Proの購入はアプリストアが処理します。Patternsが決済カード情報を受け取ることはありません。';
 
   @override
   String get privacyExports =>

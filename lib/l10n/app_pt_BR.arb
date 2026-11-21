@@ -314,7 +314,7 @@
   "recoveryScoreSemantics": "Pontuação de prática: {score} de 100.",
   "privacySafetyTitle": "Privacidade e segurança",
   "privacyLocalContent": "Registros do diário, eventos de TOC, níveis de desconforto, reflexões e preferências ficam armazenados localmente neste dispositivo.",
-  "privacyPurchases": "O Patterns Pro e as gorjetas são processados pela loja de aplicativos. O Patterns não recebe os dados do seu cartão.",
+  "privacyPurchases": "O Patterns Pro é processado pela loja de aplicativos. O Patterns não recebe os dados do seu cartão.",
   "privacyExports": "Uma exportação manual cria um backup JSON ou relatório PDF sem criptografia apenas onde você escolher salvar ou compartilhar.",
   "privacyAnalytics": "A análise anônima de uso fica desativada até você habilitá-la. Se habilitada, o Patterns envia eventos nomeados de uso, um ID aleatório de instalação, plataforma, versão e horário ao serviço próprio. Registros, dados de TOC, resumos gerados, localidade e escolha de idioma nunca são enviados. Desativar apaga eventos pendentes e o ID local.",
   "privacyClinicalBoundary": "O Patterns é uma ferramenta de autoajuda para reflexão pessoal e prática de EPR. Não diagnostica nem trata TOC, não substitui o cuidado de um profissional qualificado e não oferece apoio de emergência.",

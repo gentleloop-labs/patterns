@@ -810,7 +810,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get privacyPurchases =>
-      'Patterns Pro und Trinkgelder werden vom jeweiligen App-Store verarbeitet. Patterns erhält keine Zahlungskartendaten.';
+      'Patterns Pro wird vom jeweiligen App-Store verarbeitet. Patterns erhält keine Zahlungskartendaten.';
 
   @override
   String get privacyExports =>

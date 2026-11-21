@@ -806,7 +806,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get privacyPurchases =>
-      'O Patterns Pro e as gorjetas são processados pela loja de aplicativos. O Patterns não recebe os dados do seu cartão.';
+      'O Patterns Pro é processado pela loja de aplicativos. O Patterns não recebe os dados do seu cartão.';
 
   @override
   String get privacyExports =>
@@ -4910,7 +4910,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get privacyPurchases =>
-      'O Patterns Pro e as gorjetas são processados pela loja de aplicativos. O Patterns não recebe os dados do seu cartão.';
+      'O Patterns Pro é processado pela loja de aplicativos. O Patterns não recebe os dados do seu cartão.';
 
   @override
   String get privacyExports =>

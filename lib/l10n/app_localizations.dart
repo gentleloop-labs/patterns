@@ -1418,7 +1418,7 @@ abstract class AppLocalizations {
   /// Explains the privacy boundary for StoreKit or platform-store purchases.
   ///
   /// In en, this message translates to:
-  /// **'Patterns Pro and tips are processed by the app store. Patterns does not receive your payment-card details.'**
+  /// **'Patterns Pro is processed by the app store. Patterns does not receive your payment-card details.'**
   String get privacyPurchases;
 
   /// Warns that user-initiated exports are unencrypted and leave local storage only by user action.

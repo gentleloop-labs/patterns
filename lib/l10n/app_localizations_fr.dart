@@ -812,7 +812,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get privacyPurchases =>
-      'Patterns Pro et les pourboires sont traités par la boutique d’apps. Patterns ne reçoit pas les données de votre carte de paiement.';
+      'Patterns Pro est traité par la boutique d’apps. Patterns ne reçoit pas les données de votre carte de paiement.';
 
   @override
   String get privacyExports =>

@@ -806,7 +806,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get privacyPurchases =>
-      'Patterns Pro and tips are processed by the app store. Patterns does not receive your payment-card details.';
+      'Patterns Pro is processed by the app store. Patterns does not receive your payment-card details.';
 
   @override
   String get privacyExports =>

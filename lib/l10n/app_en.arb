@@ -410,7 +410,7 @@
   "@privacyLocalContent": {
     "description": "Explains which personal content and preferences remain local."
   },
-  "privacyPurchases": "Patterns Pro and tips are processed by the app store. Patterns does not receive your payment-card details.",
+  "privacyPurchases": "Patterns Pro is processed by the app store. Patterns does not receive your payment-card details.",
   "@privacyPurchases": {
     "description": "Explains the privacy boundary for StoreKit or platform-store purchases."
   },
