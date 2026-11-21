@@ -159,6 +159,11 @@ const newArticles = [
     slug: 'why-ocd-makes-simple-tasks-take-so-long',
     title: 'Why Does OCD Make Simple Tasks Take So Long?',
     contextualLink: '/blog/checking-ocd'
+  },
+  {
+    slug: 'why-ocd-feels-louder-when-resting',
+    title: 'Why Does OCD Feel Louder When I Finally Have Time to Rest?',
+    contextualLink: '/blog/ocd-rumination'
   }
 ];
 

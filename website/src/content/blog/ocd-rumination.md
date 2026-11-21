@@ -30,6 +30,8 @@ You might spend an evening debating whether a future decision could reveal somet
 
 This article focuses on those internal debates and future scenarios. For repeated reconstruction of something that already happened, see our guide to [mental review in OCD](/blog/mental-review-ocd).
 
+For the way those debates can fill an otherwise quiet break, see [why OCD can feel louder when you finally have time to rest](/blog/why-ocd-feels-louder-when-resting).
+
 ## OCD rumination vs problem-solving in everyday life
 
 Here are illustrative contrasts, not diagnostic tests:
