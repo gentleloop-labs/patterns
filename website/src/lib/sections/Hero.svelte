@@ -5,18 +5,10 @@
   import BrandIcon from '$lib/components/BrandIcon.svelte';
   import { site } from '$lib/data/site';
   import { logEvent } from '$lib/utils/analytics';
-  import { isAndroid } from '$lib/utils/platform';
   import { ArrowRight } from 'lucide-svelte';
   import { siApple, siAndroid } from 'simple-icons';
 
   const { ios, android } = site.platforms;
-
-  // Android visitors see their own phone first; everyone else sees the order
-  // below. Decided after hydration so the prerendered page stays identical.
-  let androidFirst = $state(false);
-  $effect(() => {
-    androidFirst = isAndroid();
-  });
 
   function handleRelease() {
     logEvent('hero_release_click', { version: site.latestRelease.version });
@@ -48,7 +40,7 @@
       </ul>
     </div>
 
-    <div class="platforms" class:android-first={androidFirst}>
+    <div class="platforms">
       <article class="platform ios" aria-labelledby="hero-ios">
         <div class="device-wrap">
           <DeviceFrame
@@ -89,6 +81,20 @@
           <p class="requires">Requires {android.requires}</p>
         </div>
       </article>
+    </div>
+
+    <!-- Small screens: one large phone (the visitor's own platform, chosen
+         by CSS from html[data-platform]) and both store buttons here, so
+         nobody is shut out. The per-phone details above are hidden there. -->
+    <div class="mobile-stores" role="group" aria-label="Download Patterns">
+      <div class="mobile-store">
+        <StoreButton store="app_store" placement="hero" />
+        <p>iPhone · Version {ios.shortVersion} · {ios.requires}</p>
+      </div>
+      <div class="mobile-store">
+        <StoreButton store="play_store" placement="hero" />
+        <p>Android · Version {android.version} · {android.requires}</p>
+      </div>
     </div>
   </ContentContainer>
 </section>
@@ -198,8 +204,12 @@
     gap: 28px;
   }
 
-  .android-first .android {
+  :global(html[data-platform='android']) .android {
     order: -1;
+  }
+
+  .mobile-stores {
+    display: none;
   }
 
   /* Entrance on load: the text settles in line by line, then the phones
@@ -298,32 +308,57 @@
       font-size: 16px;
     }
 
+    /* One phone, big enough to read, instead of two shrunk side by side. */
     .platforms {
+      grid-template-columns: 1fr;
+      margin-top: 40px;
+    }
+
+    .platform .meta,
+    .platform.android {
+      display: none;
+    }
+
+    :global(html[data-platform='android']) .platform.android {
+      display: flex;
+    }
+
+    :global(html[data-platform='android']) .platform.ios {
+      display: none;
+    }
+
+    .device-wrap {
+      width: min(78vw, 300px);
+    }
+
+    .mobile-stores {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 14px;
-      margin-top: 44px;
+      margin-top: 32px;
     }
 
-    .platform {
-      gap: 20px;
+    :global(html[data-platform='android']) .mobile-store:last-child {
+      order: -1;
     }
 
-    .platform-name {
-      font-size: 14px;
+    .mobile-store {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 6px;
     }
 
-    .version {
+    .mobile-store :global(.store-button) {
+      min-width: 200px;
+      justify-content: center;
+    }
+
+    .mobile-store p {
+      margin: 0;
+      color: var(--text-secondary);
       font-size: 12px;
-      margin-bottom: 12px;
-    }
-
-    .meta :global(.store-button) {
-      padding: 6px 12px 6px 10px;
-      gap: 8px;
-    }
-
-    .meta :global(.store-button strong) {
-      font-size: 14px;
     }
   }
 </style>

@@ -15,6 +15,17 @@
           t = window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
         }
         document.documentElement.dataset.theme = t;
+        // Visitor platform, so pages can show the visitor's own phone first
+        // without swapping images after load.
+        var u = navigator.userAgent;
+        document.documentElement.setAttribute(
+          'data-platform',
+          /Android/.test(u)
+            ? 'android'
+            : /iPad|iPhone|iPod/.test(u) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+              ? 'ios'
+              : 'desktop'
+        );
       })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
