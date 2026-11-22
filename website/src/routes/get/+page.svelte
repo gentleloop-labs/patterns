@@ -143,8 +143,8 @@
       <div class="shot shot-ios">
         <DeviceFrame
           platform="ios"
-          src="/assets/screens/ios-today.webp"
-          alt="Patterns 2.0 on iPhone: the Today screen with recent activity and a suggested next practice"
+          src="/assets/screens/ios-delay.webp"
+          alt="Patterns 2.0 on iPhone: a compulsion delay in progress, counting down with the words You're sitting with it"
           loading="eager"
           fetchpriority="high"
         />
@@ -152,8 +152,8 @@
       <div class="shot shot-android">
         <DeviceFrame
           platform="android"
-          src="/assets/screens/android-today.webp"
-          alt="Patterns on Android: the Today screen with recent activity and a suggested next practice"
+          src="/assets/screens/android-delay.webp"
+          alt="Patterns on Android: a compulsion delay in progress, counting down with the words You're sitting with it"
         />
       </div>
 

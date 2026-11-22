@@ -42,10 +42,12 @@
       url: links.site,
       image: site.ogImage,
       screenshot: [
+        `${links.site}assets/screens/ios-delay.webp`,
         `${links.site}assets/screens/ios-today.webp`,
         `${links.site}assets/screens/ios-practice.webp`,
         `${links.site}assets/screens/ios-journal.webp`,
         `${links.site}assets/screens/ios-insights.webp`,
+        `${links.site}assets/screens/android-delay.webp`,
         `${links.site}assets/screens/android-today.webp`,
         `${links.site}assets/screens/android-practice.webp`,
         `${links.site}assets/screens/android-journal.webp`,
@@ -119,9 +121,9 @@
         'Download Patterns, a private OCD tracker and journaling app for iPhone and Android.',
       primaryImageOfPage: {
         '@type': 'ImageObject',
-        url: `${links.site}assets/screens/ios-today.webp`,
-        width: 600,
-        height: 1304
+        url: `${links.site}assets/screens/ios-delay.webp`,
+        width: 640,
+        height: 1308
       },
       about: [
         { '@type': 'MedicalCondition', name: 'Obsessive-Compulsive Disorder' },
