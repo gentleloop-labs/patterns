@@ -32,12 +32,12 @@ const staticEntries: Entry[] = [
     priority: '1.0',
     images: [
       {
-        loc: `${links.site}assets/screens/ios-today.webp`,
-        title: 'Patterns 2.0, the native iPhone app, showing the Today screen'
+        loc: `${links.site}assets/screens/ios-delay.webp`,
+        title: 'Patterns 2.0, the native iPhone app, during a compulsion delay'
       },
       {
-        loc: `${links.site}assets/screens/android-today.webp`,
-        title: 'Patterns for Android showing the Today screen'
+        loc: `${links.site}assets/screens/android-delay.webp`,
+        title: 'Patterns for Android during a compulsion delay'
       },
       {
         loc: `${links.site}assets/mockups/ybocs-app-ui-v1.png`,

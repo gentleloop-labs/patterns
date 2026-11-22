@@ -42,14 +42,26 @@
 
     <div class="platforms">
       <article class="platform ios" aria-labelledby="hero-ios">
-        <div class="device-wrap">
-          <DeviceFrame
-            platform="ios"
-            src="/assets/screens/ios-today.webp"
-            alt="Patterns {ios.shortVersion} on iPhone: the Today screen with recent activity and a suggested next practice"
-            loading="eager"
-            fetchpriority="high"
-          />
+        <!-- Two screens per platform, overlapping: the exposure ladder behind,
+             a compulsion delay in progress in front. -->
+        <div class="device-wrap pair">
+          <div class="back">
+            <DeviceFrame
+              platform="ios"
+              src="/assets/screens/ios-ladder.webp"
+              alt="Patterns {ios.shortVersion} on iPhone: an exposure ladder with one step done, one in progress, and one not started"
+              loading="eager"
+            />
+          </div>
+          <div class="front">
+            <DeviceFrame
+              platform="ios"
+              src="/assets/screens/ios-delay.webp"
+              alt="Patterns {ios.shortVersion} on iPhone: a compulsion delay in progress, counting down with the words You're sitting with it"
+              loading="eager"
+                fetchpriority="high"
+            />
+          </div>
         </div>
         <div class="meta">
           <h2 id="hero-ios" class="platform-name">
@@ -63,13 +75,25 @@
       </article>
 
       <article class="platform android" aria-labelledby="hero-android">
-        <div class="device-wrap">
-          <DeviceFrame
-            platform="android"
-            src="/assets/screens/android-today.webp"
-            alt="Patterns {android.shortVersion} on Android: the Today screen with recent activity and a suggested next practice"
-            loading="eager"
-          />
+        <!-- Two screens per platform, overlapping: the exposure ladder behind,
+             a compulsion delay in progress in front. -->
+        <div class="device-wrap pair">
+          <div class="back">
+            <DeviceFrame
+              platform="android"
+              src="/assets/screens/android-ladder.webp"
+              alt="Patterns {android.shortVersion} on Android: an exposure ladder with one step done, one in progress, and one not started"
+              loading="eager"
+            />
+          </div>
+          <div class="front">
+            <DeviceFrame
+              platform="android"
+              src="/assets/screens/android-delay.webp"
+              alt="Patterns {android.shortVersion} on Android: a compulsion delay in progress, counting down with the words You're sitting with it"
+              loading="eager"
+            />
+          </div>
         </div>
         <div class="meta">
           <h2 id="hero-android" class="platform-name">
@@ -192,8 +216,8 @@
   .platforms {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
-    max-width: 760px;
+    gap: 40px;
+    max-width: 860px;
     margin: 64px auto 0;
   }
 
@@ -239,12 +263,28 @@
     animation-delay: 380ms;
   }
 
-  .device-wrap {
-    transition: transform 500ms var(--ease-out);
+  .pair .back,
+  .pair .front {
+    transition: transform 600ms var(--ease-out);
   }
 
-  .platform:hover .device-wrap {
-    transform: translateY(-6px);
+  /* On hover the two phones ease apart a little. */
+  .platform:hover .pair .back {
+    transform: translate(-6px, -4px) rotate(-1.5deg);
+  }
+
+  .platform:hover .pair .front {
+    transform: translate(6px, -6px) rotate(1deg);
+  }
+
+  /* The front phone settles in just after the back one. */
+  .pair .front {
+    animation: rise-in 1s var(--ease-out) both;
+    animation-delay: 520ms;
+  }
+
+  .platform + .platform .pair .front {
+    animation-delay: 640ms;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -253,15 +293,43 @@
       animation: none;
     }
 
-    .platform:hover .device-wrap {
+    .pair .front {
+      animation: none;
+    }
+
+    .platform:hover .pair .back,
+    .platform:hover .pair .front {
       transform: none;
     }
   }
 
-  .device-wrap {
-    width: min(100%, 272px);
-    /* Bottom-align the phones so both platform labels line up. */
+  /* An overlapping pair: the back phone sits up and to the left, the front
+     phone lower and to the right, each about 62% of the pair's width. The
+     box's aspect ratio leaves room for the front phone's offset. */
+  .pair {
+    position: relative;
+    width: min(100%, 360px);
+    aspect-ratio: 100 / 142;
+    /* Bottom-align the pairs so both platform labels line up. */
     margin-top: auto;
+  }
+
+  .pair .back,
+  .pair .front {
+    position: absolute;
+    width: 62%;
+  }
+
+  .pair .back {
+    top: 0;
+    left: 0;
+    opacity: 0.92;
+  }
+
+  .pair .front {
+    right: 0;
+    bottom: 0;
+    z-index: 1;
   }
 
   .meta {
@@ -327,8 +395,8 @@
       display: none;
     }
 
-    .device-wrap {
-      width: min(78vw, 300px);
+    .pair {
+      width: min(92vw, 380px);
     }
 
     .mobile-stores {
