@@ -177,6 +177,8 @@
 
 <style>
   .navbar {
+    /* Kept out of the page crossfade so it stays still between pages. */
+    view-transition-name: site-nav;
     position: fixed;
     top: 0;
     left: 0;

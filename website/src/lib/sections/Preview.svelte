@@ -71,7 +71,8 @@
       </div>
     </AnimatedOnScroll>
 
-    <div class="switch" role="tablist" aria-label="Choose a platform">
+    <div class="switch" class:right={platform === 'android'} role="tablist" aria-label="Choose a platform">
+      <span class="indicator" aria-hidden="true"></span>
       {#each tabs as tab (tab.id)}
         <button
           id="platform-tab-{tab.id}"
@@ -97,8 +98,8 @@
       aria-labelledby="platform-tab-{platform}"
       tabindex="-1"
     >
-      {#each screens as screen (screen.id)}
-        <figure class="screen">
+      {#each screens as screen, index (screen.id)}
+        <figure class="screen" style="--i: {index}">
           {#key platform}
             <div class="device">
               <DeviceFrame
@@ -147,8 +148,11 @@
     line-height: 1.65;
   }
 
+  /* Two equal tabs with a pill that slides between them. */
   .switch {
-    display: flex;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     width: fit-content;
     margin: 36px auto 0;
     padding: 4px;
@@ -157,27 +161,40 @@
     background: var(--bg);
   }
 
+  .indicator {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 4px;
+    width: calc(50% - 4px);
+    border-radius: 999px;
+    background: var(--surface-alt);
+    box-shadow: 0 0 0 1px var(--border);
+    transition: transform 420ms var(--ease-out);
+  }
+
+  .switch.right .indicator {
+    transform: translateX(100%);
+  }
+
   .switch button {
+    position: relative;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     min-height: 40px;
-    padding: 0 18px;
+    padding: 0 20px;
     border-radius: 999px;
     color: var(--text-secondary);
     font-size: 14px;
     font-weight: 600;
-    transition: background 0.2s, color 0.2s;
+    transition: color var(--dur) var(--ease-out);
   }
 
-  .switch button:hover {
-    color: var(--text);
-  }
-
+  .switch button:hover,
   .switch button[aria-selected='true'] {
-    background: var(--surface-alt);
     color: var(--text);
-    box-shadow: 0 0 0 1px var(--border);
   }
 
   .switch button:focus-visible {
@@ -206,18 +223,42 @@
     margin: 0;
   }
 
+  /* On a platform switch each phone swaps in a beat after the one before. */
   .device {
     max-width: 240px;
     margin: 0 auto;
-    animation: screen-in 0.35s ease-out;
+    /* backwards, not both: once finished it lets go so the hover lift works. */
+    animation: screen-in 560ms var(--ease-out) backwards;
+    animation-delay: calc(var(--i, 0) * 70ms);
+    transition: transform 500ms var(--ease-out);
+  }
+
+  .screen:hover .device {
+    transform: translateY(-6px);
   }
 
   @keyframes screen-in {
     from {
       opacity: 0;
+      transform: translateY(14px) scale(0.98);
     }
     to {
       opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .device {
+      animation: none;
+    }
+
+    .indicator {
+      transition: none;
+    }
+
+    .screen:hover .device {
+      transform: none;
     }
   }
 

@@ -205,14 +205,45 @@ button {
   contain-intrinsic-size: auto 600px;
 }
 
+/* Motion. One easing curve and a few durations for the whole site, so
+   movement feels consistent and unhurried. Everything here is switched off
+   under prefers-reduced-motion (see the end of this block). */
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 180ms;
+  --dur: 320ms;
+  --dur-slow: 700ms;
+}
+
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -221,8 +252,84 @@ button {
 }
 
 .animate-on-scroll.visible {
-  animation: fade-up 0.5s ease-out forwards;
+  animation: fade-up var(--dur-slow) var(--ease-out) both;
   animation-delay: var(--delay, 0s);
+}
+
+/* Children of a [data-stagger] container arrive one after another once
+   their scroll reveal fires. */
+.animate-on-scroll.visible [data-stagger] > * {
+  animation: fade-up var(--dur-slow) var(--ease-out) both;
+  animation-delay: calc(var(--delay, 0s) + 120ms);
+}
+
+.animate-on-scroll.visible [data-stagger] > :nth-child(2) {
+  animation-delay: calc(var(--delay, 0s) + 210ms);
+}
+
+.animate-on-scroll.visible [data-stagger] > :nth-child(3) {
+  animation-delay: calc(var(--delay, 0s) + 300ms);
+}
+
+.animate-on-scroll.visible [data-stagger] > :nth-child(n + 4) {
+  animation-delay: calc(var(--delay, 0s) + 390ms);
+}
+
+/* Disclosure widgets (FAQ, roadmap history) open and close smoothly where
+   the browser supports animating to an automatic height. */
+details {
+  interpolate-size: allow-keywords;
+}
+
+details::details-content {
+  block-size: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    block-size var(--dur) var(--ease-out),
+    opacity var(--dur) var(--ease-out),
+    content-visibility var(--dur) allow-discrete;
+}
+
+details[open]::details-content {
+  block-size: auto;
+  opacity: 1;
+}
+
+/* Page-to-page navigation: a short crossfade with a slight lift. The
+   navbar has its own transition name so it stays perfectly still. */
+@keyframes page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+::view-transition-old(root) {
+  animation: page-out 160ms var(--ease-in-out) both;
+}
+
+::view-transition-new(root) {
+  animation: page-in 320ms var(--ease-out) both;
+}
+
+/* Theme switches cross-fade the whole page instead of the page move. */
+:root.theme-transition::view-transition-old(root),
+:root.theme-transition::view-transition-new(root) {
+  animation-duration: 360ms;
+  animation-name: fade-in;
+  animation-timing-function: var(--ease-in-out);
+}
+
+:root.theme-transition::view-transition-old(root) {
+  animation-name: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -230,7 +337,17 @@ button {
     opacity: 1;
   }
 
-  .animate-on-scroll.visible {
+  .animate-on-scroll.visible,
+  .animate-on-scroll.visible [data-stagger] > * {
+    animation: none;
+  }
+
+  details::details-content {
+    transition: none;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
     animation: none;
   }
 }

@@ -38,7 +38,7 @@
         </p>
       </div>
 
-      <div class="plans">
+      <div class="plans" data-stagger>
         <article class="plan">
           <h3>Patterns</h3>
           <p class="price"><span class="amount">Free</span></p>
