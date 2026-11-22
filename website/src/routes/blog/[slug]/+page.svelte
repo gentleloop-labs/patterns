@@ -194,7 +194,7 @@
 
 <style>
   .post {
-    background: var(--surface);
+    background: var(--bg);
   }
 
   .crumb {
@@ -233,8 +233,9 @@
 
   .title {
     margin: 14px 0 0;
-    font-size: 44px;
-    line-height: 1.12;
+    font-size: clamp(34px, 5vw, 48px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
   }
 
   .byline {
@@ -287,29 +288,35 @@
     color: var(--accent);
   }
 
+  /* Long-form reading: Newsreader at its text optical size, a comfortable
+     measure (about 68 characters), and body text close to full contrast so
+     it does not strain over a long article. */
   .prose {
-    max-width: 720px;
+    max-width: 680px;
     margin: 0 auto;
-    font-size: 17px;
-    color: var(--text-secondary);
+    font-size: 20px;
+    line-height: 1.7;
+    color: color-mix(in srgb, var(--text) 88%, var(--bg));
+    font-optical-sizing: auto;
   }
 
   .prose :global(h2) {
-    margin: 48px 0 16px;
-    font-size: 28px;
+    margin: 52px 0 14px;
+    font-size: 30px;
     line-height: 1.2;
+    letter-spacing: -0.015em;
     color: var(--text);
   }
 
   .prose :global(h3) {
-    margin: 32px 0 12px;
-    font-size: 21px;
-    line-height: 1.3;
+    margin: 36px 0 10px;
+    font-size: 19px;
+    line-height: 1.35;
     color: var(--text);
   }
 
   .prose :global(p) {
-    margin: 0 0 18px;
+    margin: 0 0 22px;
   }
 
   .prose :global(strong) {
@@ -322,9 +329,17 @@
   }
 
   .prose :global(a) {
-    color: var(--accent);
+    color: var(--text);
     text-decoration: underline;
-    text-underline-offset: 3px;
+    text-decoration-color: color-mix(in srgb, var(--accent) 70%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.2s;
+  }
+
+  .prose :global(a:hover) {
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
   }
 
   .prose :global(ul),
@@ -343,8 +358,8 @@
   }
 
   .prose :global(.lead) {
-    font-size: 20px;
-    line-height: 1.6;
+    font-size: 23px;
+    line-height: 1.55;
     color: var(--text);
   }
 
@@ -380,7 +395,9 @@
   .prose :global(table) {
     width: 100%;
     border-collapse: collapse;
+    font-family: var(--font-body);
     font-size: 15px;
+    line-height: 1.5;
   }
 
   .prose :global(th),
@@ -473,8 +490,8 @@
     gap: 8px;
     padding: 11px 20px;
     border-radius: 12px;
-    background: var(--accent);
-    color: #000;
+    background: var(--accent-fill);
+    color: var(--on-accent);
     font-size: 15px;
     font-weight: 600;
     transition: opacity 0.2s;
@@ -535,16 +552,17 @@
   }
 
   @media (max-width: 599px) {
-    .title {
-      font-size: 32px;
+    .prose {
+      font-size: 18px;
+      line-height: 1.65;
     }
 
-    .prose {
-      font-size: 16px;
+    .prose :global(.lead) {
+      font-size: 20px;
     }
 
     .prose :global(h2) {
-      font-size: 24px;
+      font-size: 25px;
     }
   }
 </style>

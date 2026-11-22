@@ -253,16 +253,15 @@
     font-size: 14px;
     font-weight: 700;
     line-height: 1;
-    color: #000;
-    background: color-mix(in srgb, var(--accent) 92%, transparent);
+    color: var(--on-accent);
+    background: var(--accent-fill);
     transition: background 0.2s, box-shadow 0.2s;
   }
 
   .desktop-links .download-btn:hover,
   .mobile-menu .download-btn:hover {
-    color: #000;
-    background: var(--accent);
-    box-shadow: 0 4px 20px color-mix(in srgb, var(--accent) 26%, transparent);
+    color: var(--on-accent);
+    background: var(--accent-fill);
   }
 
   .dropdown {

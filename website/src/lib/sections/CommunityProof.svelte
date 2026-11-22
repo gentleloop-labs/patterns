@@ -63,11 +63,9 @@
     margin: 0 auto 88px;
     padding: 48px;
     overflow: hidden;
-    border: 1px solid color-mix(in srgb, var(--accent) 23%, var(--border));
-    border-radius: 24px;
-    background:
-      radial-gradient(circle at 95% 10%, color-mix(in srgb, var(--accent) 13%, transparent), transparent 38%),
-      var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
   }
 
   .founder-copy {

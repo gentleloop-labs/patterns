@@ -113,7 +113,7 @@ test.describe('store click events', () => {
   });
 
   test('the homepage hero opens one new tab, not two', async ({ page, context }, testInfo) => {
-    test.skip(testInfo.project.name !== 'desktop-chrome', 'hero hotspots are desktop-only');
+    test.skip(testInfo.project.name !== 'desktop-chrome', 'new-tab behaviour is checked on desktop');
     await page.goto('/');
 
     const popupPromise = context.waitForEvent('page');
@@ -128,13 +128,18 @@ test.describe('store click events', () => {
     expect(events.named('app_store_click')).toHaveLength(1);
   });
 
-  test('the hero image hotspots are not exposed on mobile', async ({ page }, testInfo) => {
+  test('the hero store buttons are full-size tap targets on mobile', async ({ page }, testInfo) => {
     test.skip(testInfo.project.name === 'desktop-chrome', 'mobile only');
     await page.goto('/');
 
-    // They would scale down to ~57x16px and sit under the sticky install
-    // banner, so they are hidden rather than shipped as a dead tap target.
-    await expect(page.locator('#hero').getByRole('link', { name: APP_STORE_LABEL })).toBeHidden();
+    // The hero used to overlay invisible hotspots on a promo image; it now has
+    // real store buttons, one per platform, that must stay comfortably tappable.
+    for (const name of [APP_STORE_LABEL, /Google Play/]) {
+      const button = page.locator('#hero').getByRole('link', { name });
+      await expect(button).toBeVisible();
+      const box = await button.boundingBox();
+      expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
+    }
   });
 
   test('the mobile install banner reaches the store in one navigation', async ({ page }, testInfo) => {

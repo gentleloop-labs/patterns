@@ -17,7 +17,7 @@ type Entry = {
  * Bump when any static marketing route below changes in a crawl-meaningful way
  * (copy, structure, or primary media). Blog lastmod comes from post frontmatter.
  */
-const STATIC_LASTMOD = '2026-10-21';
+const STATIC_LASTMOD = '2026-11-22';
 
 /**
  * Hand-maintained entries for the static marketing routes. Blog URLs are
@@ -32,12 +32,12 @@ const staticEntries: Entry[] = [
     priority: '1.0',
     images: [
       {
-        loc: `${links.site}assets/website-cta-1200.jpg`,
-        title: 'Patterns mobile app download CTA for OCD journaling and ERP practice'
+        loc: `${links.site}assets/screens/ios-today.webp`,
+        title: 'Patterns 2.0, the native iPhone app, showing the Today screen'
       },
       {
-        loc: `${links.site}assets/mockups/feature-graphic-v2.jpg`,
-        title: 'Patterns OCD tracker app for iPhone and Android'
+        loc: `${links.site}assets/screens/android-today.webp`,
+        title: 'Patterns for Android showing the Today screen'
       },
       {
         loc: `${links.site}assets/mockups/ybocs-app-ui-v1.png`,

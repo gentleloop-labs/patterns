@@ -1,9 +1,12 @@
 <script lang="ts">
   import ContentContainer from '$lib/components/ContentContainer.svelte';
   import AnimatedOnScroll from '$lib/components/AnimatedOnScroll.svelte';
-  import StoreLink from '$lib/components/StoreLink.svelte';
+  import StoreButton from '$lib/components/StoreButton.svelte';
   import BrandIcon from '$lib/components/BrandIcon.svelte';
-  import { siAppstore, siGoogleplay } from 'simple-icons';
+  import { site } from '$lib/data/site';
+  import { siApple, siAndroid } from 'simple-icons';
+
+  const { ios, android } = site.platforms;
 </script>
 
 <section
@@ -14,83 +17,73 @@
   <ContentContainer>
     <AnimatedOnScroll>
       <div class="header">
-        <span class="tag">iPhone &amp; Android</span>
+        <p class="eyebrow">Download</p>
         <h2 id="download-title" class="title serif">Take Patterns with you</h2>
         <p class="subtitle">
-          Track obsessions, delay compulsions, and journal in a calm private space on your phone.
-          No account, no cloud sync, and nothing you write leaves your device.
+          Free on iPhone and Android. No account, no cloud sync, and nothing you write leaves
+          your phone unless you export it.
         </p>
       </div>
 
-      <div class="mobile-card">
-        <div class="phone-wrap">
-          <img
-            src="/assets/mockups/mobile-hero.jpg"
-            alt="Patterns mobile app home screen showing ERP practice and quick actions"
-            width="443"
-            height="960"
-            loading="lazy"
-          />
-        </div>
-
-        <div class="mobile-copy">
-          <h3 class="serif">Available on iOS and Android</h3>
-          <p>
-            Capture a trigger when it happens, keep your ERP notes close, and review your patterns
-            wherever your day takes you.
-          </p>
-
-          <div class="store-badges" role="group" aria-label="Download Patterns for mobile">
-            <StoreLink store="app_store" placement="body" newTab class="store-badge">
-              <BrandIcon icon={siAppstore} size={24} color="#fff" />
-              <span>
-                <small>Download on the</small>
-                <strong>App Store</strong>
-              </span>
-            </StoreLink>
-            <StoreLink store="play_store" placement="body" newTab class="store-badge">
-              <BrandIcon icon={siGoogleplay} size={24} color="#fff" />
-              <span>
-                <small>Get it on</small>
-                <strong>Google Play</strong>
-              </span>
-            </StoreLink>
+      <div class="cards">
+        <article class="card" aria-labelledby="download-ios">
+          <div class="card-head">
+            <span class="platform-icon"><BrandIcon icon={siApple} size={20} color="currentColor" /></span>
+            <div>
+              <h3 id="download-ios">iPhone</h3>
+              <p class="version">Version {ios.version}</p>
+            </div>
           </div>
+          <p class="body">
+            Rebuilt as a native app in {ios.shortVersion}. Works with your iPhone settings: text
+            size, Bold Text, VoiceOver, Reduce Motion, and Dark Mode.
+          </p>
+          <StoreButton store="app_store" placement="body" />
+          <p class="requires">Requires {ios.requires}</p>
+        </article>
 
-          <p class="requirements">Requires iOS 14 or later · Android 8 or later</p>
-        </div>
+        <article class="card" aria-labelledby="download-android">
+          <div class="card-head">
+            <span class="platform-icon"><BrandIcon icon={siAndroid} size={20} color="currentColor" /></span>
+            <div>
+              <h3 id="download-android">Android</h3>
+              <p class="version">Version {android.version}</p>
+            </div>
+          </div>
+          <p class="body">
+            The same tools and the same privacy promise, with light and dark themes and six
+            languages.
+          </p>
+          <StoreButton store="play_store" placement="body" />
+          <p class="requires">Requires {android.requires}</p>
+        </article>
       </div>
+
+      <p class="footnote">
+        Your records stay on the phone you write them on. There is no account to sync them, so
+        use the backup file in Settings if you move to a new phone.
+      </p>
     </AnimatedOnScroll>
   </ContentContainer>
 </section>
 
 <style>
   .download {
-    background: var(--bg);
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    /* The Support line follows on the same background, so the gap is short. */
+    padding-bottom: 56px;
   }
 
   .header {
-    max-width: 680px;
-    margin: 0 auto 48px;
+    max-width: 640px;
+    margin: 0 auto;
     text-align: center;
   }
 
-  .tag {
-    display: inline-block;
-    padding: 5px 11px;
-    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--accent) 10%, transparent);
-    color: var(--accent);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
   .title {
-    margin: 18px 0 0;
-    font-size: 48px;
+    margin: 14px 0 0;
+    font-size: clamp(32px, 4.4vw, 46px);
     line-height: 1.1;
   }
 
@@ -101,133 +94,86 @@
     line-height: 1.65;
   }
 
-  .mobile-card {
-    max-width: 880px;
-    margin: 0 auto;
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    max-width: 860px;
+    margin: 44px auto 0;
+  }
+
+  /* Centred to match the section heading; the button and requirement line
+     sit at the bottom so both cards end level whatever the text length. */
+  .card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
-    padding: 32px 24px;
-    border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
-    border-radius: 24px;
-    background: var(--surface-alt);
-  }
-
-  .phone-wrap {
-    width: min(190px, 54vw);
-    overflow: hidden;
-    border: 1px solid color-mix(in srgb, #fff 8%, transparent);
-    border-radius: 24px;
-    box-shadow: 0 18px 40px color-mix(in srgb, #000 45%, transparent);
-    flex-shrink: 0;
-  }
-
-  .phone-wrap img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .mobile-copy {
-    max-width: 480px;
     text-align: center;
+    padding: 32px 28px 28px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--bg);
   }
 
-  .mobile-copy h3 {
+  .card-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .platform-icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--surface-alt);
+    color: var(--text);
+  }
+
+  h3 {
     margin: 0;
-    font-size: 34px;
-    line-height: 1.15;
+    font-size: 18px;
   }
 
-  .mobile-copy > p {
-    margin: 14px 0 0;
+  .version {
+    margin: 2px 0 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .body {
+    flex: 1;
+    max-width: 340px;
+    margin: 16px 0 24px;
     color: var(--text-secondary);
     font-size: 15px;
     line-height: 1.6;
   }
 
-  .store-badges {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 26px;
+  .requires {
+    margin: 12px 0 0;
+    color: var(--text-secondary);
+    font-size: 12px;
   }
 
-  .store-badges :global(.store-badge) {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 18px;
-    border: 1px solid color-mix(in srgb, #fff 18%, transparent);
-    border-radius: 12px;
-    background: #000;
-    color: #fff;
-    transition: border-color 0.2s, transform 0.2s;
+  .footnote {
+    max-width: 560px;
+    margin: 24px auto 0;
+    color: var(--text-secondary);
+    font-size: 13px;
+    text-align: center;
   }
 
-  .store-badges :global(.store-badge:hover) {
-    border-color: color-mix(in srgb, #fff 50%, transparent);
-    transform: translateY(-1px);
-  }
-
-  .store-badges :global(.store-badge:focus-visible) {
-    outline: 3px solid var(--accent);
-    outline-offset: 3px;
-  }
-
-  .store-badges :global(.store-badge span) {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-  }
-
-  .store-badges :global(.store-badge small) {
-    font-size: 10px;
-    line-height: 1;
-    opacity: 0.8;
-  }
-
-  .store-badges :global(.store-badge strong) {
-    font-size: 17px;
-    font-weight: 700;
-    line-height: 1.2;
-  }
-
-  .requirements {
-    margin-top: 16px !important;
-    font-size: 12px !important;
-  }
-
-  @media (min-width: 700px) {
-    .mobile-card {
-      flex-direction: row;
-      justify-content: center;
-      gap: 64px;
-      padding: 48px;
+  @media (max-width: 699px) {
+    .cards {
+      grid-template-columns: 1fr;
     }
 
-    .mobile-copy {
-      text-align: left;
-    }
-
-    .store-badges {
-      justify-content: flex-start;
-    }
-  }
-
-  @media (max-width: 599px) {
-    .title {
-      font-size: 34px;
-    }
-
-    .subtitle {
-      font-size: 15px;
-    }
-
-    .mobile-copy h3 {
-      font-size: 28px;
+    .card {
+      padding: 24px;
     }
   }
 </style>

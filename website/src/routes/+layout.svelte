@@ -52,7 +52,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="author" content="Aftaab Siddiqui" />
   <meta name="application-name" content="Patterns" />
-  <meta name="theme-color" content="#0A0A0A" />
+  <meta name="theme-color" content="#0F0F0E" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#FAF9F6" media="(prefers-color-scheme: light)" />
   <meta name="color-scheme" content="dark light" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />

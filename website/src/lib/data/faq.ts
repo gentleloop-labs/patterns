@@ -1,5 +1,18 @@
+import { site } from './site';
+
+export type FaqGroup = 'ocd' | 'using' | 'privacy' | 'pricing';
+
+/** Topic order and labels for the full FAQ page. */
+export const faqGroups: { id: FaqGroup; title: string; blurb: string }[] = [
+  { id: 'ocd', title: 'OCD, ERP and getting help', blurb: 'What OCD and ERP are, and where Patterns fits alongside care.' },
+  { id: 'using', title: 'Using Patterns', blurb: 'How the main tools work day to day.' },
+  { id: 'privacy', title: 'Privacy and your data', blurb: 'Where your records live and how to keep them safe.' },
+  { id: 'pricing', title: 'Platforms and pricing', blurb: 'Where to get Patterns and what it costs.' }
+];
+
 export type FaqItem = {
   question: string;
+  group: FaqGroup;
   /** Plain-text answer used for FAQPage JSON-LD (no markup). */
   answer: string;
   /** Featured in the shorter accordion on the homepage. */
@@ -9,76 +22,90 @@ export type FaqItem = {
 export const faqs: FaqItem[] = [
   {
     question: 'Is Patterns a replacement for therapy?',
+    group: 'ocd',
     homepage: true,
     answer:
       'No. Patterns is a self-reflection and tracking tool that supports your own journaling and ERP practice. It does not diagnose, treat, or cure OCD, and it is not a substitute for care from a qualified clinician. The most effective treatment for OCD is Exposure and Response Prevention (ERP), ideally guided by an OCD-trained therapist.'
   },
   {
     question: 'What is OCD?',
+    group: 'ocd',
     answer:
       'OCD (obsessive-compulsive disorder) is a loop between obsessions - unwanted, intrusive thoughts, images, or urges that cause distress - and compulsions, the repeated actions or mental rituals people do to relieve that distress. The relief is brief, which reinforces the cycle and makes the urge return stronger.'
   },
   {
     question: 'What is ERP?',
+    group: 'ocd',
     answer:
       'ERP stands for Exposure and Response Prevention. It involves gradually facing the thoughts and situations that trigger obsessions (exposure) while choosing not to perform the usual compulsion (response prevention). Over time this teaches the brain that anxiety fades on its own, without the ritual.'
   },
   {
     question: 'How does the Compulsion Delay Tool work?',
+    group: 'using',
     answer:
       'When you feel an urge, you start a delay instead of acting on it immediately. Patterns helps you wait out the wave for a set period and record how it went. Delaying a compulsion is a form of response prevention - it gives the urge time to peak and fall and shows you that the discomfort is tolerable.'
   },
   {
     question: 'What is the 0–10 distress scale?',
+    group: 'using',
     answer:
       'Patterns lets you rate how distressed you feel from 0 to 10. Clinicians call this SUDS (Subjective Units of Distress). Tracking it over time lets you see anxiety actually rise and fall, which is central to ERP and makes your progress visible.'
   },
   {
     question: 'Is my data private?',
+    group: 'privacy',
     homepage: true,
     answer:
       'Yes. Your journal entries, intrusive thoughts, compulsions, exposures, notes, ratings, and other personal OCD data stay on your device. Patterns has no accounts, cloud sync, ads, or third-party analytics SDK. Optional anonymous product analytics are off by default and send only a random installation ID, platform, app version, and whitelisted feature-use event names and times. Personal OCD content is never included, and uploaded events expire within 90 days. The app is open source, so anyone can verify this.'
   },
   {
     question: 'Which platforms is Patterns available on?',
+    group: 'pricing',
     answer:
-      'Patterns is a mobile app available for iPhone and Android. You can download it from the App Store or Google Play.'
+      `Patterns is available for iPhone and Android, as two separate apps with the same tools and the same privacy promise. On iPhone it is a native app, currently version ${site.platforms.ios.version}, and needs ${site.platforms.ios.requires}. On Android it is currently version ${site.platforms.android.version} and needs ${site.platforms.android.requires}. The two have their own version numbers, so they will not always match. Download it from the App Store or Google Play.`
   },
   {
     question: 'How much does Patterns cost?',
+    group: 'pricing',
     homepage: true,
     answer:
       'Patterns is free to download, and the journal, the OCD log, the Y-BOCS self-check, guided ERP, the compulsion delay tool, and the emergency toolkit are all free with no time limit. Patterns Pro is an optional one-time unlock for the deeper ERP tools: exposure ladders, exposure materials, urge surfing, response prevention, structured programs, and the extra insights. Pro is $19.99 on iPhone and Android, down from $39.99. Prices vary by country, and your app store always shows yours. It is one payment, never a subscription and nothing to renew. If you already own Pro, nothing changes and you are never charged again. Patterns is open source, and optional tips and GitHub Sponsors are there if you would like to contribute beyond that.'
   },
   {
     question: 'Can I back up or move my data?',
+    group: 'privacy',
     answer:
       'Yes. You can manually export all of your entries to a JSON backup file and import it again later or on another device. Importing replaces the current local journal and OCD entries in the app.'
   },
   {
     question: 'Can I lock the app?',
+    group: 'privacy',
     answer:
       'Yes. On mobile you can enable an optional app lock that uses Face ID, Touch ID, or your device passcode, so your reflections stay private even if someone else has your phone.'
   },
   {
     question: 'Does Patterns work offline?',
+    group: 'privacy',
     answer:
       'Completely. Patterns is local-first and needs no internet connection to journal, track, or review your patterns. Your journal entries and OCD records are not sent to a server. Optional analytics uploads can wait safely until a connection returns and never block the app.'
   },
   {
     question: 'I think I might have OCD. What should I do?',
+    group: 'ocd',
     homepage: true,
     answer:
       'Only a qualified mental-health professional can assess and diagnose OCD. If intrusive thoughts and compulsions are affecting your life, consider reaching out to a clinician or an OCD specialist. Reaching out for help is a sign of strength. Patterns can help you track what you are experiencing so you can share clear notes with them.'
   },
   {
     question: 'What is the OCD severity self-check?',
+    group: 'using',
     homepage: true,
     answer:
       'Patterns includes a private, plain-language self-check informed by the severity dimensions used in the Yale-Brown Obsessive Compulsive Scale (Y-BOCS). It can help you record how obsessions and compulsions affect your week and notice changes across repeated check-ins. It is not a diagnosis, and a qualified professional should interpret symptoms in their full context.'
   },
   {
     question: 'What if I need urgent help?',
+    group: 'ocd',
     homepage: true,
     answer:
       'Patterns is not a crisis service. If you may be in immediate danger or unable to stay safe, contact local emergency services or a crisis service in your country now. Find A Helpline can help you locate verified services where you live.'

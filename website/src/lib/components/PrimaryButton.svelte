@@ -35,16 +35,15 @@
     border-radius: 12px;
     font-size: 14px;
     font-weight: 600;
-    color: #000;
-    background: color-mix(in srgb, var(--accent) 90%, transparent);
+    color: var(--on-accent);
+    background: var(--accent-fill);
     transition:
       background 0.2s,
       box-shadow 0.2s;
   }
 
   .primary-btn:hover {
-    background: var(--accent);
-    box-shadow: 0 4px 20px color-mix(in srgb, var(--accent) 30%, transparent);
+    background: var(--accent-fill);
   }
 
   .full-width {

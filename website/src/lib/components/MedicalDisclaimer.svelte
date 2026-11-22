@@ -20,9 +20,9 @@
     gap: 12px;
     align-items: flex-start;
     padding: 18px 20px;
-    border-radius: 14px;
-    border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
-    background: color-mix(in srgb, var(--accent) 7%, transparent);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--surface);
   }
 
   .disclaimer :global(svg) {

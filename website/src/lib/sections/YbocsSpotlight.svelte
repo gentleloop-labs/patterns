@@ -165,8 +165,8 @@
     gap: 7px;
     padding: 13px 18px;
     border-radius: 12px;
-    color: #000;
-    background: var(--accent);
+    color: var(--on-accent);
+    background: var(--accent-fill);
   }
 
   .source {
@@ -192,8 +192,7 @@
     position: absolute;
     inset: 10% -22%;
     border-radius: 50%;
-    background: radial-gradient(circle, color-mix(in srgb, var(--accent) 18%, transparent), transparent 68%);
-    filter: blur(18px);
+    display: none;
   }
 
   .phone {
@@ -201,11 +200,10 @@
     width: min(330px, 82vw);
     padding: 10px;
     overflow: hidden;
-    border: 1px solid color-mix(in srgb, #fff 14%, transparent);
+    border: 1px solid color-mix(in srgb, var(--text) 16%, transparent);
     border-radius: 42px;
-    background: #050505;
-    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.55);
-    transform: rotate(2.2deg);
+    background: #151515;
+    box-shadow: var(--shadow-device);
   }
 
   .phone img {

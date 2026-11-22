@@ -2,10 +2,16 @@
   import ContentContainer from '$lib/components/ContentContainer.svelte';
   import AnimatedOnScroll from '$lib/components/AnimatedOnScroll.svelte';
   import { freeTools, proTools } from '$lib/data/toolkit';
-  import { ArrowRight, Check, Lock } from 'lucide-svelte';
+  import { ArrowRight } from 'lucide-svelte';
 
-  // Show a representative slice on the homepage; the full set lives on /toolkit.
+  // A representative slice on the homepage; the full set lives on /toolkit.
+  // Pricing itself is covered by the Pricing section further down.
   const proPreview = proTools.slice(0, 6);
+
+  const tiers = [
+    { id: 'free', title: 'Free', note: 'Included for everyone', tools: freeTools },
+    { id: 'pro', title: 'Patterns Pro', note: 'One-time unlock', tools: proPreview }
+  ];
 </script>
 
 <section
@@ -16,79 +22,46 @@
   <ContentContainer>
     <AnimatedOnScroll>
       <div class="header">
-        <span class="eyebrow">Recovery toolkit</span>
-        <h2 id="toolkit-title" class="title serif">
-          Beyond tracking:<br />tools to actually practise recovery.
-        </h2>
+        <p class="eyebrow">Recovery toolkit</p>
+        <h2 id="toolkit-title" class="title serif">Tools to practise, not just track.</h2>
         <p class="subtitle">
-          Patterns now includes a full recovery toolkit built around ERP - the same moves
-          a therapist would guide you through, turned into a calm daily habit you can keep
-          on your own terms. Start free, and unlock the rest when you are ready.
+          The moves a therapist would guide you through in ERP, made into short exercises you
+          can do on your own terms. Start free, and unlock the rest when you are ready.
         </p>
       </div>
     </AnimatedOnScroll>
 
     <AnimatedOnScroll delay={80}>
-      <div class="tier">
-        <div class="tier-head">
-          <h3>Free tools</h3>
-          <span class="pill free">Included</span>
-        </div>
-        <div class="grid">
-          {#each freeTools as tool}
-            {@const Icon = tool.icon}
-            <article class="card">
-              <div class="icon-wrap">
-                <Icon size={22} color="var(--accent)" strokeWidth={1.75} />
-              </div>
-              <h4>{tool.title}</h4>
-              <p>{tool.description}</p>
-            </article>
-          {/each}
-        </div>
-      </div>
-    </AnimatedOnScroll>
-
-    <AnimatedOnScroll delay={120}>
-      <div class="tier">
-        <div class="tier-head">
-          <h3>Patterns Pro tools</h3>
-          <span class="pill pro"><Lock size={12} /> One-time unlock</span>
-        </div>
-        <div class="grid">
-          {#each proPreview as tool}
-            {@const Icon = tool.icon}
-            <article class="card pro-card">
-              <div class="icon-wrap">
-                <Icon size={22} color="var(--accent)" strokeWidth={1.75} />
-              </div>
-              <h4>{tool.title}</h4>
-              <p>{tool.description}</p>
-            </article>
-          {/each}
-        </div>
-      </div>
-    </AnimatedOnScroll>
-
-    <AnimatedOnScroll delay={150}>
-      <div class="pro-banner">
-        <div class="pro-copy">
-          <h3>Patterns Pro</h3>
-          <p>
-            Move beyond tracking and practise recovery. A one-time unlock, yours for good -
-            no subscription, no account, and the same privacy promise as everything else.
-          </p>
-          <ul class="pro-points">
-            <li><Check size={16} /> Exposure hierarchy builder &amp; exposure materials</li>
-            <li><Check size={16} /> Urge surfing &amp; response-prevention trackers</li>
-            <li><Check size={16} /> Structured ERP programs &amp; uncertainty training</li>
-            <li><Check size={16} /> Action planner, behavioral experiments &amp; recovery metrics</li>
-          </ul>
-        </div>
-        <div class="pro-actions">
-          <a href="/toolkit" class="link-pill">See every tool <ArrowRight size={16} /></a>
-          <a href="#download" class="link-pill ghost">Download Patterns <ArrowRight size={16} /></a>
-        </div>
+      <div class="tiers">
+        {#each tiers as tier (tier.id)}
+          <section class="tier {tier.id}" aria-labelledby="tier-{tier.id}">
+            <header class="tier-head">
+              <h3 id="tier-{tier.id}">{tier.title}</h3>
+              <span class="tier-note">{tier.note}</span>
+            </header>
+            <ul>
+              {#each tier.tools as tool (tool.title)}
+                {@const Icon = tool.icon}
+                <li>
+                  <span class="icon" aria-hidden="true">
+                    <Icon size={18} strokeWidth={1.75} />
+                  </span>
+                  <div>
+                    <h4>{tool.title}</h4>
+                    <p>{tool.description}</p>
+                  </div>
+                </li>
+              {/each}
+            </ul>
+            {#if tier.id === 'pro'}
+              <a class="tier-foot tier-link" href="/toolkit">
+                See every tool <ArrowRight size={15} strokeWidth={2} aria-hidden="true" />
+              </a>
+            {:else}
+              <p class="tier-foot">Free with no time limit. No account needed.</p>
+            {/if}
+          </section>
+        {/each}
       </div>
     </AnimatedOnScroll>
   </ContentContainer>
@@ -100,234 +73,139 @@
   }
 
   .header {
+    max-width: 660px;
+    margin: 0 auto;
     text-align: center;
-    max-width: 680px;
-    margin: 0 auto 48px;
-  }
-
-  .eyebrow {
-    display: inline-block;
-    padding: 6px 14px;
-    border-radius: 100px;
-    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--accent);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
   }
 
   .title {
-    margin: 20px 0 0;
-    font-size: 44px;
-    line-height: 1.12;
+    margin: 14px 0 0;
+    font-size: clamp(32px, 4.4vw, 46px);
+    line-height: 1.1;
   }
 
   .subtitle {
     margin: 16px auto 0;
-    max-width: 620px;
-    font-size: 17px;
-    line-height: 1.6;
     color: var(--text-secondary);
+    font-size: 17px;
+    line-height: 1.65;
+  }
+
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    max-width: 1040px;
+    margin: 52px auto 0;
   }
 
   .tier {
-    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 28px 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+
+  .tier.pro {
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
   }
 
   .tier-head {
     display: flex;
-    align-items: center;
+    align-items: baseline;
+    justify-content: space-between;
     gap: 12px;
-    margin-bottom: 20px;
+    padding: 20px 0 16px;
+    border-bottom: 1px solid var(--border);
   }
 
   .tier-head h3 {
     margin: 0;
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 17px;
   }
 
-  .pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 4px 11px;
-    border-radius: 100px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-  }
-
-  .pill.free {
+  .tier-note {
     color: var(--text-secondary);
-    border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+    font-size: 13px;
   }
 
-  .pill.pro {
+  .pro .tier-note {
     color: var(--accent);
-    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    font-weight: 600;
   }
 
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .card {
-    padding: 24px;
-    border-radius: 16px;
-    border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
-    background: var(--surface);
-    height: 100%;
-    transition: border-color 0.25s;
-  }
-
-  .card:hover {
-    border-color: color-mix(in srgb, var(--accent) 20%, transparent);
-  }
-
-  .pro-card {
-    background: color-mix(in srgb, var(--surface) 70%, var(--accent) 4%);
-  }
-
-  .icon-wrap {
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    background: color-mix(in srgb, var(--accent) 10%, transparent);
-    margin-bottom: 16px;
-  }
-
-  .card h4 {
+  ul {
     margin: 0;
-    font-size: 16px;
-    font-weight: 700;
-  }
-
-  .card p {
-    margin: 8px 0 0;
-    font-size: 14px;
-    line-height: 1.55;
-    color: var(--text-secondary);
-  }
-
-  .pro-banner {
-    margin-top: 48px;
-    padding: 36px;
-    border-radius: 20px;
-    border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
-    background: color-mix(in srgb, var(--accent) 6%, transparent);
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-  }
-
-  .pro-copy h3 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 700;
-  }
-
-  .pro-copy p {
-    margin: 12px 0 0;
-    max-width: 620px;
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--text-secondary);
-  }
-
-  .pro-points {
-    margin: 20px 0 0;
     padding: 0;
     list-style: none;
+  }
+
+  li {
     display: grid;
-    gap: 10px;
+    grid-template-columns: 36px 1fr;
+    gap: 14px;
+    padding: 18px 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
   }
 
-  .pro-points li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 14px;
-    line-height: 1.5;
-    color: var(--text);
+  li:last-child {
+    border-bottom: 0;
   }
 
-  .pro-points :global(svg) {
-    flex-shrink: 0;
-    margin-top: 2px;
+  .icon {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--accent-soft);
     color: var(--accent);
   }
 
-  .pro-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .link-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 22px;
-    border-radius: 100px;
+  h4 {
+    margin: 0;
     font-size: 15px;
-    font-weight: 600;
-    color: #000;
-    background: var(--accent);
-    transition: opacity 0.2s, border-color 0.2s, color 0.2s;
+    line-height: 1.35;
   }
 
-  .link-pill:hover {
-    opacity: 0.9;
+  li p {
+    margin: 4px 0 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.55;
   }
 
-  .link-pill.ghost {
-    color: var(--text);
-    background: transparent;
-    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  /* Both panels share a footer line pinned to the bottom, so they end level. */
+  .tier-foot {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: auto 0 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 14px;
   }
 
-  .link-pill.ghost:hover {
-    border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  .tier-link {
     color: var(--accent);
-    opacity: 1;
+    font-weight: 600;
   }
 
-  @media (min-width: 600px) {
-    .grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  .tier-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
-  @media (min-width: 1024px) {
-    .grid {
-      grid-template-columns: repeat(3, 1fr);
+  @media (max-width: 799px) {
+    .tiers {
+      grid-template-columns: 1fr;
     }
 
-    .pro-banner {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .pro-actions {
-      flex-direction: column;
-    }
-  }
-
-  @media (max-width: 599px) {
-    .title {
-      font-size: 30px;
-    }
-
-    .subtitle {
-      font-size: 15px;
+    .tier {
+      padding: 4px 20px 20px;
     }
   }
 </style>

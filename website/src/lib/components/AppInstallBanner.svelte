@@ -104,8 +104,8 @@
     border-radius: 999px;
     font-size: 14px;
     font-weight: 700;
-    color: #000;
-    background: var(--accent);
+    color: var(--on-accent);
+    background: var(--accent-fill);
   }
 
   .install-banner :global(.install-btn:focus-visible) {

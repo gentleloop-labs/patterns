@@ -4,6 +4,7 @@
   import AnimatedOnScroll from '$lib/components/AnimatedOnScroll.svelte';
   import MedicalDisclaimer from '$lib/components/MedicalDisclaimer.svelte';
   import { links } from '$lib/data/links';
+  import { site } from '$lib/data/site';
   import {
     Map,
     CheckCircle2,
@@ -30,11 +31,69 @@
     Smartphone,
     BookOpenText,
     PersonStanding,
-    LineChart
+    LineChart,
+    Hand,
+    Image as ImageIcon,
+    Coffee,
+    Columns2
   } from 'lucide-svelte';
 
-  // Shipped in the current release (1.10) - kept expanded so the newest work reads first.
-  const releasedRecent = [
+  type Platform = 'iPhone' | 'Android';
+  type Item = {
+    icon: typeof Map;
+    title: string;
+    body: string;
+    /** Omitted when an item applies to both apps. */
+    platform?: Platform;
+  };
+
+  // iPhone and Android now ship on separate version lines: the iPhone app was
+  // rebuilt natively and is on 2.x, Android stays on 1.x. Items that only apply
+  // to one app say so, so nobody on the other phone goes looking for them.
+
+  // Shipped in the current iPhone release (2.0) - kept expanded so the newest
+  // work reads first.
+  const releasedRecent: Item[] = [
+    {
+      icon: Smartphone,
+      title: 'A native iPhone app',
+      platform: 'iPhone',
+      body: 'Patterns 2.0 is rebuilt from the ground up in Swift, Apple’s own language. It picks up everything you already had in place when it updates, so there is nothing to move and nothing to sign in to. Screens open faster and scrolling is smoother.'
+    },
+    {
+      icon: Hand,
+      title: 'Feels like the rest of your iPhone',
+      platform: 'iPhone',
+      body: 'Swipe and press-and-hold actions throughout, with the controls and layouts you already know from Apple’s own apps.'
+    },
+    {
+      icon: Accessibility,
+      title: 'Follows your iPhone settings',
+      platform: 'iPhone',
+      body: 'Text size, Bold Text, VoiceOver, Reduce Motion, and Dark Mode all carry through to Patterns, without a separate setting to find.'
+    },
+    {
+      icon: ImageIcon,
+      title: 'Exposure images from Photos',
+      platform: 'iPhone',
+      body: 'Pick images for your exposure materials straight from Photos. Patterns sees only the ones you choose, not the rest of your library.'
+    },
+    {
+      icon: PenLine,
+      title: 'Journal entries save as you write',
+      platform: 'iPhone',
+      body: 'No save button to remember and nothing lost if you are interrupted. What you type is kept as you type it.'
+    }
+  ];
+
+  // Everything shipped before the current release, newest first. Collapsed by
+  // default so the Released column does not tower over the other two.
+  const releasedEarlier: Item[] = [
+    {
+      icon: Coffee,
+      title: 'No tip jar inside the app',
+      body: 'The optional tip jar is gone from Settings on both phones, so there is one less thing in the app asking for anything.'
+    },
     {
       icon: Leaf,
       title: 'Calm Insights',
@@ -48,18 +107,13 @@
     {
       icon: Languages,
       title: 'Patterns in six languages',
-      body: 'The app now comes in English, Brazilian Portuguese, German, Japanese, Spanish, and French. Pick one in Settings. Your entries stay exactly as you wrote them, and the choice stays on your phone.'
+      body: 'The app comes in English, Brazilian Portuguese, German, Japanese, Spanish, and French. Pick one in Settings. Your entries stay exactly as you wrote them, and the choice stays on your phone.'
     },
     {
       icon: Accessibility,
-      title: 'Easier with VoiceOver and larger text',
+      title: 'Easier with screen readers and larger text',
       body: 'Clearer screen reader labels, charts that come with a spoken description, layouts that hold together at the largest text sizes, and less movement when Reduce Motion is on. Colour is no longer the only way a screen tells you something.'
-    }
-  ];
-
-  // Everything shipped before the current release, newest first. Collapsed by
-  // default so the Released column does not tower over the other two.
-  const releasedEarlier = [
+    },
     {
       icon: Sun,
       title: 'A light theme',
@@ -152,24 +206,25 @@
     }
   ];
 
-  const comingSoon = [
+  const comingSoon: Item[] = [
+    {
+      icon: BookOpenText,
+      title: 'More than one journal entry a day',
+      body: 'Right now each day holds one entry. Next, you will be able to write as many as you need, so a hard morning and a calmer evening can sit side by side. This comes to iPhone and Android together.'
+    },
     {
       icon: Accessibility,
       title: 'Accessibility, checked on real phones',
-      body: 'The 1.10 changes were tested at every text size before release. Now I am going through every common task on a real iPhone with VoiceOver and a real Android phone with TalkBack, and fixing whatever still gets in the way.'
+      body: 'The native iPhone app was built around your accessibility settings and checked at the largest text sizes before release. Now I am going through every common task with VoiceOver on a real iPhone and TalkBack on a real Android phone, and fixing whatever still gets in the way.'
     }
   ];
 
-  const exploring = [
+  const exploring: Item[] = [
     {
-      icon: Smartphone,
-      title: 'A native iPhone app',
-      body: 'Rebuilding the iPhone version in Swift, Apple’s own language, so it feels completely at home on iOS and can use more of what the system offers.'
-    },
-    {
-      icon: BookOpenText,
+      icon: Columns2,
       title: 'Room to spread out on iPhone Duo',
-      body: 'Apple’s foldable has a much bigger screen when it is open. Rather than stretching the phone layout, I would like Patterns to use that space properly, like keeping your notes beside the exercise you are doing.'
+      platform: 'iPhone',
+      body: 'Apple’s foldable has a much bigger screen when it is open. Now that the iPhone app is native, I would like Patterns to use that space properly, like keeping your notes beside the exercise you are doing.'
     },
     {
       icon: PersonStanding,
@@ -187,7 +242,7 @@
     {
       id: 'released',
       title: 'In the app now',
-      caption: 'New in 1.10 at the top. All of it is in the app today',
+      caption: 'New in iPhone 2.0 at the top. All of it is in the app today',
       icon: CheckCircle2,
       items: releasedRecent,
       more: releasedEarlier,
@@ -195,8 +250,8 @@
     },
     {
       id: 'coming',
-      title: 'Almost ready',
-      caption: 'Being worked on now, for the next update',
+      title: 'Up next',
+      caption: 'Being worked on now, for the next updates',
       icon: Rocket,
       items: comingSoon
     },
@@ -215,7 +270,7 @@
       '@type': 'WebPage',
       name: 'Patterns roadmap - shipped, coming soon, and what\u2019s next',
       description:
-        'The Patterns roadmap: what the OCD and ERP app can do today, including Calm Insights, six languages, Y-BOCS scores over time, and ERP tracks for specific OCD themes, what is being worked on for the next update, and the ideas being considered after that.',
+        'The Patterns roadmap: what the OCD and ERP app can do today, including the native iPhone app in 2.0, Calm Insights, six languages, Y-BOCS scores over time, and ERP tracks for specific OCD themes, what is being worked on next, and the ideas being considered after that.',
       url: `${links.site}roadmap`,
       isPartOf: { '@type': 'WebSite', name: 'Patterns', url: links.site }
     },
@@ -232,7 +287,7 @@
 
 <Seo
   title="Patterns Roadmap - Shipped, Coming Soon & What's Next"
-  description="The Patterns roadmap: what this OCD and ERP app can do today (Calm Insights, six languages, ERP tools, Y-BOCS scores over time, private tracking), what is being worked on next, and the ideas being considered after that."
+  description="The Patterns roadmap: what this OCD and ERP app can do today (a native iPhone app in 2.0, Calm Insights, six languages, ERP tools, private tracking), what is being worked on next, and the ideas being considered after that."
   path="roadmap"
   keywords="Patterns roadmap, OCD app roadmap, ERP app updates, Patterns Pro, OCD tracker features, coming soon"
   {jsonLd}
@@ -242,9 +297,6 @@
   <ContentContainer>
     <AnimatedOnScroll>
       <div class="head">
-        <div class="icon-tile">
-          <Map size={34} color="var(--accent)" strokeWidth={1.75} />
-        </div>
         <p class="eyebrow">Roadmap</p>
         <h1 class="title serif">Where Patterns has been, and where it is going.</h1>
         <p class="intro">
@@ -252,6 +304,11 @@
           of where things are: what you can use today, what is nearly ready, and what I am
           still turning over. If something here matters to you, or is missing, tell me and it
           will shape what comes next.
+        </p>
+        <p class="versions">
+          iPhone is on version {site.platforms.ios.version} and Android on
+          {site.platforms.android.version}. The two apps now have their own version numbers,
+          and anything that applies to only one of them is marked.
         </p>
       </div>
     </AnimatedOnScroll>
@@ -282,6 +339,7 @@
                     </div>
                     <h3>{item.title}</h3>
                   </div>
+                  {#if item.platform}<p class="platform-tag">{item.platform} only</p>{/if}
                   <p>{item.body}</p>
                 </article>
               {/each}
@@ -303,6 +361,7 @@
                           </div>
                           <h3>{item.title}</h3>
                         </div>
+                        {#if item.platform}<p class="platform-tag">{item.platform} only</p>{/if}
                         <p>{item.body}</p>
                       </article>
                     {/each}
@@ -382,6 +441,25 @@
     color: var(--text-secondary);
   }
 
+  .card .platform-tag {
+    display: inline-block;
+    margin: 10px 0 0;
+    padding: 2px 8px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-secondary);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .versions {
+    margin: 14px auto 0;
+    max-width: 600px;
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+
   .board {
     display: grid;
     grid-template-columns: 1fr;
@@ -415,6 +493,9 @@
 
   .column-title-row h2 {
     margin: 0;
+    font-family: var(--font-body);
+    font-weight: 600;
+    letter-spacing: -0.01em;
     font-size: 17px;
     line-height: 1.2;
   }
@@ -432,7 +513,7 @@
   }
 
   .coming .dot {
-    background: var(--accent);
+    background: var(--accent-fill);
     box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 55%, transparent);
   }
 
@@ -605,8 +686,8 @@
     margin: 0 auto 56px;
     padding: 36px;
     border-radius: 20px;
-    border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
-    background: color-mix(in srgb, var(--accent) 6%, transparent);
+    border: 1px solid var(--border);
+    background: var(--bg);
   }
 
   .cta-banner h2 {
@@ -637,8 +718,8 @@
     border-radius: 100px;
     font-size: 15px;
     font-weight: 600;
-    color: #000;
-    background: var(--accent);
+    color: var(--on-accent);
+    background: var(--accent-fill);
     transition: opacity 0.2s, border-color 0.2s, color 0.2s;
   }
 

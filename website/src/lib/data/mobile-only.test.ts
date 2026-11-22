@@ -46,8 +46,9 @@ describe('mobile-only website positioning', () => {
 
   it('states the supported mobile platforms in the download experience', () => {
     const download = publicCopy.find((file) => file.path.endsWith('Download.svelte'))?.body ?? '';
-    expect(download).toContain('Available on iOS and Android');
-    expect(download).toContain('App Store');
-    expect(download).toContain('Google Play');
+    expect(download).toContain('Free on iPhone and Android');
+    // Store buttons render "App Store" / "Google Play" through StoreButton.
+    expect(download).toContain('store="app_store"');
+    expect(download).toContain('store="play_store"');
   });
 });

@@ -1,302 +1,283 @@
 <script lang="ts">
   import ContentContainer from '$lib/components/ContentContainer.svelte';
-  import PrimaryButton from '$lib/components/PrimaryButton.svelte';
-  import SecondaryButton from '$lib/components/SecondaryButton.svelte';
-  import StoreLink from '$lib/components/StoreLink.svelte';
-  import { links } from '$lib/data/links';
+  import DeviceFrame from '$lib/components/DeviceFrame.svelte';
+  import StoreButton from '$lib/components/StoreButton.svelte';
+  import BrandIcon from '$lib/components/BrandIcon.svelte';
   import { site } from '$lib/data/site';
-  import { logEvent, logGitHubClick } from '$lib/utils/analytics';
-  import { ArrowRight, Download, Github } from 'lucide-svelte';
+  import { logEvent } from '$lib/utils/analytics';
+  import { isAndroid } from '$lib/utils/platform';
+  import { ArrowRight } from 'lucide-svelte';
+  import { siApple, siAndroid } from 'simple-icons';
 
-  let { onDownload }: { onDownload: () => void } = $props();
+  const { ios, android } = site.platforms;
 
-  let isMobile = $state(false);
-
+  // Android visitors see their own phone first; everyone else sees the order
+  // below. Decided after hydration so the prerendered page stays identical.
+  let androidFirst = $state(false);
   $effect(() => {
-    const mq = window.matchMedia('(max-width: 599px)');
-    const update = () => (isMobile = mq.matches);
-    update();
-    mq.addEventListener('change', update);
-    return () => mq.removeEventListener('change', update);
+    androidFirst = isAndroid();
   });
-
-  function handleDownload() {
-    logEvent('hero_download_click');
-    onDownload();
-  }
 
   function handleRelease() {
     logEvent('hero_release_click', { version: site.latestRelease.version });
   }
-
-  function handleGitHub() {
-    logGitHubClick();
-    window.open(links.github, '_blank', 'noopener');
-  }
-
-  const heroImageSrc = '/assets/website-cta-1200.jpg';
-  const heroImageSrcSet =
-    '/assets/website-cta-480.jpg 480w, /assets/website-cta-800.jpg 800w, /assets/website-cta-1200.jpg 1200w';
-  const heroImageSizes = '(max-width: 599px) 100vw, (max-width: 1023px) 980px, 1160px';
 </script>
 
 <section id="hero" class="hero section-scroll-margin" aria-labelledby="hero-title">
-  <ContentContainer padding={isMobile ? '56px 0 56px' : '92px 0 96px'}>
-    <div class="hero-content">
-      <div class="hook">
-        <a class="badge" href={site.latestRelease.href} onclick={handleRelease}>
-          <span class="dot"></span>
-          <span><strong>New in {site.latestRelease.version}:</strong> {site.latestRelease.summary}</span>
-          <ArrowRight size={14} strokeWidth={2.25} />
-        </a>
+  <ContentContainer>
+    <div class="intro">
+      <a class="release" href={site.latestRelease.href} onclick={handleRelease}>
+        <span class="release-label">New</span>
+        <span>{site.latestRelease.summary}</span>
+        <ArrowRight size={14} strokeWidth={2} aria-hidden="true" />
+      </a>
 
-        <h1 id="hero-title" class="headline serif">
-          See the loop.<br />Choose your next response.
-        </h1>
+      <h1 id="hero-title" class="headline serif">
+        See the loop.<br />Choose your next response.
+      </h1>
 
-        <p class="subhead">
-          Patterns is a private OCD app that helps you journal, track OCD events, practice
-          CBT-based ERP, and spot trends - without accounts, cloud sync, or anyone else
-          reading your notes.
-        </p>
+      <p class="subhead">
+        Patterns is a private OCD app for journaling, tracking OCD moments, and practising
+        CBT-based ERP. No account, no cloud sync, and nobody else reading your notes.
+      </p>
 
-        <div class="cta-row">
-          <PrimaryButton
-            label="Download for Free"
-            icon={Download}
-            onclick={handleDownload}
-            fullWidth={isMobile}
-          />
-          <SecondaryButton
-            label="View on GitHub"
-            icon={Github}
-            onclick={handleGitHub}
-            fullWidth={isMobile}
+      <ul class="facts" aria-label="At a glance">
+        <li>Free to download</li>
+        <li>Stays on your phone</li>
+        <li>Optional one-time Pro</li>
+      </ul>
+    </div>
+
+    <div class="platforms" class:android-first={androidFirst}>
+      <article class="platform ios" aria-labelledby="hero-ios">
+        <div class="device-wrap">
+          <DeviceFrame
+            platform="ios"
+            src="/assets/screens/ios-today.webp"
+            alt="Patterns {ios.shortVersion} on iPhone: the Today screen with recent activity and a suggested next practice"
+            loading="eager"
+            fetchpriority="high"
           />
         </div>
-      </div>
+        <div class="meta">
+          <h2 id="hero-ios" class="platform-name">
+            <BrandIcon icon={siApple} size={17} color="currentColor" />
+            Patterns for iPhone
+          </h2>
+          <p class="version">Version {ios.shortVersion} · Native app</p>
+          <StoreButton store="app_store" placement="hero" />
+          <p class="requires">Requires {ios.requires}</p>
+        </div>
+      </article>
 
-      <figure class="app-preview">
-        <img
-          class="mobile-preview"
-          src={heroImageSrc}
-          srcset={heroImageSrcSet}
-          sizes={heroImageSizes}
-          alt="Patterns app for private journaling, OCD event tracking, ERP practice, insights, and reminders"
-          width="1536"
-          height="1024"
-          fetchpriority="high"
-          decoding="async"
-        />
-        <StoreLink
-          store="app_store"
-          placement="hero"
-          newTab
-          class="store-link app-store-link"
-        />
-        <StoreLink
-          store="play_store"
-          placement="hero"
-          newTab
-          class="store-link play-store-link"
-        />
-        <figcaption class="sr-only">
-          Patterns app CTA with App Store and Google Play download badges
-        </figcaption>
-      </figure>
+      <article class="platform android" aria-labelledby="hero-android">
+        <div class="device-wrap">
+          <DeviceFrame
+            platform="android"
+            src="/assets/screens/android-today.webp"
+            alt="Patterns {android.shortVersion} on Android: the Today screen with recent activity and a suggested next practice"
+            loading="eager"
+          />
+        </div>
+        <div class="meta">
+          <h2 id="hero-android" class="platform-name">
+            <BrandIcon icon={siAndroid} size={18} color="currentColor" />
+            Patterns for Android
+          </h2>
+          <p class="version">Version {android.version}</p>
+          <StoreButton store="play_store" placement="hero" />
+          <p class="requires">Requires {android.requires}</p>
+        </div>
+      </article>
     </div>
   </ContentContainer>
 </section>
 
 <style>
   .hero {
-    position: relative;
-    width: 100%;
-    background: var(--hero-gradient);
-    overflow: hidden;
+    padding: 72px 0 88px;
+    background: var(--bg);
   }
 
-  .hero-content {
+  .intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 820px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .release {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px 6px 6px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .release:hover {
+    border-color: color-mix(in srgb, var(--text) 30%, transparent);
+    color: var(--text);
+  }
+
+  .release:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .release-label {
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .headline {
+    margin: 32px 0 0;
+    font-size: clamp(40px, 5.4vw, 62px);
+    line-height: 1.06;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  .subhead {
+    margin: 22px 0 0;
+    max-width: 600px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 22px;
+    margin: 24px 0 0;
+    padding: 0;
+    list-style: none;
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+
+  .facts li {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .facts li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .platforms {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    max-width: 760px;
+    margin: 64px auto 0;
+  }
+
+  .platform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .android-first .android {
+    order: -1;
+  }
+
+  .device-wrap {
+    width: min(100%, 272px);
+    /* Bottom-align the phones so both platform labels line up. */
+    margin-top: auto;
+  }
+
+  .meta {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
 
-  .hook {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 760px;
-  }
-
-  .badge {
+  .platform-name {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 16px;
-    border-radius: 100px;
-    border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
-    background: color-mix(in srgb, var(--accent) 10%, transparent);
-    font-size: 13px;
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 17px;
     font-weight: 600;
-    color: var(--accent);
-    letter-spacing: 0.03em;
-    transition: background 0.2s, border-color 0.2s;
+    letter-spacing: -0.01em;
   }
 
-  .badge strong {
-    font-weight: 800;
-  }
-
-  .badge :global(svg) {
-    transition: transform 0.2s;
-  }
-
-  .badge:hover {
-    border-color: color-mix(in srgb, var(--accent) 40%, transparent);
-    background: color-mix(in srgb, var(--accent) 16%, transparent);
-  }
-
-  .badge:hover :global(svg) {
-    transform: translateX(2px);
-  }
-
-  .badge:focus-visible {
-    outline: 3px solid var(--accent);
-    outline-offset: 3px;
-  }
-
-  .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-  }
-
-  .headline {
-    margin: 36px 0 0;
-    font-size: 72px;
-    line-height: 1.06;
-    font-weight: 400;
-  }
-
-  .subhead {
-    margin: 22px 0 0;
-    max-width: 620px;
-    font-size: 19px;
-    line-height: 1.58;
+  .version {
+    margin: 4px 0 16px;
     color: var(--text-secondary);
+    font-size: 14px;
   }
 
-  .cta-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 16px;
-    margin-top: 40px;
-  }
-
-  .app-preview {
-    position: relative;
-    width: 100%;
-    max-width: 1160px;
-    margin: 72px 0 0;
-    border-radius: 28px;
-    overflow: hidden;
-    box-shadow: 0 34px 100px -42px rgba(0, 0, 0, 0.9);
-  }
-
-  .mobile-preview {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  /* :global because the anchors are rendered by <StoreLink>, which owns the
-     single click handler for every store destination on the site. */
-  .app-preview :global(.store-link) {
-    position: absolute;
-    display: block;
-    border-radius: 12px;
-  }
-
-  .app-preview :global(.store-link:focus-visible) {
-    outline: 3px solid var(--accent);
-    outline-offset: 3px;
-  }
-
-  .app-preview :global(.app-store-link) {
-    left: 5.9%;
-    top: 82.15%;
-    width: 15.4%;
-    height: 6.35%;
-  }
-
-  .app-preview :global(.play-store-link) {
-    left: 22.7%;
-    top: 82.15%;
-    width: 14.35%;
-    height: 6.35%;
-  }
-
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
-
-  @media (max-width: 1023px) {
-    .headline {
-      font-size: 60px;
-    }
-
-    .app-preview {
-      max-width: 980px;
-      border-radius: 24px;
-    }
-  }
-
-  /* The overlay hotspots scale with the image, so below this width they fall
-     under the 44px minimum touch target and the sticky install banner covers
-     them. Hide them rather than ship an unusable tap target: mobile visitors
-     reach the stores through the install banner and the Download section. */
-  @media (max-width: 767px) {
-    .app-preview :global(.store-link) {
-      display: none;
-    }
+  .requires {
+    margin: 10px 0 0;
+    color: var(--text-secondary);
+    font-size: 12px;
   }
 
   @media (max-width: 599px) {
-    .badge {
-      font-size: 12px;
-      padding: 7px 12px;
+    .hero {
+      padding: 40px 0 56px;
     }
 
-    .headline {
-      margin-top: 28px;
-      font-size: 44px;
+    .release {
+      font-size: 13px;
+      text-align: left;
     }
 
     .subhead {
       font-size: 16px;
-      line-height: 1.5;
     }
 
-    .cta-row {
-      margin-top: 32px;
+    .platforms {
+      gap: 14px;
+      margin-top: 44px;
     }
 
-    .app-preview {
-      width: calc(100% + 12px);
-      margin-top: 48px;
-      border-radius: 18px;
+    .platform {
+      gap: 20px;
+    }
+
+    .platform-name {
+      font-size: 14px;
+      gap: 6px;
+    }
+
+    .version {
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .meta :global(.store-button) {
+      padding: 6px 12px 6px 10px;
+      gap: 8px;
+    }
+
+    .meta :global(.store-button strong) {
+      font-size: 14px;
     }
   }
 </style>

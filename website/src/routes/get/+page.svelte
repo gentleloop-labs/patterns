@@ -3,6 +3,8 @@
   import Seo from '$lib/components/Seo.svelte';
   import BrandIcon from '$lib/components/BrandIcon.svelte';
   import StoreLink from '$lib/components/StoreLink.svelte';
+  import DeviceFrame from '$lib/components/DeviceFrame.svelte';
+  import { site } from '$lib/data/site';
   import { links } from '$lib/data/links';
   import { deviceCategory, ensureAnalyticsLoaded, logEvent } from '$lib/utils/analytics';
   import { getAttribution } from '$lib/utils/attribution';
@@ -129,22 +131,31 @@
       </div>
 
       <p class="reqs">
-        Requires iOS 14 or later · Android 8 or later
+        Requires {site.platforms.ios.requires} · {site.platforms.android.requires}
         <span aria-hidden="true">·</span>
         <a href="/privacy">Privacy</a>
       </p>
     </section>
 
     <section class="media" aria-label="Patterns app preview">
-      <img
-        class="shot"
-        src="/assets/mockups/mobile-hero.jpg"
-        alt="The Patterns home screen, showing the recovery score, ERP practice, and quick actions"
-        width="443"
-        height="960"
-        fetchpriority="high"
-        decoding="async"
-      />
+      <!-- The visitor's own platform is shown, using the same data-platform
+           attribute that orders the store buttons. iPhone is the default. -->
+      <div class="shot shot-ios">
+        <DeviceFrame
+          platform="ios"
+          src="/assets/screens/ios-today.webp"
+          alt="Patterns 2.0 on iPhone: the Today screen with recent activity and a suggested next practice"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="shot shot-android">
+        <DeviceFrame
+          platform="android"
+          src="/assets/screens/android-today.webp"
+          alt="Patterns on Android: the Today screen with recent activity and a suggested next practice"
+        />
+      </div>
 
       <!-- Desktop only: a scan target so a laptop visitor can move to the phone
            they will actually install on. -->
@@ -249,13 +260,19 @@
   }
 
   .shot {
-    height: auto;
-    width: auto;
-    max-height: 100%;
-    max-width: 100%;
-    border-radius: 16px;
-    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-    box-shadow: 0 18px 48px color-mix(in srgb, #000 50%, transparent);
+    width: min(280px, 100%);
+  }
+
+  .shot-android {
+    display: none;
+  }
+
+  :global([data-platform='android']) .shot-ios {
+    display: none;
+  }
+
+  :global([data-platform='android']) .shot-android {
+    display: block;
   }
 
   .qr {
@@ -351,7 +368,6 @@
   :global(html[data-platform='android']) .stores :global(.store-android),
   :global(html[data-platform='ios']) .stores :global(.store-ios) {
     border-color: var(--accent);
-    box-shadow: 0 6px 26px color-mix(in srgb, var(--accent) 26%, transparent);
   }
 
   /* --- Desktop / tablet -------------------------------------------------- */
@@ -408,7 +424,7 @@
     }
 
     .shot {
-      max-height: 74svh;
+      width: min(320px, calc(74svh * 0.46));
     }
 
     .qr {

@@ -23,7 +23,8 @@ test.describe('/get landing page', () => {
 
     await expect(page.getByRole('link', { name: APP_STORE_LABEL })).toBeVisible();
     await expect(page.getByRole('link', { name: PLAY_STORE_LABEL })).toBeVisible();
-    await expect(page.getByAltText(/Patterns home screen/i)).toBeVisible();
+    // One real screenshot, for the visitor's own platform (iPhone by default).
+    await expect(page.locator('img[alt*="Today screen"]:visible')).toHaveCount(1);
   });
 
   test('never hides a store button below the fold', async ({ page }) => {
