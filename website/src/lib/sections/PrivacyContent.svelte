@@ -1,7 +1,7 @@
 <script lang="ts">
   import ContentContainer from '$lib/components/ContentContainer.svelte';
   import AnimatedOnScroll from '$lib/components/AnimatedOnScroll.svelte';
-  import { CloudOff, BarChart3, Code, Lock } from 'lucide-svelte';
+  import { CloudOff, BarChart3, Code } from 'lucide-svelte';
 
   const points = [
     {
@@ -61,9 +61,7 @@
   <ContentContainer>
     <AnimatedOnScroll>
       <div class="header">
-        <div class="lock-icon">
-          <Lock size={36} color="var(--accent)" />
-        </div>
+        <p class="eyebrow">Privacy</p>
         <h1 id="privacy-title" class="title serif">Your data stays yours.</h1>
         <p class="intro">
           Patterns is local-first. No accounts or cloud sync. Your journal and OCD records live on
@@ -72,29 +70,39 @@
         </p>
       </div>
 
-      <div class="points-grid">
-        {#each points as point}
+      <div class="points" data-stagger>
+        {#each points as point (point.title)}
           {@const Icon = point.icon}
-          <article class="point-card">
-            <Icon size={28} color="var(--accent)" strokeWidth={1.75} />
+          <article class="point">
+            <span class="point-icon" aria-hidden="true">
+              <Icon size={20} strokeWidth={1.75} />
+            </span>
             <h2>{point.title}</h2>
             <p>{point.description}</p>
           </article>
         {/each}
       </div>
+    </AnimatedOnScroll>
 
+    <!-- One centred reading column: the policy is long-form text, so it gets
+         a comfortable measure instead of a mostly empty side column. -->
+    <AnimatedOnScroll delay={80}>
       <div class="policy">
-        <h2 class="serif">Privacy policy</h2>
-        <p class="updated">Last updated: August 25, 2026</p>
-        {#each policyBlocks as block}
-          <div class="policy-block">
-            <span class="bullet"></span>
-            <div>
-              <h3>{block.title}</h3>
-              <p>{block.body}</p>
-            </div>
-          </div>
-        {/each}
+        <header class="policy-head">
+          <h2 class="serif">Privacy policy</h2>
+          <p class="updated">Last updated: August 25, 2026</p>
+        </header>
+        <ol class="blocks">
+          {#each policyBlocks as block, index (block.title)}
+            <li>
+              <span class="num" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{block.title}</h3>
+                <p>{block.body}</p>
+              </div>
+            </li>
+          {/each}
+        </ol>
       </div>
     </AnimatedOnScroll>
   </ContentContainer>
@@ -102,134 +110,162 @@
 
 <style>
   .privacy {
-    background: var(--surface);
+    background: var(--bg);
   }
 
   .header {
+    max-width: 680px;
+    margin: 0 auto;
     text-align: center;
-    margin-bottom: 56px;
   }
 
-  .lock-icon {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 20px;
-    background: color-mix(in srgb, var(--accent) 10%, transparent);
+  .eyebrow {
+    margin: 0 0 12px;
   }
 
   .title {
-    margin: 32px 0 0;
-    font-size: 48px;
+    margin: 0;
+    font-size: clamp(34px, 5vw, 48px);
     line-height: 1.1;
   }
 
   .intro {
-    margin: 16px auto 0;
-    max-width: 560px;
-    font-size: 17px;
+    margin: 18px auto 0;
+    max-width: 600px;
+    font-size: 18px;
     line-height: 1.6;
-    color: var(--text-secondary);
+    color: color-mix(in srgb, var(--text) 74%, var(--bg));
   }
 
-  .points-grid {
+  /* Summary cards, styled like the homepage Features cards. */
+  .points {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    margin-bottom: 56px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    max-width: 1080px;
+    margin: 52px auto 0;
   }
 
-  @media (min-width: 600px) {
-    .points-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-  }
-
-  .point-card {
+  .point {
     padding: 28px;
-    text-align: center;
-    border-radius: 16px;
-    border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, var(--surface-alt), var(--bg));
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--text) 6%, transparent);
   }
 
-  .point-card h2 {
-    margin: 16px 0 0;
-    font-size: 16px;
-    font-weight: 600;
+  .point-icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 20px;
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--accent) 16%, transparent);
+    color: var(--accent);
   }
 
-  .point-card p {
-    margin: 8px 0 0;
-    font-size: 14px;
-    line-height: 1.5;
-    color: var(--text-secondary);
-  }
-
-  .policy {
-    padding: 32px;
-    border-radius: 20px;
-    border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
-  }
-
-  .policy > h2 {
+  .point h2 {
     margin: 0;
-    font-size: 30px;
+    font-family: var(--font-body);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .point p {
+    margin: 8px 0 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: color-mix(in srgb, var(--text) 74%, var(--bg));
+  }
+
+  /* Policy: a single reading column, centred like the header above it. */
+  /* Same width as the summary cards above, so the page has one edge. */
+  .policy {
+    max-width: 1080px;
+    margin: 72px auto 0;
+    padding-top: 48px;
+    border-top: 1px solid var(--border);
+  }
+
+  .policy-head {
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  .policy-head h2 {
+    margin: 0;
+    font-size: clamp(26px, 3vw, 32px);
     line-height: 1.15;
   }
 
   .updated {
-    margin: 8px 0 24px;
-    font-size: 14px;
+    margin: 8px 0 0;
     color: var(--text-secondary);
+    font-size: 14px;
   }
 
-  .policy-block {
-    display: flex;
-    gap: 14px;
-    margin-bottom: 22px;
-  }
-
-  .bullet {
-    width: 7px;
-    height: 7px;
-    margin-top: 9px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background: var(--accent-fill);
-  }
-
-  .policy-block h3 {
+  .blocks {
     margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .blocks li {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 12px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .blocks li:first-child {
+    padding-top: 0;
+  }
+
+  .blocks li:last-child {
+    border-bottom: 0;
+  }
+
+  .num {
+    padding-top: 2px;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .blocks h3 {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.4;
+  }
+
+  .blocks p {
+    margin: 8px 0 0;
     font-size: 16px;
-    font-weight: 700;
+    line-height: 1.7;
+    color: color-mix(in srgb, var(--text) 76%, var(--bg));
   }
 
-  .policy-block p {
-    margin: 6px 0 0;
-    font-size: 14px;
-    line-height: 1.55;
-    color: var(--text-secondary);
-  }
-
-  @media (max-width: 599px) {
-    .title {
-      font-size: 32px;
-    }
-
-    .intro {
-      font-size: 15px;
+  @media (max-width: 899px) {
+    .points {
+      grid-template-columns: 1fr;
+      gap: 14px;
     }
 
     .policy {
-      padding: 22px;
+      margin-top: 56px;
+      padding-top: 36px;
     }
+  }
 
-    .policy > h2 {
-      font-size: 24px;
+  @media (max-width: 599px) {
+    .blocks li {
+      grid-template-columns: 28px 1fr;
+      gap: 8px;
     }
   }
 </style>
