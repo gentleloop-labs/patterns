@@ -32,11 +32,18 @@
 <style>
   .back-wrap {
     text-align: center;
-    padding: 40px 0 60px;
+    padding: 8px 0 72px;
+    background: var(--bg);
   }
 
   .back-wrap a {
+    color: var(--text-secondary);
+    font-size: 14px;
     font-weight: 600;
-    color: var(--accent);
+    transition: color 0.2s;
+  }
+
+  .back-wrap a:hover {
+    color: var(--text);
   }
 </style>
