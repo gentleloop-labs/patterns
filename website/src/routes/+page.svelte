@@ -42,18 +42,22 @@
       url: links.site,
       image: site.ogImage,
       screenshot: [
-        `${links.site}assets/website-cta-1200.jpg`,
-        `${links.site}assets/mockups/feature-graphic-v2.jpg`,
-        `${links.site}assets/mockups/ybocs-app-ui-v1.png`,
-        `${links.site}assets/mockups/frame-1.jpg`,
-        `${links.site}assets/mockups/mobile-hero.jpg`
+        `${links.site}assets/screens/ios-today.webp`,
+        `${links.site}assets/screens/ios-practice.webp`,
+        `${links.site}assets/screens/ios-journal.webp`,
+        `${links.site}assets/screens/ios-insights.webp`,
+        `${links.site}assets/screens/android-today.webp`,
+        `${links.site}assets/screens/android-practice.webp`,
+        `${links.site}assets/screens/android-journal.webp`,
+        `${links.site}assets/screens/android-insights.webp`
       ],
       downloadUrl: `${links.site}#download`,
       installUrl: links.ios,
       sameAs: [links.ios, links.playStore, links.github],
       softwareHelp: links.issues,
       license: links.license,
-      softwareVersion: site.appVersion,
+      // No softwareVersion: iPhone (2.x, native) and Android (1.x) ship on
+      // separate version lines, so one number here would be wrong for one of them.
       availableOnDevice: ['iPhone', 'Android devices'],
       featureList: [
         'CBT-based ERP tools for OCD (exposure and response prevention)',
@@ -115,9 +119,9 @@
         'Download Patterns, a private OCD tracker and journaling app for iPhone and Android.',
       primaryImageOfPage: {
         '@type': 'ImageObject',
-        url: `${links.site}assets/website-cta-1200.jpg`,
-        width: 1536,
-        height: 1024
+        url: `${links.site}assets/screens/ios-today.webp`,
+        width: 600,
+        height: 1304
       },
       about: [
         { '@type': 'MedicalCondition', name: 'Obsessive-Compulsive Disorder' },
@@ -128,10 +132,6 @@
       isPartOf: { '@type': 'WebSite', name: 'Patterns', url: links.site }
     }
   ];
-
-  function scrollToDownload() {
-    document.getElementById('download')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
 </script>
 
 <Seo
@@ -141,23 +141,12 @@
   {jsonLd}
 />
 
-<svelte:head>
-  <link
-    rel="preload"
-    as="image"
-    href="/assets/website-cta-800.jpg"
-    imagesrcset="/assets/website-cta-480.jpg 480w, /assets/website-cta-800.jpg 800w, /assets/website-cta-1200.jpg 1200w"
-    imagesizes="(max-width: 599px) 100vw, (max-width: 1023px) 980px, 1160px"
-    fetchpriority="high"
-  />
-</svelte:head>
-
-<Hero onDownload={scrollToDownload} />
+<Hero />
 <TrustStrip />
+<Preview />
 <Understanding />
 <EverydayMoments />
 <Features />
-<Preview />
 <YbocsSpotlight />
 <BuiltForErp />
 <RecoveryToolkit />

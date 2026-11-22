@@ -7,9 +7,14 @@ const STORAGE_KEY = 'patterns-theme';
 
 function getInitialTheme(): Theme {
   if (!browser) return 'dark';
-  const stored = localStorage.getItem(STORAGE_KEY);
-  if (stored === 'light' || stored === 'dark') return stored;
-  return 'dark';
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === 'light' || stored === 'dark') return stored;
+  } catch {
+    // Storage can be blocked; fall through to the system setting.
+  }
+  // No explicit choice yet: follow the visitor's system setting.
+  return window.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
 }
 
 function createThemeStore() {

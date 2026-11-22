@@ -31,7 +31,7 @@
               <span aria-hidden="true">·</span>
               <span>{post.readingMinutes} min</span>
             </div>
-            <h3><a href="/blog/{post.slug}">{post.title}</a></h3>
+            <h3 class="serif"><a href="/blog/{post.slug}">{post.title}</a></h3>
             <p>{post.excerpt}</p>
             <a class="read" href="/blog/{post.slug}" aria-label="Read {post.title}">
               Read article <ArrowRight size={15} />

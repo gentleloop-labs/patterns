@@ -1,6 +1,55 @@
 <script lang="ts">
   import ContentContainer from '$lib/components/ContentContainer.svelte';
   import AnimatedOnScroll from '$lib/components/AnimatedOnScroll.svelte';
+  import DeviceFrame from '$lib/components/DeviceFrame.svelte';
+  import BrandIcon from '$lib/components/BrandIcon.svelte';
+  import { site } from '$lib/data/site';
+  import { isAndroid } from '$lib/utils/platform';
+  import { siApple, siAndroid } from 'simple-icons';
+
+  type Platform = 'ios' | 'android';
+
+  // Every screenshot is an unedited capture of the shipping app, taken with the
+  // same demonstration data on both platforms so the two can be compared.
+  const screens = [
+    {
+      id: 'today',
+      title: 'Today',
+      body: 'What you have done so far, and one manageable next step.'
+    },
+    {
+      id: 'practice',
+      title: 'Practice',
+      body: 'Compulsion delay, coping tools, and ERP planning in one place.'
+    },
+    {
+      id: 'journal',
+      title: 'Journal',
+      body: 'Private, dated entries that save as you write.'
+    },
+    {
+      id: 'insights',
+      title: 'Insights',
+      body: 'Plain counts and trends, with no streaks to protect.'
+    }
+  ] as const;
+
+  let platform = $state<Platform>('ios');
+  $effect(() => {
+    if (isAndroid()) platform = 'android';
+  });
+
+  const tabs: { id: Platform; label: string }[] = [
+    { id: 'ios', label: 'iPhone' },
+    { id: 'android', label: 'Android' }
+  ];
+
+  function onKeydown(event: KeyboardEvent) {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    platform = platform === 'ios' ? 'android' : 'ios';
+    document.getElementById(`platform-tab-${platform}`)?.focus();
+  }
 </script>
 
 <section
@@ -11,203 +60,218 @@
   <ContentContainer>
     <AnimatedOnScroll>
       <div class="header">
-        <span class="eyebrow">MOBILE PREVIEW</span>
-        <h2 id="preview-title" class="title serif">See Patterns in action</h2>
+        <p class="eyebrow">On your phone</p>
+        <h2 id="preview-title" class="title serif">The same Patterns, at home on each phone.</h2>
         <p class="subtitle">
-          Real screens from Patterns on iPhone and Android, designed for the moments when you need
-          to capture a trigger, delay an urge, or reflect on the day.
+          On iPhone, Patterns {site.platforms.ios.shortVersion} was rebuilt from the ground up as a
+          native app, so it uses the controls, text sizes, and gestures you already know. On
+          Android, you get the same tools and the same privacy. The two apps look different. What
+          you can do in them does not.
         </p>
       </div>
     </AnimatedOnScroll>
 
-    <div class="showcases">
-      <AnimatedOnScroll delay={100}>
-        <div class="showcase">
-          <div class="mockup-wrap feature-graphic">
-            <img
-              src="/assets/mockups/feature-graphic-v2.jpg"
-              alt="Patterns compulsion-delay screen with the message See the pattern, choose your response"
-              width="1024"
-              height="500"
-              loading="lazy"
-            />
-          </div>
-          <div class="copy">
-            <span class="tag">IN YOUR POCKET</span>
-            <h3 class="serif">A useful next step, wherever you are</h3>
-            <p>
-              Capture obsessions, log distress, and write a quick journal entry from your phone.
-              Your entries stay on your device, with no account and no cloud upload.
-            </p>
-          </div>
-        </div>
-      </AnimatedOnScroll>
-
-      <AnimatedOnScroll delay={200}>
-        <div class="showcase reverse">
-          <div class="phone-wrap">
-            <img
-              src="/assets/mockups/mobile-hero.jpg"
-              alt="Patterns mobile home screen showing ERP practice and quick actions"
-              width="443"
-              height="960"
-              loading="lazy"
-            />
-          </div>
-          <div class="copy">
-            <span class="tag">BUILT FOR MOBILE</span>
-            <h3 class="serif">Recovery tools when the moment happens</h3>
-            <p>
-              Delay a compulsion, practise an exposure, or review your patterns without waiting to
-              get back to another device.
-            </p>
-          </div>
-        </div>
-      </AnimatedOnScroll>
+    <div class="switch" role="tablist" aria-label="Choose a platform">
+      {#each tabs as tab (tab.id)}
+        <button
+          id="platform-tab-{tab.id}"
+          type="button"
+          role="tab"
+          aria-selected={platform === tab.id}
+          aria-controls="platform-panel"
+          tabindex={platform === tab.id ? 0 : -1}
+          onclick={() => (platform = tab.id)}
+          onkeydown={onKeydown}
+        >
+          <BrandIcon icon={tab.id === 'ios' ? siApple : siAndroid} size={15} color="currentColor" />
+          {tab.label}
+          <span class="tab-version">{site.platforms[tab.id].shortVersion}</span>
+        </button>
+      {/each}
     </div>
+
+    <div
+      id="platform-panel"
+      class="screens"
+      role="tabpanel"
+      aria-labelledby="platform-tab-{platform}"
+      tabindex="-1"
+    >
+      {#each screens as screen (screen.id)}
+        <figure class="screen">
+          {#key platform}
+            <div class="device">
+              <DeviceFrame
+                {platform}
+                src="/assets/screens/{platform}-{screen.id}.webp"
+                alt="{screen.title} screen in Patterns for {platform === 'ios'
+                  ? 'iPhone'
+                  : 'Android'}, shown with demonstration data"
+              />
+            </div>
+          {/key}
+          <figcaption>
+            <strong>{screen.title}</strong>
+            <span>{screen.body}</span>
+          </figcaption>
+        </figure>
+      {/each}
+    </div>
+
+    <p class="note">Real screens, captured with demonstration data.</p>
   </ContentContainer>
 </section>
 
 <style>
   .preview {
-    background: var(--bg);
+    background: var(--surface);
+    border-block: 1px solid var(--border);
   }
 
   .header {
-    max-width: 680px;
-    margin: 0 auto 72px;
+    max-width: 700px;
+    margin: 0 auto;
     text-align: center;
   }
 
-  .eyebrow,
-  .tag {
-    display: inline-block;
-    padding: 5px 11px;
-    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--accent) 9%, transparent);
-    color: var(--accent);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-  }
-
   .title {
-    margin: 20px 0 0;
-    font-size: 48px;
+    margin: 14px 0 0;
+    font-size: clamp(32px, 4.4vw, 46px);
     line-height: 1.1;
   }
 
   .subtitle {
-    margin: 16px auto 0;
+    margin: 18px auto 0;
     color: var(--text-secondary);
     font-size: 17px;
     line-height: 1.65;
   }
 
-  .showcases {
-    display: grid;
-    gap: 88px;
+  .switch {
+    display: flex;
+    width: fit-content;
+    margin: 36px auto 0;
+    padding: 4px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg);
   }
 
-  .showcase {
+  .switch button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 0 18px;
+    border-radius: 999px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .switch button:hover {
+    color: var(--text);
+  }
+
+  .switch button[aria-selected='true'] {
+    background: var(--surface-alt);
+    color: var(--text);
+    box-shadow: 0 0 0 1px var(--border);
+  }
+
+  .switch button:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .tab-version {
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .screens {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 28px;
+    margin-top: 48px;
+  }
+
+  .screens:focus {
+    outline: none;
+  }
+
+  .screen {
+    margin: 0;
+  }
+
+  .device {
+    max-width: 240px;
+    margin: 0 auto;
+    animation: screen-in 0.35s ease-out;
+  }
+
+  @keyframes screen-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  figcaption {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 34px;
-  }
-
-  .mockup-wrap {
-    width: 100%;
-    overflow: hidden;
-    border: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
-    border-radius: 24px;
-    box-shadow: 0 20px 40px -8px color-mix(in srgb, #000 50%, transparent);
-  }
-
-  .mockup-wrap img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .feature-graphic {
-    max-width: 660px;
-  }
-
-  .phone-wrap {
-    width: min(220px, 58vw);
-    overflow: hidden;
-    border: 1px solid color-mix(in srgb, #fff 9%, transparent);
-    border-radius: 26px;
-    box-shadow: 0 20px 42px color-mix(in srgb, #000 50%, transparent);
-    flex-shrink: 0;
-  }
-
-  .phone-wrap img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .copy {
-    max-width: 480px;
+    gap: 4px;
+    max-width: 240px;
+    margin: 22px auto 0;
     text-align: center;
   }
 
-  .copy h3 {
-    margin: 16px 0 0;
-    font-size: 34px;
-    line-height: 1.15;
+  figcaption strong {
+    font-size: 15px;
+    font-weight: 600;
   }
 
-  .copy p {
-    margin: 14px 0 0;
+  figcaption span {
     color: var(--text-secondary);
-    font-size: 16px;
-    line-height: 1.65;
+    font-size: 14px;
+    line-height: 1.5;
   }
 
-  @media (min-width: 760px) {
-    .showcase {
-      flex-direction: row;
-      justify-content: center;
-      gap: 64px;
+  .note {
+    margin: 36px 0 0;
+    color: var(--text-secondary);
+    font-size: 12px;
+    text-align: center;
+  }
+
+  @media (max-width: 899px) {
+    .screens {
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: min(62vw, 240px);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      margin-inline: -16px;
+      padding: 8px 16px 12px;
+      scrollbar-width: none;
     }
 
-    .showcase.reverse {
-      flex-direction: row-reverse;
+    .screens::-webkit-scrollbar {
+      display: none;
     }
 
-    .feature-graphic {
-      flex: 1 1 60%;
-    }
-
-    .copy {
-      flex: 1 1 36%;
-      text-align: left;
+    .screen {
+      scroll-snap-align: center;
     }
   }
 
   @media (max-width: 599px) {
-    .header {
-      margin-bottom: 52px;
-    }
-
-    .title {
-      font-size: 34px;
-    }
-
     .subtitle {
-      font-size: 15px;
-    }
-
-    .showcases {
-      gap: 60px;
-    }
-
-    .copy h3 {
-      font-size: 28px;
+      font-size: 16px;
     }
   }
 </style>

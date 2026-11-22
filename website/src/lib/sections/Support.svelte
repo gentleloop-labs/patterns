@@ -17,25 +17,23 @@
 </script>
 
 <section id="support" class="support content-below-fold" aria-labelledby="support-title">
-  <ContentContainer padding="56px 0">
+  <ContentContainer padding="0">
     <AnimatedOnScroll>
-      <div class="card">
-        <div class="glow" aria-hidden="true"></div>
-        <div class="icon-tile">
-          <Heart size={26} color="var(--accent)" fill="var(--accent)" />
-        </div>
-        <h2 id="support-title" class="serif">Support Patterns</h2>
+      <!-- A quiet closing line on the Download section's own background, so it
+           reads as part of that section rather than a separate panel. -->
+      <div class="row">
+        <h2 id="support-title">Support Patterns</h2>
         <p>
-          Patterns is open source, independent, and ad-free. If it has helped you, a small tip
-          keeps development going.
+          Patterns is open source, independent, and ad-free. If it has helped you, a small
+          contribution keeps development going.
         </p>
         <div class="actions">
-          <button type="button" class="btn primary" onclick={tipKofi}>
-            <Coffee size={17} strokeWidth={2.25} />
+          <button type="button" class="btn" onclick={tipKofi}>
+            <Coffee size={16} strokeWidth={2} />
             <span>Tip on Ko-fi</span>
           </button>
-          <button type="button" class="btn ghost" onclick={sponsorGitHub}>
-            <Heart size={15} strokeWidth={2.25} />
+          <button type="button" class="btn" onclick={sponsorGitHub}>
+            <Heart size={15} strokeWidth={2} />
             <span>Sponsor on GitHub</span>
           </button>
         </div>
@@ -45,134 +43,63 @@
 </section>
 
 <style>
-  .card {
-    position: relative;
-    overflow: hidden;
-    max-width: 640px;
+  .support {
+    padding: 0 0 88px;
+    background: var(--surface);
+  }
+
+  .row {
+    max-width: 560px;
     margin: 0 auto;
-    padding: 52px 40px;
+    padding-top: 48px;
+    border-top: 1px solid var(--border);
     text-align: center;
-    border-radius: 24px;
-    background: linear-gradient(
-      180deg,
-      var(--surface-alt) 0%,
-      var(--surface) 100%
-    );
-    border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border));
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
   }
 
-  /* Warm radial wash behind the heart so the card reads as part of the
-     amber/charcoal system instead of a flat block. */
-  .glow {
-    position: absolute;
-    top: -120px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 420px;
-    height: 320px;
-    pointer-events: none;
-    background: radial-gradient(
-      ellipse at center,
-      color-mix(in srgb, var(--accent) 22%, transparent) 0%,
-      transparent 70%
-    );
-    filter: blur(8px);
-    opacity: 0.7;
-  }
-
-  .icon-tile {
-    position: relative;
-    width: 60px;
-    height: 60px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 18px;
-    background: color-mix(in srgb, var(--accent) 12%, transparent);
-    border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
-  }
-
-  .card h2 {
-    position: relative;
-    margin: 22px 0 0;
-    font-size: 32px;
-    line-height: 1.1;
-  }
-
-  .card p {
-    position: relative;
-    margin: 14px auto 0;
-    max-width: 440px;
+  h2 {
+    margin: 0;
+    font-family: var(--font-body);
     font-size: 16px;
-    line-height: 1.6;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    margin: 8px 0 0;
     color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.6;
   }
 
   .actions {
-    position: relative;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     justify-content: center;
-    gap: 12px;
-    margin-top: 32px;
+    gap: 10px;
+    margin-top: 20px;
   }
 
   .btn {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 9px;
-    padding: 14px 26px;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 16px;
+    border: 1px solid var(--border);
     border-radius: 12px;
-    font-size: 15px;
+    background: transparent;
+    color: var(--text);
+    font-size: 14px;
     font-weight: 600;
-    transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    transition: border-color 0.2s;
   }
 
   .btn:hover {
-    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--text) 35%, transparent);
   }
 
-  .btn.primary {
-    color: #000;
-    background: var(--accent);
-  }
-
-  .btn.primary:hover {
-    background: color-mix(in srgb, var(--accent) 88%, #fff);
-  }
-
-  .btn.ghost {
-    color: var(--text);
-    background: transparent;
-    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  }
-
-  .btn.ghost:hover {
-    color: var(--accent);
-    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
-    background: color-mix(in srgb, var(--accent) 6%, transparent);
-  }
-
-  @media (max-width: 599px) {
-    .card {
-      padding: 40px 24px;
-    }
-
-    .card h2 {
-      font-size: 26px;
-    }
-
-    .actions {
-      flex-direction: column;
-    }
-
-    .btn {
-      width: 100%;
-      max-width: 280px;
-    }
+  .btn:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
   }
 </style>

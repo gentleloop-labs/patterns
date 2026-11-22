@@ -7,12 +7,35 @@ import { links } from './links';
  */
 export const site = {
   name: 'Patterns',
-  /** Keep in sync with the Flutter app's pubspec version (marketing version). */
-  appVersion: '1.10.0',
-  /** Announced in the homepage hero; links to the release's roadmap column. */
+  /**
+   * The two apps ship on separate version lines: the iPhone app was rebuilt
+   * natively in Swift and jumped to 2.0, while Android stays on the Flutter
+   * 1.x line. Never quote one platform's version for the other.
+   *
+   * ios: keep in sync with MARKETING_VERSION in apple/ (2.0.0 = build 101).
+   * android: keep in sync with the version in pubspec.yaml.
+   */
+  platforms: {
+    ios: {
+      name: 'iPhone',
+      version: '2.0.0',
+      shortVersion: '2.0',
+      requires: 'iOS 17 or later',
+      build: 'Native app, written in Swift'
+    },
+    android: {
+      name: 'Android',
+      version: '1.10.3',
+      shortVersion: '1.10',
+      requires: 'Android 7.0 or later',
+      build: 'Built with Flutter'
+    }
+  },
+  /** Announced in the homepage hero; links to the release on the roadmap. */
   latestRelease: {
-    version: '1.10',
-    summary: 'Calm Insights and six languages',
+    platform: 'iPhone',
+    version: '2.0',
+    summary: 'Patterns 2.0: a native iPhone app',
     href: '/roadmap#released'
   },
   /** Preferred host is the apex domain (no www). See website/README.md. */

@@ -199,7 +199,7 @@
     margin-top: 9px;
     flex-shrink: 0;
     border-radius: 50%;
-    background: var(--accent);
+    background: var(--accent-fill);
   }
 
   .policy-block h3 {

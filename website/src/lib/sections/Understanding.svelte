@@ -109,17 +109,6 @@
     margin: 0 auto 48px;
   }
 
-  .eyebrow {
-    display: inline-block;
-    padding: 6px 14px;
-    border-radius: 100px;
-    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--accent);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-  }
 
   .title {
     margin: 20px 0 0;
@@ -193,8 +182,8 @@
     border-radius: 50%;
     font-size: 12px;
     font-weight: 700;
-    color: #000;
-    background: var(--accent);
+    color: var(--on-accent);
+    background: var(--accent-fill);
   }
 
   .step-label {
@@ -270,8 +259,8 @@
     border-radius: 100px;
     font-size: 15px;
     font-weight: 600;
-    color: #000;
-    background: var(--accent);
+    color: var(--on-accent);
+    background: var(--accent-fill);
     transition: opacity 0.2s, background 0.2s, color 0.2s;
   }
 

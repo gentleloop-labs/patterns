@@ -49,6 +49,6 @@ export const features: Feature[] = [
     icon: Smartphone,
     title: 'iPhone & Android',
     description:
-      'Built for iOS and Android, so your journal and ERP tools are available when a trigger or urge happens.'
+      'A native app on iPhone and a dedicated app on Android, so your journal and ERP tools are there when a trigger or urge happens.'
   }
 ];

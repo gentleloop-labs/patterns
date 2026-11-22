@@ -7,10 +7,10 @@ test.describe('homepage trust and human connection', () => {
     const ids = [
       'hero',
       'trust',
+      'preview',
       'understanding',
       'everyday-moments',
       'features',
-      'preview',
       'ybocs',
       'built-for-erp',
       'toolkit',

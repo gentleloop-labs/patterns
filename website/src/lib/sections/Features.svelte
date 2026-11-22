@@ -46,16 +46,6 @@
     margin-bottom: 72px;
   }
 
-  .eyebrow {
-    display: inline-block;
-    padding: 6px 14px;
-    border-radius: 100px;
-    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--accent);
-    letter-spacing: 1.5px;
-  }
 
   .title {
     margin: 20px 0 0;
@@ -65,9 +55,9 @@
 
   .subtitle {
     margin: 16px auto 0;
-    max-width: 480px;
+    max-width: 520px;
     font-size: 17px;
-    color: var(--text-secondary);
+    color: color-mix(in srgb, var(--text) 74%, var(--bg));
     line-height: 1.5;
   }
 
@@ -77,19 +67,22 @@
     gap: 24px;
   }
 
+  /* Cards sit clearly off the section: their own fill with a soft fall-off,
+     a full-strength border, and a hairline highlight along the top edge. */
   .card {
+    position: relative;
     padding: 32px;
-    border-radius: 16px;
-    border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
-    transition:
-      background 0.25s,
-      border-color 0.25s;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, var(--surface-alt), var(--bg));
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--text) 6%, transparent);
+    transition: border-color 0.25s, transform 0.25s;
     height: 100%;
   }
 
   .card:hover {
-    background: var(--surface-alt);
-    border-color: color-mix(in srgb, var(--accent) 20%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+    transform: translateY(-2px);
   }
 
   .icon-wrap {
@@ -99,8 +92,9 @@
     align-items: center;
     justify-content: center;
     border-radius: 12px;
-    background: color-mix(in srgb, var(--accent) 10%, transparent);
-    margin-bottom: 20px;
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    background: color-mix(in srgb, var(--accent) 16%, transparent);
+    margin-bottom: 22px;
   }
 
   .card h3 {
@@ -111,9 +105,9 @@
 
   .card p {
     margin: 10px 0 0;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.6;
-    color: var(--text-secondary);
+    color: color-mix(in srgb, var(--text) 74%, var(--bg));
   }
 
   @media (min-width: 600px) {

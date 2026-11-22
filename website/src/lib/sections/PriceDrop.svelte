@@ -2,241 +2,202 @@
   import ContentContainer from '$lib/components/ContentContainer.svelte';
   import AnimatedOnScroll from '$lib/components/AnimatedOnScroll.svelte';
   import { proPricing } from '$lib/data/pricing';
-  import { ArrowRight, Wallet, RefreshCwOff, Infinity as InfinityIcon } from 'lucide-svelte';
+  import { Check } from 'lucide-svelte';
 
-  // $39.99 to $19.99, so the badge is exactly half. Derived rather than typed
-  // out so it cannot disagree with the figures above it.
-  const percentOff = Math.round(
-    (1 - Number(proPricing.currentUsd.slice(1)) / Number(proPricing.previousUsd.slice(1))) * 100
-  );
+  // Mirrors the pricing answer in faq.ts; keep the two in step.
+  const free = [
+    'Private daily journal',
+    'OCD log with 0–10 distress ratings',
+    'Y-BOCS self-check',
+    'Guided ERP and the compulsion delay tool',
+    'Emergency toolkit and coping library'
+  ];
 
-  const promises = [
-    { icon: Wallet, label: 'One payment' },
-    { icon: RefreshCwOff, label: 'No subscription' },
-    { icon: InfinityIcon, label: 'Yours for good' }
+  const pro = [
+    'Exposure ladders and exposure materials',
+    'Structured ERP programs',
+    'Urge surfing and response prevention',
+    'Uncertainty training',
+    'Extra insights'
   ];
 </script>
 
 <section
   id="pricing"
-  class="price-drop section-scroll-margin content-below-fold"
-  aria-labelledby="price-drop-title"
+  class="pricing section-pad section-scroll-margin content-below-fold"
+  aria-labelledby="pricing-title"
 >
-  <ContentContainer padding="56px 0">
+  <ContentContainer>
     <AnimatedOnScroll>
-      <div class="card">
-        <div class="glow" aria-hidden="true"></div>
-
-        <h2 id="price-drop-title" class="sr-only">
-          Patterns Pro price drop: was {proPricing.previousUsd}, now {proPricing.currentUsd}
-        </h2>
-
-        <span class="tag">Price drop</span>
-
-        <div class="price-row">
-          <span class="was" aria-hidden="true">{proPricing.previousUsd}</span>
-          <ArrowRight class="arrow" size={28} aria-hidden="true" />
-          <span class="now" aria-hidden="true">{proPricing.currentUsd}</span>
-          <span class="badge" aria-hidden="true">{percentOff}% off</span>
-        </div>
-
-        <p class="unit">Patterns Pro, one time. Prices vary by country.</p>
-
-        <ul class="promises">
-          {#each promises as promise}
-            {@const Icon = promise.icon}
-            <li>
-              <span class="promise-tile"><Icon size={20} strokeWidth={1.75} /></span>
-              {promise.label}
-            </li>
-          {/each}
-        </ul>
-
-        <div class="actions">
-          <a href="/#download" class="btn primary">Get Patterns</a>
-          <a href="/toolkit" class="btn ghost">See what Pro adds</a>
-        </div>
-
-        <p class="note">Already own Pro? Nothing changes and you are never charged again.</p>
+      <div class="header">
+        <p class="eyebrow">Pricing</p>
+        <h2 id="pricing-title" class="title serif">Free to use. Pro if you want more.</h2>
+        <p class="subtitle">
+          No subscription, no ads, and no account. Pro is a single purchase that unlocks the
+          deeper ERP tools, on iPhone and Android alike.
+        </p>
       </div>
+
+      <div class="plans">
+        <article class="plan">
+          <h3>Patterns</h3>
+          <p class="price"><span class="amount">Free</span></p>
+          <p class="plan-note">Everything you need to notice the loop and practise.</p>
+          <ul>
+            {#each free as item}
+              <li><Check size={16} strokeWidth={2} aria-hidden="true" />{item}</li>
+            {/each}
+          </ul>
+        </article>
+
+        <article class="plan pro">
+          <h3>Patterns Pro</h3>
+          <p class="price">
+            <span class="amount">{proPricing.currentUsd}</span>
+            <span class="once">once</span>
+            <span class="was">
+              <span class="sr-only">Previously</span>
+              <s>{proPricing.previousUsd}</s>
+            </span>
+          </p>
+          <p class="plan-note">Everything in Patterns, plus structured ERP practice.</p>
+          <ul>
+            {#each pro as item}
+              <li><Check size={16} strokeWidth={2} aria-hidden="true" />{item}</li>
+            {/each}
+          </ul>
+          <a href="/toolkit" class="plan-link">See every Pro tool</a>
+        </article>
+      </div>
+
+      <p class="footnote">
+        US price shown. Your app store shows the price for your country. Already own Pro? Nothing
+        changes and you are never charged again.
+      </p>
     </AnimatedOnScroll>
   </ContentContainer>
 </section>
 
 <style>
-  .price-drop {
+  .pricing {
     background: var(--bg);
   }
 
-  .card {
-    position: relative;
-    overflow: hidden;
-    max-width: 680px;
+  .header {
+    max-width: 640px;
     margin: 0 auto;
-    padding: 56px 40px 48px;
     text-align: center;
-    border-radius: 24px;
-    border: 1px solid var(--border);
-    background: linear-gradient(180deg, var(--surface-alt) 0%, var(--surface) 100%);
   }
 
-  .glow {
-    position: absolute;
-    top: -140px;
-    left: 50%;
-    width: 360px;
-    height: 360px;
-    transform: translateX(-50%);
-    border-radius: 50%;
-    background: color-mix(in srgb, var(--accent) 16%, transparent);
-    filter: blur(80px);
-    pointer-events: none;
+  .title {
+    margin: 14px 0 0;
+    font-size: clamp(32px, 4.4vw, 46px);
+    line-height: 1.1;
   }
 
-  .tag,
-  .price-row,
-  .unit,
-  .promises,
-  .actions,
-  .note {
-    position: relative;
-  }
-
-  .tag {
-    display: inline-block;
-    margin-bottom: 28px;
-    padding: 5px 12px;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent);
-    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--accent) 10%, transparent);
-  }
-
-  .price-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-bottom: 12px;
-  }
-
-  .was {
-    font-family: var(--font-display);
-    font-size: clamp(1.6rem, 4vw, 2.2rem);
-    line-height: 1;
+  .subtitle {
+    margin: 16px auto 0;
     color: var(--text-secondary);
-    text-decoration: line-through;
-    text-decoration-thickness: 2px;
+    font-size: 17px;
+    line-height: 1.65;
   }
 
-  .price-row :global(.arrow) {
-    color: var(--text-secondary);
-    flex-shrink: 0;
-  }
-
-  .now {
-    font-family: var(--font-display);
-    font-size: clamp(3.2rem, 9vw, 4.6rem);
-    line-height: 1;
-    color: var(--accent);
-  }
-
-  .badge {
-    align-self: center;
-    padding: 6px 12px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    color: var(--bg);
-    border-radius: 999px;
-    background: var(--accent);
-  }
-
-  .unit {
-    margin: 0 0 36px;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-  }
-
-  .promises {
+  .plans {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-    max-width: 460px;
-    margin: 0 auto 36px;
-    padding: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    max-width: 860px;
+    margin: 48px auto 0;
+  }
+
+  .plan {
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+
+  .plan.pro {
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  }
+
+  .plan h3 {
+    margin: 0;
+    font-size: 16px;
+  }
+
+  .price {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0 0;
+  }
+
+  .amount {
+    font-family: var(--font-display);
+    font-size: 44px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .once,
+  .was {
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+
+  .plan-note {
+    margin: 12px 0 0;
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+
+  ul {
+    display: grid;
+    gap: 10px;
+    margin: 24px 0 0;
+    padding: 24px 0 0;
+    border-top: 1px solid var(--border);
     list-style: none;
   }
 
-  .promises li {
+  li {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
-    padding: 18px 10px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    background: color-mix(in srgb, var(--surface-alt) 60%, transparent);
+    font-size: 15px;
+    line-height: 1.45;
   }
 
-  .promise-tile {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 12px;
+  li :global(svg) {
+    flex-shrink: 0;
+    margin-top: 2px;
     color: var(--accent);
-    background: color-mix(in srgb, var(--accent) 12%, transparent);
   }
 
-  .actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center;
-    margin-bottom: 22px;
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 13px 24px;
-    font-size: 0.95rem;
+  .plan-link {
+    margin-top: auto;
+    padding-top: 24px;
+    color: var(--accent);
+    font-size: 14px;
     font-weight: 600;
-    text-decoration: none;
-    border-radius: 999px;
-    transition: transform 0.15s ease;
   }
 
-  .btn:hover {
-    transform: translateY(-1px);
+  .plan-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
-  .primary {
-    color: var(--bg);
-    background: var(--accent);
-  }
-
-  .ghost {
-    color: var(--text);
-    border: 1px solid var(--border);
-    background: transparent;
-  }
-
-  .note {
-    margin: 0;
-    font-size: 0.82rem;
+  .footnote {
+    max-width: 560px;
+    margin: 24px auto 0;
     color: var(--text-secondary);
+    font-size: 13px;
+    text-align: center;
   }
 
   .sr-only {
@@ -246,32 +207,18 @@
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip: rect(0 0 0 0);
+    clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
   }
 
-  @media (max-width: 560px) {
-    .card {
-      padding: 44px 22px 38px;
-    }
-
-    .promises {
+  @media (max-width: 699px) {
+    .plans {
       grid-template-columns: 1fr;
-      max-width: 320px;
     }
 
-    .promises li {
-      flex-direction: row;
-      justify-content: flex-start;
-      gap: 14px;
-      padding: 14px 16px;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .btn:hover {
-      transform: none;
+    .plan {
+      padding: 24px;
     }
   }
 </style>
