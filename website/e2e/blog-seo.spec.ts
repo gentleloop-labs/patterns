@@ -164,6 +164,11 @@ const newArticles = [
     slug: 'why-ocd-feels-louder-when-resting',
     title: 'Why Does OCD Feel Louder When I Finally Have Time to Rest?',
     contextualLink: '/blog/ocd-rumination'
+  },
+  {
+    slug: 'what-counts-as-an-ocd-trigger',
+    title: 'What Counts as an OCD Trigger? Ordinary Moments',
+    contextualLink: '/blog/what-is-a-compulsion-in-ocd'
   }
 ];
 

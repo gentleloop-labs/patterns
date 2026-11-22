@@ -34,6 +34,8 @@ An obsession is an unwanted, intrusive thought, image, urge, or doubt that bring
 
 For example, a person worries that they sent an offensive message. They reread it several times, ask a friend what it means, then mentally replay the conversation. The first reading may have answered a practical question. The later rounds may be attempts to make doubt disappear. Our [OCD overview](/ocd) explains the broader obsession, distress, response, and relief loop.
 
+If you are trying to identify what set a familiar cycle in motion, our guide to [what counts as an OCD trigger](/blog/what-counts-as-an-ocd-trigger) looks at ordinary external and internal cues without asking you to catalog every thought.
+
 The [International OCD Foundation (IOCDF)](https://iocdf.org/about-OCD/) notes that not all repeated behaviour is compulsive. A bedtime routine, religious practice, or careful job-related check can be functional. The same outward action may have a different purpose for someone else, or on a different day.
 
 ## The visible rituals people recognize
