@@ -25,7 +25,7 @@
         </p>
       </div>
 
-      <div class="cards">
+      <div class="cards" data-stagger>
         <article class="card" aria-labelledby="download-ios">
           <div class="card-head">
             <span class="platform-icon"><BrandIcon icon={siApple} size={20} color="currentColor" /></span>

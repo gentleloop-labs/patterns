@@ -22,15 +22,33 @@ function createThemeStore() {
 
   return {
     subscribe,
-    toggle: () =>
-      update((current) => {
-        const next = current === 'dark' ? 'light' : 'dark';
-        if (browser) {
-          localStorage.setItem(STORAGE_KEY, next);
-          document.documentElement.dataset.theme = next;
-        }
-        return next;
-      }),
+    toggle: () => {
+      const apply = () =>
+        update((current) => {
+          const next = current === 'dark' ? 'light' : 'dark';
+          if (browser) {
+            try {
+              localStorage.setItem(STORAGE_KEY, next);
+            } catch {
+              // Storage can be blocked; the switch still applies to this page.
+            }
+            document.documentElement.dataset.theme = next;
+          }
+          return next;
+        });
+
+      // Cross-fade the whole page between themes where supported, instead of
+      // every colour snapping at once.
+      const root = browser ? document.documentElement : null;
+      const reduce = browser && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!root || reduce || !document.startViewTransition) {
+        apply();
+        return;
+      }
+      root.classList.add('theme-transition');
+      const transition = document.startViewTransition(apply);
+      transition.finished.finally(() => root.classList.remove('theme-transition'));
+    },
     init: () => {
       if (!browser) return;
       const theme = getInitialTheme();

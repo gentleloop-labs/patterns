@@ -202,6 +202,52 @@
     order: -1;
   }
 
+  /* Entrance on load: the text settles in line by line, then the phones
+     rise into place. Disabled under reduced motion. */
+  .intro > * {
+    animation: fade-up var(--dur-slow) var(--ease-out) both;
+  }
+
+  .intro > :nth-child(2) {
+    animation-delay: 70ms;
+  }
+
+  .intro > :nth-child(3) {
+    animation-delay: 140ms;
+  }
+
+  .intro > :nth-child(4) {
+    animation-delay: 210ms;
+  }
+
+  .platform {
+    animation: rise-in 1s var(--ease-out) both;
+    animation-delay: 260ms;
+  }
+
+  .platform + .platform {
+    animation-delay: 380ms;
+  }
+
+  .device-wrap {
+    transition: transform 500ms var(--ease-out);
+  }
+
+  .platform:hover .device-wrap {
+    transform: translateY(-6px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .intro > *,
+    .platform {
+      animation: none;
+    }
+
+    .platform:hover .device-wrap {
+      transform: none;
+    }
+  }
+
   .device-wrap {
     width: min(100%, 272px);
     /* Bottom-align the phones so both platform labels line up. */

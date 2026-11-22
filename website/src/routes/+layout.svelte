@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { afterNavigate } from '$app/navigation';
+  import { afterNavigate, onNavigate } from '$app/navigation';
   import { page } from '$app/stores';
   import { captureAttribution } from '$lib/utils/attribution';
   import { captureReferral } from '$lib/utils/referral';
@@ -24,6 +24,21 @@
   afterNavigate(() => {
     captureAttribution(window.location.search, window.location.pathname);
     captureReferral(window.location.search);
+  });
+
+  // Soft crossfade between pages where the browser supports view transitions.
+  // Skipped for in-page hash jumps and for anyone who prefers reduced motion.
+  onNavigate((navigation) => {
+    if (!document.startViewTransition) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (navigation.from?.url.pathname === navigation.to?.url.pathname) return;
+
+    return new Promise((resolve) => {
+      document.startViewTransition(async () => {
+        resolve();
+        await navigation.complete;
+      });
+    });
   });
 
   onMount(() => {
