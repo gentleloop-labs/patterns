@@ -35,6 +35,8 @@
   ] as const;
 
   let platform = $state<Platform>('ios');
+  // Small screens show one phone at a time; this is the one on show.
+  let active = $state(0);
   $effect(() => {
     if (isAndroid()) platform = 'android';
   });
@@ -91,6 +93,19 @@
       {/each}
     </div>
 
+    <div class="screen-tabs" role="group" aria-label="Choose a screen">
+      {#each screens as screen, index (screen.id)}
+        <button
+          type="button"
+          aria-pressed={active === index}
+          aria-controls="platform-panel"
+          onclick={() => (active = index)}
+        >
+          {screen.title}
+        </button>
+      {/each}
+    </div>
+
     <div
       id="platform-panel"
       class="screens"
@@ -99,7 +114,7 @@
       tabindex="-1"
     >
       {#each screens as screen, index (screen.id)}
-        <figure class="screen" style="--i: {index}">
+        <figure class="screen" class:active={active === index} style="--i: {index}">
           {#key platform}
             <div class="device">
               <DeviceFrame
@@ -289,26 +304,65 @@
     text-align: center;
   }
 
+  .screen-tabs {
+    display: none;
+  }
+
+  /* Small screens: one phone at a time, full size and centred, picked with
+     a row of screen tabs. Nothing scrolls sideways or gets cut off. */
   @media (max-width: 899px) {
-    .screens {
-      grid-template-columns: none;
-      grid-auto-flow: column;
-      grid-auto-columns: min(62vw, 240px);
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      margin-inline: -16px;
-      padding: 8px 16px 12px;
-      scrollbar-width: none;
+    .screen-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
     }
 
-    .screens::-webkit-scrollbar {
+    .screen-tabs button {
+      min-height: 36px;
+      padding: 0 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 600;
+      transition:
+        color var(--dur) var(--ease-out),
+        border-color var(--dur) var(--ease-out),
+        background var(--dur) var(--ease-out);
+    }
+
+    .screen-tabs button[aria-pressed='true'] {
+      border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+      background: var(--accent-soft);
+      color: var(--text);
+    }
+
+    .screen-tabs button:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .screens {
+      grid-template-columns: 1fr;
+      margin-top: 32px;
+    }
+
+    .screen:not(.active) {
       display: none;
     }
 
-    .screen {
-      scroll-snap-align: center;
+    .screen .device {
+      max-width: min(78vw, 300px);
+      animation-delay: 0ms;
+    }
+
+    figcaption {
+      max-width: 300px;
     }
   }
+
 
   @media (max-width: 599px) {
     .subtitle {
