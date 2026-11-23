@@ -42,7 +42,7 @@
     <div class="grid">
       {#each mappings as item, i}
         {@const Icon = item.icon}
-        <AnimatedOnScroll delay={i * 100}>
+        <AnimatedOnScroll>
           <article class="card">
             <div class="icon-wrap">
               <Icon size={24} color="var(--accent)" strokeWidth={1.75} />
@@ -54,7 +54,7 @@
       {/each}
     </div>
 
-    <AnimatedOnScroll delay={150}>
+    <AnimatedOnScroll>
       <div class="cta-row">
         <a href="/erp" class="link-pill">Learn how ERP works in Patterns <ArrowRight size={16} /></a>
         <a href="/blog/what-is-erp-exposure-response-prevention" class="link-pill ghost"

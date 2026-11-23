@@ -22,7 +22,7 @@
     <div class="grid">
       {#each features as feature, i}
         {@const Icon = feature.icon}
-        <AnimatedOnScroll delay={i * 100}>
+        <AnimatedOnScroll>
           <article class="card">
             <div class="icon-wrap">
               <Icon size={24} color="var(--accent)" strokeWidth={1.75} />

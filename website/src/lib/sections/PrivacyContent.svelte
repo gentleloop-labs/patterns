@@ -86,7 +86,7 @@
 
     <!-- One centred reading column: the policy is long-form text, so it gets
          a comfortable measure instead of a mostly empty side column. -->
-    <AnimatedOnScroll delay={80}>
+    <AnimatedOnScroll>
       <div class="policy">
         <header class="policy-head">
           <h2 class="serif">Privacy policy</h2>

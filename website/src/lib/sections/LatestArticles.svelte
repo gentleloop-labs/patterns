@@ -22,7 +22,7 @@
 
     <div class="grid">
       {#each latestPosts as post, index (post.slug)}
-        <AnimatedOnScroll delay={80 + index * 55}>
+        <AnimatedOnScroll>
           <article>
             <div class="meta">
               <a href="/learn/{post.category}">{getBlogCategory(post.category)?.label}</a>

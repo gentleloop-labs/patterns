@@ -104,7 +104,7 @@
       </div>
     </AnimatedOnScroll>
 
-    <AnimatedOnScroll delay={80}>
+    <AnimatedOnScroll>
       <section class="block" aria-labelledby="how-title">
         <h2 id="how-title" class="block-title">How Patterns works, day to day</h2>
         <p class="block-sub">
@@ -125,7 +125,7 @@
       </section>
     </AnimatedOnScroll>
 
-    <AnimatedOnScroll delay={100}>
+    <AnimatedOnScroll>
       <section class="block" aria-labelledby="free-title">
         <div class="tier-head">
           <h2 id="free-title" class="block-title">Free tools</h2>
@@ -152,7 +152,7 @@
       </section>
     </AnimatedOnScroll>
 
-    <AnimatedOnScroll delay={120}>
+    <AnimatedOnScroll>
       <section class="block" aria-labelledby="pro-title">
         <div class="tier-head">
           <h2 id="pro-title" class="block-title">Patterns Pro tools</h2>
@@ -184,7 +184,7 @@
       </section>
     </AnimatedOnScroll>
 
-    <AnimatedOnScroll delay={140}>
+    <AnimatedOnScroll>
       <section class="unlock" aria-labelledby="unlock-title">
         <div class="unlock-copy">
           <p class="eyebrow">Patterns Pro</p>
