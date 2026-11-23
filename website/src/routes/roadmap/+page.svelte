@@ -313,7 +313,7 @@
       </div>
     </AnimatedOnScroll>
 
-    <AnimatedOnScroll delay={80}>
+    <AnimatedOnScroll>
       <div class="board" role="list" aria-label="Roadmap board">
         {#each columns as column}
           {@const ColumnIcon = column.icon}
@@ -374,7 +374,7 @@
       </div>
     </AnimatedOnScroll>
 
-    <AnimatedOnScroll delay={120}>
+    <AnimatedOnScroll>
       <section class="cta-banner" aria-labelledby="cta-title">
         <h2 id="cta-title">Try what is already here</h2>
         <p>

@@ -17,7 +17,7 @@
     </AnimatedOnScroll>
 
     <div class="grid">
-      <AnimatedOnScroll delay={80}>
+      <AnimatedOnScroll>
         <figure class="moment-card">
           <picture>
             <source
@@ -43,7 +43,7 @@
         </figure>
       </AnimatedOnScroll>
 
-      <AnimatedOnScroll delay={140}>
+      <AnimatedOnScroll>
         <figure class="moment-card">
           <picture>
             <source

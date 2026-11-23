@@ -29,7 +29,7 @@
       </AnimatedOnScroll>
     </div>
 
-    <AnimatedOnScroll delay={100}>
+    <AnimatedOnScroll>
       <div class="testimonial-head">
         <span class="eyebrow">EARLY COMMUNITY FEEDBACK</span>
         <h3 class="serif">Made with care. Used in real life.</h3>
@@ -38,7 +38,7 @@
 
     <div class="quotes">
       {#each testimonials as item, index}
-        <AnimatedOnScroll delay={80 + index * 45}>
+        <AnimatedOnScroll>
           <blockquote>
             <Quote size={21} strokeWidth={1.7} aria-hidden="true" />
             <p>“{item.quote}”</p>

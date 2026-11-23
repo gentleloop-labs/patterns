@@ -32,7 +32,7 @@
       </div>
     </AnimatedOnScroll>
 
-    <AnimatedOnScroll delay={80}>
+    <AnimatedOnScroll>
       <div class="tiers" data-stagger>
         {#each tiers as tier (tier.id)}
           <section class="tier {tier.id}" aria-labelledby="tier-{tier.id}">

@@ -47,7 +47,7 @@
         </div>
       </AnimatedOnScroll>
 
-      <AnimatedOnScroll delay={100}>
+      <AnimatedOnScroll>
         <div class="visual" aria-label="Patterns OCD severity self-check results shown with demonstration data">
           <div class="halo" aria-hidden="true"></div>
           <div class="phone">

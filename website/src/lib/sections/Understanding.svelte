@@ -46,7 +46,7 @@
       </div>
     </AnimatedOnScroll>
 
-    <AnimatedOnScroll delay={100}>
+    <AnimatedOnScroll>
       <ul class="cycle" aria-label="Explore the four steps in the OCD cycle">
         {#each loopSteps as step, i}
           <li class="step">
@@ -88,7 +88,7 @@
       <p class="education-note">General education, not personalized treatment advice.</p>
     </AnimatedOnScroll>
 
-    <AnimatedOnScroll delay={150}>
+    <AnimatedOnScroll>
       <div class="cta-row">
         <a href="/ocd" class="link-pill">Understand the OCD cycle <ArrowRight size={16} /></a>
         <a href="/erp" class="link-pill ghost">How ERP helps <ArrowRight size={16} /></a>

@@ -252,27 +252,33 @@ button {
 }
 
 .animate-on-scroll.visible {
-  animation: fade-up var(--dur-slow) var(--ease-out) both;
-  animation-delay: var(--delay, 0s);
+  animation: reveal 360ms var(--ease-out) both;
 }
 
-/* Children of a [data-stagger] container arrive one after another once
-   their scroll reveal fires. */
+/* Children of a [data-stagger] container follow a beat apart, short
+   enough that nothing is ever waited for. */
 .animate-on-scroll.visible [data-stagger] > * {
-  animation: fade-up var(--dur-slow) var(--ease-out) both;
-  animation-delay: calc(var(--delay, 0s) + 120ms);
+  animation: reveal 360ms var(--ease-out) both;
 }
 
 .animate-on-scroll.visible [data-stagger] > :nth-child(2) {
-  animation-delay: calc(var(--delay, 0s) + 210ms);
+  animation-delay: 40ms;
 }
 
-.animate-on-scroll.visible [data-stagger] > :nth-child(3) {
-  animation-delay: calc(var(--delay, 0s) + 300ms);
+.animate-on-scroll.visible [data-stagger] > :nth-child(n + 3) {
+  animation-delay: 80ms;
 }
 
-.animate-on-scroll.visible [data-stagger] > :nth-child(n + 4) {
-  animation-delay: calc(var(--delay, 0s) + 390ms);
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  /* Explicit end: the block's resting style is opacity 0. */
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* Disclosure widgets (FAQ, roadmap history) open and close smoothly where
