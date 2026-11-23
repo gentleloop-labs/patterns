@@ -169,6 +169,11 @@ const newArticles = [
     slug: 'what-counts-as-an-ocd-trigger',
     title: 'What Counts as an OCD Trigger? Ordinary Moments',
     contextualLink: '/blog/what-is-a-compulsion-in-ocd'
+  },
+  {
+    slug: 'why-change-of-plans-feels-hard-with-ocd',
+    title: 'Why Can a Change of Plans Feel So Hard With OCD?',
+    contextualLink: '/blog/ocd-and-uncertainty'
   }
 ];
 

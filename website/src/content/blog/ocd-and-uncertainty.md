@@ -30,6 +30,8 @@ OCD and uncertainty often form a loop: a doubt feels urgent, a person checks or 
 
 Most of life involves incomplete information. You can lock a door without knowing the future, send a message without knowing exactly how it will be read, and make a choice without proving it is the best possible one. OCD can make those ordinary gaps feel unacceptable, especially when a question touches something important to you: safety, health, morality, or a relationship.
 
+For a concrete everyday example, our guide to [why a change of plans can feel hard with OCD](/blog/why-change-of-plans-feels-hard-with-ocd) follows the practical adjustment and the extra certainty-seeking that can come afterward.
+
 Researchers call the tendency to react strongly to uncertain situations *intolerance of uncertainty*. A [review of OCD research](https://pubmed.ncbi.nlm.nih.gov/39431164/) found a robust association between intolerance of uncertainty and OCD symptoms, while noting that more research is needed to establish exactly how changing this tendency contributes to treatment. A broader [meta-analysis](https://pubmed.ncbi.nlm.nih.gov/31678816/) found that intolerance of uncertainty is associated with several mental health conditions, not only OCD. Neither finding makes it a diagnostic test.
 
 An urgent feeling is real, but it is not proof that the question must be solved immediately. Nor is every concern an obsession. Real problems sometimes require ordinary action. The distinction is easier to see in the *pattern of response* than in the topic of the thought alone.
