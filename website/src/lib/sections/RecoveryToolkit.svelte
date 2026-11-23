@@ -23,10 +23,11 @@
     <AnimatedOnScroll>
       <div class="header">
         <p class="eyebrow">Recovery toolkit</p>
-        <h2 id="toolkit-title" class="title serif">Tools to practise, not just track.</h2>
+        <h2 id="toolkit-title" class="title serif">Help in the moment. A way forward after.</h2>
         <p class="subtitle">
-          The moves a therapist would guide you through in ERP, made into short exercises you
-          can do on your own terms. Start free, and unlock the rest when you are ready.
+          Something to reach for when an urge hits, and a clear next step for the days after.
+          Built on the same ERP approach a therapist would use. Start free, and unlock the rest
+          when you are ready.
         </p>
       </div>
     </AnimatedOnScroll>

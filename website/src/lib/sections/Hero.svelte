@@ -29,8 +29,9 @@
       </h1>
 
       <p class="subhead">
-        Patterns is a private OCD app for journaling, tracking OCD moments, and practising
-        CBT-based ERP. No account, no cloud sync, and nobody else reading your notes.
+        A private OCD app built around ERP, the CBT-based approach for OCD. Notice the loop as
+        it starts, put space between the urge and the ritual, and see what changes over the
+        weeks. No account, and nobody else reading your notes.
       </p>
 
       <ul class="facts" aria-label="At a glance">
@@ -42,22 +43,23 @@
 
     <div class="platforms">
       <article class="platform ios" aria-labelledby="hero-ios">
-        <!-- Two screens per platform, overlapping: the exposure ladder behind,
-             a compulsion delay in progress in front. -->
+        <!-- Results, not effort: each pair shows what the user has done and how
+             it has changed. iPhone: urge surfing history in front, Today's
+             recent activity behind. -->
         <div class="device-wrap pair">
           <div class="back">
             <DeviceFrame
               platform="ios"
-              src="/assets/screens/ios-ladder.webp"
-              alt="Patterns {ios.shortVersion} on iPhone: an exposure ladder with one step done, one in progress, and one not started"
+              src="/assets/screens/hero-ios-today.webp"
+              alt="Patterns {ios.shortVersion} on iPhone: Today, listing recent activity such as 5 journal entries, 3 compulsion delays, and 1 exposure completed"
               loading="eager"
             />
           </div>
           <div class="front">
             <DeviceFrame
               platform="ios"
-              src="/assets/screens/ios-delay.webp"
-              alt="Patterns {ios.shortVersion} on iPhone: a compulsion delay in progress, counting down with the words You're sitting with it"
+              src="/assets/screens/hero-ios-urgesurf.webp"
+              alt="Patterns {ios.shortVersion} on iPhone: Urge Surfing history, each past urge showing where it started, peaked, and ended, such as started at 7, highest 8, ended at 3"
               loading="eager"
                 fetchpriority="high"
             />
@@ -69,19 +71,19 @@
             Patterns for iPhone
           </h2>
           <p class="version">Version {ios.shortVersion} · Native app</p>
+          <p class="shows">Watch each urge rise and fall · See what you have done</p>
           <StoreButton store="app_store" placement="hero" />
           <p class="requires">Requires {ios.requires}</p>
         </div>
       </article>
 
       <article class="platform android" aria-labelledby="hero-android">
-        <!-- Two screens per platform, overlapping: the exposure ladder behind,
-             a compulsion delay in progress in front. -->
+        <!-- Android: Insights trends in front, ladder progress behind. -->
         <div class="device-wrap pair">
           <div class="back">
             <DeviceFrame
               platform="android"
-              src="/assets/screens/android-ladder.webp"
+              src="/assets/screens/hero-android-ladder.webp"
               alt="Patterns {android.shortVersion} on Android: an exposure ladder with one step done, one in progress, and one not started"
               loading="eager"
             />
@@ -89,8 +91,8 @@
           <div class="front">
             <DeviceFrame
               platform="android"
-              src="/assets/screens/android-delay.webp"
-              alt="Patterns {android.shortVersion} on Android: a compulsion delay in progress, counting down with the words You're sitting with it"
+              src="/assets/screens/hero-android-insights.webp"
+              alt="Patterns {android.shortVersion} on Android: Insights with recent activity, mood over time, and Y-BOCS scores over time"
               loading="eager"
             />
           </div>
@@ -101,6 +103,7 @@
             Patterns for Android
           </h2>
           <p class="version">Version {android.version}</p>
+          <p class="shows">See what has changed over weeks · One step done at a time</p>
           <StoreButton store="play_store" placement="hero" />
           <p class="requires">Requires {android.requires}</p>
         </div>
@@ -127,6 +130,7 @@
   .hero {
     padding: 72px 0 88px;
     background: var(--bg);
+    overflow-x: clip;
   }
 
   .intro {
@@ -216,8 +220,8 @@
   .platforms {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 40px;
-    max-width: 860px;
+    gap: 32px;
+    max-width: 1140px;
     margin: 64px auto 0;
   }
 
@@ -234,6 +238,15 @@
 
   .mobile-stores {
     display: none;
+  }
+
+  /* Tablets: one pair per row, so neither has to shrink. */
+  @media (max-width: 959px) {
+    .platforms {
+      grid-template-columns: 1fr;
+      gap: 72px;
+      max-width: 560px;
+    }
   }
 
   /* Entrance on load: the text settles in line by line, then the phones
@@ -304,12 +317,12 @@
   }
 
   /* An overlapping pair: the back phone sits up and to the left, the front
-     phone lower and to the right, each about 62% of the pair's width. The
-     box's aspect ratio leaves room for the front phone's offset. */
+     phone lower and to the right. Phones are large enough that their screens
+     can actually be read. */
   .pair {
     position: relative;
-    width: min(100%, 360px);
-    aspect-ratio: 100 / 142;
+    width: min(100%, 540px);
+    aspect-ratio: 100 / 150;
     /* Bottom-align the pairs so both platform labels line up. */
     margin-top: auto;
   }
@@ -317,7 +330,7 @@
   .pair .back,
   .pair .front {
     position: absolute;
-    width: 62%;
+    width: 66%;
   }
 
   .pair .back {
@@ -354,6 +367,12 @@
     margin: 4px 0 16px;
     color: var(--text-secondary);
     font-size: 14px;
+  }
+
+  .shows {
+    margin: -8px 0 16px;
+    color: var(--text-secondary);
+    font-size: 13px;
   }
 
   .requires {
@@ -395,8 +414,20 @@
       display: none;
     }
 
+    /* On phones both phones stay fully inside the screen: the front one is
+       large enough to read, the smaller back one sits up and to the left. */
     .pair {
-      width: min(92vw, 380px);
+      width: 100%;
+      aspect-ratio: 100 / 158;
+    }
+
+    .pair .front {
+      width: 70%;
+    }
+
+    .pair .back {
+      width: 58%;
+      top: 2%;
     }
 
     .mobile-stores {

@@ -15,22 +15,22 @@
     {
       id: 'today',
       title: 'Today',
-      body: 'What you have done so far, and one manageable next step.'
+      body: 'Open it and know what to do next, without a long list to work through.'
     },
     {
       id: 'practice',
       title: 'Practice',
-      body: 'Compulsion delay, coping tools, and ERP planning in one place.'
+      body: 'Help for a hard moment is a tap away, whatever the urge.'
     },
     {
       id: 'journal',
       title: 'Journal',
-      body: 'Private, dated entries that save as you write.'
+      body: 'Get the thought out of your head and onto a private page.'
     },
     {
       id: 'insights',
       title: 'Insights',
-      body: 'Plain counts and trends, with no streaks to protect.'
+      body: 'See what has changed over the weeks, not just how today felt.'
     }
   ] as const;
 
