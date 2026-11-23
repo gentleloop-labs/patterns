@@ -42,8 +42,6 @@ void main() {
       arb['emergencyToolkitText'],
       contains('contact local emergency services'),
     );
-    expect(arb['tipJarBody'], contains('optional'));
-    expect(arb['tipJarBody'], contains('do not unlock anything'));
     expect(arb['privacyAnalytics'], contains('language choices'));
   });
 

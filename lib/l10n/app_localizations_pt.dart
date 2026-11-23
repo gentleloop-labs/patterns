@@ -148,13 +148,6 @@ class AppLocalizationsPt extends AppLocalizations {
       'Compartilhe uma ideia ou conte o que deu errado';
 
   @override
-  String get settingsSupportTitle => 'Apoiar o Patterns';
-
-  @override
-  String get settingsSupportSubtitle =>
-      'Deixe uma contribuição opcional para apoiar o desenvolvimento';
-
-  @override
   String get appearanceTitle => 'Aparência';
 
   @override
@@ -448,7 +441,13 @@ class AppLocalizationsPt extends AppLocalizations {
       one: '1 registro',
       zero: 'Nenhum registro',
     );
-    return '$_temp0 neste período ($journal diário, $ocd TOC, $selfChecks autoavaliações)';
+    String _temp1 = intl.Intl.pluralLogic(
+      selfChecks,
+      locale: localeName,
+      other: '$selfChecks autoavaliações',
+      one: '1 autoavaliação',
+    );
+    return '$_temp0 neste período ($journal diário, $ocd TOC, $_temp1)';
   }
 
   @override
@@ -693,6 +692,44 @@ class AppLocalizationsPt extends AppLocalizations {
   String get onboardingExploreSubtitle => 'Primeiro, dê uma olhada.';
 
   @override
+  String get whatsNew20Title => 'Refeito para iPhone';
+
+  @override
+  String get whatsNew20Body =>
+      'O Patterns 2.0 agora é um app nativo para iPhone, criado com as ferramentas da Apple.';
+
+  @override
+  String get whatsNew20NativeTitle => 'A cara do iPhone';
+
+  @override
+  String get whatsNew20NativeBody =>
+      'Controles familiares em todo o app. Deslize um item da lista ou toque e segure para ver ações rápidas.';
+
+  @override
+  String get whatsNew20FastTitle => 'Mais rápido e fluido';
+
+  @override
+  String get whatsNew20FastBody =>
+      'As telas abrem mais rápido e a rolagem continua fluida.';
+
+  @override
+  String get whatsNew20SettingsTitle => 'Segue os ajustes do seu iPhone';
+
+  @override
+  String get whatsNew20SettingsBody =>
+      'Tamanho do Texto, Texto em Negrito, VoiceOver, Reduzir Movimento e Modo Escuro são aplicados automaticamente.';
+
+  @override
+  String get whatsNew20PhotosTitle => 'Adicione fotos com privacidade';
+
+  @override
+  String get whatsNew20PhotosBody =>
+      'Escolha imagens de exposição direto do app Fotos. O Patterns vê apenas as que você escolher.';
+
+  @override
+  String get whatsNew20ExploreAction => 'Explorar o Patterns 2.0';
+
+  @override
   String get whatsNewTitle => 'Pratique sem pressão';
 
   @override
@@ -769,7 +806,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get privacyPurchases =>
-      'O Patterns Pro e as gorjetas são processados pela loja de aplicativos. O Patterns não recebe os dados do seu cartão.';
+      'O Patterns Pro é processado pela loja de aplicativos. O Patterns não recebe os dados do seu cartão.';
 
   @override
   String get privacyExports =>
@@ -1001,74 +1038,6 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get proRestoreSucceeded =>
       'O Patterns Pro foi restaurado. Todas as ferramentas de recuperação estão desbloqueadas novamente.';
-
-  @override
-  String get tipJarTitle => 'Apoiar o Patterns';
-
-  @override
-  String get tipJarBody =>
-      'O Patterns é independente e não tem anúncios. Se ele ajudou você, uma pequena gorjeta significa muito. As gorjetas são opcionais e não desbloqueiam nada.';
-
-  @override
-  String get tipJarLoadingLabel => 'Carregando opções de gorjeta';
-
-  @override
-  String get tipJarPurchasesUnavailable =>
-      'As compras no app não estão disponíveis neste dispositivo.';
-
-  @override
-  String get tipJarOptionsUnavailable =>
-      'Nenhuma opção de gorjeta foi encontrada. Tente novamente mais tarde.';
-
-  @override
-  String get tipJarLoadFailed =>
-      'Não foi possível carregar as opções de gorjeta. Tente novamente mais tarde.';
-
-  @override
-  String get tipJarPurchaseFailed =>
-      'Não foi possível concluir a gorjeta. Tente novamente.';
-
-  @override
-  String get tipJarTryAgainAction => 'Tentar novamente';
-
-  @override
-  String get tipSmallTitle => 'Gorjeta pequena';
-
-  @override
-  String get tipSmallDescription =>
-      'Uma gorjeta pequena e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos.';
-
-  @override
-  String get tipMediumTitle => 'Gorjeta média';
-
-  @override
-  String get tipMediumDescription =>
-      'Uma gorjeta média e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos.';
-
-  @override
-  String get tipLargeTitle => 'Gorjeta grande';
-
-  @override
-  String get tipLargeDescription =>
-      'Uma gorjeta grande e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos.';
-
-  @override
-  String tipChoiceSemantics(String title, String price, String description) {
-    return '$title, $price. $description';
-  }
-
-  @override
-  String get tipChoiceHint => 'Envia esta gorjeta opcional';
-
-  @override
-  String get tipThanksTitle => 'Obrigado';
-
-  @override
-  String get tipThanksBody =>
-      'Seu apoio significa muito. Graças a pessoas como você, o Patterns continua independente e sem anúncios.';
-
-  @override
-  String get tipThanksAction => 'Foi um prazer';
 
   @override
   String get desktopProTitle => 'Desbloquear o Patterns Desktop Pro';
@@ -4068,6 +4037,74 @@ class AppLocalizationsPt extends AppLocalizations {
   String completionAnnouncement(String title, String body) {
     return '$title. $body';
   }
+
+  @override
+  String copingLibraryText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'intro': 'Formas saudáveis de atravessar um momento difícil.',
+      'duringUrges': 'Durante impulsos',
+      'duringAnxiety': 'Durante a ansiedade',
+      'breathingTitle': 'Respiração profunda',
+      'breathingBody':
+          'Desacelere a expiração. Inspire contando até 4 e expire contando até 6. Uma expiração mais longa avisa ao seu corpo que ele pode se acalmar.',
+      'groundingTitle': 'Ancoragem (5-4-3-2-1)',
+      'groundingBody':
+          'Nomeie 5 coisas que você vê, 4 que você sente pelo toque, 3 que você ouve, 2 que você cheira e 1 que você saboreia. Volte para o momento presente.',
+      'urgeSurfingTitle': 'Surfar o impulso',
+      'urgeSurfingBody':
+          'Imagine o impulso como uma onda. Observe-o subir, chegar ao auge e descer sozinho. Você não precisa agir. Ele sempre passa.',
+      'acceptanceTitle': 'Frases de aceitação',
+      'acceptanceBody':
+          'Experimente: “Isto é só um pensamento intrusivo. Posso deixá-lo aqui sem responder a ele.”',
+      'observationTitle': 'Observação consciente',
+      'observationBody':
+          'Observe o pensamento como uma nuvem passando. Perceba-o, chame-o de “um pensamento” e deixe-o seguir.',
+      'relaxationTitle': 'Relaxamento muscular progressivo',
+      'relaxationBody':
+          'Contraia cada grupo muscular por cerca de 5 segundos e depois solte, dos pés até o rosto. Perceba a diferença ao soltar.',
+      'mindfulnessTitle': 'Atenção plena',
+      'mindfulnessBody':
+          'Deixe sua atenção descansar na respiração. Quando a mente se distrair, traga-a de volta com gentileza e sem julgamento.',
+      'compassionTitle': 'Autocompaixão',
+      'compassionBody':
+          'Fale consigo mesmo como falaria com um bom amigo: “Isto é difícil, e estou fazendo o meu melhor.”',
+      'walkTitle': 'Fazer uma caminhada',
+      'walkBody':
+          'Caminhe devagar e deixe sua atenção descansar em cada passo e no ar sobre a pele. O movimento ajuda a ansiedade a passar.',
+      'other': 'Estratégia de enfrentamento',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String dataErrorText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'newerTitle':
+          'Estes dados precisam de uma versão mais recente do Patterns',
+      'newerBody':
+          'Seus registros foram salvos por uma versão mais recente do Patterns. Atualize o app na App Store para abri-los. Nada foi alterado ou apagado.',
+      'unreadableTitle': 'O Patterns não conseguiu abrir seus dados',
+      'unreadableBody':
+          'Seus registros continuam neste iPhone e não foram alterados. Tente novamente. Se isso continuar acontecendo, peça ajuda em patternsocd.com.',
+      'retry': 'Tentar novamente',
+      'help': 'Obter ajuda',
+      'other': 'O Patterns não conseguiu abrir seus dados',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get settingsStoreOpenFailed =>
+      'Não foi possível abrir a loja. Tente novamente.';
+
+  @override
+  String settingsEmailOpenFailed(String email) {
+    return 'Não foi possível abrir o e-mail. Você pode escrever para $email.';
+  }
+
+  @override
+  String get journalSaveError =>
+      'Não foi possível salvar seu registro. Tente novamente.';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -4212,13 +4249,6 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String get settingsSendFeedbackSubtitle =>
       'Compartilhe uma ideia ou conte o que deu errado';
-
-  @override
-  String get settingsSupportTitle => 'Apoiar o Patterns';
-
-  @override
-  String get settingsSupportSubtitle =>
-      'Deixe uma contribuição opcional para apoiar o desenvolvimento';
 
   @override
   String get appearanceTitle => 'Aparência';
@@ -4514,7 +4544,13 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       one: '1 registro',
       zero: 'Nenhum registro',
     );
-    return '$_temp0 neste período ($journal diário, $ocd TOC, $selfChecks autoavaliações)';
+    String _temp1 = intl.Intl.pluralLogic(
+      selfChecks,
+      locale: localeName,
+      other: '$selfChecks autoavaliações',
+      one: '1 autoavaliação',
+    );
+    return '$_temp0 neste período ($journal diário, $ocd TOC, $_temp1)';
   }
 
   @override
@@ -4760,6 +4796,44 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get onboardingExploreSubtitle => 'Primeiro, dê uma olhada.';
 
   @override
+  String get whatsNew20Title => 'Refeito para iPhone';
+
+  @override
+  String get whatsNew20Body =>
+      'O Patterns 2.0 agora é um app nativo para iPhone, criado com as ferramentas da Apple.';
+
+  @override
+  String get whatsNew20NativeTitle => 'A cara do iPhone';
+
+  @override
+  String get whatsNew20NativeBody =>
+      'Controles familiares em todo o app. Deslize um item da lista ou toque e segure para ver ações rápidas.';
+
+  @override
+  String get whatsNew20FastTitle => 'Mais rápido e fluido';
+
+  @override
+  String get whatsNew20FastBody =>
+      'As telas abrem mais rápido e a rolagem continua fluida.';
+
+  @override
+  String get whatsNew20SettingsTitle => 'Segue os ajustes do seu iPhone';
+
+  @override
+  String get whatsNew20SettingsBody =>
+      'Tamanho do Texto, Texto em Negrito, VoiceOver, Reduzir Movimento e Modo Escuro são aplicados automaticamente.';
+
+  @override
+  String get whatsNew20PhotosTitle => 'Adicione fotos com privacidade';
+
+  @override
+  String get whatsNew20PhotosBody =>
+      'Escolha imagens de exposição direto do app Fotos. O Patterns vê apenas as que você escolher.';
+
+  @override
+  String get whatsNew20ExploreAction => 'Explorar o Patterns 2.0';
+
+  @override
   String get whatsNewTitle => 'Pratique sem pressão';
 
   @override
@@ -4836,7 +4910,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get privacyPurchases =>
-      'O Patterns Pro e as gorjetas são processados pela loja de aplicativos. O Patterns não recebe os dados do seu cartão.';
+      'O Patterns Pro é processado pela loja de aplicativos. O Patterns não recebe os dados do seu cartão.';
 
   @override
   String get privacyExports =>
@@ -5066,74 +5140,6 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String get proRestoreSucceeded =>
       'O Patterns Pro foi restaurado. Todas as ferramentas de autoajuda estão desbloqueadas novamente.';
-
-  @override
-  String get tipJarTitle => 'Apoiar o Patterns';
-
-  @override
-  String get tipJarBody =>
-      'O Patterns é independente e não tem anúncios. Se ele ajudou você, uma pequena gorjeta significa muito. As gorjetas são opcionais e não desbloqueiam nada.';
-
-  @override
-  String get tipJarLoadingLabel => 'Carregando opções de gorjeta';
-
-  @override
-  String get tipJarPurchasesUnavailable =>
-      'As compras no app não estão disponíveis neste dispositivo.';
-
-  @override
-  String get tipJarOptionsUnavailable =>
-      'Nenhuma opção de gorjeta foi encontrada. Tente novamente mais tarde.';
-
-  @override
-  String get tipJarLoadFailed =>
-      'Não foi possível carregar as opções de gorjeta. Tente novamente mais tarde.';
-
-  @override
-  String get tipJarPurchaseFailed =>
-      'Não foi possível concluir a gorjeta. Tente novamente.';
-
-  @override
-  String get tipJarTryAgainAction => 'Tentar novamente';
-
-  @override
-  String get tipSmallTitle => 'Gorjeta pequena';
-
-  @override
-  String get tipSmallDescription =>
-      'Uma gorjeta pequena e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos.';
-
-  @override
-  String get tipMediumTitle => 'Gorjeta média';
-
-  @override
-  String get tipMediumDescription =>
-      'Uma gorjeta média e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos.';
-
-  @override
-  String get tipLargeTitle => 'Gorjeta grande';
-
-  @override
-  String get tipLargeDescription =>
-      'Uma gorjeta grande e opcional para apoiar o desenvolvimento do Patterns. Não libera recursos.';
-
-  @override
-  String tipChoiceSemantics(String title, String price, String description) {
-    return '$title, $price. $description';
-  }
-
-  @override
-  String get tipChoiceHint => 'Envia esta gorjeta opcional';
-
-  @override
-  String get tipThanksTitle => 'Obrigado';
-
-  @override
-  String get tipThanksBody =>
-      'Seu apoio significa muito. Graças a pessoas como você, o Patterns continua independente e sem anúncios.';
-
-  @override
-  String get tipThanksAction => 'Foi um prazer';
 
   @override
   String get desktopProTitle => 'Desbloquear o Patterns Desktop Pro';
@@ -8134,4 +8140,72 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String completionAnnouncement(String title, String body) {
     return '$title. $body';
   }
+
+  @override
+  String copingLibraryText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'intro': 'Formas saudáveis de atravessar um momento difícil.',
+      'duringUrges': 'Durante impulsos',
+      'duringAnxiety': 'Durante a ansiedade',
+      'breathingTitle': 'Respiração profunda',
+      'breathingBody':
+          'Desacelere a expiração. Inspire contando até 4 e expire contando até 6. Uma expiração mais longa avisa ao seu corpo que ele pode se acalmar.',
+      'groundingTitle': 'Ancoragem (5-4-3-2-1)',
+      'groundingBody':
+          'Nomeie 5 coisas que você vê, 4 que você sente pelo toque, 3 que você ouve, 2 que você cheira e 1 que você saboreia. Volte para o momento presente.',
+      'urgeSurfingTitle': 'Surfar o impulso',
+      'urgeSurfingBody':
+          'Imagine o impulso como uma onda. Observe-o subir, chegar ao auge e descer sozinho. Você não precisa agir. Ele sempre passa.',
+      'acceptanceTitle': 'Frases de aceitação',
+      'acceptanceBody':
+          'Experimente: “Isto é só um pensamento intrusivo. Posso deixá-lo aqui sem responder a ele.”',
+      'observationTitle': 'Observação consciente',
+      'observationBody':
+          'Observe o pensamento como uma nuvem passando. Perceba-o, chame-o de “um pensamento” e deixe-o seguir.',
+      'relaxationTitle': 'Relaxamento muscular progressivo',
+      'relaxationBody':
+          'Contraia cada grupo muscular por cerca de 5 segundos e depois solte, dos pés até o rosto. Perceba a diferença ao soltar.',
+      'mindfulnessTitle': 'Atenção plena',
+      'mindfulnessBody':
+          'Deixe sua atenção descansar na respiração. Quando a mente se distrair, traga-a de volta com gentileza e sem julgamento.',
+      'compassionTitle': 'Autocompaixão',
+      'compassionBody':
+          'Fale consigo mesmo como falaria com um bom amigo: “Isto é difícil, e estou fazendo o meu melhor.”',
+      'walkTitle': 'Fazer uma caminhada',
+      'walkBody':
+          'Caminhe devagar e deixe sua atenção descansar em cada passo e no ar sobre a pele. O movimento ajuda a ansiedade a passar.',
+      'other': 'Estratégia de enfrentamento',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String dataErrorText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'newerTitle':
+          'Estes dados precisam de uma versão mais recente do Patterns',
+      'newerBody':
+          'Seus registros foram salvos por uma versão mais recente do Patterns. Atualize o app na App Store para abri-los. Nada foi alterado ou apagado.',
+      'unreadableTitle': 'O Patterns não conseguiu abrir seus dados',
+      'unreadableBody':
+          'Seus registros continuam neste iPhone e não foram alterados. Tente novamente. Se isso continuar acontecendo, peça ajuda em patternsocd.com.',
+      'retry': 'Tentar novamente',
+      'help': 'Obter ajuda',
+      'other': 'O Patterns não conseguiu abrir seus dados',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get settingsStoreOpenFailed =>
+      'Não foi possível abrir a loja. Tente novamente.';
+
+  @override
+  String settingsEmailOpenFailed(String email) {
+    return 'Não foi possível abrir o e-mail. Você pode escrever para $email.';
+  }
+
+  @override
+  String get journalSaveError =>
+      'Não foi possível salvar seu registro. Tente novamente.';
 }

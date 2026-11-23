@@ -1,0 +1,3 @@
+"CFBundleDisplayName" = "Patterns";
+"NSFaceIDUsageDescription" = "O Patterns usa o Face ID para desbloquear seu diário privado e seus dados de acompanhamento de TOC quando o bloqueio do app está ativado.";
+"NSMicrophoneUsageDescription" = "O Patterns usa o microfone somente quando você grava um áudio em repetição para seus exercícios de exposição. As gravações permanecem no seu dispositivo.";

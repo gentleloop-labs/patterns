@@ -148,13 +148,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Share an idea or tell us what went wrong';
 
   @override
-  String get settingsSupportTitle => 'Support Patterns';
-
-  @override
-  String get settingsSupportSubtitle =>
-      'Leave an optional tip to support development';
-
-  @override
   String get appearanceTitle => 'Appearance';
 
   @override
@@ -447,7 +440,13 @@ class AppLocalizationsEn extends AppLocalizations {
       one: '1 entry',
       zero: 'No entries',
     );
-    return '$_temp0 in this range ($journal journal, $ocd OCD, $selfChecks self-checks)';
+    String _temp1 = intl.Intl.pluralLogic(
+      selfChecks,
+      locale: localeName,
+      other: '$selfChecks self-checks',
+      one: '1 self-check',
+    );
+    return '$_temp0 in this range ($journal journal, $ocd OCD, $_temp1)';
   }
 
   @override
@@ -693,6 +692,44 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingExploreSubtitle => 'Have a look around first.';
 
   @override
+  String get whatsNew20Title => 'Rebuilt for iPhone';
+
+  @override
+  String get whatsNew20Body =>
+      'Patterns 2.0 is now a native iPhone app, built with Apple’s own tools.';
+
+  @override
+  String get whatsNew20NativeTitle => 'Looks and feels like iPhone';
+
+  @override
+  String get whatsNew20NativeBody =>
+      'Familiar controls throughout. Swipe a list item or press and hold it for quick actions.';
+
+  @override
+  String get whatsNew20FastTitle => 'Faster and smoother';
+
+  @override
+  String get whatsNew20FastBody =>
+      'Screens open quicker and scrolling stays smooth.';
+
+  @override
+  String get whatsNew20SettingsTitle => 'Works with your iPhone settings';
+
+  @override
+  String get whatsNew20SettingsBody =>
+      'Text size, Bold Text, VoiceOver, Reduce Motion and Dark Mode all apply automatically.';
+
+  @override
+  String get whatsNew20PhotosTitle => 'Add photos privately';
+
+  @override
+  String get whatsNew20PhotosBody =>
+      'Pick exposure images straight from Photos. Patterns sees only the ones you choose.';
+
+  @override
+  String get whatsNew20ExploreAction => 'Explore Patterns 2.0';
+
+  @override
   String get whatsNewTitle => 'Practice without pressure';
 
   @override
@@ -769,7 +806,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get privacyPurchases =>
-      'Patterns Pro and tips are processed by the app store. Patterns does not receive your payment-card details.';
+      'Patterns Pro is processed by the app store. Patterns does not receive your payment-card details.';
 
   @override
   String get privacyExports =>
@@ -989,74 +1026,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get proRestoreSucceeded =>
       'Patterns Pro restored. Every self-help tool is unlocked again.';
-
-  @override
-  String get tipJarTitle => 'Support Patterns';
-
-  @override
-  String get tipJarBody =>
-      'Patterns is independent and ad-free. If it has helped you, a small tip means a lot. Tips are optional and do not unlock anything.';
-
-  @override
-  String get tipJarLoadingLabel => 'Loading tip options';
-
-  @override
-  String get tipJarPurchasesUnavailable =>
-      'In-app purchases are unavailable on this device.';
-
-  @override
-  String get tipJarOptionsUnavailable =>
-      'No tip options were found. Please try again later.';
-
-  @override
-  String get tipJarLoadFailed =>
-      'Tip options could not be loaded. Please try again later.';
-
-  @override
-  String get tipJarPurchaseFailed =>
-      'The tip could not be completed. Please try again.';
-
-  @override
-  String get tipJarTryAgainAction => 'Try again';
-
-  @override
-  String get tipSmallTitle => 'Small tip';
-
-  @override
-  String get tipSmallDescription =>
-      'An optional small tip to support Patterns development. Unlocks no features.';
-
-  @override
-  String get tipMediumTitle => 'Medium tip';
-
-  @override
-  String get tipMediumDescription =>
-      'An optional medium tip to support Patterns development. Unlocks no features.';
-
-  @override
-  String get tipLargeTitle => 'Large tip';
-
-  @override
-  String get tipLargeDescription =>
-      'An optional large tip to support Patterns development. Unlocks no features.';
-
-  @override
-  String tipChoiceSemantics(String title, String price, String description) {
-    return '$title, $price. $description';
-  }
-
-  @override
-  String get tipChoiceHint => 'Sends this optional tip';
-
-  @override
-  String get tipThanksTitle => 'Thank you';
-
-  @override
-  String get tipThanksBody =>
-      'Your support means a lot. Patterns stays ad-free and independent because of people like you.';
-
-  @override
-  String get tipThanksAction => 'Glad to help';
 
   @override
   String get desktopProTitle => 'Unlock Patterns Desktop Pro';
@@ -4014,4 +3983,71 @@ class AppLocalizationsEn extends AppLocalizations {
   String completionAnnouncement(String title, String body) {
     return '$title. $body';
   }
+
+  @override
+  String copingLibraryText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'intro': 'Healthy ways to ride out a hard moment.',
+      'duringUrges': 'During urges',
+      'duringAnxiety': 'During anxiety',
+      'breathingTitle': 'Deep breathing',
+      'breathingBody':
+          'Slow your exhale. Breathe in for 4, out for 6. A longer out-breath tells your body it is safe to settle.',
+      'groundingTitle': 'Grounding (5-4-3-2-1)',
+      'groundingBody':
+          'Name 5 things you can see, 4 you can feel, 3 you can hear, 2 you can smell, and 1 you can taste. Bring yourself back to right now.',
+      'urgeSurfingTitle': 'Urge surfing',
+      'urgeSurfingBody':
+          'Picture the urge as a wave. Watch it rise, crest, and fall on its own. You do not have to act. It always passes.',
+      'acceptanceTitle': 'Acceptance statements',
+      'acceptanceBody':
+          'Try: “This is just an intrusive thought. I can let it be here without responding to it.”',
+      'observationTitle': 'Mindful observation',
+      'observationBody':
+          'Watch the thought like a cloud drifting past. Notice it, label it “a thought”, and let it move along.',
+      'relaxationTitle': 'Progressive muscle relaxation',
+      'relaxationBody':
+          'Tense each muscle group for about 5 seconds, then release, from your feet up to your face. Notice the contrast as you let go.',
+      'mindfulnessTitle': 'Mindfulness',
+      'mindfulnessBody':
+          'Rest your attention on your breath. When your mind wanders, gently and without judgement bring it back.',
+      'compassionTitle': 'Self-compassion',
+      'compassionBody':
+          'Speak to yourself the way you would to a good friend: “This is hard, and I am doing my best.”',
+      'walkTitle': 'Go for a walk',
+      'walkBody':
+          'Take a slow walk and let your attention rest on each step and the air on your skin. Movement helps anxiety move through.',
+      'other': 'Coping strategy',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String dataErrorText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'newerTitle': 'This data needs a newer Patterns',
+      'newerBody':
+          'Your entries were saved by a newer version of Patterns. Update the app from the App Store to open them. Nothing has been changed or deleted.',
+      'unreadableTitle': 'Patterns could not open your data',
+      'unreadableBody':
+          'Your entries are still on this iPhone and have not been changed. Try again. If this keeps happening, get help at patternsocd.com.',
+      'retry': 'Try again',
+      'help': 'Get help',
+      'other': 'Patterns could not open your data',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get settingsStoreOpenFailed =>
+      'Couldn’t open the store. Please try again.';
+
+  @override
+  String settingsEmailOpenFailed(String email) {
+    return 'Couldn’t open email. You can write to $email.';
+  }
+
+  @override
+  String get journalSaveError =>
+      'Your entry could not be saved. Please try again.';
 }

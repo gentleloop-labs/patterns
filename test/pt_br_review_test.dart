@@ -40,7 +40,6 @@ void main() {
       contains('não oferece apoio de emergência'),
     );
     expect(arb['privacyClinicalBoundary'], contains('não substitui'));
-    expect(arb['tipJarBody'], contains('não desbloqueiam nada'));
     expect(arb['privacyAnalytics'], contains('escolha de idioma'));
   });
 

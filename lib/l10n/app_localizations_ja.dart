@@ -135,12 +135,6 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settingsSendFeedbackSubtitle => 'アイデアや問題をお知らせください';
 
   @override
-  String get settingsSupportTitle => 'Patternsを支援';
-
-  @override
-  String get settingsSupportSubtitle => '任意のチップで開発を支援できます';
-
-  @override
   String get appearanceTitle => '外観';
 
   @override
@@ -611,6 +605,43 @@ class AppLocalizationsJa extends AppLocalizations {
   String get onboardingExploreSubtitle => '最初にアプリ内を見て回ります。';
 
   @override
+  String get whatsNew20Title => 'iPhoneのために新しく';
+
+  @override
+  String get whatsNew20Body =>
+      'Patterns 2.0は、Appleのツールで作られたネイティブのiPhoneアプリになりました。';
+
+  @override
+  String get whatsNew20NativeTitle => 'iPhoneらしい使い心地';
+
+  @override
+  String get whatsNew20NativeBody =>
+      '見慣れた操作をアプリ全体で。リストの項目をスワイプするか長押しすると、クイックアクションが表示されます。';
+
+  @override
+  String get whatsNew20FastTitle => 'より速く、なめらかに';
+
+  @override
+  String get whatsNew20FastBody => '画面がすばやく開き、スクロールもなめらかです。';
+
+  @override
+  String get whatsNew20SettingsTitle => 'iPhoneの設定に対応';
+
+  @override
+  String get whatsNew20SettingsBody =>
+      '文字サイズ、文字を太くする、VoiceOver、視差効果を減らす、ダークモードが自動で反映されます。';
+
+  @override
+  String get whatsNew20PhotosTitle => '写真をプライベートに追加';
+
+  @override
+  String get whatsNew20PhotosBody =>
+      '曝露で使う画像を写真から直接選べます。Patternsが見るのは選んだ写真だけです。';
+
+  @override
+  String get whatsNew20ExploreAction => 'Patterns 2.0を見る';
+
+  @override
   String get whatsNewTitle => 'プレッシャーのない練習';
 
   @override
@@ -684,7 +715,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get privacyPurchases =>
-      'Patterns Proとチップの購入はアプリストアが処理します。Patternsが決済カード情報を受け取ることはありません。';
+      'Patterns Proの購入はアプリストアが処理します。Patternsが決済カード情報を受け取ることはありません。';
 
   @override
   String get privacyExports =>
@@ -881,68 +912,6 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get proRestoreSucceeded =>
       'Patterns Proを復元しました。すべてのセルフヘルプツールを再び利用できます。';
-
-  @override
-  String get tipJarTitle => 'Patternsを支援';
-
-  @override
-  String get tipJarBody =>
-      'Patternsは独立して運営され、広告はありません。役に立ったと感じた場合は、少額のチップで支援できます。チップは任意で、機能が追加されることはありません。';
-
-  @override
-  String get tipJarLoadingLabel => 'チップの選択肢を読み込み中';
-
-  @override
-  String get tipJarPurchasesUnavailable => 'このデバイスではアプリ内購入を利用できません。';
-
-  @override
-  String get tipJarOptionsUnavailable =>
-      'チップの選択肢が見つかりませんでした。しばらくしてからもう一度お試しください。';
-
-  @override
-  String get tipJarLoadFailed => 'チップの選択肢を読み込めませんでした。しばらくしてからもう一度お試しください。';
-
-  @override
-  String get tipJarPurchaseFailed => 'チップを完了できませんでした。もう一度お試しください。';
-
-  @override
-  String get tipJarTryAgainAction => 'もう一度試す';
-
-  @override
-  String get tipSmallTitle => '小さなチップ';
-
-  @override
-  String get tipSmallDescription => 'Patternsの開発を支援する任意の小さなチップです。機能は追加されません。';
-
-  @override
-  String get tipMediumTitle => '中くらいのチップ';
-
-  @override
-  String get tipMediumDescription => 'Patternsの開発を支援する任意のチップです。機能は追加されません。';
-
-  @override
-  String get tipLargeTitle => '大きなチップ';
-
-  @override
-  String get tipLargeDescription => 'Patternsの開発を支援する任意の大きなチップです。機能は追加されません。';
-
-  @override
-  String tipChoiceSemantics(String title, String price, String description) {
-    return '$title、$price。$description';
-  }
-
-  @override
-  String get tipChoiceHint => 'この任意のチップを送ります';
-
-  @override
-  String get tipThanksTitle => 'ありがとうございます';
-
-  @override
-  String get tipThanksBody =>
-      'ご支援に感謝します。皆さまの支援により、Patternsは広告なしで独立した運営を続けられます。';
-
-  @override
-  String get tipThanksAction => 'どういたしまして';
 
   @override
   String get desktopProTitle => 'Patterns Desktop Proをアンロック';
@@ -3551,4 +3520,63 @@ class AppLocalizationsJa extends AppLocalizations {
   String completionAnnouncement(String title, String body) {
     return '$title。$body';
   }
+
+  @override
+  String copingLibraryText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'intro': 'つらい時をやり過ごすための、健やかな方法。',
+      'duringUrges': '衝動があるとき',
+      'duringAnxiety': '不安があるとき',
+      'breathingTitle': '深呼吸',
+      'breathingBody':
+          '息をゆっくり吐きましょう。4つ数えて吸い、6つ数えて吐きます。長く吐くことで、落ち着いても大丈夫だと体に伝わります。',
+      'groundingTitle': 'グラウンディング（5-4-3-2-1）',
+      'groundingBody':
+          '見えるものを5つ、触れて感じるものを4つ、聞こえるものを3つ、におうものを2つ、味わえるものを1つ挙げてみましょう。今この瞬間に戻ってきます。',
+      'urgeSurfingTitle': '衝動の波に乗る',
+      'urgeSurfingBody':
+          '衝動を波としてイメージしましょう。波がひとりでに高まり、頂点に達し、引いていく様子を眺めます。行動する必要はありません。衝動は必ず過ぎていきます。',
+      'acceptanceTitle': '受け入れの言葉',
+      'acceptanceBody': 'こう言ってみましょう：「これはただの侵入思考だ。反応しなくても、ここにあってかまわない。」',
+      'observationTitle': 'マインドフルな観察',
+      'observationBody': '流れていく雲のように思考を眺めましょう。気づき、「思考」と名づけて、そのまま流れていかせます。',
+      'relaxationTitle': '漸進的筋弛緩法',
+      'relaxationBody': '足から顔まで、各部位の筋肉に約5秒間力を入れてから緩めます。力を抜いたときの違いに注意を向けましょう。',
+      'mindfulnessTitle': 'マインドフルネス',
+      'mindfulnessBody': '呼吸に注意を向けましょう。気がそれたら、責めずにやさしく呼吸へ戻します。',
+      'compassionTitle': 'セルフ・コンパッション',
+      'compassionBody': '親しい友人に話しかけるように、自分に声をかけましょう：「これはつらい。それでも自分は精一杯やっている。」',
+      'walkTitle': '散歩をする',
+      'walkBody': 'ゆっくり歩きながら、一歩一歩と肌にふれる空気に注意を向けましょう。体を動かすと、不安が流れていきやすくなります。',
+      'other': '対処法',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String dataErrorText(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'newerTitle': 'このデータには新しいバージョンのPatternsが必要です',
+      'newerBody':
+          '記録は新しいバージョンのPatternsで保存されています。開くにはApp Storeでアプリをアップデートしてください。何も変更・削除されていません。',
+      'unreadableTitle': 'Patternsでデータを開けませんでした',
+      'unreadableBody':
+          '記録はこのiPhoneに残っており、変更されていません。もう一度お試しください。繰り返し起こる場合は、patternsocd.comでヘルプをご覧ください。',
+      'retry': 'もう一度試す',
+      'help': 'ヘルプを見る',
+      'other': 'Patternsでデータを開けませんでした',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get settingsStoreOpenFailed => 'ストアを開けませんでした。もう一度お試しください。';
+
+  @override
+  String settingsEmailOpenFailed(String email) {
+    return 'メールを開けませんでした。$email 宛てにご連絡いただけます。';
+  }
+
+  @override
+  String get journalSaveError => '記録を保存できませんでした。もう一度お試しください。';
 }

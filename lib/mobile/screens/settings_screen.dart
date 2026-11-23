@@ -20,7 +20,6 @@ import '../../services/notification_service.dart';
 import '../../services/pro_service.dart';
 import '../../services/pro_entry_point.dart';
 import '../../services/review_prompt.dart';
-import '../../services/tip_jar.dart';
 import '../../services/usage_analytics.dart';
 import '../../l10n/l10n.dart';
 import '../../l10n/app_language.dart';
@@ -32,7 +31,6 @@ import '../../widgets/export_report_sheet.dart';
 import '../../widgets/language_picker.dart';
 import '../../widgets/paywall_sheet.dart';
 import '../../widgets/platform.dart';
-import '../../widgets/tip_jar_sheet.dart';
 import '../biometric_auth.dart';
 import '../main_shell.dart' show tourRequestProvider;
 import '../preferences.dart';
@@ -281,15 +279,6 @@ class SettingsScreen extends ConsumerWidget {
               subtitle: strings.settingsSendFeedbackSubtitle,
               onTap: () => ReviewPromptService.sendFeedback(context),
             ),
-            if (TipJarService.isPlatformSupported) ...[
-              const SizedBox(height: 10),
-              _SettingsItem(
-                icon: LineIcons.heart,
-                title: strings.settingsSupportTitle,
-                subtitle: strings.settingsSupportSubtitle,
-                onTap: () => TipJarSheet.show(context),
-              ),
-            ],
             const SizedBox(height: 28),
             const _AppVersionLabel(),
             if (kDebugMode) ...[

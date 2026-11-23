@@ -1,0 +1,3 @@
+"CFBundleDisplayName" = "Patterns";
+"NSFaceIDUsageDescription" = "Patterns utilise Face ID pour déverrouiller votre journal privé et vos données de suivi du TOC lorsque le verrouillage de l’application est activé.";
+"NSMicrophoneUsageDescription" = "Patterns utilise le microphone uniquement lorsque vous enregistrez un audio en boucle pour vos exercices d’exposition. Les enregistrements restent sur votre appareil.";

@@ -34,7 +34,6 @@ import 'package:patterns/providers/providers.dart';
 import 'package:patterns/services/pro_entry_point.dart';
 import 'package:patterns/theme/app_theme.dart';
 import 'package:patterns/widgets/paywall_sheet.dart';
-import 'package:patterns/widgets/tip_jar_sheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class _Journals extends JournalNotifier {
@@ -308,7 +307,6 @@ final _surfaces = <_ReviewSurface>[
     () =>
         const Scaffold(body: PaywallSheet(entryPoint: ProEntryPoint.settings)),
   ),
-  _ReviewSurface('tips', () => const Scaffold(body: TipJarSheet())),
 ];
 
 void main() {

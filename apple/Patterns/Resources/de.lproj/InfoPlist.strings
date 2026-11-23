@@ -1,0 +1,3 @@
+"CFBundleDisplayName" = "Patterns";
+"NSFaceIDUsageDescription" = "Patterns verwendet Face ID, um Ihr privates Tagebuch und Ihre Aufzeichnungen zu Zwangsmomenten bei aktiviertem App-Schutz zu entsperren.";
+"NSMicrophoneUsageDescription" = "Patterns verwendet das Mikrofon nur, wenn Sie für Ihre Expositionsübungen eine Audioaufnahme in Schleife erstellen. Aufnahmen bleiben auf Ihrem Gerät.";

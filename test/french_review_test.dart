@@ -43,8 +43,6 @@ void main() {
     expect(arb['privacyClinicalBoundary'], contains('ne remplace pas'));
     expect(arb['privacyClinicalBoundary'], contains('aide d’urgence'));
     expect(arb['emergencyToolkitText'], contains('services d’urgence locaux'));
-    expect(arb['tipJarBody'], contains('facultatifs'));
-    expect(arb['tipJarBody'], contains('ne débloquent rien'));
     expect(arb['privacyAnalytics'], contains('choix de langue'));
   });
 

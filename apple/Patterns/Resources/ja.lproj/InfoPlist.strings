@@ -1,0 +1,3 @@
+"CFBundleDisplayName" = "Patterns";
+"NSFaceIDUsageDescription" = "アプリロックが有効な場合、PatternsはFace IDを使用して非公開の日記と強迫症に関する記録のロックを解除します。";
+"NSMicrophoneUsageDescription" = "Patternsは、曝露練習用のループ音声を録音するときにのみマイクを使用します。録音は端末内に保存されます。";

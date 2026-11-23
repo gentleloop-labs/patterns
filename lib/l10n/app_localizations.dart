@@ -353,18 +353,6 @@ abstract class AppLocalizations {
   /// **'Share an idea or tell us what went wrong'**
   String get settingsSendFeedbackSubtitle;
 
-  /// User-facing Patterns interface copy for settings support title.
-  ///
-  /// In en, this message translates to:
-  /// **'Support Patterns'**
-  String get settingsSupportTitle;
-
-  /// User-facing Patterns interface copy for settings support subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Leave an optional tip to support development'**
-  String get settingsSupportSubtitle;
-
   /// Appearance-setting interface copy for appearance title.
   ///
   /// In en, this message translates to:
@@ -800,7 +788,7 @@ abstract class AppLocalizations {
   /// Manual export flow copy for export entry summary. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
   ///
   /// In en, this message translates to:
-  /// **'{total, plural, =0{No entries} =1{1 entry} other{{total} entries}} in this range ({journal} journal, {ocd} OCD, {selfChecks} self-checks)'**
+  /// **'{total, plural, =0{No entries} =1{1 entry} other{{total} entries}} in this range ({journal} journal, {ocd} OCD, {selfChecks, plural, =1{1 self-check} other{{selfChecks} self-checks}})'**
   String exportEntrySummary(int total, int journal, int ocd, int selfChecks);
 
   /// Manual export flow copy for export large report. Preserve the distinction between local data and an unencrypted file the user chooses to save or share.
@@ -1235,6 +1223,72 @@ abstract class AppLocalizations {
   /// **'Have a look around first.'**
   String get onboardingExploreSubtitle;
 
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Rebuilt for iPhone'**
+  String get whatsNew20Title;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Patterns 2.0 is now a native iPhone app, built with Apple’s own tools.'**
+  String get whatsNew20Body;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Looks and feels like iPhone'**
+  String get whatsNew20NativeTitle;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Familiar controls throughout. Swipe a list item or press and hold it for quick actions.'**
+  String get whatsNew20NativeBody;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Faster and smoother'**
+  String get whatsNew20FastTitle;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Screens open quicker and scrolling stays smooth.'**
+  String get whatsNew20FastBody;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Works with your iPhone settings'**
+  String get whatsNew20SettingsTitle;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Text size, Bold Text, VoiceOver, Reduce Motion and Dark Mode all apply automatically.'**
+  String get whatsNew20SettingsBody;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Add photos privately'**
+  String get whatsNew20PhotosTitle;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick exposure images straight from Photos. Patterns sees only the ones you choose.'**
+  String get whatsNew20PhotosBody;
+
+  /// Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore Patterns 2.0'**
+  String get whatsNew20ExploreAction;
+
   /// Patterns 1.10 in-app announcement copy for whats new title. Mention only implemented behavior and preserve the local-data and review gates.
   ///
   /// In en, this message translates to:
@@ -1364,7 +1418,7 @@ abstract class AppLocalizations {
   /// Explains the privacy boundary for StoreKit or platform-store purchases.
   ///
   /// In en, this message translates to:
-  /// **'Patterns Pro and tips are processed by the app store. Patterns does not receive your payment-card details.'**
+  /// **'Patterns Pro is processed by the app store. Patterns does not receive your payment-card details.'**
   String get privacyPurchases;
 
   /// Warns that user-initiated exports are unencrypted and leave local storage only by user action.
@@ -1738,120 +1792,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Patterns Pro restored. Every self-help tool is unlocked again.'**
   String get proRestoreSucceeded;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Support Patterns'**
-  String get tipJarTitle;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Patterns is independent and ad-free. If it has helped you, a small tip means a lot. Tips are optional and do not unlock anything.'**
-  String get tipJarBody;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Loading tip options'**
-  String get tipJarLoadingLabel;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'In-app purchases are unavailable on this device.'**
-  String get tipJarPurchasesUnavailable;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'No tip options were found. Please try again later.'**
-  String get tipJarOptionsUnavailable;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Tip options could not be loaded. Please try again later.'**
-  String get tipJarLoadFailed;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'The tip could not be completed. Please try again.'**
-  String get tipJarPurchaseFailed;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Try again'**
-  String get tipJarTryAgainAction;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Small tip'**
-  String get tipSmallTitle;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'An optional small tip to support Patterns development. Unlocks no features.'**
-  String get tipSmallDescription;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Medium tip'**
-  String get tipMediumTitle;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'An optional medium tip to support Patterns development. Unlocks no features.'**
-  String get tipMediumDescription;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Large tip'**
-  String get tipLargeTitle;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'An optional large tip to support Patterns development. Unlocks no features.'**
-  String get tipLargeDescription;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'{title}, {price}. {description}'**
-  String tipChoiceSemantics(String title, String price, String description);
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Sends this optional tip'**
-  String get tipChoiceHint;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Thank you'**
-  String get tipThanksTitle;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Your support means a lot. Patterns stays ad-free and independent because of people like you.'**
-  String get tipThanksBody;
-
-  /// Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Glad to help'**
-  String get tipThanksAction;
 
   /// Desktop Pro purchase and license activation copy. Keep claims factual and never expose raw service errors.
   ///
@@ -4426,6 +4366,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{title}. {body}'**
   String completionAnnouncement(String title, String body);
+
+  /// Coping Library copy, selected by a stable key. Second-person, gentle suggestions; keep them optional and never clinical. Do not add em dashes.
+  ///
+  /// In en, this message translates to:
+  /// **'{key, select, intro{Healthy ways to ride out a hard moment.} duringUrges{During urges} duringAnxiety{During anxiety} breathingTitle{Deep breathing} breathingBody{Slow your exhale. Breathe in for 4, out for 6. A longer out-breath tells your body it is safe to settle.} groundingTitle{Grounding (5-4-3-2-1)} groundingBody{Name 5 things you can see, 4 you can feel, 3 you can hear, 2 you can smell, and 1 you can taste. Bring yourself back to right now.} urgeSurfingTitle{Urge surfing} urgeSurfingBody{Picture the urge as a wave. Watch it rise, crest, and fall on its own. You do not have to act. It always passes.} acceptanceTitle{Acceptance statements} acceptanceBody{Try: “This is just an intrusive thought. I can let it be here without responding to it.”} observationTitle{Mindful observation} observationBody{Watch the thought like a cloud drifting past. Notice it, label it “a thought”, and let it move along.} relaxationTitle{Progressive muscle relaxation} relaxationBody{Tense each muscle group for about 5 seconds, then release, from your feet up to your face. Notice the contrast as you let go.} mindfulnessTitle{Mindfulness} mindfulnessBody{Rest your attention on your breath. When your mind wanders, gently and without judgement bring it back.} compassionTitle{Self-compassion} compassionBody{Speak to yourself the way you would to a good friend: “This is hard, and I am doing my best.”} walkTitle{Go for a walk} walkBody{Take a slow walk and let your attention rest on each step and the air on your skin. Movement helps anxiety move through.} other{Coping strategy}}'**
+  String copingLibraryText(String key);
+
+  /// Shown only when the app cannot open its data safely. It must make clear nothing was changed or deleted. patternsocd.com is the help website and stays as is.
+  ///
+  /// In en, this message translates to:
+  /// **'{key, select, newerTitle{This data needs a newer Patterns} newerBody{Your entries were saved by a newer version of Patterns. Update the app from the App Store to open them. Nothing has been changed or deleted.} unreadableTitle{Patterns could not open your data} unreadableBody{Your entries are still on this iPhone and have not been changed. Try again. If this keeps happening, get help at patternsocd.com.} retry{Try again} help{Get help} other{Patterns could not open your data}}'**
+  String dataErrorText(String key);
+
+  /// Toast when the App Store page could not be opened from Settings > Rate Patterns.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t open the store. Please try again.'**
+  String get settingsStoreOpenFailed;
+
+  /// Toast when no email app could open from Settings > Send feedback. {email} is the support address.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t open email. You can write to {email}.'**
+  String settingsEmailOpenFailed(String email);
+
+  /// Toast when a journal entry could not be saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Your entry could not be saved. Please try again.'**
+  String get journalSaveError;
 }
 
 class _AppLocalizationsDelegate

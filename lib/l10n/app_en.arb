@@ -49,8 +49,6 @@
   "settingsRateSubtitle": "Tell the store what you think",
   "settingsSendFeedbackTitle": "Send feedback",
   "settingsSendFeedbackSubtitle": "Share an idea or tell us what went wrong",
-  "settingsSupportTitle": "Support Patterns",
-  "settingsSupportSubtitle": "Leave an optional tip to support development",
   "appearanceTitle": "Appearance",
   "appearanceSystem": "System",
   "appearanceLight": "Light",
@@ -207,7 +205,7 @@
   "exportJournalEntries": "Journal entries",
   "exportOcdEvents": "OCD events",
   "exportYbocsSelfChecks": "Y-BOCS self-checks",
-  "exportEntrySummary": "{total, plural, =0{No entries} =1{1 entry} other{{total} entries}} in this range ({journal} journal, {ocd} OCD, {selfChecks} self-checks)",
+  "exportEntrySummary": "{total, plural, =0{No entries} =1{1 entry} other{{total} entries}} in this range ({journal} journal, {ocd} OCD, {selfChecks, plural, =1{1 self-check} other{{selfChecks} self-checks}})",
   "@exportEntrySummary": {
     "placeholders": {
       "total": {
@@ -340,6 +338,17 @@
   "onboardingSelfCheckSubtitle": "The Y-BOCS self-check. About 10 minutes.",
   "onboardingExploreTitle": "I'm just exploring",
   "onboardingExploreSubtitle": "Have a look around first.",
+  "whatsNew20Title": "Rebuilt for iPhone", "@whatsNew20Title": {"description": "Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings."},
+  "whatsNew20Body": "Patterns 2.0 is now a native iPhone app, built with Apple’s own tools.", "@whatsNew20Body": {"description": "Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings."},
+  "whatsNew20NativeTitle": "Looks and feels like iPhone", "@whatsNew20NativeTitle": {"description": "Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings."},
+  "whatsNew20NativeBody": "Familiar controls throughout. Swipe a list item or press and hold it for quick actions.", "@whatsNew20NativeBody": {"description": "Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings."},
+  "whatsNew20FastTitle": "Faster and smoother", "@whatsNew20FastTitle": {"description": "Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings."},
+  "whatsNew20FastBody": "Screens open quicker and scrolling stays smooth.", "@whatsNew20FastBody": {"description": "Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings."},
+  "whatsNew20SettingsTitle": "Works with your iPhone settings", "@whatsNew20SettingsTitle": {"description": "Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings."},
+  "whatsNew20SettingsBody": "Text size, Bold Text, VoiceOver, Reduce Motion and Dark Mode all apply automatically.", "@whatsNew20SettingsBody": {"description": "Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings."},
+  "whatsNew20PhotosTitle": "Add photos privately", "@whatsNew20PhotosTitle": {"description": "Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings."},
+  "whatsNew20PhotosBody": "Pick exposure images straight from Photos. Patterns sees only the ones you choose.", "@whatsNew20PhotosBody": {"description": "Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings."},
+  "whatsNew20ExploreAction": "Explore Patterns 2.0", "@whatsNew20ExploreAction": {"description": "Patterns 2.0 What's New on iPhone, shown once to people updating from the Flutter build. iOS only; use the iOS names for system settings."},
   "whatsNewTitle": "Practice without pressure",
   "whatsNewBody": "Patterns 1.10 brings calmer insights, quieter session endings, accessibility improvements, and optional language selection.",
   "whatsNewLanguagesTitle": "Calm Insights",
@@ -401,7 +410,7 @@
   "@privacyLocalContent": {
     "description": "Explains which personal content and preferences remain local."
   },
-  "privacyPurchases": "Patterns Pro and tips are processed by the app store. Patterns does not receive your payment-card details.",
+  "privacyPurchases": "Patterns Pro is processed by the app store. Patterns does not receive your payment-card details.",
   "@privacyPurchases": {
     "description": "Explains the privacy boundary for StoreKit or platform-store purchases."
   },
@@ -941,12 +950,6 @@
   "@settingsSendFeedbackSubtitle": {
     "description": "User-facing Patterns interface copy for settings send feedback subtitle."
   },
-  "@settingsSupportTitle": {
-    "description": "User-facing Patterns interface copy for settings support title."
-  },
-  "@settingsSupportSubtitle": {
-    "description": "User-facing Patterns interface copy for settings support subtitle."
-  },
   "proPaywallTitle": "Patterns Pro",
   "@proPaywallTitle": {
     "description": "Patterns Pro purchase interface copy. Preserve purchase and restore meaning without pressure or treatment claims."
@@ -1179,93 +1182,6 @@
   "proRestoreSucceeded": "Patterns Pro restored. Every self-help tool is unlocked again.",
   "@proRestoreSucceeded": {
     "description": "Patterns Pro restore success confirmation. Do not imply a new charge or treatment outcome."
-  },
-  "tipJarTitle": "Support Patterns",
-  "@tipJarTitle": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipJarBody": "Patterns is independent and ad-free. If it has helped you, a small tip means a lot. Tips are optional and do not unlock anything.",
-  "@tipJarBody": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipJarLoadingLabel": "Loading tip options",
-  "@tipJarLoadingLabel": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipJarPurchasesUnavailable": "In-app purchases are unavailable on this device.",
-  "@tipJarPurchasesUnavailable": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipJarOptionsUnavailable": "No tip options were found. Please try again later.",
-  "@tipJarOptionsUnavailable": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipJarLoadFailed": "Tip options could not be loaded. Please try again later.",
-  "@tipJarLoadFailed": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipJarPurchaseFailed": "The tip could not be completed. Please try again.",
-  "@tipJarPurchaseFailed": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipJarTryAgainAction": "Try again",
-  "@tipJarTryAgainAction": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipSmallTitle": "Small tip",
-  "@tipSmallTitle": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipSmallDescription": "An optional small tip to support Patterns development. Unlocks no features.",
-  "@tipSmallDescription": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipMediumTitle": "Medium tip",
-  "@tipMediumTitle": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipMediumDescription": "An optional medium tip to support Patterns development. Unlocks no features.",
-  "@tipMediumDescription": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipLargeTitle": "Large tip",
-  "@tipLargeTitle": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipLargeDescription": "An optional large tip to support Patterns development. Unlocks no features.",
-  "@tipLargeDescription": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipChoiceSemantics": "{title}, {price}. {description}",
-  "@tipChoiceSemantics": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user.",
-    "placeholders": {
-      "title": {
-        "type": "String"
-      },
-      "price": {
-        "type": "String"
-      },
-      "description": {
-        "type": "String"
-      }
-    }
-  },
-  "tipChoiceHint": "Sends this optional tip",
-  "@tipChoiceHint": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipThanksTitle": "Thank you",
-  "@tipThanksTitle": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipThanksBody": "Your support means a lot. Patterns stays ad-free and independent because of people like you.",
-  "@tipThanksBody": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
-  },
-  "tipThanksAction": "Glad to help",
-  "@tipThanksAction": {
-    "description": "Optional tip purchase copy. State clearly that tips are optional and unlock no features; do not pressure the user."
   },
   "desktopProTitle": "Unlock Patterns Desktop Pro",
   "@desktopProTitle": {
@@ -2063,5 +1979,10 @@
   "shareAnonymousUsageAction": "Share anonymous usage", "@shareAnonymousUsageAction": {"description": "Explicit action granting anonymous usage analytics consent."},
   "shellText": "{key, select, sectionTodayBody{Choose a useful next step or simply review what you have recorded.} sectionJournalBody{Write only what feels useful. Your words stay as written on this device.} sectionTrackBody{Record an obsession or compulsion and any response you chose.} sectionRecoveryBody{Open a self-help tool or practice at your own pace.} sectionInsightsBody{Review factual patterns in the activity and measurements you recorded.} gotIt{Got it} tourFinalTitle{That’s the tour} tourFinalBody{A short Y-BOCS self-check can record a baseline whenever you choose. It is optional, not a diagnosis, and not emergency support.} takeSelfCheck{Take self-check} skip{Skip} next{Next} addPrompt{What would you like to add?} addJournal{Journal entry} addOcd{OCD event} addErp{Guided ERP} addDelay{Pause an urge} firstSelfCheckBody{Your self-check is saved on this device. The result is a snapshot, not a diagnosis.} firstExploreTitle{Welcome to Patterns} firstExploreBody{Explore at your own pace.} setReminder{Set a gentle reminder} goToSpace{Go to my space} reminderPrompt{When should Patterns remind you?} notificationsOff{Notifications are off for Patterns. You can enable them in device settings.} reminderSet{Reminder set. You can change or turn it off in Settings.} reminderFailed{Patterns could not set the reminder. No reminder was enabled. Please try again.} other{Patterns}}", "@shellText": {"placeholders": {"key": {"type": "String"}}, "description": "Mobile onboarding, navigation, section-intro, spotlight-tour, and add-sheet copy selected from a stable UI key. Keep completion and self-check wording factual, optional, non-diagnostic, non-emergency, and free of praise or engagement pressure."},
   "tourProgress": "Step {current} of {total}", "@tourProgress": {"placeholders": {"current": {"type": "int"}, "total": {"type": "int"}}, "description": "Visible and accessible progress through the optional mobile app tour."},
-  "completionAnnouncement": "{title}. {body}", "@completionAnnouncement": {"placeholders": {"title": {"type": "String"}, "body": {"type": "String"}}, "description": "Screen-reader announcement for a quiet completion. Title and body are already localized factual confirmations; translators may reorder them without adding praise or prompts."}
+  "completionAnnouncement": "{title}. {body}", "@completionAnnouncement": {"placeholders": {"title": {"type": "String"}, "body": {"type": "String"}}, "description": "Screen-reader announcement for a quiet completion. Title and body are already localized factual confirmations; translators may reorder them without adding praise or prompts."},
+  "copingLibraryText": "{key, select, intro{Healthy ways to ride out a hard moment.} duringUrges{During urges} duringAnxiety{During anxiety} breathingTitle{Deep breathing} breathingBody{Slow your exhale. Breathe in for 4, out for 6. A longer out-breath tells your body it is safe to settle.} groundingTitle{Grounding (5-4-3-2-1)} groundingBody{Name 5 things you can see, 4 you can feel, 3 you can hear, 2 you can smell, and 1 you can taste. Bring yourself back to right now.} urgeSurfingTitle{Urge surfing} urgeSurfingBody{Picture the urge as a wave. Watch it rise, crest, and fall on its own. You do not have to act. It always passes.} acceptanceTitle{Acceptance statements} acceptanceBody{Try: “This is just an intrusive thought. I can let it be here without responding to it.”} observationTitle{Mindful observation} observationBody{Watch the thought like a cloud drifting past. Notice it, label it “a thought”, and let it move along.} relaxationTitle{Progressive muscle relaxation} relaxationBody{Tense each muscle group for about 5 seconds, then release, from your feet up to your face. Notice the contrast as you let go.} mindfulnessTitle{Mindfulness} mindfulnessBody{Rest your attention on your breath. When your mind wanders, gently and without judgement bring it back.} compassionTitle{Self-compassion} compassionBody{Speak to yourself the way you would to a good friend: “This is hard, and I am doing my best.”} walkTitle{Go for a walk} walkBody{Take a slow walk and let your attention rest on each step and the air on your skin. Movement helps anxiety move through.} other{Coping strategy}}", "@copingLibraryText": {"placeholders": {"key": {"type": "String"}}, "description": "Coping Library copy, selected by a stable key. Second-person, gentle suggestions; keep them optional and never clinical. Do not add em dashes."},
+  "dataErrorText": "{key, select, newerTitle{This data needs a newer Patterns} newerBody{Your entries were saved by a newer version of Patterns. Update the app from the App Store to open them. Nothing has been changed or deleted.} unreadableTitle{Patterns could not open your data} unreadableBody{Your entries are still on this iPhone and have not been changed. Try again. If this keeps happening, get help at patternsocd.com.} retry{Try again} help{Get help} other{Patterns could not open your data}}", "@dataErrorText": {"placeholders": {"key": {"type": "String"}}, "description": "Shown only when the app cannot open its data safely. It must make clear nothing was changed or deleted. patternsocd.com is the help website and stays as is."},
+  "settingsStoreOpenFailed": "Couldn’t open the store. Please try again.", "@settingsStoreOpenFailed": {"description": "Toast when the App Store page could not be opened from Settings > Rate Patterns."},
+  "settingsEmailOpenFailed": "Couldn’t open email. You can write to {email}.", "@settingsEmailOpenFailed": {"placeholders": {"email": {"type": "String"}}, "description": "Toast when no email app could open from Settings > Send feedback. {email} is the support address."},
+  "journalSaveError": "Your entry could not be saved. Please try again.", "@journalSaveError": {"description": "Toast when a journal entry could not be saved."}
 }

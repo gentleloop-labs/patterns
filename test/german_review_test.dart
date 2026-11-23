@@ -49,7 +49,6 @@ void main() {
     expect(arb['privacyClinicalBoundary'], contains('keine Notfallhilfe'));
     expect(arb['privacyClinicalBoundary'], contains('ersetzt keine'));
     expect(arb['emergencyToolkitText'], contains('örtlichen Notfalldienste'));
-    expect(arb['tipJarBody'], contains('schalten keine Funktionen frei'));
     expect(arb['privacyAnalytics'], contains('Sprachauswahl'));
   });
 
