@@ -174,6 +174,16 @@ const newArticles = [
     slug: 'why-change-of-plans-feels-hard-with-ocd',
     title: 'Why Can a Change of Plans Feel So Hard With OCD?',
     contextualLink: '/blog/ocd-and-uncertainty'
+  },
+  {
+    slug: 'why-ocd-pulls-others-into-rituals',
+    title: 'Why Does OCD Pull Other People Into My Rituals?',
+    contextualLink: '/blog/how-to-support-someone-with-ocd'
+  },
+  {
+    slug: 'ocd-interrupts-things-you-enjoy',
+    title: 'When OCD Interrupts the Things You Enjoy',
+    contextualLink: '/blog/why-ocd-feels-louder-when-resting'
   }
 ];
 

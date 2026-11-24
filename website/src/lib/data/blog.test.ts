@@ -99,7 +99,13 @@ describe('blog posts', () => {
   it('uses ISO dates, and never publishes a post dated in the future', () => {
     // Future-dated posts land in the sitemap with a lastmod that has not
     // happened yet, which search engines treat as a quality signal against you.
-    const today = new Date().toISOString().slice(0, 10);
+    // Publication dates follow the site's editorial timezone.
+    const today = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Asia/Kolkata',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).format(new Date());
     for (const post of posts) {
       expect(post.date, post.slug).toMatch(/^\d{4}-\d{2}-\d{2}$/);
       expect(post.updated, post.slug).toMatch(/^\d{4}-\d{2}-\d{2}$/);

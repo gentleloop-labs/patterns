@@ -51,6 +51,8 @@ There is a second trap: trying to *perform* rest correctly. Someone may think, *
 
 Rest does not have a pass mark. A walk can be a walk even with a difficult thought in the background. Watching a film can be enjoyable in parts, distracted in others, and still be time away from work. The aim is not to guarantee a calm internal state before you are permitted to do something pleasant.
 
+Our guide to [when OCD interrupts things you enjoy](/blog/ocd-interrupts-things-you-enjoy) looks at what happens when a hobby or outing gets caught in checking, repeating, or “just right” rules.
+
 That distinction matters because a useful activity can be recruited into a ritual. A breathing exercise, journal entry, or reassuring phrase may help someone at one moment. It can also become a requirement repeated until an unwanted thought disappears. Our article on [mindfulness and OCD](/blog/mindfulness-for-ocd) discusses why noticing a thought differs from using an exercise to neutralise it.
 
 ## Is keeping busy a compulsion?

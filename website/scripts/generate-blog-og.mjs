@@ -117,7 +117,9 @@ function motif(slug, palette) {
 
 function renderCard({ slug, title, category, logoDataUrl, subtitle }) {
   const palette = categories[category] ?? categories['recognizing-ocd'];
-  const headlineSize = slug === 'ocd-and-depression' ? 54 : titleSize(title);
+  const headlineSize = ['ocd-and-depression', 'why-ocd-pulls-others-into-rituals'].includes(slug)
+    ? 54
+    : titleSize(title);
   return `<!doctype html>
   <html lang="en">
     <head><meta charset="utf-8" /><style>

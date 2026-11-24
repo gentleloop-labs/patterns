@@ -30,6 +30,8 @@ This distinction is difficult because accommodation usually begins as kindness. 
 
 The intention is support. The effect can still strengthen the OCD loop.
 
+If you are the person making these requests, our guide to [why OCD pulls other people into rituals](/blog/why-ocd-pulls-others-into-rituals) looks at the same pattern from your side of the conversation.
+
 If someone has just opened up to you, our guide to [talking about OCD with someone you trust](/blog/talking-about-ocd-with-someone-you-trust) describes how they may choose what to share and ask for support on their own terms.
 
 ## What “feeding the cycle” means
