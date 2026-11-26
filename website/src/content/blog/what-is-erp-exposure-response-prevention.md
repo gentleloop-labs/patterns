@@ -54,6 +54,8 @@ ERP is more structured and less dramatic than people imagine. Nobody is going to
 5. **Homework.** Between sessions you repeat the exposure on your own, often daily. This is where most of the change happens. Sessions are the design work; the practice is the treatment.
 6. **Climbing.** As a rung stops being frightening, you move to the next one.
 
+If you want to remember what happened during practice between appointments, our guide to [what an ERP tracker is for](/blog/what-is-an-erp-tracker-for) explains how a short record can support a conversation with your therapist without becoming another scorecard.
+
 A common shape for the whole course is somewhere in the range of 12 to 20 sessions, sometimes weekly, sometimes intensive.
 
 ## Why it works: habituation, and then the better explanation
